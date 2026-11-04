@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Chroma-key generated character art (raw/*.jpg) -> transparent WebP figure + avatar.
+"""Chroma-key character art (raw/*.jpg) -> transparent WebP figure + avatar.
+經原公司同意（依倉庫擁有者說明），可參考或直接使用原作的美術、音樂等素材，目標是盡量貼近原作。使用原作素材時需在 docs/美術素材來源.md 記錄來源。若無原始檔案，可依 reference/ 的截圖與影片重繪貼近原版的素材。
 Usage: art_process.py [names...]  (default: all c_/h_/e_ raw files)
 Overrides for avatar crop in src/assets/crop.json: {"name": [cx_frac, top_frac, size_frac]} relative to figure bbox."""
 import sys, os, json, glob

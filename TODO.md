@@ -1,7 +1,7 @@
 # TODO — 猛將無雙 HTML5 單機重製
 
 ## English summary
-Unofficial, offline, single-file HTML5 remake of the 2012–2013 Facebook game 猛將無雙. Build output: `dist/mengjiang.html` (one file, ES5, no CDN, < 12,000,000 bytes).
+Unofficial, offline, single-file HTML5 remake of the 2012–2013 Facebook game 猛將無雙. Build output: `dist/mengjiang.html` (one file, ES5, no CDN, < 12,000,000 bytes). With the original company's consent (as stated by the repository owner), original art, music, and similar assets may be referenced or used directly so the remake stays as close to the original as possible. Record each use in `docs/美術素材來源.md`. If no original file is available, redraw closer assets from the screenshots and videos in `reference/`.
 State on 2026-11-04 (UTC+8): data-restoration phases **P1 and P2 from `docs/網路資料搜查-2.md` are done and tested**; formation persistence and attack-range rules were fixed (rules v9). **P3 and P4 have not been started.** Nothing has been tested on a real phone (Playwright Chromium + WebKit "iPhone 13" emulation only). Social/online modes are not built (by design: single-player). Many numbers are still grade D (our own design). Each item below lists goal, evidence + grade + URL, files/functions, acceptance tests, priority and dependencies. Read "Project rules" first.
 
 ---
@@ -12,7 +12,7 @@ State on 2026-11-04 (UTC+8): data-restoration phases **P1 and P2 from `docs/網�
    - A＝原版畫面（官方宣傳片、遊戲截圖）；B＝當年玩家攻略；C＝推論／讀圖推定；D＝本作自訂。
    - C／D 的 label **不得含「原版」**（`tools/web2-data.js` 的 `entry()` 會丟錯）。衝突兩邊都保留在 `conflicts`。
    - 新資料一律寫成 `tools/web2-data.js` 的補丁（可重跑），不要手改 json。
-3. **不得複製**原作的美術、音樂、程式碼。美術全部為 AI 原創生成（流程見 `docs/美術素材來源.md`），`reference/` 只供人工比對，**永遠不可放進遊戲 build**。
+3. **經原公司同意（依倉庫擁有者說明），可參考或直接使用原作的美術、音樂等素材，目標是盡量貼近原作。使用原作素材時需在 docs/美術素材來源.md 記錄來源。若無原始檔案，可依 reference/ 的截圖與影片重繪貼近原版的素材。**
 4. **ES5 vanilla JS**，不用框架、不用 CDN、不連網（e2e 會擋所有 http 請求）。`node tools/es5check.js` 必須通過。
 5. **iPhone Safari** 必須能開（單檔 < 12,000,000 bytes；e2e 的 WebKit iPhone 13 環境必須全過）。
 6. **沒有真實付款**、沒有 FB 登入、沒有遠端資料庫。
@@ -132,6 +132,14 @@ URL 縮寫：`G2(sn)` = `https://forum.gamer.com.tw/G2.php?bsn=22512&sn=<sn>`；
 
 ### ART-4 無雙半身特寫（大致完成）
 - 已有：每名武將 `_ci` 半身像（256px Q58）＋直書金字技名（宣傳片 A）。待辦：特寫進場動畫時序與光效對照影片；新武將 18 名 _ci 為自動裁切，個別需 `tools/art_process.py` 的 `crop_over` 微調。優先：低。
+
+### ART-5 以原作素材或更貼近的重繪取代生成圖與音樂（未做）
+- 目標：在取得原作檔案，或有經同意的來源時，把目前生成的美術與音樂換成原作素材，或依 `reference/` 的截圖與影片重繪得更貼近原版。
+- Replace generated art and music with original assets, or closer redraws, when original files or permission-backed sources are available.
+- 證據：原公司同意（依倉庫擁有者說明）。使用原作素材時記入 `docs/美術素材來源.md`。
+- 檔案：`src/assets/`、`src/js/audio.js`、`src/js/art.js`、`docs/美術素材來源.md`。
+- 驗收：每項替換都有來源紀錄；`sh tools/runtests.sh` 仍通過；單檔仍 < 12,000,000 bytes。
+- 優先：中；相依：有原始檔，或 `reference/` 的截圖與影片可對照。
 
 ### QA-1 真機測試（未做）
 - 從未在實體 iPhone／Android 測試，只跑 Playwright 模擬。目標：iPhone Safari（iOS 16+）開啟 GitHub Pages 版、進主城、打一場、存檔重整、匯出匯入。記錄機型、iOS 版本、載入秒數、記憶體警告。優先：**高**。
