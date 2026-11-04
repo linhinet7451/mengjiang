@@ -76,12 +76,12 @@ async function run(label, bt, ctxOpts, prefix, src) {
     var keys = [].map.call(document.querySelectorAll('.bu.sideA'), function (e) { return e.id.slice(1); });
     var bad = [];
     keys.forEach(function (k) { var c = +k.slice(1), r = Math.floor(c / 3), p = MJ.UI.boardPos(r, 2 - c % 3), e = document.getElementById('u' + k); if (parseFloat(e.style.left) !== p.x - 56 || parseFloat(e.style.top) !== p.y - 130) bad.push(k); });
-    return { keys: keys.map(function (k) { return k.slice(1); }).sort().join(','), bad: bad, screen: MJ.UI.screen, tiles: document.querySelectorAll('.tile.bd').length, rule: !!document.querySelector('.b-rule') };
+    return { keys: keys.map(function (k) { return k.slice(1); }).sort().join(','), bad: bad, screen: MJ.UI.screen, tiles: document.querySelectorAll('.tile.bd').length, rule: !!document.querySelector('.b-rule') && /一直往前/.test(document.querySelector('.b-rule').textContent) };
   });
   ok(b0.screen === 'battle', '進入虛空之門 1-1 戰鬥');
   ok(b0.keys === Object.keys(saved).sort().join(','), '戰場上我方站位＝新陣法（' + b0.keys + '）');
   ok(b0.bad.length === 0, '每位武將畫在自己格子的棋盤位置（錯位 ' + b0.bad.length + '）');
-  ok(b0.tiles === 24 && b0.rule, '大棋盤 3 列 × 8 格，顯示「每回合雙方前進一格」說明');
+  ok(b0.tiles === 24 && b0.rule, '大棋盤 3 列 × 8 格，顯示「雙方每回合一直往前・走到底回第一排後方排隊」說明');
   await page.screenshot({ path: path.join(SHOT, prefix + src + '-battle-start.png') });
   await page.waitForFunction(function () { return document.querySelector('.bu.moving'); }, null, { timeout: 8000 }).catch(function () {});
   await page.waitForTimeout(180);

@@ -2,7 +2,7 @@
 # 單元測試全套：sh tools/runtests.sh > docs/test-log-unit.txt
 cd "$(dirname "$0")/.."
 F=0
-for t in unit unit-extras unit-p2 unit-p3 unit-p4 unit-p5 unit-pt2 unit-pt3 unit-pt4 unit-pt5 unit-prov unit-restore unit-art unit-web2 unit-web2-p2 unit-fix unit-board unit-juxian; do
+for t in unit unit-extras unit-p2 unit-p3 unit-p4 unit-p5 unit-pt2 unit-pt3 unit-pt4 unit-pt5 unit-prov unit-restore unit-art unit-web2 unit-web2-p2 unit-fix unit-board unit-wrap unit-juxian; do
   [ -f tests/$t.js ] || continue
   echo "=== $t"; nice node tests/$t.js > /tmp/ut.$$ 2>&1; r=$?; grep -E "✗|失敗|結果|FAIL|Error" /tmp/ut.$$ | tail -n 40; echo "pass-lines $(grep -c "通過\|✓" /tmp/ut.$$)"
   [ $r -ne 0 ] && F=1

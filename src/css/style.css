@@ -863,6 +863,9 @@ html,body{font-family:"PingFang TC","Heiti TC","Microsoft JhengHei","Noto Sans C
 .bu.moving{-webkit-transition:left .35s ease-out,top .35s ease-out,-webkit-transform .18s cubic-bezier(.3,.1,.3,1),opacity .8s ease-in;transition:left .35s ease-out,top .35s ease-out,transform .18s cubic-bezier(.3,.1,.3,1),opacity .8s ease-in}
 .b-rule{position:absolute;left:50%;top:104px;-webkit-transform:translateX(-50%);transform:translateX(-50%);font-size:12px;color:#ffe9b0;text-shadow:1px 1px 0 #000;white-space:nowrap;z-index:29;opacity:.85}
 .battle.ended .b-rule{display:none}
+.bu.wrapping{opacity:.2;-webkit-transition:none;transition:none}
+.bu.wrapped{-webkit-transition:opacity .3s;transition:opacity .3s}
+.bu.wrapped:after{content:'↩ 排隊';position:absolute;left:50%;top:-6px;-webkit-transform:translateX(-50%);transform:translateX(-50%);font-size:12px;color:#fff;background:rgba(40,90,160,.85);border-radius:6px;padding:1px 6px;white-space:nowrap;z-index:5}
 .mgrid{width:76px;height:76px}
 .mgrid.bd{width:112px;height:44px}
 .mgrid.bd i{width:11px;height:10px;margin:1px}

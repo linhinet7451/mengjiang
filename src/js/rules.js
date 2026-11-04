@@ -11,7 +11,7 @@ MJ.R = (function () {
   R.EXP_K = 0.6;
   R.expNeed = function (lv) { var b = 3 * lv * lv + 2 * lv + 5; return lv <= 10 ? b : Math.round(b * (1 + (lv - 10) * R.EXP_K)); };
   R.maxLevel = 90; // P5：B（90 級主角升橙）；原為 80（D）
-  R.RV = 10; // 規則版本（v10：大棋盤每回合前進一格，C 玩家回憶 Tomas）：單位帶 rv>=9 才套用 v9 新規則（被動兩格、狀態效果、六等範圍）；舊戰報沒有 rv，照舊規則重播
+  R.RV = 11; // 規則版本（v11：持續前進，走到底回我方第一排後方排隊，C 玩家回憶 Tomas t23u；v10：大棋盤每回合前進一格＋前線限制）：單位帶 rv>=9 才套用 v9 新規則（被動兩格、狀態效果、六等範圍）；舊戰報沒有 rv，照舊規則重播
   // D：精力上限（截圖可見精力條，宣傳片 156/156；上限公式為推定）
   R.energyMax = function (lv) { return 100 + lv * 2; };
   R.teamSlots = function (lv) {

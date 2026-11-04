@@ -473,7 +473,34 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
     await page.waitForTimeout(60);
   }
   ok(seen.aim && seen.warn && seen.me, '出手時壓暗戰場，紅格標出受擊格、綠格標出施放者（取樣 aim ' + seen.aim + '、warn ' + seen.warn + '、me ' + seen.me + '）');
-  ok(await J(function () { return MJ.UI.battleState().r.battle.events.some(function (e) { return e.t === 'act' && e.rv === 10 && e.range; }); }), '戰報使用 v10 大棋盤攻擊範圍');
+  ok(await J(function () { return MJ.UI.battleState().r.battle.events.some(function (e) { return e.t === 'act' && e.rv === 11 && e.range; }); }), '戰報使用 v11 大棋盤攻擊範圍（rv 11）');
+  ok(await J(function () { var b = document.querySelector('.b-rule'); return !!b && /一直往前/.test(b.textContent) && /走到底/.test(b.textContent) && /不換列/.test(b.textContent); }), '戰場說明：雙方每回合一直往前、走到底回第一排後方排隊、不換列');
+  await J(function () { MJ.UI.actions.bSkip(); });
+  await page.waitForTimeout(500);
+  await J(function () { MJ.UI.actions.bCity(); });
+  // v11 走到底排隊：敵人只站在下排，我方上、中排一路往前走到底，再回到我方第一排後方（同一列）
+  var wr = await J(function () {
+    var r = MJ.G.fight('s1_1', 77), foe = JSON.parse(JSON.stringify(r.foes[0].unit)); foe.hp = 2e6; foe.curHp = null;
+    var team = JSON.parse(JSON.stringify(r.team)), foes = [{ cell: 6, unit: foe }];
+    var res = JSON.parse(JSON.stringify(r)); res.foes = foes; res.team = team;
+    res.battle = MJ.Battle.run(JSON.parse(JSON.stringify(team)), JSON.parse(JSON.stringify(foes)), { seed: 77, maxRounds: 36 });
+    var w = []; res.battle.events.forEach(function (e) { if (e.t === 'adv') e.m.forEach(function (m) { if (m.wrap) w.push(m); }); });
+    window.__wrapRes = res; return { n: w.length, rows: res.battle.units.every(function (u) { return u.br === Math.floor(u.cell0 / 3); }), first: w[0] || null };
+  });
+  ok(wr.n > 0 && wr.rows, '測試戰鬥：' + wr.n + ' 次走到底排隊、沒有人換列');
+  await J(function () { MJ.UI.startBattle(window.__wrapRes); });
+  var wseen = null;
+  for (var wq = 0; wq < 400 && !wseen; wq++) {
+    wseen = await J(function () {
+      var d = document.querySelector('.bu.wrapping, .bu.wrapped'); if (!d) return null;
+      var k = d.id.slice(1), x = MJ.UI.battleState().units[k], p = MJ.UI.boardPos(x.br, x.bx);
+      return { k: k, bx: x.bx, br: x.br, row0: Math.floor(x.cell / 3), left: parseInt(d.style.left, 10), top: parseInt(d.style.top, 10), px: p.x - 56, py: p.y - 130, log: /回到第一排後方排隊/.test(document.getElementById('blog').innerHTML) };
+    });
+    if (!wseen) await page.waitForTimeout(80);
+  }
+  if (wseen) { await page.waitForTimeout(120); await page.screenshot({ path: path.join(SHOT, shotPrefix + '26-battle-wrap.png') }); }
+  ok(wseen && wseen.left === wseen.px && wseen.top === wseen.py && wseen.br === wseen.row0, '戰鬥畫面：走到底的武將（' + (wseen ? wseen.k : '無') + '）回到第 ' + (wseen ? wseen.bx : '?') + ' 欄排隊，仍在原本那一列');
+  ok(wseen && wseen.log, '戰鬥紀錄寫出「走到底，回到第一排後方排隊」');
   await J(function () { MJ.UI.actions.bSkip(); });
   await page.waitForTimeout(500);
   await J(function () { MJ.UI.actions.bCity(); });

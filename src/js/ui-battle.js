@@ -67,7 +67,7 @@
     h += '<div class="fx" id="fx"></div>';
     h += '<div class="b-title">' + U.esc(r.stage.name) + '</div>';
     h += '<div class="b-round" id="bround">第1回合</div>';
-    if (BT.bd) h += '<div class="b-rule">每回合雙方前進一格・只能前後不能換列</div>';
+    if (BT.bd) h += '<div class="b-rule">' + (BT.bd.v >= 11 ? '雙方每回合一直往前・走到底回第一排後方排隊・不換列' : '每回合雙方前進一格・只能前後不能換列') + '</div>';
     h += '<div class="b-skill" id="bskill"></div>';
     h += '<div class="cutin" id="cutin"></div>';
     h += '<div class="b-bl"><a class="zhen' + (BT.showGrid ? ' on' : '') + '" data-a="bGrid">陣</a><div class="swords"><svg viewBox="0 0 40 40" class="art"><path d="M6 6 L30 30 M34 6 L10 30" stroke="#e0e0e0" stroke-width="4" stroke-linecap="round"/><path d="M26 26 L32 32 M14 26 L8 32" stroke="#c9a24a" stroke-width="6" stroke-linecap="round"/></svg><b id="bleft">x ' + MJ.D.config.maxRounds + '</b></div></div>';
@@ -210,9 +210,15 @@
       var x = BT.units[m.u]; if (!x) return;
       x.bx = m.to;
       var d = el('u' + m.u), p = upos(x);
-      if (d) { d.className = d.className.replace(/ moving/g, '') + ' moving'; d.style.left = (p.x - 56) + 'px'; }
+      if (d && m.wrap) { // v11：走到底，閃回我方第一排後方排隊（不滑過整排）
+        d.className = d.className.replace(/ moving| wrapped/g, '') + ' wrapping'; d.style.left = (p.x - 56) + 'px';
+        BT.wraps = (BT.wraps || 0) + 1;
+        setTimeout(function () { d.className = d.className.replace(/ wrapping/g, '') + ' wrapped'; setTimeout(function () { d.className = d.className.replace(/ wrapped/g, ''); }, 900); }, 60);
+      } else if (d) { d.className = d.className.replace(/ moving| wrapped/g, '') + ' moving'; d.style.left = (p.x - 56) + 'px'; }
     });
-    addLog('雙方前進一格（' + e.m.length + ' 人移動）', '');
+    var nw = U.filter(e.m, function (m) { return m.wrap; }), np = U.filter(e.m, function (m) { return m.pass; });
+    if (np.length) BT.passes = (BT.passes || 0) + np.length;
+    addLog('雙方前進一格（' + e.m.length + ' 人移動）' + (np.length ? '；' + U.map(np, function (m) { return nameOf(m.u); }).join('、') + ' 打不到人，從敵人身邊穿過去' : '') + (nw.length ? '；' + U.map(nw, function (m) { return nameOf(m.u); }).join('、') + ' 走到底，回到第一排後方排隊' : ''), '');
   }
   UI._bAdv = function (e) { if (BT) advUnits(e); };
   function evLog(e) {
@@ -225,7 +231,7 @@
       case 'skip': return nameOf(e.u) + ' 眩暈中，無法行動';
       case 'whiff': return nameOf(e.u) + ' 「' + e.skill + '」範圍內沒有敵人，揮空';
       case 'wait': return nameOf(e.u) + ' 攻擊格內沒有敵人，等待前進';
-      case 'stale': return '雙方都走不動、攻擊格也碰不到對方：依剩餘生命判定（我方 ' + e.a + '%／敵方 ' + e.b + '%）→ ' + (e.win ? '我方勝' : '敵方勝');
+      case 'stale': return (e.quiet ? '連續 ' + e.quiet + ' 回合雙方都沒有人受傷（剩下的人不同列、技能打不到）：' : '雙方都走不動、攻擊格也碰不到對方：') + '依剩餘生命判定（我方 ' + e.a + '%／敵方 ' + e.b + '%）→ ' + (e.win ? '我方勝' : '敵方勝');
       default: return null;
     }
   }

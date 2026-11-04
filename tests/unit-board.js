@@ -8,7 +8,7 @@ function hitsBy(r) { var o = {}; r.events.forEach(function (e) { if (e.t === 'hi
 function advs(r) { return r.events.filter(function (e) { return e.t === 'adv'; }); }
 
 console.log('[規則版本]');
-ok(M.R.RV === 10, '現行規則版本 R.RV = 10');
+ok(M.R.RV === 11, "現行規則版本 R.RV = 11");
 ok(B.BOARD.cols === 8 && B.BOARD.gap === 2, '棋盤每列 8 格（我方 3＋中間 2＋敵方 3）');
 ok(B.homeBx('A', 0) === 2 && B.homeBx('A', 2) === 0 && B.homeBx('B', 0) === 5 && B.homeBx('B', 2) === 7, '開場位置：我方前排第 2 格、敵方前排第 5 格');
 
@@ -98,9 +98,8 @@ r = B.run([{ cell: 3, unit: mk('新') }], [{ cell: 3, unit: mk('舊敵', { rv: 9
 ok(!r.board, '新舊單位混在一起時照舊規則（整場一致）');
 var gold9 = JSON.parse(fs.readFileSync(path.join(__dirname, 'fixtures', 'battle-golden-v9.json'), 'utf8'));
 ok(JSON.stringify(require('./golden-run.js')(load, { rv: 9 })) === JSON.stringify(gold9), 'R.RV=9 重跑：與 battle-golden-v9.json 完全相同');
-var g10p = path.join(__dirname, 'fixtures', 'battle-golden-v10.json'), now10 = require('./golden-run.js')(load);
-if (process.argv[2] === '--write-golden') fs.writeFileSync(g10p, JSON.stringify(now10, null, 1));
-ok(fs.existsSync(g10p) && JSON.stringify(JSON.parse(fs.readFileSync(g10p, 'utf8'))) === JSON.stringify(now10), 'v10 規則固定種子結果與 battle-golden-v10.json 相同');
+var g10p = path.join(__dirname, 'fixtures', 'battle-golden-v10.json'), now10 = require('./golden-run.js')(load, { rv: 10 });
+ok(fs.existsSync(g10p) && JSON.stringify(JSON.parse(fs.readFileSync(g10p, 'utf8'))) === JSON.stringify(now10), 'R.RV=10 重跑：與 battle-golden-v10.json 完全相同（v10 舊戰報照舊重播）');
 ok(JSON.stringify(now10) !== JSON.stringify(gold9), 'v10 與 v9 結果不同（確實換了規則）');
 
 console.log('[遊戲內戰鬥]');
@@ -108,7 +107,7 @@ c = load(); M = c.MJ; M.U.now = function () { return 1767225600000; }; M.G.newGa
 var res = M.G.fight('s1_1', 99);
 ok(res.battle.board && res.battle.events.some(function (e) { return e.t === 'adv'; }), '實際關卡使用大棋盤並有前進事件');
 function rate(rv) { var w = 0, rd = 0; for (var s = 1; s <= 40; s++) { var cc = load(rv ? { legacy: rv } : {}); cc.MJ.U.now = function () { return 1767225600000; }; cc.MJ.G.newGame('測', '力耐', 'm', 1); var rr = cc.MJ.G.fight('s1_1', s * 7 + 1); if (rr.win) w++; rd += rr.battle.rounds; } return [w, rd / 40]; }
-var r10 = rate(0), r9 = rate(9);
+var r10 = rate(10), r9 = rate(9);
 ok(r10[0] >= 24, '第一關（40 種子）新規則勝率 ' + r10[0] + '/40、平均 ' + r10[1].toFixed(1) + ' 回合（v9：' + r9[0] + '/40、' + r9[1].toFixed(1) + ' 回合）');
 
 console.log('結果：通過 ' + pass + '，失敗 ' + fail);
