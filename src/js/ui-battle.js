@@ -9,6 +9,12 @@
     return { x: x, y: ROWY[r] };
   }
   UI.battlePos = pos;
+  // v10 大棋盤：3 列 × 8 格（我方 3＋中間 2＋敵方 3），格距 96px，畫面置中
+  var BSTEP = 96;
+  function bpos(r, bx) { return { x: Math.round(480 + (bx - 3.5) * BSTEP), y: ROWY[r] }; }
+  UI.boardPos = bpos;
+  // 單位目前位置（v10 用棋盤座標，舊戰報用各自的 3×3）
+  function upos(x) { return x.bx != null ? bpos(x.br, x.bx) : pos(x.side, x.cell); }
   var MELEE_WP = { sword: 1, blade: 1, spear: 1, halberd: 1, dagger: 1, whip: 1, none: 1, staff: 0, fan: 0, qin: 0, bow: 0, needle: 0 };
   function isMelee(u) { return u.phys && MELEE_WP[u.look.wp] !== 0; }
 
@@ -23,18 +29,26 @@
   UI.hpHtml = hpHtml;
 
   // 修正（陣法看不出來）：我方只有陣法開放的格子畫成「陣位」
-  function tileBase(side, c) { return 'tile' + (side === 'A' && BT && BT.open && BT.open.indexOf(c) >= 0 ? ' open' : ''); }
+  function tileBase(side, c) {
+    if (side === 'X') { // v10：我方開場那 3 欄裡、陣法開放的格子畫成陣位
+      var cols = BT && BT.bd ? BT.bd.cols : 8, r = Math.floor(c / cols), bx = c % cols, home = bx <= 2 ? r * 3 + (2 - bx) : -1;
+      return 'tile bd' + (home >= 0 && BT && BT.open && BT.open.indexOf(home) >= 0 ? ' open' : '') + (bx === 3 || bx === 4 ? ' mid' : '');
+    }
+    return 'tile' + (side === 'A' && BT && BT.open && BT.open.indexOf(c) >= 0 ? ' open' : '');
+  }
   function auraQ(u) { var q = u.boss ? 4 : (u.quality || 0); return q >= 3 ? q : 0; }
   UI.screens.battle = function () {
     if (!BT) return '<div class="scr"></div>';
     var r = BT.r, h = '<div class="battle' + (BT.showGrid ? ' showgrid' : '') + (BT.done ? ' ended' + (r.win ? '' : ' lost') : '') + '" id="bt">' + MJ.Art.battlefield(r.stage.bg || (r.stage.ch ? MJ.D.stages.chapters[r.stage.ch - 1].bg : null), r.stage.id);
-    // 格子
-    U.each(['A', 'B'], function (side) {
+    // 格子（v10：一個大棋盤）
+    if (BT.bd) {
+      for (var bi = 0; bi < 3 * BT.bd.cols; bi++) { var bp = bpos(Math.floor(bi / BT.bd.cols), bi % BT.bd.cols); h += '<div class="' + tileBase('X', bi) + '" id="tX' + bi + '" style="left:' + (bp.x - 45) + 'px;top:' + (bp.y - 16) + 'px"></div>'; }
+    } else U.each(['A', 'B'], function (side) {
       for (var c = 0; c < 9; c++) { var p = pos(side, c); h += '<div class="' + tileBase(side, c) + '" id="t' + side + c + '" style="left:' + (p.x - 50) + 'px;top:' + (p.y - 16) + 'px"></div>'; }
     });
     // 單位
     U.each(r.team.concat(r.foes), function (x, i) {
-      var side = i < r.team.length ? 'A' : 'B', p = pos(side, x.cell), u = x.unit, key = side + x.cell;
+      var side = i < r.team.length ? 'A' : 'B', u = x.unit, key = side + x.cell, p = BT.units[key] ? upos(BT.units[key]) : pos(side, x.cell);
       h += '<div class="bu side' + side + (u.boss ? ' boss' : '') + '" id="u' + key + '" style="left:' + (p.x - 56) + 'px;top:' + (p.y - 130) + 'px;z-index:' + (10 + Math.floor(x.cell / 3)) + '">' +
         '<div class="bcirc' + (u.boss ? ' boss' : '') + '"></div>' + (auraQ(u) ? '<div class="baura q' + auraQ(u) + '"></div>' : '') +
         '<div class="bhp" id="h' + key + '">' + hpHtml(u.curHp != null ? u.curHp : u.hp, u.hp, u.layers) + '</div>' +
@@ -53,6 +67,7 @@
     h += '<div class="fx" id="fx"></div>';
     h += '<div class="b-title">' + U.esc(r.stage.name) + '</div>';
     h += '<div class="b-round" id="bround">第1回合</div>';
+    if (BT.bd) h += '<div class="b-rule">每回合雙方前進一格・只能前後不能換列</div>';
     h += '<div class="b-skill" id="bskill"></div>';
     h += '<div class="cutin" id="cutin"></div>';
     h += '<div class="b-bl"><a class="zhen' + (BT.showGrid ? ' on' : '') + '" data-a="bGrid">陣</a><div class="swords"><svg viewBox="0 0 40 40" class="art"><path d="M6 6 L30 30 M34 6 L10 30" stroke="#e0e0e0" stroke-width="4" stroke-linecap="round"/><path d="M26 26 L32 32 M14 26 L8 32" stroke="#c9a24a" stroke-width="6" stroke-linecap="round"/></svg><b id="bleft">x ' + MJ.D.config.maxRounds + '</b></div></div>';
@@ -66,9 +81,10 @@
   UI.startBattle = function (res) {
     if (BT && BT.timer) clearTimeout(BT.timer);
     var s = MJ.S.state;
-    BT = { r: res, ev: res.battle.events, i: 0, speed: s.settings.speed || 1, units: {}, logHtml: '', showLog: false, showGrid: false, done: false, round: 0, open: G.openCells ? G.openCells() : null };
+    BT = { r: res, ev: res.battle.events, i: 0, speed: s.settings.speed || 1, units: {}, logHtml: '', showLog: false, showGrid: false, done: false, round: 0, open: G.openCells ? G.openCells() : null, bd: res.battle.board || null };
     U.each(res.team, function (x) { BT.units['A' + x.cell] = { u: x.unit, hp: x.unit.curHp != null ? x.unit.curHp : x.unit.hp, max: x.unit.hp, side: 'A', cell: x.cell }; });
     U.each(res.foes, function (x) { BT.units['B' + x.cell] = { u: x.unit, hp: x.unit.hp, max: x.unit.hp, side: 'B', cell: x.cell }; });
+    if (BT.bd) U.each(U.keys(BT.units), function (k) { var x = BT.units[k]; x.br = Math.floor(x.cell / 3); x.bx = MJ.Battle.homeBx(x.side, x.cell); });
     UI.modal = null;
     UI.go('battle');
     BT.timer = setTimeout(step, 400);
@@ -85,7 +101,7 @@
   function addLog(t, cls) { BT.logHtml = '<div class="' + (cls || '') + '">' + U.esc(t) + '</div>' + BT.logHtml; var l = el('blog'); if (l) l.innerHTML = BT.logHtml; }
   function floatText(key, text, cls, dy) {
     var x = BT.units[key]; if (!x) return;
-    var p = pos(x.side, x.cell), fx = el('fx'); if (!fx) return;
+    var p = upos(x), fx = el('fx'); if (!fx) return;
     var d = document.createElement('div');
     d.className = 'ftxt ' + (cls || '');
     // art3：飄字一律留在舞台內、不蓋到上方雙方總生命條（約 y<44）。最上排整疊往下移，保持「技能名 > 無雙+ > 暴擊 > 數字」的上下順序
@@ -105,14 +121,14 @@
   // 命中火花（CSS，低成本）
   function hitSpark(key, crit) {
     var x = BT.units[key], fx = el('fx'); if (!x || !fx) return;
-    var p = pos(x.side, x.cell), d = document.createElement('div');
+    var p = upos(x), d = document.createElement('div');
     d.className = 'spark' + (crit ? ' crit' : ''); d.style.left = (p.x - 40) + 'px'; d.style.top = (p.y - 104) + 'px';
     fx.appendChild(d); setTimeout(function () { if (d.parentNode) d.parentNode.removeChild(d); }, 380);
   }
   // art2：依傷害類型的技能光效（物理＝刀光、法術＝法陣光環、絕技＝金色光柱）；省電模式只留簡單版
   function skillFx(key, dt, crit) {
     var x = BT.units[key], fx = el('fx'); if (!x || !fx) return;
-    var p = pos(x.side, x.cell), d = document.createElement('div'), low = UI.lowFx && UI.lowFx();
+    var p = upos(x), d = document.createElement('div'), low = UI.lowFx && UI.lowFx();
     d.className = 'skfx ' + (dt === 'm' ? 'm' : dt === 'j' ? 'j' : 'p') + (x.side === 'A' ? ' fromB' : ' fromA') + (crit ? ' crit' : '') + (low ? ' lite' : '');
     d.style.left = (p.x - 60) + 'px'; d.style.top = (p.y - 140) + 'px';
     d.innerHTML = low ? '' : '<i></i><b></b>';
@@ -158,11 +174,20 @@
     var b = el('bt'); if (b) { b.className = b.className.replace(/ aim/g, '') + ' aim'; clearTimeout(BT.aimT); BT.aimT = setTimeout(function () { var b2 = el('bt'); if (b2) b2.className = b2.className.replace(/ aim/g, ''); }, ms); }
     var hit = e.cells || [];
     highlight(e.side, U.filter(e.range, function (c) { return hit.indexOf(c) < 0; }), 'rng', ms);
+    if (e.bd) { if (e.me != null) highlight('X', [e.me], 'me', ms); return; }
     if (me) highlight(me.side, [me.cell], 'me', ms);
     if (e.blocked && me) highlight(me.side, e.blocked, 'blk', ms);
   }
   function unitAt(side, cell) { var k = U.find(U.keys(BT.units), function (k2) { var x = BT.units[k2]; return x.side === side && x.cell === cell && x.hp > 0; }); return k ? BT.units[k] : null; }
-  function miniGrid(cells, side, range) {
+  function miniGrid(cells, side, range, e) {
+    if (e && e.bd && BT.bd) { // v10：小地圖畫整個棋盤
+      var W = BT.bd.cols, hb = '<div class="mgrid bd">';
+      for (var i = 0; i < 3 * W; i++) {
+        var occ = U.find(U.keys(BT.units), function (k) { var x = BT.units[k]; return x.hp > 0 && x.br * W + x.bx === i; });
+        hb += '<i class="' + (cells.indexOf(i) >= 0 ? 'on' : range && range.indexOf(i) >= 0 ? 'rg' : i === e.me ? 'me' : '') + (occ ? ' occ' : '') + '"></i>';
+      }
+      return hb + '</div>';
+    }
     var h = '<div class="mgrid">';
     for (var r = 0; r < 3; r++) for (var c = 0; c < 3; c++) {
       var col = side === 'B' ? c : 2 - c, cell = r * 3 + col, occ = !!unitAt(side, cell);
@@ -179,6 +204,17 @@
     addLog(x.u.name + (e.side ? ' 換列' : ' 往前衝'), '');
   }
   UI._bMove = function (e) { if (BT) moveUnit(e); };
+  // v10：回合開始雙方一起前進一格（同時播放）
+  function advUnits(e) {
+    U.each(e.m, function (m) {
+      var x = BT.units[m.u]; if (!x) return;
+      x.bx = m.to;
+      var d = el('u' + m.u), p = upos(x);
+      if (d) { d.className = d.className.replace(/ moving/g, '') + ' moving'; d.style.left = (p.x - 56) + 'px'; }
+    });
+    addLog('雙方前進一格（' + e.m.length + ' 人移動）', '');
+  }
+  UI._bAdv = function (e) { if (BT) advUnits(e); };
   function evLog(e) {
     switch (e.t) {
       case 'hit': return e.miss ? nameOf(e.to) + (e.why === '等級壓制' ? ' 等級壓制，攻擊無效' : ' 閃避了攻擊') : nameOf(e.from) + ' 對 ' + nameOf(e.to) + ' 造成 ' + e.dmg + ' 傷害' + (e.crit ? '（暴擊）' : '');
@@ -188,6 +224,8 @@
       case 'status': return nameOf(e.to) + ' ' + e.s;
       case 'skip': return nameOf(e.u) + ' 眩暈中，無法行動';
       case 'whiff': return nameOf(e.u) + ' 「' + e.skill + '」範圍內沒有敵人，揮空';
+      case 'wait': return nameOf(e.u) + ' 攻擊格內沒有敵人，等待前進';
+      case 'stale': return '雙方都走不動、攻擊格也碰不到對方：依剩餘生命判定（我方 ' + e.a + '%／敵方 ' + e.b + '%）→ ' + (e.win ? '我方勝' : '敵方勝');
       default: return null;
     }
   }
@@ -231,6 +269,9 @@
     if (e.t === 'end') return finish();
     if (e.t === 'skip') { applyEv(e); floatText(e.u, '眩暈', 'red small'); return next(T(400)); }
     if (e.t === 'move') { moveUnit(e); return next(T(300)); }
+    if (e.t === 'adv') { advUnits(e); return next(T(480)); }
+    if (e.t === 'wait') { applyEv(e); return next(T(60)); }
+    if (e.t === 'stale') { applyEv(e); return next(T(700)); }
     if (e.t === 'whiff') { applyEv(e); floatText(e.u, '揮空', 'red small'); showRange(e, BT.units[e.u], T(520)); return next(T(560)); }
     if (e.t !== 'act') { applyEv(e); return next(T(120)); }
     // 行動：收集後續結果事件
@@ -246,7 +287,7 @@
       if (ci) {
         ci.innerHTML = '<div class="ci-band side' + me.side + '"><div class="ci-art' + (MJ.Art.hasCutin(me.u.look) ? ' hi' : '') + '">' + MJ.Art.cutin(me.u.look, me.u.quality || 4, { enemy: me.side === 'B' }) + '</div>' +
           '<div class="ci-vname">' + U.esc(e.skill) + '</div><div class="ci-txt"><div class="ci-combo">' + (e.lx ? '無雙連攜' : '無雙技') + '</div><div class="ci-name">' + U.esc(e.skill) + '</div><div class="ci-who">' + U.esc(me.u.name) + '</div></div>' +
-          (e.heal ? '' : miniGrid(e.cells, e.side, e.range)) + '</div><div class="ci-total" id="ulttotal">' + (e.heal ? '' : '總傷害 <b>0</b>') + '</div>';
+          (e.heal ? '' : miniGrid(e.cells, e.side, e.range, e)) + '</div><div class="ci-total" id="ulttotal">' + (e.heal ? '' : '總傷害 <b>0</b>') + '</div>';
         ci.className = 'cutin on';
       }
       t0 = T(1000);
@@ -261,13 +302,13 @@
       var tgtKey = e.target, melee = !e.heal && isMelee(me.u) && e.pattern !== 'all';
       if (ue) ue.className = ue.className.replace(/ acting/g, '') + ' acting';
       if (melee && tgtKey && BT.units[tgtKey] && ue) {
-        var tp = pos(BT.units[tgtKey].side, BT.units[tgtKey].cell), mp = pos(me.side, me.cell);
+        var tp = upos(BT.units[tgtKey]), mp = upos(me);
         var dx = tp.x - mp.x + (me.side === 'A' ? -70 : 70), dy = tp.y - mp.y;
         ue.className += ' windup';
         setTimeout(function () { ue.className = ue.className.replace(/ windup/g, '') + ' lunge'; ue.style.webkitTransform = ue.style.transform = 'translate(' + dx + 'px,' + dy + 'px)'; }, T(150));
       } else if (!e.heal && tgtKey && BT.units[tgtKey]) {
         // 遠程／法術：投射光球
-        var a = pos(me.side, me.cell), b = pos(BT.units[tgtKey].side, BT.units[tgtKey].cell), fx = el('fx');
+        var a = upos(me), b = upos(BT.units[tgtKey]), fx = el('fx');
         if (fx) {
           var o = document.createElement('div'); o.className = 'orb ' + (me.u.dtype === 'j' ? 'jue' : me.u.phys ? 'arrow' : 'magic');
           o.style.left = (a.x - 14) + 'px'; o.style.top = (a.y - 84) + 'px'; fx.appendChild(o);
@@ -320,7 +361,7 @@
       var bt = el('bt'); if (bt) bt.className += ' lost';
       var lead = G.lead();
       h = '<div class="dim"></div><div class="result lose"><div class="banner">戰 敗</div><div class="parch rbody">' +
-        '<div>' + (r.battle.timeout ? '已達 ' + MJ.D.config.maxRounds + ' 回合上限，判定進攻方失敗。' : '我方全軍覆沒。') + '</div>' +
+        '<div>' + (r.battle.stale ? '雙方都碰不到對方，依剩餘生命判定敵方勝。可以換陣法，讓武將和敵人站在同一列或用打得到別列的技能。' : r.battle.timeout ? '已達 ' + MJ.D.config.maxRounds + ' 回合上限，判定進攻方失敗。' : '我方全軍覆沒。') + '</div>' +
         '<div>沒有獲得任何獎勵；不扣任何資源，可以馬上再挑戰。</div>' +
         (r.nextMorale ? '<div class="morale">越戰越勇：下次挑戰本關，我方生命／攻擊 +' + Math.round(r.nextMorale * 100) + '%</div>' : '') +
         '<div class="rw-h">如何提升戰鬥力</div><div class="tips">・到神武殿培養武將：按「最強」換上更好的裝備、安排訓練<br>・重打已通關的關卡累積經驗<br>・在聚賢莊招募更高品質的武將<br>・調整陣法，把耐打的武將放在前排</div></div>';

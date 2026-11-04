@@ -1,9 +1,10 @@
 // 戰鬥回歸：以固定種子跑 5 場關卡與 5 場原有被動混戰，回傳事件雜湊（給 unit-pt4 與舊引擎比對）
+// opts.rv：指定規則版本（例如 9＝v9 規則、現行資料），確認舊版戰報照舊重播
 // opts.legacy：以改版前資料（fixtures/data-v8.generated.js）與舊規則版本（R.RV=8）重跑，確認舊戰鬥事件不變
 module.exports = function (load, opts) {
   opts = opts || {};
   function h(str) { var x = 2166136261; for (var i = 0; i < str.length; i++) { x ^= str.charCodeAt(i); x = Math.imul(x, 16777619) >>> 0; } return x; }
-  var c = load(opts.legacy ? { data: require('path').join(__dirname, 'fixtures', 'data-v8.generated.js'), legacy: 8 } : {}), M = c.MJ, G = M.G, S = M.S; M.U.now = function () { return 1767225600000; };
+  var c = load(opts.legacy ? { data: require('path').join(__dirname, 'fixtures', 'data-v8.generated.js'), legacy: 8 } : (opts.rv ? { legacy: opts.rv } : {})), M = c.MJ, G = M.G, S = M.S; M.U.now = function () { return 1767225600000; };
   G.newGame('黃金', '智敏', 'm', 3);
   var out = [];
   ['s1_1', 's1_2', 's1_3', 's1_1', 's1_2'].forEach(function (id, i) {

@@ -94,6 +94,53 @@ MJ.Battle = (function () {
     return null;
   };
 
+  // ===== v10 大棋盤（單位 rv>=10 才套用；rv 9 以下的舊戰報照舊規則重播） =====
+  // C（玩家回憶 Tomas，2026-11-04）：戰場是一個大棋盤；每回合雙方所有人都往敵方方向前進一格，只能前後、不能上下換列；
+  // 普攻、主動、無雙都依武將自己的攻擊格，以「自己目前所在的格子」為起點往前算。
+  // 棋盤：每列 3（我方）＋ GAP（中間空地）＋ 3（敵方）格。GAP＝2 為本作設定（D）：開場雙方前排中間隔兩格，第 1 回合各進一格就接戰。
+  // 擋路（C／D）：前方那一格有任何活著的單位（隊友或敵人）就停下；走到棋盤邊緣也停下。陣亡單位讓出格子。
+  // 同一回合的移動依行動順序（我方前排先，見 turnOrder）逐一判定，所以後排可以跟著前排一起往前。
+  B.BOARD = { gap: 2, cols: 8 };
+  B.homeBx = function (side, cell) { var c = cell % 3; return side === 'A' ? 2 - c : 3 + B.BOARD.gap + c; };
+  B.bcell = function (r, bx) { return r * B.BOARD.cols + bx; };
+  function bdir(u) { return u.side === 'A' ? 1 : -1; }
+  // 往前的進度（0＝在自己最後排），供行動順序用
+  function prog(u) { return u.side === 'A' ? u.bx : B.BOARD.cols - 1 - u.bx; }
+  // 攻擊格（v10）：位移 [dr, dc]，dc＝0 是自己正前方那一格（棋盤上的真實格子，不再跳過隊友）；格子裡有活著的敵人才受擊
+  B.reach10 = function (u, skill, foes) {
+    var out = { hits: [], cells: [], blocked: [] }, d = bdir(u), W = B.BOARD.cols;
+    var at = function (r, bx) { return U.find(foes, function (f) { return f.hp > 0 && f.br === r && f.bx === bx; }); };
+    if (skill.pattern === 'all') { U.each(foes, function (f) { if (f.hp > 0) { out.hits.push(f); out.cells.push(B.bcell(f.br, f.bx)); } }); return out; }
+    U.each(B.rangeOffsets(skill, u.br), function (o) {
+      var r2 = u.br + o[0], x2 = u.bx + d * (1 + o[1]);
+      if (r2 < 0 || r2 > 2 || x2 < 0 || x2 >= W) return;
+      var cl = B.bcell(r2, x2); if (out.cells.indexOf(cl) < 0) out.cells.push(cl);
+      var f = at(r2, x2); if (f && out.hits.indexOf(f) < 0) out.hits.push(f);
+    });
+    return out;
+  };
+  // 一回合的前進：回傳 [{u, from, to}]
+  B.advance10 = function (order, all) {
+    var moved = [];
+    U.each(order, function (u) {
+      if (u.hp <= 0) return;
+      var x2 = u.bx + bdir(u);
+      if (x2 < 0 || x2 >= B.BOARD.cols) return; // 棋盤邊緣
+      if (U.find(all, function (o) { return o !== u && o.hp > 0 && o.br === u.br && o.bx === x2; })) return; // 前方有人（隊友或敵人）
+      // 接戰線（D）：不能走到敵方最前排那一欄（含）之後；自己這列沒有敵人時，停在與敵軍前排相鄰的那一欄，不會和敵人擦身而過
+      if (U.find(all, function (o) { return o.side !== u.side && o.hp > 0 && (u.side === 'A' ? o.bx <= x2 : o.bx >= x2); })) return;
+      moved.push({ u: u.key, from: u.bx, to: x2 }); u.bx = x2;
+    });
+    return moved;
+  };
+  B.hpRatio = function (list) { var h = 0, m = 0; U.each(list, function (u) { m += u.maxHp; if (u.hp > 0) h += u.hp; }); return m ? h / m : 0; };
+  B.turnOrder10 = function (A, Bs) {
+    function sorted(list) { return U.filter(list, function (u) { return u.hp > 0; }).sort(function (a, b) { return (prog(b) - prog(a)) || (b.br - a.br) || (a.cell0 - b.cell0); }); }
+    var a = sorted(A), b = sorted(Bs), out = [], n = Math.max(a.length, b.length);
+    for (var i = 0; i < n; i++) { if (a[i]) out.push(a[i]); if (b[i]) out.push(b[i]); }
+    return out;
+  };
+
   // A（影片2）：雙方依位置交替行動——左方前排下、右方前排下、左方前排中……；由前列到後列，同列由下到上
   B.posKey = function (cell) { var p = rc(cell); return p.c * 3 + (2 - p.r); };
   B.turnOrder = function (A, Bs) {
@@ -143,6 +190,11 @@ MJ.Battle = (function () {
     U.each(teamA, function (x) { A.push(mkUnit(x.unit, 'A', x.cell)); });
     U.each(teamB, function (x) { Bs.push(mkUnit(x.unit, 'B', x.cell)); });
     all = A.concat(Bs);
+    // v10 大棋盤：全部單位都是 rv>=10 才啟用（舊戰報的單位沒有 rv 10，照舊規則）
+    var BD = all.length > 0 && U.filter(all, function (u) { return u.rv >= 10; }).length === all.length;
+    if (BD) U.each(all, function (u) { u.br = Math.floor(u.cell / 3); u.bx = B.homeBx(u.side, u.cell); });
+    function bc(u) { return B.bcell(u.br, u.bx); }
+    function reachOf(u, sk) { return BD ? B.reach10(u, sk, foesOf(u)) : B.reach(u, sk, alliesOf(u), foesOf(u)); }
     function foesOf(u) { return u.side === 'A' ? Bs : A; }
     function alliesOf(u) { return u.side === 'A' ? A : Bs; }
     function alive(list) { return U.filter(list, function (u) { return u.hp > 0; }); }
@@ -245,7 +297,7 @@ MJ.Battle = (function () {
     function useSkill(u, skill, isUlt) {
       if (skill.pattern === 'healAll') {
         var mates = alive(alliesOf(u));
-        ev.push({ t: 'act', u: u.key, skill: skill.name, ult: isUlt, cells: U.map(mates, function (m) { return m.cell; }), side: u.side, heal: true });
+        ev.push(BD ? { t: 'act', u: u.key, skill: skill.name, ult: isUlt, cells: U.map(mates, bc), side: 'X', me: bc(u), heal: true, bd: 1 } : { t: 'act', u: u.key, skill: skill.name, ult: isUlt, cells: U.map(mates, function (m) { return m.cell; }), side: u.side, heal: true });
         var base = Math.max(u.matk, u.patk);
         U.each(mates, function (m) {
           var amt = Math.max(1, Math.floor((base * skill.mult + (skill.flat || 0)) * (0.95 + rng() * 0.1))); if (v9(u)) amt = healAmt(m, amt);
@@ -255,7 +307,12 @@ MJ.Battle = (function () {
         return;
       }
       var foes = foesOf(u), tgt, cells, sk = skill, rch = null;
-      if (u.rv >= 9) {
+      if (BD) {
+        rch = B.reach10(u, skill, foes);
+        if (!rch.hits.length) return;
+        tgt = rch.hits[0]; cells = U.map(rch.hits, bc);
+        ev.push({ t: 'act', u: u.key, skill: skill.name, ult: isUlt, cells: cells, range: rch.cells, blocked: [], side: 'X', me: bc(u), target: tgt.key, pattern: skill.pattern, rv: 10, bd: 1, lx: !!u.lx });
+      } else if (u.rv >= 9) {
         rch = B.reach(u, skill, alliesOf(u), foes);
         if (!rch.hits.length) return;
         tgt = rch.hits[0]; cells = U.map(rch.hits, function (f) { return f.cell; });
@@ -274,7 +331,7 @@ MJ.Battle = (function () {
       var pc = pending; pending = [];
       U.each(pc, function (p) {
         if (p.a.hp <= 0 || p.b.hp <= 0) return;
-        ev.push({ t: 'act', u: p.a.key, skill: '反擊', ult: false, cells: [p.b.cell], side: p.b.side, target: p.b.key, counter: true });
+        ev.push(BD ? { t: 'act', u: p.a.key, skill: '反擊', ult: false, cells: [bc(p.b)], side: 'X', me: bc(p.a), target: p.b.key, counter: true, bd: 1 } : { t: 'act', u: p.a.key, skill: '反擊', ult: false, cells: [p.b.cell], side: p.b.side, target: p.b.key, counter: true });
         ev.push({ t: 'text', to: p.a.key, s: '反擊', c: 'red' });
         hurt(p.a, p.b, { mult: 1, flat: 0 }, true);
       });
@@ -282,18 +339,31 @@ MJ.Battle = (function () {
         U.each(alive(alliesOf(u)), function (m) { m.defBuff = skill.fx.buffDef; m.defBuffT = 2; ev.push({ t: 'text', to: m.key, s: '物防+' + Math.round(skill.fx.buffDef * 100) + '%', c: 'green' }); });
       }
     }
-    var round = 0, winner = null;
+    var round = 0, winner = null, stale = false;
     // 連攜（B 對象：snA967／D 效果）：夥伴同時上陣，兩人攻擊 +10%
     U.each(all, function (u) {
       if (!v9(u) || !u.partner) return;
       if (U.find(alliesOf(u), function (m) { return m !== u && m.did === u.partner; })) { u.lx = true; u.patk = Math.floor(u.patk * 1.1); u.matk = Math.floor(u.matk * 1.1); u.jatk = Math.floor(u.jatk * 1.1); }
     });
-    ev.push({ t: 'start', units: U.map(all, snapshot) });
+    ev.push(BD ? { t: 'start', units: U.map(all, snapshot), bd: { gap: B.BOARD.gap, cols: B.BOARD.cols, pos: U.map(all, function (u) { return [u.key, u.br, u.bx]; }) } } : { t: 'start', units: U.map(all, snapshot) });
     U.each(all, function (u) { if (u.lx) ev.push({ t: 'text', to: u.key, s: '連攜', c: 'green' }); });
     while (round < maxRounds && !winner) {
       round++;
       ev.push({ t: 'round', n: round });
-      var order = B.turnOrder(A, Bs);
+      var order;
+      if (BD) {
+        // v10：回合開始雙方一起往前一格（C 玩家回憶 Tomas）
+        var mv = B.advance10(B.turnOrder10(A, Bs), all);
+        if (mv.length) ev.push({ t: 'adv', m: mv });
+        // 僵局（D）：沒有人能再前進，且雙方都沒有任何人的主動（或已滿 100 的無雙）攻擊格碰得到敵人（例如敵人只剩在我方沒有人的那一列），
+        // 不空等到時間到，直接以雙方剩餘生命比例判定（我方比例較高才算勝；相同算敵方勝）
+        if (!mv.length && !U.find(all, function (u) { return u.hp > 0 && U.find(u.rage >= 100 ? [u.active, u.ult] : [u.active], function (sk) { return sk && sk.pattern !== 'healAll' && B.reach10(u, sk, foesOf(u)).hits.length; }); })) {
+          var ra = B.hpRatio(A), rb = B.hpRatio(Bs); stale = true; winner = ra > rb ? 'A' : 'B';
+          ev.push({ t: 'stale', a: Math.round(ra * 100), b: Math.round(rb * 100), win: winner === 'A' });
+          break;
+        }
+        order = B.turnOrder10(A, Bs);
+      } else order = B.turnOrder(A, Bs);
       for (var i = 0; i < order.length && !winner; i++) {
         var u = order[i];
         if (u.hp <= 0) continue; // 陣亡單位不行動
@@ -333,7 +403,18 @@ MJ.Battle = (function () {
           ev.push({ t: 'text', to: u.key, s: '療傷', c: 'green' }); ev.push({ t: 'heal', to: u.key, amt: hv, hp: u.hp });
         }
         var isUlt = u.rage >= 100 && !(v9(u) && u.seal); // 奪魂：封印中不能放無雙
-        if (u.rv >= 9) {
+        if (BD) {
+          // v10：不再衝刺或橫移（移除 D 橫移規則）；攻擊格內有敵人才出手，否則揮空
+          var me10 = u, can10 = function (sk) { return sk && (sk.pattern === 'healAll' || B.reach10(me10, sk, foesOf(me10)).hits.length > 0); };
+          if (isUlt && !can10(u.ult)) isUlt = false; // 無雙打不到：保留無雙值，改用主動技（C）
+          // 攻擊格內沒有敵人：這回合不出手（等下一回合前進），不加無雙值（C）；畫面只寫戰報、不飄「揮空」
+          if (!isUlt && !can10(u.active)) { var wr10 = B.reach10(u, u.active, foesOf(u)); ev.push({ t: 'wait', u: u.key, skill: u.active.name, range: wr10.cells, side: 'X', me: bc(u), bd: 1 }); }
+          else {
+            if (isUlt) u.rage = 0;
+            useSkill(u, isUlt ? u.ult : u.active, isUlt);
+            if (u.hp > 0 && !isUlt) gainRage(u, 25 + Math.floor(rng() * 11));
+          }
+        } else if (u.rv >= 9) {
           // v9：範圍以自己的格子為起點；打不到先往前衝，仍打不到就揮空（見 B.reach 註解）
           var me = u;
           var can = function (sk) { return sk && (sk.pattern === 'healAll' || B.reach(me, sk, alliesOf(me), foesOf(me)).hits.length > 0); };
@@ -360,7 +441,7 @@ MJ.Battle = (function () {
           useSkill(u, isUlt ? u.ult : u.active, isUlt);
           if (u.hp > 0 && !isUlt) gainRage(u, 25 + Math.floor(rng() * 11));
         }
-        if (u.hp > 0 && has(u, 'lianzhan') && alive(foesOf(u)).length && !(u.rv >= 9 && !B.reach(u, u.active, alliesOf(u), foesOf(u)).hits.length) && rng() < Math.min(0.5, 0.2 * pmOf(u, 'lianzhan'))) {
+        if (u.hp > 0 && has(u, 'lianzhan') && alive(foesOf(u)).length && !(u.rv >= 9 && !reachOf(u, u.active).hits.length) && rng() < Math.min(0.5, 0.2 * pmOf(u, 'lianzhan'))) {
           ev.push({ t: 'text', to: u.key, s: '2連擊', c: 'red' });
           useSkill(u, u.active, false);
         }
@@ -369,12 +450,15 @@ MJ.Battle = (function () {
       }
     }
     var win = winner === 'A';
-    ev.push({ t: 'end', win: win, timeout: !winner, rounds: round });
-    return {
+    ev.push(stale ? { t: 'end', win: win, timeout: false, stale: true, rounds: round } : { t: 'end', win: win, timeout: !winner, rounds: round });
+    var res = {
       win: win, timeout: !winner, rounds: round, events: ev,
       deadA: U.filter(A, function (u) { return u.hp <= 0; }).length,
-      units: U.map(all, function (u) { return { key: u.key, side: u.side, cell: u.cell, cell0: u.cell0, name: u.name, hp: u.hp, maxHp: u.maxHp, rage: u.rage, hid: u.hid }; })
+      board: BD ? { gap: B.BOARD.gap, cols: B.BOARD.cols } : null,
+      units: U.map(all, function (u) { var o = { key: u.key, side: u.side, cell: u.cell, cell0: u.cell0, name: u.name, hp: u.hp, maxHp: u.maxHp, rage: u.rage, hid: u.hid }; if (BD) { o.br = u.br; o.bx = u.bx; } return o; })
     };
+    if (stale) res.stale = true;
+    return res;
   };
   return B;
 })();

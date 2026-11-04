@@ -33,6 +33,7 @@
       h += '<a class="link" data-a="showOdds">查看品質機率</a></div>';
       h += '<div class="cands">' + (s.recruit.cands.length ? U.map(s.recruit.cands, candCard).join('') : '<div class="empty">名單已空，請刷新</div>') + '</div>';
       UI.sel.justRefreshed = false;
+      h += '<a class="link jx-link" data-a="recTab" data-v="roster">升級聚賢莊（武將上限 ' + R.rosterCap(s) + '）</a>';
     } else if (tab === 'roster') {
       var list = s.heroes.slice();
       var pg = UI.pager('roster', list, 10, function (hh) {
@@ -41,7 +42,7 @@
       });
       h += '<div class="roster-grid">' + pg.html + '</div>' + pg.nav;
       var hs = G.hero(UI.sel.rosterUid);
-      h += '<div class="roster-info">武將數 ' + s.heroes.length + '/' + R.rosterCap(s) + '　';
+      h += '<div class="roster-side"><div class="roster-info">武將數 ' + s.heroes.length + '/' + R.rosterCap(s) + '　';
       if (hs) {
         var d = R.heroDef(hs.id);
         h += '已選：<b>' + U.esc(G.nameOf(hs)) + '</b> Lv' + hs.lv + '　';
@@ -49,6 +50,11 @@
         else h += '（主角不可解僱）';
       } else h += '點選武將可解僱，解僱後獲得該武將將魂。';
       h += '</div>';
+      var jx = G.juxianInfo();
+      h += '<div class="jx-up"><b>聚賢莊 Lv' + jx.lv + '</b>：武將上限 <b>' + jx.cap + '</b>　→　<b>Lv' + jx.next + '</b>：武將上限 <b class="g">' + jx.nextCap + '</b>' +
+        '<span class="jx-cost">費用 ' + UI.icon('silver') + U.fmt(jx.cost) + '・需要主角 Lv' + jx.needLead + '</span>' +
+        '<a class="btn small' + (jx.ok ? '' : ' disabled') + '" data-a="upBld" data-v="juxian" data-why="' + U.esc(jx.why) + '">升級</a>' +
+        (jx.ok ? '' : '<span class="jx-why">' + U.esc(jx.why) + '</span>') + '</div></div>';
     } else {
       var souls = U.filter(U.keys(s.bag.stack), function (k) { return k.indexOf('soul:') === 0 && s.bag.stack[k] > 0; });
       var pg2 = UI.pager('souls', souls, 8, function (k) {
