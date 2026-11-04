@@ -2287,7 +2287,10 @@ MJ.UI = (function () {
     var p = pos(x.side, x.cell), fx = el('fx'); if (!fx) return;
     var d = document.createElement('div');
     d.className = 'ftxt ' + (cls || '');
-    d.style.left = (p.x - 60 + (Math.random() * 20 - 10)) + 'px'; d.style.top = Math.max(18, p.y - 164 - (dy || 0)) + 'px';
+    // art3：飄字一律留在舞台內、不蓋到上方雙方總生命條（約 y<44）。最上排整疊往下移，保持「技能名 > 無雙+ > 暴擊 > 數字」的上下順序
+    var FT_MIN = 82, shift = Math.max(0, FT_MIN - (p.y - 224));
+    var lx = p.x - 60 + (Math.random() * 20 - 10); lx = Math.max(6, Math.min(960 - 166, lx));
+    d.style.left = lx + 'px'; d.style.top = Math.min(600 - 70, p.y - 164 - (dy || 0) + shift) + 'px';
     d.innerHTML = text;
     fx.appendChild(d);
     setTimeout(function () { if (d.parentNode) d.parentNode.removeChild(d); }, T(1100) + 200);
@@ -2309,6 +2312,7 @@ MJ.UI = (function () {
     fx.appendChild(d); setTimeout(function () { if (d.parentNode) d.parentNode.removeChild(d); }, low ? 300 : 620);
   }
   UI._skillFx = skillFx;
+  UI._floatText = function (k, t, c, dy) { floatText(k, t, c, dy); };
   function setHp(key, hp) {
     var x = BT.units[key]; if (!x) return; x.hp = hp;
     var h = el('h' + key); if (h) h.innerHTML = hpHtml(hp, x.max, x.u.layers);
