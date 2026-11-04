@@ -58,12 +58,17 @@
       b += '<a class="fl' + (x.id === f.id ? ' on' : '') + (x.open > lv ? ' dim2' : '') + '" data-a="setForm" data-v="' + x.id + '"><b>' + U.esc(x.name) + (x.open > lv ? '（' + x.open + '級）' : '') + '</b><small>' + U.esc(x.desc) + '<br>全隊 ' + bon + '</small></a>';
     });
     b += '</div><div class="form-mid"><div class="fm-h">出戰 ' + G.teamCount() + '/' + slots + '　<small>（' + U.map(MJ.D.config.teamSlotsByLevel.slice(1), function (x) { return x[0]; }).join('/') + ' 級各 +1 人，最多 ' + R.teamSlots(999) + ' 人）</small></div><div class="fgrid"><span class="fg-dir">敵方 ▶</span>';
-    for (var r = 0; r < 3; r++) for (var c = 2; c >= 0; c--) {
-      var cell = r * 3 + c, open = oc.indexOf(cell) >= 0, uid = s.team.cells[cell], h = uid && G.hero(uid);
-      b += '<div class="fcell' + (open ? '' : ' closed') + (h && h.uid === selH ? ' sel' : '') + '"' + (open ? ' data-a="fCell" data-v="' + cell + '"' : '') + '>' +
-        (h ? UI.portrait(h, { cls: 'mini' }) + fRange(h, r) : (open ? '<span class="fc-e">空位</span>' : '<span class="fc-e">未開放</span>')) + '<i class="fc-n">' + ['前', '中', '後'][c] + '</i></div>';
+    // 修正（Tomas 回報：格子擠成兩欄、文字黏在一起）：每一列包成 .frow，固定 3 格一列；狀態字置中加底色，前／中／後標籤放角落
+    for (var r = 0; r < 3; r++) {
+      b += '<div class="frow">';
+      for (var c = 2; c >= 0; c--) {
+        var cell = r * 3 + c, open = oc.indexOf(cell) >= 0, uid = s.team.cells[cell], h = uid && G.hero(uid);
+        b += '<div class="fcell' + (open ? '' : ' closed') + (h ? ' occ' : '') + (h && h.uid === selH ? ' sel' : '') + '" data-cell="' + cell + '"' + (open ? ' data-a="fCell" data-v="' + cell + '"' : '') + (h ? ' data-uid="' + h.uid + '"' : '') + '>' +
+          (h ? UI.portrait(h, { cls: 'mini' }) + fRange(h, r) : (open ? '<span class="fc-e">空位</span>' : '<span class="fc-e">未開放</span>')) + '<i class="fc-n">' + ['前', '中', '後'][c] + '</i></div>';
+      }
+      b += '</div>';
     }
-    b += '</div>' + (UI.lxLine ? UI.lxLine() : '') + '<div class="fm-tip">先點右側武將或陣中武將，再點格子放入／互換。第 1 列（最右）為前排。<br>出手順序：雙方交替，前列先、同列由下往上。<br>格子右上角是主動技攻擊格：綠＝自己，紅＝往前數第 1、2、3 格；同一列前方的隊友會擋住格子，前方隊友陣亡、或自己往前衝之後才打得到。</div></div>';
+    b += '</div>' + (UI.lxLine ? UI.lxLine() : '') + '<div class="fm-tip">先點右側武將或陣中武將，再點格子放入／互換。第 1 列（最右）為前排。<br>出手順序：雙方交替，前列先、同列由下往上。<br>戰鬥時雙方站在同一個大棋盤上，每回合都往前走一格（只能前後、不能換列），前面有人就停下。<br>格子右上角是主動技攻擊格：綠＝自己，紅＝從自己正前方那一格起算的攻擊格；紅格裡有敵人才打得到。</div></div>';
     var list = s.heroes.slice().sort(function (a, b2) { return b2.lv - a.lv; });
     var pg = UI.pager('formP', list, 8, function (h) {
       var inT = G.inTeam(h.uid) != null;
@@ -78,7 +83,7 @@
   UI.formRange = fRange;
   UI.actions.setForm = function (id) {
     var r = G.setFormation(id);
-    if (UI.res(r, '陣法已儲存' + (r.moved && r.moved.length ? '（' + r.moved.join('、') + ' 移到新陣法的空格）' : ''))) UI.renderModal();
+    if (UI.res(r, '陣法已儲存' + (r.moved && r.moved.length ? '：' + r.moved.join('、') + ' 依新陣形換位' : ''))) UI.renderModal();
   };
   UI.actions.fPick = function (uid) { uid = +uid; UI.sel.fHero = UI.sel.fHero === uid ? null : uid; UI.renderModal(); };
   UI.actions.fCell = function (cell) {
@@ -150,7 +155,7 @@
       '<div class="set-row">經濟模式：<a class="tog' + (st.econ !== 'fast' ? ' on' : '') + '" data-a="setEcon" data-v="std">標準</a><a class="tog' + (st.econ === 'fast' ? ' on' : '') + '" data-a="setEcon" data-v="fast">單機加速</a><br><small>標準：原速。單機加速：訓練經驗 2 倍、戰鬥銀幣與塔俸 ×1.5（D）。精力與現實時間等待已全部取消。</small></div>' +
       (UI.soundRows ? UI.soundRows() : '') +
       '<div class="set-row">手機直向時自動旋轉橫向：<a class="tog' + (st.rotate !== false ? ' on' : '') + '" data-a="setOpt" data-v="rotate:1">開</a><a class="tog' + (st.rotate === false ? ' on' : '') + '" data-a="setOpt" data-v="rotate:0">關</a></div>' +
-      '<div class="set-row small">版本：' + S.RELEASE + '　存檔格式 v' + S.VERSION + '<br>本作為粉絲重製的單機版，所有美術均以程式繪製，與原版營運商無關。</div></div></div>';
+      '<div class="set-row small">版本：' + S.RELEASE + '　存檔格式 v' + S.VERSION + '　戰鬥規則 v' + MJ.R.RV + '<br>建置編號：<b class="build-id">' + (window.MJ_BUILD || '開發版') + '</b>（GitHub Pages 更新後約 10 分鐘內可能仍拿到舊檔，重新整理後對照此編號）<br>本作為粉絲重製的單機版，所有美術均以程式繪製，與原版營運商無關。</div></div></div>';
     return UI.panel('設置', b, { cls: 'mid' });
   };
   UI.actions.setOpt = function (v) {
@@ -215,7 +220,7 @@
     var g = UI.sel.ngG || 'm', t = UI.sel.ngT || '力耐';
     var look = U.clone(MJ.D.heroes.lead.look); if (g === 'f') { look.g = 'f'; look.hs = 'long'; look.cloth = '#ad1457'; }
     look.art = 'c_lead_' + g;
-    var h = '<div class="scr newgame">' + MJ.Art.sky() + '<div class="ng-logo">猛將無雙<small>單機重製版・' + S.RELEASE + '</small></div>' +
+    var h = '<div class="scr newgame">' + MJ.Art.sky() + '<div class="ng-logo">猛將無雙<small>單機重製版・' + S.RELEASE + '</small><small class="build-id">' + (window.MJ_BUILD || '') + '</small></div>' +
       '<div class="frame ng-box"><div class="plaque">創建角色</div><div class="ng-in"><div class="ng-fig"><div class="mc-wrap">' + MJ.Art.magicCircle() + '</div><div class="hero-fig">' + MJ.Art.figure(look, { cape: true }) + '</div></div><div class="ng-form">' +
       '<label>俠名 <input id="ngName" maxlength="8" value="' + U.esc(UI.sel.ngName || '') + '" placeholder="最多 8 字"></label>' +
       '<div class="ng-row">性別：<a class="tog' + (g === 'm' ? ' on' : '') + '" data-a="ngSet" data-v="G:m">男</a><a class="tog' + (g === 'f' ? ' on' : '') + '" data-a="ngSet" data-v="G:f">女</a></div>' +

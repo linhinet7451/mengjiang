@@ -165,6 +165,15 @@
    "date": "2013-11-04",
    "region": "台版",
    "grade": "A"
+  },
+  "TOMAS": {
+   "title": "Tomas 玩家回憶（pt21u，2026-11-04 對話）",
+   "url": "",
+   "author": "Tomas",
+   "date": "2026-11-04",
+   "region": "台版",
+   "grade": "C",
+   "note": "當年玩家的記憶，沒有截圖或攻略佐證，最高列 C"
   }
  },
  "conflicts": [
@@ -2210,7 +2219,7 @@
    "cat": "戰鬥",
    "item": "打不到時往前衝",
    "spec": "snA967／sn41／宣傳片",
-   "current": "範圍內沒有敵人且前方格子空著就往前移（因為按活人計算，移動多為表現）",
+   "current": "範圍內沒有敵人且前方格子空著就往前移（因為按活人計算，移動多為表現）（v10 起改為每回合固定前進，見 v10.board.advance）",
    "grade": "D",
    "label": "本作設計（暫定）",
    "sources": [],
@@ -2238,7 +2247,7 @@
    "cat": "戰鬥",
    "item": "換列（防卡關）",
    "spec": "snA967／sn41／宣傳片",
-   "current": "自己這一列沒有敵人時，每回合往最近有敵人的列移一格（先同欄，再往後的欄，目標格須空）",
+   "current": "自己這一列沒有敵人時，每回合往最近有敵人的列移一格（先同欄，再往後的欄，目標格須空）（只用於規則 v9 的舊戰鬥／重播；v10 停用，改為「不能上下移動」）",
    "grade": "D",
    "label": "本作設計（暫定）",
    "sources": [],
@@ -2270,7 +2279,7 @@
    "cat": "陣容",
    "item": "陣法與站位存檔",
    "spec": "—",
-   "current": "換陣法時保留仍開放格子上的武將，其餘移到最近的空開放格（不刪武將）；所有戰鬥模式使用編好的站位",
+   "current": "換陣法時所有武將依新陣形換位（見 v10.formation.fill）；不刪武將；所有戰鬥模式使用編好的站位",
    "grade": "D",
    "label": "本作設計（暫定）",
    "sources": [],
@@ -2534,6 +2543,157 @@
    "label": "本作設計（暫定）",
    "sources": [],
    "phase": "web2-P2",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "v10.board.advance",
+   "cat": "戰鬥",
+   "item": "每回合雙方往前一格（規則 v10）",
+   "spec": "Tomas pt21u",
+   "current": "每回合開始時雙方所有活著的單位往前走一格；前方格子有人或到棋盤邊就不動",
+   "grade": "C",
+   "label": "推測（玩家回憶）",
+   "sources": [
+    {
+     "s": "TOMAS",
+     "q": "每個回合 雙方都會往前走一格 戰鬥位置可以視為一個大棋盤 攻擊位置 都要符合角色設定（包含主動 無雙等）雙方人物每個回合往前 但不能上下移動"
+    }
+   ],
+   "phase": "web2-v10",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "v10.board.grid",
+   "cat": "戰鬥",
+   "item": "戰場是一個大棋盤",
+   "spec": "Tomas pt21u",
+   "current": "雙方共用 8 欄 × 3 列的棋盤，攻擊範圍（主動、無雙、普攻）都從自己在棋盤上的格子往前算",
+   "grade": "C",
+   "label": "推測（玩家回憶）",
+   "sources": [
+    {
+     "s": "TOMAS",
+     "q": "每個回合 雙方都會往前走一格 戰鬥位置可以視為一個大棋盤 攻擊位置 都要符合角色設定（包含主動 無雙等）雙方人物每個回合往前 但不能上下移動"
+    }
+   ],
+   "phase": "web2-v10",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "v10.board.rowfixed",
+   "cat": "戰鬥",
+   "item": "不能上下移動",
+   "spec": "Tomas pt21u",
+   "current": "只會往前，不換列；v9 的「換列（防卡關）」在 v10 戰鬥停用",
+   "grade": "C",
+   "label": "推測（玩家回憶）",
+   "sources": [
+    {
+     "s": "TOMAS",
+     "q": "每個回合 雙方都會往前走一格 戰鬥位置可以視為一個大棋盤 攻擊位置 都要符合角色設定（包含主動 無雙等）雙方人物每個回合往前 但不能上下移動"
+    }
+   ],
+   "phase": "web2-v10",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "v10.board.gap",
+   "cat": "戰鬥",
+   "item": "開戰時兩軍間隔 2 欄",
+   "spec": "—",
+   "current": "A 方站 0～2 欄、B 方站 5～7 欄，中間空 2 欄",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [],
+   "phase": "web2-v10",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "v10.board.frontline",
+   "cat": "戰鬥",
+   "item": "不能越過敵方最前線",
+   "spec": "—",
+   "current": "往前時不能踏進「敵方最前面活人所在欄」或更後面的欄（避免兩軍穿過彼此）",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [],
+   "phase": "web2-v10",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "v10.board.stale",
+   "cat": "戰鬥",
+   "item": "僵局以血量比例判定",
+   "spec": "—",
+   "current": "沒人能再移動、且沒人打得到任何敵人（無雙只在怒氣滿 100 時算）時結束戰鬥：我方剩餘血量比例嚴格大於敵方才算勝",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [],
+   "phase": "web2-v10",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "v10.board.waitrage",
+   "cat": "戰鬥",
+   "item": "等待不加怒氣",
+   "spec": "—",
+   "current": "因為打不到而原地等待（wait）不給怒氣",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [],
+   "phase": "web2-v10",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "v10.formation.fill",
+   "cat": "陣容",
+   "item": "換陣法時的換位順序",
+   "spec": "—",
+   "current": "依舊陣法格子順序把武將依序放進新陣法的格子（每個人都會跟著陣形換位）",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [],
+   "phase": "web2-v10",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "jx.upgrade.slots",
+   "cat": "聚賢莊",
+   "item": "聚賢莊升級增加武將欄位",
+   "spec": "sn41",
+   "current": "聚賢莊可在「我的武將」分頁升級，升級後武將上限增加",
+   "grade": "B",
+   "label": "原版（當年攻略記載）",
+   "sources": [
+    {
+     "s": "S1",
+     "q": "聚賢莊 (開放等級>>初期就開放) (任務需要在升) 功能:刷新武將 建築升級可以提升武將欄位+經驗池經驗上限+武將遣散返回經驗值"
+    }
+   ],
+   "phase": "web2-v10",
+   "tentative": false,
+   "conflicts": [],
+   "note": "另有百科類簡介（newton，C～B）：「聚賢莊可以升級，而玩家能招募的武將的數量和聚賢莊的等級也有關係」。經驗池上限、遣散返還經驗兩項本作尚未做"
+  },
+  {
+   "id": "jx.upgrade.numbers",
+   "cat": "聚賢莊",
+   "item": "聚賢莊升級數字",
+   "spec": "—",
+   "current": "武將上限＝5＋(聚賢莊等級−1)；升級費用 500×目前等級² 銀幣；聚賢莊等級不能超過主角等級；只會變多，舊存檔武將不會被移除",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [],
+   "phase": "web2-v10",
    "tentative": true,
    "conflicts": []
   }

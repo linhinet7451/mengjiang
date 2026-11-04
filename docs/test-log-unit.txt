@@ -49,7 +49,7 @@ pass-lines 40
 結果：通過 47，失敗 0
 pass-lines 48
 === unit-prov
-結果：通過 995，失敗 0
+結果：通過 1062，失敗 0
 pass-lines 1
 === unit-art
 結果：通過 827，失敗 0
@@ -63,8 +63,17 @@ pass-lines 34
 pass-lines 35
 === unit-fix
   通過 rv 8 單位維持舊規則（舊戰報結果不變）
-  通過 v9 規則固定種子戰鬥結果與 battle-golden-v9.json 相同（改規則時要更新樣本）
+  通過 v9 規則（R.RV=9）固定種子戰鬥結果與 battle-golden-v9.json 相同（改規則時要更新樣本）
   通過 新舊規則結果不同（確實換了範圍規則）
-結果：通過 31，失敗 0
-pass-lines 32
+結果：通過 35，失敗 0
+pass-lines 36
+=== unit-board
+  通過 v10 規則固定種子結果與 battle-golden-v10.json 相同
+  通過 v10 與 v9 結果不同（確實換了規則）
+結果：通過 34，失敗 0
+pass-lines 35
+=== unit-juxian
+  通過 5/5 時招募失敗，訊息提示升級聚賢莊
+結果：通過 18，失敗 0
+pass-lines 19
 UNIT EXIT 0

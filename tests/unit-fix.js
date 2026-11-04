@@ -34,19 +34,28 @@ var n1 = cap.length, wr = G.wujiRun(G.WUJI[0].id); ok(wr.ok && cap[n1] === want,
 n1 = cap.length; var sr = G.sgRun(G.SG_TIERS[0].id); ok(sr.ok && cap[n1] === want, '藏寶窟（第一關）使用編好的站位');
 var al = G.arenaList(); var ar = G.arenaFight(al[0]); ok(ar.ok && cap[cap.length - 1] === want, '拜訪武將（競技）使用編好的站位');
 M.Battle.run = run;
-// 換陣法保留站位：主角原在格 tgt，換到也開放此格的陣法後仍在原格
-var f2 = M.D.formations.filter(function (f) { return f.id !== 'yulin' && (G.openCells().length === 9 || f.cells.indexOf(tgt) >= 0); })[0];
-c = fresh(); M = c.MJ; G = M.G; S = M.S; // 3 人、1 級：陣法格數 7 > 3 人，只開放陣法格
-G.setFormation('yulin'); lead = G.lead().uid;
-var oc = G.openCells(), free = oc.filter(function (x) { return !S.state.team.cells[x]; })[0];
-G.setCell(free, lead);
-var cellsY = J(S.state.team.cells);
-var target = M.D.formations.filter(function (f) { return f.id !== 'yulin' && (!f.open || f.open <= 1) && Object.keys(S.state.team.cells).every(function (k) { return f.cells.indexOf(+k) >= 0; }); })[0];
-if (target) { G.setFormation(target.id); ok(J(S.state.team.cells) === cellsY, '換到也開放這些格子的「' + target.name + '」：站位完全保留'); }
-else ok(true, '（沒有可完全容納的陣法，略過）');
-var other = M.D.formations.filter(function (f) { return (!f.open || f.open <= 1) && Object.keys(S.state.team.cells).some(function (k) { return f.cells.indexOf(+k) < 0; }); })[0];
-var n0 = G.teamCount(), r3 = G.setFormation(other.id);
-ok(r3.ok && r3.moved.length > 0 && G.teamCount() === n0 && Object.keys(S.state.team.cells).every(function (k) { return other.cells.indexOf(+k) >= 0; }), '換到不開放某格的「' + other.name + '」：沒有人被踢出隊伍，只把那位移到開放格（' + (r3.moved || []).join('、') + '）');
+// 換陣法（Tomas 2026-11-04 回報修正）：武將依新陣法的格位順序換位，順序沿用舊陣法的格位順序；沒有人被踢出
+c = fresh(); M = c.MJ; G = M.G; S = M.S;
+var forms1 = M.D.formations.filter(function (f) { return !f.open || f.open <= 1; });
+function orderIn(f) { var cells = S.state.team.cells; return f.cells.filter(function (x) { return cells[x]; }).map(function (x) { return cells[x]; }); }
+var prevF = G.formation(), n0 = G.teamCount(), allMove = true, kept = true, anyMoved = false;
+forms1.forEach(function (f) {
+  if (f.id === G.formation().id) return;
+  var before = orderIn(G.formation()), r3 = G.setFormation(f.id), want = f.cells.slice(0, n0).sort().join(',');
+  if (!(r3.ok && G.teamCount() === n0 && Object.keys(S.state.team.cells).map(Number).sort().join(',') === want)) allMove = false;
+  if (orderIn(f).join(',') !== before.join(',')) kept = false;
+  if (r3.moved && r3.moved.length) anyMoved = true;
+});
+ok(allMove, '換到每個 1 級陣法：' + n0 + ' 位武將都站到新陣法格位順序的前 ' + n0 + ' 格（' + forms1.length + ' 個陣法）');
+ok(kept, '換陣時武將的先後順序不變（舊陣第 k 位 → 新陣第 k 位）');
+ok(anyMoved, '換陣法確實會讓武將換位（舊版因格子重疊幾乎不動）');
+G.setFormation('fangyuan'); var fa = J(S.state.team.cells); G.setFormation('yanxing'); var ya = J(S.state.team.cells);
+ok(fa !== ya, '方圓陣 → 雁行陣 站位不同（方圓 ' + fa + '／雁行 ' + ya + '）');
+var cap2 = []; var run2 = M.Battle.run; M.Battle.run = function (a, b, o) { cap2.push(J(a.map(function (x) { return x.cell; }).sort())); return run2.apply(this, arguments); };
+G.fight('s1_1'); M.Battle.run = run2;
+ok(cap2[0] === J(Object.keys(S.state.team.cells).map(Number).sort()), '換陣後的關卡戰鬥使用新陣法站位（' + cap2[0] + '）');
+var p2 = S.load(); // setFormation 已自動存檔（G.commit）
+ok(p2.ok && p2.state.team.formation === 'yanxing' && J(p2.state.team.cells) === ya, '換陣自動存檔，重新讀檔：陣法與站位都保留');
 ok(M.R.teamSlots(999) === 8, '上陣上限 8 人（陣法畫面提示改為「最多 8 人」）');
 
 console.log('[修正二：攻擊範圍以自己的格子為起點]');
@@ -108,8 +117,8 @@ ok(res.ok !== false && res.battle.events.some(function (e) { return e.t === 'act
 
 console.log('[v9 戰鬥黃金樣本]');
 var gold = JSON.parse(require('fs').readFileSync(require('path').join(__dirname, 'fixtures', 'battle-golden-v9.json'), 'utf8'));
-var now = require('./golden-run.js')(load);
-ok(JSON.stringify(now) === JSON.stringify(gold), 'v9 規則固定種子戰鬥結果與 battle-golden-v9.json 相同（改規則時要更新樣本）');
+var now = require('./golden-run.js')(load, { rv: 9 });
+ok(JSON.stringify(now) === JSON.stringify(gold), 'v9 規則（R.RV=9）固定種子戰鬥結果與 battle-golden-v9.json 相同（改規則時要更新樣本）');
 var leg = require('./golden-run.js')(load, { legacy: true }), g6 = JSON.parse(require('fs').readFileSync(require('path').join(__dirname, 'fixtures', 'battle-golden-v6.json'), 'utf8'));
 ok(JSON.stringify(leg) !== JSON.stringify(now), '新舊規則結果不同（確實換了範圍規則）');
 

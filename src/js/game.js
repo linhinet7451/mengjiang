@@ -185,18 +185,21 @@ MJ.G = (function () {
   G.setFormation = function (fid) {
     var s = st(), f = MJ.D.formIndex[fid]; if (!f) return fail('未知陣法');
     if (f.open && G.lead().lv < f.open) return fail('主角 ' + f.open + ' 級開放此陣法');
-    var list = G.teamList(); s.team.formation = fid; s.team.cells = {};
-    // 修正（陣法沒存好）：換陣法時保留原本的站位；只有新陣法不開放的格子，才把那位武將移到最近的空格（同一列優先）
-    var oc = G.openCells(), moved = [], rest = [];
-    U.each(list, function (x) { if (oc.indexOf(x.cell) >= 0) s.team.cells[x.cell] = x.hero.uid; else rest.push(x); });
-    U.each(rest, function (x) {
-      var r0 = Math.floor(x.cell / 3), c0 = x.cell % 3, best = null, bd = 1e9;
-      U.each(oc, function (c) {
-        if (s.team.cells[c]) return;
-        var d = Math.abs(Math.floor(c / 3) - r0) * 10 + Math.abs(c % 3 - c0);
-        if (d < bd) { bd = d; best = c; }
-      });
-      if (best != null) { s.team.cells[best] = x.hero.uid; moved.push(G.nameOf ? G.nameOf(x.hero) : x.hero.name); }
+    // 修正（Tomas 2026-11-04 回報：換陣法後角色不換位、進虛空之門也沒換）：
+    // 舊版只把「新陣法不開放的格子」上的人移走；但八個陣法彼此有 7～8 格重疊，所以幾乎沒有人會動，戰鬥（讀 team.cells）也就維持舊站位。
+    // 現在：依舊陣法的格位順序排出隊伍順序，再依新陣法的格位順序（formations.json cells，D：本作設定的陣形順序）重新排入，武將跟著陣形換位。
+    var old = G.formation(), oldCells = (old && old.cells) || [], list = G.teamList();
+    if (old && old.id === fid) { G.commit(); var o0 = ok(); o0.moved = []; return o0; }
+    var rank = function (c) { var k = oldCells.indexOf(c); return k < 0 ? 100 + c : k; };
+    list = list.slice().sort(function (a, b) { return rank(a.cell) - rank(b.cell); });
+    s.team.formation = fid; s.team.cells = {};
+    var nc = f.cells || [], moved = [], i2 = 0;
+    U.each(list, function (x) {
+      while (i2 < nc.length && s.team.cells[nc[i2]]) i2++;
+      var c = i2 < nc.length ? nc[i2] : null;
+      if (c == null) return;
+      s.team.cells[c] = x.hero.uid; i2++;
+      if (c !== x.cell) moved.push(G.nameOf ? G.nameOf(x.hero) : x.hero.name);
     });
     G.commit(); var o = ok(); o.moved = moved; return o;
   };
@@ -243,7 +246,7 @@ MJ.G = (function () {
     var s = st(), def = R.heroDef(id);
     if (!def || s.recruit.cands.indexOf(id) < 0) return fail('此武將不在拜訪名單中');
     if (U.find(s.heroes, function (h) { return h.id === id; })) return fail('已擁有此武將');
-    if (s.heroes.length >= R.rosterCap(s)) return fail('武將數已滿（' + s.heroes.length + '/' + R.rosterCap(s) + '），請先解僱或升級聚賢莊');
+    if (s.heroes.length >= R.rosterCap(s)) return fail('武將數已滿（' + s.heroes.length + '/' + R.rosterCap(s) + '），請先解僱，或到聚賢莊「我的武將」分頁升級聚賢莊');
     var cost = G.recruitCost(id);
     if (s.player.silver < cost) return fail('銀幣不足（需要 ' + U.fmt(cost) + '）');
     s.player.silver -= cost;
@@ -275,7 +278,7 @@ MJ.G = (function () {
     if (!def) return fail('未知武將');
     if (U.find(s.heroes, function (h) { return h.id === id; })) return fail('已擁有此武將');
     if (have < def.souls) return fail('將魂不足（' + have + '/' + def.souls + '）');
-    if (s.heroes.length >= R.rosterCap(s)) return fail('武將數已滿');
+    if (s.heroes.length >= R.rosterCap(s)) return fail('武將數已滿（' + s.heroes.length + '/' + R.rosterCap(s) + '），請先解僱或升級聚賢莊');
     s.bag.stack['soul:' + id] = have - def.souls;
     if (!s.bag.stack['soul:' + id]) delete s.bag.stack['soul:' + id];
     s.heroes.push(G.newHero(id, s));
@@ -457,6 +460,19 @@ MJ.G = (function () {
 
   // ---------- 建築升級 ----------
   G.buildingCost = function (k, lv) { return Math.floor(500 * lv * lv); }; // D
+  // 聚賢莊升級（Tomas 2026-11-04 回報：聚賢莊 Lv1 武將數 5/5 卡住、畫面沒有升級按鈕）
+  // B（S1 sn41）：「建築升級可以提升武將欄位」；每級 +1 欄、費用 500×Lv² 銀、不能超過主角等級為本作設計（D）。
+  // 引擎早就有 G.upgradeBuilding('juxian') 與 R.rosterCap，只是聚賢莊畫面沒放按鈕。
+  G.buildingCheck = function (k) {
+    var s = st(), lv = s.buildings[k] || 1, bc = C().buildings[k], cost = G.buildingCost(k, lv);
+    var why = !bc || bc.phase || k === 'xukong' ? '此建築不能升級' : (bc.open && G.lead().lv < bc.open) ? '主角 ' + bc.open + ' 級開放' :
+      lv >= G.lead().lv ? '需要主角 Lv' + (lv + 1) + '（建築等級不能超過主角等級）' : s.player.silver < cost ? '銀幣不足（需要 ' + U.fmt(cost) + '）' : '';
+    return { lv: lv, next: lv + 1, cost: cost, needLead: lv + 1, ok: !why, why: why };
+  };
+  G.juxianInfo = function () {
+    var s = st(), c = G.buildingCheck('juxian'), cap = R.rosterCap(s);
+    c.cap = cap; c.nextCap = cap + 1; c.heroes = s.heroes.length; return c;
+  };
   G.upgradeBuilding = function (k) {
     var s = st(), lv = s.buildings[k] || 1;
     var bc = C().buildings[k];

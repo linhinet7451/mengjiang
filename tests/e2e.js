@@ -459,11 +459,11 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   await page.waitForSelector('#loading', { state: 'detached', timeout: 5000 });
   ok(await J(function () { return JSON.stringify(MJ.S.state.team); }) === teamSnap, '重新整理後陣法與站位不變 ' + teamSnap);
   await closeModals();
-  await J(function () { MJ.UI.actions.startBattle('s1_1'); });
+  // v10 大棋盤：開戰同一瞬間（還沒前進）檢查每位武將在棋盤上自己那一列、我方開場欄（homeBx＝2−欄）
+  var posOk = await J(function () { MJ.UI.actions.startBattle('s1_1'); var bad = []; MJ.G.teamList().forEach(function (x) { var e = document.getElementById('uA' + x.cell), p = MJ.UI.boardPos(Math.floor(x.cell / 3), MJ.Battle.homeBx('A', x.cell)); if (!e || parseInt(e.style.left, 10) !== p.x - 56 || parseInt(e.style.top, 10) !== p.y - 130) bad.push(x.cell); }); return bad; });
   await page.waitForTimeout(300);
-  var posOk = await J(function () { var bad = []; MJ.G.teamList().forEach(function (x) { var e = document.getElementById('uA' + x.cell), p = MJ.UI.battlePos('A', x.cell); if (!e || parseInt(e.style.left, 10) !== p.x - 56) bad.push(x.cell); }); return bad; });
   ok(!posOk.length, '戰鬥中我方武將站在編好的格子（不符：' + (posOk.join(',') || '無') + '）');
-  ok(await J(function () { return MJ.G.openCells().every(function (c) { return document.getElementById('tA' + c).className.indexOf('open') >= 0; }); }), '戰場上標出陣法開放的格子');
+  ok(await J(function () { return MJ.G.openCells().every(function (c) { var t = document.getElementById('tX' + (Math.floor(c / 3) * 8 + MJ.Battle.homeBx('A', c))); return t && t.className.indexOf('open') >= 0; }); }), '戰場上標出陣法開放的格子');
   // 緊急修正二：出手時壓暗戰場、紅格顯示範圍
   var seen = { aim: 0, rng: 0, warn: 0, me: 0 };
   for (var q = 0; q < 40 && !(seen.aim && seen.warn && seen.me); q++) {
@@ -473,7 +473,7 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
     await page.waitForTimeout(60);
   }
   ok(seen.aim && seen.warn && seen.me, '出手時壓暗戰場，紅格標出受擊格、綠格標出施放者（取樣 aim ' + seen.aim + '、warn ' + seen.warn + '、me ' + seen.me + '）');
-  ok(await J(function () { return MJ.UI.battleState().r.battle.events.some(function (e) { return e.t === 'act' && e.rv === 9 && e.range; }); }), '戰報使用 v9 攻擊範圍');
+  ok(await J(function () { return MJ.UI.battleState().r.battle.events.some(function (e) { return e.t === 'act' && e.rv === 10 && e.range; }); }), '戰報使用 v10 大棋盤攻擊範圍');
   await J(function () { MJ.UI.actions.bSkip(); });
   await page.waitForTimeout(500);
   await J(function () { MJ.UI.actions.bCity(); });
