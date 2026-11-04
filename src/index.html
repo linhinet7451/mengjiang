@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
+<title>猛將無雙．單機重製版</title>
+<!--INLINE_CSS_START--><link rel="stylesheet" href="css/style.css"><!--INLINE_CSS_END-->
+<script>
+/* 全域錯誤處理：任何錯誤都顯示可讀訊息與重新開始按鈕，不會白畫面 */
+(function () {
+  var shown = false;
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  window.MJ_FATAL = function (msg, detail) {
+    if (shown) return; shown = true;
+    var f = document.getElementById('fatal');
+    if (!f) { f = document.createElement('div'); f.id = 'fatal'; (document.body || document.documentElement).appendChild(f); }
+    f.innerHTML = '<h2>遊戲發生錯誤</h2><p>很抱歉，遊戲執行時出現問題。你的存檔通常仍保存在瀏覽器中。</p><p><b>' + esc(msg) + '</b></p>' +
+      '<pre>' + esc(detail || '') + '\n' + esc(navigator.userAgent) + '</pre>' +
+      '<button onclick="location.reload()">重新開始</button>' +
+      '<button onclick="try{var t=localStorage.getItem(\'mjws_save\');var w=document.getElementById(\'fatalSave\');w.value=t||\'（沒有存檔）\';w.style.display=\'block\';w.select();}catch(e){alert(\'無法讀取存檔：\'+e.message)}">顯示存檔文字（備份用）</button>' +
+      '<button onclick="if(confirm(\'確定刪除存檔並重新開始？此動作無法復原。\')){try{localStorage.removeItem(\'mjws_save\');localStorage.removeItem(\'mjws_save_backup\');}catch(e){}location.reload()}">刪除存檔重來</button>' +
+      '<textarea id="fatalSave" style="display:none;width:100%;height:140px;margin-top:8px"></textarea>';
+    f.style.display = 'block';
+  };
+  window.onerror = function (msg, src, line, col, err) {
+    if (/^Script error\.?$/.test(String(msg))) msg = '瀏覽器隱藏了錯誤細節（Script error）。請重新開始；若一再發生，請開啟 boot-test.html 檢測並截圖回報';
+    window.MJ_FATAL('程式錯誤：' + msg, (src || '') + ':' + line + ':' + col + '\n' + (err && err.stack ? err.stack : ''));
+    return false;
+  };
+  window.addEventListener && window.addEventListener('unhandledrejection', function (e) { var r = e.reason, n = r && r.name; if (n === 'NotAllowedError' || n === 'InvalidStateError' || n === 'NotSupportedError' || n === 'AbortError') { if (e.preventDefault) e.preventDefault(); return; } /* 瀏覽器音訊／媒體限制不算遊戲錯誤 */ window.MJ_FATAL('未處理的錯誤', String(r)); });
+  // 載入進度：美術資料分段內嵌，每段跑完回報百分比（網路慢時下載本身也會逐段顯示）
+  window.MJ_LDP = function (pct) { var b = document.getElementById('ldBar'), t = document.getElementById('ldPct'); if (b) b.style.width = pct + '%'; if (t) t.innerHTML = pct + '%'; };
+  // 看門狗：檔案全部讀完（DOMContentLoaded）後 8 秒內沒有完成啟動就顯示錯誤，而非空白；慢速網路下載中不會誤判
+  var wd = function () { setTimeout(function () { if (!window.MJ || !window.MJ.booted) window.MJ_FATAL('遊戲沒有在讀完檔案後 8 秒內完成啟動', '可能是瀏覽器版本過舊或檔案不完整。請重新整理，或改用最新版 Safari／Chrome。'); }, 8000); };
+  if (document.addEventListener) document.addEventListener('DOMContentLoaded', wd, false); else setTimeout(wd, 30000);
+})();
+</script>
+</head>
+<body>
+<div id="stage"><div id="screen"></div><div id="modal"></div><div id="confirm"></div><div id="toast"></div></div>
+<div id="loading"><div class="ld-logo">猛將無雙</div><div class="ld-bar"><i id="ldBar"></i></div><div class="ld-t">正在載入遊戲... <span id="ldPct">0%</span></div><div class="ld-tip" id="ldTip">小提示：物理攻擊對體力高、法術攻擊對智力高、絕技攻擊對敏捷高的武將，裝備、屬性培養等是不一樣的。</div></div>
+<div id="fatal"></div>
+<noscript><div style="color:#fff;padding:20px">需要啟用 JavaScript 才能遊玩。</div></noscript>
+<!--INLINE_JS_START-->
+<script src="js/util.js"></script>
+<script src="js/data.generated.js"></script>
+<script src="js/assets.generated.js"></script>
+<script src="js/assets-map.js"></script>
+<script src="js/art.js"></script>
+<script src="js/rules.js"></script>
+<script src="js/battle.js"></script>
+<script src="js/state.js"></script>
+<script src="js/game.js"></script>
+<script src="js/sys2.js"></script>
+<script src="js/sys3.js"></script>
+<script src="js/sys4.js"></script>
+<script src="js/sys5.js"></script>
+<script src="js/sys6.js"></script>
+<script src="js/sys7.js"></script>
+<script src="js/sys8.js"></script>
+<script src="js/sys9.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/ui-city.js"></script>
+<script src="js/ui-recruit.js"></script>
+<script src="js/ui-hall.js"></script>
+<script src="js/ui-gate.js"></script>
+<script src="js/ui-battle.js"></script>
+<script src="js/ui-misc.js"></script>
+<script src="js/ui-p2.js"></script>
+<script src="js/ui-p3.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/ui-p4.js"></script>
+<script src="js/ui-p5.js"></script>
+<script src="js/ui-p6.js"></script>
+<script src="js/ui-p7.js"></script>
+<script src="js/ui-p8.js"></script>
+<script src="js/ui-p9.js"></script>
+<script src="js/main.js"></script>
+<!--INLINE_JS_END-->
+<script>
+try { MJ.boot(); } catch (e) { window.MJ_FATAL('啟動失敗：' + e.message, e.stack || ''); }
+</script>
+</body>
+</html>

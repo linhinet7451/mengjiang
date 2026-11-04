@@ -1,0 +1,8942 @@
+{
+ "chapters": [
+  {
+   "id": 1,
+   "name": "黃巾之亂",
+   "lv": 1,
+   "desc": "蒼天已死，黃天當立。平定黃巾賊亂。",
+   "bg": "#7a9a4a",
+   "pool": [
+    "hj_bing",
+    "hj_lishi",
+    "hj_shushi"
+   ],
+   "elite": [
+    "zhangbao",
+    "zhangliang"
+   ],
+   "boss": "zj_boss",
+   "hidden": "nanhua",
+   "stageNames": [
+    "涿郡郊外",
+    "黃巾營寨",
+    "鉅鹿荒村",
+    "地公壇",
+    "廣宗城外",
+    "曲陽古道",
+    "人公壇",
+    "廣宗決戰",
+    "南華仙洞"
+   ],
+   "souls": [
+    "zhangjiao",
+    "huaxiong",
+    "caiwenji",
+    "guanhai",
+    "dengmao",
+    "qiuchuji"
+   ]
+  },
+  {
+   "id": 2,
+   "name": "曼陀山莊",
+   "lv": 8,
+   "desc": "太湖之畔，曼陀花開。姑蘇慕容，以彼之道還施彼身。",
+   "bg": "#5a7a8a",
+   "pool": [
+    "mt_jiading",
+    "xx_dizi",
+    "mr_jiachen",
+    "mt_shinv"
+   ],
+   "elite": [
+    "e_dingchunqiu",
+    "e_jiumozhi"
+   ],
+   "boss": "murongfu",
+   "hidden": "duanyanqing",
+   "stageNames": [
+    "太湖小舟",
+    "琴韻小築",
+    "聽香水榭",
+    "星宿海",
+    "曼陀花徑",
+    "還施水閣",
+    "燕子塢",
+    "參合莊",
+    "擂鼓山"
+   ],
+   "souls": [
+    "wangyuyan",
+    "liqiushui",
+    "baobutong",
+    "azi",
+    "yuelingshan",
+    "renyingying"
+   ]
+  },
+  {
+   "id": 3,
+   "name": "虎牢關",
+   "lv": 15,
+   "desc": "十八路諸侯討董卓，三英戰呂布。",
+   "bg": "#8a5a3a",
+   "pool": [
+    "xl_qibing",
+    "xl_gongshou",
+    "dz_qinwei",
+    "lj_moushi"
+   ],
+   "elite": [
+    "e_huaxiong",
+    "e_lijue"
+   ],
+   "boss": "b_lvbu",
+   "hidden": "b_dongzhuo",
+   "stageNames": [
+    "酸棗大營",
+    "汜水關前",
+    "汜水關",
+    "西涼營地",
+    "虎牢關外",
+    "洛陽古道",
+    "長安郊外",
+    "虎牢關",
+    "郿塢"
+   ],
+   "souls": [
+    "sunce",
+    "taishici",
+    "liaohua",
+    "weiyan",
+    "xiongmao",
+    "lvbu"
+   ]
+  },
+  {
+   "id": 4,
+   "name": "光明頂",
+   "lv": 22,
+   "desc": "六大派圍攻光明頂，明教存亡一線。",
+   "bg": "#6a4a7a",
+   "pool": [
+    "mj_jiaozhong",
+    "em_dizi",
+    "kl_dizi",
+    "wd_dizi"
+   ],
+   "elite": [
+    "e_luzhangke",
+    "e_hebiweng"
+   ],
+   "boss": "b_miejue",
+   "hidden": "xiexun",
+   "stageNames": [
+    "崑崙山麓",
+    "蝴蝶谷",
+    "綠柳山莊",
+    "萬安寺",
+    "光明頂山道",
+    "秘道",
+    "光明頂廣場",
+    "光明頂之巔",
+    "冰火島"
+   ],
+   "souls": [
+    "luzhangke",
+    "miejue",
+    "shuanger",
+    "hongqigong",
+    "zhangwuji",
+    "meichaofeng"
+   ]
+  },
+  {
+   "id": 5,
+   "name": "襄陽城",
+   "lv": 29,
+   "desc": "蒙古鐵騎南下，郭靖黃蓉死守襄陽。",
+   "bg": "#6a7a5a",
+   "pool": [
+    "mg_qibing",
+    "mg_sheshou",
+    "mg_lama",
+    "mg_wushi"
+   ],
+   "elite": [
+    "e_huodu",
+    "e_daerba"
+   ],
+   "boss": "b_jinlun",
+   "hidden": "b_menge",
+   "stageNames": [
+    "終南山下",
+    "絕情谷",
+    "英雄大會",
+    "襄陽城郊",
+    "百花谷",
+    "古墓",
+    "襄陽城頭",
+    "襄陽之戰",
+    "釣魚城"
+   ],
+   "souls": [
+    "huangrong",
+    "yangguo",
+    "xiaolongnv",
+    "zhoubotong",
+    "huangyaoshi",
+    "guojing"
+   ]
+  },
+  {
+   "id": 6,
+   "name": "赤壁",
+   "lv": 36,
+   "desc": "孫劉聯軍，火燒連環船。",
+   "bg": "#7a4a3a",
+   "pool": [
+    "cj_shuibing",
+    "cj_hubaoqi",
+    "cj_moushi",
+    "cj_nushou"
+   ],
+   "elite": [
+    "e_zhangliao",
+    "e_caoren"
+   ],
+   "boss": "b_caocao",
+   "hidden": "b_simayi",
+   "stageNames": [
+    "長坂坡",
+    "當陽橋",
+    "柴桑",
+    "群英會",
+    "草船借箭",
+    "七星壇",
+    "連環船",
+    "赤壁之戰",
+    "華容道"
+   ],
+   "souls": [
+    "huangyueying",
+    "daqiao",
+    "xiaoqiao",
+    "ganning",
+    "zhouyu",
+    "caocao"
+   ]
+  },
+  {
+   "id": 7,
+   "name": "黑木崖",
+   "lv": 43,
+   "desc": "日月神教總壇，千古一戰。",
+   "bg": "#4a3a5a",
+   "pool": [
+    "ry_jiaozhong",
+    "ry_zhanglao",
+    "ry_anqi",
+    "ry_hufa"
+   ],
+   "elite": [
+    "e_xiangwentian",
+    "e_yanglianting"
+   ],
+   "boss": "b_renwoxing",
+   "hidden": "b_dongfang",
+   "stageNames": [
+    "西湖梅莊",
+    "孤山",
+    "地牢",
+    "平定州",
+    "風雷堂",
+    "黑木崖下",
+    "成德殿",
+    "黑木崖頂",
+    "繡房"
+   ],
+   "souls": [
+    "renyingying",
+    "yuebuqun",
+    "tianbg",
+    "zhizunbao",
+    "linghuchong",
+    "dongfang"
+   ]
+  },
+  {
+   "id": 8,
+   "name": "華山論劍",
+   "lv": 50,
+   "desc": "天下五絕，華山之巔一決高下。",
+   "bg": "#4a5a6a",
+   "pool": [
+    "hs_jianke",
+    "hs_baituo",
+    "hs_tiezhang",
+    "hs_yinshi"
+   ],
+   "elite": [
+    "e_ouyangke",
+    "e_qiuqianren"
+   ],
+   "boss": "b_ouyangfeng",
+   "hidden": "b_dugu",
+   "stageNames": [
+    "蒼龍嶺",
+    "玉女峰",
+    "思過崖",
+    "鐵掌峰",
+    "白駝山",
+    "落雁峰",
+    "朝陽峰",
+    "華山之巔",
+    "劍塚"
+   ],
+   "souls": [
+    "duanyu",
+    "xuzhu",
+    "ouyangfeng",
+    "simayi",
+    "hongqigong",
+    "xiaofeng"
+   ]
+  }
+ ],
+ "enemies": {
+  "hj_bing": {
+   "name": "黃巾賊兵",
+   "type": "力敏",
+   "look": [
+    "m",
+    "#e0ad86",
+    "#2a1e15",
+    "headband",
+    "none",
+    "#9a7b3a",
+    "#e8c547",
+    "spear"
+   ],
+   "pattern": "single",
+   "ult": "line2"
+  },
+  "hj_lishi": {
+   "name": "黃巾力士",
+   "type": "力耐",
+   "look": [
+    "m",
+    "#c98e65",
+    "#120d0a",
+    "headband",
+    "short",
+    "#7a5a22",
+    "#e8c547",
+    "blade"
+   ],
+   "pattern": "single",
+   "ult": "line2"
+  },
+  "hj_shushi": {
+   "name": "黃巾術士",
+   "type": "智敏",
+   "look": [
+    "m",
+    "#e3b38c",
+    "#3a2a1a",
+    "headband",
+    "goatee",
+    "#c9a227",
+    "#6b3a1a",
+    "staff"
+   ],
+   "pattern": "col2",
+   "ult": "col3"
+  },
+  "zhangbao": {
+   "name": "地公將軍·張寶",
+   "type": "智耐",
+   "look": [
+    "m",
+    "#d9a77f",
+    "#2a1e15",
+    "headband",
+    "long",
+    "#a0782a",
+    "#4a2a10",
+    "staff"
+   ],
+   "pattern": "col2",
+   "ult": "col3",
+   "boss": 1
+  },
+  "zhangliang": {
+   "name": "人公將軍·張梁",
+   "type": "力耐",
+   "look": [
+    "m",
+    "#c98e65",
+    "#1a120d",
+    "headband",
+    "long",
+    "#8a5a22",
+    "#e8c547",
+    "halberd"
+   ],
+   "pattern": "line2",
+   "ult": "line3",
+   "boss": 1
+  },
+  "zj_boss": {
+   "name": "天公將軍·張角",
+   "type": "智耐",
+   "look": [
+    "m",
+    "#e3b08a",
+    "#3a2d20",
+    "headband",
+    "long",
+    "#c9a227",
+    "#7a3b12",
+    "staff"
+   ],
+   "pattern": "col3",
+   "ult": "all",
+   "boss": 1
+  },
+  "nanhua": {
+   "name": "南華老仙",
+   "type": "智耐",
+   "look": [
+    "m",
+    "#f0d6bc",
+    "#f0f0f0",
+    "taoist",
+    "long",
+    "#eeeeee",
+    "#7aa6c9",
+    "staff"
+   ],
+   "pattern": "cross",
+   "ult": "all",
+   "boss": 1
+  },
+  "mt_jiading": {
+   "name": "曼陀山莊家丁",
+   "type": "力敏",
+   "look": [
+    "m",
+    "#efc39b",
+    "#1a1512",
+    "topknot",
+    "none",
+    "#5d6d7e",
+    "#d0d0d0",
+    "blade"
+   ],
+   "pattern": "single",
+   "ult": "line2"
+  },
+  "xx_dizi": {
+   "name": "星宿派弟子",
+   "type": "智敏",
+   "look": [
+    "m",
+    "#ecc29b",
+    "#2a2a2a",
+    "hood",
+    "none",
+    "#4a6b2f",
+    "#c0d080",
+    "dagger"
+   ],
+   "pattern": "diag",
+   "ult": "diag"
+  },
+  "mr_jiachen": {
+   "name": "慕容家臣",
+   "type": "力耐",
+   "look": [
+    "m",
+    "#e3b38c",
+    "#151515",
+    "topknot",
+    "short",
+    "#2f4f6f",
+    "#c9a24a",
+    "sword"
+   ],
+   "pattern": "single",
+   "ult": "line2"
+  },
+  "mt_shinv": {
+   "name": "山莊侍女",
+   "type": "智耐",
+   "look": [
+    "f",
+    "#fbe0cd",
+    "#2a1a22",
+    "bun",
+    "none",
+    "#e57373",
+    "#fce4ec",
+    "fan"
+   ],
+   "pattern": "col2",
+   "ult": "col3"
+  },
+  "e_dingchunqiu": {
+   "name": "星宿老怪·丁春秋",
+   "type": "智敏",
+   "look": [
+    "m",
+    "#ecc29b",
+    "#e8e8e8",
+    "long",
+    "long",
+    "#4a6b2f",
+    "#c0d080",
+    "fan"
+   ],
+   "pattern": "diag",
+   "ult": "cross",
+   "boss": 1
+  },
+  "e_jiumozhi": {
+   "name": "大輪明王·鳩摩智",
+   "type": "力耐",
+   "look": [
+    "m",
+    "#c98e65",
+    "#151515",
+    "bald",
+    "none",
+    "#c62828",
+    "#ffca28",
+    "none"
+   ],
+   "pattern": "line2",
+   "ult": "line3",
+   "boss": 1
+  },
+  "murongfu": {
+   "name": "姑蘇慕容·慕容復",
+   "type": "力敏",
+   "look": [
+    "m",
+    "#f4cfaa",
+    "#1b1b1b",
+    "guan",
+    "none",
+    "#eceff1",
+    "#5c6bc0",
+    "sword"
+   ],
+   "pattern": "col3",
+   "ult": "all",
+   "boss": 1
+  },
+  "duanyanqing": {
+   "name": "惡貫滿盈·段延慶",
+   "type": "智耐",
+   "look": [
+    "m",
+    "#d9a77f",
+    "#555555",
+    "hood",
+    "long",
+    "#263238",
+    "#8a8a8a",
+    "staff"
+   ],
+   "pattern": "line3",
+   "ult": "all",
+   "boss": 1
+  },
+  "xl_qibing": {
+   "name": "西涼鐵騎",
+   "type": "力耐",
+   "look": [
+    "m",
+    "#c88d63",
+    "#160f0b",
+    "helmet",
+    "short",
+    "#6b2a1f",
+    "#9e9e9e",
+    "spear"
+   ],
+   "pattern": "line2",
+   "ult": "line3"
+  },
+  "xl_gongshou": {
+   "name": "西涼弓手",
+   "type": "力敏",
+   "look": [
+    "m",
+    "#d9a77f",
+    "#1b1b1b",
+    "helmet",
+    "none",
+    "#795548",
+    "#c9a24a",
+    "bow"
+   ],
+   "pattern": "col2",
+   "ult": "col3"
+  },
+  "dz_qinwei": {
+   "name": "董卓親衛",
+   "type": "力耐",
+   "look": [
+    "m",
+    "#c98e65",
+    "#120d0a",
+    "helmet",
+    "long",
+    "#3e2723",
+    "#ffca28",
+    "halberd"
+   ],
+   "pattern": "single",
+   "ult": "line2"
+  },
+  "lj_moushi": {
+   "name": "西涼謀士",
+   "type": "智敏",
+   "look": [
+    "m",
+    "#f0c49c",
+    "#1b1b1b",
+    "guan",
+    "goatee",
+    "#4e342e",
+    "#d7ccc8",
+    "fan"
+   ],
+   "pattern": "cross",
+   "ult": "col3"
+  },
+  "e_huaxiong": {
+   "name": "驍將·華雄",
+   "type": "力耐",
+   "look": [
+    "m",
+    "#c88d63",
+    "#160f0b",
+    "helmet",
+    "long",
+    "#6b2a1f",
+    "#c9a24a",
+    "blade"
+   ],
+   "pattern": "line2",
+   "ult": "line3",
+   "boss": 1
+  },
+  "e_lijue": {
+   "name": "西涼將·李傕",
+   "type": "力敏",
+   "look": [
+    "m",
+    "#d9a77f",
+    "#1a120d",
+    "helmet",
+    "short",
+    "#5d4037",
+    "#c9a24a",
+    "spear"
+   ],
+   "pattern": "line2",
+   "ult": "col3",
+   "boss": 1
+  },
+  "b_lvbu": {
+   "name": "飛將·呂布",
+   "type": "力敏",
+   "look": [
+    "m",
+    "#e7b993",
+    "#120c0a",
+    "helmet",
+    "none",
+    "#5d1f1f",
+    "#ffca28",
+    "halberd"
+   ],
+   "pattern": "line3",
+   "ult": "all",
+   "boss": 1
+  },
+  "b_dongzhuo": {
+   "name": "魔王·董卓",
+   "type": "力耐",
+   "look": [
+    "m",
+    "#c98e65",
+    "#120d0a",
+    "guan",
+    "long",
+    "#311b92",
+    "#ffca28",
+    "blade"
+   ],
+   "pattern": "col3",
+   "ult": "all",
+   "boss": 1
+  },
+  "mj_jiaozhong": {
+   "name": "明教教眾",
+   "type": "力耐",
+   "look": [
+    "m",
+    "#d9a77f",
+    "#1b1b1b",
+    "headband",
+    "short",
+    "#b71c1c",
+    "#ffab00",
+    "blade"
+   ],
+   "pattern": "single",
+   "ult": "line2"
+  },
+  "em_dizi": {
+   "name": "峨嵋弟子",
+   "type": "智敏",
+   "look": [
+    "f",
+    "#fbe0cd",
+    "#151515",
+    "bun",
+    "none",
+    "#90a4ae",
+    "#eceff1",
+    "sword"
+   ],
+   "pattern": "line2",
+   "ult": "line3"
+  },
+  "kl_dizi": {
+   "name": "崑崙弟子",
+   "type": "力敏",
+   "look": [
+    "m",
+    "#efc39b",
+    "#1b1b1b",
+    "topknot",
+    "none",
+    "#4e6e5d",
+    "#d0d0d0",
+    "sword"
+   ],
+   "pattern": "diag",
+   "ult": "cross"
+  },
+  "wd_dizi": {
+   "name": "武當弟子",
+   "type": "智耐",
+   "look": [
+    "m",
+    "#f0c7a0",
+    "#1b1b1b",
+    "taoist",
+    "none",
+    "#eceff1",
+    "#37474f",
+    "sword"
+   ],
+   "pattern": "col2",
+   "ult": "col3"
+  },
+  "e_luzhangke": {
+   "name": "玄冥二老·鹿杖客",
+   "type": "智耐",
+   "look": [
+    "m",
+    "#d8a47c",
+    "#bfbfbf",
+    "bald",
+    "long",
+    "#4a3b2a",
+    "#8a8a8a",
+    "staff"
+   ],
+   "pattern": "col2",
+   "ult": "col3",
+   "boss": 1
+  },
+  "e_hebiweng": {
+   "name": "玄冥二老·鶴筆翁",
+   "type": "智敏",
+   "look": [
+    "m",
+    "#d8a47c",
+    "#d0d0d0",
+    "topknot",
+    "long",
+    "#263238",
+    "#8a8a8a",
+    "staff"
+   ],
+   "pattern": "diag",
+   "ult": "cross",
+   "boss": 1
+  },
+  "b_miejue": {
+   "name": "峨嵋掌門·滅絕師太",
+   "type": "智耐",
+   "look": [
+    "f",
+    "#f0d0b8",
+    "#e0e0e0",
+    "hood",
+    "none",
+    "#3b3b3b",
+    "#c0c0c0",
+    "sword"
+   ],
+   "pattern": "line3",
+   "ult": "all",
+   "boss": 1
+  },
+  "xiexun": {
+   "name": "金毛獅王·謝遜",
+   "type": "力耐",
+   "look": [
+    "m",
+    "#d9a77f",
+    "#ffcc33",
+    "long",
+    "long",
+    "#6d4c41",
+    "#ffd54f",
+    "blade"
+   ],
+   "pattern": "col3",
+   "ult": "all",
+   "boss": 1
+  },
+  "mg_qibing": {
+   "name": "蒙古騎兵",
+   "type": "力耐",
+   "look": [
+    "m",
+    "#c98e65",
+    "#1a1a1a",
+    "cap",
+    "short",
+    "#6d4c41",
+    "#ffb300",
+    "blade"
+   ],
+   "pattern": "line2",
+   "ult": "line3"
+  },
+  "mg_sheshou": {
+   "name": "射鵰手",
+   "type": "敏耐",
+   "look": [
+    "m",
+    "#d9a77f",
+    "#1a1a1a",
+    "cap",
+    "none",
+    "#8d6e63",
+    "#ffd54f",
+    "bow"
+   ],
+   "pattern": "col2",
+   "ult": "col3"
+  },
+  "mg_lama": {
+   "name": "密宗喇嘛",
+   "type": "智耐",
+   "look": [
+    "m",
+    "#c98e65",
+    "#151515",
+    "bald",
+    "none",
+    "#c62828",
+    "#ffca28",
+    "staff"
+   ],
+   "pattern": "cross",
+   "ult": "col3"
+  },
+  "mg_wushi": {
+   "name": "蒙古武士",
+   "type": "力敏",
+   "look": [
+    "m",
+    "#d9a77f",
+    "#1a1a1a",
+    "helmet",
+    "short",
+    "#5d4037",
+    "#bdbdbd",
+    "spear"
+   ],
+   "pattern": "single",
+   "ult": "line2"
+  },
+  "e_huodu": {
+   "name": "王子·霍都",
+   "type": "智敏",
+   "look": [
+    "m",
+    "#f0c7a0",
+    "#1b1b1b",
+    "topknot",
+    "none",
+    "#283593",
+    "#ffd54f",
+    "fan"
+   ],
+   "pattern": "diag",
+   "ult": "cross",
+   "boss": 1
+  },
+  "e_daerba": {
+   "name": "金剛·達爾巴",
+   "type": "力耐",
+   "look": [
+    "m",
+    "#b98060",
+    "#0d0d0d",
+    "bald",
+    "none",
+    "#c62828",
+    "#ffd54f",
+    "staff"
+   ],
+   "pattern": "line2",
+   "ult": "line3",
+   "boss": 1
+  },
+  "b_jinlun": {
+   "name": "國師·金輪法王",
+   "type": "力耐",
+   "look": [
+    "m",
+    "#c98e65",
+    "#151515",
+    "bald",
+    "none",
+    "#ffb300",
+    "#c62828",
+    "none"
+   ],
+   "pattern": "cross",
+   "ult": "all",
+   "boss": 1
+  },
+  "b_menge": {
+   "name": "大汗·蒙哥",
+   "type": "敏耐",
+   "look": [
+    "m",
+    "#c98e65",
+    "#1b1b1b",
+    "crown",
+    "long",
+    "#4e342e",
+    "#ffd54f",
+    "bow"
+   ],
+   "pattern": "col3",
+   "ult": "all",
+   "boss": 1
+  },
+  "cj_shuibing": {
+   "name": "曹軍水兵",
+   "type": "力敏",
+   "look": [
+    "m",
+    "#e0ad86",
+    "#1b1b1b",
+    "helmet",
+    "none",
+    "#1565c0",
+    "#bdbdbd",
+    "spear"
+   ],
+   "pattern": "single",
+   "ult": "line2"
+  },
+  "cj_hubaoqi": {
+   "name": "虎豹騎",
+   "type": "力耐",
+   "look": [
+    "m",
+    "#c98e65",
+    "#120d0a",
+    "helmet",
+    "short",
+    "#212121",
+    "#ffca28",
+    "halberd"
+   ],
+   "pattern": "line2",
+   "ult": "line3"
+  },
+  "cj_moushi": {
+   "name": "曹營謀士",
+   "type": "智敏",
+   "look": [
+    "m",
+    "#f0c49c",
+    "#1b1b1b",
+    "guan",
+    "goatee",
+    "#283593",
+    "#d7ccc8",
+    "fan"
+   ],
+   "pattern": "cross",
+   "ult": "col3"
+  },
+  "cj_nushou": {
+   "name": "曹軍弩手",
+   "type": "敏耐",
+   "look": [
+    "m",
+    "#d9a77f",
+    "#1b1b1b",
+    "helmet",
+    "none",
+    "#455a64",
+    "#c9a24a",
+    "bow"
+   ],
+   "pattern": "col2",
+   "ult": "col3"
+  },
+  "e_zhangliao": {
+   "name": "威震逍遙津·張遼",
+   "type": "力敏",
+   "look": [
+    "m",
+    "#e7b993",
+    "#120c0a",
+    "helmet",
+    "short",
+    "#1a237e",
+    "#ffca28",
+    "halberd"
+   ],
+   "pattern": "line3",
+   "ult": "line3",
+   "boss": 1
+  },
+  "e_caoren": {
+   "name": "鐵壁·曹仁",
+   "type": "力耐",
+   "look": [
+    "m",
+    "#c98e65",
+    "#120d0a",
+    "helmet",
+    "long",
+    "#37474f",
+    "#ffca28",
+    "blade"
+   ],
+   "pattern": "line2",
+   "ult": "col3",
+   "boss": 1
+  },
+  "b_caocao": {
+   "name": "魏武·曹操",
+   "type": "智耐",
+   "look": [
+    "m",
+    "#f0c7a0",
+    "#1b1b1b",
+    "crown",
+    "goatee",
+    "#1a237e",
+    "#ffd54f",
+    "sword"
+   ],
+   "pattern": "col3",
+   "ult": "all",
+   "boss": 1
+  },
+  "b_simayi": {
+   "name": "冢虎·司馬懿",
+   "type": "智敏",
+   "look": [
+    "m",
+    "#f0c7a0",
+    "#424242",
+    "guan",
+    "goatee",
+    "#311b92",
+    "#b39ddb",
+    "fan"
+   ],
+   "pattern": "diag",
+   "ult": "all",
+   "boss": 1
+  },
+  "ry_jiaozhong": {
+   "name": "日月神教教眾",
+   "type": "力敏",
+   "look": [
+    "m",
+    "#e0ad86",
+    "#1b1b1b",
+    "headband",
+    "none",
+    "#4a148c",
+    "#ffd54f",
+    "blade"
+   ],
+   "pattern": "single",
+   "ult": "line2"
+  },
+  "ry_zhanglao": {
+   "name": "神教長老",
+   "type": "智耐",
+   "look": [
+    "m",
+    "#e0b08a",
+    "#bdbdbd",
+    "topknot",
+    "long",
+    "#311b92",
+    "#ffd54f",
+    "staff"
+   ],
+   "pattern": "col2",
+   "ult": "col3"
+  },
+  "ry_anqi": {
+   "name": "暗器堂殺手",
+   "type": "敏耐",
+   "look": [
+    "m",
+    "#e0ad86",
+    "#1b1b1b",
+    "hood",
+    "none",
+    "#212121",
+    "#9e9e9e",
+    "dagger"
+   ],
+   "pattern": "diag",
+   "ult": "diag"
+  },
+  "ry_hufa": {
+   "name": "神教護法",
+   "type": "力耐",
+   "look": [
+    "m",
+    "#c98e65",
+    "#120d0a",
+    "bald",
+    "short",
+    "#4a148c",
+    "#ffca28",
+    "halberd"
+   ],
+   "pattern": "line2",
+   "ult": "line3"
+  },
+  "e_xiangwentian": {
+   "name": "天王老子·向問天",
+   "type": "力敏",
+   "look": [
+    "m",
+    "#d9a77f",
+    "#424242",
+    "topknot",
+    "short",
+    "#3e2723",
+    "#ffd54f",
+    "blade"
+   ],
+   "pattern": "line3",
+   "ult": "line3",
+   "boss": 1
+  },
+  "e_yanglianting": {
+   "name": "總管·楊蓮亭",
+   "type": "智敏",
+   "look": [
+    "m",
+    "#f0c7a0",
+    "#1b1b1b",
+    "guan",
+    "none",
+    "#880e4f",
+    "#ffd54f",
+    "fan"
+   ],
+   "pattern": "diag",
+   "ult": "cross",
+   "boss": 1
+  },
+  "b_renwoxing": {
+   "name": "吸星大法·任我行",
+   "type": "智耐",
+   "look": [
+    "m",
+    "#e0b08a",
+    "#e0e0e0",
+    "long",
+    "long",
+    "#212121",
+    "#c62828",
+    "sword"
+   ],
+   "pattern": "cross",
+   "ult": "all",
+   "boss": 1
+  },
+  "b_dongfang": {
+   "name": "日出東方·東方不敗",
+   "type": "敏耐",
+   "look": [
+    "f",
+    "#f7d6c4",
+    "#1a1015",
+    "long",
+    "none",
+    "#c2185b",
+    "#f2d16b",
+    "needle"
+   ],
+   "pattern": "diag",
+   "ult": "all",
+   "boss": 1
+  },
+  "hs_jianke": {
+   "name": "華山劍客",
+   "type": "力敏",
+   "look": [
+    "m",
+    "#efc39b",
+    "#1b1b1b",
+    "topknot",
+    "none",
+    "#4a6a8a",
+    "#e0e0e0",
+    "sword"
+   ],
+   "pattern": "line2",
+   "ult": "line3"
+  },
+  "hs_baituo": {
+   "name": "白駝山蛇奴",
+   "type": "智敏",
+   "look": [
+    "m",
+    "#d9a77f",
+    "#1b1b1b",
+    "hood",
+    "none",
+    "#f5f5f5",
+    "#8bc34a",
+    "staff"
+   ],
+   "pattern": "diag",
+   "ult": "cross"
+  },
+  "hs_tiezhang": {
+   "name": "鐵掌幫眾",
+   "type": "力耐",
+   "look": [
+    "m",
+    "#c98e65",
+    "#120d0a",
+    "headband",
+    "short",
+    "#3e2723",
+    "#9e9e9e",
+    "none"
+   ],
+   "pattern": "single",
+   "ult": "line2"
+  },
+  "hs_yinshi": {
+   "name": "隱世高手",
+   "type": "敏耐",
+   "look": [
+    "m",
+    "#f0c7a0",
+    "#9e9e9e",
+    "taoist",
+    "long",
+    "#607d8b",
+    "#cfd8dc",
+    "sword"
+   ],
+   "pattern": "cross",
+   "ult": "col3"
+  },
+  "e_ouyangke": {
+   "name": "白駝少主·歐陽克",
+   "type": "智敏",
+   "look": [
+    "m",
+    "#f4cfaa",
+    "#1b1b1b",
+    "topknot",
+    "none",
+    "#f5f5f5",
+    "#8bc34a",
+    "fan"
+   ],
+   "pattern": "diag",
+   "ult": "cross",
+   "boss": 1
+  },
+  "e_qiuqianren": {
+   "name": "鐵掌水上飄·裘千仞",
+   "type": "力耐",
+   "look": [
+    "m",
+    "#d9a77f",
+    "#bdbdbd",
+    "topknot",
+    "long",
+    "#3e2723",
+    "#ffd54f",
+    "none"
+   ],
+   "pattern": "line2",
+   "ult": "col3",
+   "boss": 1
+  },
+  "b_ouyangfeng": {
+   "name": "西毒·歐陽鋒",
+   "type": "智耐",
+   "look": [
+    "m",
+    "#d9a77f",
+    "#e0e0e0",
+    "long",
+    "long",
+    "#3e2723",
+    "#8bc34a",
+    "staff"
+   ],
+   "pattern": "cross",
+   "ult": "all",
+   "boss": 1
+  },
+  "b_dugu": {
+   "name": "劍魔·獨孤求敗",
+   "type": "敏耐",
+   "look": [
+    "m",
+    "#f0c7a0",
+    "#e0e0e0",
+    "long",
+    "long",
+    "#263238",
+    "#cfd8dc",
+    "sword"
+   ],
+   "pattern": "line3",
+   "ult": "all",
+   "boss": 1
+  }
+ },
+ "stages": [
+  {
+   "id": "s1_1",
+   "ch": 1,
+   "idx": 0,
+   "kind": "normal",
+   "name": "涿郡郊外",
+   "lv": 1,
+   "energy": 1,
+   "exp": 14,
+   "silver": 28,
+   "enemies": [
+    {
+     "e": "hj_bing",
+     "cell": 1,
+     "lv": 1
+    },
+    {
+     "e": "hj_lishi",
+     "cell": 4,
+     "lv": 1
+    },
+    {
+     "e": "hj_shushi",
+     "cell": 7,
+     "lv": 1
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:wp1",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:cp1",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:zhangjiao",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_atk_1",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 42,
+    "items": []
+   },
+   "unlock": null
+  },
+  {
+   "id": "s1_2",
+   "ch": 1,
+   "idx": 1,
+   "kind": "normal",
+   "name": "黃巾營寨",
+   "lv": 2,
+   "energy": 1,
+   "exp": 20,
+   "silver": 36,
+   "enemies": [
+    {
+     "e": "hj_lishi",
+     "cell": 0,
+     "lv": 2
+    },
+    {
+     "e": "hj_shushi",
+     "cell": 4,
+     "lv": 2
+    },
+    {
+     "e": "hj_bing",
+     "cell": 8,
+     "lv": 2
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:ar1",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:bt1",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:huaxiong",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_hp_1",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 60,
+    "items": []
+   },
+   "unlock": "s1_1"
+  },
+  {
+   "id": "s1_3",
+   "ch": 1,
+   "idx": 2,
+   "kind": "normal",
+   "name": "鉅鹿荒村",
+   "lv": 3,
+   "energy": 1,
+   "exp": 26,
+   "silver": 44,
+   "enemies": [
+    {
+     "e": "hj_shushi",
+     "cell": 0,
+     "lv": 3
+    },
+    {
+     "e": "hj_bing",
+     "cell": 3,
+     "lv": 3
+    },
+    {
+     "e": "hj_lishi",
+     "cell": 6,
+     "lv": 3
+    },
+    {
+     "e": "hj_shushi",
+     "cell": 4,
+     "lv": 3
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:cp1",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:wm1",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:caiwenji",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_pdef_1",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 78,
+    "items": []
+   },
+   "unlock": "s1_2"
+  },
+  {
+   "id": "s1_4",
+   "ch": 1,
+   "idx": 3,
+   "kind": "elite",
+   "name": "地公壇",
+   "lv": 4,
+   "energy": 2,
+   "exp": 48,
+   "silver": 78,
+   "enemies": [
+    {
+     "e": "zhangbao",
+     "cell": 4,
+     "lv": 5,
+     "leader": 1
+    },
+    {
+     "e": "hj_bing",
+     "cell": 1,
+     "lv": 4
+    },
+    {
+     "e": "hj_lishi",
+     "cell": 7,
+     "lv": 4
+    },
+    {
+     "e": "hj_shushi",
+     "cell": 0,
+     "lv": 4
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:bt6",
+     "q": 1,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:hm6",
+     "q": 2,
+     "chance": 0.2
+    },
+    {
+     "item": "soul:guanhai",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_mdef_1",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    }
+   ],
+   "first": {
+    "gold": 15,
+    "silver": 144,
+    "items": [
+     {
+      "item": "eq:bt6",
+      "q": 2
+     },
+     {
+      "item": "jinengshu",
+      "n": 2
+     },
+     {
+      "item": "peiyangdan",
+      "n": 3
+     }
+    ]
+   },
+   "unlock": "s1_3"
+  },
+  {
+   "id": "s1_5",
+   "ch": 1,
+   "idx": 4,
+   "kind": "normal",
+   "name": "廣宗城外",
+   "lv": 5,
+   "energy": 1,
+   "exp": 38,
+   "silver": 60,
+   "enemies": [
+    {
+     "e": "hj_lishi",
+     "cell": 1,
+     "lv": 5
+    },
+    {
+     "e": "hj_shushi",
+     "cell": 4,
+     "lv": 5
+    },
+    {
+     "e": "hj_bing",
+     "cell": 7,
+     "lv": 5
+    },
+    {
+     "e": "hj_lishi",
+     "cell": 0,
+     "lv": 5
+    },
+    {
+     "e": "hj_shushi",
+     "cell": 3,
+     "lv": 5
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:wm6",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:rg6",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:dengmao",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_jdef_1",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 114,
+    "items": []
+   },
+   "unlock": "s1_4"
+  },
+  {
+   "id": "s1_6",
+   "ch": 1,
+   "idx": 5,
+   "kind": "normal",
+   "name": "曲陽古道",
+   "lv": 6,
+   "energy": 1,
+   "exp": 44,
+   "silver": 68,
+   "enemies": [
+    {
+     "e": "hj_shushi",
+     "cell": 0,
+     "lv": 6
+    },
+    {
+     "e": "hj_bing",
+     "cell": 4,
+     "lv": 6
+    },
+    {
+     "e": "hj_lishi",
+     "cell": 8,
+     "lv": 6
+    },
+    {
+     "e": "hj_shushi",
+     "cell": 1,
+     "lv": 6
+    },
+    {
+     "e": "hj_bing",
+     "cell": 7,
+     "lv": 6
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:hm6",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:wj6",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:qiuchuji",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_crit_1",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 132,
+    "items": []
+   },
+   "unlock": "s1_5"
+  },
+  {
+   "id": "s1_7",
+   "ch": 1,
+   "idx": 6,
+   "kind": "elite",
+   "name": "人公壇",
+   "lv": 7,
+   "energy": 2,
+   "exp": 75,
+   "silver": 114,
+   "enemies": [
+    {
+     "e": "zhangliang",
+     "cell": 4,
+     "lv": 8,
+     "leader": 1
+    },
+    {
+     "e": "hj_bing",
+     "cell": 3,
+     "lv": 7
+    },
+    {
+     "e": "hj_lishi",
+     "cell": 0,
+     "lv": 7
+    },
+    {
+     "e": "hj_shushi",
+     "cell": 6,
+     "lv": 7
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:rg6",
+     "q": 1,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:wp6",
+     "q": 2,
+     "chance": 0.2
+    },
+    {
+     "item": "soul:zhangjiao",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_atk_1",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    }
+   ],
+   "first": {
+    "gold": 15,
+    "silver": 225,
+    "items": [
+     {
+      "item": "eq:rg6",
+      "q": 2
+     },
+     {
+      "item": "jinengshu",
+      "n": 2
+     },
+     {
+      "item": "peiyangdan",
+      "n": 3
+     }
+    ]
+   },
+   "unlock": "s1_6"
+  },
+  {
+   "id": "s1_8",
+   "ch": 1,
+   "idx": 7,
+   "kind": "boss",
+   "name": "廣宗決戰",
+   "lv": 8,
+   "energy": 3,
+   "exp": 123,
+   "silver": 185,
+   "enemies": [
+    {
+     "e": "zj_boss",
+     "cell": 4,
+     "lv": 9,
+     "leader": 1
+    },
+    {
+     "e": "hj_lishi",
+     "cell": 1,
+     "lv": 8
+    },
+    {
+     "e": "hj_shushi",
+     "cell": 7,
+     "lv": 8
+    },
+    {
+     "e": "hj_bing",
+     "cell": 0,
+     "lv": 8
+    },
+    {
+     "e": "hj_lishi",
+     "cell": 3,
+     "lv": 8
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:wj6",
+     "q": 2,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:ar6",
+     "q": 3,
+     "chance": 0.35
+    },
+    {
+     "item": "soul:huaxiong",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_hp_1",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "xf_jinzhong",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "soul:qiuchuji",
+     "n": 1,
+     "chance": 0.25
+    }
+   ],
+   "first": {
+    "gold": 30,
+    "silver": 370,
+    "items": [
+     {
+      "item": "tufeiling",
+      "n": 2
+     },
+     {
+      "item": "shenjishu",
+      "n": 1
+     },
+     {
+      "item": "xf_kuangfeng",
+      "n": 1
+     }
+    ]
+   },
+   "unlock": "s1_7"
+  },
+  {
+   "id": "s1_9",
+   "ch": 1,
+   "idx": 8,
+   "kind": "hidden",
+   "name": "南華仙洞",
+   "lv": 10,
+   "energy": 3,
+   "exp": 177,
+   "silver": 260,
+   "enemies": [
+    {
+     "e": "nanhua",
+     "cell": 4,
+     "lv": 11,
+     "leader": 1
+    },
+    {
+     "e": "hj_shushi",
+     "cell": 0,
+     "lv": 10
+    },
+    {
+     "e": "hj_bing",
+     "cell": 8,
+     "lv": 10
+    },
+    {
+     "e": "hj_lishi",
+     "cell": 1,
+     "lv": 10
+    },
+    {
+     "e": "hj_shushi",
+     "cell": 7,
+     "lv": 10
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:wp12",
+     "q": 2,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:cp12",
+     "q": 3,
+     "chance": 0.35
+    },
+    {
+     "item": "soul:caiwenji",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_pdef_1",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "xf_jinzhong",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "soul:qiuchuji",
+     "n": 3,
+     "chance": 0.8
+    }
+   ],
+   "first": {
+    "gold": 50,
+    "silver": 530,
+    "items": [
+     {
+      "item": "soul:qiuchuji",
+      "n": 5
+     }
+    ]
+   },
+   "unlock": "all3star"
+  },
+  {
+   "id": "s2_1",
+   "ch": 2,
+   "idx": 0,
+   "kind": "normal",
+   "name": "太湖小舟",
+   "lv": 8,
+   "energy": 1,
+   "exp": 56,
+   "silver": 84,
+   "enemies": [
+    {
+     "e": "mt_jiading",
+     "cell": 0,
+     "lv": 8
+    },
+    {
+     "e": "xx_dizi",
+     "cell": 4,
+     "lv": 8
+    },
+    {
+     "e": "mr_jiachen",
+     "cell": 8,
+     "lv": 8
+    },
+    {
+     "e": "mt_shinv",
+     "cell": 1,
+     "lv": 8
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:ar6",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:bt6",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:wangyuyan",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_hp_1",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 168,
+    "items": []
+   },
+   "unlock": "s1_8"
+  },
+  {
+   "id": "s2_2",
+   "ch": 2,
+   "idx": 1,
+   "kind": "normal",
+   "name": "琴韻小築",
+   "lv": 9,
+   "energy": 1,
+   "exp": 62,
+   "silver": 92,
+   "enemies": [
+    {
+     "e": "xx_dizi",
+     "cell": 0,
+     "lv": 9
+    },
+    {
+     "e": "mr_jiachen",
+     "cell": 3,
+     "lv": 9
+    },
+    {
+     "e": "mt_shinv",
+     "cell": 6,
+     "lv": 9
+    },
+    {
+     "e": "mt_jiading",
+     "cell": 4,
+     "lv": 9
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:cp6",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:wm6",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:liqiushui",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_pdef_1",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 186,
+    "items": []
+   },
+   "unlock": "s2_1"
+  },
+  {
+   "id": "s2_3",
+   "ch": 2,
+   "idx": 2,
+   "kind": "normal",
+   "name": "聽香水榭",
+   "lv": 10,
+   "energy": 1,
+   "exp": 68,
+   "silver": 100,
+   "enemies": [
+    {
+     "e": "mr_jiachen",
+     "cell": 3,
+     "lv": 10
+    },
+    {
+     "e": "mt_shinv",
+     "cell": 0,
+     "lv": 10
+    },
+    {
+     "e": "mt_jiading",
+     "cell": 6,
+     "lv": 10
+    },
+    {
+     "e": "xx_dizi",
+     "cell": 4,
+     "lv": 10
+    },
+    {
+     "e": "mr_jiachen",
+     "cell": 2,
+     "lv": 10
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:bt12",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:hm12",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:baobutong",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_mdef_1",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 204,
+    "items": []
+   },
+   "unlock": "s2_2"
+  },
+  {
+   "id": "s2_4",
+   "ch": 2,
+   "idx": 3,
+   "kind": "elite",
+   "name": "星宿海",
+   "lv": 11,
+   "energy": 2,
+   "exp": 111,
+   "silver": 162,
+   "enemies": [
+    {
+     "e": "e_dingchunqiu",
+     "cell": 4,
+     "lv": 12,
+     "leader": 1
+    },
+    {
+     "e": "mt_shinv",
+     "cell": 0,
+     "lv": 11
+    },
+    {
+     "e": "mt_jiading",
+     "cell": 8,
+     "lv": 11
+    },
+    {
+     "e": "xx_dizi",
+     "cell": 1,
+     "lv": 11
+    },
+    {
+     "e": "mr_jiachen",
+     "cell": 7,
+     "lv": 11
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:wm12",
+     "q": 1,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:rg12",
+     "q": 2,
+     "chance": 0.2
+    },
+    {
+     "item": "soul:azi",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_jdef_1",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    }
+   ],
+   "first": {
+    "gold": 15,
+    "silver": 333,
+    "items": [
+     {
+      "item": "eq:bt12",
+      "q": 2
+     },
+     {
+      "item": "jinengshu",
+      "n": 2
+     },
+     {
+      "item": "peiyangdan",
+      "n": 3
+     }
+    ]
+   },
+   "unlock": "s2_3"
+  },
+  {
+   "id": "s2_5",
+   "ch": 2,
+   "idx": 4,
+   "kind": "normal",
+   "name": "曼陀花徑",
+   "lv": 12,
+   "energy": 1,
+   "exp": 80,
+   "silver": 116,
+   "enemies": [
+    {
+     "e": "mt_jiading",
+     "cell": 0,
+     "lv": 12
+    },
+    {
+     "e": "xx_dizi",
+     "cell": 4,
+     "lv": 12
+    },
+    {
+     "e": "mr_jiachen",
+     "cell": 8,
+     "lv": 12
+    },
+    {
+     "e": "mt_shinv",
+     "cell": 1,
+     "lv": 12
+    },
+    {
+     "e": "mt_jiading",
+     "cell": 7,
+     "lv": 12
+    },
+    {
+     "e": "xx_dizi",
+     "cell": 3,
+     "lv": 12
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:hm12",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:wj12",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:yuelingshan",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_crit_1",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 240,
+    "items": []
+   },
+   "unlock": "s2_4"
+  },
+  {
+   "id": "s2_6",
+   "ch": 2,
+   "idx": 5,
+   "kind": "normal",
+   "name": "還施水閣",
+   "lv": 13,
+   "energy": 1,
+   "exp": 86,
+   "silver": 124,
+   "enemies": [
+    {
+     "e": "xx_dizi",
+     "cell": 0,
+     "lv": 13
+    },
+    {
+     "e": "mr_jiachen",
+     "cell": 3,
+     "lv": 13
+    },
+    {
+     "e": "mt_shinv",
+     "cell": 6,
+     "lv": 13
+    },
+    {
+     "e": "mt_jiading",
+     "cell": 4,
+     "lv": 13
+    },
+    {
+     "e": "xx_dizi",
+     "cell": 1,
+     "lv": 13
+    },
+    {
+     "e": "mr_jiachen",
+     "cell": 7,
+     "lv": 13
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:rg12",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:wp12",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:renyingying",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_atk_1",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 258,
+    "items": []
+   },
+   "unlock": "s2_5"
+  },
+  {
+   "id": "s2_7",
+   "ch": 2,
+   "idx": 6,
+   "kind": "elite",
+   "name": "燕子塢",
+   "lv": 13,
+   "energy": 2,
+   "exp": 129,
+   "silver": 186,
+   "enemies": [
+    {
+     "e": "e_jiumozhi",
+     "cell": 4,
+     "lv": 14,
+     "leader": 1
+    },
+    {
+     "e": "mr_jiachen",
+     "cell": 1,
+     "lv": 13
+    },
+    {
+     "e": "mt_shinv",
+     "cell": 7,
+     "lv": 13
+    },
+    {
+     "e": "mt_jiading",
+     "cell": 0,
+     "lv": 13
+    },
+    {
+     "e": "xx_dizi",
+     "cell": 3,
+     "lv": 13
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:wj12",
+     "q": 1,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:ar12",
+     "q": 2,
+     "chance": 0.2
+    },
+    {
+     "item": "soul:wangyuyan",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_hp_1",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    }
+   ],
+   "first": {
+    "gold": 15,
+    "silver": 387,
+    "items": [
+     {
+      "item": "eq:rg12",
+      "q": 2
+     },
+     {
+      "item": "jinengshu",
+      "n": 2
+     },
+     {
+      "item": "peiyangdan",
+      "n": 3
+     }
+    ]
+   },
+   "unlock": "s2_6"
+  },
+  {
+   "id": "s2_8",
+   "ch": 2,
+   "idx": 7,
+   "kind": "boss",
+   "name": "參合莊",
+   "lv": 14,
+   "energy": 3,
+   "exp": 202,
+   "silver": 290,
+   "enemies": [
+    {
+     "e": "murongfu",
+     "cell": 4,
+     "lv": 15,
+     "leader": 1
+    },
+    {
+     "e": "mt_shinv",
+     "cell": 0,
+     "lv": 14
+    },
+    {
+     "e": "mt_jiading",
+     "cell": 8,
+     "lv": 14
+    },
+    {
+     "e": "xx_dizi",
+     "cell": 1,
+     "lv": 14
+    },
+    {
+     "e": "mr_jiachen",
+     "cell": 7,
+     "lv": 14
+    },
+    {
+     "e": "mt_shinv",
+     "cell": 3,
+     "lv": 14
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:wp12",
+     "q": 2,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:cp12",
+     "q": 3,
+     "chance": 0.35
+    },
+    {
+     "item": "soul:liqiushui",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_pdef_1",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "xf_yijin",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "soul:renyingying",
+     "n": 1,
+     "chance": 0.25
+    }
+   ],
+   "first": {
+    "gold": 30,
+    "silver": 607,
+    "items": [
+     {
+      "item": "tufeiling",
+      "n": 2
+     },
+     {
+      "item": "shenjishu",
+      "n": 1
+     },
+     {
+      "item": "xf_beiming",
+      "n": 1
+     }
+    ]
+   },
+   "unlock": "s2_7"
+  },
+  {
+   "id": "s2_9",
+   "ch": 2,
+   "idx": 8,
+   "kind": "hidden",
+   "name": "擂鼓山",
+   "lv": 17,
+   "energy": 3,
+   "exp": 286,
+   "silver": 406,
+   "enemies": [
+    {
+     "e": "duanyanqing",
+     "cell": 4,
+     "lv": 18,
+     "leader": 1
+    },
+    {
+     "e": "mt_jiading",
+     "cell": 0,
+     "lv": 17
+    },
+    {
+     "e": "xx_dizi",
+     "cell": 3,
+     "lv": 17
+    },
+    {
+     "e": "mr_jiachen",
+     "cell": 6,
+     "lv": 17
+    },
+    {
+     "e": "mt_shinv",
+     "cell": 1,
+     "lv": 17
+    },
+    {
+     "e": "mt_jiading",
+     "cell": 7,
+     "lv": 17
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:ar18",
+     "q": 2,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:bt18",
+     "q": 3,
+     "chance": 0.35
+    },
+    {
+     "item": "soul:baobutong",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_mdef_1",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "xf_yijin",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "soul:renyingying",
+     "n": 3,
+     "chance": 0.8
+    }
+   ],
+   "first": {
+    "gold": 50,
+    "silver": 858,
+    "items": [
+     {
+      "item": "soul:renyingying",
+      "n": 5
+     }
+    ]
+   },
+   "unlock": "all3star"
+  },
+  {
+   "id": "s3_1",
+   "ch": 3,
+   "idx": 0,
+   "kind": "normal",
+   "name": "酸棗大營",
+   "lv": 15,
+   "energy": 1,
+   "exp": 98,
+   "silver": 140,
+   "enemies": [
+    {
+     "e": "xl_qibing",
+     "cell": 0,
+     "lv": 15
+    },
+    {
+     "e": "xl_gongshou",
+     "cell": 3,
+     "lv": 15
+    },
+    {
+     "e": "dz_qinwei",
+     "cell": 6,
+     "lv": 15
+    },
+    {
+     "e": "lj_moushi",
+     "cell": 4,
+     "lv": 15
+    },
+    {
+     "e": "xl_qibing",
+     "cell": 1,
+     "lv": 15
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:cp12",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:wm12",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:sunce",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_pdef_1",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 294,
+    "items": []
+   },
+   "unlock": "s2_8"
+  },
+  {
+   "id": "s3_2",
+   "ch": 3,
+   "idx": 1,
+   "kind": "normal",
+   "name": "汜水關前",
+   "lv": 16,
+   "energy": 1,
+   "exp": 104,
+   "silver": 148,
+   "enemies": [
+    {
+     "e": "xl_gongshou",
+     "cell": 3,
+     "lv": 16
+    },
+    {
+     "e": "dz_qinwei",
+     "cell": 0,
+     "lv": 16
+    },
+    {
+     "e": "lj_moushi",
+     "cell": 6,
+     "lv": 16
+    },
+    {
+     "e": "xl_qibing",
+     "cell": 4,
+     "lv": 16
+    },
+    {
+     "e": "xl_gongshou",
+     "cell": 2,
+     "lv": 16
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:bt18",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:hm18",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:taishici",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_mdef_1",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 312,
+    "items": []
+   },
+   "unlock": "s3_1"
+  },
+  {
+   "id": "s3_3",
+   "ch": 3,
+   "idx": 2,
+   "kind": "normal",
+   "name": "汜水關",
+   "lv": 17,
+   "energy": 1,
+   "exp": 110,
+   "silver": 156,
+   "enemies": [
+    {
+     "e": "dz_qinwei",
+     "cell": 1,
+     "lv": 17
+    },
+    {
+     "e": "lj_moushi",
+     "cell": 4,
+     "lv": 17
+    },
+    {
+     "e": "xl_qibing",
+     "cell": 7,
+     "lv": 17
+    },
+    {
+     "e": "xl_gongshou",
+     "cell": 0,
+     "lv": 17
+    },
+    {
+     "e": "dz_qinwei",
+     "cell": 3,
+     "lv": 17
+    },
+    {
+     "e": "lj_moushi",
+     "cell": 6,
+     "lv": 17
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:wm18",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:rg18",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:liaohua",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_jdef_1",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 330,
+    "items": []
+   },
+   "unlock": "s3_2"
+  },
+  {
+   "id": "s3_4",
+   "ch": 3,
+   "idx": 3,
+   "kind": "elite",
+   "name": "西涼營地",
+   "lv": 18,
+   "energy": 2,
+   "exp": 174,
+   "silver": 246,
+   "enemies": [
+    {
+     "e": "e_huaxiong",
+     "cell": 4,
+     "lv": 19,
+     "leader": 1
+    },
+    {
+     "e": "lj_moushi",
+     "cell": 0,
+     "lv": 18
+    },
+    {
+     "e": "xl_qibing",
+     "cell": 3,
+     "lv": 18
+    },
+    {
+     "e": "xl_gongshou",
+     "cell": 6,
+     "lv": 18
+    },
+    {
+     "e": "dz_qinwei",
+     "cell": 1,
+     "lv": 18
+    },
+    {
+     "e": "lj_moushi",
+     "cell": 7,
+     "lv": 18
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:hm18",
+     "q": 1,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:wj18",
+     "q": 2,
+     "chance": 0.2
+    },
+    {
+     "item": "soul:weiyan",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_crit_1",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    }
+   ],
+   "first": {
+    "gold": 15,
+    "silver": 522,
+    "items": [
+     {
+      "item": "eq:bt18",
+      "q": 2
+     },
+     {
+      "item": "jinengshu",
+      "n": 2
+     },
+     {
+      "item": "peiyangdan",
+      "n": 3
+     }
+    ]
+   },
+   "unlock": "s3_3"
+  },
+  {
+   "id": "s3_5",
+   "ch": 3,
+   "idx": 4,
+   "kind": "normal",
+   "name": "虎牢關外",
+   "lv": 19,
+   "energy": 1,
+   "exp": 122,
+   "silver": 172,
+   "enemies": [
+    {
+     "e": "xl_qibing",
+     "cell": 0,
+     "lv": 19
+    },
+    {
+     "e": "xl_gongshou",
+     "cell": 3,
+     "lv": 19
+    },
+    {
+     "e": "dz_qinwei",
+     "cell": 6,
+     "lv": 19
+    },
+    {
+     "e": "lj_moushi",
+     "cell": 4,
+     "lv": 19
+    },
+    {
+     "e": "xl_qibing",
+     "cell": 1,
+     "lv": 19
+    },
+    {
+     "e": "xl_gongshou",
+     "cell": 7,
+     "lv": 19
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:rg18",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:wp18",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:xiongmao",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_atk_1",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 366,
+    "items": []
+   },
+   "unlock": "s3_4"
+  },
+  {
+   "id": "s3_6",
+   "ch": 3,
+   "idx": 5,
+   "kind": "normal",
+   "name": "洛陽古道",
+   "lv": 20,
+   "energy": 1,
+   "exp": 128,
+   "silver": 180,
+   "enemies": [
+    {
+     "e": "xl_gongshou",
+     "cell": 3,
+     "lv": 20
+    },
+    {
+     "e": "dz_qinwei",
+     "cell": 0,
+     "lv": 20
+    },
+    {
+     "e": "lj_moushi",
+     "cell": 6,
+     "lv": 20
+    },
+    {
+     "e": "xl_qibing",
+     "cell": 4,
+     "lv": 20
+    },
+    {
+     "e": "xl_gongshou",
+     "cell": 2,
+     "lv": 20
+    },
+    {
+     "e": "dz_qinwei",
+     "cell": 8,
+     "lv": 20
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:wj18",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:ar18",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:lvbu",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_hp_1",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 384,
+    "items": []
+   },
+   "unlock": "s3_5"
+  },
+  {
+   "id": "s3_7",
+   "ch": 3,
+   "idx": 6,
+   "kind": "elite",
+   "name": "長安郊外",
+   "lv": 20,
+   "energy": 2,
+   "exp": 192,
+   "silver": 270,
+   "enemies": [
+    {
+     "e": "e_lijue",
+     "cell": 4,
+     "lv": 21,
+     "leader": 1
+    },
+    {
+     "e": "dz_qinwei",
+     "cell": 0,
+     "lv": 20
+    },
+    {
+     "e": "lj_moushi",
+     "cell": 8,
+     "lv": 20
+    },
+    {
+     "e": "xl_qibing",
+     "cell": 1,
+     "lv": 20
+    },
+    {
+     "e": "xl_gongshou",
+     "cell": 7,
+     "lv": 20
+    },
+    {
+     "e": "dz_qinwei",
+     "cell": 3,
+     "lv": 20
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:wp18",
+     "q": 1,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:cp18",
+     "q": 2,
+     "chance": 0.2
+    },
+    {
+     "item": "soul:sunce",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_pdef_1",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    }
+   ],
+   "first": {
+    "gold": 15,
+    "silver": 576,
+    "items": [
+     {
+      "item": "eq:rg18",
+      "q": 2
+     },
+     {
+      "item": "jinengshu",
+      "n": 2
+     },
+     {
+      "item": "peiyangdan",
+      "n": 3
+     }
+    ]
+   },
+   "unlock": "s3_6"
+  },
+  {
+   "id": "s3_8",
+   "ch": 3,
+   "idx": 7,
+   "kind": "boss",
+   "name": "虎牢關",
+   "lv": 21,
+   "energy": 3,
+   "exp": 295,
+   "silver": 414,
+   "enemies": [
+    {
+     "e": "b_lvbu",
+     "cell": 4,
+     "lv": 22,
+     "leader": 1
+    },
+    {
+     "e": "lj_moushi",
+     "cell": 0,
+     "lv": 21
+    },
+    {
+     "e": "xl_qibing",
+     "cell": 3,
+     "lv": 21
+    },
+    {
+     "e": "xl_gongshou",
+     "cell": 6,
+     "lv": 21
+    },
+    {
+     "e": "dz_qinwei",
+     "cell": 1,
+     "lv": 21
+    },
+    {
+     "e": "lj_moushi",
+     "cell": 7,
+     "lv": 21
+    },
+    {
+     "e": "xl_qibing",
+     "cell": 2,
+     "lv": 21
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:ar18",
+     "q": 2,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:bt18",
+     "q": 3,
+     "chance": 0.35
+    },
+    {
+     "item": "soul:taishici",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_mdef_1",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "xf_jiuyang",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "soul:lvbu",
+     "n": 1,
+     "chance": 0.25
+    }
+   ],
+   "first": {
+    "gold": 30,
+    "silver": 884,
+    "items": [
+     {
+      "item": "tufeiling",
+      "n": 2
+     },
+     {
+      "item": "shenjishu",
+      "n": 1
+     },
+     {
+      "item": "xf_kuihua",
+      "n": 1
+     }
+    ]
+   },
+   "unlock": "s3_7"
+  },
+  {
+   "id": "s3_9",
+   "ch": 3,
+   "idx": 8,
+   "kind": "hidden",
+   "name": "郿塢",
+   "lv": 24,
+   "energy": 3,
+   "exp": 395,
+   "silver": 551,
+   "enemies": [
+    {
+     "e": "b_dongzhuo",
+     "cell": 4,
+     "lv": 25,
+     "leader": 1
+    },
+    {
+     "e": "xl_qibing",
+     "cell": 3,
+     "lv": 24
+    },
+    {
+     "e": "xl_gongshou",
+     "cell": 0,
+     "lv": 24
+    },
+    {
+     "e": "dz_qinwei",
+     "cell": 6,
+     "lv": 24
+    },
+    {
+     "e": "lj_moushi",
+     "cell": 2,
+     "lv": 24
+    },
+    {
+     "e": "xl_qibing",
+     "cell": 8,
+     "lv": 24
+    },
+    {
+     "e": "xl_gongshou",
+     "cell": 5,
+     "lv": 24
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:cp24",
+     "q": 2,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:wm24",
+     "q": 3,
+     "chance": 0.35
+    },
+    {
+     "item": "soul:liaohua",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_jdef_1",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "xf_jiuyang",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "soul:lvbu",
+     "n": 3,
+     "chance": 0.8
+    }
+   ],
+   "first": {
+    "gold": 50,
+    "silver": 1186,
+    "items": [
+     {
+      "item": "soul:lvbu",
+      "n": 5
+     }
+    ]
+   },
+   "unlock": "all3star"
+  },
+  {
+   "id": "s4_1",
+   "ch": 4,
+   "idx": 0,
+   "kind": "normal",
+   "name": "崑崙山麓",
+   "lv": 22,
+   "energy": 1,
+   "exp": 140,
+   "silver": 196,
+   "enemies": [
+    {
+     "e": "mj_jiaozhong",
+     "cell": 3,
+     "lv": 22
+    },
+    {
+     "e": "em_dizi",
+     "cell": 0,
+     "lv": 22
+    },
+    {
+     "e": "kl_dizi",
+     "cell": 6,
+     "lv": 22
+    },
+    {
+     "e": "wd_dizi",
+     "cell": 4,
+     "lv": 22
+    },
+    {
+     "e": "mj_jiaozhong",
+     "cell": 2,
+     "lv": 22
+    },
+    {
+     "e": "em_dizi",
+     "cell": 8,
+     "lv": 22
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:bt24",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:hm24",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:luzhangke",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_mdef_2",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 420,
+    "items": []
+   },
+   "unlock": "s3_8"
+  },
+  {
+   "id": "s4_2",
+   "ch": 4,
+   "idx": 1,
+   "kind": "normal",
+   "name": "蝴蝶谷",
+   "lv": 23,
+   "energy": 1,
+   "exp": 146,
+   "silver": 204,
+   "enemies": [
+    {
+     "e": "em_dizi",
+     "cell": 1,
+     "lv": 23
+    },
+    {
+     "e": "kl_dizi",
+     "cell": 4,
+     "lv": 23
+    },
+    {
+     "e": "wd_dizi",
+     "cell": 7,
+     "lv": 23
+    },
+    {
+     "e": "mj_jiaozhong",
+     "cell": 0,
+     "lv": 23
+    },
+    {
+     "e": "em_dizi",
+     "cell": 3,
+     "lv": 23
+    },
+    {
+     "e": "kl_dizi",
+     "cell": 6,
+     "lv": 23
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:wm24",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:rg24",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:miejue",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_jdef_2",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 438,
+    "items": []
+   },
+   "unlock": "s4_1"
+  },
+  {
+   "id": "s4_3",
+   "ch": 4,
+   "idx": 2,
+   "kind": "normal",
+   "name": "綠柳山莊",
+   "lv": 24,
+   "energy": 1,
+   "exp": 152,
+   "silver": 212,
+   "enemies": [
+    {
+     "e": "kl_dizi",
+     "cell": 0,
+     "lv": 24
+    },
+    {
+     "e": "wd_dizi",
+     "cell": 4,
+     "lv": 24
+    },
+    {
+     "e": "mj_jiaozhong",
+     "cell": 8,
+     "lv": 24
+    },
+    {
+     "e": "em_dizi",
+     "cell": 1,
+     "lv": 24
+    },
+    {
+     "e": "kl_dizi",
+     "cell": 7,
+     "lv": 24
+    },
+    {
+     "e": "wd_dizi",
+     "cell": 3,
+     "lv": 24
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:hm24",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:wj24",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:shuanger",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_crit_2",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 456,
+    "items": []
+   },
+   "unlock": "s4_2"
+  },
+  {
+   "id": "s4_4",
+   "ch": 4,
+   "idx": 3,
+   "kind": "elite",
+   "name": "萬安寺",
+   "lv": 25,
+   "energy": 2,
+   "exp": 237,
+   "silver": 330,
+   "enemies": [
+    {
+     "e": "e_luzhangke",
+     "cell": 4,
+     "lv": 26,
+     "leader": 1
+    },
+    {
+     "e": "wd_dizi",
+     "cell": 3,
+     "lv": 25
+    },
+    {
+     "e": "mj_jiaozhong",
+     "cell": 0,
+     "lv": 25
+    },
+    {
+     "e": "em_dizi",
+     "cell": 6,
+     "lv": 25
+    },
+    {
+     "e": "kl_dizi",
+     "cell": 2,
+     "lv": 25
+    },
+    {
+     "e": "wd_dizi",
+     "cell": 8,
+     "lv": 25
+    },
+    {
+     "e": "mj_jiaozhong",
+     "cell": 5,
+     "lv": 25
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:rg24",
+     "q": 1,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:wp24",
+     "q": 2,
+     "chance": 0.2
+    },
+    {
+     "item": "soul:hongqigong",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_atk_2",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    }
+   ],
+   "first": {
+    "gold": 15,
+    "silver": 711,
+    "items": [
+     {
+      "item": "eq:bt24",
+      "q": 2
+     },
+     {
+      "item": "jinengshu",
+      "n": 2
+     },
+     {
+      "item": "peiyangdan",
+      "n": 3
+     }
+    ]
+   },
+   "unlock": "s4_3"
+  },
+  {
+   "id": "s4_5",
+   "ch": 4,
+   "idx": 4,
+   "kind": "normal",
+   "name": "光明頂山道",
+   "lv": 26,
+   "energy": 1,
+   "exp": 164,
+   "silver": 228,
+   "enemies": [
+    {
+     "e": "mj_jiaozhong",
+     "cell": 3,
+     "lv": 26
+    },
+    {
+     "e": "em_dizi",
+     "cell": 0,
+     "lv": 26
+    },
+    {
+     "e": "kl_dizi",
+     "cell": 6,
+     "lv": 26
+    },
+    {
+     "e": "wd_dizi",
+     "cell": 4,
+     "lv": 26
+    },
+    {
+     "e": "mj_jiaozhong",
+     "cell": 2,
+     "lv": 26
+    },
+    {
+     "e": "em_dizi",
+     "cell": 8,
+     "lv": 26
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:wj24",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:ar24",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:zhangwuji",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_hp_2",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 492,
+    "items": []
+   },
+   "unlock": "s4_4"
+  },
+  {
+   "id": "s4_6",
+   "ch": 4,
+   "idx": 5,
+   "kind": "normal",
+   "name": "秘道",
+   "lv": 27,
+   "energy": 1,
+   "exp": 170,
+   "silver": 236,
+   "enemies": [
+    {
+     "e": "em_dizi",
+     "cell": 1,
+     "lv": 27
+    },
+    {
+     "e": "kl_dizi",
+     "cell": 4,
+     "lv": 27
+    },
+    {
+     "e": "wd_dizi",
+     "cell": 7,
+     "lv": 27
+    },
+    {
+     "e": "mj_jiaozhong",
+     "cell": 0,
+     "lv": 27
+    },
+    {
+     "e": "em_dizi",
+     "cell": 3,
+     "lv": 27
+    },
+    {
+     "e": "kl_dizi",
+     "cell": 6,
+     "lv": 27
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:wp24",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:cp24",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:meichaofeng",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_pdef_2",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 510,
+    "items": []
+   },
+   "unlock": "s4_5"
+  },
+  {
+   "id": "s4_7",
+   "ch": 4,
+   "idx": 6,
+   "kind": "elite",
+   "name": "光明頂廣場",
+   "lv": 27,
+   "energy": 2,
+   "exp": 255,
+   "silver": 354,
+   "enemies": [
+    {
+     "e": "e_hebiweng",
+     "cell": 4,
+     "lv": 28,
+     "leader": 1
+    },
+    {
+     "e": "kl_dizi",
+     "cell": 0,
+     "lv": 27
+    },
+    {
+     "e": "wd_dizi",
+     "cell": 3,
+     "lv": 27
+    },
+    {
+     "e": "mj_jiaozhong",
+     "cell": 6,
+     "lv": 27
+    },
+    {
+     "e": "em_dizi",
+     "cell": 1,
+     "lv": 27
+    },
+    {
+     "e": "kl_dizi",
+     "cell": 7,
+     "lv": 27
+    },
+    {
+     "e": "wd_dizi",
+     "cell": 2,
+     "lv": 27
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:ar24",
+     "q": 1,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:bt24",
+     "q": 2,
+     "chance": 0.2
+    },
+    {
+     "item": "soul:luzhangke",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_mdef_2",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    }
+   ],
+   "first": {
+    "gold": 15,
+    "silver": 765,
+    "items": [
+     {
+      "item": "eq:rg24",
+      "q": 2
+     },
+     {
+      "item": "jinengshu",
+      "n": 2
+     },
+     {
+      "item": "peiyangdan",
+      "n": 3
+     }
+    ]
+   },
+   "unlock": "s4_6"
+  },
+  {
+   "id": "s4_8",
+   "ch": 4,
+   "idx": 7,
+   "kind": "boss",
+   "name": "光明頂之巔",
+   "lv": 28,
+   "energy": 3,
+   "exp": 387,
+   "silver": 537,
+   "enemies": [
+    {
+     "e": "b_miejue",
+     "cell": 4,
+     "lv": 29,
+     "leader": 1
+    },
+    {
+     "e": "wd_dizi",
+     "cell": 3,
+     "lv": 28
+    },
+    {
+     "e": "mj_jiaozhong",
+     "cell": 0,
+     "lv": 28
+    },
+    {
+     "e": "em_dizi",
+     "cell": 6,
+     "lv": 28
+    },
+    {
+     "e": "kl_dizi",
+     "cell": 2,
+     "lv": 28
+    },
+    {
+     "e": "wd_dizi",
+     "cell": 8,
+     "lv": 28
+    },
+    {
+     "e": "mj_jiaozhong",
+     "cell": 5,
+     "lv": 28
+    },
+    {
+     "e": "em_dizi",
+     "cell": 1,
+     "lv": 28
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:cp30",
+     "q": 2,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:wm30",
+     "q": 3,
+     "chance": 0.35
+    },
+    {
+     "item": "soul:miejue",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_jdef_2",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "xf_kuangfeng",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "soul:meichaofeng",
+     "n": 1,
+     "chance": 0.25
+    }
+   ],
+   "first": {
+    "gold": 30,
+    "silver": 1162,
+    "items": [
+     {
+      "item": "tufeiling",
+      "n": 2
+     },
+     {
+      "item": "shenjishu",
+      "n": 1
+     },
+     {
+      "item": "xf_lingbo",
+      "n": 1
+     }
+    ]
+   },
+   "unlock": "s4_7"
+  },
+  {
+   "id": "s4_9",
+   "ch": 4,
+   "idx": 8,
+   "kind": "hidden",
+   "name": "冰火島",
+   "lv": 31,
+   "energy": 3,
+   "exp": 504,
+   "silver": 697,
+   "enemies": [
+    {
+     "e": "xiexun",
+     "cell": 4,
+     "lv": 32,
+     "leader": 1
+    },
+    {
+     "e": "mj_jiaozhong",
+     "cell": 1,
+     "lv": 31
+    },
+    {
+     "e": "em_dizi",
+     "cell": 7,
+     "lv": 31
+    },
+    {
+     "e": "kl_dizi",
+     "cell": 0,
+     "lv": 31
+    },
+    {
+     "e": "wd_dizi",
+     "cell": 3,
+     "lv": 31
+    },
+    {
+     "e": "mj_jiaozhong",
+     "cell": 6,
+     "lv": 31
+    },
+    {
+     "e": "em_dizi",
+     "cell": 2,
+     "lv": 31
+    },
+    {
+     "e": "kl_dizi",
+     "cell": 5,
+     "lv": 31
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:bt30",
+     "q": 2,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:hm30",
+     "q": 3,
+     "chance": 0.35
+    },
+    {
+     "item": "soul:shuanger",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_crit_2",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "xf_kuangfeng",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "soul:meichaofeng",
+     "n": 3,
+     "chance": 0.8
+    }
+   ],
+   "first": {
+    "gold": 50,
+    "silver": 1513,
+    "items": [
+     {
+      "item": "soul:meichaofeng",
+      "n": 5
+     }
+    ]
+   },
+   "unlock": "all3star"
+  },
+  {
+   "id": "s5_1",
+   "ch": 5,
+   "idx": 0,
+   "kind": "normal",
+   "name": "終南山下",
+   "lv": 29,
+   "energy": 1,
+   "exp": 182,
+   "silver": 252,
+   "enemies": [
+    {
+     "e": "mg_qibing",
+     "cell": 1,
+     "lv": 29
+    },
+    {
+     "e": "mg_sheshou",
+     "cell": 4,
+     "lv": 29
+    },
+    {
+     "e": "mg_lama",
+     "cell": 7,
+     "lv": 29
+    },
+    {
+     "e": "mg_wushi",
+     "cell": 0,
+     "lv": 29
+    },
+    {
+     "e": "mg_qibing",
+     "cell": 3,
+     "lv": 29
+    },
+    {
+     "e": "mg_sheshou",
+     "cell": 6,
+     "lv": 29
+    },
+    {
+     "e": "mg_lama",
+     "cell": 2,
+     "lv": 29
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:wm30",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:rg30",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:huangrong",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_jdef_2",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 546,
+    "items": []
+   },
+   "unlock": "s4_8"
+  },
+  {
+   "id": "s5_2",
+   "ch": 5,
+   "idx": 1,
+   "kind": "normal",
+   "name": "絕情谷",
+   "lv": 30,
+   "energy": 1,
+   "exp": 188,
+   "silver": 260,
+   "enemies": [
+    {
+     "e": "mg_sheshou",
+     "cell": 0,
+     "lv": 30
+    },
+    {
+     "e": "mg_lama",
+     "cell": 4,
+     "lv": 30
+    },
+    {
+     "e": "mg_wushi",
+     "cell": 8,
+     "lv": 30
+    },
+    {
+     "e": "mg_qibing",
+     "cell": 1,
+     "lv": 30
+    },
+    {
+     "e": "mg_sheshou",
+     "cell": 7,
+     "lv": 30
+    },
+    {
+     "e": "mg_lama",
+     "cell": 3,
+     "lv": 30
+    },
+    {
+     "e": "mg_wushi",
+     "cell": 6,
+     "lv": 30
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:hm30",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:wj30",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:yangguo",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_crit_2",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 564,
+    "items": []
+   },
+   "unlock": "s5_1"
+  },
+  {
+   "id": "s5_3",
+   "ch": 5,
+   "idx": 2,
+   "kind": "normal",
+   "name": "英雄大會",
+   "lv": 31,
+   "energy": 1,
+   "exp": 194,
+   "silver": 268,
+   "enemies": [
+    {
+     "e": "mg_lama",
+     "cell": 0,
+     "lv": 31
+    },
+    {
+     "e": "mg_wushi",
+     "cell": 3,
+     "lv": 31
+    },
+    {
+     "e": "mg_qibing",
+     "cell": 6,
+     "lv": 31
+    },
+    {
+     "e": "mg_sheshou",
+     "cell": 4,
+     "lv": 31
+    },
+    {
+     "e": "mg_lama",
+     "cell": 1,
+     "lv": 31
+    },
+    {
+     "e": "mg_wushi",
+     "cell": 7,
+     "lv": 31
+    },
+    {
+     "e": "mg_qibing",
+     "cell": 2,
+     "lv": 31
+    },
+    {
+     "e": "mg_sheshou",
+     "cell": 5,
+     "lv": 31
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:rg30",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:wp30",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:xiaolongnv",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_atk_2",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 582,
+    "items": []
+   },
+   "unlock": "s5_2"
+  },
+  {
+   "id": "s5_4",
+   "ch": 5,
+   "idx": 3,
+   "kind": "elite",
+   "name": "襄陽城郊",
+   "lv": 32,
+   "energy": 2,
+   "exp": 300,
+   "silver": 414,
+   "enemies": [
+    {
+     "e": "e_huodu",
+     "cell": 4,
+     "lv": 33,
+     "leader": 1
+    },
+    {
+     "e": "mg_wushi",
+     "cell": 1,
+     "lv": 32
+    },
+    {
+     "e": "mg_qibing",
+     "cell": 7,
+     "lv": 32
+    },
+    {
+     "e": "mg_sheshou",
+     "cell": 0,
+     "lv": 32
+    },
+    {
+     "e": "mg_lama",
+     "cell": 3,
+     "lv": 32
+    },
+    {
+     "e": "mg_wushi",
+     "cell": 6,
+     "lv": 32
+    },
+    {
+     "e": "mg_qibing",
+     "cell": 2,
+     "lv": 32
+    },
+    {
+     "e": "mg_sheshou",
+     "cell": 5,
+     "lv": 32
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:wj30",
+     "q": 1,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:ar30",
+     "q": 2,
+     "chance": 0.2
+    },
+    {
+     "item": "soul:zhoubotong",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_hp_2",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    }
+   ],
+   "first": {
+    "gold": 15,
+    "silver": 900,
+    "items": [
+     {
+      "item": "eq:bt30",
+      "q": 2
+     },
+     {
+      "item": "jinengshu",
+      "n": 2
+     },
+     {
+      "item": "peiyangdan",
+      "n": 3
+     }
+    ]
+   },
+   "unlock": "s5_3"
+  },
+  {
+   "id": "s5_5",
+   "ch": 5,
+   "idx": 4,
+   "kind": "normal",
+   "name": "百花谷",
+   "lv": 33,
+   "energy": 1,
+   "exp": 206,
+   "silver": 284,
+   "enemies": [
+    {
+     "e": "mg_qibing",
+     "cell": 1,
+     "lv": 33
+    },
+    {
+     "e": "mg_sheshou",
+     "cell": 4,
+     "lv": 33
+    },
+    {
+     "e": "mg_lama",
+     "cell": 7,
+     "lv": 33
+    },
+    {
+     "e": "mg_wushi",
+     "cell": 0,
+     "lv": 33
+    },
+    {
+     "e": "mg_qibing",
+     "cell": 3,
+     "lv": 33
+    },
+    {
+     "e": "mg_sheshou",
+     "cell": 6,
+     "lv": 33
+    },
+    {
+     "e": "mg_lama",
+     "cell": 2,
+     "lv": 33
+    },
+    {
+     "e": "mg_wushi",
+     "cell": 5,
+     "lv": 33
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:wp30",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:cp30",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:huangyaoshi",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_pdef_2",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 618,
+    "items": []
+   },
+   "unlock": "s5_4"
+  },
+  {
+   "id": "s5_6",
+   "ch": 5,
+   "idx": 5,
+   "kind": "normal",
+   "name": "古墓",
+   "lv": 34,
+   "energy": 1,
+   "exp": 212,
+   "silver": 292,
+   "enemies": [
+    {
+     "e": "mg_sheshou",
+     "cell": 0,
+     "lv": 34
+    },
+    {
+     "e": "mg_lama",
+     "cell": 4,
+     "lv": 34
+    },
+    {
+     "e": "mg_wushi",
+     "cell": 8,
+     "lv": 34
+    },
+    {
+     "e": "mg_qibing",
+     "cell": 1,
+     "lv": 34
+    },
+    {
+     "e": "mg_sheshou",
+     "cell": 7,
+     "lv": 34
+    },
+    {
+     "e": "mg_lama",
+     "cell": 3,
+     "lv": 34
+    },
+    {
+     "e": "mg_wushi",
+     "cell": 6,
+     "lv": 34
+    },
+    {
+     "e": "mg_qibing",
+     "cell": 2,
+     "lv": 34
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:ar36",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:bt36",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:guojing",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_mdef_2",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 636,
+    "items": []
+   },
+   "unlock": "s5_5"
+  },
+  {
+   "id": "s5_7",
+   "ch": 5,
+   "idx": 6,
+   "kind": "elite",
+   "name": "襄陽城頭",
+   "lv": 34,
+   "energy": 2,
+   "exp": 318,
+   "silver": 438,
+   "enemies": [
+    {
+     "e": "e_daerba",
+     "cell": 4,
+     "lv": 35,
+     "leader": 1
+    },
+    {
+     "e": "mg_lama",
+     "cell": 3,
+     "lv": 34
+    },
+    {
+     "e": "mg_wushi",
+     "cell": 0,
+     "lv": 34
+    },
+    {
+     "e": "mg_qibing",
+     "cell": 6,
+     "lv": 34
+    },
+    {
+     "e": "mg_sheshou",
+     "cell": 2,
+     "lv": 34
+    },
+    {
+     "e": "mg_lama",
+     "cell": 8,
+     "lv": 34
+    },
+    {
+     "e": "mg_wushi",
+     "cell": 5,
+     "lv": 34
+    },
+    {
+     "e": "mg_qibing",
+     "cell": 1,
+     "lv": 34
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:cp36",
+     "q": 1,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:wm36",
+     "q": 2,
+     "chance": 0.2
+    },
+    {
+     "item": "soul:huangrong",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_jdef_2",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    }
+   ],
+   "first": {
+    "gold": 15,
+    "silver": 954,
+    "items": [
+     {
+      "item": "eq:rg36",
+      "q": 2
+     },
+     {
+      "item": "jinengshu",
+      "n": 2
+     },
+     {
+      "item": "peiyangdan",
+      "n": 3
+     }
+    ]
+   },
+   "unlock": "s5_6"
+  },
+  {
+   "id": "s5_8",
+   "ch": 5,
+   "idx": 7,
+   "kind": "boss",
+   "name": "襄陽之戰",
+   "lv": 35,
+   "energy": 3,
+   "exp": 480,
+   "silver": 660,
+   "enemies": [
+    {
+     "e": "b_jinlun",
+     "cell": 4,
+     "lv": 36,
+     "leader": 1
+    },
+    {
+     "e": "mg_wushi",
+     "cell": 1,
+     "lv": 35
+    },
+    {
+     "e": "mg_qibing",
+     "cell": 7,
+     "lv": 35
+    },
+    {
+     "e": "mg_sheshou",
+     "cell": 0,
+     "lv": 35
+    },
+    {
+     "e": "mg_lama",
+     "cell": 3,
+     "lv": 35
+    },
+    {
+     "e": "mg_wushi",
+     "cell": 6,
+     "lv": 35
+    },
+    {
+     "e": "mg_qibing",
+     "cell": 2,
+     "lv": 35
+    },
+    {
+     "e": "mg_sheshou",
+     "cell": 5,
+     "lv": 35
+    },
+    {
+     "e": "mg_lama",
+     "cell": 8,
+     "lv": 35
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:bt36",
+     "q": 2,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:hm36",
+     "q": 3,
+     "chance": 0.35
+    },
+    {
+     "item": "soul:yangguo",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_crit_2",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "xf_beiming",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "soul:guojing",
+     "n": 1,
+     "chance": 0.25
+    }
+   ],
+   "first": {
+    "gold": 30,
+    "silver": 1439,
+    "items": [
+     {
+      "item": "tufeiling",
+      "n": 2
+     },
+     {
+      "item": "shenjishu",
+      "n": 1
+     },
+     {
+      "item": "xf_xixing",
+      "n": 1
+     }
+    ]
+   },
+   "unlock": "s5_7"
+  },
+  {
+   "id": "s5_9",
+   "ch": 5,
+   "idx": 8,
+   "kind": "hidden",
+   "name": "釣魚城",
+   "lv": 38,
+   "energy": 3,
+   "exp": 614,
+   "silver": 842,
+   "enemies": [
+    {
+     "e": "b_menge",
+     "cell": 4,
+     "lv": 39,
+     "leader": 1
+    },
+    {
+     "e": "mg_qibing",
+     "cell": 0,
+     "lv": 38
+    },
+    {
+     "e": "mg_sheshou",
+     "cell": 8,
+     "lv": 38
+    },
+    {
+     "e": "mg_lama",
+     "cell": 1,
+     "lv": 38
+    },
+    {
+     "e": "mg_wushi",
+     "cell": 7,
+     "lv": 38
+    },
+    {
+     "e": "mg_qibing",
+     "cell": 3,
+     "lv": 38
+    },
+    {
+     "e": "mg_sheshou",
+     "cell": 6,
+     "lv": 38
+    },
+    {
+     "e": "mg_lama",
+     "cell": 2,
+     "lv": 38
+    },
+    {
+     "e": "mg_wushi",
+     "cell": 5,
+     "lv": 38
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:wm36",
+     "q": 2,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:rg36",
+     "q": 3,
+     "chance": 0.35
+    },
+    {
+     "item": "soul:xiaolongnv",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_atk_2",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "xf_beiming",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "soul:guojing",
+     "n": 3,
+     "chance": 0.8
+    }
+   ],
+   "first": {
+    "gold": 50,
+    "silver": 1841,
+    "items": [
+     {
+      "item": "soul:guojing",
+      "n": 5
+     }
+    ]
+   },
+   "unlock": "all3star"
+  },
+  {
+   "id": "s6_1",
+   "ch": 6,
+   "idx": 0,
+   "kind": "normal",
+   "name": "長坂坡",
+   "lv": 36,
+   "energy": 1,
+   "exp": 224,
+   "silver": 308,
+   "enemies": [
+    {
+     "e": "cj_shuibing",
+     "cell": 0,
+     "lv": 36
+    },
+    {
+     "e": "cj_hubaoqi",
+     "cell": 4,
+     "lv": 36
+    },
+    {
+     "e": "cj_moushi",
+     "cell": 8,
+     "lv": 36
+    },
+    {
+     "e": "cj_nushou",
+     "cell": 1,
+     "lv": 36
+    },
+    {
+     "e": "cj_shuibing",
+     "cell": 7,
+     "lv": 36
+    },
+    {
+     "e": "cj_hubaoqi",
+     "cell": 3,
+     "lv": 36
+    },
+    {
+     "e": "cj_moushi",
+     "cell": 6,
+     "lv": 36
+    },
+    {
+     "e": "cj_nushou",
+     "cell": 2,
+     "lv": 36
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:hm36",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:wj36",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:huangyueying",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_crit_2",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 672,
+    "items": []
+   },
+   "unlock": "s5_8"
+  },
+  {
+   "id": "s6_2",
+   "ch": 6,
+   "idx": 1,
+   "kind": "normal",
+   "name": "當陽橋",
+   "lv": 37,
+   "energy": 1,
+   "exp": 230,
+   "silver": 316,
+   "enemies": [
+    {
+     "e": "cj_hubaoqi",
+     "cell": 0,
+     "lv": 37
+    },
+    {
+     "e": "cj_moushi",
+     "cell": 3,
+     "lv": 37
+    },
+    {
+     "e": "cj_nushou",
+     "cell": 6,
+     "lv": 37
+    },
+    {
+     "e": "cj_shuibing",
+     "cell": 4,
+     "lv": 37
+    },
+    {
+     "e": "cj_hubaoqi",
+     "cell": 1,
+     "lv": 37
+    },
+    {
+     "e": "cj_moushi",
+     "cell": 7,
+     "lv": 37
+    },
+    {
+     "e": "cj_nushou",
+     "cell": 2,
+     "lv": 37
+    },
+    {
+     "e": "cj_shuibing",
+     "cell": 5,
+     "lv": 37
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:rg36",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:wp36",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:daqiao",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_atk_2",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 690,
+    "items": []
+   },
+   "unlock": "s6_1"
+  },
+  {
+   "id": "s6_3",
+   "ch": 6,
+   "idx": 2,
+   "kind": "normal",
+   "name": "柴桑",
+   "lv": 38,
+   "energy": 1,
+   "exp": 236,
+   "silver": 324,
+   "enemies": [
+    {
+     "e": "cj_moushi",
+     "cell": 3,
+     "lv": 38
+    },
+    {
+     "e": "cj_nushou",
+     "cell": 0,
+     "lv": 38
+    },
+    {
+     "e": "cj_shuibing",
+     "cell": 6,
+     "lv": 38
+    },
+    {
+     "e": "cj_hubaoqi",
+     "cell": 4,
+     "lv": 38
+    },
+    {
+     "e": "cj_moushi",
+     "cell": 2,
+     "lv": 38
+    },
+    {
+     "e": "cj_nushou",
+     "cell": 8,
+     "lv": 38
+    },
+    {
+     "e": "cj_shuibing",
+     "cell": 5,
+     "lv": 38
+    },
+    {
+     "e": "cj_hubaoqi",
+     "cell": 1,
+     "lv": 38
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:wj36",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:ar36",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:xiaoqiao",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_hp_2",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 708,
+    "items": []
+   },
+   "unlock": "s6_2"
+  },
+  {
+   "id": "s6_4",
+   "ch": 6,
+   "idx": 3,
+   "kind": "elite",
+   "name": "群英會",
+   "lv": 39,
+   "energy": 2,
+   "exp": 363,
+   "silver": 498,
+   "enemies": [
+    {
+     "e": "e_zhangliao",
+     "cell": 4,
+     "lv": 40,
+     "leader": 1
+    },
+    {
+     "e": "cj_nushou",
+     "cell": 0,
+     "lv": 39
+    },
+    {
+     "e": "cj_shuibing",
+     "cell": 8,
+     "lv": 39
+    },
+    {
+     "e": "cj_hubaoqi",
+     "cell": 1,
+     "lv": 39
+    },
+    {
+     "e": "cj_moushi",
+     "cell": 7,
+     "lv": 39
+    },
+    {
+     "e": "cj_nushou",
+     "cell": 3,
+     "lv": 39
+    },
+    {
+     "e": "cj_shuibing",
+     "cell": 6,
+     "lv": 39
+    },
+    {
+     "e": "cj_hubaoqi",
+     "cell": 2,
+     "lv": 39
+    },
+    {
+     "e": "cj_moushi",
+     "cell": 5,
+     "lv": 39
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:wp36",
+     "q": 1,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:cp36",
+     "q": 2,
+     "chance": 0.2
+    },
+    {
+     "item": "soul:ganning",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_pdef_2",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    }
+   ],
+   "first": {
+    "gold": 15,
+    "silver": 1089,
+    "items": [
+     {
+      "item": "eq:bt36",
+      "q": 2
+     },
+     {
+      "item": "jinengshu",
+      "n": 2
+     },
+     {
+      "item": "peiyangdan",
+      "n": 3
+     }
+    ]
+   },
+   "unlock": "s6_3"
+  },
+  {
+   "id": "s6_5",
+   "ch": 6,
+   "idx": 4,
+   "kind": "normal",
+   "name": "草船借箭",
+   "lv": 40,
+   "energy": 1,
+   "exp": 248,
+   "silver": 340,
+   "enemies": [
+    {
+     "e": "cj_shuibing",
+     "cell": 0,
+     "lv": 40
+    },
+    {
+     "e": "cj_hubaoqi",
+     "cell": 4,
+     "lv": 40
+    },
+    {
+     "e": "cj_moushi",
+     "cell": 8,
+     "lv": 40
+    },
+    {
+     "e": "cj_nushou",
+     "cell": 1,
+     "lv": 40
+    },
+    {
+     "e": "cj_shuibing",
+     "cell": 7,
+     "lv": 40
+    },
+    {
+     "e": "cj_hubaoqi",
+     "cell": 3,
+     "lv": 40
+    },
+    {
+     "e": "cj_moushi",
+     "cell": 6,
+     "lv": 40
+    },
+    {
+     "e": "cj_nushou",
+     "cell": 2,
+     "lv": 40
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:ar42",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:bt42",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:zhouyu",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_mdef_2",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 744,
+    "items": []
+   },
+   "unlock": "s6_4"
+  },
+  {
+   "id": "s6_6",
+   "ch": 6,
+   "idx": 5,
+   "kind": "normal",
+   "name": "七星壇",
+   "lv": 41,
+   "energy": 1,
+   "exp": 254,
+   "silver": 348,
+   "enemies": [
+    {
+     "e": "cj_hubaoqi",
+     "cell": 0,
+     "lv": 41
+    },
+    {
+     "e": "cj_moushi",
+     "cell": 3,
+     "lv": 41
+    },
+    {
+     "e": "cj_nushou",
+     "cell": 6,
+     "lv": 41
+    },
+    {
+     "e": "cj_shuibing",
+     "cell": 4,
+     "lv": 41
+    },
+    {
+     "e": "cj_hubaoqi",
+     "cell": 1,
+     "lv": 41
+    },
+    {
+     "e": "cj_moushi",
+     "cell": 7,
+     "lv": 41
+    },
+    {
+     "e": "cj_nushou",
+     "cell": 2,
+     "lv": 41
+    },
+    {
+     "e": "cj_shuibing",
+     "cell": 5,
+     "lv": 41
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:cp42",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:wm42",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:caocao",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_jdef_2",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 762,
+    "items": []
+   },
+   "unlock": "s6_5"
+  },
+  {
+   "id": "s6_7",
+   "ch": 6,
+   "idx": 6,
+   "kind": "elite",
+   "name": "連環船",
+   "lv": 41,
+   "energy": 2,
+   "exp": 381,
+   "silver": 522,
+   "enemies": [
+    {
+     "e": "e_caoren",
+     "cell": 4,
+     "lv": 42,
+     "leader": 1
+    },
+    {
+     "e": "cj_moushi",
+     "cell": 1,
+     "lv": 41
+    },
+    {
+     "e": "cj_nushou",
+     "cell": 7,
+     "lv": 41
+    },
+    {
+     "e": "cj_shuibing",
+     "cell": 0,
+     "lv": 41
+    },
+    {
+     "e": "cj_hubaoqi",
+     "cell": 3,
+     "lv": 41
+    },
+    {
+     "e": "cj_moushi",
+     "cell": 6,
+     "lv": 41
+    },
+    {
+     "e": "cj_nushou",
+     "cell": 2,
+     "lv": 41
+    },
+    {
+     "e": "cj_shuibing",
+     "cell": 5,
+     "lv": 41
+    },
+    {
+     "e": "cj_hubaoqi",
+     "cell": 8,
+     "lv": 41
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:bt42",
+     "q": 1,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:hm42",
+     "q": 2,
+     "chance": 0.2
+    },
+    {
+     "item": "soul:huangyueying",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_crit_2",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    }
+   ],
+   "first": {
+    "gold": 15,
+    "silver": 1143,
+    "items": [
+     {
+      "item": "eq:rg42",
+      "q": 2
+     },
+     {
+      "item": "jinengshu",
+      "n": 2
+     },
+     {
+      "item": "peiyangdan",
+      "n": 3
+     }
+    ]
+   },
+   "unlock": "s6_6"
+  },
+  {
+   "id": "s6_8",
+   "ch": 6,
+   "idx": 7,
+   "kind": "boss",
+   "name": "赤壁之戰",
+   "lv": 42,
+   "energy": 3,
+   "exp": 572,
+   "silver": 783,
+   "enemies": [
+    {
+     "e": "b_caocao",
+     "cell": 4,
+     "lv": 43,
+     "leader": 1
+    },
+    {
+     "e": "cj_nushou",
+     "cell": 0,
+     "lv": 42
+    },
+    {
+     "e": "cj_shuibing",
+     "cell": 8,
+     "lv": 42
+    },
+    {
+     "e": "cj_hubaoqi",
+     "cell": 1,
+     "lv": 42
+    },
+    {
+     "e": "cj_moushi",
+     "cell": 7,
+     "lv": 42
+    },
+    {
+     "e": "cj_nushou",
+     "cell": 3,
+     "lv": 42
+    },
+    {
+     "e": "cj_shuibing",
+     "cell": 6,
+     "lv": 42
+    },
+    {
+     "e": "cj_hubaoqi",
+     "cell": 2,
+     "lv": 42
+    },
+    {
+     "e": "cj_moushi",
+     "cell": 5,
+     "lv": 42
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:wm42",
+     "q": 2,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:rg42",
+     "q": 3,
+     "chance": 0.35
+    },
+    {
+     "item": "soul:daqiao",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_atk_2",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "xf_kuihua",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "soul:caocao",
+     "n": 1,
+     "chance": 0.25
+    }
+   ],
+   "first": {
+    "gold": 30,
+    "silver": 1716,
+    "items": [
+     {
+      "item": "tufeiling",
+      "n": 2
+     },
+     {
+      "item": "shenjishu",
+      "n": 1
+     },
+     {
+      "item": "xf_jinzhong",
+      "n": 1
+     }
+    ]
+   },
+   "unlock": "s6_7"
+  },
+  {
+   "id": "s6_9",
+   "ch": 6,
+   "idx": 8,
+   "kind": "hidden",
+   "name": "華容道",
+   "lv": 45,
+   "energy": 3,
+   "exp": 723,
+   "silver": 988,
+   "enemies": [
+    {
+     "e": "b_simayi",
+     "cell": 4,
+     "lv": 46,
+     "leader": 1
+    },
+    {
+     "e": "cj_shuibing",
+     "cell": 0,
+     "lv": 45
+    },
+    {
+     "e": "cj_hubaoqi",
+     "cell": 3,
+     "lv": 45
+    },
+    {
+     "e": "cj_moushi",
+     "cell": 6,
+     "lv": 45
+    },
+    {
+     "e": "cj_nushou",
+     "cell": 1,
+     "lv": 45
+    },
+    {
+     "e": "cj_shuibing",
+     "cell": 7,
+     "lv": 45
+    },
+    {
+     "e": "cj_hubaoqi",
+     "cell": 2,
+     "lv": 45
+    },
+    {
+     "e": "cj_moushi",
+     "cell": 5,
+     "lv": 45
+    },
+    {
+     "e": "cj_nushou",
+     "cell": 8,
+     "lv": 45
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:hm42",
+     "q": 2,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:wj42",
+     "q": 3,
+     "chance": 0.35
+    },
+    {
+     "item": "soul:xiaoqiao",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_hp_2",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "xf_kuihua",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "soul:caocao",
+     "n": 3,
+     "chance": 0.8
+    }
+   ],
+   "first": {
+    "gold": 50,
+    "silver": 2168,
+    "items": [
+     {
+      "item": "soul:caocao",
+      "n": 5
+     }
+    ]
+   },
+   "unlock": "all3star"
+  },
+  {
+   "id": "s7_1",
+   "ch": 7,
+   "idx": 0,
+   "kind": "normal",
+   "name": "西湖梅莊",
+   "lv": 43,
+   "energy": 1,
+   "exp": 266,
+   "silver": 364,
+   "enemies": [
+    {
+     "e": "ry_jiaozhong",
+     "cell": 0,
+     "lv": 43
+    },
+    {
+     "e": "ry_zhanglao",
+     "cell": 3,
+     "lv": 43
+    },
+    {
+     "e": "ry_anqi",
+     "cell": 6,
+     "lv": 43
+    },
+    {
+     "e": "ry_hufa",
+     "cell": 4,
+     "lv": 43
+    },
+    {
+     "e": "ry_jiaozhong",
+     "cell": 1,
+     "lv": 43
+    },
+    {
+     "e": "ry_zhanglao",
+     "cell": 7,
+     "lv": 43
+    },
+    {
+     "e": "ry_anqi",
+     "cell": 2,
+     "lv": 43
+    },
+    {
+     "e": "ry_hufa",
+     "cell": 5,
+     "lv": 43
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:rg42",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:wp42",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:renyingying",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_atk_3",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 798,
+    "items": []
+   },
+   "unlock": "s6_8"
+  },
+  {
+   "id": "s7_2",
+   "ch": 7,
+   "idx": 1,
+   "kind": "normal",
+   "name": "孤山",
+   "lv": 44,
+   "energy": 1,
+   "exp": 272,
+   "silver": 372,
+   "enemies": [
+    {
+     "e": "ry_zhanglao",
+     "cell": 3,
+     "lv": 44
+    },
+    {
+     "e": "ry_anqi",
+     "cell": 0,
+     "lv": 44
+    },
+    {
+     "e": "ry_hufa",
+     "cell": 6,
+     "lv": 44
+    },
+    {
+     "e": "ry_jiaozhong",
+     "cell": 4,
+     "lv": 44
+    },
+    {
+     "e": "ry_zhanglao",
+     "cell": 2,
+     "lv": 44
+    },
+    {
+     "e": "ry_anqi",
+     "cell": 8,
+     "lv": 44
+    },
+    {
+     "e": "ry_hufa",
+     "cell": 5,
+     "lv": 44
+    },
+    {
+     "e": "ry_jiaozhong",
+     "cell": 1,
+     "lv": 44
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:wj42",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:ar42",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:yuebuqun",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_hp_3",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 816,
+    "items": []
+   },
+   "unlock": "s7_1"
+  },
+  {
+   "id": "s7_3",
+   "ch": 7,
+   "idx": 2,
+   "kind": "normal",
+   "name": "地牢",
+   "lv": 45,
+   "energy": 1,
+   "exp": 278,
+   "silver": 380,
+   "enemies": [
+    {
+     "e": "ry_anqi",
+     "cell": 1,
+     "lv": 45
+    },
+    {
+     "e": "ry_hufa",
+     "cell": 4,
+     "lv": 45
+    },
+    {
+     "e": "ry_jiaozhong",
+     "cell": 7,
+     "lv": 45
+    },
+    {
+     "e": "ry_zhanglao",
+     "cell": 0,
+     "lv": 45
+    },
+    {
+     "e": "ry_anqi",
+     "cell": 3,
+     "lv": 45
+    },
+    {
+     "e": "ry_hufa",
+     "cell": 6,
+     "lv": 45
+    },
+    {
+     "e": "ry_jiaozhong",
+     "cell": 2,
+     "lv": 45
+    },
+    {
+     "e": "ry_zhanglao",
+     "cell": 5,
+     "lv": 45
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:wp42",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:cp42",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:tianbg",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_pdef_3",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 834,
+    "items": []
+   },
+   "unlock": "s7_2"
+  },
+  {
+   "id": "s7_4",
+   "ch": 7,
+   "idx": 3,
+   "kind": "elite",
+   "name": "平定州",
+   "lv": 46,
+   "energy": 2,
+   "exp": 426,
+   "silver": 582,
+   "enemies": [
+    {
+     "e": "e_xiangwentian",
+     "cell": 4,
+     "lv": 47,
+     "leader": 1
+    },
+    {
+     "e": "ry_hufa",
+     "cell": 0,
+     "lv": 46
+    },
+    {
+     "e": "ry_jiaozhong",
+     "cell": 3,
+     "lv": 46
+    },
+    {
+     "e": "ry_zhanglao",
+     "cell": 6,
+     "lv": 46
+    },
+    {
+     "e": "ry_anqi",
+     "cell": 1,
+     "lv": 46
+    },
+    {
+     "e": "ry_hufa",
+     "cell": 7,
+     "lv": 46
+    },
+    {
+     "e": "ry_jiaozhong",
+     "cell": 2,
+     "lv": 46
+    },
+    {
+     "e": "ry_zhanglao",
+     "cell": 5,
+     "lv": 46
+    },
+    {
+     "e": "ry_anqi",
+     "cell": 8,
+     "lv": 46
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:ar48",
+     "q": 1,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:bt48",
+     "q": 2,
+     "chance": 0.2
+    },
+    {
+     "item": "soul:zhizunbao",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_mdef_3",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    }
+   ],
+   "first": {
+    "gold": 15,
+    "silver": 1278,
+    "items": [
+     {
+      "item": "eq:bt48",
+      "q": 2
+     },
+     {
+      "item": "jinengshu",
+      "n": 2
+     },
+     {
+      "item": "peiyangdan",
+      "n": 3
+     }
+    ]
+   },
+   "unlock": "s7_3"
+  },
+  {
+   "id": "s7_5",
+   "ch": 7,
+   "idx": 4,
+   "kind": "normal",
+   "name": "風雷堂",
+   "lv": 47,
+   "energy": 1,
+   "exp": 290,
+   "silver": 396,
+   "enemies": [
+    {
+     "e": "ry_jiaozhong",
+     "cell": 0,
+     "lv": 47
+    },
+    {
+     "e": "ry_zhanglao",
+     "cell": 3,
+     "lv": 47
+    },
+    {
+     "e": "ry_anqi",
+     "cell": 6,
+     "lv": 47
+    },
+    {
+     "e": "ry_hufa",
+     "cell": 4,
+     "lv": 47
+    },
+    {
+     "e": "ry_jiaozhong",
+     "cell": 1,
+     "lv": 47
+    },
+    {
+     "e": "ry_zhanglao",
+     "cell": 7,
+     "lv": 47
+    },
+    {
+     "e": "ry_anqi",
+     "cell": 2,
+     "lv": 47
+    },
+    {
+     "e": "ry_hufa",
+     "cell": 5,
+     "lv": 47
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:cp48",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:wm48",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:linghuchong",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_jdef_3",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 870,
+    "items": []
+   },
+   "unlock": "s7_4"
+  },
+  {
+   "id": "s7_6",
+   "ch": 7,
+   "idx": 5,
+   "kind": "normal",
+   "name": "黑木崖下",
+   "lv": 48,
+   "energy": 1,
+   "exp": 296,
+   "silver": 404,
+   "enemies": [
+    {
+     "e": "ry_zhanglao",
+     "cell": 3,
+     "lv": 48
+    },
+    {
+     "e": "ry_anqi",
+     "cell": 0,
+     "lv": 48
+    },
+    {
+     "e": "ry_hufa",
+     "cell": 6,
+     "lv": 48
+    },
+    {
+     "e": "ry_jiaozhong",
+     "cell": 4,
+     "lv": 48
+    },
+    {
+     "e": "ry_zhanglao",
+     "cell": 2,
+     "lv": 48
+    },
+    {
+     "e": "ry_anqi",
+     "cell": 8,
+     "lv": 48
+    },
+    {
+     "e": "ry_hufa",
+     "cell": 5,
+     "lv": 48
+    },
+    {
+     "e": "ry_jiaozhong",
+     "cell": 1,
+     "lv": 48
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:bt48",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:hm48",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:dongfang",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_crit_3",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 888,
+    "items": []
+   },
+   "unlock": "s7_5"
+  },
+  {
+   "id": "s7_7",
+   "ch": 7,
+   "idx": 6,
+   "kind": "elite",
+   "name": "成德殿",
+   "lv": 48,
+   "energy": 2,
+   "exp": 444,
+   "silver": 606,
+   "enemies": [
+    {
+     "e": "e_yanglianting",
+     "cell": 4,
+     "lv": 49,
+     "leader": 1
+    },
+    {
+     "e": "ry_anqi",
+     "cell": 0,
+     "lv": 48
+    },
+    {
+     "e": "ry_hufa",
+     "cell": 8,
+     "lv": 48
+    },
+    {
+     "e": "ry_jiaozhong",
+     "cell": 1,
+     "lv": 48
+    },
+    {
+     "e": "ry_zhanglao",
+     "cell": 7,
+     "lv": 48
+    },
+    {
+     "e": "ry_anqi",
+     "cell": 3,
+     "lv": 48
+    },
+    {
+     "e": "ry_hufa",
+     "cell": 6,
+     "lv": 48
+    },
+    {
+     "e": "ry_jiaozhong",
+     "cell": 2,
+     "lv": 48
+    },
+    {
+     "e": "ry_zhanglao",
+     "cell": 5,
+     "lv": 48
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:wm48",
+     "q": 1,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:rg48",
+     "q": 2,
+     "chance": 0.2
+    },
+    {
+     "item": "soul:renyingying",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_atk_3",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    }
+   ],
+   "first": {
+    "gold": 15,
+    "silver": 1332,
+    "items": [
+     {
+      "item": "eq:rg48",
+      "q": 2
+     },
+     {
+      "item": "jinengshu",
+      "n": 2
+     },
+     {
+      "item": "peiyangdan",
+      "n": 3
+     }
+    ]
+   },
+   "unlock": "s7_6"
+  },
+  {
+   "id": "s7_8",
+   "ch": 7,
+   "idx": 7,
+   "kind": "boss",
+   "name": "黑木崖頂",
+   "lv": 49,
+   "energy": 3,
+   "exp": 664,
+   "silver": 906,
+   "enemies": [
+    {
+     "e": "b_renwoxing",
+     "cell": 4,
+     "lv": 50,
+     "leader": 1
+    },
+    {
+     "e": "ry_hufa",
+     "cell": 0,
+     "lv": 49
+    },
+    {
+     "e": "ry_jiaozhong",
+     "cell": 3,
+     "lv": 49
+    },
+    {
+     "e": "ry_zhanglao",
+     "cell": 6,
+     "lv": 49
+    },
+    {
+     "e": "ry_anqi",
+     "cell": 1,
+     "lv": 49
+    },
+    {
+     "e": "ry_hufa",
+     "cell": 7,
+     "lv": 49
+    },
+    {
+     "e": "ry_jiaozhong",
+     "cell": 2,
+     "lv": 49
+    },
+    {
+     "e": "ry_zhanglao",
+     "cell": 5,
+     "lv": 49
+    },
+    {
+     "e": "ry_anqi",
+     "cell": 8,
+     "lv": 49
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:hm48",
+     "q": 2,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:wj48",
+     "q": 3,
+     "chance": 0.35
+    },
+    {
+     "item": "soul:yuebuqun",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_hp_3",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "xf_lingbo",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "soul:dongfang",
+     "n": 1,
+     "chance": 0.25
+    }
+   ],
+   "first": {
+    "gold": 30,
+    "silver": 1993,
+    "items": [
+     {
+      "item": "tufeiling",
+      "n": 2
+     },
+     {
+      "item": "shenjishu",
+      "n": 1
+     },
+     {
+      "item": "xf_yijin",
+      "n": 1
+     }
+    ]
+   },
+   "unlock": "s7_7"
+  },
+  {
+   "id": "s7_9",
+   "ch": 7,
+   "idx": 8,
+   "kind": "hidden",
+   "name": "繡房",
+   "lv": 52,
+   "energy": 3,
+   "exp": 832,
+   "silver": 1134,
+   "enemies": [
+    {
+     "e": "b_dongfang",
+     "cell": 4,
+     "lv": 53,
+     "leader": 1
+    },
+    {
+     "e": "ry_jiaozhong",
+     "cell": 3,
+     "lv": 52
+    },
+    {
+     "e": "ry_zhanglao",
+     "cell": 0,
+     "lv": 52
+    },
+    {
+     "e": "ry_anqi",
+     "cell": 6,
+     "lv": 52
+    },
+    {
+     "e": "ry_hufa",
+     "cell": 2,
+     "lv": 52
+    },
+    {
+     "e": "ry_jiaozhong",
+     "cell": 8,
+     "lv": 52
+    },
+    {
+     "e": "ry_zhanglao",
+     "cell": 5,
+     "lv": 52
+    },
+    {
+     "e": "ry_anqi",
+     "cell": 1,
+     "lv": 52
+    },
+    {
+     "e": "ry_hufa",
+     "cell": 7,
+     "lv": 52
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:rg54",
+     "q": 2,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:wp54",
+     "q": 3,
+     "chance": 0.35
+    },
+    {
+     "item": "soul:tianbg",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_pdef_3",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "xf_lingbo",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "soul:dongfang",
+     "n": 3,
+     "chance": 0.8
+    }
+   ],
+   "first": {
+    "gold": 50,
+    "silver": 2496,
+    "items": [
+     {
+      "item": "soul:dongfang",
+      "n": 5
+     }
+    ]
+   },
+   "unlock": "all3star"
+  },
+  {
+   "id": "s8_1",
+   "ch": 8,
+   "idx": 0,
+   "kind": "normal",
+   "name": "蒼龍嶺",
+   "lv": 50,
+   "energy": 1,
+   "exp": 308,
+   "silver": 420,
+   "enemies": [
+    {
+     "e": "hs_jianke",
+     "cell": 3,
+     "lv": 50
+    },
+    {
+     "e": "hs_baituo",
+     "cell": 0,
+     "lv": 50
+    },
+    {
+     "e": "hs_tiezhang",
+     "cell": 6,
+     "lv": 50
+    },
+    {
+     "e": "hs_yinshi",
+     "cell": 4,
+     "lv": 50
+    },
+    {
+     "e": "hs_jianke",
+     "cell": 2,
+     "lv": 50
+    },
+    {
+     "e": "hs_baituo",
+     "cell": 8,
+     "lv": 50
+    },
+    {
+     "e": "hs_tiezhang",
+     "cell": 5,
+     "lv": 50
+    },
+    {
+     "e": "hs_yinshi",
+     "cell": 1,
+     "lv": 50
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:wj48",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:ar48",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:duanyu",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_hp_3",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 924,
+    "items": []
+   },
+   "unlock": "s7_8"
+  },
+  {
+   "id": "s8_2",
+   "ch": 8,
+   "idx": 1,
+   "kind": "normal",
+   "name": "玉女峰",
+   "lv": 51,
+   "energy": 1,
+   "exp": 314,
+   "silver": 428,
+   "enemies": [
+    {
+     "e": "hs_baituo",
+     "cell": 1,
+     "lv": 51
+    },
+    {
+     "e": "hs_tiezhang",
+     "cell": 4,
+     "lv": 51
+    },
+    {
+     "e": "hs_yinshi",
+     "cell": 7,
+     "lv": 51
+    },
+    {
+     "e": "hs_jianke",
+     "cell": 0,
+     "lv": 51
+    },
+    {
+     "e": "hs_baituo",
+     "cell": 3,
+     "lv": 51
+    },
+    {
+     "e": "hs_tiezhang",
+     "cell": 6,
+     "lv": 51
+    },
+    {
+     "e": "hs_yinshi",
+     "cell": 2,
+     "lv": 51
+    },
+    {
+     "e": "hs_jianke",
+     "cell": 5,
+     "lv": 51
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:wp48",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:cp48",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:xuzhu",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_pdef_3",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 942,
+    "items": []
+   },
+   "unlock": "s8_1"
+  },
+  {
+   "id": "s8_3",
+   "ch": 8,
+   "idx": 2,
+   "kind": "normal",
+   "name": "思過崖",
+   "lv": 52,
+   "energy": 1,
+   "exp": 320,
+   "silver": 436,
+   "enemies": [
+    {
+     "e": "hs_tiezhang",
+     "cell": 0,
+     "lv": 52
+    },
+    {
+     "e": "hs_yinshi",
+     "cell": 4,
+     "lv": 52
+    },
+    {
+     "e": "hs_jianke",
+     "cell": 8,
+     "lv": 52
+    },
+    {
+     "e": "hs_baituo",
+     "cell": 1,
+     "lv": 52
+    },
+    {
+     "e": "hs_tiezhang",
+     "cell": 7,
+     "lv": 52
+    },
+    {
+     "e": "hs_yinshi",
+     "cell": 3,
+     "lv": 52
+    },
+    {
+     "e": "hs_jianke",
+     "cell": 6,
+     "lv": 52
+    },
+    {
+     "e": "hs_baituo",
+     "cell": 2,
+     "lv": 52
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:ar54",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:bt54",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:ouyangfeng",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_mdef_3",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 960,
+    "items": []
+   },
+   "unlock": "s8_2"
+  },
+  {
+   "id": "s8_4",
+   "ch": 8,
+   "idx": 3,
+   "kind": "elite",
+   "name": "鐵掌峰",
+   "lv": 53,
+   "energy": 2,
+   "exp": 489,
+   "silver": 666,
+   "enemies": [
+    {
+     "e": "e_ouyangke",
+     "cell": 4,
+     "lv": 54,
+     "leader": 1
+    },
+    {
+     "e": "hs_yinshi",
+     "cell": 3,
+     "lv": 53
+    },
+    {
+     "e": "hs_jianke",
+     "cell": 0,
+     "lv": 53
+    },
+    {
+     "e": "hs_baituo",
+     "cell": 6,
+     "lv": 53
+    },
+    {
+     "e": "hs_tiezhang",
+     "cell": 2,
+     "lv": 53
+    },
+    {
+     "e": "hs_yinshi",
+     "cell": 8,
+     "lv": 53
+    },
+    {
+     "e": "hs_jianke",
+     "cell": 5,
+     "lv": 53
+    },
+    {
+     "e": "hs_baituo",
+     "cell": 1,
+     "lv": 53
+    },
+    {
+     "e": "hs_tiezhang",
+     "cell": 7,
+     "lv": 53
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:cp54",
+     "q": 1,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:wm54",
+     "q": 2,
+     "chance": 0.2
+    },
+    {
+     "item": "soul:simayi",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_jdef_3",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    }
+   ],
+   "first": {
+    "gold": 15,
+    "silver": 1467,
+    "items": [
+     {
+      "item": "eq:bt54",
+      "q": 2
+     },
+     {
+      "item": "jinengshu",
+      "n": 2
+     },
+     {
+      "item": "peiyangdan",
+      "n": 3
+     }
+    ]
+   },
+   "unlock": "s8_3"
+  },
+  {
+   "id": "s8_5",
+   "ch": 8,
+   "idx": 4,
+   "kind": "normal",
+   "name": "白駝山",
+   "lv": 54,
+   "energy": 1,
+   "exp": 332,
+   "silver": 452,
+   "enemies": [
+    {
+     "e": "hs_jianke",
+     "cell": 3,
+     "lv": 54
+    },
+    {
+     "e": "hs_baituo",
+     "cell": 0,
+     "lv": 54
+    },
+    {
+     "e": "hs_tiezhang",
+     "cell": 6,
+     "lv": 54
+    },
+    {
+     "e": "hs_yinshi",
+     "cell": 4,
+     "lv": 54
+    },
+    {
+     "e": "hs_jianke",
+     "cell": 2,
+     "lv": 54
+    },
+    {
+     "e": "hs_baituo",
+     "cell": 8,
+     "lv": 54
+    },
+    {
+     "e": "hs_tiezhang",
+     "cell": 5,
+     "lv": 54
+    },
+    {
+     "e": "hs_yinshi",
+     "cell": 1,
+     "lv": 54
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:bt54",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:hm54",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:hongqigong",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_crit_3",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 996,
+    "items": []
+   },
+   "unlock": "s8_4"
+  },
+  {
+   "id": "s8_6",
+   "ch": 8,
+   "idx": 5,
+   "kind": "normal",
+   "name": "落雁峰",
+   "lv": 55,
+   "energy": 1,
+   "exp": 338,
+   "silver": 460,
+   "enemies": [
+    {
+     "e": "hs_baituo",
+     "cell": 1,
+     "lv": 55
+    },
+    {
+     "e": "hs_tiezhang",
+     "cell": 4,
+     "lv": 55
+    },
+    {
+     "e": "hs_yinshi",
+     "cell": 7,
+     "lv": 55
+    },
+    {
+     "e": "hs_jianke",
+     "cell": 0,
+     "lv": 55
+    },
+    {
+     "e": "hs_baituo",
+     "cell": 3,
+     "lv": 55
+    },
+    {
+     "e": "hs_tiezhang",
+     "cell": 6,
+     "lv": 55
+    },
+    {
+     "e": "hs_yinshi",
+     "cell": 2,
+     "lv": 55
+    },
+    {
+     "e": "hs_jianke",
+     "cell": 5,
+     "lv": 55
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:wm54",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:rg54",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:xiaofeng",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_atk_3",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 1014,
+    "items": []
+   },
+   "unlock": "s8_5"
+  },
+  {
+   "id": "s8_7",
+   "ch": 8,
+   "idx": 6,
+   "kind": "elite",
+   "name": "朝陽峰",
+   "lv": 55,
+   "energy": 2,
+   "exp": 507,
+   "silver": 690,
+   "enemies": [
+    {
+     "e": "e_qiuqianren",
+     "cell": 4,
+     "lv": 56,
+     "leader": 1
+    },
+    {
+     "e": "hs_tiezhang",
+     "cell": 0,
+     "lv": 55
+    },
+    {
+     "e": "hs_yinshi",
+     "cell": 3,
+     "lv": 55
+    },
+    {
+     "e": "hs_jianke",
+     "cell": 6,
+     "lv": 55
+    },
+    {
+     "e": "hs_baituo",
+     "cell": 1,
+     "lv": 55
+    },
+    {
+     "e": "hs_tiezhang",
+     "cell": 7,
+     "lv": 55
+    },
+    {
+     "e": "hs_yinshi",
+     "cell": 2,
+     "lv": 55
+    },
+    {
+     "e": "hs_jianke",
+     "cell": 5,
+     "lv": 55
+    },
+    {
+     "e": "hs_baituo",
+     "cell": 8,
+     "lv": 55
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:hm54",
+     "q": 1,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:wj54",
+     "q": 2,
+     "chance": 0.2
+    },
+    {
+     "item": "soul:duanyu",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_hp_3",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    }
+   ],
+   "first": {
+    "gold": 15,
+    "silver": 1521,
+    "items": [
+     {
+      "item": "eq:rg54",
+      "q": 2
+     },
+     {
+      "item": "jinengshu",
+      "n": 2
+     },
+     {
+      "item": "peiyangdan",
+      "n": 3
+     }
+    ]
+   },
+   "unlock": "s8_6"
+  },
+  {
+   "id": "s8_8",
+   "ch": 8,
+   "idx": 7,
+   "kind": "boss",
+   "name": "華山之巔",
+   "lv": 56,
+   "energy": 3,
+   "exp": 757,
+   "silver": 1030,
+   "enemies": [
+    {
+     "e": "b_ouyangfeng",
+     "cell": 4,
+     "lv": 57,
+     "leader": 1
+    },
+    {
+     "e": "hs_yinshi",
+     "cell": 3,
+     "lv": 56
+    },
+    {
+     "e": "hs_jianke",
+     "cell": 0,
+     "lv": 56
+    },
+    {
+     "e": "hs_baituo",
+     "cell": 6,
+     "lv": 56
+    },
+    {
+     "e": "hs_tiezhang",
+     "cell": 2,
+     "lv": 56
+    },
+    {
+     "e": "hs_yinshi",
+     "cell": 8,
+     "lv": 56
+    },
+    {
+     "e": "hs_jianke",
+     "cell": 5,
+     "lv": 56
+    },
+    {
+     "e": "hs_baituo",
+     "cell": 1,
+     "lv": 56
+    },
+    {
+     "e": "hs_tiezhang",
+     "cell": 7,
+     "lv": 56
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:rg54",
+     "q": 2,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:wp54",
+     "q": 3,
+     "chance": 0.35
+    },
+    {
+     "item": "soul:xuzhu",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_pdef_3",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "xf_xixing",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "soul:xiaofeng",
+     "n": 1,
+     "chance": 0.25
+    }
+   ],
+   "first": {
+    "gold": 30,
+    "silver": 2270,
+    "items": [
+     {
+      "item": "tufeiling",
+      "n": 2
+     },
+     {
+      "item": "shenjishu",
+      "n": 1
+     },
+     {
+      "item": "xf_jiuyang",
+      "n": 1
+     }
+    ]
+   },
+   "unlock": "s8_7"
+  },
+  {
+   "id": "s8_9",
+   "ch": 8,
+   "idx": 8,
+   "kind": "hidden",
+   "name": "劍塚",
+   "lv": 59,
+   "energy": 3,
+   "exp": 941,
+   "silver": 1279,
+   "enemies": [
+    {
+     "e": "b_dugu",
+     "cell": 4,
+     "lv": 60,
+     "leader": 1
+    },
+    {
+     "e": "hs_jianke",
+     "cell": 1,
+     "lv": 59
+    },
+    {
+     "e": "hs_baituo",
+     "cell": 7,
+     "lv": 59
+    },
+    {
+     "e": "hs_tiezhang",
+     "cell": 0,
+     "lv": 59
+    },
+    {
+     "e": "hs_yinshi",
+     "cell": 3,
+     "lv": 59
+    },
+    {
+     "e": "hs_jianke",
+     "cell": 6,
+     "lv": 59
+    },
+    {
+     "e": "hs_baituo",
+     "cell": 2,
+     "lv": 59
+    },
+    {
+     "e": "hs_tiezhang",
+     "cell": 5,
+     "lv": 59
+    },
+    {
+     "e": "hs_yinshi",
+     "cell": 8,
+     "lv": 59
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:wj54",
+     "q": 2,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:ar54",
+     "q": 3,
+     "chance": 0.35
+    },
+    {
+     "item": "soul:ouyangfeng",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_mdef_3",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "xf_xixing",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "soul:xiaofeng",
+     "n": 3,
+     "chance": 0.8
+    }
+   ],
+   "first": {
+    "gold": 50,
+    "silver": 2824,
+    "items": [
+     {
+      "item": "soul:xiaofeng",
+      "n": 5
+     }
+    ]
+   },
+   "unlock": "all3star"
+  }
+ ]
+}

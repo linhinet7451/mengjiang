@@ -1,0 +1,213 @@
+{
+ "app": "mengjiang-remake",
+ "version": 1,
+ "savedAt": 1793720317685,
+ "data": {
+  "version": 1,
+  "created": 1793720317675,
+  "player": {
+   "name": "舊存檔俠",
+   "gender": "m",
+   "leadType": "力耐",
+   "gold": 55,
+   "silver": 95209,
+   "energy": 107,
+   "energyTs": 1793720317684,
+   "look": {
+    "g": "m",
+    "skin": "#f0c7a0",
+    "hair": "#1b1b1b",
+    "hs": "topknot",
+    "beard": "none",
+    "cloth": "#b71c1c",
+    "trim": "#ffd54f",
+    "wp": "sword"
+   }
+  },
+  "heroes": [
+   {
+    "uid": 1,
+    "id": "lead",
+    "lv": 4,
+    "exp": 15,
+    "eq": {
+     "weapon": {
+      "uid": 4,
+      "t": "wp1",
+      "q": 0
+     }
+    }
+   },
+   {
+    "uid": 2,
+    "id": "zhangjiao",
+    "lv": 4,
+    "exp": 3,
+    "eq": {}
+   },
+   {
+    "uid": 3,
+    "id": "qiuchuji",
+    "lv": 4,
+    "exp": 15,
+    "eq": {}
+   },
+   {
+    "uid": 7,
+    "id": "renyingying",
+    "lv": 1,
+    "exp": 0,
+    "eq": {}
+   }
+  ],
+  "team": {
+   "formation": "fangyuan",
+   "cells": {
+    "0": 2,
+    "3": 1,
+    "6": 3
+   }
+  },
+  "bag": {
+   "stack": {
+    "jinglitang": 4,
+    "soul:zhangjiao": 3
+   },
+   "equips": [
+    {
+     "uid": 5,
+     "t": "ar1",
+     "q": 0
+    },
+    {
+     "uid": 6,
+     "t": "cp1",
+     "q": 1
+    }
+   ]
+  },
+  "stages": {
+   "s1_1": {
+    "stars": 3,
+    "clears": 6
+   }
+  },
+  "firstClaimed": {
+   "s1_1": true
+  },
+  "recruit": {
+   "cands": [
+    "peiys",
+    "zhoucang",
+    "yucanghai"
+   ],
+   "normalUsed": 0,
+   "normalDay": "2026-11-3",
+   "cd": {},
+   "firstDone": {}
+  },
+  "buildings": {
+   "shenwu": 1,
+   "juxian": 1,
+   "xukong": 1
+  },
+  "training": {
+   "uid": 2,
+   "ts": 1793720317685
+  },
+  "mail": [
+   {
+    "id": 1,
+    "title": "江湖新人禮",
+    "text": "少俠初入江湖，略備薄禮。",
+    "att": {
+     "silver": 1000,
+     "items": [
+      {
+       "item": "tufeiling",
+       "n": 2
+      }
+     ]
+    },
+    "read": false,
+    "claimed": false,
+    "t": 1793720317676
+   }
+  ],
+  "tasksClaimed": {},
+  "gifts": {
+   "opening": false,
+   "sevenDay": [],
+   "lastDay": ""
+  },
+  "stats": {
+   "recruits": 1,
+   "battles": 6,
+   "wins": 6
+  },
+  "log": [
+   {
+    "t": 1793720317685,
+    "text": "你在聚賢莊招募了【藍】任盈盈！",
+    "k": "recruit"
+   },
+   {
+    "t": 1793720317684,
+    "text": "通關「涿郡郊外」3星",
+    "k": "battle"
+   },
+   {
+    "t": 1793720317684,
+    "text": "通關「涿郡郊外」3星",
+    "k": "battle"
+   },
+   {
+    "t": 1793720317684,
+    "text": "主角升到 4 級！精力已補滿。",
+    "k": "lv"
+   },
+   {
+    "t": 1793720317680,
+    "text": "通關「涿郡郊外」3星",
+    "k": "battle"
+   },
+   {
+    "t": 1793720317679,
+    "text": "通關「涿郡郊外」3星",
+    "k": "battle"
+   },
+   {
+    "t": 1793720317679,
+    "text": "主角升到 3 級！精力已補滿。",
+    "k": "lv"
+   },
+   {
+    "t": 1793720317679,
+    "text": "通關「涿郡郊外」3星",
+    "k": "battle"
+   },
+   {
+    "t": 1793720317679,
+    "text": "通關「涿郡郊外」3星（首通）",
+    "k": "battle"
+   },
+   {
+    "t": 1793720317679,
+    "text": "主角升到 2 級！精力已補滿。",
+    "k": "lv"
+   },
+   {
+    "t": 1793720317676,
+    "text": "歡迎來到猛將無雙！張角、邱處機 前來投奔。",
+    "k": "sys"
+   }
+  ],
+  "settings": {
+   "speed": 1,
+   "rotate": true,
+   "energyMode": "original"
+  },
+  "nextUid": 8,
+  "freeGiftTs": 1793720317676
+ }
+}

@@ -1,0 +1,350 @@
+[
+ {
+  "id": "shop_w1",
+  "item": "eq:wp1",
+  "q": 0,
+  "price": {
+   "silver": 200
+  }
+ },
+ {
+  "id": "shop_m1",
+  "item": "eq:wm1",
+  "q": 0,
+  "price": {
+   "silver": 200
+  }
+ },
+ {
+  "id": "shop_a1",
+  "item": "eq:ar1",
+  "q": 0,
+  "price": {
+   "silver": 200
+  }
+ },
+ {
+  "id": "shop_c1",
+  "item": "eq:cp1",
+  "q": 0,
+  "price": {
+   "silver": 200
+  }
+ },
+ {
+  "id": "shop_b1",
+  "item": "eq:bt1",
+  "q": 0,
+  "price": {
+   "silver": 200
+  }
+ },
+ {
+  "id": "shop_w6",
+  "item": "eq:wp6",
+  "q": 0,
+  "price": {
+   "silver": 800
+  }
+ },
+ {
+  "id": "shop_m6",
+  "item": "eq:wm6",
+  "q": 0,
+  "price": {
+   "silver": 800
+  }
+ },
+ {
+  "id": "shop_a6",
+  "item": "eq:ar6",
+  "q": 0,
+  "price": {
+   "silver": 800
+  }
+ },
+ {
+  "id": "shop_c6",
+  "item": "eq:cp6",
+  "q": 0,
+  "price": {
+   "silver": 800
+  }
+ },
+ {
+  "id": "shop_b6",
+  "item": "eq:bt6",
+  "q": 0,
+  "price": {
+   "silver": 800
+  }
+ },
+ {
+  "id": "shop_w12",
+  "item": "eq:wp12",
+  "q": 0,
+  "price": {
+   "silver": 2500
+  }
+ },
+ {
+  "id": "shop_m12",
+  "item": "eq:wm12",
+  "q": 0,
+  "price": {
+   "silver": 2500
+  }
+ },
+ {
+  "id": "shop_tang",
+  "item": "jinglitang",
+  "n": 1,
+  "price": {
+   "gold": 10
+  }
+ },
+ {
+  "id": "shop_wan",
+  "item": "dabuwan",
+  "n": 1,
+  "price": {
+   "gold": 20
+  }
+ },
+ {
+  "id": "shop_tfl",
+  "item": "tufeiling",
+  "n": 1,
+  "price": {
+   "gold": 15
+  }
+ },
+ {
+  "id": "shop_h1",
+  "item": "eq:hm1",
+  "q": 0,
+  "price": {
+   "silver": 200
+  }
+ },
+ {
+  "id": "shop_r1",
+  "item": "eq:rg1",
+  "q": 0,
+  "price": {
+   "silver": 300
+  }
+ },
+ {
+  "id": "shop_j1",
+  "item": "eq:wj1",
+  "q": 0,
+  "price": {
+   "silver": 200
+  }
+ },
+ {
+  "id": "shop_j6",
+  "item": "eq:wj6",
+  "q": 0,
+  "price": {
+   "silver": 800
+  }
+ },
+ {
+  "id": "shop_h6",
+  "item": "eq:hm6",
+  "q": 0,
+  "price": {
+   "silver": 800
+  }
+ },
+ {
+  "id": "shop_r6",
+  "item": "eq:rg6",
+  "q": 0,
+  "price": {
+   "silver": 1000
+  }
+ },
+ {
+  "id": "shop_jns",
+  "item": "jinengshu",
+  "n": 1,
+  "price": {
+   "silver": 1500
+  }
+ },
+ {
+  "id": "shop_pyd",
+  "item": "peiyangdan",
+  "n": 1,
+  "price": {
+   "silver": 800
+  }
+ },
+ {
+  "id": "shop_xls",
+  "item": "xilianshi",
+  "n": 1,
+  "price": {
+   "silver": 1200
+  }
+ },
+ {
+  "id": "shop_xfc",
+  "item": "xinfacanye",
+  "n": 1,
+  "price": {
+   "silver": 2000
+  }
+ },
+ {
+  "id": "shop_zcf",
+  "item": "zhaochufu",
+  "n": 1,
+  "price": {
+   "gold": 5
+  }
+ },
+ {
+  "id": "shop_sjs",
+  "item": "shenjishu",
+  "n": 1,
+  "price": {
+   "gold": 60
+  }
+ },
+ {
+  "id": "shop_gem1",
+  "item": "gem_atk_1",
+  "n": 1,
+  "price": {
+   "silver": 600
+  }
+ },
+ {
+  "id": "shop_gem2",
+  "item": "gem_hp_1",
+  "n": 1,
+  "price": {
+   "silver": 600
+  }
+ },
+ {
+  "id": "shop_gem3",
+  "item": "gem_pdef_1",
+  "n": 1,
+  "price": {
+   "silver": 600
+  }
+ },
+ {
+  "id": "shop_gem4",
+  "item": "gem_mdef_1",
+  "n": 1,
+  "price": {
+   "silver": 600
+  }
+ },
+ {
+  "id": "shop_gem5",
+  "item": "gem_jdef_1",
+  "n": 1,
+  "price": {
+   "silver": 600
+  }
+ },
+ {
+  "id": "shop_gem6",
+  "item": "gem_crit_1",
+  "n": 1,
+  "price": {
+   "silver": 900
+  }
+ },
+ {
+  "id": "shop_xf1",
+  "item": "xf_zhanzhuang",
+  "n": 1,
+  "price": {
+   "silver": 3000
+  }
+ },
+ {
+  "id": "shop_xf2",
+  "item": "xf_yijin",
+  "n": 1,
+  "price": {
+   "silver": 3000
+  }
+ },
+ {
+  "id": "shop_sd1",
+  "item": "seed_yin",
+  "n": 1,
+  "price": {
+   "silver": 300
+  }
+ },
+ {
+  "id": "shop_sd2",
+  "item": "seed_exp",
+  "n": 1,
+  "price": {
+   "silver": 500
+  }
+ },
+ {
+  "id": "shop_sd3",
+  "item": "seed_gem",
+  "n": 1,
+  "price": {
+   "silver": 1200
+  }
+ },
+ {
+  "id": "shop_sd4",
+  "item": "seed_soul",
+  "n": 1,
+  "price": {
+   "gold": 10
+  }
+ },
+ {
+  "id": "shop_hf",
+  "item": "huafei",
+  "n": 1,
+  "price": {
+   "silver": 400
+  }
+ },
+ {
+  "id": "shop_xf_jingang",
+  "item": "xf_jingang",
+  "price": {
+   "silver": 3000
+  }
+ },
+ {
+  "id": "shop_xf_shehun",
+  "item": "xf_shehun",
+  "price": {
+   "silver": 3000
+  }
+ },
+ {
+  "id": "shop_xf_zhengfeng",
+  "item": "xf_zhengfeng",
+  "price": {
+   "silver": 3000
+  }
+ },
+ {
+  "id": "shop_xf_fumo",
+  "item": "xf_fumo",
+  "price": {
+   "silver": 3000
+  }
+ }
+]

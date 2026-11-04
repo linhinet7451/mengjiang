@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>猛將無雙．啟動自我檢測</title>
+<style>
+body{margin:0;padding:16px;background:#2a2210;color:#fff6c8;font:15px/1.6 "PingFang TC","Microsoft JhengHei",sans-serif}
+h1{font-size:20px;color:#ffe070}li{margin:3px 0}.ok{color:#8f8}.bad{color:#f88}.warn{color:#fd6}
+pre{white-space:pre-wrap;background:#000;padding:8px;font-size:12px}
+</style>
+<script>
+var LOG = [];
+function rep(ok, msg) { LOG.push([ok, msg]); var ul = document.getElementById('out'); if (ul) { var li = document.createElement('li'); li.className = ok === true ? 'ok' : (ok === 'warn' ? 'warn' : 'bad'); li.textContent = (ok === true ? '通過　' : (ok === 'warn' ? '注意　' : '失敗　')) + msg; ul.appendChild(li); } }
+window.onerror = function (m, s, l, c) { rep(false, '腳本錯誤：' + m + '（' + (s || '').split('/').pop() + ':' + l + '）'); };
+</script>
+</head>
+<body>
+<h1>猛將無雙．啟動自我檢測</h1>
+<p>此頁逐一檢查瀏覽器功能與遊戲模組，不會修改你的存檔（只使用測試用的暫存鍵）。若遊戲白畫面，請把此頁結果截圖回報。</p>
+<ul id="out"></ul>
+<div id="stage" style="display:none"><div id="screen"></div><div id="modal"></div><div id="confirm"></div><div id="toast"></div></div>
+<!--INLINE_JS_START-->
+<script src="js/util.js"></script>
+<script src="js/data.generated.js"></script>
+<script src="js/assets-map.js"></script>
+<script src="js/art.js"></script>
+<script src="js/rules.js"></script>
+<script src="js/battle.js"></script>
+<script src="js/state.js"></script>
+<script src="js/game.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/ui-city.js"></script>
+<script src="js/ui-recruit.js"></script>
+<script src="js/ui-hall.js"></script>
+<script src="js/ui-gate.js"></script>
+<script src="js/ui-battle.js"></script>
+<script src="js/ui-misc.js"></script>
+<script src="js/main.js"></script>
+<!--INLINE_JS_END-->
+<script>
+(function () {
+  function t(name, fn) { try { var r = fn(); rep(r === 'warn' ? 'warn' : !!r, name + (typeof r === 'string' && r !== 'warn' ? '：' + r : '')); } catch (e) { rep(false, name + '：' + e.message); } }
+  rep(true, '瀏覽器：' + navigator.userAgent);
+  t('JSON', function () { return JSON.parse('{"a":1}').a === 1; });
+  t('localStorage 可寫入', function () { try { localStorage.setItem('mjws_boottest', '1'); var ok = localStorage.getItem('mjws_boottest') === '1'; localStorage.removeItem('mjws_boottest'); return ok; } catch (e) { return 'warn'; } });
+  t('CSS transform', function () { var d = document.createElement('div'); return ('transform' in d.style) || ('webkitTransform' in d.style); });
+  t('SVG', function () { return !!document.createElementNS && !!document.createElementNS('http://www.w3.org/2000/svg', 'svg').createSVGRect; });
+  var mods = ['U', 'D', 'Art', 'R', 'Battle', 'S', 'G', 'UI'];
+  for (var i = 0; i < mods.length; i++) (function (m) { t('模組 MJ.' + m, function () { return !!(window.MJ && MJ[m]); }); })(mods[i]);
+  t('MJ.boot 存在', function () { return typeof MJ.boot === 'function'; });
+  t('遊戲資料', function () { MJ.G.initData(); return '武將 ' + MJ.D.heroes.list.length + '、關卡 ' + MJ.D.stages.stages.length + '、裝備 ' + MJ.D.equipment.list.length; });
+  t('建立測試角色（不寫入存檔）', function () {
+    var save = MJ.S.save; MJ.S.save = function () { return true; };
+    try { MJ.G.newGame('測試', '力耐', 'm', 1); var l = MJ.G.lead(); return 'Lv' + l.lv + '，生命 ' + MJ.R.derived(l, MJ.S.state).hp; } finally { MJ.S.save = save; }
+  });
+  t('模擬戰鬥 1-1', function () {
+    var save = MJ.S.save; MJ.S.save = function () { return true; };
+    try { var r = MJ.G.fight('s1_1'); return r.ok ? (r.win ? '勝利' : '戰敗') + '，' + r.battle.rounds + ' 回合，事件 ' + r.battle.events.length : r.msg; } finally { MJ.S.save = save; MJ.S.state = null; }
+  });
+  t('畫面繪製（主城 HTML）', function () { MJ.S.state = null; var save = MJ.S.save; MJ.S.save = function () { return true; }; MJ.G.newGame('測試', '力耐', 'm', 1); var h = MJ.UI.screens.city(); MJ.S.save = save; MJ.S.state = null; return h.length > 1000; });
+  var bad = 0; for (var j = 0; j < LOG.length; j++) if (LOG[j][0] === false) bad++;
+  var p = document.createElement('p'); p.className = bad ? 'bad' : 'ok'; p.innerHTML = bad ? '<b>有 ' + bad + ' 項失敗</b>，請截圖回報。' : '<b>全部通過</b>。可以開啟 <a href="index.html" style="color:#ffe070">遊戲</a>。';
+  document.body.appendChild(p);
+  window.BOOT_TEST_DONE = { fail: bad, total: LOG.length };
+})();
+</script>
+</body>
+</html>
