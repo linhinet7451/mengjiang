@@ -1,0 +1,15 @@
+# 不進 repo
+docs/sources/
+backup/
+node_modules/
+# 建置輸出與測試截圖（可重產）
+dist/
+screenshots/
+screenshots-*/
+tmp/
+# 原始生成圖（重建既有素材不需要；見 README）
+src/assets/raw/
+src/assets/iraw/
+src/assets/bgraw/
+__pycache__/
+*.pyc

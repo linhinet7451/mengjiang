@@ -1,0 +1,45 @@
+// 第五階段單元測試（平衡、防卡關、存檔相容）：node tests/unit-p5.js
+var load = require('./harness.js'), fs = require('fs'), path = require('path');
+var pass = 0, fail = 0;
+function ok(cond, name) { if (cond) { pass++; console.log('  通過', name); } else { fail++; console.log('✗ 失敗', name); } }
+var c = load(), M = c.MJ, G = M.G, R = M.R, S = M.S, D = M.D;
+console.log('[經驗曲線]');
+ok(R.expNeed(6) === 125, 'Lv6 升級需要 125 經驗（截圖 C 級資料不變）');
+ok(R.expNeed(10) === 325, '10 級以內維持原公式');
+ok(R.expNeed(20) === Math.round(1245 * (1 + 10 * R.EXP_K)), '10 級以上乘上成長係數');
+var mono = true; for (var lv = 1; lv < R.maxLevel; lv++) if (R.expNeed(lv + 1) <= R.expNeed(lv)) mono = false;
+ok(mono, '每一級所需經驗都比前一級多');
+console.log('[越戰越勇]');
+ok(R.moraleBonus(0) === 0 && R.moraleBonus(1) > 0 && R.moraleBonus(99) === R.moraleBonus(10), '連敗加成從 0 開始，有上限');
+G.newGame('測試', '力耐', 'm', 7);
+var s = S.state, hard = 's8_8';
+s.stages = {}; D.stages.stages.forEach(function (x) { if (x.id !== hard && x.kind !== 'hidden') s.stages[x.id] = { stars: 1, clears: 1 }; });
+G.lead().lv = 60; s.player.energy = 999;
+var r1 = G.fight(hard, 11);
+ok(r1.ok && !r1.win && r1.morale === 0, '第一次挑戰終章王關（主角單人）會戰敗，沒有加成');
+ok(G.stageState(hard).fails === 1 && r1.nextMorale > 0, '戰敗後記錄連敗次數，下一戰有加成');
+var hp1 = r1.team[0].unit.hp, r2 = G.fight(hard, 12);
+ok(r2.morale === R.moraleBonus(1) && r2.team[0].unit.hp > hp1, '加成真的套用到我方生命');
+ok(G.stageState(hard).clears === 0, '戰敗不會算成通關');
+var easy = 's1_1'; s.stages[easy] = { stars: 1, clears: 1, fails: 3 };
+var r3 = G.fight(easy, 13);
+ok(r3.win && G.stageState(easy).fails === 0, '通關後連敗次數歸零');
+console.log('[舊存檔相容]');
+['save-v1.json', 'save-v2.json'].forEach(function (f) {
+  var p = S.parse(fs.readFileSync(path.join(__dirname, 'fixtures', f), 'utf8'));
+  ok(p.ok && p.state.version === S.VERSION, f + ' 可升級為 v' + S.VERSION);
+  S.state = p.state; var h = G.lead();
+  ok(h && R.expNeed(h.lv) > 0 && (h.exp || 0) >= 0, f + '：主角經驗與新曲線相容');
+  var st = G.stageState(Object.keys(p.state.stages)[0] || 's1_1');
+  ok(!st.fails, f + '：舊存檔沒有連敗欄位也能正常讀取');
+});
+ok(!S.parse('{壞掉').ok && !S.parse('{"a":1}').ok, '損壞或不相符的存檔會被拒絕而不是當掉');
+console.log('[長期進度模擬（標準模式 7 天）]');
+var sim = require('../tools/progress-sim.js');
+var res = sim({ days: 7, econ: 'standard', sessions: 4 });
+var d1 = res.days[0], d7 = res.days[6];
+ok(d1.lv >= 15 && d1.lv <= 40, '第 1 天主角 Lv' + d1.lv + '（不會一天練滿）');
+ok(d7.lv < R.maxLevel, '第 7 天主角 Lv' + d7.lv + '，尚未滿級');
+ok(res.maxStuck < 3, '沒有連續 3 天以上卡關（最長 ' + res.maxStuck + ' 天）');
+console.log('\n結果：通過 ' + pass + '，失敗 ' + fail);
+process.exit(fail ? 1 : 0);

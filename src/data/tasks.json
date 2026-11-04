@@ -1,0 +1,325 @@
+[
+ {
+  "id": "t1",
+  "name": "初入江湖",
+  "desc": "在聚賢莊招募 1 名武將",
+  "cond": {
+   "recruits": 1
+  },
+  "reward": {
+   "silver": 500
+  }
+ },
+ {
+  "id": "t2",
+  "name": "排兵布陣",
+  "desc": "出戰隊伍達到 3 名武將",
+  "cond": {
+   "team": 3
+  },
+  "reward": {
+   "silver": 300,
+   "gold": 10
+  }
+ },
+ {
+  "id": "t3",
+  "name": "首戰告捷",
+  "desc": "通關虛空之門「涿郡郊外」",
+  "cond": {
+   "clear": "s1_1"
+  },
+  "reward": {
+   "silver": 500,
+   "items": [
+    {
+     "item": "jinglitang",
+     "n": 1
+    }
+   ]
+  }
+ },
+ {
+  "id": "t4",
+  "name": "披堅執銳",
+  "desc": "為任一武將穿上 3 件裝備",
+  "cond": {
+   "equipped": 3
+  },
+  "reward": {
+   "silver": 800
+  }
+ },
+ {
+  "id": "t5",
+  "name": "精益求精",
+  "desc": "主角等級達到 5 級",
+  "cond": {
+   "level": 5
+  },
+  "reward": {
+   "gold": 20,
+   "items": [
+    {
+     "item": "tufeiling",
+     "n": 1
+    }
+   ]
+  }
+ },
+ {
+  "id": "t6",
+  "name": "地公授首",
+  "desc": "通關精英關「地公壇」",
+  "cond": {
+   "clear": "s1_4"
+  },
+  "reward": {
+   "silver": 1500
+  }
+ },
+ {
+  "id": "t7",
+  "name": "平定黃巾",
+  "desc": "擊敗王關「廣宗決戰」",
+  "cond": {
+   "clear": "s1_8"
+  },
+  "reward": {
+   "gold": 50,
+   "items": [
+    {
+     "item": "dabuwan",
+     "n": 1
+    }
+   ]
+  }
+ },
+ {
+  "id": "t8",
+  "name": "群英薈萃",
+  "desc": "擁有 5 名武將",
+  "cond": {
+   "heroes": 5
+  },
+  "reward": {
+   "silver": 2000
+  }
+ },
+ {
+  "id": "t9",
+  "name": "聲名鵲起",
+  "desc": "主角等級達到 10 級",
+  "cond": {
+   "level": 10
+  },
+  "reward": {
+   "gold": 50
+  }
+ },
+ {
+  "id": "t10",
+  "name": "以彼之道",
+  "desc": "擊敗王關「參合莊」",
+  "cond": {
+   "clear": "s2_8"
+  },
+  "reward": {
+   "gold": 80,
+   "items": [
+    {
+     "item": "tufeiling",
+     "n": 3
+    }
+   ]
+  }
+ },
+ {
+  "id": "t11",
+  "name": "三英戰呂布",
+  "desc": "擊敗王關「虎牢關」",
+  "cond": {
+   "clear": "s3_8"
+  },
+  "reward": {
+   "gold": 100,
+   "items": [
+    {
+     "item": "soul:lvbu",
+     "n": 5
+    }
+   ]
+  }
+ },
+ {
+  "id": "t12",
+  "name": "力戰群雄",
+  "desc": "擊敗王關「光明頂之巔」",
+  "cond": {
+   "clear": "s4_8"
+  },
+  "reward": {
+   "gold": 150
+  }
+ },
+ {
+  "id": "t13",
+  "name": "名揚天下",
+  "desc": "主角等級達到 20 級",
+  "cond": {
+   "level": 20
+  },
+  "reward": {
+   "gold": 100
+  }
+ },
+ {
+  "id": "t14",
+  "name": "三星大俠",
+  "desc": "第一章全部關卡三星，開啟隱藏關",
+  "cond": {
+   "clear": "s1_9"
+  },
+  "reward": {
+   "gold": 60
+  }
+ },
+ {
+  "id": "t15",
+  "name": "神兵初成",
+  "desc": "將任一裝備強化到 +5",
+  "cond": {
+   "plus": 5
+  },
+  "reward": {
+   "silver": 3000,
+   "items": [
+    {
+     "item": "xilianshi",
+     "n": 2
+    }
+   ]
+  }
+ },
+ {
+  "id": "t16",
+  "name": "武學精進",
+  "desc": "將任一技能升到 3 級",
+  "cond": {
+   "skill": 3
+  },
+  "reward": {
+   "items": [
+    {
+     "item": "jinengshu",
+     "n": 3
+    }
+   ]
+  }
+ },
+ {
+  "id": "t17",
+  "name": "脫胎換骨",
+  "desc": "完成 1 次培養",
+  "cond": {
+   "peiyang": 1
+  },
+  "reward": {
+   "items": [
+    {
+     "item": "peiyangdan",
+     "n": 5
+    }
+   ]
+  }
+ },
+ {
+  "id": "t18",
+  "name": "將星閃耀",
+  "desc": "點亮 1 顆將星",
+  "cond": {
+   "stars": 1
+  },
+  "reward": {
+   "gold": 30
+  }
+ },
+ {
+  "id": "t19",
+  "name": "鎮守襄陽",
+  "desc": "擊敗王關「襄陽之戰」",
+  "cond": {
+   "clear": "s5_8"
+  },
+  "reward": {
+   "gold": 150,
+   "items": [
+    {
+     "item": "shenjishu",
+     "n": 1
+    }
+   ]
+  }
+ },
+ {
+  "id": "t20",
+  "name": "火燒赤壁",
+  "desc": "擊敗王關「赤壁之戰」",
+  "cond": {
+   "clear": "s6_8"
+  },
+  "reward": {
+   "gold": 200
+  }
+ },
+ {
+  "id": "t21",
+  "name": "笑傲江湖",
+  "desc": "擊敗王關「黑木崖頂」",
+  "cond": {
+   "clear": "s7_8"
+  },
+  "reward": {
+   "gold": 250
+  }
+ },
+ {
+  "id": "t22",
+  "name": "天下五絕",
+  "desc": "擊敗王關「華山之巔」",
+  "cond": {
+   "clear": "s8_8"
+  },
+  "reward": {
+   "gold": 300,
+   "items": [
+    {
+     "item": "xf_jiuyin",
+     "n": 1
+    }
+   ]
+  }
+ },
+ {
+  "id": "t23",
+  "name": "登高望遠",
+  "desc": "通天塔到達第 10 層",
+  "cond": {
+   "tower": 10
+  },
+  "reward": {
+   "gold": 50
+  }
+ },
+ {
+  "id": "t24",
+  "name": "圖鑑收藏家",
+  "desc": "圖鑑收錄 20 名武將",
+  "cond": {
+   "codex": 20
+  },
+  "reward": {
+   "gold": 80
+  }
+ }
+]

@@ -1,0 +1,76 @@
+// 第四階段單元測試（音樂／音效的純資料部分）：node tests/unit-p4.js
+var load = require('./harness.js');
+var pass = 0, fail = 0;
+function ok(cond, name) { if (cond) { pass++; console.log('  通過', name); } else { fail++; console.log('✗ 失敗', name); } }
+var c = load(), M = c.MJ, A = M.Audio;
+console.log('[程序化配樂]');
+ok(!!A && A.supported === false, 'Node 環境沒有 WebAudio：標記為不支援');
+var names = Object.keys(A.SONGS);
+ok(names.length >= 6, '至少 6 首場景曲（' + names.join('、') + '）');
+names.forEach(function (n) {
+  var p = A.pattern(n), q = A.pattern(n), sg = A.SONGS[n];
+  ok(p.steps === 64 && p.mel.length === 64 && p.bass.length === 64 && p.drum.length === 64, n + '：4 小節 64 步');
+  ok(JSON.stringify(p) === JSON.stringify(q), n + '：同一場景旋律固定（可重現）');
+  var notes = p.mel.filter(function (x) { return x !== null; });
+  var scale = p.sc, inScale = notes.every(function (x) { var d = ((x - sg.root) % 12 + 12) % 12; return scale.indexOf(d) >= 0; });
+  ok(notes.length >= 12 && inScale, n + '：旋律 ' + notes.length + ' 個音，全部落在五聲音階內');
+  ok(notes.every(function (x) { return x >= -24 && x <= 24; }), n + '：音域合理（±2 個八度）');
+});
+ok(JSON.stringify(A.pattern('city').mel) !== JSON.stringify(A.pattern('battle').mel), '主城與戰鬥是不同旋律');
+console.log('[場景對應]');
+ok(A.sceneFor('city') === 'city' && A.sceneFor('battle') === 'battle' && A.sceneFor('battle', true) === 'boss', '主城／一般戰鬥／首領戰');
+ok(A.sceneFor('tower') === 'mystic' && A.sceneFor('wuji') === 'mystic' && A.sceneFor('farm') === 'farm', '通天塔、無極幻境、農田');
+ok(A.sceneFor('不存在的畫面') === 'city', '未知畫面退回主城音樂');
+ok(A.sceneFor('gate') === 'gate' && A.SONGS.gate.bpm > A.SONGS.city.bpm, '關卡選擇有獨立、較緊張的曲子');
+ok(A.sceneFor('battle', true, 'win') === 'victory' && A.sceneFor('battle', false, 'lose') === 'defeat', '戰鬥結束切換勝利／戰敗曲');
+ok(A.SONGS.defeat.lead === 'erhu' && A.SONGS.defeat.bpm <= 70 && A.SONGS.defeat.mode === 'yu', '戰敗曲：慢板、羽調、二胡式音色');
+ok(A.SONGS.victory.mode === 'gong' && A.SONGS.victory.drums >= 2, '勝利曲：宮調明亮、有鑼鼓');
+ok(A.SONGS.boss.bpm > A.SONGS.battle.bpm && A.SONGS.battle.bpm > A.SONGS.city.bpm, '節奏：首領戰 > 一般戰鬥 > 主城');
+var pc = A.pattern('city'), m2 = pc.mel2.filter(function (x) { return x !== null; });
+ok(pc.lead === 'pluck' && pc.lead2 === 'dizi' && m2.length >= 4 && pc.mel2.slice(0, 16).every(function (x) { return x === null; }), '主城：古箏主旋律＋笛子副旋律（第 2、4 小節呼應）');
+ok(A.pattern('battle').mel2.every(function (x) { return x === null; }), '戰鬥曲不加笛子副旋律');
+console.log('[開關與安全性]');
+var threw = false; try { A.sfx('hit'); A.sfx('crit'); A.sfx('未知'); A.scene('battle'); A.unlock(); } catch (e) { threw = true; }
+ok(!threw, '不支援 WebAudio 時，播放音效／切換場景不會出錯');
+ok(A.played.indexOf('crit') >= 0, '音效呼叫有被記錄（供測試）');
+M.G.newGame('測試', '力耐', 'm', 1);
+ok(!A.muted() && A.bgmOn() && A.sfxOn(), '新存檔預設開啟音樂與音效');
+A.toggle('all'); ok(A.muted() && M.S.state.settings.bgm === false && M.S.state.settings.sfx === false, '一鍵靜音');
+A.toggle('all'); ok(!A.muted(), '再按一次恢復');
+A.toggle('bgm'); ok(!A.bgmOn() && A.sfxOn(), '可單獨關閉背景音樂');
+var txt = M.S.exportText(), r = M.S.parse(txt);
+ok(r.ok && r.state.settings.bgm === false, '聲音設定會存進存檔並可匯入');
+
+console.log('[拜訪武將：AI 排名賽]');
+var c2 = load(), M2 = c2.MJ, G = M2.G, S2 = M2.S, T0 = 1767225600000; c2._t = T0; M2.U.now = function () { return c2._t; };
+G.newGame('測試', '力耐', 'm', 7);
+var f30 = G.arenaFoe(30), f1 = G.arenaFoe(1);
+ok(JSON.stringify(G.arenaFoe(12)) === JSON.stringify(G.arenaFoe(12)), '同一排名的對手固定（可重現）');
+ok(f30.lv < f1.lv && f30.count <= f1.count && f30.power < f1.power, '排名越前對手越強（第 30 名 Lv' + f30.lv + '／第 1 名 Lv' + f1.lv + '）');
+ok(f1.count === 8 && f30.count >= 3, '對手人數 3～8 人（v9 上陣最多 8 人）');
+ok(f1.foes.every(function (x) { return x.cell >= 0 && x.cell <= 8; }) && new Set(f1.foes.map(function (x) { return x.cell; })).size === f1.count, '對手站位不重複且在九宮格內');
+ok(S2.state.arena.rank === 31 && G.arenaList().join() === '30,29,28,27,26', '未上榜時可挑戰第 30～26 名');
+G.lead().lv = 5; ok(!G.arenaFight(30, 1).ok, '主角未滿 ' + G.ARENA_OPEN + ' 級不能挑戰');
+G.teamList().forEach(function (x) { x.hero.lv = 40; }); G.lead().lv = 40;
+ok(!G.arenaFight(20, 1).ok, '不能挑戰前面超過 5 名的對手');
+var sv = S2.state.player.silver, r = G.arenaFight(30, 11);
+ok(r.ok && r.win && S2.state.arena.rank === 30 && S2.state.arena.best === 30, '擊敗第 30 名，排名變成 30');
+ok(S2.state.player.silver === sv + G.arenaWinReward(30).silver && r.rewards.some(function (x) { return x.indexOf('金幣') >= 0; }), '勝利得銀幣，首次達到新排名另得金幣');
+ok(S2.state.arena.recs.length === 1, '記錄戰報（P2：不扣次數）');
+var rp = G.arenaReplay(0);
+ok(rp.ok && rp.replay && rp.consistent && JSON.stringify(rp.battle.events) === JSON.stringify(r.battle.events), '重播與原戰鬥事件完全相同（陣容快照＋種子）');
+ok(S2.state.arena.recs.length === 1, '重播不新增戰報');
+var g0 = S2.state.player.gold, d = G.arenaClaimDaily();
+ok(d.ok && S2.state.player.gold === g0 && !G.arenaClaimDaily().ok, '排名獎勵領過後要再贏 ' + G.TICKET.arena + ' 場才能再領（第 30 名無金幣）');
+for (var i = 0; i < 4; i++) G.arenaFight(G.arenaList()[4] || G.arenaList()[0], 100 + i);
+ok(G.arenaFight(G.arenaList()[0], 5).ok && S2.state.arena.recs.length === 6, '連打 6 場仍可挑戰（無每日次數）');
+for (i = 0; i < 10; i++) { if (i === 5) c2._t += 86400000; G.arenaFight(G.arenaList()[0], 200 + i); }
+ok(S2.state.arena.recs.length === G.ARENA_RECS, '戰報最多保留 ' + G.ARENA_RECS + ' 場');
+var lost = S2.state.arena.recs.filter(function (x) { return !x.win; });
+ok(lost.every(function (x) { return x.after === x.before; }), '戰敗排名不變');
+var txt2 = S2.exportText(), r2 = S2.parse(txt2);
+ok(r2.ok && r2.state.arena && r2.state.arena.recs.length === G.ARENA_RECS, '排名與戰報存進存檔並可匯入');
+var old = JSON.parse(JSON.stringify(S2.state)); delete old.arena; old.version = 3;
+var m = S2.migrate(old); ok(m.arena && m.arena.rank === 31 && m.version === S2.VERSION, '舊存檔（v3）自動補上拜訪武將欄位');
+console.log('\n結果：通過 ' + pass + '，失敗 ' + fail);
+process.exit(fail ? 1 : 0);

@@ -1,0 +1,5584 @@
+{
+ "lead": {
+  "id": "lead",
+  "name": "主角",
+  "faction": "主角",
+  "quality": 3,
+  "type": "力耐",
+  "base": {
+   "str": 11,
+   "int": 8,
+   "agi": 6,
+   "con": 11
+  },
+  "growth": {
+   "str": 3,
+   "int": 1.2,
+   "agi": 1,
+   "con": 2.6
+  },
+  "look": {
+   "g": "m",
+   "skin": "#f0c7a0",
+   "hair": "#1b1b1b",
+   "hs": "topknot",
+   "beard": "none",
+   "cloth": "#b71c1c",
+   "trim": "#ffd54f",
+   "wp": "sword"
+  },
+  "active": {
+   "name": "普攻",
+   "pattern": "single",
+   "mult": 1,
+   "flat": 0,
+   "fx": null
+  },
+  "ult": {
+   "name": "必殺",
+   "pattern": "line2",
+   "mult": 2,
+   "flat": 50,
+   "fx": null
+  },
+  "passive": "liaoshang",
+  "souls": 0,
+  "grade": "A"
+ },
+ "list": [
+  {
+   "id": "guanhai",
+   "name": "管亥",
+   "faction": "三國",
+   "quality": 0,
+   "type": "力耐",
+   "base": {
+    "str": 11,
+    "int": 4,
+    "agi": 5,
+    "con": 11
+   },
+   "growth": {
+    "str": 3,
+    "int": 1.2,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#e7b98f",
+    "hair": "#2b1d14",
+    "hs": "headband",
+    "beard": "short",
+    "cloth": "#8a6a2c",
+    "trim": "#e8c547",
+    "wp": "blade"
+   },
+   "active": {
+    "name": "亂斬",
+    "pattern": "single",
+    "mult": 1,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "黃巾怒擊",
+    "pattern": "line2",
+    "mult": 1.6,
+    "flat": 30,
+    "fx": null
+   },
+   "passive": "rexue",
+   "passiveGrade": "D(官方每名武將皆有被動，未知者依類型補上)",
+   "souls": 1,
+   "grade": "D"
+  },
+  {
+   "id": "dengmao",
+   "name": "鄧茂",
+   "faction": "三國",
+   "quality": 0,
+   "type": "力敏",
+   "base": {
+    "str": 11,
+    "int": 4,
+    "agi": 8,
+    "con": 7
+   },
+   "growth": {
+    "str": 3,
+    "int": 1,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "m",
+    "skin": "#e2b089",
+    "hair": "#1d1a17",
+    "hs": "headband",
+    "beard": "none",
+    "cloth": "#7b5a2a",
+    "trim": "#e8c547",
+    "wp": "spear"
+   },
+   "active": {
+    "name": "突刺",
+    "pattern": "single",
+    "mult": 1,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "連環刺",
+    "pattern": "line2",
+    "mult": 1.6,
+    "flat": 30,
+    "fx": null
+   },
+   "passive": "lianzhan",
+   "passiveGrade": "D(官方每名武將皆有被動，未知者依類型補上)",
+   "souls": 1,
+   "grade": "D"
+  },
+  {
+   "id": "chengyz",
+   "name": "程遠志",
+   "faction": "三國",
+   "quality": 0,
+   "type": "力耐",
+   "base": {
+    "str": 11,
+    "int": 4,
+    "agi": 5,
+    "con": 11
+   },
+   "growth": {
+    "str": 3,
+    "int": 1.2,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#d9a77f",
+    "hair": "#251b13",
+    "hs": "headband",
+    "beard": "long",
+    "cloth": "#6c4f22",
+    "trim": "#e8c547",
+    "wp": "halberd"
+   },
+   "active": {
+    "name": "橫掃",
+    "pattern": "single",
+    "mult": 1,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "破陣斬",
+    "pattern": "col2",
+    "mult": 1.5,
+    "flat": 30,
+    "fx": null
+   },
+   "passive": "rexue",
+   "passiveGrade": "D(官方每名武將皆有被動，未知者依類型補上)",
+   "souls": 1,
+   "grade": "D"
+  },
+  {
+   "id": "ludayou",
+   "name": "陸大有",
+   "faction": "笑傲江湖",
+   "quality": 0,
+   "type": "力敏",
+   "base": {
+    "str": 11,
+    "int": 4,
+    "agi": 8,
+    "con": 7
+   },
+   "growth": {
+    "str": 3,
+    "int": 1,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "m",
+    "skin": "#f0c49c",
+    "hair": "#1b1b1b",
+    "hs": "topknot",
+    "beard": "none",
+    "cloth": "#4d6f8f",
+    "trim": "#d8d8d8",
+    "wp": "sword"
+   },
+   "active": {
+    "name": "華山劍法",
+    "pattern": "single",
+    "mult": 1,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "有鳳來儀",
+    "pattern": "line2",
+    "mult": 1.6,
+    "flat": 30,
+    "fx": null
+   },
+   "passive": "lianzhan",
+   "passiveGrade": "D(官方每名武將皆有被動，未知者依類型補上)",
+   "souls": 1,
+   "grade": "D"
+  },
+  {
+   "id": "liaohua",
+   "name": "廖化",
+   "faction": "三國",
+   "quality": 1,
+   "type": "力耐",
+   "base": {
+    "str": 12,
+    "int": 5,
+    "agi": 6,
+    "con": 12
+   },
+   "growth": {
+    "str": 3,
+    "int": 1.2,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#e3b38c",
+    "hair": "#1e1812",
+    "hs": "topknot",
+    "beard": "goatee",
+    "cloth": "#6a3b2a",
+    "trim": "#c9a24a",
+    "wp": "blade"
+   },
+   "active": {
+    "name": "先鋒斬",
+    "pattern": "single",
+    "mult": 1.05,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "蜀漢先鋒",
+    "pattern": "line2",
+    "mult": 1.7,
+    "flat": 40,
+    "fx": null
+   },
+   "passive": "rexue",
+   "passiveGrade": "D(官方每名武將皆有被動，未知者依類型補上)",
+   "souls": 1,
+   "grade": "D"
+  },
+  {
+   "id": "zhoucang",
+   "name": "周倉",
+   "faction": "三國",
+   "quality": 1,
+   "type": "力耐",
+   "base": {
+    "str": 12,
+    "int": 5,
+    "agi": 6,
+    "con": 12
+   },
+   "growth": {
+    "str": 3,
+    "int": 1.2,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#c98e65",
+    "hair": "#120d0a",
+    "hs": "bald",
+    "beard": "long",
+    "cloth": "#3a3a3a",
+    "trim": "#b88b3a",
+    "wp": "blade"
+   },
+   "active": {
+    "name": "扛刀擊",
+    "pattern": "single",
+    "mult": 1.05,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "關前斬",
+    "pattern": "col2",
+    "mult": 1.6,
+    "flat": 40,
+    "fx": null
+   },
+   "passive": "rexue",
+   "passiveGrade": "D(官方每名武將皆有被動，未知者依類型補上)",
+   "souls": 1,
+   "grade": "D"
+  },
+  {
+   "id": "peiys",
+   "name": "裴元紹",
+   "faction": "三國",
+   "quality": 1,
+   "type": "力敏",
+   "base": {
+    "str": 12,
+    "int": 5,
+    "agi": 9,
+    "con": 8
+   },
+   "growth": {
+    "str": 3,
+    "int": 1,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "m",
+    "skin": "#e0ad86",
+    "hair": "#2a1e15",
+    "hs": "headband",
+    "beard": "short",
+    "cloth": "#5b6b3a",
+    "trim": "#e8c547",
+    "wp": "spear"
+   },
+   "active": {
+    "name": "山寨槍法",
+    "pattern": "single",
+    "mult": 1.05,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "奪命槍",
+    "pattern": "line2",
+    "mult": 1.7,
+    "flat": 40,
+    "fx": null
+   },
+   "passive": "lianzhan",
+   "passiveGrade": "D(官方每名武將皆有被動，未知者依類型補上)",
+   "souls": 1,
+   "grade": "D"
+  },
+  {
+   "id": "tianbg",
+   "name": "田伯光",
+   "faction": "笑傲江湖",
+   "quality": 1,
+   "type": "力敏",
+   "base": {
+    "str": 12,
+    "int": 5,
+    "agi": 9,
+    "con": 8
+   },
+   "growth": {
+    "str": 3,
+    "int": 1,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "m",
+    "skin": "#efc39b",
+    "hair": "#1a1512",
+    "hs": "ponytail",
+    "beard": "short",
+    "cloth": "#7a2e2e",
+    "trim": "#e0c070",
+    "wp": "blade"
+   },
+   "active": {
+    "name": "快刀",
+    "pattern": "single",
+    "mult": 1.05,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "飛沙走石十三式",
+    "pattern": "line2",
+    "mult": 1.8,
+    "flat": 40,
+    "fx": null
+   },
+   "passive": "lianzhan",
+   "passiveGrade": "D(官方每名武將皆有被動，未知者依類型補上)",
+   "souls": 1,
+   "grade": "D"
+  },
+  {
+   "id": "yucanghai",
+   "name": "余滄海",
+   "faction": "笑傲江湖",
+   "quality": 1,
+   "type": "智敏",
+   "base": {
+    "str": 7,
+    "int": 10,
+    "agi": 9,
+    "con": 8
+   },
+   "growth": {
+    "str": 1,
+    "int": 3,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "m",
+    "skin": "#ecc29b",
+    "hair": "#2a2a2a",
+    "hs": "taoist",
+    "beard": "goatee",
+    "cloth": "#2f4f6f",
+    "trim": "#c0c0c0",
+    "wp": "sword"
+   },
+   "active": {
+    "name": "松風劍法",
+    "pattern": "single",
+    "mult": 1.05,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "摧心掌",
+    "pattern": "single",
+    "mult": 2.2,
+    "flat": 40,
+    "fx": null
+   },
+   "passive": "xixue",
+   "passiveGrade": "D(官方每名武將皆有被動，未知者依類型補上)",
+   "souls": 1,
+   "grade": "D"
+  },
+  {
+   "id": "baobutong",
+   "name": "包不同",
+   "faction": "天龍八部",
+   "quality": 1,
+   "type": "智耐",
+   "base": {
+    "str": 7,
+    "int": 10,
+    "agi": 6,
+    "con": 12
+   },
+   "growth": {
+    "str": 1.2,
+    "int": 3,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#eabf98",
+    "hair": "#262626",
+    "hs": "topknot",
+    "beard": "short",
+    "cloth": "#5c4a7a",
+    "trim": "#d4b36a",
+    "wp": "fan"
+   },
+   "active": {
+    "name": "非也掌",
+    "pattern": "single",
+    "mult": 1.05,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "以彼之道",
+    "pattern": "col2",
+    "mult": 1.6,
+    "flat": 40,
+    "fx": null
+   },
+   "passive": "liaoshang",
+   "passiveGrade": "D(官方每名武將皆有被動，未知者依類型補上)",
+   "souls": 1,
+   "grade": "D"
+  },
+  {
+   "id": "zhangjiao",
+   "name": "張角",
+   "faction": "三國",
+   "quality": 2,
+   "type": "力耐",
+   "base": {
+    "str": 13,
+    "int": 6,
+    "agi": 7,
+    "con": 13
+   },
+   "growth": {
+    "str": 3,
+    "int": 1.2,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#e3b08a",
+    "hair": "#3a2d20",
+    "hs": "headband",
+    "beard": "long",
+    "cloth": "#c9a227",
+    "trim": "#7a3b12",
+    "wp": "staff"
+   },
+   "active": {
+    "name": "黃天咒擊",
+    "pattern": "single",
+    "mult": 1.1,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "蒼天已死",
+    "pattern": "col3",
+    "mult": 1.5,
+    "flat": 60,
+    "fx": null
+   },
+   "passive": "qiangren",
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "souls": 1,
+   "grade": "B",
+   "passive0": "rexue",
+   "passive2": null,
+   "partner": "huaxiong",
+   "g967": {
+    "a": "■■/●●●■",
+    "a6": null,
+    "u": "■■■■"
+   }
+  },
+  {
+   "id": "qiuchuji",
+   "name": "邱處機",
+   "faction": "射鵰英雄傳",
+   "quality": 2,
+   "type": "力耐",
+   "base": {
+    "str": 13,
+    "int": 6,
+    "agi": 7,
+    "con": 13
+   },
+   "growth": {
+    "str": 3,
+    "int": 1.2,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#efc6a2",
+    "hair": "#d9d9d9",
+    "hs": "taoist",
+    "beard": "long",
+    "cloth": "#e8e2d0",
+    "trim": "#4a6a8a",
+    "wp": "sword"
+   },
+   "active": {
+    "name": "全真劍法",
+    "pattern": "single",
+    "mult": 1.1,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "同歸劍法",
+    "pattern": "cross",
+    "mult": 1.4,
+    "flat": 60,
+    "fx": null
+   },
+   "passive": "renai",
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "souls": 1,
+   "grade": "B",
+   "ultNameGrade": "A(技能名見於影片2) C(歸屬推定)",
+   "passive0": "rexue",
+   "passive2": null,
+   "partner": "luzhangke",
+   "g967": {
+    "a": "●●●■/■■",
+    "a6": null,
+    "u": "●■/■■■■/●■"
+   }
+  },
+  {
+   "id": "yuelingshan",
+   "name": "岳靈珊",
+   "faction": "笑傲江湖",
+   "quality": 2,
+   "type": "智耐",
+   "base": {
+    "str": 8,
+    "int": 11,
+    "agi": 7,
+    "con": 13
+   },
+   "growth": {
+    "str": 1.2,
+    "int": 3,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "f",
+    "skin": "#f6d3b6",
+    "hair": "#2a1a14",
+    "hs": "bun",
+    "beard": "none",
+    "cloth": "#d77fb0",
+    "trim": "#f5e2a8",
+    "wp": "sword"
+   },
+   "active": {
+    "name": "玉女劍十九式",
+    "pattern": "single",
+    "mult": 1.1,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "沖靈劍法",
+    "pattern": "line2",
+    "mult": 1.7,
+    "flat": 60,
+    "fx": null
+   },
+   "passive": "shaqi",
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "souls": 1,
+   "grade": "B",
+   "passive0": "liaoshang",
+   "passive2": null,
+   "partner": "caiwenji",
+   "g967": {
+    "a": "●■/■■",
+    "a6": null,
+    "u": "■■■■"
+   }
+  },
+  {
+   "id": "luzhangke",
+   "name": "鹿杖客",
+   "faction": "倚天屠龍記",
+   "quality": 2,
+   "type": "智耐",
+   "base": {
+    "str": 8,
+    "int": 11,
+    "agi": 7,
+    "con": 13
+   },
+   "growth": {
+    "str": 1.2,
+    "int": 3,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#d8a47c",
+    "hair": "#bfbfbf",
+    "hs": "bald",
+    "beard": "long",
+    "cloth": "#4a3b2a",
+    "trim": "#8a8a8a",
+    "wp": "staff"
+   },
+   "active": {
+    "name": "鹿角杖擊",
+    "pattern": "single",
+    "mult": 1.1,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "玄冥神掌",
+    "pattern": "col2",
+    "mult": 1.7,
+    "flat": 60,
+    "fx": null
+   },
+   "passive": "shaqi",
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "souls": 1,
+   "grade": "B",
+   "passive0": "liaoshang",
+   "passive2": null,
+   "partner": "qiuchuji",
+   "g967": {
+    "a": "■■/●■",
+    "a6": null,
+    "u": "■■■■"
+   }
+  },
+  {
+   "id": "huaxiong",
+   "name": "華雄",
+   "faction": "三國",
+   "quality": 2,
+   "type": "力耐",
+   "base": {
+    "str": 13,
+    "int": 6,
+    "agi": 7,
+    "con": 13
+   },
+   "growth": {
+    "str": 3,
+    "int": 1.2,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#c88d63",
+    "hair": "#160f0b",
+    "hs": "helmet",
+    "beard": "long",
+    "cloth": "#6b2a1f",
+    "trim": "#c9a24a",
+    "wp": "blade"
+   },
+   "active": {
+    "name": "西涼刀法",
+    "pattern": "single",
+    "mult": 1.1,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "汜水關斬",
+    "pattern": "line2",
+    "mult": 1.8,
+    "flat": 60,
+    "fx": null
+   },
+   "passive": "liaoshang",
+   "souls": 1,
+   "grade": "B",
+   "passive0": "liaoshang",
+   "passive2": null,
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "partner": "zhangjiao",
+   "g967": {
+    "a": "●■/■■",
+    "a6": null,
+    "u": "■■"
+   }
+  },
+  {
+   "id": "caiwenji",
+   "name": "蔡文姬",
+   "faction": "三國",
+   "quality": 2,
+   "type": "智敏",
+   "base": {
+    "str": 8,
+    "int": 11,
+    "agi": 10,
+    "con": 9
+   },
+   "growth": {
+    "str": 1,
+    "int": 3,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "f",
+    "skin": "#f8d8bf",
+    "hair": "#1f1a26",
+    "hs": "long",
+    "beard": "none",
+    "cloth": "#7aa6c9",
+    "trim": "#f0e6c8",
+    "wp": "qin"
+   },
+   "active": {
+    "name": "胡笳音刃",
+    "pattern": "line2",
+    "mult": 1,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "忘世天籟",
+    "pattern": "col3",
+    "mult": 1.45,
+    "flat": 60,
+    "fx": null
+   },
+   "passive": "shaqi",
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "souls": 1,
+   "grade": "B",
+   "ultNameGrade": "A(技能名見於影片2) C(歸屬推定)",
+   "passive0": "xixue",
+   "passive2": null,
+   "partner": "yuelingshan",
+   "g967": {
+    "a": "■■■",
+    "a6": null,
+    "u": "●■/■■/●■"
+   }
+  },
+  {
+   "id": "weixiaobao",
+   "name": "韋小寶",
+   "faction": "鹿鼎記",
+   "quality": 3,
+   "type": "智耐",
+   "base": {
+    "str": 8,
+    "int": 11,
+    "agi": 7,
+    "con": 13
+   },
+   "growth": {
+    "str": 1.2,
+    "int": 3,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#f4cfaa",
+    "hair": "#1b1b1b",
+    "hs": "cap",
+    "beard": "none",
+    "cloth": "#3e6fae",
+    "trim": "#f2d16b",
+    "wp": "dagger"
+   },
+   "active": {
+    "name": "神行百變",
+    "pattern": "line2",
+    "mult": 0.95,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "匕首亂刺",
+    "pattern": "line2",
+    "mult": 1.25,
+    "flat": 80,
+    "fx": null
+   },
+   "passive": "xinu",
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "souls": 5,
+   "grade": "B",
+   "qGrade": "B",
+   "passive0": "liaoshang",
+   "passive2": null,
+   "partner": "shuanger",
+   "g967": {
+    "a": "■■■",
+    "a6": "■■■■",
+    "u": "●●■/●■■■/■■■■■/●■■■/●●■"
+   }
+  },
+  {
+   "id": "jianning",
+   "name": "建寧公主",
+   "faction": "鹿鼎記",
+   "quality": 3,
+   "type": "智敏",
+   "base": {
+    "str": 8,
+    "int": 11,
+    "agi": 10,
+    "con": 9
+   },
+   "growth": {
+    "str": 1,
+    "int": 3,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "f",
+    "skin": "#f9dac4",
+    "hair": "#120f12",
+    "hs": "crown",
+    "beard": "none",
+    "cloth": "#c94a6a",
+    "trim": "#f2d16b",
+    "wp": "whip"
+   },
+   "active": {
+    "name": "金枝玉鞭",
+    "pattern": "single",
+    "mult": 1.25,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "公主鞭法",
+    "pattern": "single",
+    "mult": 2,
+    "flat": 80,
+    "fx": {
+     "armorBreak": 0.5
+    }
+   },
+   "passive": "xinu",
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "souls": 5,
+   "grade": "B",
+   "ultNameGrade": "A(技能名見於影片2) B/C(歸屬明顯)",
+   "qGrade": "B",
+   "passive0": "xixue",
+   "passive2": null,
+   "partner": "ake",
+   "g967": {
+    "a": "■■",
+    "a6": "■■■",
+    "u": "■■■■"
+   }
+  },
+  {
+   "id": "wangyuyan",
+   "name": "王語嫣",
+   "faction": "天龍八部",
+   "quality": 3,
+   "type": "智耐",
+   "base": {
+    "str": 8,
+    "int": 11,
+    "agi": 7,
+    "con": 13
+   },
+   "growth": {
+    "str": 1.2,
+    "int": 3,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "f",
+    "skin": "#fbe0cd",
+    "hair": "#2a1b22",
+    "hs": "long",
+    "beard": "none",
+    "cloth": "#e9e2f0",
+    "trim": "#a98bd8",
+    "wp": "none"
+   },
+   "active": {
+    "name": "武學指點",
+    "pattern": "single",
+    "mult": 1.3,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "口吐蓮花",
+    "pattern": "col2",
+    "mult": 1.45,
+    "flat": 80,
+    "fx": null
+   },
+   "passive": "shaqi",
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "souls": 5,
+   "grade": "B",
+   "ultNameGrade": "A(技能名見於影片2) C(歸屬推定)",
+   "qGrade": "B",
+   "passive0": "liaoshang",
+   "passive2": "rexue",
+   "partner": "miejue",
+   "g967": {
+    "a": "■■",
+    "a6": "■■■",
+    "u": "●■■/■■■/●■■"
+   }
+  },
+  {
+   "id": "sunce",
+   "name": "孫策",
+   "faction": "三國",
+   "quality": 3,
+   "type": "力敏",
+   "base": {
+    "str": 13,
+    "int": 6,
+    "agi": 10,
+    "con": 9
+   },
+   "growth": {
+    "str": 3,
+    "int": 1,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "m",
+    "skin": "#f0c7a0",
+    "hair": "#2c1a12",
+    "hs": "helmet",
+    "beard": "none",
+    "cloth": "#b03a2e",
+    "trim": "#e8c547",
+    "wp": "spear"
+   },
+   "active": {
+    "name": "霸王槍",
+    "pattern": "single",
+    "mult": 1.25,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "千軍破",
+    "pattern": "line2",
+    "mult": 1.5,
+    "flat": 80,
+    "fx": null
+   },
+   "passive": "qiangren",
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "souls": 5,
+   "grade": "B",
+   "ultNameGrade": "A(技能名見於影片2) C(歸屬推定)",
+   "qGrade": "B",
+   "passive0": "lianzhan",
+   "passive2": null,
+   "partner": "taishici",
+   "g967": {
+    "a": "■■",
+    "a6": "■■■",
+    "u": "●■/■■■■/●■"
+   }
+  },
+  {
+   "id": "taishici",
+   "name": "太史慈",
+   "faction": "三國",
+   "quality": 3,
+   "type": "力敏",
+   "base": {
+    "str": 13,
+    "int": 6,
+    "agi": 10,
+    "con": 9
+   },
+   "growth": {
+    "str": 3,
+    "int": 1,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "m",
+    "skin": "#e7b993",
+    "hair": "#1a120d",
+    "hs": "topknot",
+    "beard": "short",
+    "cloth": "#3c6e4a",
+    "trim": "#e8c547",
+    "wp": "halberd"
+   },
+   "active": {
+    "name": "雙戟擊",
+    "pattern": "single",
+    "mult": 1.25,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "神亭酣戰",
+    "pattern": "line2",
+    "mult": 2,
+    "flat": 80,
+    "fx": null
+   },
+   "passive": "qiangren",
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "souls": 5,
+   "grade": "B",
+   "qGrade": "B",
+   "passive0": "lianzhan",
+   "passive2": null,
+   "partner": "sunce",
+   "g967": {
+    "a": "■■",
+    "a6": "■■■",
+    "u": "●■/■■/●■"
+   }
+  },
+  {
+   "id": "liqiushui",
+   "name": "李秋水",
+   "faction": "天龍八部",
+   "quality": 3,
+   "type": "智敏",
+   "base": {
+    "str": 8,
+    "int": 11,
+    "agi": 10,
+    "con": 9
+   },
+   "growth": {
+    "str": 1,
+    "int": 3,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "f",
+    "skin": "#fde6d6",
+    "hair": "#e5e5f0",
+    "hs": "veil",
+    "beard": "none",
+    "cloth": "#bfd7ef",
+    "trim": "#7f9fbf",
+    "wp": "none"
+   },
+   "active": {
+    "name": "白虹掌力",
+    "pattern": "single",
+    "mult": 1.25,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "小無相功",
+    "pattern": "line2",
+    "mult": 2,
+    "flat": 80,
+    "fx": null
+   },
+   "passive": "shaqi",
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "souls": 5,
+   "grade": "B",
+   "qGrade": "B",
+   "passive0": "xixue",
+   "passive2": null,
+   "partner": "tianshan",
+   "g967": {
+    "a": "■■",
+    "a6": "■■■",
+    "u": "●■/■■/●■"
+   }
+  },
+  {
+   "id": "dongfang",
+   "name": "東方不敗",
+   "faction": "笑傲江湖",
+   "quality": 4,
+   "type": "智敏",
+   "base": {
+    "str": 9,
+    "int": 12,
+    "agi": 11,
+    "con": 10
+   },
+   "growth": {
+    "str": 1,
+    "int": 3,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "f",
+    "skin": "#f7d6c4",
+    "hair": "#1a1015",
+    "hs": "long",
+    "beard": "none",
+    "cloth": "#c2185b",
+    "trim": "#f2d16b",
+    "wp": "needle"
+   },
+   "active": {
+    "name": "繡花針",
+    "pattern": "diag",
+    "mult": 1.3,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "葵花寶典",
+    "pattern": "diag",
+    "mult": 2.2,
+    "flat": 120,
+    "fx": null
+   },
+   "passive": "renai",
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "souls": 45,
+   "grade": "C",
+   "ultNameGrade": "A(技能名見於影片2) B/C(歸屬明顯)",
+   "qGrade": "B",
+   "soulsGrade": "C",
+   "passive0": "xixue",
+   "passive2": "busi",
+   "partner": "xiongmao",
+   "g967": {
+    "a": "●●●■/■■/●●●■",
+    "a6": "●●●●●■/●●●■/■■/●●●■/●●●●●■",
+    "u": "●■/●■/●■■/■■■■/●■■/●■/●■"
+   }
+  },
+  {
+   "id": "azi",
+   "name": "阿紫",
+   "faction": "天龍八部",
+   "quality": 4,
+   "type": "智敏",
+   "base": {
+    "str": 9,
+    "int": 12,
+    "agi": 11,
+    "con": 10
+   },
+   "growth": {
+    "str": 1,
+    "int": 3,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "f",
+    "skin": "#fbe0cd",
+    "hair": "#2a1430",
+    "hs": "twin",
+    "beard": "none",
+    "cloth": "#7b3fa0",
+    "trim": "#e6c3f0",
+    "wp": "whip"
+   },
+   "active": {
+    "name": "化功毒掌",
+    "pattern": "single",
+    "mult": 1.35,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "神木王鼎",
+    "pattern": "cross",
+    "mult": 1.6,
+    "flat": 120,
+    "fx": null
+   },
+   "passive": "shaqi",
+   "souls": 30,
+   "grade": "C",
+   "qGrade": "B",
+   "passive0": "xixue",
+   "passive2": null,
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "partner": "zhangwuji",
+   "g967": {
+    "a": "■■",
+    "a6": "●●●■/■■",
+    "u": "●■■/■■■/●■■"
+   }
+  },
+  {
+   "id": "shuanger",
+   "name": "雙兒",
+   "faction": "鹿鼎記",
+   "quality": 4,
+   "type": "智敏",
+   "base": {
+    "str": 7,
+    "int": 14,
+    "agi": 11,
+    "con": 10
+   },
+   "growth": {
+    "str": 1,
+    "int": 3,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "f",
+    "skin": "#fbe0cd",
+    "hair": "#1a1a1a",
+    "hs": "twin",
+    "beard": "none",
+    "cloth": "#6aa384",
+    "trim": "#f5e2a8",
+    "wp": "sword"
+   },
+   "active": {
+    "name": "燕青拳",
+    "pattern": "single",
+    "mult": 1.35,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "護主心切",
+    "pattern": "line2",
+    "mult": 1.9,
+    "flat": 120,
+    "fx": null
+   },
+   "passive": "shaqi",
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "souls": 30,
+   "grade": "C",
+   "qGrade": "B",
+   "typeOrig": "力敏",
+   "tGrade": "B",
+   "typeGrade": "B（巴哈 snA967 武將一覽「類型」欄；v9 由力敏修正）",
+   "passive0": "lianzhan",
+   "passive2": "huizhan",
+   "partner": "weixiaobao",
+   "g967": {
+    "a": "●■/■■",
+    "a6": "●■/■■/●■",
+    "u": "●●●●●■/●●●■/■■/●●●■/●●●●●■"
+   }
+  },
+  {
+   "id": "miejue",
+   "name": "滅絕師太",
+   "faction": "倚天屠龍記",
+   "quality": 3,
+   "type": "力敏",
+   "base": {
+    "str": 12,
+    "int": 9,
+    "agi": 14,
+    "con": 8
+   },
+   "growth": {
+    "str": 3,
+    "int": 1,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "f",
+    "skin": "#f0d0b8",
+    "hair": "#e0e0e0",
+    "hs": "hood",
+    "beard": "none",
+    "cloth": "#3b3b3b",
+    "trim": "#c0c0c0",
+    "wp": "sword"
+   },
+   "active": {
+    "name": "峨嵋劍法",
+    "pattern": "single",
+    "mult": 1.35,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "倡天劍法",
+    "pattern": "line3",
+    "mult": 1.6,
+    "flat": 120,
+    "fx": null
+   },
+   "passive": "qiangren",
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "souls": 5,
+   "grade": "C",
+   "ultNameGrade": "A(技能名見於影片3) C(歸屬推定)",
+   "typeOrig": "智耐",
+   "tGrade": "B",
+   "typeGrade": "B（巴哈 snA967 武將一覽「類型」欄；v9 由智耐修正）",
+   "passive0": "liaoshang",
+   "passive2": null,
+   "partner": "wangyuyan",
+   "g967": {
+    "a": "■■■",
+    "a6": "■■■/●■",
+    "u": "■■■■"
+   }
+  },
+  {
+   "id": "huangyueying",
+   "name": "黃月英",
+   "faction": "三國",
+   "quality": 4,
+   "type": "智敏",
+   "base": {
+    "str": 9,
+    "int": 12,
+    "agi": 14,
+    "con": 8
+   },
+   "growth": {
+    "str": 1,
+    "int": 3,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "f",
+    "skin": "#f6d3b6",
+    "hair": "#3a2418",
+    "hs": "bun",
+    "beard": "none",
+    "cloth": "#8a6d3b",
+    "trim": "#e8c547",
+    "wp": "fan"
+   },
+   "active": {
+    "name": "木牛流馬",
+    "pattern": "single",
+    "mult": 1.35,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "八卦玄火陣",
+    "pattern": "col3",
+    "mult": 1.5,
+    "flat": 120,
+    "fx": null
+   },
+   "passive": "xinu",
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "souls": 45,
+   "grade": "C",
+   "ultNameGrade": "A(技能名見於影片2) C(歸屬推定)",
+   "qGrade": "B",
+   "typeOrig": "智耐",
+   "tGrade": "B",
+   "typeGrade": "B（巴哈 snA967 武將一覽「類型」欄；v9 由智耐修正）",
+   "passive0": "liaoshang",
+   "passive2": "liaoshang",
+   "partner": "zhugeliang",
+   "g967": {
+    "a": "■■■",
+    "a6": "■■■■",
+    "u": "●■■/●■■/●■■/■■■/●■■/●■■/●■■"
+   }
+  },
+  {
+   "id": "daqiao",
+   "name": "大喬",
+   "faction": "三國",
+   "quality": 4,
+   "type": "智敏",
+   "base": {
+    "str": 9,
+    "int": 12,
+    "agi": 11,
+    "con": 10
+   },
+   "growth": {
+    "str": 1,
+    "int": 3,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "f",
+    "skin": "#fbe0cd",
+    "hair": "#2a1a22",
+    "hs": "bun",
+    "beard": "none",
+    "cloth": "#e57373",
+    "trim": "#fce4ec",
+    "wp": "fan"
+   },
+   "active": {
+    "name": "國色扇",
+    "pattern": "single",
+    "mult": 1.35,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "千秋蓮舞",
+    "pattern": "col2",
+    "mult": 1.8,
+    "flat": 120,
+    "fx": null
+   },
+   "passive": "xinu",
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "souls": 45,
+   "grade": "C",
+   "ultNameGrade": "A(技能名見於影片2) C(歸屬推定)",
+   "qGrade": "B",
+   "passive0": "xixue",
+   "passive2": "suxing",
+   "partner": "xiaoqiao",
+   "g967": {
+    "a": "●■/■■/●■",
+    "a6": "●■/■■■/●■",
+    "u": "●■/●■/●■/■■■■/●■/●■/●■"
+   }
+  },
+  {
+   "id": "xiaoqiao",
+   "name": "小喬",
+   "faction": "三國",
+   "quality": 4,
+   "type": "智耐",
+   "base": {
+    "str": 9,
+    "int": 12,
+    "agi": 10,
+    "con": 11
+   },
+   "growth": {
+    "str": 1.2,
+    "int": 3,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "f",
+    "skin": "#fbe0cd",
+    "hair": "#3a1a1a",
+    "hs": "twin",
+    "beard": "none",
+    "cloth": "#f48fb1",
+    "trim": "#fff3e0",
+    "wp": "fan"
+   },
+   "active": {
+    "name": "流螢扇",
+    "pattern": "single",
+    "mult": 1.35,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "雪月飛花",
+    "pattern": "col2",
+    "mult": 1.8,
+    "flat": 120,
+    "fx": null
+   },
+   "passive": "xinu",
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "souls": 45,
+   "grade": "C",
+   "ultNameGrade": "A(技能名見於影片2) C(歸屬推定)",
+   "qGrade": "B",
+   "typeOrig": "智敏",
+   "tGrade": "B",
+   "typeGrade": "B（巴哈 snA967 武將一覽「類型」欄；v9 由智敏修正）",
+   "passive0": "xixue",
+   "passive2": "busi",
+   "partner": "daqiao",
+   "g967": {
+    "a": "●■/■■/●■",
+    "a6": "●■/■■■/●■",
+    "u": "●■■/●■■/●■■/■■■/●■■/●■■/●■■"
+   }
+  },
+  {
+   "id": "huangrong",
+   "name": "黃蓉",
+   "faction": "射鵰英雄傳",
+   "quality": 4,
+   "type": "智敏",
+   "base": {
+    "str": 9,
+    "int": 12,
+    "agi": 11,
+    "con": 10
+   },
+   "growth": {
+    "str": 1,
+    "int": 3,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "f",
+    "skin": "#fbe0cd",
+    "hair": "#1f1a14",
+    "hs": "bun",
+    "beard": "none",
+    "cloth": "#4fa36a",
+    "trim": "#f5e2a8",
+    "wp": "staff"
+   },
+   "active": {
+    "name": "打狗棒法",
+    "pattern": "single",
+    "mult": 1.35,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "天下無狗",
+    "pattern": "line2",
+    "mult": 1.9,
+    "flat": 120,
+    "fx": null
+   },
+   "passive": "shaqi",
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "souls": 45,
+   "grade": "C",
+   "qGrade": "B",
+   "passive0": "xixue",
+   "passive2": "rexue",
+   "partner": "guojing",
+   "g967": {
+    "a": "●●●■/■■/●●●■",
+    "a6": "●●●●●■/●●●■/■■/●●●■/●●●●●■",
+    "u": "●■/●■/●■/■■■/●■/●■/●■"
+   }
+  },
+  {
+   "id": "linghuchong",
+   "name": "令狐沖",
+   "faction": "笑傲江湖",
+   "quality": 4,
+   "type": "力敏",
+   "base": {
+    "str": 15,
+    "int": 8,
+    "agi": 12,
+    "con": 11
+   },
+   "growth": {
+    "str": 3,
+    "int": 1,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "m",
+    "skin": "#efc6a2",
+    "hair": "#1a1512",
+    "hs": "ponytail",
+    "beard": "none",
+    "cloth": "#3b5a7a",
+    "trim": "#d8d8d8",
+    "wp": "sword"
+   },
+   "active": {
+    "name": "孤星九劍",
+    "pattern": "single",
+    "mult": 1.43,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "獨孤九劍",
+    "pattern": "line2",
+    "mult": 1.74,
+    "flat": 160,
+    "fx": null
+   },
+   "passive": "qiangren",
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "souls": 30,
+   "grade": "B",
+   "activeNameGrade": "A(名稱見於影片2)，主動/無雙歸屬 C",
+   "ultNameGrade": "A(技能名見於影片3) C(歸屬推定)",
+   "passive0": "lianzhan",
+   "passive2": null,
+   "partner": "renyingying",
+   "g967": {
+    "a": "■■■",
+    "a6": "■■■■",
+    "u": "●■/●■/●■/■■■/●■/●■/●■"
+   }
+  },
+  {
+   "id": "zhouyu",
+   "name": "周瑜",
+   "faction": "三國",
+   "quality": 4,
+   "type": "智耐",
+   "base": {
+    "str": 10,
+    "int": 13,
+    "agi": 9,
+    "con": 15
+   },
+   "growth": {
+    "str": 1.2,
+    "int": 3,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#f4cfaa",
+    "hair": "#1b120e",
+    "hs": "topknot",
+    "beard": "none",
+    "cloth": "#c62828",
+    "trim": "#f2d16b",
+    "wp": "fan"
+   },
+   "active": {
+    "name": "羽扇綸巾",
+    "pattern": "single",
+    "mult": 1.44,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "赤壁火攻",
+    "pattern": "col3",
+    "mult": 1.45,
+    "flat": 160,
+    "fx": null
+   },
+   "passive": "shaqi",
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "souls": 30,
+   "grade": "B",
+   "passive0": "liaoshang",
+   "passive2": "pozhou",
+   "partner": "sunquan",
+   "g967": {
+    "a": "■■■",
+    "a6": "■■■■",
+    "u": "●■/●■/■■■■/●■/●■"
+   }
+  },
+  {
+   "id": "zhangwuji",
+   "name": "張無忌",
+   "faction": "倚天屠龍記",
+   "quality": 4,
+   "type": "力敏",
+   "base": {
+    "str": 15,
+    "int": 8,
+    "agi": 12,
+    "con": 11
+   },
+   "growth": {
+    "str": 3,
+    "int": 1,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "m",
+    "skin": "#f0c7a0",
+    "hair": "#1b1b1b",
+    "hs": "topknot",
+    "beard": "none",
+    "cloth": "#e0e0e0",
+    "trim": "#c62828",
+    "wp": "none"
+   },
+   "active": {
+    "name": "九陽神功",
+    "pattern": "line2",
+    "mult": 1.6,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "乾坤大挪移",
+    "pattern": "line2",
+    "mult": 1.45,
+    "flat": 160,
+    "fx": null
+   },
+   "passive": "renai",
+   "souls": 30,
+   "grade": "B",
+   "passive0": "huizhan",
+   "passive2": null,
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "partner": "azi",
+   "g967": {
+    "a": "■■",
+    "a6": "■■■",
+    "u": "■■/■■■/■■"
+   }
+  },
+  {
+   "id": "diaochan",
+   "name": "貂蟬",
+   "faction": "三國",
+   "quality": 4,
+   "type": "智敏",
+   "base": {
+    "str": 10,
+    "int": 13,
+    "agi": 12,
+    "con": 11
+   },
+   "growth": {
+    "str": 1,
+    "int": 3,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "f",
+    "skin": "#fde3d3",
+    "hair": "#1a1015",
+    "hs": "bun",
+    "beard": "none",
+    "cloth": "#e91e63",
+    "trim": "#ffd54f",
+    "wp": "fan"
+   },
+   "active": {
+    "name": "美人一計",
+    "pattern": "line3",
+    "mult": 1.5,
+    "flat": 0,
+    "fx": {
+     "stun": 0.3
+    }
+   },
+   "ult": {
+    "name": "千秋萬載",
+    "pattern": "line3",
+    "mult": 2.2,
+    "flat": 200,
+    "fx": {
+     "stun": 0.5
+    }
+   },
+   "passive": "xinu",
+   "souls": 45,
+   "grade": "B",
+   "activeNameGrade": "A(名稱見於影片2)，主動/無雙歸屬 C",
+   "ultNameGrade": "A(技能名見於影片3) C(歸屬推定)",
+   "passive0": "xinu",
+   "passive2": "pozhou",
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "partner": "lvbu",
+   "g967": {
+    "a": "■■■",
+    "a6": "■■■■",
+    "u": "●■■/●■■/●■■/■■■/●■■/●■■/●■■"
+   }
+  },
+  {
+   "id": "lvbu",
+   "name": "呂布",
+   "faction": "三國",
+   "quality": 4,
+   "type": "力耐",
+   "base": {
+    "str": 15,
+    "int": 8,
+    "agi": 11,
+    "con": 12
+   },
+   "growth": {
+    "str": 3,
+    "int": 1.2,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#e7b993",
+    "hair": "#120c0a",
+    "hs": "helmet",
+    "beard": "none",
+    "cloth": "#5d1f1f",
+    "trim": "#ffca28",
+    "wp": "halberd"
+   },
+   "active": {
+    "name": "方天畫戟",
+    "pattern": "line3",
+    "mult": 1.5,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "神鬼亂舞",
+    "pattern": "line3",
+    "mult": 2.3,
+    "flat": 200,
+    "fx": null
+   },
+   "passive": "qiangren",
+   "souls": 45,
+   "grade": "B",
+   "ultNameGrade": "A(技能名見於影片3) C(歸屬推定)",
+   "typeOrig": "力敏",
+   "tGrade": "B",
+   "typeGrade": "B（巴哈 snA967 武將一覽「類型」欄；v9 由力敏修正）",
+   "passive0": "lianzhan",
+   "passive2": "lianzhan",
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "partner": "diaochan",
+   "g967": {
+    "a": "■■■■",
+    "a6": null,
+    "u": "●■■/●■■/●■■/■■■/●■■/●■■/●■■"
+   }
+  },
+  {
+   "id": "zhurong",
+   "name": "祝融夫人",
+   "faction": "三國",
+   "quality": 3,
+   "type": "力敏",
+   "base": {
+    "str": 14,
+    "int": 7,
+    "agi": 11,
+    "con": 10
+   },
+   "growth": {
+    "str": 3,
+    "int": 1,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "f",
+    "skin": "#e8b48a",
+    "hair": "#3a1a10",
+    "hs": "ponytail",
+    "beard": "none",
+    "cloth": "#c62828",
+    "trim": "#ffb300",
+    "wp": "dagger"
+   },
+   "active": {
+    "name": "飛刀",
+    "pattern": "single",
+    "mult": 1.4,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "烈焰飛刀",
+    "pattern": "line2",
+    "mult": 1.9,
+    "flat": 150,
+    "fx": null
+   },
+   "passive": "lianzhan",
+   "passiveGrade": "D(官方每名武將皆有被動，未知者依類型補上)",
+   "souls": 5,
+   "grade": "C",
+   "note": "A：影片3 出現「祝融夫人(主)」；技能名與數值 D"
+  },
+  {
+   "id": "xiaolongnv",
+   "name": "小龍女",
+   "faction": "神鵰俠侶",
+   "quality": 4,
+   "type": "智敏",
+   "base": {
+    "str": 10,
+    "int": 13,
+    "agi": 12,
+    "con": 11
+   },
+   "growth": {
+    "str": 1,
+    "int": 3,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "f",
+    "skin": "#fff0e6",
+    "hair": "#151515",
+    "hs": "long",
+    "beard": "none",
+    "cloth": "#f5f5f5",
+    "trim": "#b3e5fc",
+    "wp": "sword"
+   },
+   "active": {
+    "name": "玉女素心劍",
+    "pattern": "single",
+    "mult": 1.6,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "玉女劍法",
+    "pattern": "all",
+    "mult": 1.2,
+    "flat": 150,
+    "fx": null
+   },
+   "passive": "shaqi",
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "souls": 45,
+   "grade": "B",
+   "ultNameGrade": "A(技能名見於影片2) B/C(歸屬明顯)",
+   "passive0": "xixue",
+   "passive2": "bixie",
+   "partner": "yangguo",
+   "g967": {
+    "a": "■■■",
+    "a6": "■■■■",
+    "u": "●●●●■/●●■●●●■/■●●●■/■●■/■●●●■/●●■●●●■/●●●●■"
+   }
+  },
+  {
+   "id": "sunshangxiang",
+   "name": "孫尚香",
+   "faction": "三國",
+   "quality": 4,
+   "type": "智耐",
+   "base": {
+    "str": 8,
+    "int": 15,
+    "agi": 9,
+    "con": 15
+   },
+   "growth": {
+    "str": 1.2,
+    "int": 3,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "f",
+    "skin": "#f8d8bf",
+    "hair": "#4a2a14",
+    "hs": "ponytail",
+    "beard": "none",
+    "cloth": "#d84315",
+    "trim": "#ffd54f",
+    "wp": "bow"
+   },
+   "active": {
+    "name": "弓腰姬",
+    "pattern": "col3",
+    "mult": 1.25,
+    "flat": 0,
+    "fx": {
+     "buffDef": 0.2
+    }
+   },
+   "ult": {
+    "name": "梟姬亂箭",
+    "pattern": "col3",
+    "mult": 1.9,
+    "flat": 200,
+    "fx": {
+     "buffDef": 0.2
+    }
+   },
+   "passive": "shaqi",
+   "souls": 45,
+   "grade": "B",
+   "typeOrig": "力耐",
+   "tGrade": "B",
+   "typeGrade": "B（巴哈 snA967 武將一覽「類型」欄；v9 由力耐修正）",
+   "passive0": "lianzhan",
+   "passive2": "lianzhan",
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "partner": "liubei",
+   "g967": {
+    "a": "■■/■■/■■",
+    "a6": "■■/■■■/■■",
+    "u": "●■/●■/●■■/■■■■/●■■/●■/●■"
+   }
+  },
+  {
+   "id": "guojing",
+   "name": "郭靖",
+   "faction": "射鵰英雄傳",
+   "quality": 4,
+   "type": "力耐",
+   "base": {
+    "str": 15,
+    "int": 8,
+    "agi": 9,
+    "con": 15
+   },
+   "growth": {
+    "str": 3,
+    "int": 1.2,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#e7b993",
+    "hair": "#1b1b1b",
+    "hs": "topknot",
+    "beard": "short",
+    "cloth": "#8d6e63",
+    "trim": "#ffd54f",
+    "wp": "none"
+   },
+   "active": {
+    "name": "降龍十八掌",
+    "pattern": "line2",
+    "mult": 1.45,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "飛龍在天",
+    "pattern": "line3",
+    "mult": 2,
+    "flat": 200,
+    "fx": null
+   },
+   "passive": "rexue",
+   "souls": 45,
+   "grade": "B",
+   "ultNameGrade": "A(技能名見於影片2) B/C(歸屬明顯)",
+   "passive0": "rexue",
+   "passive2": "busi",
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "partner": "huangrong",
+   "g967": {
+    "a": "●■■/■■/●■■",
+    "a6": "●■■/■■■/●■■",
+    "u": "●■/■■/■■■/■■/●■"
+   }
+  },
+  {
+   "id": "zhugeliang",
+   "name": "諸葛亮",
+   "faction": "三國",
+   "quality": 4,
+   "type": "智耐",
+   "base": {
+    "str": 10,
+    "int": 13,
+    "agi": 9,
+    "con": 15
+   },
+   "growth": {
+    "str": 1.2,
+    "int": 3,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#f4cfaa",
+    "hair": "#1b1b1b",
+    "hs": "guan",
+    "beard": "long",
+    "cloth": "#eceff1",
+    "trim": "#5c6bc0",
+    "wp": "fan"
+   },
+   "active": {
+    "name": "滅世奇策",
+    "pattern": "cross",
+    "mult": 1.3,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "八卦玄冰陣",
+    "pattern": "all",
+    "mult": 1.3,
+    "flat": 180,
+    "fx": null
+   },
+   "passive": "xixue",
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "souls": 45,
+   "grade": "B",
+   "activeNameGrade": "A(名稱見於影片2)，主動/無雙歸屬 C",
+   "ultNameGrade": "A(技能名見於影片3) C(歸屬推定)",
+   "passive0": "liaoshang",
+   "passive2": "huajie",
+   "partner": "huangyueying",
+   "g967": {
+    "a": "●■■/■■■/●■■",
+    "a6": "●■■/■■■■/●■■",
+    "u": "●■/●■/●■■/■■■■/●■■/●■/●■"
+   }
+  },
+  {
+   "id": "yangguo",
+   "name": "楊過",
+   "faction": "神鵰俠侶",
+   "quality": 4,
+   "type": "力耐",
+   "base": {
+    "str": 15,
+    "int": 8,
+    "agi": 9,
+    "con": 15
+   },
+   "growth": {
+    "str": 3,
+    "int": 1.2,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#f0c7a0",
+    "hair": "#151515",
+    "hs": "long",
+    "beard": "none",
+    "cloth": "#455a64",
+    "trim": "#cfd8dc",
+    "wp": "sword"
+   },
+   "active": {
+    "name": "玄鐵重劍",
+    "pattern": "line2",
+    "mult": 1.5,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "黯然銷魂掌",
+    "pattern": "cross",
+    "mult": 2,
+    "flat": 200,
+    "fx": null
+   },
+   "passive": "fenxin",
+   "souls": 45,
+   "grade": "B",
+   "passive0": "suxing",
+   "passive2": "xinu",
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "partner": "xiaolongnv",
+   "g967": {
+    "a": "●■■/■■/●■■",
+    "a6": "●■/●■■/■■/●■■/●■",
+    "u": "●■■/●■■/●■■/■■■/●■■/●■■/●■■"
+   }
+  },
+  {
+   "id": "machao",
+   "name": "馬超",
+   "faction": "三國",
+   "quality": 4,
+   "type": "力敏",
+   "base": {
+    "str": 15,
+    "int": 8,
+    "agi": 12,
+    "con": 11
+   },
+   "growth": {
+    "str": 3,
+    "int": 1,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "m",
+    "skin": "#f0c7a0",
+    "hair": "#2a1a12",
+    "hs": "helmet",
+    "beard": "none",
+    "cloth": "#eceff1",
+    "trim": "#90a4ae",
+    "wp": "spear"
+   },
+   "active": {
+    "name": "錦馬超",
+    "pattern": "line2",
+    "mult": 1.5,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "西涼鐵騎",
+    "pattern": "line3",
+    "mult": 2,
+    "flat": 200,
+    "fx": null
+   },
+   "passive": "renai",
+   "souls": 45,
+   "grade": "B",
+   "passive0": "huizhan",
+   "passive2": "lianzhan",
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "partner": "zhaoyun",
+   "g967": {
+    "a": "●●●■/■■/●●●■",
+    "a6": "●●●■/■■/●●●■",
+    "u": "●■■■/■■■■/●■■■"
+   }
+  },
+  {
+   "id": "zhaoyun",
+   "name": "趙雲",
+   "faction": "三國",
+   "quality": 4,
+   "type": "力敏",
+   "base": {
+    "str": 15,
+    "int": 8,
+    "agi": 12,
+    "con": 11
+   },
+   "growth": {
+    "str": 3,
+    "int": 1,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "m",
+    "skin": "#f4cfaa",
+    "hair": "#1b1b1b",
+    "hs": "helmet",
+    "beard": "none",
+    "cloth": "#e3f2fd",
+    "trim": "#64b5f6",
+    "wp": "spear"
+   },
+   "active": {
+    "name": "龍膽槍",
+    "pattern": "line3",
+    "mult": 1.45,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "七進七出",
+    "pattern": "line3",
+    "mult": 2.2,
+    "flat": 200,
+    "fx": null
+   },
+   "passive": "qiangren",
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "souls": 45,
+   "grade": "C",
+   "passive0": "lianzhan",
+   "passive2": "pozhou",
+   "partner": "machao",
+   "g967": {
+    "a": "■■■■",
+    "a6": null,
+    "u": "●■■/●■■/●■■/■■■/●■■/●■■/●■■"
+   }
+  },
+  {
+   "id": "guanyu",
+   "name": "關羽",
+   "faction": "三國",
+   "quality": 4,
+   "type": "力耐",
+   "base": {
+    "str": 15,
+    "int": 8,
+    "agi": 9,
+    "con": 15
+   },
+   "growth": {
+    "str": 3,
+    "int": 1.2,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#b5502f",
+    "hair": "#0d0d0d",
+    "hs": "guan",
+    "beard": "long",
+    "cloth": "#2e7d32",
+    "trim": "#ffd54f",
+    "wp": "blade"
+   },
+   "active": {
+    "name": "青龍偃月",
+    "pattern": "line2",
+    "mult": 1.5,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "義薄雲天",
+    "pattern": "col3",
+    "mult": 2,
+    "flat": 200,
+    "fx": null
+   },
+   "passive": "qiangren",
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "souls": 45,
+   "grade": "C",
+   "passive0": "rexue",
+   "passive2": "huanshi",
+   "partner": "zhangfei",
+   "g967": {
+    "a": "●■/■■/●■",
+    "a6": "●■/■■■/●■",
+    "u": "●■■■/■■■■/●■■■"
+   },
+   "ultName0": "武聖斬",
+   "ultNameGrade": "A（宣傳片：義薄雲天(關羽)）"
+  },
+  {
+   "id": "zhangfei",
+   "name": "張飛",
+   "faction": "三國",
+   "quality": 4,
+   "type": "力耐",
+   "base": {
+    "str": 15,
+    "int": 8,
+    "agi": 9,
+    "con": 15
+   },
+   "growth": {
+    "str": 3,
+    "int": 1.2,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#a8714f",
+    "hair": "#0d0d0d",
+    "hs": "headband",
+    "beard": "long",
+    "cloth": "#263238",
+    "trim": "#ffca28",
+    "wp": "spear"
+   },
+   "active": {
+    "name": "丈八蛇矛",
+    "pattern": "line2",
+    "mult": 1.5,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "雷霆震怒",
+    "pattern": "col3",
+    "mult": 1.8,
+    "flat": 200,
+    "fx": {
+     "stun": 0.3
+    }
+   },
+   "passive": "liaoshang",
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "souls": 45,
+   "grade": "C",
+   "passive0": "rexue",
+   "passive2": "rexue",
+   "partner": "guanyu",
+   "g967": {
+    "a": "●■/■■/●■",
+    "a6": "●■/●■/■■/●■/●■",
+    "u": "●■/●■/●■■/■■■■/●■■/●■/●■"
+   },
+   "ultName0": "長坂怒吼",
+   "ultNameGrade": "C（宣傳片出現技名，未標武將；依招式出處推定）"
+  },
+  {
+   "id": "renyingying",
+   "name": "任盈盈",
+   "faction": "笑傲江湖",
+   "quality": 4,
+   "type": "智敏",
+   "base": {
+    "str": 9,
+    "int": 12,
+    "agi": 11,
+    "con": 10
+   },
+   "growth": {
+    "str": 1,
+    "int": 3,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "f",
+    "skin": "#fbe0cd",
+    "hair": "#151515",
+    "hs": "veil",
+    "beard": "none",
+    "cloth": "#37474f",
+    "trim": "#b39ddb",
+    "wp": "qin"
+   },
+   "active": {
+    "name": "碧落琴音",
+    "pattern": "line2",
+    "mult": 1.35,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "清心普善咒",
+    "pattern": "healAll",
+    "mult": 0.5,
+    "flat": 120,
+    "fx": null
+   },
+   "passive": "renai",
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "souls": 45,
+   "grade": "A(登場) C(數值)",
+   "qGrade": "B",
+   "passive0": "xixue",
+   "passive2": "suxing",
+   "partner": "linghuchong",
+   "g967": {
+    "a": "●●●■/■■",
+    "a6": "●●●■/■■/●●●■",
+    "u": "●■■■/■■■■/●■■■"
+   }
+  },
+  {
+   "id": "hongqigong",
+   "name": "洪七公",
+   "faction": "射鵰英雄傳",
+   "quality": 4,
+   "type": "力耐",
+   "base": {
+    "str": 15,
+    "int": 8,
+    "agi": 9,
+    "con": 15
+   },
+   "growth": {
+    "str": 3,
+    "int": 1.2,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#e0b08a",
+    "hair": "#cfcfcf",
+    "hs": "topknot",
+    "beard": "long",
+    "cloth": "#8d6e63",
+    "trim": "#c5e1a5",
+    "wp": "staff"
+   },
+   "active": {
+    "name": "打狗棒法",
+    "pattern": "line2",
+    "mult": 1.45,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "亢龍有悔",
+    "pattern": "cross",
+    "mult": 2,
+    "flat": 200,
+    "fx": null
+   },
+   "passive": "rexue",
+   "souls": 45,
+   "grade": "A(登場) C(數值)"
+  },
+  {
+   "id": "meichaofeng",
+   "name": "梅超風",
+   "faction": "射鵰英雄傳",
+   "quality": 3,
+   "type": "力敏",
+   "base": {
+    "str": 14,
+    "int": 7,
+    "agi": 11,
+    "con": 10
+   },
+   "growth": {
+    "str": 3,
+    "int": 1,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "f",
+    "skin": "#e8d0c0",
+    "hair": "#151515",
+    "hs": "long",
+    "beard": "none",
+    "cloth": "#4a148c",
+    "trim": "#9e9e9e",
+    "wp": "none"
+   },
+   "active": {
+    "name": "白骨抓",
+    "pattern": "single",
+    "mult": 1.4,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "九陰白骨爪",
+    "pattern": "cross",
+    "mult": 1.9,
+    "flat": 120,
+    "fx": null
+   },
+   "passive": "qiangren",
+   "souls": 5,
+   "grade": "A(登場/技能名) C(數值)",
+   "passive0": "xixue",
+   "passive2": null,
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "partner": "limochou",
+   "g967": {
+    "a": "■■",
+    "a6": "■■/●●●■",
+    "u": "●■/●■/■■/●■/●■"
+   }
+  },
+  {
+   "id": "sunquan",
+   "name": "孫權",
+   "faction": "三國",
+   "quality": 4,
+   "type": "力敏",
+   "base": {
+    "str": 12,
+    "int": 9,
+    "agi": 14,
+    "con": 8
+   },
+   "growth": {
+    "str": 3,
+    "int": 1,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "m",
+    "skin": "#f0c8a0",
+    "hair": "#6d2d10",
+    "hs": "crown",
+    "beard": "short",
+    "cloth": "#c62828",
+    "trim": "#ffd54f",
+    "wp": "sword"
+   },
+   "active": {
+    "name": "碧眼紫髯",
+    "pattern": "col2",
+    "mult": 1.3,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "合縱聯盟",
+    "pattern": "col3",
+    "mult": 1.5,
+    "flat": 100,
+    "fx": {
+     "buffDef": 0.15
+    }
+   },
+   "passive": "renai",
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "souls": 45,
+   "grade": "A(登場/技能名) C(技能歸屬/數值)",
+   "qGrade": "B",
+   "typeOrig": "智耐",
+   "tGrade": "B",
+   "soulsGrade": "C",
+   "typeGrade": "B（巴哈 snA967 武將一覽「類型」欄；v9 由智耐修正）",
+   "passive0": "liaoshang",
+   "passive2": null,
+   "partner": "zhouyu",
+   "g967": {
+    "a": "●●●■/■■",
+    "a6": "●●●■/■■/●●●■",
+    "u": "●●●●■/●●■●●●■/■●●●■/■●■/■●●●■/●●■●●●■/●●●●■"
+   }
+  },
+  {
+   "id": "weiyan",
+   "name": "魏延",
+   "faction": "三國",
+   "quality": 3,
+   "type": "力敏",
+   "base": {
+    "str": 14,
+    "int": 7,
+    "agi": 11,
+    "con": 10
+   },
+   "growth": {
+    "str": 3,
+    "int": 1,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "m",
+    "skin": "#c98e65",
+    "hair": "#151515",
+    "hs": "helmet",
+    "beard": "short",
+    "cloth": "#5d4037",
+    "trim": "#ff7043",
+    "wp": "blade"
+   },
+   "active": {
+    "name": "反骨刀",
+    "pattern": "single",
+    "mult": 1.4,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "暗天狂刃",
+    "pattern": "line3",
+    "mult": 1.9,
+    "flat": 120,
+    "fx": null
+   },
+   "passive": "lianzhan",
+   "souls": 5,
+   "grade": "A(登場/技能名) C(技能歸屬/數值)"
+  },
+  {
+   "id": "xiongmao",
+   "name": "熊貓",
+   "faction": "原創",
+   "quality": 4,
+   "type": "力耐",
+   "base": {
+    "str": 13,
+    "int": 6,
+    "agi": 7,
+    "con": 13
+   },
+   "growth": {
+    "str": 3,
+    "int": 1.2,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#ffffff",
+    "hair": "#1a1a1a",
+    "hs": "panda",
+    "beard": "none",
+    "cloth": "#212121",
+    "trim": "#81c784",
+    "wp": "none"
+   },
+   "active": {
+    "name": "熊掌拍",
+    "pattern": "single",
+    "mult": 1.2,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "竹海狂濤",
+    "pattern": "square",
+    "mult": 1.6,
+    "flat": 60,
+    "fx": null
+   },
+   "passive": "xuruo",
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "souls": 45,
+   "grade": "A(登場/技能名) C(技能歸屬/數值)",
+   "qGrade": "B",
+   "passive0": "rexue",
+   "passive2": "liaoshang",
+   "partner": "dongfang",
+   "g967": {
+    "a": "●■■/■■■",
+    "a6": "●■■/■■■",
+    "u": "●■/●■/●■■/■■■■/●■■/●■/●■"
+   }
+  },
+  {
+   "id": "zixia",
+   "name": "紫霞",
+   "faction": "大話西遊",
+   "quality": 4,
+   "type": "智敏",
+   "base": {
+    "str": 10,
+    "int": 13,
+    "agi": 12,
+    "con": 11
+   },
+   "growth": {
+    "str": 1,
+    "int": 3,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "f",
+    "skin": "#fbe0cd",
+    "hair": "#2a1a3a",
+    "hs": "long",
+    "beard": "none",
+    "cloth": "#7b1fa2",
+    "trim": "#f8bbd0",
+    "wp": "sword"
+   },
+   "active": {
+    "name": "紫青寶劍",
+    "pattern": "line2",
+    "mult": 1.45,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "往昔若凝",
+    "pattern": "square",
+    "mult": 2,
+    "flat": 180,
+    "fx": null
+   },
+   "passive": "suxing",
+   "souls": 45,
+   "grade": "A(登場/技能名) C(技能歸屬/數值)"
+  },
+  {
+   "id": "liubei",
+   "name": "劉備",
+   "faction": "三國",
+   "quality": 4,
+   "type": "力敏",
+   "base": {
+    "str": 13,
+    "int": 10,
+    "agi": 15,
+    "con": 9
+   },
+   "growth": {
+    "str": 3,
+    "int": 1,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "m",
+    "skin": "#f4cfaa",
+    "hair": "#1b1b1b",
+    "hs": "guan",
+    "beard": "short",
+    "cloth": "#2e7d32",
+    "trim": "#ffd54f",
+    "wp": "sword"
+   },
+   "active": {
+    "name": "雙股劍",
+    "pattern": "single",
+    "mult": 1.5,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "仁德",
+    "pattern": "healAll",
+    "mult": 0.6,
+    "flat": 150,
+    "fx": null
+   },
+   "passive": "ningxin",
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "souls": 45,
+   "grade": "C",
+   "typeOrig": "智耐",
+   "tGrade": "B",
+   "typeGrade": "B（巴哈 snA967 武將一覽「類型」欄；v9 由智耐修正）",
+   "passive0": "liaoshang",
+   "passive2": "pozhou",
+   "partner": "sunshangxiang",
+   "g967": {
+    "a": "●■/■■■",
+    "a6": "●■/■■■■",
+    "u": "●■■■/■■■■/●■■■"
+   }
+  },
+  {
+   "id": "xiaofeng",
+   "name": "蕭峰",
+   "faction": "天龍八部",
+   "quality": 4,
+   "type": "力耐",
+   "base": {
+    "str": 15,
+    "int": 8,
+    "agi": 9,
+    "con": 15
+   },
+   "growth": {
+    "str": 3,
+    "int": 1.2,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#d9a77f",
+    "hair": "#151515",
+    "hs": "long",
+    "beard": "short",
+    "cloth": "#5d4037",
+    "trim": "#ffca28",
+    "wp": "none"
+   },
+   "active": {
+    "name": "擒龍功",
+    "pattern": "single",
+    "mult": 1.5,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "降龍廿八掌",
+    "pattern": "line3",
+    "mult": 2.1,
+    "flat": 200,
+    "fx": null
+   },
+   "passive": "liaoshang",
+   "souls": 45,
+   "grade": "D",
+   "passive0": "rexue",
+   "passive2": "qiangjia",
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "partner": "duanyu",
+   "g967": {
+    "a": "●■/■■/●■",
+    "a6": "●■/●■/■■/●■/●■",
+    "u": "●●●●■/●●■●●●■/■●●●■/■●■/■●●●■/●●■●●●■/●●●●■"
+   }
+  },
+  {
+   "id": "duanyu",
+   "name": "段譽",
+   "faction": "天龍八部",
+   "quality": 4,
+   "type": "力敏",
+   "base": {
+    "str": 12,
+    "int": 9,
+    "agi": 11,
+    "con": 10
+   },
+   "growth": {
+    "str": 3,
+    "int": 1,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "m",
+    "skin": "#f7d6c4",
+    "hair": "#1b1b1b",
+    "hs": "topknot",
+    "beard": "none",
+    "cloth": "#e8eaf6",
+    "trim": "#7986cb",
+    "wp": "fan"
+   },
+   "active": {
+    "name": "一陽指",
+    "pattern": "single",
+    "mult": 1.35,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "六脈神劍",
+    "pattern": "line3",
+    "mult": 1.7,
+    "flat": 120,
+    "fx": null
+   },
+   "passive": "piaohu",
+   "souls": 45,
+   "grade": "D",
+   "typeFrom": "敏耐",
+   "typeGrade": "B（巴哈 snA967 武將一覽「類型」欄；v9 由智敏修正）",
+   "qGrade": "B",
+   "typeOrig": "智敏",
+   "tGrade": "B",
+   "passive0": "huizhan",
+   "passive2": "huajie",
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "partner": "xiaofeng",
+   "g967": {
+    "a": "■■■/●■",
+    "a6": "■■■■/●■",
+    "u": "●■/●■/●■■/■■■■/●■■/●■/●■"
+   }
+  },
+  {
+   "id": "xuzhu",
+   "name": "虛竹",
+   "faction": "天龍八部",
+   "quality": 4,
+   "type": "力耐",
+   "base": {
+    "str": 14,
+    "int": 7,
+    "agi": 8,
+    "con": 14
+   },
+   "growth": {
+    "str": 3,
+    "int": 1.2,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#f0c7a0",
+    "hair": "#1b1b1b",
+    "hs": "bald",
+    "beard": "none",
+    "cloth": "#8d6e63",
+    "trim": "#ffd54f",
+    "wp": "none"
+   },
+   "active": {
+    "name": "天山六陽掌",
+    "pattern": "single",
+    "mult": 1.35,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "生死符",
+    "pattern": "cross",
+    "mult": 1.6,
+    "flat": 120,
+    "fx": {
+     "stun": 0.3
+    }
+   },
+   "passive": "rexue",
+   "souls": 30,
+   "grade": "D",
+   "qGrade": "B",
+   "passive0": "liaoshang",
+   "passive2": null,
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "g967": {
+    "a": "■■/●■",
+    "a6": "●■/■■/●■",
+    "u": "●■/●■/■■■■/●■/●■"
+   }
+  },
+  {
+   "id": "huangyaoshi",
+   "name": "黃藥師",
+   "faction": "射鵰英雄傳",
+   "quality": 4,
+   "type": "智耐",
+   "base": {
+    "str": 10,
+    "int": 13,
+    "agi": 9,
+    "con": 15
+   },
+   "growth": {
+    "str": 1.2,
+    "int": 3,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#f4cfaa",
+    "hair": "#262626",
+    "hs": "topknot",
+    "beard": "long",
+    "cloth": "#26a69a",
+    "trim": "#e0f2f1",
+    "wp": "qin"
+   },
+   "active": {
+    "name": "彈指神通",
+    "pattern": "line2",
+    "mult": 1.45,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "落英神劍",
+    "pattern": "col3",
+    "mult": 1.9,
+    "flat": 180,
+    "fx": null
+   },
+   "passive": "xinu",
+   "souls": 45,
+   "grade": "D",
+   "typeFrom": "敏耐",
+   "typeGrade": "C（原版只有力敏／力耐／智敏／智耐 4 型（B：攻略）；依招式與人物設定推定：彈指神通／碧海潮生曲屬內力與音律攻擊、宗師耐久 → 法術＋耐力）",
+   "ultName0": "碧海潮生曲",
+   "ultNameGrade": "C（宣傳片出現技名，未標武將；依招式出處推定）"
+  },
+  {
+   "id": "ouyangfeng",
+   "name": "歐陽鋒",
+   "faction": "射鵰英雄傳",
+   "quality": 4,
+   "type": "智耐",
+   "base": {
+    "str": 10,
+    "int": 13,
+    "agi": 9,
+    "con": 15
+   },
+   "growth": {
+    "str": 1.2,
+    "int": 3,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#d9a77f",
+    "hair": "#e0e0e0",
+    "hs": "long",
+    "beard": "long",
+    "cloth": "#3e2723",
+    "trim": "#8bc34a",
+    "wp": "staff"
+   },
+   "active": {
+    "name": "蛤蟆功",
+    "pattern": "line2",
+    "mult": 1.45,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "逆練九陰",
+    "pattern": "cross",
+    "mult": 2,
+    "flat": 200,
+    "fx": null
+   },
+   "passive": "xixue",
+   "souls": 45,
+   "grade": "D"
+  },
+  {
+   "id": "zhoubotong",
+   "name": "周伯通",
+   "faction": "射鵰英雄傳",
+   "quality": 3,
+   "type": "力耐",
+   "base": {
+    "str": 14,
+    "int": 7,
+    "agi": 10,
+    "con": 11
+   },
+   "growth": {
+    "str": 3,
+    "int": 1.2,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#f0c7a0",
+    "hair": "#eeeeee",
+    "hs": "topknot",
+    "beard": "long",
+    "cloth": "#9e9e9e",
+    "trim": "#ffd54f",
+    "wp": "none"
+   },
+   "active": {
+    "name": "空明拳",
+    "pattern": "single",
+    "mult": 1.35,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "左右互搏",
+    "pattern": "line2",
+    "mult": 1.9,
+    "flat": 120,
+    "fx": null
+   },
+   "passive": "qiangren",
+   "souls": 5,
+   "grade": "D",
+   "typeFrom": "敏耐",
+   "typeGrade": "B（巴哈 snA967 武將一覽「類型」欄；v9 由力敏修正）",
+   "typeOrig": "力敏",
+   "tGrade": "B",
+   "passive0": "lianzhan",
+   "passive2": null,
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "partner": "aobai",
+   "g967": {
+    "a": "■■/●■",
+    "a6": "●■/■■/●■",
+    "u": "●■/■■/●■"
+   }
+  },
+  {
+   "id": "dianwei",
+   "name": "典韋",
+   "faction": "三國",
+   "quality": 3,
+   "type": "力敏",
+   "base": {
+    "str": 14,
+    "int": 7,
+    "agi": 14,
+    "con": 8
+   },
+   "growth": {
+    "str": 3,
+    "int": 1,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "m",
+    "skin": "#b98060",
+    "hair": "#0d0d0d",
+    "hs": "headband",
+    "beard": "short",
+    "cloth": "#4e342e",
+    "trim": "#ff7043",
+    "wp": "halberd"
+   },
+   "active": {
+    "name": "雙鐵戟",
+    "pattern": "single",
+    "mult": 1.4,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "古之惡來",
+    "pattern": "line2",
+    "mult": 1.9,
+    "flat": 120,
+    "fx": null
+   },
+   "passive": "qiangren",
+   "souls": 5,
+   "grade": "D",
+   "typeOrig": "力耐",
+   "tGrade": "B",
+   "typeGrade": "B（巴哈 snA967 武將一覽「類型」欄；v9 由力耐修正）",
+   "passive0": "busi",
+   "passive2": null,
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "partner": "xuchu",
+   "g967": {
+    "a": "●●●■/■■",
+    "a6": "●●●■/■■/●●●■",
+    "u": "●●●●●■/●●●■/■■●●●■/●●●■/●●●●●■"
+   }
+  },
+  {
+   "id": "huangzhong",
+   "name": "黃忠",
+   "faction": "三國",
+   "quality": 3,
+   "type": "力敏",
+   "base": {
+    "str": 14,
+    "int": 7,
+    "agi": 11,
+    "con": 10
+   },
+   "growth": {
+    "str": 3,
+    "int": 1,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "m",
+    "skin": "#e0b08a",
+    "hair": "#e0e0e0",
+    "hs": "helmet",
+    "beard": "long",
+    "cloth": "#bf360c",
+    "trim": "#ffd54f",
+    "wp": "bow"
+   },
+   "active": {
+    "name": "百步穿楊",
+    "pattern": "col2",
+    "mult": 1.3,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "定軍山",
+    "pattern": "col3",
+    "mult": 1.6,
+    "flat": 120,
+    "fx": null
+   },
+   "passive": "lianzhan",
+   "souls": 5,
+   "grade": "D",
+   "typeFrom": "敏耐",
+   "typeGrade": "C（原版只有力敏／力耐／智敏／智耐 4 型（B：攻略）；依招式與人物設定推定：弓將、百步穿楊屬物理遠攻、重先手 → 物理＋敏捷）"
+  },
+  {
+   "id": "ganning",
+   "name": "甘寧",
+   "faction": "三國",
+   "quality": 3,
+   "type": "力敏",
+   "base": {
+    "str": 14,
+    "int": 7,
+    "agi": 11,
+    "con": 10
+   },
+   "growth": {
+    "str": 3,
+    "int": 1,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "m",
+    "skin": "#d9a77f",
+    "hair": "#1b1b1b",
+    "hs": "headband",
+    "beard": "short",
+    "cloth": "#00838f",
+    "trim": "#ffd54f",
+    "wp": "blade"
+   },
+   "active": {
+    "name": "錦帆突襲",
+    "pattern": "single",
+    "mult": 1.4,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "百騎劫營",
+    "pattern": "line3",
+    "mult": 1.7,
+    "flat": 120,
+    "fx": null
+   },
+   "passive": "lianzhan",
+   "souls": 5,
+   "grade": "D",
+   "typeFrom": "敏耐",
+   "typeGrade": "C（原版只有力敏／力耐／智敏／智耐 4 型（B：攻略）；依招式與人物設定推定：錦帆賊突襲、百騎劫營屬物理突擊 → 物理＋敏捷）"
+  },
+  {
+   "id": "caocao",
+   "name": "曹操",
+   "faction": "三國",
+   "quality": 4,
+   "type": "力耐",
+   "base": {
+    "str": 13,
+    "int": 10,
+    "agi": 9,
+    "con": 15
+   },
+   "growth": {
+    "str": 3,
+    "int": 1.2,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#f0c7a0",
+    "hair": "#1b1b1b",
+    "hs": "crown",
+    "beard": "goatee",
+    "cloth": "#1a237e",
+    "trim": "#ffd54f",
+    "wp": "sword"
+   },
+   "active": {
+    "name": "奸雄",
+    "pattern": "col2",
+    "mult": 1.35,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "挾天子",
+    "pattern": "all",
+    "mult": 1.25,
+    "flat": 180,
+    "fx": null
+   },
+   "passive": "qiangren",
+   "souls": 30,
+   "grade": "D",
+   "typeOrig": "智耐",
+   "tGrade": "B",
+   "typeGrade": "B（巴哈 snA967 武將一覽「類型」欄；v9 由智耐修正）",
+   "passive0": "liaoshang",
+   "passive2": null,
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "partner": "xiahoudun",
+   "g967": {
+    "a": "●■/■■",
+    "a6": "●■/■■/●■",
+    "u": "■■/■■/■■"
+   }
+  },
+  {
+   "id": "simayi",
+   "name": "司馬懿",
+   "faction": "三國",
+   "quality": 4,
+   "type": "智敏",
+   "base": {
+    "str": 10,
+    "int": 13,
+    "agi": 12,
+    "con": 11
+   },
+   "growth": {
+    "str": 1,
+    "int": 3,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "m",
+    "skin": "#f0c7a0",
+    "hair": "#424242",
+    "hs": "guan",
+    "beard": "goatee",
+    "cloth": "#311b92",
+    "trim": "#b39ddb",
+    "wp": "fan"
+   },
+   "active": {
+    "name": "鷹視狼顧",
+    "pattern": "diag",
+    "mult": 1.4,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "天命所歸",
+    "pattern": "all",
+    "mult": 1.3,
+    "flat": 180,
+    "fx": null
+   },
+   "passive": "xinu",
+   "souls": 45,
+   "grade": "D"
+  },
+  {
+   "id": "zhizunbao",
+   "name": "至尊寶",
+   "faction": "大話西遊",
+   "quality": 3,
+   "type": "力耐",
+   "base": {
+    "str": 14,
+    "int": 7,
+    "agi": 8,
+    "con": 14
+   },
+   "growth": {
+    "str": 3,
+    "int": 1.2,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#f0c7a0",
+    "hair": "#1b1b1b",
+    "hs": "headband",
+    "beard": "none",
+    "cloth": "#ff8f00",
+    "trim": "#ffd54f",
+    "wp": "staff"
+   },
+   "active": {
+    "name": "月光寶盒",
+    "pattern": "single",
+    "mult": 1.35,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "如意金箍",
+    "pattern": "line3",
+    "mult": 1.7,
+    "flat": 120,
+    "fx": null
+   },
+   "passive": "suxing",
+   "souls": 5,
+   "grade": "D",
+   "typeFrom": "敏耐",
+   "typeGrade": "C（原版只有力敏／力耐／智敏／智耐 4 型（B：攻略）；依招式與人物設定推定：金箍棒近身棍法、耐打 → 物理＋耐力）"
+  },
+  {
+   "id": "xuchu",
+   "name": "許褚",
+   "faction": "三國",
+   "quality": 3,
+   "type": "力耐",
+   "base": {
+    "str": 13,
+    "int": 6,
+    "agi": 7,
+    "con": 13
+   },
+   "growth": {
+    "str": 3,
+    "int": 1.2,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#c98e65",
+    "hair": "#0d0d0d",
+    "hs": "bald",
+    "beard": "short",
+    "cloth": "#5d4037",
+    "trim": "#e8c547",
+    "wp": "blade"
+   },
+   "active": {
+    "name": "裸衣鬥",
+    "pattern": "single",
+    "mult": 1.2,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "虎癡",
+    "pattern": "line2",
+    "mult": 1.6,
+    "flat": 60,
+    "fx": null
+   },
+   "passive": "rexue",
+   "souls": 5,
+   "grade": "D",
+   "qGrade": "B",
+   "passive0": "rexue",
+   "passive2": null,
+   "passiveGrade": "B（snA967 被動技能欄）",
+   "partner": "dianwei",
+   "g967": {
+    "a": "■■",
+    "a6": "●■/■■",
+    "u": "●■/■■■■/●■"
+   }
+  },
+  {
+   "id": "yuebuqun",
+   "name": "岳不群",
+   "faction": "笑傲江湖",
+   "quality": 3,
+   "type": "智敏",
+   "base": {
+    "str": 9,
+    "int": 12,
+    "agi": 11,
+    "con": 10
+   },
+   "growth": {
+    "str": 1,
+    "int": 3,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "m",
+    "skin": "#f4cfaa",
+    "hair": "#1b1b1b",
+    "hs": "guan",
+    "beard": "goatee",
+    "cloth": "#4a6a8a",
+    "trim": "#e0e0e0",
+    "wp": "sword"
+   },
+   "active": {
+    "name": "君子劍",
+    "pattern": "single",
+    "mult": 1.35,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "辟邪劍法",
+    "pattern": "diag",
+    "mult": 1.9,
+    "flat": 120,
+    "fx": null
+   },
+   "passive": "xixue",
+   "souls": 5,
+   "grade": "D"
+  },
+  {
+   "id": "yuanshao",
+   "name": "袁紹",
+   "faction": "三國",
+   "quality": 3,
+   "type": "智敏",
+   "base": {
+    "str": 8,
+    "int": 11,
+    "agi": 10,
+    "con": 9
+   },
+   "growth": {
+    "str": 1,
+    "int": 3,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "m",
+    "skin": "#e8b98f",
+    "hair": "#1b1b1b",
+    "hs": "topknot",
+    "beard": "none",
+    "cloth": "#c9a227",
+    "trim": "#ffd54f",
+    "wp": "sword"
+   },
+   "active": {
+    "name": "河北號令",
+    "pattern": "shape",
+    "shape": [
+     [
+      0,
+      0
+     ]
+    ],
+    "shape6": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "mult": 1.73,
+    "flat": 0,
+    "fx": {
+     "bleed": 0.3
+    },
+    "g967": "■■"
+   },
+   "ult": {
+    "name": "四世三公",
+    "pattern": "shape",
+    "shape": [
+     [
+      -1,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ]
+    ],
+    "mult": 1.71,
+    "flat": 120,
+    "fx": {
+     "armorBreak": 0.3
+    },
+    "g967": "■■/■■/■■"
+   },
+   "passive": "shaqi",
+   "passive2": null,
+   "souls": 5,
+   "grade": "B(名稱/品質/類型/被動/連攜：snA967、sn60) C(範圍：格圖換算) D(技能名/倍率/外觀)",
+   "web2": "P2",
+   "partner": "dongzhuo"
+  },
+  {
+   "id": "ake",
+   "name": "阿珂",
+   "faction": "武俠",
+   "quality": 3,
+   "type": "智敏",
+   "base": {
+    "str": 8,
+    "int": 11,
+    "agi": 10,
+    "con": 9
+   },
+   "growth": {
+    "str": 1,
+    "int": 3,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "f",
+    "skin": "#fbe0cd",
+    "hair": "#1b1b1b",
+    "hs": "long",
+    "beard": "none",
+    "cloth": "#f48fb1",
+    "trim": "#ffd54f",
+    "wp": "sword"
+   },
+   "active": {
+    "name": "拂柳劍",
+    "pattern": "shape",
+    "shape": [
+     [
+      -1,
+      2
+     ],
+     [
+      0,
+      0
+     ]
+    ],
+    "shape6": [
+     [
+      -1,
+      2
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "mult": 1.2,
+    "flat": 0,
+    "fx": {
+     "burn": 0.3
+    },
+    "g967": "●●●■/■■"
+   },
+   "ult": {
+    "name": "傾城一笑",
+    "pattern": "shape",
+    "shape": [
+     [
+      -1,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      0
+     ]
+    ],
+    "mult": 1.71,
+    "flat": 120,
+    "fx": null,
+    "g967": "●■/■■■■/●■"
+   },
+   "passive": "shaqi",
+   "passive2": null,
+   "souls": 5,
+   "grade": "B(名稱/品質/類型/被動/連攜：snA967、sn60) C(範圍：格圖換算) D(技能名/倍率/外觀)",
+   "web2": "P2",
+   "partner": "jianning"
+  },
+  {
+   "id": "tianshan",
+   "name": "天山童姥",
+   "faction": "武俠",
+   "quality": 3,
+   "type": "智敏",
+   "base": {
+    "str": 8,
+    "int": 11,
+    "agi": 10,
+    "con": 9
+   },
+   "growth": {
+    "str": 1,
+    "int": 3,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "f",
+    "skin": "#fbe0cd",
+    "hair": "#1b1b1b",
+    "hs": "long",
+    "beard": "none",
+    "cloth": "#e1f5fe",
+    "trim": "#ffd54f",
+    "wp": "fan"
+   },
+   "active": {
+    "name": "天山折梅手",
+    "pattern": "shape",
+    "shape": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "shape6": [
+     [
+      -1,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "mult": 1.18,
+    "flat": 0,
+    "fx": {
+     "armorBreak": 0.3
+    },
+    "g967": "■■■"
+   },
+   "ult": {
+    "name": "生死符",
+    "pattern": "shape",
+    "shape": [
+     [
+      -2,
+      0
+     ],
+     [
+      -1,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      2,
+      0
+     ]
+    ],
+    "mult": 1.42,
+    "flat": 120,
+    "fx": null,
+    "g967": "●■/●■/■■■■/●■/●■"
+   },
+   "passive": "shaqi",
+   "passive2": null,
+   "souls": 5,
+   "grade": "B(名稱/品質/類型/被動/連攜：snA967、sn60) C(範圍：格圖換算) D(技能名/倍率/外觀)",
+   "web2": "P2",
+   "partner": "liqiushui"
+  },
+  {
+   "id": "dongzhuo",
+   "name": "董卓",
+   "faction": "三國",
+   "quality": 3,
+   "type": "力耐",
+   "base": {
+    "str": 14,
+    "int": 7,
+    "agi": 10,
+    "con": 11
+   },
+   "growth": {
+    "str": 3,
+    "int": 1.2,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#e8b98f",
+    "hair": "#1b1b1b",
+    "hs": "topknot",
+    "beard": "none",
+    "cloth": "#4e342e",
+    "trim": "#ffd54f",
+    "wp": "blade"
+   },
+   "active": {
+    "name": "西涼鐵騎",
+    "pattern": "shape",
+    "shape": [
+     [
+      0,
+      0
+     ]
+    ],
+    "shape6": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ]
+    ],
+    "mult": 1.73,
+    "flat": 0,
+    "fx": null,
+    "g967": "■■"
+   },
+   "ult": {
+    "name": "焚城",
+    "pattern": "shape",
+    "shape": [
+     [
+      -2,
+      0
+     ],
+     [
+      -1,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      2,
+      0
+     ]
+    ],
+    "mult": 1.51,
+    "flat": 120,
+    "fx": null,
+    "g967": "●■/●■/■■/●■/●■"
+   },
+   "passive": "liaoshang",
+   "passive2": null,
+   "souls": 5,
+   "grade": "B(名稱/品質/類型/被動/連攜：snA967、sn60) C(範圍：格圖換算) D(技能名/倍率/外觀)",
+   "web2": "P2",
+   "artAlias": "b_dongzhuo",
+   "partner": "yuanshao"
+  },
+  {
+   "id": "aobai",
+   "name": "鰲拜",
+   "faction": "武俠",
+   "quality": 3,
+   "type": "力耐",
+   "base": {
+    "str": 14,
+    "int": 7,
+    "agi": 10,
+    "con": 11
+   },
+   "growth": {
+    "str": 3,
+    "int": 1.2,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#e8b98f",
+    "hair": "#1b1b1b",
+    "hs": "topknot",
+    "beard": "none",
+    "cloth": "#37474f",
+    "trim": "#ffd54f",
+    "wp": "blade"
+   },
+   "active": {
+    "name": "擒拿摔",
+    "pattern": "shape",
+    "shape": [
+     [
+      0,
+      0
+     ]
+    ],
+    "shape6": [
+     [
+      -1,
+      0
+     ],
+     [
+      0,
+      0
+     ]
+    ],
+    "mult": 1.73,
+    "flat": 0,
+    "fx": {
+     "bleed": 0.3
+    },
+    "g967": "■■"
+   },
+   "ult": {
+    "name": "巴圖魯怒擊",
+    "pattern": "shape",
+    "shape": [
+     [
+      -1,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ]
+    ],
+    "mult": 2.15,
+    "flat": 120,
+    "fx": {
+     "stun": 0.25
+    },
+    "g967": "●■/■■■/●■"
+   },
+   "passive": "qiangren",
+   "passive2": null,
+   "souls": 5,
+   "grade": "B(名稱/品質/類型/被動/連攜：snA967、sn60) C(範圍：格圖換算) D(技能名/倍率/外觀)",
+   "web2": "P2",
+   "partner": "zhoubotong"
+  },
+  {
+   "id": "zhangliao",
+   "name": "張遼",
+   "faction": "三國",
+   "quality": 3,
+   "type": "力耐",
+   "base": {
+    "str": 14,
+    "int": 7,
+    "agi": 10,
+    "con": 11
+   },
+   "growth": {
+    "str": 3,
+    "int": 1.2,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#e8b98f",
+    "hair": "#1b1b1b",
+    "hs": "topknot",
+    "beard": "none",
+    "cloth": "#1565c0",
+    "trim": "#ffd54f",
+    "wp": "spear"
+   },
+   "active": {
+    "name": "突騎",
+    "pattern": "shape",
+    "shape": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "shape6": [
+     [
+      -1,
+      2
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "mult": 1.18,
+    "flat": 0,
+    "fx": null,
+    "g967": "■■/●●●■"
+   },
+   "ult": {
+    "name": "威震逍遙津",
+    "pattern": "shape",
+    "shape": [
+     [
+      -2,
+      0
+     ],
+     [
+      -1,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      2,
+      0
+     ]
+    ],
+    "mult": 2.15,
+    "flat": 120,
+    "fx": {
+     "armorBreak": 0.3
+    },
+    "g967": "●■/●■/■■/●■/●■"
+   },
+   "passive": "renai",
+   "passive2": null,
+   "souls": 5,
+   "grade": "B(名稱/品質/類型/被動/連攜：snA967、sn60) C(範圍：格圖換算) D(技能名/倍率/外觀)",
+   "web2": "P2",
+   "artAlias": "b_zhangliao",
+   "partner": "yanliang"
+  },
+  {
+   "id": "zuolengchan",
+   "name": "左冷禪",
+   "faction": "武俠",
+   "quality": 3,
+   "type": "力耐",
+   "base": {
+    "str": 14,
+    "int": 7,
+    "agi": 10,
+    "con": 11
+   },
+   "growth": {
+    "str": 3,
+    "int": 1.2,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#e8b98f",
+    "hair": "#1b1b1b",
+    "hs": "topknot",
+    "beard": "none",
+    "cloth": "#263238",
+    "trim": "#ffd54f",
+    "wp": "sword"
+   },
+   "active": {
+    "name": "寒冰掌",
+    "pattern": "shape",
+    "shape": [
+     [
+      -1,
+      2
+     ],
+     [
+      0,
+      0
+     ]
+    ],
+    "shape6": [
+     [
+      -1,
+      2
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "mult": 1.2,
+    "flat": 0,
+    "fx": null,
+    "g967": "●●●■/■■"
+   },
+   "ult": {
+    "name": "五嶽併派",
+    "pattern": "shape",
+    "shape": [
+     [
+      -1,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ]
+    ],
+    "mult": 1.71,
+    "flat": 120,
+    "fx": null,
+    "g967": "■■/■■/■■"
+   },
+   "passive": "qiangren",
+   "passive2": null,
+   "souls": 5,
+   "grade": "B(名稱/品質/類型/被動/連攜：snA967、sn60) C(範圍：格圖換算) D(技能名/倍率/外觀)",
+   "web2": "P2",
+   "partner": "renwoxing"
+  },
+  {
+   "id": "yanliang",
+   "name": "顏良",
+   "faction": "三國",
+   "quality": 3,
+   "type": "力耐",
+   "base": {
+    "str": 14,
+    "int": 7,
+    "agi": 10,
+    "con": 11
+   },
+   "growth": {
+    "str": 3,
+    "int": 1.2,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#e8b98f",
+    "hair": "#1b1b1b",
+    "hs": "topknot",
+    "beard": "none",
+    "cloth": "#795548",
+    "trim": "#ffd54f",
+    "wp": "blade"
+   },
+   "active": {
+    "name": "河北斬",
+    "pattern": "shape",
+    "shape": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "shape6": [
+     [
+      -1,
+      2
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "mult": 1.18,
+    "flat": 0,
+    "fx": {
+     "bleed": 0.3
+    },
+    "g967": "■■/●●●■"
+   },
+   "ult": {
+    "name": "萬軍突擊",
+    "pattern": "shape",
+    "shape": [
+     [
+      -1,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ]
+    ],
+    "mult": 2.15,
+    "flat": 120,
+    "fx": null,
+    "g967": "●■/■■■/●■"
+   },
+   "passive": "qiangren",
+   "passive2": null,
+   "souls": 5,
+   "grade": "B(名稱/品質/類型/被動/連攜：snA967、sn60) C(範圍：格圖換算) D(技能名/倍率/外觀)",
+   "web2": "P2",
+   "partner": "zhangliao"
+  },
+  {
+   "id": "limochou",
+   "name": "李莫愁",
+   "faction": "武俠",
+   "quality": 3,
+   "type": "力敏",
+   "base": {
+    "str": 13,
+    "int": 6,
+    "agi": 10,
+    "con": 9
+   },
+   "growth": {
+    "str": 3,
+    "int": 1,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "f",
+    "skin": "#fbe0cd",
+    "hair": "#1b1b1b",
+    "hs": "long",
+    "beard": "none",
+    "cloth": "#b71c1c",
+    "trim": "#ffd54f",
+    "wp": "fan"
+   },
+   "active": {
+    "name": "赤練神掌",
+    "pattern": "shape",
+    "shape": [
+     [
+      0,
+      0
+     ]
+    ],
+    "shape6": [
+     [
+      -1,
+      2
+     ],
+     [
+      0,
+      0
+     ]
+    ],
+    "mult": 1.74,
+    "flat": 0,
+    "fx": {
+     "armorBreak": 0.3
+    },
+    "g967": "■■"
+   },
+   "ult": {
+    "name": "冰魄銀針",
+    "pattern": "shape",
+    "shape": [
+     [
+      -1,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ]
+    ],
+    "mult": 2.15,
+    "flat": 120,
+    "fx": {
+     "armorBreak": 0.3
+    },
+    "g967": "●■/■■■/●■"
+   },
+   "passive": "qiangren",
+   "passive2": null,
+   "souls": 5,
+   "grade": "B(名稱/品質/類型/被動/連攜：snA967、sn60) C(範圍：格圖換算) D(技能名/倍率/外觀)",
+   "web2": "P2",
+   "partner": "meichaofeng"
+  },
+  {
+   "id": "wuyazi",
+   "name": "無崖子",
+   "faction": "武俠",
+   "quality": 4,
+   "type": "力耐",
+   "base": {
+    "str": 15,
+    "int": 8,
+    "agi": 11,
+    "con": 12
+   },
+   "growth": {
+    "str": 3,
+    "int": 1.2,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#e8b98f",
+    "hair": "#1b1b1b",
+    "hs": "topknot",
+    "beard": "none",
+    "cloth": "#eceff1",
+    "trim": "#ffd54f",
+    "wp": "staff"
+   },
+   "active": {
+    "name": "北冥掌",
+    "pattern": "shape",
+    "shape": [
+     [
+      -1,
+      0
+     ],
+     [
+      0,
+      0
+     ]
+    ],
+    "shape6": [
+     [
+      -1,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ]
+    ],
+    "mult": 1.34,
+    "flat": 0,
+    "fx": null,
+    "g967": "●■/■■"
+   },
+   "ult": {
+    "name": "逍遙傳功",
+    "pattern": "shape",
+    "shape": [
+     [
+      -1,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      0
+     ]
+    ],
+    "mult": 1.77,
+    "flat": 180,
+    "fx": {
+     "bleed": 0.3
+    },
+    "g967": "●■/■■■■/●■"
+   },
+   "passive": "qiangren",
+   "passive2": null,
+   "souls": 30,
+   "grade": "B(名稱/品質/類型/被動/連攜：snA967、sn60) C(範圍：格圖換算) D(技能名/倍率/外觀)",
+   "web2": "P2"
+  },
+  {
+   "id": "renwoxing",
+   "name": "任我行",
+   "faction": "武俠",
+   "quality": 4,
+   "type": "力耐",
+   "base": {
+    "str": 15,
+    "int": 8,
+    "agi": 11,
+    "con": 12
+   },
+   "growth": {
+    "str": 3,
+    "int": 1.2,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#e8b98f",
+    "hair": "#1b1b1b",
+    "hs": "topknot",
+    "beard": "none",
+    "cloth": "#212121",
+    "trim": "#ffd54f",
+    "wp": "blade"
+   },
+   "active": {
+    "name": "吸星掌",
+    "pattern": "shape",
+    "shape": [
+     [
+      -1,
+      0
+     ],
+     [
+      0,
+      0
+     ]
+    ],
+    "shape6": [
+     [
+      -1,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ]
+    ],
+    "mult": 1.34,
+    "flat": 0,
+    "fx": null,
+    "g967": "●■/■■"
+   },
+   "ult": {
+    "name": "日月神功",
+    "pattern": "shape",
+    "shape": [
+     [
+      -2,
+      0
+     ],
+     [
+      -1,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      2,
+      0
+     ]
+    ],
+    "mult": 1.48,
+    "flat": 180,
+    "fx": null,
+    "g967": "●■/●■/■■■■/●■/●■"
+   },
+   "passive": "pozhou",
+   "passive2": null,
+   "souls": 30,
+   "grade": "B(名稱/品質/類型/被動/連攜：snA967、sn60) C(範圍：格圖換算) D(技能名/倍率/外觀)",
+   "web2": "P2",
+   "artAlias": "b_renwoxing",
+   "partner": "zuolengchan"
+  },
+  {
+   "id": "xiahoudun",
+   "name": "夏侯惇",
+   "faction": "三國",
+   "quality": 4,
+   "type": "力耐",
+   "base": {
+    "str": 15,
+    "int": 8,
+    "agi": 11,
+    "con": 12
+   },
+   "growth": {
+    "str": 3,
+    "int": 1.2,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#e8b98f",
+    "hair": "#1b1b1b",
+    "hs": "topknot",
+    "beard": "none",
+    "cloth": "#283593",
+    "trim": "#ffd54f",
+    "wp": "blade"
+   },
+   "active": {
+    "name": "獨眼斬",
+    "pattern": "shape",
+    "shape": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "shape6": [
+     [
+      -1,
+      2
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "mult": 1.28,
+    "flat": 0,
+    "fx": null,
+    "g967": "●●/●●/■■/●●●■"
+   },
+   "ult": {
+    "name": "拔矢啖睛",
+    "pattern": "shape",
+    "shape": [
+     [
+      -1,
+      0
+     ],
+     [
+      -1,
+      1
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ]
+    ],
+    "mult": 1.48,
+    "flat": 180,
+    "fx": null,
+    "g967": "●■■/■■■/●■■"
+   },
+   "passive": "qiangren",
+   "passive2": null,
+   "souls": 45,
+   "grade": "B(名稱/品質/類型/被動/連攜：snA967、sn60) C(範圍：格圖換算) D(技能名/倍率/外觀)",
+   "web2": "P2",
+   "soulsGrade": "C",
+   "partner": "caocao"
+  },
+  {
+   "id": "xiaozhao",
+   "name": "小昭",
+   "faction": "武俠",
+   "quality": 4,
+   "type": "智敏",
+   "base": {
+    "str": 9,
+    "int": 12,
+    "agi": 11,
+    "con": 10
+   },
+   "growth": {
+    "str": 1,
+    "int": 3,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "f",
+    "skin": "#fbe0cd",
+    "hair": "#1b1b1b",
+    "hs": "long",
+    "beard": "none",
+    "cloth": "#4fc3f7",
+    "trim": "#ffd54f",
+    "wp": "staff"
+   },
+   "active": {
+    "name": "乾坤挪移",
+    "pattern": "shape",
+    "shape": [
+     [
+      -1,
+      1
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "shape6": [
+     [
+      -1,
+      1
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "mult": 1.18,
+    "flat": 0,
+    "fx": null,
+    "g967": "●●■/■■■■"
+   },
+   "ult": {
+    "name": "聖火令",
+    "pattern": "shape",
+    "shape": [
+     [
+      -1,
+      0
+     ],
+     [
+      -1,
+      1
+     ],
+     [
+      -1,
+      2
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "mult": 1.94,
+    "flat": 180,
+    "fx": {
+     "burn": 0.3
+    },
+    "g967": "●■■■/■■■■/●■■■"
+   },
+   "passive": "duohun",
+   "passive2": "pozhou",
+   "souls": 45,
+   "grade": "B(名稱/品質/類型/被動/連攜：snA967、sn60) C(範圍：格圖換算) D(技能名/倍率/外觀)",
+   "web2": "P2",
+   "partner": "zhurong"
+  },
+  {
+   "id": "ziyun",
+   "name": "紫雲",
+   "faction": "武俠",
+   "quality": 4,
+   "type": "智敏",
+   "base": {
+    "str": 9,
+    "int": 12,
+    "agi": 11,
+    "con": 10
+   },
+   "growth": {
+    "str": 1,
+    "int": 3,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "f",
+    "skin": "#fbe0cd",
+    "hair": "#1b1b1b",
+    "hs": "long",
+    "beard": "none",
+    "cloth": "#9575cd",
+    "trim": "#ffd54f",
+    "wp": "fan"
+   },
+   "active": {
+    "name": "雲袖",
+    "pattern": "shape",
+    "shape": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "shape6": null,
+    "mult": 1.66,
+    "flat": 0,
+    "fx": null,
+    "g967": "■■■"
+   },
+   "ult": {
+    "name": "往昔若凝",
+    "pattern": "healAll",
+    "mult": 0.6,
+    "flat": 40,
+    "fx": null,
+    "g967": "●■■■/●■■■/●■■■"
+   },
+   "passive": "pozhou",
+   "passive2": "qingxin",
+   "souls": 45,
+   "grade": "B(名稱/品質/類型/被動/連攜：snA967、sn60) C(範圍：格圖換算) D(技能名/倍率/外觀)",
+   "web2": "P2"
+  },
+  {
+   "id": "zhenji",
+   "name": "甄姬",
+   "faction": "三國",
+   "quality": 4,
+   "type": "智敏",
+   "base": {
+    "str": 9,
+    "int": 12,
+    "agi": 11,
+    "con": 10
+   },
+   "growth": {
+    "str": 1,
+    "int": 3,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "f",
+    "skin": "#fbe0cd",
+    "hair": "#1b1b1b",
+    "hs": "long",
+    "beard": "none",
+    "cloth": "#80cbc4",
+    "trim": "#ffd54f",
+    "wp": "fan"
+   },
+   "active": {
+    "name": "洛神凌波",
+    "pattern": "shape",
+    "shape": [
+     [
+      -1,
+      1
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ]
+    ],
+    "shape6": [
+     [
+      -1,
+      1
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      0
+     ]
+    ],
+    "mult": 1.18,
+    "flat": 0,
+    "fx": {
+     "armorBreak": 0.3
+    },
+    "g967": "●●■/■■■/●■"
+   },
+   "ult": {
+    "name": "驚鴻月斬",
+    "pattern": "shape",
+    "shape": [
+     [
+      -2,
+      0
+     ],
+     [
+      -2,
+      1
+     ],
+     [
+      -1,
+      0
+     ],
+     [
+      -1,
+      1
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      1
+     ]
+    ],
+    "mult": 1.51,
+    "flat": 180,
+    "fx": null,
+    "g967": "●■■/●■■/●■■/■■■/●■■/●■■/●■■"
+   },
+   "passive": "shaqi",
+   "passive2": null,
+   "souls": 45,
+   "grade": "B(名稱/品質/類型/被動/連攜：snA967、sn60) C(範圍：格圖換算) D(技能名/倍率/外觀)",
+   "web2": "P2",
+   "passiveGrade": "D（snA967「未定」）"
+  },
+  {
+   "id": "caobao",
+   "name": "曹豹",
+   "faction": "三國",
+   "quality": 1,
+   "type": "力耐",
+   "base": {
+    "str": 12,
+    "int": 5,
+    "agi": 6,
+    "con": 12
+   },
+   "growth": {
+    "str": 3,
+    "int": 1.2,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#e8b98f",
+    "hair": "#1b1b1b",
+    "hs": "topknot",
+    "beard": "none",
+    "cloth": "#8d6e63",
+    "trim": "#ffd54f",
+    "wp": "spear"
+   },
+   "active": {
+    "name": "槍刺",
+    "pattern": "single",
+    "mult": 1.1,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "猛突",
+    "pattern": "line2",
+    "mult": 1.4,
+    "flat": 40,
+    "fx": null
+   },
+   "passive": "qiangren",
+   "passiveGrade": "D",
+   "souls": 1,
+   "grade": "B(名稱/白品：sn60) D(類型/技能/被動/外觀)",
+   "web2": "P2"
+  },
+  {
+   "id": "caode",
+   "name": "曹德",
+   "faction": "三國",
+   "quality": 1,
+   "type": "智耐",
+   "base": {
+    "str": 7,
+    "int": 10,
+    "agi": 6,
+    "con": 12
+   },
+   "growth": {
+    "str": 1.2,
+    "int": 3,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#e8b98f",
+    "hair": "#1b1b1b",
+    "hs": "topknot",
+    "beard": "none",
+    "cloth": "#90a4ae",
+    "trim": "#ffd54f",
+    "wp": "staff"
+   },
+   "active": {
+    "name": "書卷擊",
+    "pattern": "single",
+    "mult": 1.1,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "智計",
+    "pattern": "line2",
+    "mult": 1.4,
+    "flat": 40,
+    "fx": null
+   },
+   "passive": "shaqi",
+   "passiveGrade": "D",
+   "souls": 1,
+   "grade": "B(名稱/白品：sn60) D(類型/技能/被動/外觀)",
+   "web2": "P2"
+  },
+  {
+   "id": "caoang",
+   "name": "曹昂",
+   "faction": "三國",
+   "quality": 1,
+   "type": "力敏",
+   "base": {
+    "str": 12,
+    "int": 5,
+    "agi": 9,
+    "con": 8
+   },
+   "growth": {
+    "str": 3,
+    "int": 1,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "m",
+    "skin": "#e8b98f",
+    "hair": "#1b1b1b",
+    "hs": "topknot",
+    "beard": "none",
+    "cloth": "#5c6bc0",
+    "trim": "#ffd54f",
+    "wp": "sword"
+   },
+   "active": {
+    "name": "突刺",
+    "pattern": "single",
+    "mult": 1.1,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "護父",
+    "pattern": "line2",
+    "mult": 1.4,
+    "flat": 40,
+    "fx": null
+   },
+   "passive": "qiangren",
+   "passiveGrade": "D",
+   "souls": 1,
+   "grade": "B(名稱/白品：sn60) D(類型/技能/被動/外觀)",
+   "web2": "P2"
+  },
+  {
+   "id": "caojie",
+   "name": "曹節",
+   "faction": "三國",
+   "quality": 1,
+   "type": "智敏",
+   "base": {
+    "str": 7,
+    "int": 10,
+    "agi": 9,
+    "con": 8
+   },
+   "growth": {
+    "str": 1,
+    "int": 3,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "f",
+    "skin": "#fbe0cd",
+    "hair": "#1b1b1b",
+    "hs": "long",
+    "beard": "none",
+    "cloth": "#ce93d8",
+    "trim": "#ffd54f",
+    "wp": "fan"
+   },
+   "active": {
+    "name": "扇擊",
+    "pattern": "single",
+    "mult": 1.1,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "鳳儀",
+    "pattern": "line2",
+    "mult": 1.4,
+    "flat": 40,
+    "fx": null
+   },
+   "passive": "shaqi",
+   "passiveGrade": "D",
+   "souls": 1,
+   "grade": "B(名稱/白品：sn60) D(類型/技能/被動/外觀)",
+   "web2": "P2"
+  },
+  {
+   "id": "dingguan",
+   "name": "丁管",
+   "faction": "三國",
+   "quality": 1,
+   "type": "力耐",
+   "base": {
+    "str": 12,
+    "int": 5,
+    "agi": 6,
+    "con": 12
+   },
+   "growth": {
+    "str": 3,
+    "int": 1.2,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#e8b98f",
+    "hair": "#1b1b1b",
+    "hs": "topknot",
+    "beard": "none",
+    "cloth": "#a1887f",
+    "trim": "#ffd54f",
+    "wp": "blade"
+   },
+   "active": {
+    "name": "刀擊",
+    "pattern": "single",
+    "mult": 1.1,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "亂斬",
+    "pattern": "line2",
+    "mult": 1.4,
+    "flat": 40,
+    "fx": null
+   },
+   "passive": "qiangren",
+   "passiveGrade": "D",
+   "souls": 1,
+   "grade": "B(名稱/白品：sn60) D(類型/技能/被動/外觀)",
+   "web2": "P2"
+  },
+  {
+   "id": "hantiemo",
+   "name": "汗貼摩",
+   "faction": "三國",
+   "quality": 1,
+   "type": "力敏",
+   "base": {
+    "str": 12,
+    "int": 5,
+    "agi": 9,
+    "con": 8
+   },
+   "growth": {
+    "str": 3,
+    "int": 1,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "m",
+    "skin": "#e8b98f",
+    "hair": "#1b1b1b",
+    "hs": "topknot",
+    "beard": "none",
+    "cloth": "#6d4c41",
+    "trim": "#ffd54f",
+    "wp": "blade"
+   },
+   "active": {
+    "name": "鐵掌",
+    "pattern": "single",
+    "mult": 1.1,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "蠻勁",
+    "pattern": "line2",
+    "mult": 1.4,
+    "flat": 40,
+    "fx": null
+   },
+   "passive": "qiangren",
+   "passiveGrade": "D",
+   "souls": 1,
+   "grade": "B(名稱/白品：sn60) D(類型/技能/被動/外觀)",
+   "web2": "P2"
+  }
+ ],
+ "passives": {
+  "liaoshang": {
+   "name": "療傷",
+   "desc": "行動時 50% 機率恢復攻擊 20% 的生命",
+   "grade": "B"
+  },
+  "lianzhan": {
+   "name": "連斬",
+   "desc": "攻擊後 20% 機率再打一次",
+   "grade": "B"
+  },
+  "huizhan": {
+   "name": "回斬",
+   "desc": "被攻擊時 15% 機率反擊",
+   "grade": "B"
+  },
+  "xinu": {
+   "name": "息怒",
+   "desc": "攻擊時 30% 機率減少對方 20 點無雙值",
+   "grade": "B(機率) D(點數)"
+  },
+  "xixue": {
+   "name": "吸血",
+   "desc": "攻擊時 12% 機率把 10% 傷害轉為自身生命",
+   "grade": "B"
+  },
+  "rexue": {
+   "name": "熱血",
+   "desc": "生命上限 +5%（v9；舊版 +10%）",
+   "grade": "B"
+  },
+  "suxing": {
+   "name": "復甦",
+   "desc": "陣亡後 5% 機率以 15% 生命復活（每場最多 2 次）",
+   "grade": "B"
+  },
+  "busi": {
+   "name": "不死",
+   "desc": "被擊倒時 15% 機率生命剩 1（每場 1 次）",
+   "grade": "B(機率) D(次數)"
+  },
+  "renai": {
+   "name": "忍耐",
+   "desc": "行動時 30% 機率增加自身 15 點無雙值",
+   "grade": "B(機率) D(點數)"
+  },
+  "huajie": {
+   "name": "化解",
+   "desc": "攻擊時 30% 機率偷取對方 10 點無雙值",
+   "grade": "B"
+  },
+  "gaojiyudi": {
+   "name": "高級禦敵",
+   "desc": "物防、法防、絕技防禦 +20%",
+   "grade": "B(名稱) D(數值)"
+  },
+  "pozhou": {
+   "name": "破咒",
+   "desc": "30% 機率抵抗負面狀態（狀態抵抗 +30）",
+   "grade": "B"
+  },
+  "pojia": {
+   "name": "破甲",
+   "desc": "攻擊時無視目標 20% 防禦",
+   "grade": "B(名稱) D(數值)"
+  },
+  "dunhua": {
+   "name": "鈍化",
+   "desc": "命中時有 25% 機率使目標攻擊 −30%（2 次行動）",
+   "grade": "B(名稱) D(數值)"
+  },
+  "suijia": {
+   "name": "碎甲",
+   "desc": "命中時目標防禦 −10%，最多疊 3 層",
+   "grade": "B(名稱) D(數值)"
+  },
+  "gjliaoshang": {
+   "name": "高級療傷",
+   "desc": "每回合行動前必定回復 8% 生命",
+   "grade": "B(名稱) D(數值)"
+  },
+  "gjrexue": {
+   "name": "高級熱血",
+   "desc": "生命上限 +20%",
+   "grade": "B(名稱/效果) D(數值)"
+  },
+  "shaqi": {
+   "name": "殺氣訣",
+   "desc": "法攻 +10（×被動等級加成）",
+   "grade": "B"
+  },
+  "qiangren": {
+   "name": "強刃",
+   "desc": "物攻 +10（×被動等級加成）",
+   "grade": "B"
+  },
+  "qiangjia": {
+   "name": "強甲",
+   "desc": "物防／法防／絕技防 +10（×被動等級加成）",
+   "grade": "B"
+  },
+  "piaohu": {
+   "name": "飄忽若神",
+   "desc": "閃避 +5%（機率增加自身閃避率；數值 D）",
+   "grade": "B(效果) D(數值)"
+  },
+  "duohun": {
+   "name": "奪魂",
+   "desc": "攻擊時 12% 機率使對方 2 回合無法使用無雙技",
+   "grade": "B(效果/回合) C(機率)"
+  },
+  "qingxin": {
+   "name": "清心",
+   "desc": "行動時 30% 機率清除自身負面狀態",
+   "grade": "B(效果) D(機率)"
+  },
+  "xuruo": {
+   "name": "虛弱",
+   "desc": "攻擊時 31% 機率使對手治療效果 −24%，持續 5 回合",
+   "grade": "B"
+  },
+  "fenxin": {
+   "name": "焚心",
+   "desc": "攻擊時 20% 機率以最大攻擊 20% 造成燒傷，持續 2 回合",
+   "grade": "B(效果) D(機率)"
+  },
+  "bixie": {
+   "name": "辟邪",
+   "desc": "自身所受持續傷害 −50%",
+   "grade": "B"
+  },
+  "huanshi": {
+   "name": "還施彼身",
+   "desc": "被攻擊後反彈 50% 傷害（每次最多 300 點）",
+   "grade": "B(數值) C(讀法)"
+  },
+  "ningxin": {
+   "name": "凝心",
+   "desc": "附加負面狀態機率 +1%，每級再 +2%",
+   "grade": "B"
+  }
+ },
+ "patterns": {
+  "square": "2×2 方格",
+  "single": "單體",
+  "line2": "直線 2 格",
+  "line3": "直線 3 格",
+  "col2": "縱向 2 格",
+  "col3": "縱向 3 格",
+  "cross": "十字",
+  "diag": "斜向",
+  "all": "全體",
+  "healAll": "我方全體治療",
+  "shape": "原版格圖"
+ }
+}

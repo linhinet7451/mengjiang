@@ -1,0 +1,514 @@
+[
+ {
+  "name": "段譽",
+  "color": "紫",
+  "type": "力敏",
+  "partner": "喬峰",
+  "pcolor": "紫",
+  "passive": "飄忽若神(機率增加自身閃避率) 化解(攻擊有30%機率偷取對方無雙值10點)"
+ },
+ {
+  "name": "甄姬",
+  "color": "紫",
+  "type": "智敏",
+  "partner": "未出",
+  "pcolor": "-",
+  "passive": "未定"
+ },
+ {
+  "name": "武將",
+  "color": "-",
+  "type": "類型",
+  "partner": "連攜技對象",
+  "pcolor": "-",
+  "passive": "被動技能(效果)"
+ },
+ {
+  "name": "岳靈珊",
+  "color": "綠",
+  "type": "智耐",
+  "partner": "蔡文姬",
+  "pcolor": "綠",
+  "passive": "殺氣訣(法攻+10)"
+ },
+ {
+  "name": "鹿杖客",
+  "color": "綠",
+  "type": "智耐",
+  "partner": "丘處機",
+  "pcolor": "綠",
+  "passive": "殺氣訣(法攻+10)"
+ },
+ {
+  "name": "王語嫣",
+  "color": "藍",
+  "type": "智耐",
+  "partner": "滅絕師太",
+  "pcolor": "藍",
+  "passive": "殺氣訣(法攻+10) 熱血(戰鬥中提升血量上限5%)"
+ },
+ {
+  "name": "韋小寶",
+  "color": "藍",
+  "type": "智耐",
+  "partner": "雙兒",
+  "pcolor": "紫",
+  "passive": "息怒(30%機率減少對方無雙值)"
+ },
+ {
+  "name": "孫尚香",
+  "color": "紫",
+  "type": "智耐",
+  "partner": "劉備",
+  "pcolor": "?棕",
+  "passive": "殺氣訣(法攻+10) 連斬(攻擊後20%機率再打一次)"
+ },
+ {
+  "name": "小喬",
+  "color": "紫",
+  "type": "智耐",
+  "partner": "大喬",
+  "pcolor": "紫",
+  "passive": "息怒(30%機率減少對方無雙值) 不死(戰鬥中被擊倒有15%機率生命剩1)"
+ },
+ {
+  "name": "周瑜",
+  "color": "紫",
+  "type": "智耐",
+  "partner": "孫權",
+  "pcolor": "紫",
+  "passive": "殺氣訣(法攻+10) 破咒(30%機率抵抗狀態)"
+ },
+ {
+  "name": "諸葛亮",
+  "color": "紫",
+  "type": "智耐",
+  "partner": "黃月英",
+  "pcolor": "紫",
+  "passive": "吸血(攻擊有12%機率轉化10%傷害為自身生命) 化解(攻擊有30%機率偷取對方無雙值10點)"
+ },
+ {
+  "name": "蔡文姬",
+  "color": "綠",
+  "type": "智敏",
+  "partner": "岳靈珊",
+  "pcolor": "綠",
+  "passive": "殺氣訣(法攻+10)"
+ },
+ {
+  "name": "袁紹",
+  "color": "藍",
+  "type": "智敏",
+  "partner": "董卓",
+  "pcolor": "藍",
+  "passive": "殺氣訣(法攻+10)"
+ },
+ {
+  "name": "阿珂",
+  "color": "藍",
+  "type": "智敏",
+  "partner": "建甯公主",
+  "pcolor": "藍",
+  "passive": "殺氣訣(法攻+10)"
+ },
+ {
+  "name": "建甯公主",
+  "color": "藍",
+  "type": "智敏",
+  "partner": "阿珂",
+  "pcolor": "藍",
+  "passive": "息怒(30%機率減少對方無雙值)"
+ },
+ {
+  "name": "李秋水",
+  "color": "藍",
+  "type": "智敏",
+  "partner": "天山童姥",
+  "pcolor": "藍",
+  "passive": "殺氣訣(法攻+10)"
+ },
+ {
+  "name": "天山童姥",
+  "color": "藍",
+  "type": "智敏",
+  "partner": "李秋水",
+  "pcolor": "藍",
+  "passive": "殺氣訣(法攻+10)"
+ },
+ {
+  "name": "甄姬",
+  "color": "紫",
+  "type": "智敏",
+  "partner": "未出",
+  "pcolor": "-",
+  "passive": "未定"
+ },
+ {
+  "name": "阿紫",
+  "color": "紫",
+  "type": "智敏",
+  "partner": "張無忌",
+  "pcolor": "紫",
+  "passive": "殺氣訣(法攻+10)"
+ },
+ {
+  "name": "小昭",
+  "color": "紫",
+  "type": "智敏",
+  "partner": "祝融*(未出)",
+  "pcolor": "-",
+  "passive": "奪魂(有機率使對方無雙技無法使用兩回合) 破咒(30%機率抵抗狀態)"
+ },
+ {
+  "name": "紫雲",
+  "color": "紫",
+  "type": "智敏",
+  "partner": "待補",
+  "pcolor": "-",
+  "passive": "破咒(30%機率抵抗狀態) 清心(行動時有機率清除負面狀態)"
+ },
+ {
+  "name": "黃月英",
+  "color": "紫",
+  "type": "智敏",
+  "partner": "諸葛亮",
+  "pcolor": "紫",
+  "passive": "息怒(30%機率減少對方無雙值) 療傷(50%機率恢復相等於攻擊20%的生命值)"
+ },
+ {
+  "name": "貂蟬",
+  "color": "紫",
+  "type": "智敏",
+  "partner": "呂布",
+  "pcolor": "紫",
+  "passive": "息怒(30%機率減少對方無雙值) 破咒(30%機率抵抗狀態)"
+ },
+ {
+  "name": "黃蓉",
+  "color": "紫",
+  "type": "智敏",
+  "partner": "郭靖",
+  "pcolor": "紫",
+  "passive": "殺氣訣(法攻+10) 熱血(戰鬥中提升血量上限5%)"
+ },
+ {
+  "name": "東方不敗",
+  "color": "紫",
+  "type": "智敏",
+  "partner": "熊貓",
+  "pcolor": "紫",
+  "passive": "忍耐(30%機率增加自身無雙值) 不死(戰鬥中被擊倒有15%機率生命剩1)"
+ },
+ {
+  "name": "小龍女",
+  "color": "紫",
+  "type": "智敏",
+  "partner": "楊過",
+  "pcolor": "紫",
+  "passive": "殺氣訣(法攻+10) 辟邪(減少自身所受法數持續傷害50%)"
+ },
+ {
+  "name": "大喬",
+  "color": "紫",
+  "type": "智敏",
+  "partner": "小喬",
+  "pcolor": "紫",
+  "passive": "息怒(30%機率減少對方無雙值) 復甦(死亡後5%機率回血15%，一場戰鬥最多兩次)"
+ },
+ {
+  "name": "雙兒",
+  "color": "紫",
+  "type": "智敏",
+  "partner": "韋小寶",
+  "pcolor": "藍",
+  "passive": "殺氣訣(法攻+10) 回斬(被攻擊有15%機率反擊)"
+ },
+ {
+  "name": "任盈盈",
+  "color": "紫",
+  "type": "智敏",
+  "partner": "令狐沖",
+  "pcolor": "紫",
+  "passive": "忍耐(30%機率增加自身無雙值) 復甦(死亡後5%機率回血15%，一場戰鬥最多兩次)"
+ },
+ {
+  "name": "張角",
+  "color": "綠",
+  "type": "力耐",
+  "partner": "華雄",
+  "pcolor": "綠",
+  "passive": "強刃(物攻+10)"
+ },
+ {
+  "name": "丘處機",
+  "color": "綠",
+  "type": "力耐",
+  "partner": "鹿杖客",
+  "pcolor": "綠",
+  "passive": "忍耐(30%機率增加自身無雙值)"
+ },
+ {
+  "name": "華雄",
+  "color": "綠",
+  "type": "力耐",
+  "partner": "張角",
+  "pcolor": "綠",
+  "passive": "療傷(50%機率恢復相等於攻擊20%的生命值)"
+ },
+ {
+  "name": "董卓",
+  "color": "藍",
+  "type": "力耐",
+  "partner": "袁紹",
+  "pcolor": "藍",
+  "passive": "療傷(50%機率恢復相等於攻擊20%的生命值)"
+ },
+ {
+  "name": "鰲拜",
+  "color": "藍",
+  "type": "力耐",
+  "partner": "周伯通",
+  "pcolor": "藍",
+  "passive": "強刃(物攻+10)"
+ },
+ {
+  "name": "許褚",
+  "color": "藍",
+  "type": "力耐",
+  "partner": "典韋",
+  "pcolor": "藍",
+  "passive": "熱血(戰鬥中提升血量上限5%)"
+ },
+ {
+  "name": "張遼",
+  "color": "藍",
+  "type": "力耐",
+  "partner": "顏良",
+  "pcolor": "藍",
+  "passive": "忍耐(30%機率增加自身無雙值)"
+ },
+ {
+  "name": "左冷禪",
+  "color": "藍",
+  "type": "力耐",
+  "partner": "任我行",
+  "pcolor": "紫",
+  "passive": "強刃(物攻+10)"
+ },
+ {
+  "name": "顏良",
+  "color": "藍",
+  "type": "力耐",
+  "partner": "張遼",
+  "pcolor": "藍",
+  "passive": "強刃(物攻+10)"
+ },
+ {
+  "name": "周伯通",
+  "color": "藍",
+  "type": "力耐",
+  "partner": "鰲拜",
+  "pcolor": "藍",
+  "passive": "強刃(物攻+10)"
+ },
+ {
+  "name": "曹操",
+  "color": "紫",
+  "type": "力耐",
+  "partner": "夏侯惇",
+  "pcolor": "紫",
+  "passive": "強刃(物攻+10)"
+ },
+ {
+  "name": "熊貓",
+  "color": "紫",
+  "type": "力耐",
+  "partner": "東方不敗",
+  "pcolor": "紫",
+  "passive": "虛弱(攻擊時31%降低對手治療效果24%持續5回合) 療傷(50%機率恢復相等於攻擊20%的生命值)"
+ },
+ {
+  "name": "虛竹",
+  "color": "紫",
+  "type": "力耐",
+  "partner": "無涯子",
+  "pcolor": "紫",
+  "passive": "熱血(戰鬥中提升血量上限5%)"
+ },
+ {
+  "name": "呂布",
+  "color": "紫",
+  "type": "力耐",
+  "partner": "貂蟬",
+  "pcolor": "紫",
+  "passive": "強刃(物攻+10) 連斬(攻擊後20%機率再打一次)"
+ },
+ {
+  "name": "郭靖",
+  "color": "紫",
+  "type": "力耐",
+  "partner": "黃蓉",
+  "pcolor": "紫",
+  "passive": "熱血(戰鬥中提升血量上限5%) 不死(戰鬥中被擊倒有15%機率生命剩1)"
+ },
+ {
+  "name": "楊過",
+  "color": "紫",
+  "type": "力耐",
+  "partner": "小龍女",
+  "pcolor": "紫",
+  "passive": "焚心(攻擊時有機率以最大攻擊20%造成對方燒傷，持續2回合) 息怒(30%機率減少對方無雙值)"
+ },
+ {
+  "name": "張飛",
+  "color": "紫",
+  "type": "力耐",
+  "partner": "關羽",
+  "pcolor": "紫",
+  "passive": "療傷(50%機率恢復相等於攻擊20%的生命值) 熱血(戰鬥中提升血量上限5%)"
+ },
+ {
+  "name": "無涯子",
+  "color": "紫",
+  "type": "力耐",
+  "partner": "虛竹",
+  "pcolor": "紫",
+  "passive": "強刃(物攻+10)"
+ },
+ {
+  "name": "喬峰",
+  "color": "紫",
+  "type": "力耐",
+  "partner": "段譽",
+  "pcolor": "紫",
+  "passive": "療傷(50%機率恢復相等於攻擊20%的生命值) 強甲(防禦+10)"
+ },
+ {
+  "name": "關羽",
+  "color": "紫",
+  "type": "力耐",
+  "partner": "張飛",
+  "pcolor": "紫",
+  "passive": "強刃(物攻+10) 還施彼身(被攻擊後50%反彈，反彈上限300點傷害)"
+ },
+ {
+  "name": "任我行",
+  "color": "紫",
+  "type": "力耐",
+  "partner": "左冷禪",
+  "pcolor": "藍",
+  "passive": "破咒(30%機率抵抗狀態)"
+ },
+ {
+  "name": "夏侯惇",
+  "color": "紫",
+  "type": "力耐",
+  "partner": "曹操",
+  "pcolor": "紫",
+  "passive": "強刃(物攻+10)"
+ },
+ {
+  "name": "太史慈",
+  "color": "藍",
+  "type": "力敏",
+  "partner": "孫策",
+  "pcolor": "藍",
+  "passive": "強刃(物攻+10)"
+ },
+ {
+  "name": "梅超風",
+  "color": "藍",
+  "type": "力敏",
+  "partner": "李莫愁",
+  "pcolor": "藍",
+  "passive": "強刃(物攻+10)"
+ },
+ {
+  "name": "李莫愁",
+  "color": "藍",
+  "type": "力敏",
+  "partner": "梅超風",
+  "pcolor": "藍",
+  "passive": "強刃(物攻+10)"
+ },
+ {
+  "name": "孫策",
+  "color": "藍",
+  "type": "力敏",
+  "partner": "太史慈",
+  "pcolor": "藍",
+  "passive": "強刃(物攻+10)"
+ },
+ {
+  "name": "典韋",
+  "color": "藍",
+  "type": "力敏",
+  "partner": "許褚",
+  "pcolor": "藍",
+  "passive": "強刃(物攻+10)"
+ },
+ {
+  "name": "滅絕師太",
+  "color": "藍",
+  "type": "力敏",
+  "partner": "王語嫣",
+  "pcolor": "藍",
+  "passive": "強刃(物攻+10)"
+ },
+ {
+  "name": "孫權",
+  "color": "紫",
+  "type": "力敏",
+  "partner": "周瑜",
+  "pcolor": "紫",
+  "passive": "忍耐(30%機率增加自身無雙值)"
+ },
+ {
+  "name": "劉備",
+  "color": "紫",
+  "type": "力敏",
+  "partner": "孫尚香",
+  "pcolor": "紫",
+  "passive": "凝心(附加狀態機率觸發+1%，每一等級增加2%) 破咒(30%機率抵抗狀態)"
+ },
+ {
+  "name": "趙雲",
+  "color": "紫",
+  "type": "力敏",
+  "partner": "馬超",
+  "pcolor": "紫",
+  "passive": "強刃(物攻+10) 破咒(30%機率抵抗狀態)"
+ },
+ {
+  "name": "張無忌",
+  "color": "紫",
+  "type": "力敏",
+  "partner": "阿紫",
+  "pcolor": "紫",
+  "passive": "忍耐(30%機率增加自身無雙值)"
+ },
+ {
+  "name": "馬超",
+  "color": "紫",
+  "type": "力敏",
+  "partner": "趙雲",
+  "pcolor": "紫",
+  "passive": "忍耐(30%機率增加自身無雙值) 連斬(攻擊後20%機率再打一次)"
+ },
+ {
+  "name": "段譽",
+  "color": "紫",
+  "type": "力敏",
+  "partner": "喬峰",
+  "pcolor": "紫",
+  "passive": "飄忽若神(機率增加自身閃避率) 化解(攻擊有30%機率偷取對方無雙值10點)"
+ },
+ {
+  "name": "令狐沖",
+  "color": "紫",
+  "type": "力敏",
+  "partner": "任盈盈",
+  "pcolor": "紫",
+  "passive": "強刃(物攻+10)"
+ }
+]

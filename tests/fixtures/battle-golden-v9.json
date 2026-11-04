@@ -1,0 +1,88 @@
+{
+ "passives": [
+  "rexue",
+  "lianzhan",
+  "xixue",
+  "liaoshang",
+  "qiangren",
+  "renai",
+  "shaqi",
+  "xinu",
+  "fenxin",
+  "xuruo",
+  "suxing",
+  "ningxin"
+ ],
+ "runs": [
+  {
+   "id": "s1_1",
+   "seed": 1000,
+   "win": true,
+   "n": 64,
+   "h": 2656079198
+  },
+  {
+   "id": "s1_2",
+   "seed": 1037,
+   "win": true,
+   "n": 75,
+   "h": 2274061020
+  },
+  {
+   "id": "s1_3",
+   "seed": 1074,
+   "win": true,
+   "n": 79,
+   "h": 2310078328
+  },
+  {
+   "id": "s1_1",
+   "seed": 1111,
+   "win": true,
+   "n": 55,
+   "h": 3725649820
+  },
+  {
+   "id": "s1_2",
+   "seed": 1148,
+   "win": true,
+   "n": 44,
+   "h": 214594716
+  },
+  {
+   "id": "mix",
+   "seed": 1,
+   "win": false,
+   "n": 263,
+   "h": 4290041410
+  },
+  {
+   "id": "mix",
+   "seed": 2,
+   "win": false,
+   "n": 268,
+   "h": 2598974833
+  },
+  {
+   "id": "mix",
+   "seed": 3,
+   "win": false,
+   "n": 252,
+   "h": 1924960661
+  },
+  {
+   "id": "mix",
+   "seed": 4,
+   "win": false,
+   "n": 232,
+   "h": 2367083562
+  },
+  {
+   "id": "mix",
+   "seed": 5,
+   "win": false,
+   "n": 248,
+   "h": 2791696570
+  }
+ ]
+}
