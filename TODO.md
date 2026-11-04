@@ -1,5 +1,32 @@
 # TODO — 猛將無雙 HTML5 單機重製
 
+## BOARD-3 走到底後回「最上方第一列」排隊（優先，未完成）
+
+**目標**：依 Tomas 對原版的回憶（C 級，玩家回憶），修正 v11 的「走到底」規則。
+
+**原版規則（Tomas 2026-11-04 口述）**
+- 雙方每回合持續往前一格，即使同一排對面的敵人已經死掉，也照樣往前。
+- 走到底（畫面頂部）時，不分敵我，統一回到畫面**最上方的第一列**、在自己原本那一列（同一條直線，不換列）排隊。
+- 若該格已被佔用，就依序排在其後方。
+- 因此最後可能出現敵我雙方都在第一列的情況。
+- 不能上下換列。
+
+**目前 v11 做法（需修改）**：走到底的單位回到「自己這方目前最前排活著的隊友後方」（`v11.board.queue`，D 級），與原版不同。
+
+**要改的檔案**：`src/js/rules.js`、`src/js/battle.js`（推進與走到底的處理）、`src/js/ui-battle.js`（↩ 排隊的動畫與位置）、`src/data/provenance.json`（`v11.board.wrap`、`v11.board.queue` 改成 C 級並寫明來源是 Tomas 回憶）、`tests/unit-wrap.js`、`tests/e2e.js`。
+
+**注意事項**
+- 先在畫面上確認「最上方第一列」對應到棋盤的哪個方向。
+- 雙方單位在第一列同列或相鄰時，攻擊範圍（普攻、主動、無雙）仍須依照各武將的格子設定正確判定，且單位不可重疊。
+- 新規則上線後，重新評估是否仍需要 v11 補的兩條 D 級規則：「卡住時鑽過敵人」（`v11.board.block`）和「連續 8 回合沒人受傷就比血量」（`v11.board.stale`）。若已不需要就移除。
+- 規則版本改為 R.RV = 12，舊的 v10、v11 戰鬥重播必須仍然正確（保留 `battle-golden-v10.json`、`battle-golden-v11.json`）。
+
+**完成條件**
+- unit、e2e（桌機 Chromium、WebKit iPhone 13、手機橫向）、e2e-formation、e2e-juxian 全部通過。
+- 用 `tools/progress-sim.js` 和 `tools/balance.js` 重跑模擬，超時和平手場數不高於 v11（標準模式 30 天：超時 103、平手 696）。
+- 附上桌機和 iPhone 的戰鬥截圖，畫面中可以看到雙方單位都回到第一列排隊。
+- 建置檔小於 12,000,000 bytes，並更新右下角的版本號。
+
 ## English summary
 Unofficial, offline, single-file HTML5 remake of the 2012–2013 Facebook game 猛將無雙. Build output: `dist/mengjiang.html` (one file, ES5, no CDN, < 12,000,000 bytes). With the original company's consent (as stated by the repository owner), original art, music, and similar assets may be referenced or used directly so the remake stays as close to the original as possible. Record each use in `docs/美術素材來源.md`. If no original file is available, redraw closer assets from the screenshots and videos in `reference/`.
 State on 2026-11-04 (UTC+8): data-restoration phases **P1 and P2 from `docs/網路資料搜查-2.md` are done and tested**; formation persistence and attack-range rules were fixed (rules v9). **P3 and P4 have not been started.** Nothing has been tested on a real phone (Playwright Chromium + WebKit "iPhone 13" emulation only). Social/online modes are not built (by design: single-player). Many numbers are still grade D (our own design). Each item below lists goal, evidence + grade + URL, files/functions, acceptance tests, priority and dependencies. Read "Project rules" first.
