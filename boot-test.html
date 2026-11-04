@@ -1741,7 +1741,8 @@ MJ.UI = (function () {
   UI.toast = function (msg, kind) {
     var t = $('toast');
     t.innerHTML = '<div class="toast ' + (kind || '') + '">' + U.esc(msg) + '</div>';
-    t.className = UI.screen === 'city' ? 'top' : '';
+    // art4：神武殿／神兵坊／聚賢莊的提示移到下方金框上，不蓋住面板內容
+    t.className = UI.screen === 'city' ? 'top' : (!UI.modal && (UI.screen === 'forge' || UI.screen === 'hall' || UI.screen === 'recruit') ? 'low' : '');
     t.style.display = 'block';
     clearTimeout(toastTimer);
     toastTimer = setTimeout(function () { t.style.display = 'none'; }, 2200);
@@ -1795,6 +1796,13 @@ MJ.UI = (function () {
     if (!items.length) html = '<div class="empty">' + U.esc(emptyText || '空') + '</div>';
     else U.each(slice, function (it, i) { html += renderFn(it, p * per + i); });
     return { html: html, nav: '<div class="pager"><a class="pbtn' + (p <= 0 ? ' disabled' : '') + '" data-a="pg" data-v="' + key + ':-1">◀</a><span>' + (p + 1) + '/' + pages + '</span><a class="pbtn' + (p >= pages - 1 ? ' disabled' : '') + '" data-a="pg" data-v="' + key + ':1">▶</a></div>' };
+  };
+  // art4：裝備格補滿空格（原版深橄欖色格子，空格也畫出來）
+  UI.padSlots = function (key, items, per, wrap) {
+    if (!items.length) return '';
+    var p = UI.page[key] || 0, n = Math.max(0, per - Math.max(0, Math.min(per, items.length - p * per))), h = '';
+    for (var i = 0; i < n; i++) h += wrap ? '<div class="fg-it"><div class="ecell vslot"></div></div>' : '<div class="ecell vslot"></div>';
+    return h;
   };
   UI.actions.pg = function (v) { var a = v.split(':'); UI.page[a[0]] = (UI.page[a[0]] || 0) + (+a[1]); UI.refresh(); };
   UI.equipCell = function (e, opt) {
@@ -1905,7 +1913,8 @@ MJ.UI = (function () {
 /* 聚賢莊：刷新、拜訪（招募）、機率、結果動畫、解僱、將魂召喚 */
 (function () {
   var UI = MJ.UI, U = MJ.U, G = MJ.G, R = MJ.R;
-  var TYPE_TIP = { '力敏': '物理．敏捷', '力耐': '物理．耐力', '智敏': '法術．敏捷', '智耐': '法術．耐力' };
+  var TYPE_TIP = { '力敏': '物理．敏捷', '力耐': '物理．耐力', '智敏': '法術．敏捷', '智耐': '法術．耐力', '敏耐': '絕技．耐力' };
+  UI.TYPE_TIP = TYPE_TIP;
   function candCard(id, i) {
     var d = R.heroDef(id), h = { id: id, lv: 1, eq: {} }, p = R.primary(h), cost = G.recruitCost(id);
     var s = MJ.S.state, afford = s.player.silver >= cost;
@@ -2068,7 +2077,7 @@ MJ.UI = (function () {
       var items = U.filter(s.bag.equips, function (e) { return R.equipTpl(e.t).slot === et; });
       items.sort(function (a, b) { return R.equipScore(b) - R.equipScore(a); });
       var pg = UI.pager('hallbag', items, 12, function (e) { return UI.equipCell(e, { act: 'bagPick', sel: UI.sel.bagPick === e.uid }); }, '沒有' + SN[et]);
-      h += '<div class="egrid">' + pg.html + '</div>' + pg.nav;
+      h += '<div class="egrid">' + pg.html + UI.padSlots('hallbag', items, 12) + '</div>' + pg.nav;
       var pick = U.find(s.bag.equips, function (e) { return e.uid === UI.sel.bagPick; });
       if (pick) {
         var tpl = R.equipTpl(pick.t), cur = h0.eq[tpl.slot];
@@ -2249,6 +2258,13 @@ MJ.UI = (function () {
     });
     // A（影片3）：上方顯示雙方全隊總生命
     U.each(['A', 'B'], function (sd) { h += '<div class="b-tot ' + sd + '"><span id="tt' + sd + '">' + (sd === 'A' ? '我方' : '敵方') + '</span><div class="tb"><i id="tb' + sd + '" style="width:100%"></i></div></div>'; });
+    // art4：下方我方頭像列（原版戰鬥畫面下方的武將頭像，含生命／無雙條）
+    h += '<div class="b-pbar" id="bpbar">' + U.map(r.team.slice().sort(function (a, b) { return a.cell - b.cell; }), function (x) {
+      var u = x.unit, k = 'A' + x.cell, q = u.boss ? 4 : (u.quality || 0), hp = u.curHp != null ? u.curHp : u.hp, rg = U.clamp(u.curRage || 0, 0, 100);
+      return '<div class="pb' + (hp <= 0 ? ' dead' : '') + (rg >= 100 ? ' full' : '') + ' q' + q + '" id="pb' + k + '"><div class="pb-art">' + MJ.Art.portrait(u.look, q) + '</div>' +
+        '<div class="pb-bar hp"><i id="pbh' + k + '" style="width:' + (u.hp ? U.clamp(hp / u.hp * 100, 0, 100) : 0).toFixed(1) + '%"></i></div>' +
+        '<div class="pb-bar rg"><i id="pbr' + k + '" style="width:' + rg + '%"></i></div></div>';
+    }).join('') + '</div>';
     h += '<div class="fx" id="fx"></div>';
     h += '<div class="b-title">' + U.esc(r.stage.name) + '</div>';
     h += '<div class="b-round" id="bround">第1回合</div>';
@@ -2293,7 +2309,13 @@ MJ.UI = (function () {
     d.style.left = lx + 'px'; d.style.top = Math.min(600 - 70, p.y - 164 - (dy || 0) + shift) + 'px';
     d.innerHTML = text;
     fx.appendChild(d);
-    setTimeout(function () { if (d.parentNode) d.parentNode.removeChild(d); }, T(1100) + 200);
+    // art4：最上排飄字會經過自己的名牌，飄字期間把名牌淡化，減少重疊
+    var ue = shift > 0 ? el('u' + key) : null;
+    if (ue) { x.ftN = (x.ftN || 0) + 1; if (ue.className.indexOf(' ftop') < 0) ue.className += ' ftop'; }
+    setTimeout(function () {
+      if (d.parentNode) d.parentNode.removeChild(d);
+      if (ue) { x.ftN = Math.max(0, (x.ftN || 1) - 1); if (!x.ftN) ue.className = ue.className.replace(/ ftop/g, ''); }
+    }, T(1100) + 200);
   }
   // 命中火花（CSS，低成本）
   function hitSpark(key, crit) {
@@ -2316,6 +2338,7 @@ MJ.UI = (function () {
   function setHp(key, hp) {
     var x = BT.units[key]; if (!x) return; x.hp = hp;
     var h = el('h' + key); if (h) h.innerHTML = hpHtml(hp, x.max, x.u.layers);
+    var ph = el('pbh' + key); if (ph) ph.style.width = (x.max ? U.clamp(hp / x.max * 100, 0, 100) : 0).toFixed(1) + '%';
     totals();
   }
   function totals() {
@@ -2328,7 +2351,13 @@ MJ.UI = (function () {
     });
   }
   UI._bTotals = function () { if (BT) totals(); };
-  function setDead(key, dead) { var e = el('u' + key); if (e) e.className = e.className.replace(/ dead/g, '') + (dead ? ' dead' : ''); }
+  function setDead(key, dead) { var e = el('u' + key); if (e) e.className = e.className.replace(/ dead/g, '') + (dead ? ' dead' : ''); var pb = el('pb' + key); if (pb) pb.className = pb.className.replace(/ dead/g, '') + (dead ? ' dead' : ''); }
+  function setRage(key, v) {
+    var x = BT.units[key]; if (!x) return; x.rage = U.clamp(v || 0, 0, 100);
+    var r = el('pbr' + key); if (r) r.style.width = x.rage + '%';
+    var pb = el('pb' + key); if (pb) pb.className = pb.className.replace(/ full/g, '') + (x.rage >= 100 ? ' full' : '');
+  }
+  UI._setRage = function (k, v) { if (BT) setRage(k, v); };
   // 音效節流：同一種音效 60ms 內只播一次（群攻時避免爆音）
   var lastSfx = {};
   function sfx(n) { if (!MJ.Audio) return; var t = Date.now(); if (lastSfx[n] && t - lastSfx[n] < 60) return; lastSfx[n] = t; MJ.Audio.sfx(n); }
@@ -2376,7 +2405,7 @@ MJ.UI = (function () {
       case 'revive': setDead(e.to, false); setHp(e.to, e.hp); floatText(e.to, e.name, 'green small'); break;
       case 'status': floatText(e.to, e.s, 'red small', 20); break;
       case 'text': floatText(e.to, e.s, (e.c === 'green' ? 'green' : 'red') + ' small', 24); break;
-      case 'rage': floatText(e.u, '無雙+' + e.gain, 'green small', 44); break;
+      case 'rage': setRage(e.u, e.rage); floatText(e.u, '無雙+' + e.gain, 'green small', 44); break;
       case 'ultEnd': break;
     }
   }
@@ -2403,6 +2432,7 @@ MJ.UI = (function () {
     var me = BT.units[e.u], ue = el('u' + e.u);
     var t0 = 0;
     addLog(me.u.name + ' 施展「' + e.skill + '」' + (e.ult ? '（無雙）' : ''), e.ult ? 'ult' : '');
+    if (e.ult) setRage(e.u, 0);
     if (e.ult) {
       BT.ultTotal = { v: 0 }; sfx('ult');
       var ci = el('cutin');
