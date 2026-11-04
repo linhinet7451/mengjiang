@@ -133,6 +133,46 @@ MJ.Battle = (function () {
     });
     return moved;
   };
+  // v11（R.RV=11，Tomas t23u 回憶，C）：每回合雙方持續往前一格，同一列對面的敵人死了也繼續走，不停在中間；
+  // 走到棋盤盡頭（再往前就出界）時，回到「自己這一方第一排（目前最前面的我方武將那一欄）的後方」排隊，列不變；敵我都一樣。
+  // 細節（D，本作解讀）：
+  //  - 前方那一格有任何活著的單位（敵人或隊友）就停下（不交換、不穿過）；同一回合依行動順序逐一判定，所以後面的人可以跟著前面的人一起走。
+  //  - 排隊位置＝我方其他活著單位裡最前面那一欄的後一欄（同一列）；那格有人就再往後一格，一直到自己的底線；後面都滿了才改找前面最近的空格。
+  //  - 我方只剩自己一人時，回到自己開場的第一排那一欄（我方 bx 2／敵方 bx 5）排隊。
+  //  - 同一回合有好幾個人走到盡頭：依行動順序（較前面、下排先）一個一個排，後到的排在先到的後面。
+  B.queueBx = function (u, all) {
+    var W = B.BOARD.cols, d = bdir(u), front = null;
+    U.each(all, function (o) { if (o !== u && o.hp > 0 && o.side === u.side && (front === null || (d > 0 ? o.bx > front : o.bx < front))) front = o.bx; });
+    var start = front === null ? B.homeBx(u.side, 0) : front - d;
+    var free = function (x) { return x >= 0 && x < W && !U.find(all, function (o) { return o !== u && o.hp > 0 && o.br === u.br && o.bx === x; }); };
+    var x;
+    for (x = start; x >= 0 && x < W; x -= d) if (free(x)) return x;
+    for (x = start + d; x >= 0 && x < W; x += d) if (x !== u.bx && free(x)) return x;
+    return null;
+  };
+  //  - 卡住穿過（D，本作解讀，Tomas「不會卡在中間只能挨打」）：上一回合就已經緊貼著敵人停下、那一回合技能還是打不到人（等待），這回合前方仍是敵人時，
+  //    從敵人身邊穿過去，走到同一列再往前第一個空格；一路到盡頭都沒有空格，就照走到底的規則回第一排後方排隊。打得到人的就照樣停下來打。
+  B.advance11 = function (order, all, st) {
+    var moved = [], W = B.BOARD.cols;
+    function at(u, x) { return U.find(all, function (o) { return o !== u && o.hp > 0 && o.br === u.br && o.bx === x; }); }
+    function wrap(u) { var q = B.queueBx(u, all); if (q !== null && q !== u.bx) { moved.push({ u: u.key, from: u.bx, to: q, wrap: 1 }); u.bx = q; } }
+    U.each(order, function (u) {
+      if (u.hp <= 0) return;
+      var d = bdir(u), x2 = u.bx + d;
+      if (x2 < 0 || x2 >= W) { wrap(u); return; } // 走到盡頭：回到我方第一排後方排隊
+      var o = at(u, x2);
+      if (o) {
+        if (o.side === u.side) return; // 前方是隊友：停下排隊
+        var stuck = st && st.waited[u.key] && st.blocked[u.key];
+        if (st) st.next[u.key] = 1;
+        if (!stuck) return; // 前方緊貼敵人：停下來打
+        for (var x = x2 + d; x >= 0 && x < W; x += d) if (!at(u, x)) { moved.push({ u: u.key, from: u.bx, to: x, pass: 1 }); u.bx = x; return; }
+        wrap(u); return;
+      }
+      moved.push({ u: u.key, from: u.bx, to: x2 }); u.bx = x2;
+    });
+    return moved;
+  };
   B.hpRatio = function (list) { var h = 0, m = 0; U.each(list, function (u) { m += u.maxHp; if (u.hp > 0) h += u.hp; }); return m ? h / m : 0; };
   B.turnOrder10 = function (A, Bs) {
     function sorted(list) { return U.filter(list, function (u) { return u.hp > 0; }).sort(function (a, b) { return (prog(b) - prog(a)) || (b.br - a.br) || (a.cell0 - b.cell0); }); }
@@ -192,6 +232,8 @@ MJ.Battle = (function () {
     all = A.concat(Bs);
     // v10 大棋盤：全部單位都是 rv>=10 才啟用（舊戰報的單位沒有 rv 10，照舊規則）
     var BD = all.length > 0 && U.filter(all, function (u) { return u.rv >= 10; }).length === all.length;
+    // v11 持續前進＋走到底排隊：全部單位都是 rv>=11 才啟用（rv 10 的舊戰報照 v10 前線規則重播）
+    var BV = BD ? (U.filter(all, function (u) { return u.rv >= 11; }).length === all.length ? 11 : 10) : 0;
     if (BD) U.each(all, function (u) { u.br = Math.floor(u.cell / 3); u.bx = B.homeBx(u.side, u.cell); });
     function bc(u) { return B.bcell(u.br, u.bx); }
     function reachOf(u, sk) { return BD ? B.reach10(u, sk, foesOf(u)) : B.reach(u, sk, alliesOf(u), foesOf(u)); }
@@ -311,7 +353,7 @@ MJ.Battle = (function () {
         rch = B.reach10(u, skill, foes);
         if (!rch.hits.length) return;
         tgt = rch.hits[0]; cells = U.map(rch.hits, bc);
-        ev.push({ t: 'act', u: u.key, skill: skill.name, ult: isUlt, cells: cells, range: rch.cells, blocked: [], side: 'X', me: bc(u), target: tgt.key, pattern: skill.pattern, rv: 10, bd: 1, lx: !!u.lx });
+        ev.push({ t: 'act', u: u.key, skill: skill.name, ult: isUlt, cells: cells, range: rch.cells, blocked: [], side: 'X', me: bc(u), target: tgt.key, pattern: skill.pattern, rv: BV, bd: 1, lx: !!u.lx });
       } else if (u.rv >= 9) {
         rch = B.reach(u, skill, alliesOf(u), foes);
         if (!rch.hits.length) return;
@@ -345,15 +387,30 @@ MJ.Battle = (function () {
       if (!v9(u) || !u.partner) return;
       if (U.find(alliesOf(u), function (m) { return m !== u && m.did === u.partner; })) { u.lx = true; u.patk = Math.floor(u.patk * 1.1); u.matk = Math.floor(u.matk * 1.1); u.jatk = Math.floor(u.jatk * 1.1); }
     });
-    ev.push(BD ? { t: 'start', units: U.map(all, snapshot), bd: { gap: B.BOARD.gap, cols: B.BOARD.cols, pos: U.map(all, function (u) { return [u.key, u.br, u.bx]; }) } } : { t: 'start', units: U.map(all, snapshot) });
+    ev.push(BD ? { t: 'start', units: U.map(all, snapshot), bd: BV >= 11 ? { gap: B.BOARD.gap, cols: B.BOARD.cols, v: 11, pos: U.map(all, function (u) { return [u.key, u.br, u.bx]; }) } : { gap: B.BOARD.gap, cols: B.BOARD.cols, pos: U.map(all, function (u) { return [u.key, u.br, u.bx]; }) } } : { t: 'start', units: U.map(all, snapshot) });
     U.each(all, function (u) { if (u.lx) ev.push({ t: 'text', to: u.key, s: '連攜', c: 'green' }); });
+    var quiet = 0, qFrom = 0, blk11 = {}; // v11 僵局計數、上一回合緊貼敵人停下的人
     while (round < maxRounds && !winner) {
       round++;
       ev.push({ t: 'round', n: round });
       var order;
       if (BD) {
+        // v11 僵局（D）：持續前進後大家每回合都在走，舊的「沒人走得動」條件不會成立；改成「連續 8 回合（走完一整排棋盤）雙方都沒有人受到傷害」
+        // （例如剩下的敵我各在不同列、技能又打不到別列），就不空等到 36 回合，直接以雙方剩餘生命比例判定（我方比例較高才算勝；相同算敵方勝）
+        var waited = {};
+        if (BV >= 11) {
+          if (round > 1) { var dmgd = false; for (var qi = qFrom; qi < ev.length; qi++) { if (ev[qi].t === 'hit' && !ev[qi].miss && ev[qi].dmg > 0) dmgd = true; if (ev[qi].t === 'wait') waited[ev[qi].u] = 1; } quiet = dmgd ? 0 : quiet + 1; }
+          qFrom = ev.length;
+          if (quiet >= B.BOARD.cols) {
+            var qa = B.hpRatio(A), qb = B.hpRatio(Bs); stale = true; winner = qa > qb ? 'A' : 'B';
+            ev.push({ t: 'stale', a: Math.round(qa * 100), b: Math.round(qb * 100), win: winner === 'A', quiet: quiet });
+            break;
+          }
+        }
         // v10：回合開始雙方一起往前一格（C 玩家回憶 Tomas）
-        var mv = B.advance10(B.turnOrder10(A, Bs), all);
+        var st11 = { waited: waited, blocked: blk11, next: {} };
+        var mv = BV >= 11 ? B.advance11(B.turnOrder10(A, Bs), all, st11) : B.advance10(B.turnOrder10(A, Bs), all);
+        blk11 = st11.next;
         if (mv.length) ev.push({ t: 'adv', m: mv });
         // 僵局（D）：沒有人能再前進，且雙方都沒有任何人的主動（或已滿 100 的無雙）攻擊格碰得到敵人（例如敵人只剩在我方沒有人的那一列），
         // 不空等到時間到，直接以雙方剩餘生命比例判定（我方比例較高才算勝；相同算敵方勝）
@@ -454,7 +511,7 @@ MJ.Battle = (function () {
     var res = {
       win: win, timeout: !winner, rounds: round, events: ev,
       deadA: U.filter(A, function (u) { return u.hp <= 0; }).length,
-      board: BD ? { gap: B.BOARD.gap, cols: B.BOARD.cols } : null,
+      board: BD ? (BV >= 11 ? { gap: B.BOARD.gap, cols: B.BOARD.cols, v: 11 } : { gap: B.BOARD.gap, cols: B.BOARD.cols }) : null,
       units: U.map(all, function (u) { var o = { key: u.key, side: u.side, cell: u.cell, cell0: u.cell0, name: u.name, hp: u.hp, maxHp: u.maxHp, rage: u.rage, hid: u.hid }; if (BD) { o.br = u.br; o.bx = u.bx; } return o; })
     };
     if (stale) res.stale = true;

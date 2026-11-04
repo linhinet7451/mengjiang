@@ -6,14 +6,20 @@ var load = require('../tests/harness.js'), fs = require('fs');
 function arg(k, d) { var i = process.argv.indexOf('--' + k); return i > 0 ? process.argv[i + 1] : d; }
 
 function simulate(opt) {
-  var c = load(), M = c.MJ, G = M.G, U = M.U, R = M.R, D = M.D;
+  var c = load(opt.rv ? { legacy: +opt.rv } : {}), M = c.MJ, G = M.G, U = M.U, R = M.R, D = M.D; // --rv 10：用舊規則版本比較
   var T = new Date(2026, 0, 5, 8, 0, 0).getTime();
   U.now = function () { return T; };
   if (opt.expk != null) R.EXP_K = opt.expk;
   G.newGame('模擬', opt.lead || '力耐', 'm', opt.seed || 1);
   if (opt.econ === 'fast' && G.setEcon) G.setEcon('fast');
   var s = M.S.state, stages = D.stages.stages, rngSeed = 1000;
-  var log = [], dayStats = [], lastProgressDay = 0, maxStuck = 0, stuckAt = null, losses = 0, timeouts = 0, wins = 0, curStuck = 0;
+  var log = [], dayStats = [], lastProgressDay = 0, maxStuck = 0, stuckAt = null, losses = 0, timeouts = 0, stales = 0, wins = 0, curStuck = 0;
+  var dg = { n: 0, acts: 0, waits: 0, aHp: 0, bHp: 0, noLane: 0, quiet8: 0, stuckHit: 0, turns: 0 };
+  function diag(b) { dg.n++; b.events.forEach(function (e) { if (e.t === 'act') dg.acts++; else if (e.t === 'wait') dg.waits++; }); var ha = 0, ma = 0, hb = 0, mb = 0; (b.units || []).forEach(function (u) { if (u.side === 'A') { ha += Math.max(0, u.hp); ma += u.maxHp || u.mhp || 0; } else { hb += Math.max(0, u.hp); mb += u.maxHp || u.mhp || 0; } }); dg.aHp += ma ? ha / ma : 0; dg.bHp += mb ? hb / mb : 0;
+    var la = {}, lb = {}; (b.units || []).forEach(function (u) { if (u.hp > 0 && u.br != null) (u.side === 'A' ? la : lb)[u.br] = 1; }); if (!Object.keys(la).some(function (k) { return lb[k]; })) dg.noLane++;
+    var last = 0, rn = 0; b.events.forEach(function (e) { if (e.t === 'round') rn = e.n; if (e.t === 'hit' && !e.miss && e.dmg > 0 && !e.dot) last = rn; }); if (rn - last >= 8) dg.quiet8++; }
+  // 「卡在中間只能挨打」：某回合自己打不到人（wait）而同一回合被敵人打到
+  function stuckHit(b) { var rn = 0, w = {}, n = 0, t = 0; b.events.forEach(function (e) { if (e.t === 'round') { rn = e.n; w = {}; } if (e.t === 'wait' && e.u.charAt(0) === 'A') { w[e.u] = 1; t++; } if (e.t === 'act' && e.u.charAt(0) === 'A') t++; if (e.t === 'hit' && !e.miss && e.dmg > 0 && w[e.to] === 1) { w[e.to] = 2; n++; } }); dg.stuckHit += n; dg.turns += t; }
   function cleared(id) { return s.stages[id] && s.stages[id].clears > 0; }
   function nextTarget() { for (var i = 0; i < stages.length; i++) { var x = stages[i]; if (!cleared(x.id) && G.stageUnlocked(x.id)) return x; } return null; }
   function grindTarget() { // 已通關中「經驗/精力」最好的關卡
@@ -68,8 +74,9 @@ function simulate(opt) {
       if (tg) {
         var r = G.fight(tg.id, rngSeed++);
         if (!r.ok) break;
+        if (r.battle) stuckHit(r.battle);
         if (r.win) { wins++; progressed = true; continue; }
-        losses++; if (r.battle && r.battle.timeout) timeouts++;
+        losses++; if (r.battle && r.battle.timeout) { timeouts++; diag(r.battle); if (process.env.SIM_DUMP && timeouts === +process.env.SIM_DUMP) fs.writeFileSync('/tmp/sim-dump.json', JSON.stringify({ id: tg.id, b: r.battle })); } if (r.battle && r.battle.stale) stales++;
       }
       // 打不過或沒有新關：重打最佳關卡累積經驗
       var gt = grindTarget();
@@ -92,19 +99,20 @@ function simulate(opt) {
     if (curStuck > maxStuck) { maxStuck = curStuck; stuckAt = nt ? nt.id + '（' + nt.name + '，推薦 Lv' + nt.lv + '）' : null; }
     dayStats.push({ day: d, lv: G.lead().lv, cleared: done, next: nt ? nt.id : (done >= stages.length ? '全破' : '等級鎖'), tower: s.tower ? s.tower.best : 0, heroes: s.heroes.length, team: G.teamCount(), silver: s.player.silver, gold: s.player.gold, stuck: curStuck });
   }
-  return { econ: opt.econ, total: stages.length, days: dayStats, maxStuck: maxStuck, stuckAt: stuckAt, wins: wins, losses: losses, timeouts: timeouts };
+  return { econ: opt.econ, total: stages.length, days: dayStats, maxStuck: maxStuck, stuckAt: stuckAt, wins: wins, losses: losses, timeouts: timeouts, stales: stales, rv: R.RV, diag: dg };
 }
 
 module.exports = simulate;
 if (require.main === module) {
 var days = +arg('days', 30), out = [];
 ['standard', 'fast'].forEach(function (econ) {
-  var r = simulate({ days: econ === 'fast' ? Math.min(days, 14) : days, econ: econ, sessions: +arg('sessions', 4), battles: +arg('battles', 25), expk: arg('expk', null) == null ? null : +arg('expk') });
+  var r = simulate({ days: econ === 'fast' ? Math.min(days, 14) : days, econ: econ, sessions: +arg('sessions', 4), battles: +arg('battles', 25), expk: arg('expk', null) == null ? null : +arg('expk'), rv: arg('rv', null) });
   out.push(r);
   console.log('\n== 經濟模式：' + (econ === 'fast' ? '單機加速' : '標準') + '（每天 ' + (+arg('sessions', 4)) + ' 次上線）==');
   console.log('天數  主角等級  通關數/' + r.total + '  下一關     通天塔  武將  出戰  銀幣');
   r.days.forEach(function (x) { if (x.day <= 7 || x.day % 5 === 0 || x.day === r.days.length) console.log(('第' + x.day + '天').padEnd(6) + String(x.lv).padStart(6) + String(x.cleared).padStart(10) + '   ' + String(x.next).padEnd(9) + String(x.tower).padStart(6) + String(x.heroes).padStart(6) + String(x.team).padStart(6) + String(x.silver).padStart(9)); });
-  console.log('最長連續卡關：' + r.maxStuck + ' 天' + (r.stuckAt ? '（' + r.stuckAt + '）' : '') + '；勝 ' + r.wins + ' 敗 ' + r.losses + '（其中超時 ' + r.timeouts + '）');
+  console.log('最長連續卡關：' + r.maxStuck + ' 天' + (r.stuckAt ? '（' + r.stuckAt + '）' : '') + '；勝 ' + r.wins + ' 敗 ' + r.losses + '（其中超時 ' + r.timeouts + '、僵局判定 ' + r.stales + '）；戰鬥規則 v' + r.rv);
+  if (r.diag.n) console.log('超時戰鬥診斷：' + r.diag.n + ' 場；出手 ' + r.diag.acts + '、等待（打不到）' + r.diag.waits + '（' + (100 * r.diag.waits / Math.max(1, r.diag.acts + r.diag.waits)).toFixed(1) + '%）；結束時我方平均剩 ' + (100 * r.diag.aHp / r.diag.n).toFixed(0) + '% 血、敵方 ' + (100 * r.diag.bHp / r.diag.n).toFixed(0) + '%；結束時雙方沒有同列的 ' + r.diag.noLane + ' 場、最後 8 回合沒人受傷的 ' + r.diag.quiet8 + ' 場'); console.log('挑戰新關時「打不到人卻挨打」的我方行動：' + r.diag.stuckHit + '／' + r.diag.turns + '（' + (100 * r.diag.stuckHit / Math.max(1, r.diag.turns)).toFixed(1) + '%）');
   console.log(r.maxStuck >= 3 ? '⚠ 可能有硬牆（連續 3 天以上沒有新進度）' : '沒有硬牆（沒有連續 3 天以上卡關）');
 });
 var jf = arg('json', null); if (jf) fs.writeFileSync(jf, JSON.stringify(out, null, 1));

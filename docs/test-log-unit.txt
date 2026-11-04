@@ -49,7 +49,7 @@ pass-lines 40
 結果：通過 47，失敗 0
 pass-lines 48
 === unit-prov
-結果：通過 1062，失敗 0
+結果：通過 1096，失敗 0
 pass-lines 1
 === unit-art
 結果：通過 827，失敗 0
@@ -68,10 +68,14 @@ pass-lines 35
 結果：通過 35，失敗 0
 pass-lines 36
 === unit-board
-  通過 v10 規則固定種子結果與 battle-golden-v10.json 相同
   通過 v10 與 v9 結果不同（確實換了規則）
 結果：通過 34，失敗 0
 pass-lines 35
+=== unit-wrap
+  通過 v11 規則固定種子結果與 battle-golden-v11.json 相同
+  通過 v11 與 v10 結果不同（確實換了規則）
+結果：通過 36，失敗 0
+pass-lines 37
 === unit-juxian
   通過 5/5 時招募失敗，訊息提示升級聚賢莊
 結果：通過 18，失敗 0

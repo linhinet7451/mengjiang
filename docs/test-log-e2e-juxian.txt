@@ -1,0 +1,31 @@
+  通過 [Chromium 1280] 從主城點聚賢莊進入
+  通過 [Chromium 1280] 拜訪武將分頁有「升級聚賢莊」連結
+  通過 [Chromium 1280] 我的武將分頁顯示 目前 Lv1 上限 5 → 下一級 Lv2 上限 6（聚賢莊 Lv1 ：武將上限 5 → Lv2 ：武將上限 6 費用 500・需要主角 Lv2 升級 需要主角 Lv2（建築等級不能超過主角等級））
+  通過 [Chromium 1280] 顯示費用 500 銀與需要主角 Lv2
+  通過 [Chromium 1280] 主角 Lv1 時升級按鈕停用，並寫出原因
+  通過 [Chromium 1280] 銀幣圖示是小圖（21px，按鈕 67px），升級列只佔面板 13%
+  通過 [Chromium 1280] 按「升級」：聚賢莊 Lv2、上限 6、扣 500 銀
+  通過 [Chromium 1280] 畫面立刻更新：招牌 Lv2、武將數 x/6（武將數 3/6）
+  通過 [Chromium 1280] 重新整理後仍是 Lv2／上限 6
+  通過 [Chromium 1280] 沒有 JS 錯誤
+  通過 [WebKit iPhone 直] 從主城點聚賢莊進入
+  通過 [WebKit iPhone 直] 拜訪武將分頁有「升級聚賢莊」連結
+  通過 [WebKit iPhone 直] 我的武將分頁顯示 目前 Lv1 上限 5 → 下一級 Lv2 上限 6（聚賢莊 Lv1 ：武將上限 5 → Lv2 ：武將上限 6 費用 500・需要主角 Lv2 升級 需要主角 Lv2（建築等級不能超過主角等級））
+  通過 [WebKit iPhone 直] 顯示費用 500 銀與需要主角 Lv2
+  通過 [WebKit iPhone 直] 主角 Lv1 時升級按鈕停用，並寫出原因
+  通過 [WebKit iPhone 直] 銀幣圖示是小圖（10px，按鈕 33px），升級列只佔面板 13%
+  通過 [WebKit iPhone 直] 按「升級」：聚賢莊 Lv2、上限 6、扣 500 銀
+  通過 [WebKit iPhone 直] 畫面立刻更新：招牌 Lv2、武將數 x/6（武將數 3/6）
+  通過 [WebKit iPhone 直] 重新整理後仍是 Lv2／上限 6
+  通過 [WebKit iPhone 直] 沒有 JS 錯誤
+  通過 [WebKit iPhone 橫] 從主城點聚賢莊進入
+  通過 [WebKit iPhone 橫] 拜訪武將分頁有「升級聚賢莊」連結
+  通過 [WebKit iPhone 橫] 我的武將分頁顯示 目前 Lv1 上限 5 → 下一級 Lv2 上限 6（聚賢莊 Lv1 ：武將上限 5 → Lv2 ：武將上限 6 費用 500・需要主角 Lv2 升級 需要主角 Lv2（建築等級不能超過主角等級））
+  通過 [WebKit iPhone 橫] 顯示費用 500 銀與需要主角 Lv2
+  通過 [WebKit iPhone 橫] 主角 Lv1 時升級按鈕停用，並寫出原因
+  通過 [WebKit iPhone 橫] 銀幣圖示是小圖（9px，按鈕 29px），升級列只佔面板 13%
+  通過 [WebKit iPhone 橫] 按「升級」：聚賢莊 Lv2、上限 6、扣 500 銀
+  通過 [WebKit iPhone 橫] 畫面立刻更新：招牌 Lv2、武將數 x/6（武將數 3/6）
+  通過 [WebKit iPhone 橫] 重新整理後仍是 Lv2／上限 6
+  通過 [WebKit iPhone 橫] 沒有 JS 錯誤
+結果：通過 30，失敗 0

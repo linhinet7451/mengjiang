@@ -22,7 +22,7 @@ State on 2026-11-04 (UTC+8): data-restoration phases **P1 and P2 from `docs/網�
 ## 建置與測試（摘要，詳見 README）
 - `npm install`（acorn、playwright；e2e 需 `npx playwright install chromium webkit`）
 - 資料：`node tools/build-data.js`；素材：`node tools/build-assets.js`；單檔：`node tools/build.js` → `dist/mengjiang.html`、`dist/boot-test.html`
-- 單元：`sh tools/runtests.sh`（目前 2414 通過／0 失敗）；e2e：`node tests/e2e.js all`（目前 393／0）；平衡：`node tools/progress-sim.js --days 30`
+- 單元：`sh tools/runtests.sh`（2026-11-04 21:33 UTC+8：18 組 2607 通過／0 失敗）；e2e：`node tests/e2e.js all`（見 docs/test-log-e2e.txt）；平衡：`node tools/progress-sim.js --days 30`
 
 ---
 
@@ -147,6 +147,17 @@ URL 縮寫：`G2(sn)` = `https://forum.gamer.com.tw/G2.php?bsn=22512&sn=<sn>`；
 ### BOARD-1 v10 大棋盤規則（C／D，2026-11-04）
 - 前進／不換列 C（Tomas 回憶）；中間 2 欄、前線限制、僵局判定、等待不加怒氣 D。待找影片確認雙方起始距離與是否真的每回合前進。1 對 1 時 yulin、yanxing 因範圍不對稱勝率 22/30，需觀察。優先：中。
 
+### BOARD-2 v11 持續前進、走到底排隊（C／D，2026-11-04，Tomas t23u）
+- 規則（R.RV=11，只對全部單位 rv≥11 的戰鬥；rv 10 戰報照 v10 重播，`tests/fixtures/battle-golden-v10.json` 逐位元相同）：
+  - C（Tomas 回憶）：雙方每回合一直往前一格，同一列對面敵人死了也繼續走；走到盡頭時回到「自己這一方第一排」後方排隊，敵我都一樣；不換列。provenance v11.board.advance、v11.board.wrap。
+  - D：前方是隊友就停下；是敵人就停下來打（v11.board.block）。卡住穿過：上一回合已緊貼敵人停下、那回合技能打不到（等待），這回合從敵人身邊穿到同一列下一個空格（同 v11.board.block）。
+  - D：排隊格＝我方其他活著的人最前面那一欄的後一欄（同列），有人就再往後，後面全滿才往前找；只剩自己回到開場第一排（我方第 2 欄／敵方第 5 欄）（v11.board.queue）。
+  - D：連續 8 回合（棋盤 8 欄）雙方沒人受傷 → 以剩餘血量比例判僵局（我方嚴格較高才贏）（v11.board.stale）。v10 的「沒人走得動」僵局在 v11 不會成立。
+- **待 Tomas 確認**：「統一到第一排後方排隊」是否表示走到底的人可以換到別列？目前不換列。模擬裡剩下的超時大多是「雙方剩下的人不同列」（標準 30 天 103 場超時中 100 場），如果原作會換列，這是最該改的地方。另外「卡住穿過」原作是否如此不確定。
+- 模擬（progress-sim 30 天，標準／快速 14 天）：見 docs/progress-sim-v10.txt、docs/progress-sim-v11.txt。超時 1509→103、1254→96；全部 64 關 第 20 天→第 10 天。平衡表 docs/balance-v10-before.txt、docs/balance-v11.txt。
+- 測試：tests/unit-wrap.js（36）、unit-board.js 改成 v10 固定 rv 10 重跑；e2e.js 新增走到底排隊畫面檢查與截圖 `screenshots/*-26-battle-wrap.png`。
+- 優先：中；相依：Tomas 回覆換列問題。
+
 ### QA-1 真機測試（未做）
 - 從未在實體 iPhone／Android 測試，只跑 Playwright 模擬。目標：iPhone Safari（iOS 16+）開啟 GitHub Pages 版、進主城、打一場、存檔重整、匯出匯入。記錄機型、iOS 版本、載入秒數、記憶體警告。優先：**高**。
 
@@ -154,7 +165,7 @@ URL 縮寫：`G2(sn)` = `https://forum.gamer.com.tw/G2.php?bsn=22512&sn=<sn>`；
 - 原版有公會、聯賽、武林大會（對人）、上古寶窟 3 人組隊、好友拜訪。本作為單機：拜訪武將＝AI 競技場、上古寶窟＝單人版（D）。不得接遠端資料庫。若要做，只能用本機 AI 模擬並標 D。
 
 ### DATA-1 仍是 D 的資料（持續）
-- 主要 D 項（`provenance.json` 中 grade D 的 70 筆（共 126 筆））：招募機率、上古寶窟分層與掉落、主角升階 20／60／90、陣法加成數字與 8 格開放順序、連攜效果數值、未寫數值的被動、新武將技能名與外觀、攻擊範圍「往前衝／換列／揮空／無雙改主動技」、陣法保存規則、1／15 級上陣人數。
+- 主要 D 項（`provenance.json` 中 grade D 的 73 筆（共 131 筆））：招募機率、上古寶窟分層與掉落、主角升階 20／60／90、陣法加成數字與 8 格開放順序、連攜效果數值、未寫數值的被動、新武將技能名與外觀、攻擊範圍「往前衝／換列／揮空／無雙改主動技」、陣法保存規則、1／15 級上陣人數。
 - 做法：查到 A／B 來源就改 `tools/web2-data.js` 補丁並升級等級；在 `docs/網路資料搜查-2.md` 補來源列。
 
 ---
