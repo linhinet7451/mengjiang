@@ -4,7 +4,7 @@ var fs = require('fs'), path = require('path');
 var OUT = path.join(__dirname, '..', 'src', 'assets', 'out');
 var files = fs.readdirSync(OUT).filter(function (f) { return /\.webp$/.test(f); }).sort();
 var meta = JSON.parse(fs.readFileSync(path.join(OUT, 'meta.json'), 'utf8'));
-var s = '/* 自動產生，請勿手改：node tools/build-assets.js（原創 AI 生成美術，來源見 docs/美術素材來源.md） */\n';
+var s = '/* 自動產生，請勿手改：node tools/build-assets.js。經原公司同意（依倉庫擁有者說明），可參考或直接使用原作的美術、音樂等素材，目標是盡量貼近原作。使用原作素材時需在 docs/美術素材來源.md 記錄來源。若無原始檔案，可依 reference/ 的截圖與影片重繪貼近原版的素材。 */\n';
 s += 'MJ.ASSET_META = ' + JSON.stringify(Object.keys(meta).sort().reduce(function (o, k) { o[k] = [meta[k].w, meta[k].h]; return o; }, {})) + ';\n';
 // art2：分成約 900KB 一段，build.js 會把每段拆成獨立 <script>，每段結束回報載入進度（MJ_LDP）
 s += 'MJ.ASSETS = {};\n';

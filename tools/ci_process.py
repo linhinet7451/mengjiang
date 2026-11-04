@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""無雙 cut-in 用的高解析半身像：raw/*.jpg（原創 AI 生成）-> out/<name>_ci.webp（CI px 正方形，頭到胸）"""
+"""無雙 cut-in 用的高解析半身像：raw/*.jpg -> out/<name>_ci.webp（CI px 正方形，頭到胸）。
+經原公司同意（依倉庫擁有者說明），可參考或直接使用原作的美術、音樂等素材，目標是盡量貼近原作。使用原作素材時需在 docs/美術素材來源.md 記錄來源。若無原始檔案，可依 reference/ 的截圖與影片重繪貼近原版的素材。"""
 import os, sys, glob
 import numpy as np
 from PIL import Image

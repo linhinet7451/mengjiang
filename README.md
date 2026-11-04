@@ -2,7 +2,7 @@
 
 這是向 Facebook 社群遊戲《猛將無雙》致敬的**非官方、單機、離線** HTML5 重製。
 
-- 美術為原創：97 張 Q 版角色立繪與頭像、9 棟主城建築、16 張背景，皆以 AI 圖像生成工具原創產生（WebP 內嵌，來源與提示詞見 docs/美術素材來源.md）；缺圖時回退程式繪製的 SVG。沒有使用任何原作圖片、音樂或程式碼。
+- 目前遊戲內的點陣圖仍是先前生成的版本：97 張 Q 版角色立繪與頭像、9 棟主城建築、16 張背景（WebP 內嵌，提示詞見 docs/美術素材來源.md）；缺圖時回退程式繪製的 SVG。經原公司同意（依倉庫擁有者說明），可參考或直接使用原作的美術、音樂等素材，目標是盡量貼近原作。使用原作素材時需在 docs/美術素材來源.md 記錄來源。若無原始檔案，可依 reference/ 的截圖與影片重繪貼近原版的素材。
 - 數值依可信度標成 A／B／C／D 四級，詳見 `docs/資料考證.md`。
 - **除了 A 級項目，其他數值都不是原作數值。**
 
@@ -117,8 +117,8 @@
 1. 單機離線，沒有社群功能。
 2. 數值大多是自訂（D）或推估（C）。能完全對上原作截圖的只有主角 Lv6 力耐型屬性、Lv6 經驗需求、回合上限 36 等少數項目。
 3. 包裹 60 格；強化、洗煉、寶石、心法、將星、通天塔、無極幻境、農田、每日任務、成就、簽到、拜訪武將、越戰越勇、奇遇的所有數值都是自訂（D）。
-4. 音樂與音效全為原創合成，沒有使用或模仿原作配樂。
-5. 美術是原創 AI 生成點陣圖（加上 SVG 回退），模仿早期 FB 武俠遊戲的風格，但不是原作素材。重新產生素材：`python3 tools/art_process.py`、`python3 tools/bg_process.py`、`node tools/build-assets.js`、`node tools/build.js`。
+4. 目前音樂與音效仍是 WebAudio 合成曲，尚未換成原作音樂。經原公司同意（依倉庫擁有者說明），可參考或直接使用原作的美術、音樂等素材，目標是盡量貼近原作。使用原作素材時需在 docs/美術素材來源.md 記錄來源。若無原始檔案，可依 reference/ 的截圖與影片重繪貼近原版的素材。
+5. 目前美術仍是 AI 生成點陣圖（加上 SVG 回退）。重新產生既有生成圖：`python3 tools/art_process.py`、`python3 tools/bg_process.py`、`node tools/build-assets.js`、`node tools/build.js`。
 
 ## 開發者：建置與測試
 
@@ -152,7 +152,7 @@ tools/          資料產生、建置、ES5 檢查
 tests/          單元與端對端測試
 docs/           資料考證、附錄資料表
 screenshots/    自動測試截圖
-reference/      考證用參考素材（僅供比對；依 repo 擁有者表示已取得原作公司同意；永遠不內嵌到遊戲 build）
+reference/      原作截圖、宣傳片與其他參考素材（依倉庫擁有者說明已獲原公司同意，可參考或直接使用；使用時記入 docs/美術素材來源.md）
 ```
 
 ## GitHub 交接（2026-11-04）：如何建置與測試
@@ -176,11 +176,11 @@ node tools/shots.js dist/mengjiang.html <輸出資料夾> <前綴>   # 截圖比
 ```
 
 - 部署：把 `dist/mengjiang.html` 複製成 GitHub Pages 的 `index.html`（另附 `boot-test.html` 供手機載入測試）。
-- 美術：`src/assets/out/` 是處理好的原創圖（建置只讀這裡）。原始生成圖（raw／iraw／bgraw，共約 57MB）沒有放進 repo，重建既有素材不需要它們；新增美術的流程見 `docs/美術素材來源.md`（GenerateImage → tools/cpart.sh → art_process.py → ci_process.py → build-assets.js）。
+- 美術：`src/assets/out/` 目前是處理好的生成圖（建置只讀這裡）。原始生成圖（raw／iraw／bgraw，共約 57MB）沒有放進 repo，重建既有生成圖不需要它們。經原公司同意（依倉庫擁有者說明），可參考或直接使用原作的美術、音樂等素材，目標是盡量貼近原作。使用原作素材時需在 docs/美術素材來源.md 記錄來源。若無原始檔案，可依 reference/ 的截圖與影片重繪貼近原版的素材。既有生成圖的流程：GenerateImage → tools/cpart.sh → art_process.py → ci_process.py → build-assets.js。
 - 資料來源：`docs/sources-extracted/SOURCES-INDEX.md`（URL、日期、採用的事實）；`docs/sources-extracted/web2/c-*.json` 是我們整理的表格。巴哈姆特文章原始網頁（玩家個人撰寫）不放進 repo。
 - 分級：每項數字都在 `src/data/provenance.json`（A 原版畫面／B 玩家攻略／C 推論／D 本作自訂）；C、D 不得標成「原版」。
 
 ### reference/ 說明
 
-**Reference for comparison only, used with the original company's permission per the repo owner; never embedded in the game build.**
-reference/ 的官方截圖、宣傳片與其他參考圖僅供比對參考；依 repo 擁有者表示已取得原作公司同意；永遠不會內嵌到遊戲 build（建置工具不讀 reference/）。詳見 `reference/NOTICE.md`、`reference/web2/SOURCES.md`。
+**With the original company's consent (as stated by the repository owner), original art, music, and similar assets may be referenced or used directly so the remake stays as close to the original as possible. Record each use in `docs/美術素材來源.md`. If no original file is available, redraw closer assets from the screenshots and videos in `reference/`.**
+經原公司同意（依倉庫擁有者說明），可參考或直接使用原作的美術、音樂等素材，目標是盡量貼近原作。使用原作素材時需在 docs/美術素材來源.md 記錄來源。若無原始檔案，可依 reference/ 的截圖與影片重繪貼近原版的素材。詳見 `reference/NOTICE.md`、`reference/web2/SOURCES.md`。

@@ -1,6 +1,8 @@
-# reference/web2 — 僅供比對參考（依 repo 擁有者表示已取得原作公司同意；永遠不放進遊戲 build。見 ../NOTICE.md）
+# reference/web2 — 原作參考素材（見 ../NOTICE.md）
 
-> Reference for comparison only, used with the original company's permission per the repo owner; never embedded in the game build.
+> With the original company's consent (as stated by the repository owner), original art, music, and similar assets may be referenced or used directly so the remake stays as close to the original as possible. Record each use in `docs/美術素材來源.md`. If no original file is available, redraw closer assets from the screenshots and videos here.
+
+經原公司同意（依倉庫擁有者說明），可參考或直接使用原作的美術、音樂等素材，目標是盡量貼近原作。使用原作素材時需在 docs/美術素材來源.md 記錄來源。若無原始檔案，可依 reference/ 的截圖與影片重繪貼近原版的素材。
 
 抓取日：2026-11-04（Asia/Taipei）
 
