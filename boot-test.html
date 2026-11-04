@@ -276,7 +276,28 @@ MJ.Art = (function () {
   };
 
   // ---------- 圖示 ----------
+  // 原創 AI 生成圖示（i_*）；gem/soul 依顏色挑預先染色的版本；無圖時退回 SVG
+  var GEMC = ['e53935', '43a047', '8d6e63', '1e88e5', '8e24aa', 'fb8c00'], SOULC = ['e0e0e0', '66bb6a', '42a5f5', 'ba68c8', 'ffb300'];
+  function nearest(hex, list) {
+    var m = /^#?([0-9a-f]{6})$/i.exec(hex || ''); if (!m) return 0;
+    var v = parseInt(m[1], 16), r = v >> 16, g = (v >> 8) & 255, b = v & 255, bi = 0, bd = 1e9;
+    for (var i = 0; i < list.length; i++) {
+      var w = parseInt(list[i], 16), d = Math.pow(r - (w >> 16), 2) + Math.pow(g - ((w >> 8) & 255), 2) + Math.pow(b - (w & 255), 2);
+      if (d < bd) { bd = d; bi = i; }
+    }
+    return bi;
+  }
+  A.iconKey = function (name, q) {
+    if (name === 'gem') return 'i_gem_' + GEMC[nearest(typeof q === 'string' ? q : '', GEMC)];
+    if (name === 'soul') return 'i_soul_q' + (typeof q === 'string' ? nearest(q, SOULC) : Math.max(0, Math.min(4, q || 0)));
+    return 'i_' + name;
+  };
   A.icon = function (name, q) {
+    var ik = A.iconKey(name, q);
+    if (A.has(ik)) return '<span class="art icon iimg" data-ic="' + name + '"><img src="' + A.url(ik) + '" alt="" draggable="false"></span>';
+    return A.iconSvg(name, q);
+  };
+  A.iconSvg = function (name, q) {
     var qc = typeof q === 'string' ? q : ['#e0e0e0', '#66bb6a', '#42a5f5', '#ba68c8', '#ffb300'][q || 0];
     var s = '';
     switch (name) {
@@ -512,6 +533,13 @@ MJ.Art = (function () {
     if (!A.has(k + '_av')) return A.portraitSvg(L, q, opt);
     return '<div class="art portrait pimg q' + (q || 0) + '">' + img(k + '_av', 'pimg-i') + '</div>';
   };
+  // art2：無雙 cut-in 用高解析半身像（<key>_ci，288px）；沒有時退回一般頭像
+  A.hasCutin = function (L) { return A.has(A.keyOf(L) + '_ci'); };
+  A.cutin = function (L, q, opt) {
+    var k = A.keyOf(L);
+    if (!A.has(k + '_ci')) return A.portrait(L, q, opt);
+    return '<div class="art cimg q' + (q || 0) + (opt && opt.enemy ? ' en' : '') + '">' + img(k + '_ci', 'cimg-i') + '</div>';
+  };
   A.figure = function (L, opt) {
     var k = A.keyOf(L);
     if (!A.has(k)) return A.figureSvg(L, opt);
@@ -553,6 +581,12 @@ MJ.Art = (function () {
       ['.jxl', 'bg_shenwu', 'linear-gradient(rgba(10,8,30,.5),rgba(10,8,30,.5)),'],
       ['.forge', 'bg_recruit', 'linear-gradient(rgba(20,10,4,.55),rgba(20,10,4,.55)),']
     ], css = '', i;
+    // 面板材質（原創 AI 生成木紋、宣紙），放在各畫面背景規則之前，讓畫面背景可以覆蓋
+    if (A.has('t_wood')) {
+      css += '.frame{background-image:linear-gradient(rgba(118,128,46,.80),rgba(72,82,22,.90)),url(' + A.url('t_wood') + ');background-size:auto,256px}\n';
+      css += '.frame-s,.tab:not(.on){background-image:linear-gradient(rgba(96,62,20,.55),rgba(44,26,6,.72)),url(' + A.url('t_wood') + ');background-size:auto,256px}\n';
+    }
+    if (A.has('t_paper')) css += '.parch,.panel-body{background-image:linear-gradient(rgba(250,238,204,.45),rgba(226,204,148,.62)),url(' + A.url('t_paper') + ');background-size:auto,256px}\n';
     for (i = 0; i < R.length; i++) if (A.has(R[i][1])) css += R[i][0] + '{background-image:' + R[i][2] + 'url(' + A.url(R[i][1]) + ');background-size:cover;background-position:center;background-repeat:no-repeat}\n';
     css += '.hall-center .starry{opacity:1;background-position:center 70%}.hall-center .rock{display:none}\n';
     var st = document.createElement('style'); st.id = 'mjArtBg'; st.appendChild(document.createTextNode(css));
@@ -1707,6 +1741,7 @@ MJ.UI = (function () {
   UI.toast = function (msg, kind) {
     var t = $('toast');
     t.innerHTML = '<div class="toast ' + (kind || '') + '">' + U.esc(msg) + '</div>';
+    t.className = UI.screen === 'city' ? 'top' : '';
     t.style.display = 'block';
     clearTimeout(toastTimer);
     toastTimer = setTimeout(function () { t.style.display = 'none'; }, 2200);
@@ -1785,15 +1820,15 @@ MJ.UI = (function () {
   var UI = MJ.UI, U = MJ.U, G = MJ.G, R = MJ.R;
   // 建築位置（版面參考 A 級截圖：浮空島 + 瀑布；座標為自訂）
   var B = [
-    { k: 'shenwu', x: 360, y: 64, w: 230, act: 'hall' },
-    { k: 'juxian', x: 110, y: 112, w: 200, act: 'recruit' },
-    { k: 'xukong', x: 640, y: 100, w: 200, act: 'gate' },
-    { k: 'tongtian', x: 836, y: 170, w: 120, act: 'tower' },
-    { k: 'shenbing', x: 20, y: 300, w: 170, act: 'forge' },
-    { k: 'baifang', x: 200, y: 318, w: 150, act: 'arena' },
-    { k: 'farm', x: 380, y: 300, w: 190, act: 'farm' },
-    { k: 'jiangxing', x: 590, y: 318, w: 150, act: 'jxl' },
-    { k: 'wuji', x: 760, y: 318, w: 150, act: 'wuji' }
+    { k: 'shenwu', x: 365, y: 52, w: 220, act: 'hall' },
+    { k: 'juxian', x: 112, y: 112, w: 190, act: 'recruit' },
+    { k: 'xukong', x: 636, y: 118, w: 190, act: 'gate' },
+    { k: 'tongtian', x: 836, y: 186, w: 118, act: 'tower' },
+    { k: 'shenbing', x: 18, y: 318, w: 165, act: 'forge' },
+    { k: 'baifang', x: 200, y: 336, w: 148, act: 'arena' },
+    { k: 'farm', x: 384, y: 318, w: 186, act: 'farm' },
+    { k: 'jiangxing', x: 592, y: 336, w: 148, act: 'jxl' },
+    { k: 'wuji', x: 762, y: 336, w: 148, act: 'wuji' }
   ];
   UI.hud = function () {
     var s = MJ.S.state, lead = G.lead(), max = R.energyMax(lead.lv);
@@ -2175,7 +2210,7 @@ MJ.UI = (function () {
 (function () {
   var UI = MJ.UI, U = MJ.U, G = MJ.G;
   var BT = null; // 目前戰鬥播放狀態
-  var ROWY = [190, 318, 446]; // 第四階段：排距加大，名字與血條不再壓到上一排武將
+  var ROWY = [206, 336, 466]; // art2：武將放大 1.25 倍，排距同步加大 // 第四階段：排距加大，名字與血條不再壓到上一排武將
   function pos(side, cell) {
     var r = Math.floor(cell / 3), c = cell % 3;
     var x = side === 'A' ? 395 - c * 108 - (2 - r) * 10 : 565 + c * 108 + (2 - r) * 10;
@@ -2206,7 +2241,7 @@ MJ.UI = (function () {
     // 單位
     U.each(r.team.concat(r.foes), function (x, i) {
       var side = i < r.team.length ? 'A' : 'B', p = pos(side, x.cell), u = x.unit, key = side + x.cell;
-      h += '<div class="bu side' + side + (u.boss ? ' boss' : '') + '" id="u' + key + '" style="left:' + (p.x - 46) + 'px;top:' + (p.y - 104) + 'px;z-index:' + (10 + Math.floor(x.cell / 3)) + '">' +
+      h += '<div class="bu side' + side + (u.boss ? ' boss' : '') + '" id="u' + key + '" style="left:' + (p.x - 56) + 'px;top:' + (p.y - 130) + 'px;z-index:' + (10 + Math.floor(x.cell / 3)) + '">' +
         '<div class="bcirc' + (u.boss ? ' boss' : '') + '"></div>' + (auraQ(u) ? '<div class="baura q' + auraQ(u) + '"></div>' : '') +
         '<div class="bhp" id="h' + key + '">' + hpHtml(u.curHp != null ? u.curHp : u.hp, u.hp, u.layers) + '</div>' +
         '<div class="bfig">' + MJ.Art.figure(u.look, { enemy: side === 'B', cape: u.boss }) + '</div>' +
@@ -2252,7 +2287,7 @@ MJ.UI = (function () {
     var p = pos(x.side, x.cell), fx = el('fx'); if (!fx) return;
     var d = document.createElement('div');
     d.className = 'ftxt ' + (cls || '');
-    d.style.left = (p.x - 60 + (Math.random() * 20 - 10)) + 'px'; d.style.top = Math.max(18, p.y - 140 - (dy || 0)) + 'px';
+    d.style.left = (p.x - 60 + (Math.random() * 20 - 10)) + 'px'; d.style.top = Math.max(18, p.y - 164 - (dy || 0)) + 'px';
     d.innerHTML = text;
     fx.appendChild(d);
     setTimeout(function () { if (d.parentNode) d.parentNode.removeChild(d); }, T(1100) + 200);
@@ -2261,9 +2296,19 @@ MJ.UI = (function () {
   function hitSpark(key, crit) {
     var x = BT.units[key], fx = el('fx'); if (!x || !fx) return;
     var p = pos(x.side, x.cell), d = document.createElement('div');
-    d.className = 'spark' + (crit ? ' crit' : ''); d.style.left = (p.x - 40) + 'px'; d.style.top = (p.y - 90) + 'px';
+    d.className = 'spark' + (crit ? ' crit' : ''); d.style.left = (p.x - 40) + 'px'; d.style.top = (p.y - 104) + 'px';
     fx.appendChild(d); setTimeout(function () { if (d.parentNode) d.parentNode.removeChild(d); }, 380);
   }
+  // art2：依傷害類型的技能光效（物理＝刀光、法術＝法陣光環、絕技＝金色光柱）；省電模式只留簡單版
+  function skillFx(key, dt, crit) {
+    var x = BT.units[key], fx = el('fx'); if (!x || !fx) return;
+    var p = pos(x.side, x.cell), d = document.createElement('div'), low = UI.lowFx && UI.lowFx();
+    d.className = 'skfx ' + (dt === 'm' ? 'm' : dt === 'j' ? 'j' : 'p') + (x.side === 'A' ? ' fromB' : ' fromA') + (crit ? ' crit' : '') + (low ? ' lite' : '');
+    d.style.left = (p.x - 60) + 'px'; d.style.top = (p.y - 140) + 'px';
+    d.innerHTML = low ? '' : '<i></i><b></b>';
+    fx.appendChild(d); setTimeout(function () { if (d.parentNode) d.parentNode.removeChild(d); }, low ? 300 : 620);
+  }
+  UI._skillFx = skillFx;
   function setHp(key, hp) {
     var x = BT.units[key]; if (!x) return; x.hp = hp;
     var h = el('h' + key); if (h) h.innerHTML = hpHtml(hp, x.max, x.u.layers);
@@ -2315,13 +2360,14 @@ MJ.UI = (function () {
       case 'hit':
         if (e.miss) { floatText(e.to, e.why === '等級壓制' ? '無效' : '閃避', 'red small'); break; }
         setHp(e.to, e.hp);
-        var eu = el('u' + e.to); if (eu) { eu.className = eu.className.replace(/ hurt/g, ''); void eu.offsetWidth; eu.className += ' hurt'; }
-        if (e.crit) { floatText(e.to, '暴擊', 'red small', 34); floatText(e.to, '-' + e.dmg, 'crit'); shake(!!BT.ultTotal); sfx('crit'); }
+        var eu = el('u' + e.to); if (eu) { eu.className = eu.className.replace(/ hurt( crit)?/g, ''); void eu.offsetWidth; eu.className += ' hurt' + (e.crit ? ' crit' : ''); }
+        var at = BT.units[e.from]; skillFx(e.to, at ? (at.u.dtype || (at.u.phys ? 'p' : 'm')) : 'p', e.crit);
+        if (e.crit) { floatText(e.to, '暴擊', 'critlab', 38); floatText(e.to, '-' + e.dmg, 'crit'); shake(!!BT.ultTotal); sfx('crit'); }
         else { floatText(e.to, '-' + e.dmg, 'dmg'); sfx('hit'); }
         hitSpark(e.to, e.crit);
         if (BT.ultTotal) { BT.ultTotal.v += e.dmg; var tt = el('ulttotal'); if (tt) tt.innerHTML = '總傷害 <b>' + U.fmt(BT.ultTotal.v) + '</b>'; }
         break;
-      case 'heal': sfx('heal'); setHp(e.to, e.hp); floatText(e.to, '<i class="leaf"></i>+' + e.amt, 'heal'); break;
+      case 'heal': sfx('heal'); setHp(e.to, e.hp); floatText(e.to, '<i class="leaf"></i>+' + e.amt, 'heal'); var hu = el('u' + e.to); if (hu) { hu.className = hu.className.replace(/ healed/g, ''); void hu.offsetWidth; hu.className += ' healed'; } break;
       case 'dead': setHp(e.to, 0); setDead(e.to, true); sfx('dead'); break;
       case 'revive': setDead(e.to, false); setHp(e.to, e.hp); floatText(e.to, e.name, 'green small'); break;
       case 'status': floatText(e.to, e.s, 'red small', 20); break;
@@ -2357,7 +2403,7 @@ MJ.UI = (function () {
       BT.ultTotal = { v: 0 }; sfx('ult');
       var ci = el('cutin');
       if (ci) {
-        ci.innerHTML = '<div class="ci-band side' + me.side + '"><div class="ci-art">' + MJ.Art.portrait(me.u.look, me.u.quality || 4, { enemy: me.side === 'B' }) + '</div>' +
+        ci.innerHTML = '<div class="ci-band side' + me.side + '"><div class="ci-art' + (MJ.Art.hasCutin(me.u.look) ? ' hi' : '') + '">' + MJ.Art.cutin(me.u.look, me.u.quality || 4, { enemy: me.side === 'B' }) + '</div>' +
           '<div class="ci-txt"><div class="ci-combo">無雙連攜</div><div class="ci-name">' + U.esc(e.skill) + '</div><div class="ci-who">' + U.esc(me.u.name) + '</div></div>' +
           (e.heal ? '' : miniGrid(e.cells, e.side)) + '</div><div class="ci-total" id="ulttotal">' + (e.heal ? '' : '總傷害 <b>0</b>') + '</div>';
         ci.className = 'cutin on';
@@ -2375,13 +2421,14 @@ MJ.UI = (function () {
       if (melee && tgtKey && BT.units[tgtKey] && ue) {
         var tp = pos(BT.units[tgtKey].side, BT.units[tgtKey].cell), mp = pos(me.side, me.cell);
         var dx = tp.x - mp.x + (me.side === 'A' ? -70 : 70), dy = tp.y - mp.y;
-        setTimeout(function () { ue.style.webkitTransform = ue.style.transform = 'translate(' + dx + 'px,' + dy + 'px)'; }, T(150));
+        ue.className += ' windup';
+        setTimeout(function () { ue.className = ue.className.replace(/ windup/g, '') + ' lunge'; ue.style.webkitTransform = ue.style.transform = 'translate(' + dx + 'px,' + dy + 'px)'; }, T(150));
       } else if (!e.heal && tgtKey && BT.units[tgtKey]) {
         // 遠程／法術：投射光球
         var a = pos(me.side, me.cell), b = pos(BT.units[tgtKey].side, BT.units[tgtKey].cell), fx = el('fx');
         if (fx) {
-          var o = document.createElement('div'); o.className = 'orb ' + (me.u.phys ? 'arrow' : 'magic');
-          o.style.left = (a.x - 14) + 'px'; o.style.top = (a.y - 70) + 'px'; fx.appendChild(o);
+          var o = document.createElement('div'); o.className = 'orb ' + (me.u.dtype === 'j' ? 'jue' : me.u.phys ? 'arrow' : 'magic');
+          o.style.left = (a.x - 14) + 'px'; o.style.top = (a.y - 84) + 'px'; fx.appendChild(o);
           setTimeout(function () { o.style.webkitTransform = o.style.transform = 'translate(' + (b.x - a.x) + 'px,' + (b.y - a.y) + 'px)'; }, T(150));
           setTimeout(function () { if (o.parentNode) o.parentNode.removeChild(o); }, T(450));
         }
@@ -2391,7 +2438,7 @@ MJ.UI = (function () {
         var k = 0;
         U.each(group, function (g) { setTimeout(function () { if (BT && !BT.done) applyEv(g); }, T(k * 45)); if (g.t === 'hit' || g.t === 'heal') k++; });
         setTimeout(function () {
-          if (ue) { ue.style.webkitTransform = ue.style.transform = ''; ue.className = ue.className.replace(/ acting/g, ''); }
+          if (ue) { ue.style.webkitTransform = ue.style.transform = ''; ue.className = ue.className.replace(/ (acting|lunge|windup)/g, ''); }
         }, T(260 + k * 45));
         BT.timer = setTimeout(function () {
           if (e.ult) { var ci3 = el('cutin'); if (ci3) ci3.className = 'cutin'; var sk3 = el('bskill'); if (sk3) sk3.className = 'b-skill'; BT.ultTotal = null; }
@@ -2742,7 +2789,7 @@ MJ.UI = (function () {
     // 載入畫面：顯示進度與輪播小提示，最少停留 0.9 秒讓提示可讀
     var ld = document.getElementById('loading'), bar = document.getElementById('ldBar'), tip = document.getElementById('ldTip');
     if (ld) {
-      if (bar) bar.style.width = '100%';
+      if (bar) bar.style.width = '100%'; var lp = document.getElementById('ldPct'); if (lp) lp.innerHTML = '100%';
       var TIPS = MJ.LOAD_TIPS, ti = 0;
       var tv = setInterval(function () { ti = (ti + 1) % TIPS.length; if (tip) tip.innerHTML = TIPS[ti]; }, 2500);
       setTimeout(function () { ld.className = 'out'; clearInterval(tv); setTimeout(function () { if (ld.parentNode) ld.parentNode.removeChild(ld); }, 450); }, 900);
