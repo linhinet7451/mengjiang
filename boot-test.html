@@ -97,6 +97,34 @@ MJ.D = {
 };
 
 </script>
+<script>/* js/assets-map.js */
+/* 角色美術對應：武將 h_id、主角 c_lead_m 或 c_lead_f、敵方雜兵 g_ 與首領 b_（原創 AI 生成，見 docs/美術素材來源.md） */
+(function () {
+  var E = {
+    hj_bing: 'g_ytsoldier', hj_lishi: 'g_ytbrute', hj_shushi: 'g_ytsorcerer', zhangbao: 'g_ytgeneral', zhangliang: 'g_ytgeneral', zj_boss: 'h_zhangjiao', nanhua: 'g_elder',
+    mt_jiading: 'g_guard', mr_jiachen: 'g_guard', xx_dizi: 'g_assassin', ry_anqi: 'g_assassin', hs_baituo: 'g_assassin', mt_shinv: 'g_maid',
+    e_dingchunqiu: 'b_dingchunqiu', e_jiumozhi: 'b_jiumozhi', murongfu: 'b_murongfu', duanyanqing: 'b_duanyanqing',
+    xl_qibing: 'g_cavalry', mg_qibing: 'g_cavalry', cj_hubaoqi: 'g_cavalry', e_lijue: 'g_cavalry',
+    xl_gongshou: 'g_archer', mg_sheshou: 'g_archer', cj_nushou: 'g_archer',
+    dz_qinwei: 'g_halberd', ry_hufa: 'g_halberd', e_caoren: 'g_halberd',
+    lj_moushi: 'g_strategist', cj_moushi: 'g_strategist', e_yanglianting: 'g_strategist', e_huodu: 'g_strategist', e_ouyangke: 'g_strategist',
+    cj_shuibing: 'g_spearman', e_huaxiong: 'h_huaxiong', b_lvbu: 'h_lvbu', b_dongzhuo: 'b_dongzhuo',
+    mj_jiaozhong: 'g_cultist', ry_jiaozhong: 'g_cultist', hs_tiezhang: 'g_cultist', e_xiangwentian: 'g_cultist',
+    em_dizi: 'g_discf', kl_dizi: 'g_discm', wd_dizi: 'g_discm', hs_jianke: 'g_discm',
+    e_luzhangke: 'h_luzhangke', e_hebiweng: 'h_luzhangke', b_miejue: 'h_miejue', xiexun: 'b_xiexun',
+    mg_lama: 'g_lama', e_daerba: 'g_lama', mg_wushi: 'g_mongol', b_menge: 'g_mongol', b_jinlun: 'b_jinlun',
+    e_zhangliao: 'b_zhangliao', b_caocao: 'h_caocao', b_simayi: 'h_simayi', b_renwoxing: 'b_renwoxing', b_dongfang: 'h_dongfang',
+    ry_zhanglao: 'g_elder', hs_yinshi: 'g_elder', e_qiuqianren: 'g_elder', b_ouyangfeng: 'h_ouyangfeng', b_dugu: 'b_dugu'
+  };
+  MJ.ART_ENEMY = E;
+  if (!MJ.D) return;
+  var A = MJ.ASSETS || {}, i, k, L = MJ.D.heroes && MJ.D.heroes.list;
+  if (L) for (i = 0; i < L.length; i++) if (A['h_' + L[i].id] && L[i].look && !L[i].look.art) L[i].look.art = 'h_' + L[i].id;
+  var en = MJ.D.stages && MJ.D.stages.enemies;
+  if (en) for (k in en) if (en.hasOwnProperty(k) && E[k] && A[E[k]]) en[k].art = E[k];
+})();
+
+</script>
 <script>/* js/art.js */
 /* 原創向量美術（全部以程式繪製，未使用原版素材） */
 MJ.Art = (function () {
@@ -189,7 +217,7 @@ MJ.Art = (function () {
   }
 
   // ---------- 頭像 ----------
-  A.portrait = function (L, q, opt) {
+  A.portraitSvg = function (L, q, opt) {
     opt = opt || {};
     var qc = ['#5a5a5a', '#c8c8c8', '#4caf50', '#2f8fff', '#b44cff'][q || 0];
     var g = uid('pg');
@@ -221,7 +249,7 @@ MJ.Art = (function () {
   }
 
   // ---------- 戰鬥全身 Q 版角色（100x140，面向右） ----------
-  A.figure = function (L, opt) {
+  A.figureSvg = function (L, opt) {
     opt = opt || {};
     var cl = L.cloth, dk = shade(cl, -0.4), tr = L.trim, f = L.g === 'f';
     var s = '<ellipse cx="50" cy="134" rx="26" ry="5" fill="#000" opacity=".25"/>';
@@ -304,7 +332,7 @@ MJ.Art = (function () {
     return '<path d="M' + (x - curl) + ' ' + (y + h - 6) + ' Q' + x + ' ' + (y + h) + ' ' + (x + 6) + ' ' + (y + h) + ' L' + (x + w - 6) + ' ' + (y + h) + ' Q' + (x + w) + ' ' + (y + h) + ' ' + (x + w + curl) + ' ' + (y + h - 6) + ' L' + (x + w - w * 0.2) + ' ' + y + ' L' + (x + w * 0.2) + ' ' + y + 'Z" fill="' + col + '" stroke="' + d + '" stroke-width="2"/>' +
       '<path d="M' + (x + w * 0.2) + ' ' + y + ' L' + (x + w - w * 0.2) + ' ' + y + '" stroke="#ffd54f" stroke-width="3"/>';
   }
-  A.building = function (kind) {
+  A.buildingSvg = function (kind) {
     var s = '', g = '#7cb342';
     var g1 = uid('bg');
     switch (kind) {
@@ -397,7 +425,7 @@ MJ.Art = (function () {
       '<path d="M50 4 C62 30 92 40 88 90 C86 130 70 150 50 154 C30 150 14 130 12 90 C8 40 38 30 50 4Z" fill="url(#aur' + q + ')"/>' +
       '<path d="M30 40 C26 20 34 12 38 6 M70 40 C74 22 66 12 62 4 M50 20 C48 10 52 4 50 0" stroke="' + c1 + '" stroke-width="3" fill="none" opacity=".6" stroke-linecap="round"/></svg>';
   };
-  A.sky = function () {
+  A.skySvg = function () {
     var g = uid('sky');
     var s = '<defs><linearGradient id="' + g + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5ec8f2"/><stop offset=".6" stop-color="#b8ecff"/><stop offset="1" stop-color="#e6fbff"/></linearGradient></defs>';
     s += '<rect width="960" height="600" fill="url(#' + g + ')"/>';
@@ -412,7 +440,7 @@ MJ.Art = (function () {
   };
 
   // ---------- 戰場背景 ----------
-  A.battlefield = function (tint) {
+  A.battlefieldSvg = function (tint) {
     var g = uid('bf'), sk = uid('sk'), t = tint || '#7a9a4a', i;
     var s = '<defs><linearGradient id="' + g + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + shade(t, 0.3) + '"/><stop offset=".4" stop-color="' + shade(t, 0.08) + '"/><stop offset="1" stop-color="' + shade(t, -0.38) + '"/></linearGradient>' +
       '<linearGradient id="' + sk + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9cc4e4"/><stop offset="1" stop-color="#f4e6c0"/></linearGradient></defs>';
@@ -441,6 +469,94 @@ MJ.Art = (function () {
     // 石塊
     s += '<path d="M60 590 Q80 560 112 572 Q130 590 120 600 L50 600Z" fill="' + shade(t, -0.5) + '" opacity=".6"/><path d="M850 600 Q860 566 900 570 Q930 586 924 600Z" fill="' + shade(t, -0.5) + '" opacity=".6"/>';
     return svg('0 0 960 600', s, 'art field');
+  };
+
+  // ---------- 原創 AI 生成點陣美術（MJ.ASSETS，WebP 內嵌）；沒有圖時回退向量版 ----------
+  var urlCache = {}, webpOk = null;
+  function hasWebp() {
+    if (webpOk !== null) return webpOk;
+    webpOk = false;
+    try { var c = document.createElement('canvas'); c.width = c.height = 1; webpOk = c.toDataURL('image/webp').indexOf('data:image/webp') === 0; } catch (e) { webpOk = false; }
+    // iOS 14+ Safari 可顯示 WebP 但 toDataURL 不支援輸出：以 UA 版本判斷
+    if (!webpOk) { var m = /OS (\d+)_\d+.* like Mac OS X/.exec(navigator.userAgent || '') || /Version\/(\d+).*Safari/.exec(navigator.userAgent || ''); if (m && +m[1] >= 14) webpOk = true; }
+    return webpOk;
+  }
+  A.enabled = function () { return !!(MJ.ASSETS && !(MJ.S && MJ.S.state && MJ.S.state.settings && MJ.S.state.settings.vectorArt) && hasWebp()); };
+  // data URI 轉 blob URL（只轉一次；innerHTML 重繪時字串短、解碼快取共用）
+  A.url = function (key) {
+    if (!MJ.ASSETS || !MJ.ASSETS[key]) return null;
+    if (urlCache[key]) return urlCache[key];
+    var d = MJ.ASSETS[key], u = d;
+    try {
+      if (window.Blob && window.URL && URL.createObjectURL && window.atob && window.Uint8Array) {
+        var b = atob(d.slice(d.indexOf(',') + 1)), n = b.length, a = new Uint8Array(n), i;
+        for (i = 0; i < n; i++) a[i] = b.charCodeAt(i);
+        u = URL.createObjectURL(new Blob([a], { type: 'image/webp' }));
+      }
+    } catch (e) { u = d; }
+    urlCache[key] = u;
+    return u;
+  };
+  A.has = function (key) { return !!(key && A.enabled() && MJ.ASSETS[key]); };
+  function img(key, cls) { return '<img class="' + cls + '" src="' + A.url(key) + '" alt="" draggable="false" decoding="async" loading="lazy">'; }
+  // 角色美術 key：look.art；主角依性別
+  A.keyOf = function (L) {
+    if (!L) return null;
+    if (L.art) return L.art;
+    var st = MJ.S && MJ.S.state;
+    if (st && st.player && L === st.player.look) return 'c_lead_' + (L.g === 'f' ? 'f' : 'm');
+    return null;
+  };
+  A.portrait = function (L, q, opt) {
+    var k = A.keyOf(L);
+    if (!A.has(k + '_av')) return A.portraitSvg(L, q, opt);
+    return '<div class="art portrait pimg q' + (q || 0) + '">' + img(k + '_av', 'pimg-i') + '</div>';
+  };
+  A.figure = function (L, opt) {
+    var k = A.keyOf(L);
+    if (!A.has(k)) return A.figureSvg(L, opt);
+    return '<div class="art figure fimg' + (opt && opt.enemy ? ' en' : '') + '">' + img(k, 'fimg-i') + '</div>';
+  };
+  A.building = function (kind) {
+    if (!A.has('k_' + kind)) return A.buildingSvg(kind);
+    return '<div class="art building kimg k-' + kind + '">' + img('k_' + kind, 'kimg-i') + '</div>';
+  };
+  A.bgDiv = function (key, cls) {
+    return '<div class="art ' + cls + ' bgimg" style="background-image:url(' + A.url(key) + ')"></div>';
+  };
+  A.sky = function () { return A.has('bg_city') ? A.bgDiv('bg_city', 'sky') : A.skySvg(); };
+  // 戰場：依章節底色對應 bf_1..bf_8；其他模式依關卡 id 平均分配
+  A.fieldKey = function (tint, sid) {
+    var ch = MJ.D && MJ.D.stages && MJ.D.stages.chapters, i, n = 0;
+    if (ch && tint) for (i = 0; i < ch.length; i++) if (ch[i].bg === tint) return 'bf_' + ((i % 8) + 1);
+    sid = String(sid || tint || '');
+    for (i = 0; i < sid.length; i++) n = (n * 31 + sid.charCodeAt(i)) & 0xffff;
+    return 'bf_' + ((n % 8) + 1);
+  };
+  A.battlefield = function (tint, sid) {
+    var k = A.fieldKey(tint, sid);
+    return A.has(k) ? A.bgDiv(k, 'field') : A.battlefieldSvg(tint);
+  };
+  // 畫面背景（以 <style> 注入，避免 CSS 檔內嵌大圖）
+  A.injectBg = function () {
+    if (!A.enabled() || document.getElementById('mjArtBg')) return;
+    var dim = 'linear-gradient(rgba(10,8,20,.42),rgba(10,8,20,.42)),';
+    var R = [
+      ['.voidbg', 'bg_gate', ''],
+      ['.hall-scr', 'bg_city', 'linear-gradient(rgba(10,8,30,.55),rgba(10,8,30,.55)),'],
+      ['.recruit-scr', 'bg_recruit', 'linear-gradient(rgba(10,6,4,.25),rgba(10,6,4,.25)),'],
+      ['.hall-center .starry', 'bg_shenwu', ''],
+      ['.towerf', 'bg_tower', dim],
+      ['.wujif', 'bg_wuji', dim],
+      ['.farmf', 'bg_farm', 'linear-gradient(rgba(0,0,0,.12),rgba(0,0,0,.12)),'],
+      ['.arenaf', 'bg_arena', dim],
+      ['.jxl', 'bg_shenwu', 'linear-gradient(rgba(10,8,30,.5),rgba(10,8,30,.5)),'],
+      ['.forge', 'bg_recruit', 'linear-gradient(rgba(20,10,4,.55),rgba(20,10,4,.55)),']
+    ], css = '', i;
+    for (i = 0; i < R.length; i++) if (A.has(R[i][1])) css += R[i][0] + '{background-image:' + R[i][2] + 'url(' + A.url(R[i][1]) + ');background-size:cover;background-position:center;background-repeat:no-repeat}\n';
+    css += '.hall-center .starry{opacity:1;background-position:center 70%}.hall-center .rock{display:none}\n';
+    var st = document.createElement('style'); st.id = 'mjArtBg'; st.appendChild(document.createTextNode(css));
+    (document.head || document.documentElement).appendChild(st);
   };
   return A;
 })();
@@ -615,7 +731,7 @@ MJ.R = (function () {
       hp: Math.floor((p.con * 20 + lv * 13) * m * 0.8),
       hit: 0, crit: tpl.boss ? 5 : 0, dodge: 0,
       layers: 1, boss: !!tpl.boss,
-      look: { g: tpl.look[0], skin: tpl.look[1], hair: tpl.look[2], hs: tpl.look[3], beard: tpl.look[4], cloth: tpl.look[5], trim: tpl.look[6], wp: tpl.look[7] },
+      look: { g: tpl.look[0], skin: tpl.look[1], hair: tpl.look[2], hs: tpl.look[3], beard: tpl.look[4], cloth: tpl.look[5], trim: tpl.look[6], wp: tpl.look[7], art: tpl.art },
       active: { name: tpl.boss ? tpl.name.split('·').pop() + '之擊' : '攻擊', pattern: tpl.pattern, mult: 1, flat: 0 },
       ult: { name: tpl.boss ? '絕技·' + tpl.name.split('·').pop() : '奮力一擊', pattern: tpl.ult, mult: tpl.boss ? 1.6 : 1.4, flat: lv * 4 },
       passive: null
@@ -2016,7 +2132,7 @@ MJ.UI = (function () {
         for (var i = 0; i < 3; i++) stars += '<i class="' + (i < ss.stars ? 'on' : '') + '">★</i>';
         var e = MJ.D.stages.enemies[U.find(sg.enemies, function (x) { return x.leader; }) ? U.find(sg.enemies, function (x) { return x.leader; }).e : sg.enemies[0].e];
         h += '<div class="snode k-' + sg.kind + (open ? '' : ' locked') + '" data-a="' + (open ? 'stagePop' : 'info') + '" data-v="' + (open ? sg.id : G.lockReason(sg.id)) + '">' +
-          '<div class="sn-art">' + (open ? MJ.Art.portrait({ g: e.look[0], skin: e.look[1], hair: e.look[2], hs: e.look[3], beard: e.look[4], cloth: e.look[5], trim: e.look[6], wp: e.look[7] }, sg.kind === 'normal' ? 1 : (sg.kind === 'elite' ? 3 : 4), { enemy: true }) : '<div class="lockart">？</div>') + '</div>' +
+          '<div class="sn-art">' + (open ? MJ.Art.portrait({ g: e.look[0], skin: e.look[1], hair: e.look[2], hs: e.look[3], beard: e.look[4], cloth: e.look[5], trim: e.look[6], wp: e.look[7], art: e.art }, sg.kind === 'normal' ? 1 : (sg.kind === 'elite' ? 3 : 4), { enemy: true }) : '<div class="lockart">？</div>') + '</div>' +
           '<div class="sn-name">' + U.esc(sg.name) + ' <small>' + ch + '-' + (sg.idx + 1) + '</small></div><div class="sn-kind">' + KIND[sg.kind] + '</div><div class="stars">' + stars + '</div></div>';
       });
       h += '</div></div>';
@@ -2033,7 +2149,7 @@ MJ.UI = (function () {
     var b = '<div class="stage-pop"><div class="sp-l"><div class="egrid3">';
     for (var r = 0; r < 3; r++) for (var c = 2; c >= 0; c--) {
       var cell = r * 3 + c, en = U.find(sg.enemies, function (x) { return x.cell === cell; });
-      if (en) { var t = MJ.D.stages.enemies[en.e]; b += '<div class="eg' + (en.leader ? ' boss' : '') + '">' + MJ.Art.portrait({ g: t.look[0], skin: t.look[1], hair: t.look[2], hs: t.look[3], beard: t.look[4], cloth: t.look[5], trim: t.look[6], wp: t.look[7] }, en.leader ? 4 : 1, { enemy: true }) + '<span>' + en.lv + '</span></div>'; }
+      if (en) { var t = MJ.D.stages.enemies[en.e]; b += '<div class="eg' + (en.leader ? ' boss' : '') + '">' + MJ.Art.portrait({ g: t.look[0], skin: t.look[1], hair: t.look[2], hs: t.look[3], beard: t.look[4], cloth: t.look[5], trim: t.look[6], wp: t.look[7], art: t.art }, en.leader ? 4 : 1, { enemy: true }) + '<span>' + en.lv + '</span></div>'; }
       else b += '<div class="eg none"></div>';
     }
     b += '</div><div class="note">敵方站位（右側為前排）</div></div><div class="sp-r">';
@@ -2082,7 +2198,7 @@ MJ.UI = (function () {
   function auraQ(u) { var q = u.boss ? 4 : (u.quality || 0); return q >= 3 ? q : 0; }
   UI.screens.battle = function () {
     if (!BT) return '<div class="scr"></div>';
-    var r = BT.r, h = '<div class="battle' + (BT.showGrid ? ' showgrid' : '') + (BT.done ? ' ended' + (r.win ? '' : ' lost') : '') + '" id="bt">' + MJ.Art.battlefield(r.stage.bg || (r.stage.ch ? MJ.D.stages.chapters[r.stage.ch - 1].bg : null));
+    var r = BT.r, h = '<div class="battle' + (BT.showGrid ? ' showgrid' : '') + (BT.done ? ' ended' + (r.win ? '' : ' lost') : '') + '" id="bt">' + MJ.Art.battlefield(r.stage.bg || (r.stage.ch ? MJ.D.stages.chapters[r.stage.ch - 1].bg : null), r.stage.id);
     // 格子
     U.each(['A', 'B'], function (side) {
       for (var c = 0; c < 9; c++) { var p = pos(side, c); h += '<div class="tile" id="t' + side + c + '" style="left:' + (p.x - 50) + 'px;top:' + (p.y - 16) + 'px"></div>'; }
@@ -2555,6 +2671,7 @@ MJ.UI = (function () {
   UI.screens.newgame = function () {
     var g = UI.sel.ngG || 'm', t = UI.sel.ngT || '力耐';
     var look = U.clone(MJ.D.heroes.lead.look); if (g === 'f') { look.g = 'f'; look.hs = 'long'; look.cloth = '#ad1457'; }
+    look.art = 'c_lead_' + g;
     var h = '<div class="scr newgame">' + MJ.Art.sky() + '<div class="ng-logo">猛將無雙<small>單機重製版・' + S.RELEASE + '</small></div>' +
       '<div class="frame ng-box"><div class="plaque">創建角色</div><div class="ng-in"><div class="ng-fig"><div class="mc-wrap">' + MJ.Art.magicCircle() + '</div><div class="hero-fig">' + MJ.Art.figure(look, { cape: true }) + '</div></div><div class="ng-form">' +
       '<label>俠名 <input id="ngName" maxlength="8" value="' + U.esc(UI.sel.ngName || '') + '" placeholder="最多 8 字"></label>' +
@@ -2582,6 +2699,7 @@ MJ.UI = (function () {
   MJ.boot = function () {
     G.initData();
     UI.bind();
+    if (MJ.Art.injectBg) MJ.Art.injectBg();
     if (UI.bindSound) UI.bindSound();
     var r = S.load();
     if (r.ok) {
