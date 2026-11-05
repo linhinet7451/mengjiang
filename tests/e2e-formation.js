@@ -81,7 +81,7 @@ async function run(label, bt, ctxOpts, prefix, src) {
   ok(b0.screen === 'battle', '進入虛空之門 1-1 戰鬥');
   ok(b0.keys === Object.keys(saved).sort().join(','), '戰場上我方站位＝新陣法（' + b0.keys + '）');
   ok(b0.bad.length === 0, '每位武將畫在自己格子的棋盤位置（錯位 ' + b0.bad.length + '）');
-  ok(b0.tiles === 24 && b0.rule, '大棋盤 3 列 × 8 格，顯示「雙方每回合一直往前・走到底回第一排後方排隊」說明');
+  ok(b0.tiles === 24 && b0.rule, '大棋盤 3 列 × 8 格，顯示「雙方每回合一直往前・走到底統一換到第一列排隊對打」說明');
   await page.screenshot({ path: path.join(SHOT, prefix + src + '-battle-start.png') });
   await page.waitForFunction(function () { return document.querySelector('.bu.moving'); }, null, { timeout: 8000 }).catch(function () {});
   await page.waitForTimeout(180);

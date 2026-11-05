@@ -5,7 +5,7 @@ MJ.G = (function () {
   G.SLOTS = SLOTS;
   // P5：8 部位（pt12u 規格：武器、盔甲、披風、腰帶、帽子、玉墜、戒指、護手）
   G.SLOT_NAMES = { weapon: '武器', helm: '帽子', armor: '盔甲', cape: '披風', belt: '腰帶', ring: '戒指', jade: '玉墜', glove: '護手' };
-  G.BAG_CAP = 60; // D
+  G.BAG_CAP = Infinity; // 包裹無上限（2026-11-05：永遠不會滿；舊版 60 格 D）
   G.TIANWANG = ['zhangjiao', 'qiuchuji', 'yuelingshan', 'luzhangke', 'huaxiong', 'caiwenji']; // B：六大天王
 
   G.initData = function () {

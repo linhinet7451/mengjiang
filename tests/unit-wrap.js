@@ -13,7 +13,7 @@ function track(r, cb) {
 }
 
 console.log('[規則版本]');
-ok(M.R.RV === 11, '現行規則版本 R.RV = 11');
+ok(M.R.RV >= 11, '現行規則版本 R.RV >= 11（目前 ' + M.R.RV + '；v12 見 unit-wrap12.js）');
 var r = B.run([{ cell: 3, unit: mk('前') }], [{ cell: 3, unit: mk('敵') }], { seed: 1, maxRounds: 2 });
 ok(r.board && r.board.v === 11 && r.events[0].bd.v === 11, '全部單位 rv 11：戰報標示 v11 棋盤');
 r = B.run([{ cell: 3, unit: mk('前', { rv: 10 }) }], [{ cell: 3, unit: mk('敵') }], { seed: 1, maxRounds: 2 });
@@ -115,7 +115,7 @@ ok(!r.stale && r.win, '一直有人受傷就照常打完');
 console.log('[舊戰報相容]');
 var g10 = JSON.parse(fs.readFileSync(path.join(__dirname, 'fixtures', 'battle-golden-v10.json'), 'utf8'));
 ok(JSON.stringify(require('./golden-run.js')(load, { rv: 10 })) === JSON.stringify(g10), 'R.RV=10 重跑：與 battle-golden-v10.json 完全相同');
-var g11p = path.join(__dirname, 'fixtures', 'battle-golden-v11.json'), now11 = require('./golden-run.js')(load);
+var g11p = path.join(__dirname, 'fixtures', 'battle-golden-v11.json'), now11 = require('./golden-run.js')(load, { rv: 11 });
 if (process.argv[2] === '--write-golden') fs.writeFileSync(g11p, JSON.stringify(now11, null, 1));
 ok(fs.existsSync(g11p) && JSON.stringify(JSON.parse(fs.readFileSync(g11p, 'utf8'))) === JSON.stringify(now11), 'v11 規則固定種子結果與 battle-golden-v11.json 相同');
 ok(JSON.stringify(now11) !== JSON.stringify(g10), 'v11 與 v10 結果不同（確實換了規則）');
@@ -123,7 +123,7 @@ ok(JSON.stringify(now11) !== JSON.stringify(g10), 'v11 與 v10 結果不同（�
 console.log('[遊戲內戰鬥]');
 c = load(); M = c.MJ; M.U.now = function () { return 1767225600000; }; M.G.newGame('測', '力耐', 'm', 1);
 var res = M.G.fight('s1_1', 99);
-ok(res.battle.board && res.battle.board.v === 11 && res.battle.units.every(function (u) { return u.br === Math.floor(u.cell0 / 3); }), '實際關卡使用 v11 棋盤，沒有人換列');
+ok(res.battle.board && res.battle.board.v === M.R.RV && res.battle.units.every(function (u) { return u.br === Math.floor(u.cell0 / 3); }), '實際關卡使用現行（v' + M.R.RV + '）棋盤，沒有人換列');
 var nt = 0;
 for (var s = 1; s <= 30; s++) { var rr = M.G.fight(['s1_1', 's1_2', 's1_3'][s % 3], s * 13); if (rr.battle.timeout) nt++; }
 ok(nt <= 3, '前三關 30 場超時 ' + nt + ' 場');
@@ -131,6 +131,7 @@ ok(nt <= 3, '前三關 30 場超時 ' + nt + ' 場');
 var list = M.D.heroes.list, nw = 0, lane = 0;
 var team = list.slice(0, 6).map(function (d, i) { var hh = M.G.newHero(d.id, M.S.state); hh.lv = 30; return { unit: M.R.heroUnit(hh, M.S.state), cell: [0, 1, 2, 3, 4, 5][i] }; });
 var foes = list.slice(6, 12).map(function (d, i) { var hh = M.G.newHero(d.id, M.S.state); hh.lv = 30; return { unit: M.R.heroUnit(hh, M.S.state), cell: [3, 4, 5, 6, 7, 8][i] }; });
+team.concat(foes).forEach(function (t) { t.unit.rv = 11; }); // 這段驗證 v11 行為：單位固定 rv 11
 for (s = 1; s <= 10; s++) { rr = B.run(JSON.parse(JSON.stringify(team)), JSON.parse(JSON.stringify(foes)), { seed: s, maxRounds: 36, levelSuppression: 10 }); rr.events.forEach(function (e) { if (e.t === 'adv') e.m.forEach(function (m) { if (m.wrap) nw++; }); }); if (!rr.units.every(function (u) { return u.br === Math.floor(u.cell0 / 3); })) lane++; }
 ok(nw > 0 && lane === 0, '真武將錯列對戰 10 場：走到底排隊 ' + nw + ' 次、換列 ' + lane + ' 場');
 

@@ -30,10 +30,14 @@
         h += '<a class="rbtn rk-' + k + (afford ? '' : ' disabled') + '" data-a="doRefresh" data-v="' + k + '" data-why="金幣不足（' + c.name + '每次 ' + x.cost + ' 金）">' +
           '<b>' + c.name + '</b><span>' + label + '</span><span class="sub">無冷卻．不限次數</span></a>';
       });
-      h += '<a class="link" data-a="showOdds">查看品質機率</a></div>';
+      h += '<a class="link" data-a="showOdds">查看品質機率</a>';
+      // 升級聚賢莊：直接放在左欄（不再是被切掉的右側連結），按鈕本身就能升級
+      var jq = G.juxianInfo();
+      h += '<div class="jx-quick"><div class="jx-q-t">武將 ' + jq.heroes + '/' + jq.cap + '（升級後上限 ' + jq.nextCap + '）</div>' +
+        '<a class="btn small' + (jq.ok ? '' : ' disabled') + '" data-a="upBld" data-v="juxian" data-why="' + U.esc(jq.why) + '">升級聚賢莊 ' + UI.icon('silver') + U.fmt(jq.cost) + '</a>' +
+        '<a class="link" data-a="recTab" data-v="roster">管理／解僱武將</a></div></div>';
       h += '<div class="cands">' + (s.recruit.cands.length ? U.map(s.recruit.cands, candCard).join('') : '<div class="empty">名單已空，請刷新</div>') + '</div>';
       UI.sel.justRefreshed = false;
-      h += '<a class="link jx-link" data-a="recTab" data-v="roster">升級聚賢莊（武將上限 ' + R.rosterCap(s) + '）</a>';
     } else if (tab === 'roster') {
       var list = s.heroes.slice();
       var pg = UI.pager('roster', list, 10, function (hh) {

@@ -135,6 +135,12 @@ MJ.UI = (function () {
       MJ.Art.portrait(look, q) + '<span class="lvb">' + h.lv + '</span>' + (opt.badge ? '<span class="badge">' + opt.badge + '</span>' : '') +
       '<span class="nm">' + U.esc(MJ.G.nameOf(h)) + '</span></div>';
   };
+  // 裝備品質篩選列（依品質顏色：白／綠／藍／紫…），act 為點擊時的 action 名稱，cur 為目前選的品質（'' = 全部）
+  UI.qualityChips = function (act, cur) {
+    var names = MJ.D.config.equipQualityNames, h = '<div class="qkind"><a class="chip' + (cur === '' ? ' on' : '') + '" data-a="' + act + '" data-v="">全部</a>';
+    for (var i = 0; i < names.length; i++) h += '<a class="chip qc' + i + (String(cur) === String(i) ? ' on' : '') + '" data-a="' + act + '" data-v="' + i + '">' + names[i] + '</a>';
+    return h + '</div>';
+  };
   UI.pager = function (key, items, per, renderFn, emptyText) {
     var pages = Math.max(1, Math.ceil(items.length / per));
     var p = U.clamp(UI.page[key] || 0, 0, pages - 1); UI.page[key] = p;

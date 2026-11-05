@@ -66,8 +66,10 @@
       // P5：武器分 物攻／法攻／絕技 三類（決定 4），可篩選
       var wk = et === 'weapon' ? (UI.sel.wKind || '') : '';
       if (et === 'weapon') h += '<div class="wkind">' + U.map([['', '全部'], ['p', '物攻'], ['m', '法攻'], ['j', '絕技']], function (k) { return '<a class="chip' + (wk === k[0] ? ' on' : '') + '" data-a="wKind" data-v="' + k[0] + '">' + k[1] + '</a>'; }).join('') + '</div>';
-      var items = U.filter(s.bag.equips, function (e) { var tp = R.equipTpl(e.t); return tp.slot === et && (!wk || tp.id.charAt(1) === wk); });
-      items.sort(function (a, b) { return R.equipScore(b) - R.equipScore(a); });
+      var hq = UI.sel.hallQ == null ? '' : UI.sel.hallQ;
+      h += UI.qualityChips('hallQ', hq);
+      var items = U.filter(s.bag.equips, function (e) { var tp = R.equipTpl(e.t); return tp.slot === et && (!wk || tp.id.charAt(1) === wk) && (hq === '' || e.q === +hq); });
+      items.sort(function (a, b) { return b.q - a.q || R.equipScore(b) - R.equipScore(a); });
       var pg = UI.pager('hallbag', items, 12, function (e) { return UI.equipCell(e, { act: 'bagPick', sel: UI.sel.bagPick === e.uid }); }, '沒有' + SN[et]);
       h += '<div class="egrid">' + pg.html + UI.padSlots('hallbag', items, 12) + '</div>' + pg.nav;
       var pick = U.find(s.bag.equips, function (e) { return e.uid === UI.sel.bagPick; });
@@ -103,6 +105,7 @@
   UI.actions.hallSel = function (v) { UI.sel.hallUid = +v; UI.sel.bagPick = null; UI.render(); };
   UI.actions.wKind = function (v) { UI.sel.wKind = v || ''; UI.sel.bagPick = null; UI.page.hallbag = 0; UI.render(); };
   UI.actions.bagSlot = function (v) { UI.sel.bagSlot = v; UI.sel.bagPick = null; UI.page.hallbag = 0; UI.render(); };
+  UI.actions.hallQ = function (v) { UI.sel.hallQ = v; UI.sel.bagPick = null; UI.page.hallbag = 0; UI.render(); };
   UI.actions.bagPick = function (v) { UI.sel.bagPick = +v; UI.render(); };
   UI.actions.doEquip = function (v) { var r = G.equip(UI.sel.hallUid, +v); if (UI.res(r, '已穿上')) { UI.sel.bagPick = null; UI.render(); } };
   UI.actions.slotClick = function (slot) {

@@ -9,7 +9,7 @@
   // ---------- 道具（包裹） ----------
   UI.modals.bag = function () {
     var s = S.state, tab = UI.sel.bag || 'items', b = tabs('bag', [['items', '道具'], ['equips', '裝備'], ['souls', '魂魄']], tab);
-    b += '<div class="bag-cap">包裹 ' + G.bagUsed() + '/' + G.BAG_CAP + '　（包裹滿時新物品會寄到郵件）</div>';
+    b += '<div class="bag-cap">包裹 ' + G.bagUsed() + ' 件　（空間無上限）</div>';
     var list, pg;
     if (tab === 'items') {
       list = U.filter(U.keys(s.bag.stack), function (k) { return k.indexOf('soul:') !== 0 && s.bag.stack[k] > 0; });
@@ -19,7 +19,11 @@
           '<a class="btn small" data-a="useItem" data-v="' + k + '">使用</a></div>';
       }, '沒有道具');
     } else if (tab === 'equips') {
-      pg = UI.pager('bagP', s.bag.equips, 6, function (e) {
+      var bq = UI.sel.bagQ == null ? '' : UI.sel.bagQ;
+      b += UI.qualityChips('bagQ', bq);
+      var eqs = U.filter(s.bag.equips, function (e) { return bq === '' || e.q === +bq; });
+      eqs.sort(function (a, c) { return c.q - a.q || R.equipScore(c) - R.equipScore(a); });
+      pg = UI.pager('bagP', eqs, 6, function (e) {
         var tpl = R.equipTpl(e.t);
         return '<div class="row-item">' + UI.equipCell(e) + '<div class="ri-t"><b class="eqt' + e.q + '">' + MJ.D.config.equipQualityNames[e.q] + '·' + U.esc(tpl.name) + '</b><small>需要 Lv' + tpl.lv + '　' + U.esc(UI.equipLines(R.equipStats(e)).join('　')) + '</small></div>' +
           '<a class="btn small" data-a="sellEq" data-v="' + e.uid + '">賣出 ' + R.equipSell(e) + '</a></div>';
@@ -34,6 +38,7 @@
     b += '<div class="rows">' + pg.html + '</div>' + pg.nav;
     return UI.panel('道具', b, { cls: 'mid' });
   };
+  UI.actions.bagQ = function (v) { UI.sel.bagQ = v; UI.page.bagP = 0; UI.renderModal(); };
   UI.actions.useItem = function (k) {
     var it = MJ.D.equipment.items[k];
     if (!it.use && !it.xinfa) { UI.toast(it.name + '：' + it.desc); return; }

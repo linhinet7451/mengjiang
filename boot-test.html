@@ -2,8 +2,8 @@
 <html lang="zh-Hant-TW">
 <head>
 <meta charset="utf-8">
-<meta name="mj-build" content="20261104-2132-5e6ed091">
-<script>window.MJ_BUILD = "20261104-2132-5e6ed091";</script>
+<meta name="mj-build" content="20261105-1156-c73e23aa">
+<script>window.MJ_BUILD = "20261105-1156-c73e23aa";</script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>猛將無雙．啟動自我檢測</title>
 <style>
@@ -618,7 +618,7 @@ MJ.R = (function () {
   R.EXP_K = 0.6;
   R.expNeed = function (lv) { var b = 3 * lv * lv + 2 * lv + 5; return lv <= 10 ? b : Math.round(b * (1 + (lv - 10) * R.EXP_K)); };
   R.maxLevel = 90; // P5：B（90 級主角升橙）；原為 80（D）
-  R.RV = 11; // 規則版本（v11：持續前進，走到底回我方第一排後方排隊，C 玩家回憶 Tomas t23u；v10：大棋盤每回合前進一格＋前線限制）：單位帶 rv>=9 才套用 v9 新規則（被動兩格、狀態效果、六等範圍）；舊戰報沒有 rv，照舊規則重播
+  R.RV = 12; // 規則版本（v12：走到底不分敵我統一換到最上方第一列、第一排欄位排隊對打；平常前進仍不換列；v11：持續前進，走到底回我方第一排後方排隊，C 玩家回憶 Tomas t23u；v10：大棋盤每回合前進一格＋前線限制）：單位帶 rv>=9 才套用 v9 新規則（被動兩格、狀態效果、六等範圍）；舊戰報沒有 rv，照舊規則重播
   // D：精力上限（截圖可見精力條，宣傳片 156/156；上限公式為推定）
   R.energyMax = function (lv) { return 100 + lv * 2; };
   R.teamSlots = function (lv) {
@@ -971,12 +971,29 @@ MJ.Battle = (function () {
     for (x = start + d; x >= 0 && x < W; x += d) if (x !== u.bx && free(x)) return x;
     return null;
   };
+  // v12（R.RV=12，Tomas 2026-11-04／05 回憶，C；使用者回報 2026-11-05「走到底後統一換到第一列排隊對打」）：
+  // 走到底的人，不分敵我，統一換到畫面最上方的「第一列」（br 0），站在第一排那一欄（我方 bx 2／敵方 bx 5）；
+  // 那格已被佔用（隊友或敵人都算）就依序排在其後方（我方往 bx 0、敵方往 bx 7）；後方滿了才往前找第一列最近的空格；第一列整列都滿，再依序找第 2、3 列。
+  // 平常每回合的前進仍然只能前後、不換列；只有「走到底」這一步會換到第一列。因此最後會出現敵我雙方都在第一列對打。回傳 {br, bx}；找不到空格回傳 null。
+  B.queue12 = function (u, all) {
+    var W = B.BOARD.cols, d = bdir(u), start = B.homeBx(u.side, 0);
+    var free = function (r, x) { return x >= 0 && x < W && !U.find(all, function (o) { return o !== u && o.hp > 0 && o.br === r && o.bx === x; }); };
+    for (var r = 0; r < 3; r++) {
+      var x;
+      for (x = start; x >= 0 && x < W; x -= d) if (free(r, x)) return { br: r, bx: x };
+      for (x = start + d; x >= 0 && x < W; x += d) if (free(r, x)) return { br: r, bx: x };
+    }
+    return null;
+  };
   //  - 卡住穿過（D，本作解讀，Tomas「不會卡在中間只能挨打」）：上一回合就已經緊貼著敵人停下、那一回合技能還是打不到人（等待），這回合前方仍是敵人時，
   //    從敵人身邊穿過去，走到同一列再往前第一個空格；一路到盡頭都沒有空格，就照走到底的規則回第一排後方排隊。打得到人的就照樣停下來打。
-  B.advance11 = function (order, all, st) {
+  B.advance11 = function (order, all, st, v12) {
     var moved = [], W = B.BOARD.cols;
     function at(u, x) { return U.find(all, function (o) { return o !== u && o.hp > 0 && o.br === u.br && o.bx === x; }); }
-    function wrap(u) { var q = B.queueBx(u, all); if (q !== null && q !== u.bx) { moved.push({ u: u.key, from: u.bx, to: q, wrap: 1 }); u.bx = q; } }
+    function wrap(u) {
+      if (v12) { var q2 = B.queue12(u, all); if (q2 && (q2.br !== u.br || q2.bx !== u.bx)) { moved.push({ u: u.key, from: u.bx, to: q2.bx, wrap: 1, br: q2.br, fromBr: u.br }); u.br = q2.br; u.bx = q2.bx; } return; }
+      var q = B.queueBx(u, all); if (q !== null && q !== u.bx) { moved.push({ u: u.key, from: u.bx, to: q, wrap: 1 }); u.bx = q; }
+    }
     U.each(order, function (u) {
       if (u.hp <= 0) return;
       var d = bdir(u), x2 = u.bx + d;
@@ -1054,7 +1071,7 @@ MJ.Battle = (function () {
     // v10 大棋盤：全部單位都是 rv>=10 才啟用（舊戰報的單位沒有 rv 10，照舊規則）
     var BD = all.length > 0 && U.filter(all, function (u) { return u.rv >= 10; }).length === all.length;
     // v11 持續前進＋走到底排隊：全部單位都是 rv>=11 才啟用（rv 10 的舊戰報照 v10 前線規則重播）
-    var BV = BD ? (U.filter(all, function (u) { return u.rv >= 11; }).length === all.length ? 11 : 10) : 0;
+    var BV = BD ? (U.filter(all, function (u) { return u.rv >= 12; }).length === all.length ? 12 : (U.filter(all, function (u) { return u.rv >= 11; }).length === all.length ? 11 : 10)) : 0;
     if (BD) U.each(all, function (u) { u.br = Math.floor(u.cell / 3); u.bx = B.homeBx(u.side, u.cell); });
     function bc(u) { return B.bcell(u.br, u.bx); }
     function reachOf(u, sk) { return BD ? B.reach10(u, sk, foesOf(u)) : B.reach(u, sk, alliesOf(u), foesOf(u)); }
@@ -1208,7 +1225,7 @@ MJ.Battle = (function () {
       if (!v9(u) || !u.partner) return;
       if (U.find(alliesOf(u), function (m) { return m !== u && m.did === u.partner; })) { u.lx = true; u.patk = Math.floor(u.patk * 1.1); u.matk = Math.floor(u.matk * 1.1); u.jatk = Math.floor(u.jatk * 1.1); }
     });
-    ev.push(BD ? { t: 'start', units: U.map(all, snapshot), bd: BV >= 11 ? { gap: B.BOARD.gap, cols: B.BOARD.cols, v: 11, pos: U.map(all, function (u) { return [u.key, u.br, u.bx]; }) } : { gap: B.BOARD.gap, cols: B.BOARD.cols, pos: U.map(all, function (u) { return [u.key, u.br, u.bx]; }) } } : { t: 'start', units: U.map(all, snapshot) });
+    ev.push(BD ? { t: 'start', units: U.map(all, snapshot), bd: BV >= 11 ? { gap: B.BOARD.gap, cols: B.BOARD.cols, v: BV, pos: U.map(all, function (u) { return [u.key, u.br, u.bx]; }) } : { gap: B.BOARD.gap, cols: B.BOARD.cols, pos: U.map(all, function (u) { return [u.key, u.br, u.bx]; }) } } : { t: 'start', units: U.map(all, snapshot) });
     U.each(all, function (u) { if (u.lx) ev.push({ t: 'text', to: u.key, s: '連攜', c: 'green' }); });
     var quiet = 0, qFrom = 0, blk11 = {}; // v11 僵局計數、上一回合緊貼敵人停下的人
     while (round < maxRounds && !winner) {
@@ -1230,7 +1247,7 @@ MJ.Battle = (function () {
         }
         // v10：回合開始雙方一起往前一格（C 玩家回憶 Tomas）
         var st11 = { waited: waited, blocked: blk11, next: {} };
-        var mv = BV >= 11 ? B.advance11(B.turnOrder10(A, Bs), all, st11) : B.advance10(B.turnOrder10(A, Bs), all);
+        var mv = BV >= 11 ? B.advance11(B.turnOrder10(A, Bs), all, st11, BV >= 12) : B.advance10(B.turnOrder10(A, Bs), all);
         blk11 = st11.next;
         if (mv.length) ev.push({ t: 'adv', m: mv });
         // 僵局（D）：沒有人能再前進，且雙方都沒有任何人的主動（或已滿 100 的無雙）攻擊格碰得到敵人（例如敵人只剩在我方沒有人的那一列），
@@ -1332,7 +1349,7 @@ MJ.Battle = (function () {
     var res = {
       win: win, timeout: !winner, rounds: round, events: ev,
       deadA: U.filter(A, function (u) { return u.hp <= 0; }).length,
-      board: BD ? (BV >= 11 ? { gap: B.BOARD.gap, cols: B.BOARD.cols, v: 11 } : { gap: B.BOARD.gap, cols: B.BOARD.cols }) : null,
+      board: BD ? (BV >= 11 ? { gap: B.BOARD.gap, cols: B.BOARD.cols, v: BV } : { gap: B.BOARD.gap, cols: B.BOARD.cols }) : null,
       units: U.map(all, function (u) { var o = { key: u.key, side: u.side, cell: u.cell, cell0: u.cell0, name: u.name, hp: u.hp, maxHp: u.maxHp, rage: u.rage, hid: u.hid }; if (BD) { o.br = u.br; o.bx = u.bx; } return o; })
     };
     if (stale) res.stale = true;
@@ -1505,7 +1522,7 @@ MJ.G = (function () {
   G.SLOTS = SLOTS;
   // P5：8 部位（pt12u 規格：武器、盔甲、披風、腰帶、帽子、玉墜、戒指、護手）
   G.SLOT_NAMES = { weapon: '武器', helm: '帽子', armor: '盔甲', cape: '披風', belt: '腰帶', ring: '戒指', jade: '玉墜', glove: '護手' };
-  G.BAG_CAP = 60; // D
+  G.BAG_CAP = Infinity; // 包裹無上限（2026-11-05：永遠不會滿；舊版 60 格 D）
   G.TIANWANG = ['zhangjiao', 'qiuchuji', 'yuelingshan', 'luzhangke', 'huaxiong', 'caiwenji']; // B：六大天王
 
   G.initData = function () {
@@ -2178,6 +2195,12 @@ MJ.UI = (function () {
       MJ.Art.portrait(look, q) + '<span class="lvb">' + h.lv + '</span>' + (opt.badge ? '<span class="badge">' + opt.badge + '</span>' : '') +
       '<span class="nm">' + U.esc(MJ.G.nameOf(h)) + '</span></div>';
   };
+  // 裝備品質篩選列（依品質顏色：白／綠／藍／紫…），act 為點擊時的 action 名稱，cur 為目前選的品質（'' = 全部）
+  UI.qualityChips = function (act, cur) {
+    var names = MJ.D.config.equipQualityNames, h = '<div class="qkind"><a class="chip' + (cur === '' ? ' on' : '') + '" data-a="' + act + '" data-v="">全部</a>';
+    for (var i = 0; i < names.length; i++) h += '<a class="chip qc' + i + (String(cur) === String(i) ? ' on' : '') + '" data-a="' + act + '" data-v="' + i + '">' + names[i] + '</a>';
+    return h + '</div>';
+  };
   UI.pager = function (key, items, per, renderFn, emptyText) {
     var pages = Math.max(1, Math.ceil(items.length / per));
     var p = U.clamp(UI.page[key] || 0, 0, pages - 1); UI.page[key] = p;
@@ -2329,10 +2352,14 @@ MJ.UI = (function () {
         h += '<a class="rbtn rk-' + k + (afford ? '' : ' disabled') + '" data-a="doRefresh" data-v="' + k + '" data-why="金幣不足（' + c.name + '每次 ' + x.cost + ' 金）">' +
           '<b>' + c.name + '</b><span>' + label + '</span><span class="sub">無冷卻．不限次數</span></a>';
       });
-      h += '<a class="link" data-a="showOdds">查看品質機率</a></div>';
+      h += '<a class="link" data-a="showOdds">查看品質機率</a>';
+      // 升級聚賢莊：直接放在左欄（不再是被切掉的右側連結），按鈕本身就能升級
+      var jq = G.juxianInfo();
+      h += '<div class="jx-quick"><div class="jx-q-t">武將 ' + jq.heroes + '/' + jq.cap + '（升級後上限 ' + jq.nextCap + '）</div>' +
+        '<a class="btn small' + (jq.ok ? '' : ' disabled') + '" data-a="upBld" data-v="juxian" data-why="' + U.esc(jq.why) + '">升級聚賢莊 ' + UI.icon('silver') + U.fmt(jq.cost) + '</a>' +
+        '<a class="link" data-a="recTab" data-v="roster">管理／解僱武將</a></div></div>';
       h += '<div class="cands">' + (s.recruit.cands.length ? U.map(s.recruit.cands, candCard).join('') : '<div class="empty">名單已空，請刷新</div>') + '</div>';
       UI.sel.justRefreshed = false;
-      h += '<a class="link jx-link" data-a="recTab" data-v="roster">升級聚賢莊（武將上限 ' + R.rosterCap(s) + '）</a>';
     } else if (tab === 'roster') {
       var list = s.heroes.slice();
       var pg = UI.pager('roster', list, 10, function (hh) {
@@ -2477,8 +2504,10 @@ MJ.UI = (function () {
       // P5：武器分 物攻／法攻／絕技 三類（決定 4），可篩選
       var wk = et === 'weapon' ? (UI.sel.wKind || '') : '';
       if (et === 'weapon') h += '<div class="wkind">' + U.map([['', '全部'], ['p', '物攻'], ['m', '法攻'], ['j', '絕技']], function (k) { return '<a class="chip' + (wk === k[0] ? ' on' : '') + '" data-a="wKind" data-v="' + k[0] + '">' + k[1] + '</a>'; }).join('') + '</div>';
-      var items = U.filter(s.bag.equips, function (e) { var tp = R.equipTpl(e.t); return tp.slot === et && (!wk || tp.id.charAt(1) === wk); });
-      items.sort(function (a, b) { return R.equipScore(b) - R.equipScore(a); });
+      var hq = UI.sel.hallQ == null ? '' : UI.sel.hallQ;
+      h += UI.qualityChips('hallQ', hq);
+      var items = U.filter(s.bag.equips, function (e) { var tp = R.equipTpl(e.t); return tp.slot === et && (!wk || tp.id.charAt(1) === wk) && (hq === '' || e.q === +hq); });
+      items.sort(function (a, b) { return b.q - a.q || R.equipScore(b) - R.equipScore(a); });
       var pg = UI.pager('hallbag', items, 12, function (e) { return UI.equipCell(e, { act: 'bagPick', sel: UI.sel.bagPick === e.uid }); }, '沒有' + SN[et]);
       h += '<div class="egrid">' + pg.html + UI.padSlots('hallbag', items, 12) + '</div>' + pg.nav;
       var pick = U.find(s.bag.equips, function (e) { return e.uid === UI.sel.bagPick; });
@@ -2514,6 +2543,7 @@ MJ.UI = (function () {
   UI.actions.hallSel = function (v) { UI.sel.hallUid = +v; UI.sel.bagPick = null; UI.render(); };
   UI.actions.wKind = function (v) { UI.sel.wKind = v || ''; UI.sel.bagPick = null; UI.page.hallbag = 0; UI.render(); };
   UI.actions.bagSlot = function (v) { UI.sel.bagSlot = v; UI.sel.bagPick = null; UI.page.hallbag = 0; UI.render(); };
+  UI.actions.hallQ = function (v) { UI.sel.hallQ = v; UI.sel.bagPick = null; UI.page.hallbag = 0; UI.render(); };
   UI.actions.bagPick = function (v) { UI.sel.bagPick = +v; UI.render(); };
   UI.actions.doEquip = function (v) { var r = G.equip(UI.sel.hallUid, +v); if (UI.res(r, '已穿上')) { UI.sel.bagPick = null; UI.render(); } };
   UI.actions.slotClick = function (slot) {
@@ -2683,7 +2713,7 @@ MJ.UI = (function () {
     h += '<div class="fx" id="fx"></div>';
     h += '<div class="b-title">' + U.esc(r.stage.name) + '</div>';
     h += '<div class="b-round" id="bround">第1回合</div>';
-    if (BT.bd) h += '<div class="b-rule">' + (BT.bd.v >= 11 ? '雙方每回合一直往前・走到底回第一排後方排隊・不換列' : '每回合雙方前進一格・只能前後不能換列') + '</div>';
+    if (BT.bd) h += '<div class="b-rule">' + (BT.bd.v >= 12 ? '雙方每回合一直往前・走到底統一換到第一列排隊對打' : BT.bd.v >= 11 ? '雙方每回合一直往前・走到底回第一排後方排隊・不換列' : '每回合雙方前進一格・只能前後不能換列') + '</div>';
     h += '<div class="b-skill" id="bskill"></div>';
     h += '<div class="cutin" id="cutin"></div>';
     h += '<div class="b-bl"><a class="zhen' + (BT.showGrid ? ' on' : '') + '" data-a="bGrid">陣</a><div class="swords"><svg viewBox="0 0 40 40" class="art"><path d="M6 6 L30 30 M34 6 L10 30" stroke="#e0e0e0" stroke-width="4" stroke-linecap="round"/><path d="M26 26 L32 32 M14 26 L8 32" stroke="#c9a24a" stroke-width="6" stroke-linecap="round"/></svg><b id="bleft">x ' + MJ.D.config.maxRounds + '</b></div></div>';
@@ -2824,17 +2854,17 @@ MJ.UI = (function () {
   function advUnits(e) {
     U.each(e.m, function (m) {
       var x = BT.units[m.u]; if (!x) return;
-      x.bx = m.to;
+      x.bx = m.to; if (m.br != null) x.br = m.br; // v12：走到底的人換到第一列（最上方）
       var d = el('u' + m.u), p = upos(x);
       if (d && m.wrap) { // v11：走到底，閃回我方第一排後方排隊（不滑過整排）
-        d.className = d.className.replace(/ moving| wrapped/g, '') + ' wrapping'; d.style.left = (p.x - 56) + 'px';
+        d.className = d.className.replace(/ moving| wrapped/g, '') + ' wrapping'; d.style.left = (p.x - 56) + 'px'; if (m.br != null) { d.style.top = (p.y - 130) + 'px'; d.style.zIndex = 10 + x.br; }
         BT.wraps = (BT.wraps || 0) + 1;
         setTimeout(function () { d.className = d.className.replace(/ wrapping/g, '') + ' wrapped'; setTimeout(function () { d.className = d.className.replace(/ wrapped/g, ''); }, 900); }, 60);
       } else if (d) { d.className = d.className.replace(/ moving| wrapped/g, '') + ' moving'; d.style.left = (p.x - 56) + 'px'; }
     });
     var nw = U.filter(e.m, function (m) { return m.wrap; }), np = U.filter(e.m, function (m) { return m.pass; });
     if (np.length) BT.passes = (BT.passes || 0) + np.length;
-    addLog('雙方前進一格（' + e.m.length + ' 人移動）' + (np.length ? '；' + U.map(np, function (m) { return nameOf(m.u); }).join('、') + ' 打不到人，從敵人身邊穿過去' : '') + (nw.length ? '；' + U.map(nw, function (m) { return nameOf(m.u); }).join('、') + ' 走到底，回到第一排後方排隊' : ''), '');
+    addLog('雙方前進一格（' + e.m.length + ' 人移動）' + (np.length ? '；' + U.map(np, function (m) { return nameOf(m.u); }).join('、') + ' 打不到人，從敵人身邊穿過去' : '') + (nw.length ? '；' + U.map(nw, function (m) { return nameOf(m.u); }).join('、') + (BT.bd && BT.bd.v >= 12 ? ' 走到底，統一換到第一列排隊' : ' 走到底，回到第一排後方排隊') : ''), '');
   }
   UI._bAdv = function (e) { if (BT) advUnits(e); };
   function evLog(e) {
@@ -3023,7 +3053,7 @@ MJ.UI = (function () {
   // ---------- 道具（包裹） ----------
   UI.modals.bag = function () {
     var s = S.state, tab = UI.sel.bag || 'items', b = tabs('bag', [['items', '道具'], ['equips', '裝備'], ['souls', '魂魄']], tab);
-    b += '<div class="bag-cap">包裹 ' + G.bagUsed() + '/' + G.BAG_CAP + '　（包裹滿時新物品會寄到郵件）</div>';
+    b += '<div class="bag-cap">包裹 ' + G.bagUsed() + ' 件　（空間無上限）</div>';
     var list, pg;
     if (tab === 'items') {
       list = U.filter(U.keys(s.bag.stack), function (k) { return k.indexOf('soul:') !== 0 && s.bag.stack[k] > 0; });
@@ -3033,7 +3063,11 @@ MJ.UI = (function () {
           '<a class="btn small" data-a="useItem" data-v="' + k + '">使用</a></div>';
       }, '沒有道具');
     } else if (tab === 'equips') {
-      pg = UI.pager('bagP', s.bag.equips, 6, function (e) {
+      var bq = UI.sel.bagQ == null ? '' : UI.sel.bagQ;
+      b += UI.qualityChips('bagQ', bq);
+      var eqs = U.filter(s.bag.equips, function (e) { return bq === '' || e.q === +bq; });
+      eqs.sort(function (a, c) { return c.q - a.q || R.equipScore(c) - R.equipScore(a); });
+      pg = UI.pager('bagP', eqs, 6, function (e) {
         var tpl = R.equipTpl(e.t);
         return '<div class="row-item">' + UI.equipCell(e) + '<div class="ri-t"><b class="eqt' + e.q + '">' + MJ.D.config.equipQualityNames[e.q] + '·' + U.esc(tpl.name) + '</b><small>需要 Lv' + tpl.lv + '　' + U.esc(UI.equipLines(R.equipStats(e)).join('　')) + '</small></div>' +
           '<a class="btn small" data-a="sellEq" data-v="' + e.uid + '">賣出 ' + R.equipSell(e) + '</a></div>';
@@ -3048,6 +3082,7 @@ MJ.UI = (function () {
     b += '<div class="rows">' + pg.html + '</div>' + pg.nav;
     return UI.panel('道具', b, { cls: 'mid' });
   };
+  UI.actions.bagQ = function (v) { UI.sel.bagQ = v; UI.page.bagP = 0; UI.renderModal(); };
   UI.actions.useItem = function (k) {
     var it = MJ.D.equipment.items[k];
     if (!it.use && !it.xinfa) { UI.toast(it.name + '：' + it.desc); return; }

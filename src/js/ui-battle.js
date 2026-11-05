@@ -67,7 +67,7 @@
     h += '<div class="fx" id="fx"></div>';
     h += '<div class="b-title">' + U.esc(r.stage.name) + '</div>';
     h += '<div class="b-round" id="bround">第1回合</div>';
-    if (BT.bd) h += '<div class="b-rule">' + (BT.bd.v >= 11 ? '雙方每回合一直往前・走到底回第一排後方排隊・不換列' : '每回合雙方前進一格・只能前後不能換列') + '</div>';
+    if (BT.bd) h += '<div class="b-rule">' + (BT.bd.v >= 12 ? '雙方每回合一直往前・走到底統一換到第一列排隊對打' : BT.bd.v >= 11 ? '雙方每回合一直往前・走到底回第一排後方排隊・不換列' : '每回合雙方前進一格・只能前後不能換列') + '</div>';
     h += '<div class="b-skill" id="bskill"></div>';
     h += '<div class="cutin" id="cutin"></div>';
     h += '<div class="b-bl"><a class="zhen' + (BT.showGrid ? ' on' : '') + '" data-a="bGrid">陣</a><div class="swords"><svg viewBox="0 0 40 40" class="art"><path d="M6 6 L30 30 M34 6 L10 30" stroke="#e0e0e0" stroke-width="4" stroke-linecap="round"/><path d="M26 26 L32 32 M14 26 L8 32" stroke="#c9a24a" stroke-width="6" stroke-linecap="round"/></svg><b id="bleft">x ' + MJ.D.config.maxRounds + '</b></div></div>';
@@ -208,17 +208,17 @@
   function advUnits(e) {
     U.each(e.m, function (m) {
       var x = BT.units[m.u]; if (!x) return;
-      x.bx = m.to;
+      x.bx = m.to; if (m.br != null) x.br = m.br; // v12：走到底的人換到第一列（最上方）
       var d = el('u' + m.u), p = upos(x);
       if (d && m.wrap) { // v11：走到底，閃回我方第一排後方排隊（不滑過整排）
-        d.className = d.className.replace(/ moving| wrapped/g, '') + ' wrapping'; d.style.left = (p.x - 56) + 'px';
+        d.className = d.className.replace(/ moving| wrapped/g, '') + ' wrapping'; d.style.left = (p.x - 56) + 'px'; if (m.br != null) { d.style.top = (p.y - 130) + 'px'; d.style.zIndex = 10 + x.br; }
         BT.wraps = (BT.wraps || 0) + 1;
         setTimeout(function () { d.className = d.className.replace(/ wrapping/g, '') + ' wrapped'; setTimeout(function () { d.className = d.className.replace(/ wrapped/g, ''); }, 900); }, 60);
       } else if (d) { d.className = d.className.replace(/ moving| wrapped/g, '') + ' moving'; d.style.left = (p.x - 56) + 'px'; }
     });
     var nw = U.filter(e.m, function (m) { return m.wrap; }), np = U.filter(e.m, function (m) { return m.pass; });
     if (np.length) BT.passes = (BT.passes || 0) + np.length;
-    addLog('雙方前進一格（' + e.m.length + ' 人移動）' + (np.length ? '；' + U.map(np, function (m) { return nameOf(m.u); }).join('、') + ' 打不到人，從敵人身邊穿過去' : '') + (nw.length ? '；' + U.map(nw, function (m) { return nameOf(m.u); }).join('、') + ' 走到底，回到第一排後方排隊' : ''), '');
+    addLog('雙方前進一格（' + e.m.length + ' 人移動）' + (np.length ? '；' + U.map(np, function (m) { return nameOf(m.u); }).join('、') + ' 打不到人，從敵人身邊穿過去' : '') + (nw.length ? '；' + U.map(nw, function (m) { return nameOf(m.u); }).join('、') + (BT.bd && BT.bd.v >= 12 ? ' 走到底，統一換到第一列排隊' : ' 走到底，回到第一排後方排隊') : ''), '');
   }
   UI._bAdv = function (e) { if (BT) advUnits(e); };
   function evLog(e) {

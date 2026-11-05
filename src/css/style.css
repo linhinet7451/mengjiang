@@ -878,9 +878,31 @@ b.build-id{font-family:monospace;color:#ffe08a}
 .jx-up b.g{color:#1d7a1d}
 .jx-up .jx-cost{color:#5a3a12}
 .jx-up .jx-why{flex-basis:100%;font-size:11px;color:#a33}
-.rec-left .jx-link{display:block;margin-top:4px;font-size:12px}
+.rec-left .jx-quick{margin-top:6px;padding:6px;text-align:center;background:rgba(80,50,20,.12);border:1px solid rgba(120,80,30,.35);border-radius:6px;font-size:12px}
+.jx-quick .jx-q-t{margin-bottom:4px;color:#5a3a12}
+.jx-quick .btn{display:block;white-space:nowrap;margin:0 auto 4px}
+.jx-quick .link{display:block;font-size:12px}
+.rec-left .jx-quick .art.icon{display:inline-block;width:16px;height:16px;vertical-align:-3px}
 .jx-up .art.icon{display:inline-block;width:16px;height:16px;vertical-align:-3px;margin:0 2px}
 .jx-up .art.icon img,.jx-up .art.icon svg{width:16px;height:16px;display:block}
 .roster-side{flex:1 1 0;min-width:0;display:flex;display:-webkit-flex;flex-direction:column;-webkit-flex-direction:column;overflow:auto}
 .roster-side .jx-up{flex:0 0 auto;align-self:stretch}
 .roster-side .roster-info{margin-top:0}
+
+/* 裝備品質篩選列：依品質顏色 */
+.qkind .chip{cursor:pointer}
+.qkind .chip.qc0{border-color:#7a7a7a;color:#4a4a4a}.qkind .chip.qc1{border-color:#2a8a1a;color:#1d6a12}.qkind .chip.qc2{border-color:#1a5ac0;color:#1a4aa0}.qkind .chip.qc3{border-color:#8a2ac8;color:#6a1aa0}.qkind .chip.qc4{border-color:#c87800;color:#a06000}
+.qkind .chip.qc0.on{background:#7a7a7a;color:#fff}.qkind .chip.qc1.on{background:#2a8a1a;color:#fff}.qkind .chip.qc2.on{background:#1a5ac0;color:#fff}.qkind .chip.qc3.on{background:#8a2ac8;color:#fff}.qkind .chip.qc4.on{background:#c87800;color:#fff}
+.bag-cap{font-size:12px}
+/* 聚賢莊左欄：刷新鈕縮小，讓下方「升級聚賢莊」完整顯示；仍放不下時左欄可捲動 */
+.recruit-scr .rec-left{overflow-y:auto;overflow-x:hidden}
+.recruit-scr .rbtn{min-height:50px;padding:4px 6px;margin-bottom:5px}
+.recruit-scr .rbtn b{font-size:15px}
+.recruit-scr .rec-left>.link{display:block;text-align:center;margin:2px 0}
+.rec-left .jx-quick{margin-top:4px;padding:4px}
+.recruit-scr .rbtn{min-height:44px;padding:3px 6px;margin-bottom:4px}
+.recruit-scr .rbtn span{font-size:11px;line-height:1.25}
+.rec-left .jx-quick .jx-q-t{margin-bottom:3px}
+
+.qkind{margin:2px 0 3px}.qkind .chip{display:inline-block;padding:1px 8px;margin:0 3px 0 0;border:1px solid #8a6a30;border-radius:9px;font-size:12px;background:#f3e3bd;color:#5a3a10}
+.qkind .chip.on{background:#c8902a;color:#fff}
