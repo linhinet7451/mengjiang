@@ -11,7 +11,7 @@ MJ.R = (function () {
   R.EXP_K = 0.6;
   R.expNeed = function (lv) { var b = 3 * lv * lv + 2 * lv + 5; return lv <= 10 ? b : Math.round(b * (1 + (lv - 10) * R.EXP_K)); };
   R.maxLevel = 90; // P5：B（90 級主角升橙）；原為 80（D）
-  R.RV = 12; // 規則版本（v12：走到底不分敵我統一換到最上方第一列、第一排欄位排隊對打；平常前進仍不換列；v11：持續前進，走到底回我方第一排後方排隊，C 玩家回憶 Tomas t23u；v10：大棋盤每回合前進一格＋前線限制）：單位帶 rv>=9 才套用 v9 新規則（被動兩格、狀態效果、六等範圍）；舊戰報沒有 rv，照舊規則重播
+  R.RV = 13; // v13：技能倍率來源校準；舊版戰報保留快照倍率，rv<13 的重建測試仍走舊曲線
   // D：精力上限（截圖可見精力條，宣傳片 156/156；上限公式為推定）
   R.energyMax = function (lv) { return 100 + lv * 2; };
   R.teamSlots = function (lv) {
@@ -61,14 +61,36 @@ MJ.R = (function () {
   R.enhanceCap = function (st) { return (st.buildings && st.buildings.shenbing) || 1; }; // B：神兵坊等級＝可強化上限
   R.enhanceCost = function (e) { var tpl = R.equipTpl(e.t); return Math.floor((tpl.lv + 5) * ((e.plus || 0) + 1) * C().enhance.silverK); };
   R.enhanceChance = function (e) { var c = C().enhance, p = e.plus || 0; return p < c.freeBelow ? 1 : Math.max(c.chanceMin, 1 - (p - c.freeBelow + 1) * c.chanceStep); };
-  // 技能等級（A：「·神」階）：倍率 +6%/級，·神 再 +20%（D）
+  // 技能等級（A：「·神」階）：無來源倍率沿用 D；v13 有 W967 資料者採來源曲線
   R.skillLv = function (h, w) { return (h.sk && h.sk[w]) || 1; };
   R.skillOf = function (h, w) {
     var def = R.heroDef(h.id), base = w === 'a' ? def.active : def.ult, lv = R.skillLv(h, w), c = C().skill;
     if (!base) return null;
     var shen = lv > c.maxLv, k = (1 + c.multPerLv * (Math.min(lv, c.maxLv) - 1)) * (shen ? 1 + c.shenBonus : 1);
     var o = U.extend({}, base);
-    o.mult = Math.round(base.mult * k * 1000) / 1000; o.flat = Math.round((base.flat || 0) * (1 + 0.1 * (lv - 1)));
+    var p3 = base.p3; delete o.p3;
+    if (R.RV >= 13 && p3) {
+      if (w === 'a' && p3.lv1Mult != null && p3.lv6Mult != null) {
+        if (lv <= 6) {
+          var pos = (lv - 1) / 5;
+          o.mult = p3.lv1Mult + (p3.lv6Mult - p3.lv1Mult) * pos;
+          o.flat = lv <= 5 ? Math.round(5 + 70 * (lv - 1) / 4) : 125;
+        } else {
+          o.mult = p3.lv6Mult;
+          o.flat = 125 + 50 * (lv - 6);
+        }
+      } else {
+        // 無雙來源只列基準值；升級倍率與固定值成長仍沿用既有 D 級曲線。
+        o.mult = (p3.mult != null ? p3.mult : base.mult) * (1 + c.multPerLv * (Math.min(lv, c.maxLv) - 1));
+        o.flat = Math.round((p3.flat != null ? p3.flat : (base.flat || 0)) * (1 + 0.1 * (lv - 1)));
+      }
+      if (shen) o.mult *= 1 + c.shenBonus;
+      if (p3.pattern) o.pattern = p3.pattern;
+      if (p3.maxDamage != null) o.maxDamage = p3.maxDamage;
+    } else {
+      o.mult = base.mult * k; o.flat = Math.round((base.flat || 0) * (1 + 0.1 * (lv - 1)));
+    }
+    o.mult = Math.round(o.mult * 1000) / 1000;
     o.name = base.name + (shen ? '·神' : ''); o.lv = lv; o.shen = shen;
     return o;
   };

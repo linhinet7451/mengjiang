@@ -2422,7 +2422,7 @@
    "cat": "武將",
    "item": "新武將技能名、倍率、外觀",
    "spec": "—",
-   "current": "技能名本作自訂；倍率＝snA967 倍率 × 本作換算（主動 ×1.6、無雙 ×2.9）",
+   "current": "21 名新增武將的名稱／外觀仍屬 D；技能倍率改由 web2.skill.rates 分開記錄，未列來源者保留本作倍率。",
    "grade": "D",
    "label": "本作設計（暫定）",
    "sources": [],
@@ -2771,6 +2771,102 @@
    "label": "本作設計（暫定）",
    "sources": [],
    "phase": "web2-v11",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "web2.skill.rates",
+   "cat": "技能",
+   "item": "技能倍率基準",
+   "spec": "snA967 表 5：普攻、六等普攻、無雙",
+   "current": "61 名武將的 Lv1 普攻、Lv6 普攻與無雙基準採來源表；88 名中其餘未列者維持原本 D 級倍率。",
+   "grade": "B",
+   "label": "原版（當年攻略記載）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "表 5：武將普攻、六等普攻與無雙倍率"
+    }
+   ],
+   "phase": "web2-P3",
+   "tentative": false,
+   "conflicts": []
+  },
+  {
+   "id": "web2.skill.activeCurve",
+   "cat": "技能",
+   "item": "普攻技能等級曲線",
+   "spec": "Lv1 a+5、Lv6 b+125；Lv6 後固定值每級 +50",
+   "current": "Lv1 倍率 a、Lv6 倍率 b；Lv1 固定值 +5、Lv5 +75、Lv6 +125、Lv7 起每級 +50。Lv2–5 倍率依 Lv1/Lv6 線性插值，Lv2–4 固定值依 Lv1/Lv5 線性插值，均為推估。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "表 5：普攻與六等普攻基準"
+    },
+    {
+     "s": "W282",
+     "q": "小昭 tooltip 可見 Lv5 +75、Lv6 +125、Lv7 +175、Lv9 +275"
+    }
+   ],
+   "phase": "web2-P3",
+   "note": "中間等級為明示的線性插值政策，非逐級截圖值；Lv5 固定值節點取小昭截圖。",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "web2.skill.ultProgression",
+   "cat": "技能",
+   "item": "無雙技能升級曲線",
+   "spec": "無雙基準 c+10",
+   "current": "來源替換無雙基準倍率與固定值；升級時沿用既有 6% 倍率／10% 固定值成長，因來源未提供完整逐級表，仍屬本作 D 級曲線。",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "表 5：無雙技能倍率基準"
+    }
+   ],
+   "phase": "web2-P3",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "web2.skill.capObserved",
+   "cat": "技能",
+   "item": "截圖可見的技能傷害上限",
+   "spec": "楊過普攻 Lv6 上限 6000；劉備無雙 Lv1 上限 3000",
+   "current": "只套用到楊過 active 與劉備 ult；劉備無雙按截圖恢復為對敵全體攻擊。",
+   "grade": "A",
+   "label": "原版（原版畫面證實）",
+   "sources": [
+    {
+     "s": "W282",
+     "q": "楊過 Lv6 傷害上限 6000；劉備無雙 Lv1 傷害上限 3000、9 個目標"
+    }
+   ],
+   "phase": "web2-P3",
+   "tentative": false,
+   "conflicts": []
+  },
+  {
+   "id": "web2.skill.capRule",
+   "cat": "技能",
+   "item": "傷害上限引擎解讀",
+   "spec": "依截圖上限",
+   "current": "上限按每一目標的單次最終傷害套用（防禦、暴擊與增減傷計算後）；不跨目標累加，也不套用於治療／持續傷害。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W282",
+     "q": "截圖有上限數值，但未說明是單次、總傷害或計算階段；此為引擎解讀"
+    }
+   ],
+   "phase": "web2-P3",
+   "note": "上限作用範圍是明確的本作解讀，不聲稱原作證據已定義。",
    "tentative": true,
    "conflicts": []
   }

@@ -77,5 +77,9 @@ if (phases.indexOf('P2') >= 0) {
   var r2 = require('./web2-p2.js')({ H: H, C: C, F: F, P: P, byId: byId, entry: entry, conflict: conflict, LB: LB, src: src });
   console.log('P2 made', r2.made.length, 'passives', r2.nP, 'partners', r2.nL);
 }
+if (phases.indexOf('P3') >= 0) {
+  var r3 = require('./web2-p3.js')({ H: H, P: P, entry: entry, LB: LB });
+  console.log('P3 mapped', r3.mapped, '/', r3.rows, 'skill rows');
+}
 if (phases.indexOf('P1') >= 0 || 1) { wr('heroes', H); wr('config', C); wr('formations', F); wr('provenance', P); }
 console.log('web2-data done', phases.join(','), 'heroes', H.list.length, 'prov', P.entries.length);

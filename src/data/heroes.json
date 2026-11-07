@@ -549,14 +549,24 @@
     "pattern": "single",
     "mult": 1.1,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 0.76,
+     "lv6Mult": 0.99,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "蒼天已死",
     "pattern": "col3",
     "mult": 1.5,
     "flat": 60,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.96,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "qiangren",
    "passiveGrade": "B（snA967 被動技能欄）",
@@ -604,14 +614,24 @@
     "pattern": "single",
     "mult": 1.1,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 0.79,
+     "lv6Mult": 1.07,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "同歸劍法",
     "pattern": "cross",
     "mult": 1.4,
     "flat": 60,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.58,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "renai",
    "passiveGrade": "B（snA967 被動技能欄）",
@@ -660,14 +680,24 @@
     "pattern": "single",
     "mult": 1.1,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 0.78,
+     "lv6Mult": 1.08,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "沖靈劍法",
     "pattern": "line2",
     "mult": 1.7,
     "flat": 60,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.98,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "shaqi",
    "passiveGrade": "B（snA967 被動技能欄）",
@@ -715,14 +745,24 @@
     "pattern": "single",
     "mult": 1.1,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 0.75,
+     "lv6Mult": 1.08,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "玄冥神掌",
     "pattern": "col2",
     "mult": 1.7,
     "flat": 60,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.96,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "shaqi",
    "passiveGrade": "B（snA967 被動技能欄）",
@@ -770,14 +810,24 @@
     "pattern": "single",
     "mult": 1.1,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 0.76,
+     "lv6Mult": 1,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "汜水關斬",
     "pattern": "line2",
     "mult": 1.8,
     "flat": 60,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 2.86,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "liaoshang",
    "souls": 1,
@@ -825,14 +875,24 @@
     "pattern": "line2",
     "mult": 1,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 0.78,
+     "lv6Mult": 1.03,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "忘世天籟",
     "pattern": "col3",
     "mult": 1.45,
     "flat": 60,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.96,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "shaqi",
    "passiveGrade": "B（snA967 被動技能欄）",
@@ -881,14 +941,24 @@
     "pattern": "line2",
     "mult": 0.95,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 0.75,
+     "lv6Mult": 1.02,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "匕首亂刺",
     "pattern": "line2",
     "mult": 1.25,
     "flat": 80,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.49,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "xinu",
    "passiveGrade": "B（snA967 被動技能欄）",
@@ -937,7 +1007,12 @@
     "pattern": "single",
     "mult": 1.25,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 1.1,
+     "lv6Mult": 1.53,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "公主鞭法",
@@ -946,6 +1021,11 @@
     "flat": 80,
     "fx": {
      "armorBreak": 0.5
+    },
+    "p3": {
+     "mult": 0.98,
+     "flat": 10,
+     "source": "W967"
     }
    },
    "passive": "xinu",
@@ -996,14 +1076,24 @@
     "pattern": "single",
     "mult": 1.3,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 1.1,
+     "lv6Mult": 1.55,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "口吐蓮花",
     "pattern": "col2",
     "mult": 1.45,
     "flat": 80,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.98,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "shaqi",
    "passiveGrade": "B（snA967 被動技能欄）",
@@ -1053,14 +1143,24 @@
     "pattern": "single",
     "mult": 1.25,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 1.09,
+     "lv6Mult": 1.52,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "千軍破",
     "pattern": "line2",
     "mult": 1.5,
     "flat": 80,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.59,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "qiangren",
    "passiveGrade": "B（snA967 被動技能欄）",
@@ -1110,14 +1210,24 @@
     "pattern": "single",
     "mult": 1.25,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 1.09,
+     "lv6Mult": 1.52,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "神亭酣戰",
     "pattern": "line2",
     "mult": 2,
     "flat": 80,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.98,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "qiangren",
    "passiveGrade": "B（snA967 被動技能欄）",
@@ -1166,14 +1276,24 @@
     "pattern": "single",
     "mult": 1.25,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 1.07,
+     "lv6Mult": 1.48,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "小無相功",
     "pattern": "line2",
     "mult": 2,
     "flat": 80,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.98,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "shaqi",
    "passiveGrade": "B（snA967 被動技能欄）",
@@ -1222,14 +1342,24 @@
     "pattern": "diag",
     "mult": 1.3,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 0.75,
+     "lv6Mult": 0.99,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "葵花寶典",
     "pattern": "diag",
     "mult": 2.2,
     "flat": 120,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.52,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "renai",
    "passiveGrade": "B（snA967 被動技能欄）",
@@ -1280,14 +1410,24 @@
     "pattern": "single",
     "mult": 1.35,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 1.23,
+     "lv6Mult": 1.74,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "神木王鼎",
     "pattern": "cross",
     "mult": 1.6,
     "flat": 120,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.51,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "shaqi",
    "souls": 30,
@@ -1336,14 +1476,24 @@
     "pattern": "single",
     "mult": 1.35,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 0.72,
+     "lv6Mult": 0.92,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "護主心切",
     "pattern": "line2",
     "mult": 1.9,
     "flat": 120,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.62,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "shaqi",
    "passiveGrade": "B（snA967 被動技能欄）",
@@ -1395,14 +1545,24 @@
     "pattern": "single",
     "mult": 1.35,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 0.75,
+     "lv6Mult": 1.02,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "倡天劍法",
     "pattern": "line3",
     "mult": 1.6,
     "flat": 120,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.98,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "qiangren",
    "passiveGrade": "B（snA967 被動技能欄）",
@@ -1454,14 +1614,24 @@
     "pattern": "single",
     "mult": 1.35,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 0.99,
+     "lv6Mult": 1.32,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "八卦玄火陣",
     "pattern": "col3",
     "mult": 1.5,
     "flat": 120,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.52,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "xinu",
    "passiveGrade": "B（snA967 被動技能欄）",
@@ -1514,14 +1684,24 @@
     "pattern": "single",
     "mult": 1.35,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 0.75,
+     "lv6Mult": 1,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "千秋蓮舞",
     "pattern": "col2",
     "mult": 1.8,
     "flat": 120,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.52,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "xinu",
    "passiveGrade": "B（snA967 被動技能欄）",
@@ -1571,14 +1751,24 @@
     "pattern": "single",
     "mult": 1.35,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 0.74,
+     "lv6Mult": 0.95,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "雪月飛花",
     "pattern": "col2",
     "mult": 1.8,
     "flat": 120,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.52,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "xinu",
    "passiveGrade": "B（snA967 被動技能欄）",
@@ -1631,14 +1821,24 @@
     "pattern": "single",
     "mult": 1.35,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 0.74,
+     "lv6Mult": 0.95,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "天下無狗",
     "pattern": "line2",
     "mult": 1.9,
     "flat": 120,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.62,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "shaqi",
    "passiveGrade": "B（snA967 被動技能欄）",
@@ -1687,14 +1887,24 @@
     "pattern": "single",
     "mult": 1.43,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 0.84,
+     "lv6Mult": 1.17,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "獨孤九劍",
     "pattern": "line2",
     "mult": 1.74,
     "flat": 160,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.61,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "qiangren",
    "passiveGrade": "B（snA967 被動技能欄）",
@@ -1744,14 +1954,24 @@
     "pattern": "single",
     "mult": 1.44,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 0.85,
+     "lv6Mult": 1.18,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "赤壁火攻",
     "pattern": "col3",
     "mult": 1.45,
     "flat": 160,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.51,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "shaqi",
    "passiveGrade": "B（snA967 被動技能欄）",
@@ -1799,14 +2019,24 @@
     "pattern": "line2",
     "mult": 1.6,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 1.23,
+     "lv6Mult": 1.74,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "乾坤大挪移",
     "pattern": "line2",
     "mult": 1.45,
     "flat": 160,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.51,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "renai",
    "souls": 30,
@@ -1856,6 +2086,11 @@
     "flat": 0,
     "fx": {
      "stun": 0.3
+    },
+    "p3": {
+     "lv1Mult": 1,
+     "lv6Mult": 1.32,
+     "source": "W967"
     }
    },
    "ult": {
@@ -1865,6 +2100,11 @@
     "flat": 200,
     "fx": {
      "stun": 0.5
+    },
+    "p3": {
+     "mult": 0.52,
+     "flat": 10,
+     "source": "W967"
     }
    },
    "passive": "xinu",
@@ -1915,14 +2155,24 @@
     "pattern": "line3",
     "mult": 1.5,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 0.75,
+     "lv6Mult": 1,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "神鬼亂舞",
     "pattern": "line3",
     "mult": 2.3,
     "flat": 200,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.52,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "qiangren",
    "souls": 45,
@@ -2022,14 +2272,24 @@
     "pattern": "single",
     "mult": 1.6,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 0.99,
+     "lv6Mult": 1.28,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "玉女劍法",
     "pattern": "all",
     "mult": 1.2,
     "flat": 150,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.52,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "shaqi",
    "passiveGrade": "B（snA967 被動技能欄）",
@@ -2080,6 +2340,11 @@
     "flat": 0,
     "fx": {
      "buffDef": 0.2
+    },
+    "p3": {
+     "lv1Mult": 0.72,
+     "lv6Mult": 0.92,
+     "source": "W967"
     }
    },
    "ult": {
@@ -2089,6 +2354,11 @@
     "flat": 200,
     "fx": {
      "buffDef": 0.2
+    },
+    "p3": {
+     "mult": 0.52,
+     "flat": 10,
+     "source": "W967"
     }
    },
    "passive": "shaqi",
@@ -2140,14 +2410,24 @@
     "pattern": "line2",
     "mult": 1.45,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 0.73,
+     "lv6Mult": 0.94,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "飛龍在天",
     "pattern": "line3",
     "mult": 2,
     "flat": 200,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.55,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "rexue",
    "souls": 45,
@@ -2196,14 +2476,24 @@
     "pattern": "cross",
     "mult": 1.3,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 0.74,
+     "lv6Mult": 0.99,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "八卦玄冰陣",
     "pattern": "all",
     "mult": 1.3,
     "flat": 180,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.52,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "xixue",
    "passiveGrade": "B（snA967 被動技能欄）",
@@ -2253,14 +2543,25 @@
     "pattern": "line2",
     "mult": 1.5,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 0.68,
+     "lv6Mult": 0.88,
+     "source": "W967",
+     "maxDamage": 6000
+    }
    },
    "ult": {
     "name": "黯然銷魂掌",
     "pattern": "cross",
     "mult": 2,
     "flat": 200,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.55,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "fenxin",
    "souls": 45,
@@ -2308,14 +2609,24 @@
     "pattern": "line2",
     "mult": 1.5,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 0.75,
+     "lv6Mult": 1,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "西涼鐵騎",
     "pattern": "line3",
     "mult": 2,
     "flat": 200,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.52,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "renai",
    "souls": 45,
@@ -2363,14 +2674,24 @@
     "pattern": "line3",
     "mult": 1.45,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 0.75,
+     "lv6Mult": 0.98,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "七進七出",
     "pattern": "line3",
     "mult": 2.2,
     "flat": 200,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.52,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "qiangren",
    "passiveGrade": "B（snA967 被動技能欄）",
@@ -2418,14 +2739,24 @@
     "pattern": "line2",
     "mult": 1.5,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 0.75,
+     "lv6Mult": 1,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "義薄雲天",
     "pattern": "col3",
     "mult": 2,
     "flat": 200,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.52,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "qiangren",
    "passiveGrade": "B（snA967 被動技能欄）",
@@ -2475,7 +2806,12 @@
     "pattern": "line2",
     "mult": 1.5,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 0.75,
+     "lv6Mult": 0.99,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "雷霆震怒",
@@ -2484,6 +2820,11 @@
     "flat": 200,
     "fx": {
      "stun": 0.3
+    },
+    "p3": {
+     "mult": 0.52,
+     "flat": 10,
+     "source": "W967"
     }
    },
    "passive": "liaoshang",
@@ -2534,14 +2875,24 @@
     "pattern": "line2",
     "mult": 1.35,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 0.99,
+     "lv6Mult": 1.3,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "清心普善咒",
     "pattern": "healAll",
     "mult": 0.5,
     "flat": 120,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.52,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "renai",
    "passiveGrade": "B（snA967 被動技能欄）",
@@ -2636,14 +2987,24 @@
     "pattern": "single",
     "mult": 1.4,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 1.08,
+     "lv6Mult": 1.52,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "九陰白骨爪",
     "pattern": "cross",
     "mult": 1.9,
     "flat": 120,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.74,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "qiangren",
    "souls": 5,
@@ -2691,7 +3052,12 @@
     "pattern": "col2",
     "mult": 1.3,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 0.84,
+     "lv6Mult": 1.15,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "合縱聯盟",
@@ -2700,6 +3066,11 @@
     "flat": 100,
     "fx": {
      "buffDef": 0.15
+    },
+    "p3": {
+     "mult": 0.51,
+     "flat": 10,
+     "source": "W967"
     }
    },
    "passive": "renai",
@@ -2799,14 +3170,24 @@
     "pattern": "single",
     "mult": 1.2,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 0.94,
+     "lv6Mult": 1.24,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "竹海狂濤",
     "pattern": "square",
     "mult": 1.6,
     "flat": 60,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.52,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "xuruo",
    "passiveGrade": "B（snA967 被動技能欄）",
@@ -2901,14 +3282,26 @@
     "pattern": "single",
     "mult": 1.5,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 0.94,
+     "lv6Mult": 1.24,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "仁德",
     "pattern": "healAll",
     "mult": 0.6,
     "flat": 150,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.52,
+     "flat": 10,
+     "source": "W967",
+     "maxDamage": 3000,
+     "pattern": "all"
+    }
    },
    "passive": "ningxin",
    "passiveGrade": "B（snA967 被動技能欄）",
@@ -2959,14 +3352,24 @@
     "pattern": "single",
     "mult": 1.5,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 0.78,
+     "lv6Mult": 0.98,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "降龍廿八掌",
     "pattern": "line3",
     "mult": 2.1,
     "flat": 200,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.52,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "liaoshang",
    "souls": 45,
@@ -3014,14 +3417,24 @@
     "pattern": "single",
     "mult": 1.35,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 0.94,
+     "lv6Mult": 1.25,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "六脈神劍",
     "pattern": "line3",
     "mult": 1.7,
     "flat": 120,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.52,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "piaohu",
    "souls": 45,
@@ -3074,7 +3487,12 @@
     "pattern": "single",
     "mult": 1.35,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 0.8,
+     "lv6Mult": 1.07,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "生死符",
@@ -3083,6 +3501,11 @@
     "flat": 120,
     "fx": {
      "stun": 0.3
+    },
+    "p3": {
+     "mult": 0.51,
+     "flat": 10,
+     "source": "W967"
     }
    },
    "passive": "rexue",
@@ -3227,14 +3650,24 @@
     "pattern": "single",
     "mult": 1.35,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 0.74,
+     "lv6Mult": 1.02,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "左右互搏",
     "pattern": "line2",
     "mult": 1.9,
     "flat": 120,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.98,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "qiangren",
    "souls": 5,
@@ -3286,14 +3719,24 @@
     "pattern": "single",
     "mult": 1.4,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 0.74,
+     "lv6Mult": 1.12,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "古之惡來",
     "pattern": "line2",
     "mult": 1.9,
     "flat": 120,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.59,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "qiangren",
    "souls": 5,
@@ -3440,14 +3883,24 @@
     "pattern": "col2",
     "mult": 1.35,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 0.74,
+     "lv6Mult": 1,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "挾天子",
     "pattern": "all",
     "mult": 1.25,
     "flat": 180,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.49,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "qiangren",
    "souls": 30,
@@ -3592,14 +4045,24 @@
     "pattern": "single",
     "mult": 1.2,
     "flat": 0,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "lv1Mult": 1.1,
+     "lv6Mult": 1.54,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "虎癡",
     "pattern": "line2",
     "mult": 1.6,
     "flat": 60,
-    "fx": null
+    "fx": null,
+    "p3": {
+     "mult": 0.59,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "rexue",
    "souls": 5,
@@ -3713,7 +4176,12 @@
     "fx": {
      "bleed": 0.3
     },
-    "g967": "■■"
+    "g967": "■■",
+    "p3": {
+     "lv1Mult": 1.08,
+     "lv6Mult": 1.52,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "四世三公",
@@ -3737,7 +4205,12 @@
     "fx": {
      "armorBreak": 0.3
     },
-    "g967": "■■/■■/■■"
+    "g967": "■■/■■/■■",
+    "p3": {
+     "mult": 0.59,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "shaqi",
    "passive2": null,
@@ -3806,7 +4279,12 @@
     "fx": {
      "burn": 0.3
     },
-    "g967": "●●●■/■■"
+    "g967": "●●●■/■■",
+    "p3": {
+     "lv1Mult": 0.75,
+     "lv6Mult": 1.02,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "傾城一笑",
@@ -3836,7 +4314,12 @@
     "mult": 1.71,
     "flat": 120,
     "fx": null,
-    "g967": "●■/■■■■/●■"
+    "g967": "●■/■■■■/●■",
+    "p3": {
+     "mult": 0.59,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "shaqi",
    "passive2": null,
@@ -3905,7 +4388,12 @@
     "fx": {
      "armorBreak": 0.3
     },
-    "g967": "■■■"
+    "g967": "■■■",
+    "p3": {
+     "lv1Mult": 0.74,
+     "lv6Mult": 1,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "生死符",
@@ -3943,7 +4431,12 @@
     "mult": 1.42,
     "flat": 120,
     "fx": null,
-    "g967": "●■/●■/■■■■/●■/●■"
+    "g967": "●■/●■/■■■■/●■/●■",
+    "p3": {
+     "mult": 0.49,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "shaqi",
    "passive2": null,
@@ -4002,7 +4495,12 @@
     "mult": 1.73,
     "flat": 0,
     "fx": null,
-    "g967": "■■"
+    "g967": "■■",
+    "p3": {
+     "lv1Mult": 1.08,
+     "lv6Mult": 1.48,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "焚城",
@@ -4032,7 +4530,12 @@
     "mult": 1.51,
     "flat": 120,
     "fx": null,
-    "g967": "●■/●■/■■/●■/●■"
+    "g967": "●■/●■/■■/●■/●■",
+    "p3": {
+     "mult": 0.52,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "liaoshang",
    "passive2": null,
@@ -4094,7 +4597,12 @@
     "fx": {
      "bleed": 0.3
     },
-    "g967": "■■"
+    "g967": "■■",
+    "p3": {
+     "lv1Mult": 1.08,
+     "lv6Mult": 1.52,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "巴圖魯怒擊",
@@ -4122,7 +4630,12 @@
     "fx": {
      "stun": 0.25
     },
-    "g967": "●■/■■■/●■"
+    "g967": "●■/■■■/●■",
+    "p3": {
+     "mult": 0.74,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "qiangren",
    "passive2": null,
@@ -4189,7 +4702,12 @@
     "mult": 1.18,
     "flat": 0,
     "fx": null,
-    "g967": "■■/●●●■"
+    "g967": "■■/●●●■",
+    "p3": {
+     "lv1Mult": 0.74,
+     "lv6Mult": 1,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "威震逍遙津",
@@ -4221,7 +4739,12 @@
     "fx": {
      "armorBreak": 0.3
     },
-    "g967": "●■/●■/■■/●■/●■"
+    "g967": "●■/●■/■■/●■/●■",
+    "p3": {
+     "mult": 0.74,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "renai",
    "passive2": null,
@@ -4289,7 +4812,12 @@
     "mult": 1.2,
     "flat": 0,
     "fx": null,
-    "g967": "●●●■/■■"
+    "g967": "●●●■/■■",
+    "p3": {
+     "lv1Mult": 0.75,
+     "lv6Mult": 1.02,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "五嶽併派",
@@ -4311,7 +4839,12 @@
     "mult": 1.71,
     "flat": 120,
     "fx": null,
-    "g967": "■■/■■/■■"
+    "g967": "■■/■■/■■",
+    "p3": {
+     "mult": 0.59,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "qiangren",
    "passive2": null,
@@ -4380,7 +4913,12 @@
     "fx": {
      "bleed": 0.3
     },
-    "g967": "■■/●●●■"
+    "g967": "■■/●●●■",
+    "p3": {
+     "lv1Mult": 0.74,
+     "lv6Mult": 1.02,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "萬軍突擊",
@@ -4406,7 +4944,12 @@
     "mult": 2.15,
     "flat": 120,
     "fx": null,
-    "g967": "●■/■■■/●■"
+    "g967": "●■/■■■/●■",
+    "p3": {
+     "mult": 0.74,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "qiangren",
    "passive2": null,
@@ -4467,7 +5010,12 @@
     "fx": {
      "armorBreak": 0.3
     },
-    "g967": "■■"
+    "g967": "■■",
+    "p3": {
+     "lv1Mult": 1.09,
+     "lv6Mult": 1.52,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "冰魄銀針",
@@ -4495,7 +5043,12 @@
     "fx": {
      "armorBreak": 0.3
     },
-    "g967": "●■/■■■/●■"
+    "g967": "●■/■■■/●■",
+    "p3": {
+     "mult": 0.74,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "qiangren",
    "passive2": null,
@@ -4562,7 +5115,12 @@
     "mult": 1.34,
     "flat": 0,
     "fx": null,
-    "g967": "●■/■■"
+    "g967": "●■/■■",
+    "p3": {
+     "lv1Mult": 0.84,
+     "lv6Mult": 1.15,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "逍遙傳功",
@@ -4594,7 +5152,12 @@
     "fx": {
      "bleed": 0.3
     },
-    "g967": "●■/■■■■/●■"
+    "g967": "●■/■■■■/●■",
+    "p3": {
+     "mult": 0.61,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "qiangren",
    "passive2": null,
@@ -4660,7 +5223,12 @@
     "mult": 1.34,
     "flat": 0,
     "fx": null,
-    "g967": "●■/■■"
+    "g967": "●■/■■",
+    "p3": {
+     "lv1Mult": 0.84,
+     "lv6Mult": 1.15,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "日月神功",
@@ -4698,7 +5266,12 @@
     "mult": 1.48,
     "flat": 180,
     "fx": null,
-    "g967": "●■/●■/■■■■/●■/●■"
+    "g967": "●■/●■/■■■■/●■/●■",
+    "p3": {
+     "mult": 0.51,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "pozhou",
    "passive2": null,
@@ -4766,7 +5339,12 @@
     "mult": 1.28,
     "flat": 0,
     "fx": null,
-    "g967": "●●/●●/■■/●●●■"
+    "g967": "●●/●●/■■/●●●■",
+    "p3": {
+     "lv1Mult": 0.8,
+     "lv6Mult": 1.07,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "拔矢啖睛",
@@ -4800,7 +5378,12 @@
     "mult": 1.48,
     "flat": 180,
     "fx": null,
-    "g967": "●■■/■■■/●■■"
+    "g967": "●■■/■■■/●■■",
+    "p3": {
+     "mult": 0.51,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "qiangren",
    "passive2": null,
@@ -4884,7 +5467,12 @@
     "mult": 1.18,
     "flat": 0,
     "fx": null,
-    "g967": "●●■/■■■■"
+    "g967": "●●■/■■■■",
+    "p3": {
+     "lv1Mult": 0.74,
+     "lv6Mult": 0.99,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "聖火令",
@@ -4932,7 +5520,12 @@
     "fx": {
      "burn": 0.3
     },
-    "g967": "●■■■/■■■■/●■■■"
+    "g967": "●■■■/■■■■/●■■■",
+    "p3": {
+     "mult": 0.67,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "duohun",
    "passive2": "pozhou",
@@ -4986,7 +5579,12 @@
     "mult": 1.66,
     "flat": 0,
     "fx": null,
-    "g967": "■■■"
+    "g967": "■■■",
+    "p3": {
+     "lv1Mult": 1.04,
+     "lv6Mult": 1.25,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "往昔若凝",
@@ -4994,7 +5592,12 @@
     "mult": 0.6,
     "flat": 40,
     "fx": null,
-    "g967": "●■■■/●■■■/●■■■"
+    "g967": "●■■■/●■■■/●■■■",
+    "p3": {
+     "mult": 0.28,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "pozhou",
    "passive2": "qingxin",
@@ -5078,7 +5681,12 @@
     "fx": {
      "armorBreak": 0.3
     },
-    "g967": "●●■/■■■/●■"
+    "g967": "●●■/■■■/●■",
+    "p3": {
+     "lv1Mult": 0.74,
+     "lv6Mult": 0.99,
+     "source": "W967"
+    }
    },
    "ult": {
     "name": "驚鴻月斬",
@@ -5128,7 +5736,12 @@
     "mult": 1.51,
     "flat": 180,
     "fx": null,
-    "g967": "●■■/●■■/●■■/■■■/●■■/●■■/●■■"
+    "g967": "●■■/●■■/●■■/■■■/●■■/●■■/●■■",
+    "p3": {
+     "mult": 0.52,
+     "flat": 10,
+     "source": "W967"
+    }
    },
    "passive": "shaqi",
    "passive2": null,

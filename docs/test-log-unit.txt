@@ -49,7 +49,7 @@ pass-lines 40
 結果：通過 47，失敗 0
 pass-lines 48
 === unit-prov
-結果：通過 1096，失敗 0
+結果：通過 1136，失敗 0
 pass-lines 1
 === unit-art
 結果：通過 827，失敗 0
@@ -61,6 +61,9 @@ pass-lines 34
 === unit-web2-p2
 結果：通過 34，失敗 0
 pass-lines 35
+=== unit-web2-p3
+結果：通過 28，失敗 0
+pass-lines 29
 === unit-fix
   通過 rv 8 單位維持舊規則（舊戰報結果不變）
   通過 v9 規則（R.RV=9）固定種子戰鬥結果與 battle-golden-v9.json 相同（改規則時要更新樣本）
@@ -76,6 +79,16 @@ pass-lines 35
   通過 v11 與 v10 結果不同（確實換了規則）
 結果：通過 36，失敗 0
 pass-lines 37
+=== unit-wrap12
+  通過 v12 規則固定種子結果與 battle-golden-v12.json 相同
+  通過 v12 與 v11 結果不同（確實換了規則）
+  通過 v13 技能倍率固定種子結果與 battle-golden-v13.json 相同
+結果：通過 23／失敗 0
+pass-lines 24
+=== unit-bagfix
+  通過 卸裝備不再因包裹滿而失敗
+結果：通過 7／失敗 0
+pass-lines 8
 === unit-juxian
   通過 5/5 時招募失敗，訊息提示升級聚賢莊
 結果：通過 18，失敗 0

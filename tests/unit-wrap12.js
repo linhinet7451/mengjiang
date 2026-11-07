@@ -7,7 +7,7 @@ function mk(n, o) { var u = { name: n, hp: 1e6, patk: 1000, matk: 100, pdef: 0, 
 function bu(side, br, bx, hp) { return { side: side, br: br, bx: bx, hp: hp == null ? 100 : hp, key: side + br + bx }; }
 
 console.log('[版本]');
-ok(M.R.RV === 12, '現行規則版本 R.RV = 12');
+ok(M.R.RV === 13, '現行規則版本 R.RV = 13（棋盤仍使用 v12）');
 var r = B.run([{ cell: 3, unit: mk('前') }], [{ cell: 3, unit: mk('敵') }], { seed: 1, maxRounds: 2 });
 ok(r.board && r.board.v === 12 && r.events[0].bd.v === 12, '全部單位 rv 12：戰報標示 v12 棋盤');
 r = B.run([{ cell: 3, unit: mk('前', { rv: 11 }) }], [{ cell: 3, unit: mk('敵') }], { seed: 1, maxRounds: 2 });
@@ -45,14 +45,17 @@ var g11 = JSON.parse(fs.readFileSync(path.join(__dirname, 'fixtures', 'battle-go
 ok(JSON.stringify(gold(load, { rv: 11 })) === JSON.stringify(g11), 'R.RV=11 重跑：與 battle-golden-v11.json 完全相同（v11 舊戰報照舊重播）');
 var g10 = JSON.parse(fs.readFileSync(path.join(__dirname, 'fixtures', 'battle-golden-v10.json'), 'utf8'));
 ok(JSON.stringify(gold(load, { rv: 10 })) === JSON.stringify(g10), 'R.RV=10 重跑：與 battle-golden-v10.json 完全相同');
-var g12p = path.join(__dirname, 'fixtures', 'battle-golden-v12.json'), now12 = gold(load);
+var g12p = path.join(__dirname, 'fixtures', 'battle-golden-v12.json'), now12 = gold(load, { rv: 12 });
 if (process.argv[2] === '--write-golden') fs.writeFileSync(g12p, JSON.stringify(now12, null, 1));
 ok(fs.existsSync(g12p) && JSON.stringify(JSON.parse(fs.readFileSync(g12p, 'utf8'))) === JSON.stringify(now12), 'v12 規則固定種子結果與 battle-golden-v12.json 相同');
 ok(JSON.stringify(now12) !== JSON.stringify(g11), 'v12 與 v11 結果不同（確實換了規則）');
+var g13p = path.join(__dirname, 'fixtures', 'battle-golden-v13.json'), now13 = gold(load);
+if (process.argv[2] === '--write-golden') fs.writeFileSync(g13p, JSON.stringify(now13, null, 1));
+ok(fs.existsSync(g13p) && JSON.stringify(JSON.parse(fs.readFileSync(g13p, 'utf8'))) === JSON.stringify(now13), 'v13 技能倍率固定種子結果與 battle-golden-v13.json 相同');
 
 console.log('[遊戲內戰鬥]');
 c = load(); M = c.MJ; M.U.now = function () { return 1767225600000; }; M.G.newGame('測', '力耐', 'm', 1);
 var res = M.G.fight('s1_1', 99);
-ok(res.battle.board && res.battle.board.v === 12, '實際關卡使用 v12 棋盤');
+ok(res.battle.board && res.battle.board.v === 12, '實際關卡使用 v12 棋盤（R.RV 13 只新增技能規則）');
 console.log('結果：通過 ' + pass + '／失敗 ' + fail);
 process.exit(fail ? 1 : 0);

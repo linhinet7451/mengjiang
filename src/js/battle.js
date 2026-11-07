@@ -282,6 +282,8 @@ MJ.Battle = (function () {
       var pv = opt.pvp ? (att.pvp || 0) : (att.pve || 0); // P4：PVP／PVE 傷害%（D）
       if (pv) dmg = Math.max(1, Math.floor(dmg * (1 + pv / 100)));
       if (!opt.pvp && tgt.npcCut && att.side === 'B') dmg = Math.max(1, Math.floor(dmg * (1 - tgt.npcCut / 100))); // 錐行陣（A：sn77）
+      // P3：來源有明確上限者，依 provenance 的 C 級引擎解讀限制每次命中的最終傷害；舊快照無此欄位。
+      if (skill.maxDamage != null) dmg = Math.min(dmg, skill.maxDamage);
       if (!v9(tgt) && has(tgt, 'huajie') && rng() < 0.2) { dmg = Math.max(1, Math.floor(dmg / 2)); e.hj = true; ev.push({ t: 'text', to: tgt.key, s: '化解', c: 'green' }); }
       tgt.hp = Math.max(0, tgt.hp - dmg);
       e.dmg = dmg; e.hp = tgt.hp;
