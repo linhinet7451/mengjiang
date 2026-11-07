@@ -6,7 +6,7 @@ BOARD-3 已完成；維持現行 v12 棋盤規則，本次不重做、不改動�
 
 ## English summary
 Unofficial, offline, single-file HTML5 remake of the 2012–2013 Facebook game 猛將無雙. Build output: `dist/mengjiang.html` (one file, ES5, no CDN, < 12,000,000 bytes). With the original company's consent (as stated by the repository owner), original art, music, and similar assets may be referenced or used directly so the remake stays as close to the original as possible. Record each use in `docs/美術素材來源.md`. If no original file is available, redraw closer assets from the screenshots and videos in `reference/`.
-State on 2026-11-07 (UTC+8): P1/P2 are complete; **P3-1 skill rate calibration is now implemented** behind RV13, and BOARD-3's v12 board behavior is already complete. P3-2 onward and P4 remain pending. Nothing in this status claims real-device testing; Playwright Chromium/WebKit iPhone 13 are emulations only. Social/online modes are not built (by design: single-player). Many numbers remain grade D. Each item below lists goal, evidence + grade + URL, files/functions, acceptance tests, priority and dependencies. Read "Project rules" first.
+State on 2026-11-07 (UTC+8): P1/P2 and P3-1/P3-2 are complete; P3-1 rates/caps remain versioned at RV13, and P3-2 range shapes are added at RV14. BOARD-3 remains the completed v12 board. P3-3 onward and P4 remain pending. Nothing here claims real-device testing; Playwright Chromium/WebKit iPhone 13 are emulations only. Social/online modes are not built (by design: single-player). Many numbers remain grade D. Each item below lists goal, evidence + grade + URL, files/functions, acceptance tests, priority and dependencies. Read "Project rules" first.
 
 ---
 
@@ -26,7 +26,7 @@ State on 2026-11-07 (UTC+8): P1/P2 are complete; **P3-1 skill rate calibration i
 ## 建置與測試（摘要，詳見 README）
 - `npm install`（acorn、playwright；e2e 需 `npx playwright install chromium webkit`）
 - 資料：`node tools/build-data.js`；素材：`node tools/build-assets.js`；單檔：`node tools/build.js` → `dist/mengjiang.html`、`dist/boot-test.html`
-- 單元：`sh tools/runtests.sh`（2026-11-07：21 組、2,705 項通過／0 失敗，見 `docs/test-log-unit.txt`）；e2e：`node tests/e2e.js all`（405 通過／0 失敗，Chromium、WebKit iPhone 13、橫向手機）；平衡：`node tools/progress-sim.js --days 30`。
+- 單元：`sh tools/runtests.sh`（2026-11-07：22 組、3,513 項通過／0 失敗，見 `docs/test-log-unit.txt`）；e2e：`node tests/e2e.js all`（408 通過／0 失敗，Chromium、WebKit iPhone 13、橫向手機）；RV14 單檔 11,994,670 bytes（<12,000,000）。平衡：`node tools/progress-sim.js --days 30`（P3-1 已執行）。
 
 ---
 
@@ -57,16 +57,17 @@ URL 縮寫：`G2(sn)` = `https://forum.gamer.com.tw/G2.php?bsn=22512&sn=<sn>`；
 - 實作：W967 表 5 的 61 名武將（88 名中）主動 Lv1／Lv6 與無雙基準已加入；4 個姓名差異明確以 alias 對應，未列來源的 27 名維持 D 級既有倍率。
 - 主動技能等級：倍率在 Lv1/Lv6 間線性插值（C）；固定值採 Lv1 +5、Lv5 +75、Lv6 +125，Lv7 起每級 +50；Lv2–4 插值規則列 C。無雙採來源基準 c+10，升級仍沿用未有逐級來源的原本 D 曲線。
 - 截圖上限：楊過主動 6000、劉備無雙 3000；劉備無雙按截圖設為對敵全體攻擊。引擎採每目標單次最終傷害上限，語義列 C；舊 replay 快照維持當時倍率，上限只對新技能快照生效。
-- 資料補丁：`tools/web2-data.js P3` → `tools/web2-p3.js`；來源與可信度寫入 `src/data/provenance.json`。RV13 僅新增技能規則，BOARD-3 棋盤仍為 v12。
-- 驗收：`unit-web2-p3.js` 28/28；全單元 21 組、2,705/2,705；E2E 405/405；RV10–RV12 golden 保持、另建 RV13 golden。30 天標準／加速模式最長連續卡關均為 0 天；12-seed balance 已執行，不需調整 `enemyScale`。
+- 資料補丁：`tools/web2-data.js P3` → `tools/web2-p3.js`；來源與可信度寫入 `src/data/provenance.json`。P3-1 技能倍率在 RV13；P3-2 格圖在 RV14；BOARD-3 棋盤仍為 v12。
+- P3-1 驗收（完成當時）：`unit-web2-p3.js` 28/28；全單元 21 組、2,705/2,705；E2E 405/405；RV10–RV12 golden 保持、另建 RV13 golden。30 天標準／加速模式最長連續卡關均為 0 天；12-seed balance 已執行，不需調整 `enemyScale`。
 - 優先：高；已完成。
 
-### P3-2 967 範圍形狀套到既有武將（未做）
-- 目標：所有武將的普攻／六等／無雙範圍改用 snA967 格圖（tools/glyph967.js 已能轉換，回傳 {ri, shape, ambiguous}）。
-- 證據：C(967) 格圖（B；「●」＝自身格是讀圖推定 C）；C(282) 六等形狀（讀圖 B，模糊 C）；sn8 規則（六大天王六等不變、紫將只有趙雲／呂布不變、藍將全變、無雙不變，B）G2(8)。
-- 檔案：`tools/glyph967.js`、`tools/web2-p2.js`（目前只套用新武將）、`src/data/heroes.json` active.shape、`src/js/rules.js` 範圍計算。
-- 驗收：每名武將 shape 有 provenance（ambiguous 的標 C）；unit 測 sn8 規則；e2e 神武殿格圖顯示正確。
-- 優先：高；相依：P3-1 可同時做。
+### P3-2 967 範圍形狀套到既有武將（已完成，RV14）
+- 覆蓋：W967 有來源的 61/88 名既有武將已映射主動 Lv1、Lv6 與無雙格圖；4 個姓名差異以 alias 對應。49 筆使用 W282 格位截圖（34 張原始 Lv6、15 張 Lv7+ 推用）；其餘 12 筆使用 W967 格圖。未列來源的 27 名武將及主角保留原 pattern/D 級，不臆造格位。
+- sn8 規則：六名綠魂將範圍不變、20 名藍魂將範圍改變、紫將趙雲／呂布不變；紫雲採 W282 直接 Lv6 圖處理 W967「same」差異。熊貓缺清晰 Lv6 格圖，保留 W967 shape 並將未解衝突標 C。
+- Provenance：89 名武將/主角逐人留檔（61 C、28 D）；19 筆 W282 shape?／Lv7+ 推用有逐人 C 級註記（shape? 6、Lv7+ 15，其中 2 筆重疊）。W967 格圖錨點換算規則依 C 級 provenance；資料和來源索引皆可重建。
+- 實作：`tools/web2-p3.js` 寫入 compact offsets（主動 [Lv1,Lv6]、無雙 shape）；`src/js/rules.js` 只在 RV14 套用，新舊 replay 分流，BOARD-3 棋盤維持 v12。新增 `battle-golden-v14.json`；RV10–RV13 golden 不覆寫。
+- 驗收：完整單元 22 組、3,513/3,513；完整 E2E 408/408（桌機 Chromium、WebKit iPhone 13、橫向 Chromium；三平台均驗證神武殿紫雲 Lv6 三格圖）；ES5 全通過，部署單檔 11,994,670 bytes，小於 12,000,000。詳見 `docs/test-log-unit.txt`、`docs/test-log-e2e.txt`。
+- 優先：高；已完成。
 
 ### P3-3 開放等級（未做）
 - 目標：榮譽試煉 8、榮譽商城 8、無極 12、公會 15、聯賽 20、圖騰 20、通天 22、上古 25、將星錄 30（30/45/60/75/80 分段）、華容道 30、武林大會 35、銅雀台 35、觀星台 40、玄機盤 50、除魔殿 65。

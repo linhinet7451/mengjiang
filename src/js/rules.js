@@ -11,7 +11,7 @@ MJ.R = (function () {
   R.EXP_K = 0.6;
   R.expNeed = function (lv) { var b = 3 * lv * lv + 2 * lv + 5; return lv <= 10 ? b : Math.round(b * (1 + (lv - 10) * R.EXP_K)); };
   R.maxLevel = 90; // P5：B（90 級主角升橙）；原為 80（D）
-  R.RV = 13; // v13：技能倍率來源校準；舊版戰報保留快照倍率，rv<13 的重建測試仍走舊曲線
+  R.RV = 14; // v14：既有武將技能範圍依來源格圖；BOARD-3 棋盤仍為 v12，舊戰報保留技能快照
   // D：精力上限（截圖可見精力條，宣傳片 156/156；上限公式為推定）
   R.energyMax = function (lv) { return 100 + lv * 2; };
   R.teamSlots = function (lv) {
@@ -61,14 +61,14 @@ MJ.R = (function () {
   R.enhanceCap = function (st) { return (st.buildings && st.buildings.shenbing) || 1; }; // B：神兵坊等級＝可強化上限
   R.enhanceCost = function (e) { var tpl = R.equipTpl(e.t); return Math.floor((tpl.lv + 5) * ((e.plus || 0) + 1) * C().enhance.silverK); };
   R.enhanceChance = function (e) { var c = C().enhance, p = e.plus || 0; return p < c.freeBelow ? 1 : Math.max(c.chanceMin, 1 - (p - c.freeBelow + 1) * c.chanceStep); };
-  // 技能等級（A：「·神」階）：無來源倍率沿用 D；v13 有 W967 資料者採來源曲線
+  // 技能等級（A：「·神」階）：無來源倍率沿用 D；v13 有 W967 資料者採來源曲線，v14 加入範圍格圖
   R.skillLv = function (h, w) { return (h.sk && h.sk[w]) || 1; };
   R.skillOf = function (h, w) {
     var def = R.heroDef(h.id), base = w === 'a' ? def.active : def.ult, lv = R.skillLv(h, w), c = C().skill;
     if (!base) return null;
     var shen = lv > c.maxLv, k = (1 + c.multPerLv * (Math.min(lv, c.maxLv) - 1)) * (shen ? 1 + c.shenBonus : 1);
     var o = U.extend({}, base);
-    var p3 = base.p3; delete o.p3;
+    var p3 = base.p3, range14 = base.range14; delete o.p3; delete o.range14;
     if (R.RV >= 13 && p3) {
       if (w === 'a' && p3.lv1Mult != null && p3.lv6Mult != null) {
         if (lv <= 6) {
@@ -89,6 +89,15 @@ MJ.R = (function () {
       if (p3.maxDamage != null) o.maxDamage = p3.maxDamage;
     } else {
       o.mult = base.mult * k; o.flat = Math.round((base.flat || 0) * (1 + 0.1 * (lv - 1)));
+    }
+    if (R.RV >= 14 && Array.isArray(range14)) {
+      if (w === 'a' && range14[0] && Array.isArray(range14[0][0])) {
+        o.pattern = 'shape';
+        o.shape = lv >= 6 ? range14[1] : range14[0];
+      } else if (w === 'u' && base.pattern !== 'healAll' && range14[0] && Array.isArray(range14[0])) {
+        o.pattern = 'shape';
+        o.shape = range14;
+      }
     }
     o.mult = Math.round(o.mult * 1000) / 1000;
     o.name = base.name + (shen ? '·神' : ''); o.lv = lv; o.shen = shen;

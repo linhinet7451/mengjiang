@@ -174,6 +174,15 @@
    "region": "台版",
    "grade": "C",
    "note": "當年玩家的記憶，沒有截圖或攻略佐證，最高列 C"
+  },
+  "W8": {
+   "title": "六等變範圍（巴哈姆特精華區 sn=8）",
+   "url": "https://forum.gamer.com.tw/G2.php?bsn=22512&sn=8",
+   "author": "未保存",
+   "date": "未保存",
+   "region": "台版",
+   "grade": "B",
+   "note": "來源索引只保留「六大天王六等不變、紫將僅趙雲／呂布不變、藍將全變、無雙不變」摘要"
   }
  },
  "conflicts": [
@@ -451,6 +460,47 @@
    "handling": "兩邊都保留：新增紫雲（往昔若凝＝治療）；紫霞照舊，標 C",
    "status": "已處理（web2-P2）",
    "grade": "C"
+  },
+  {
+   "id": "P3R-SHAPE-ZIYUN",
+   "item": "紫雲 Lv6 範圍",
+   "sides": [
+    {
+     "claim": "W967 格圖標註 same",
+     "sources": [
+      "W967"
+     ]
+    },
+    {
+     "claim": "W282 直接 Lv6 截圖格位與 W967 基礎格位不同",
+     "sources": [
+      "W282"
+     ]
+    }
+   ],
+   "handling": "以 W282 直接截圖格位為 Lv6 shape；W967 same 記錄保留作為來源差異。",
+   "status": "已處理（web2-P3-2）"
+  },
+  {
+   "id": "P3R-SN8-XIONGMAO",
+   "item": "熊貓 Lv6 範圍",
+   "sides": [
+    {
+     "claim": "sn8 規則：除趙雲、呂布外紫將六等範圍會變",
+     "sources": [
+      "W8"
+     ]
+    },
+    {
+     "claim": "W967 基礎與 Lv6 格圖相同；W282 只記 4 個目標、未記格位",
+     "sources": [
+      "W967",
+      "W282"
+     ]
+    }
+   ],
+   "handling": "沒有直接替代格位可採；保留 W967 shape 並標 C，待取得清晰 Lv6 格圖再解決。",
+   "status": "保留（待補直接範圍格圖）"
   }
  ],
  "entries": [
@@ -2869,6 +2919,1789 @@
    "note": "上限作用範圍是明確的本作解讀，不聲稱原作證據已定義。",
    "tentative": true,
    "conflicts": []
+  },
+  {
+   "id": "web2.range.hero.duanyu",
+   "cat": "技能範圍",
+   "item": "段譽技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W967。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.zhenji",
+   "cat": "技能範圍",
+   "item": "甄姬技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W967。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.yuelingshan",
+   "cat": "技能範圍",
+   "item": "岳靈珊技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W967。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.luzhangke",
+   "cat": "技能範圍",
+   "item": "鹿杖客技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W967。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.wangyuyan",
+   "cat": "技能範圍",
+   "item": "王語嫣技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv6 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.weixiaobao",
+   "cat": "技能範圍",
+   "item": "韋小寶技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv6 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.sunshangxiang",
+   "cat": "技能範圍",
+   "item": "孫尚香技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv6 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "W282 shape? 模糊格位，C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.xiaoqiao",
+   "cat": "技能範圍",
+   "item": "小喬技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282（Lv9 推用）。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv9 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "採 Lv9 圖推用於 Lv6，C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.zhouyu",
+   "cat": "技能範圍",
+   "item": "周瑜技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv6 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.zhugeliang",
+   "cat": "技能範圍",
+   "item": "諸葛亮技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282（Lv7 推用）。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv7 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "採 Lv7 圖推用於 Lv6，C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.caiwenji",
+   "cat": "技能範圍",
+   "item": "蔡文姬技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W967。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.yuanshao",
+   "cat": "技能範圍",
+   "item": "袁紹技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv6 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.ake",
+   "cat": "技能範圍",
+   "item": "阿珂技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv6 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.jianning",
+   "cat": "技能範圍",
+   "item": "建寧公主技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv6 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.liqiushui",
+   "cat": "技能範圍",
+   "item": "李秋水技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv6 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.tianshan",
+   "cat": "技能範圍",
+   "item": "天山童姥技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv6 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.azi",
+   "cat": "技能範圍",
+   "item": "阿紫技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282（Lv9 推用）。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv9 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "採 Lv9 圖推用於 Lv6，C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.xiaozhao",
+   "cat": "技能範圍",
+   "item": "小昭技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv6 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.ziyun",
+   "cat": "技能範圍",
+   "item": "紫雲技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv6 直接格圖"
+    }
+   ],
+   "conflicts": [
+    "P3R-SHAPE-ZIYUN"
+   ],
+   "phase": "web2-P3-2",
+   "note": "來源差異：P3R-SHAPE-ZIYUN。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.huangyueying",
+   "cat": "技能範圍",
+   "item": "黃月英技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv6 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.diaochan",
+   "cat": "技能範圍",
+   "item": "貂蟬技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282（Lv7 推用）。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv7 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "採 Lv7 圖推用於 Lv6，C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.huangrong",
+   "cat": "技能範圍",
+   "item": "黃蓉技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282（Lv7 推用）。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv7 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "W282 shape? 模糊格位，C。採 Lv7 圖推用於 Lv6，C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.dongfang",
+   "cat": "技能範圍",
+   "item": "東方不敗技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282（Lv7 推用）。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv7 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "W282 shape? 模糊格位，C。採 Lv7 圖推用於 Lv6，C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.xiaolongnv",
+   "cat": "技能範圍",
+   "item": "小龍女技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv6 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.daqiao",
+   "cat": "技能範圍",
+   "item": "大喬技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282（Lv7 推用）。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv7 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "採 Lv7 圖推用於 Lv6，C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.shuanger",
+   "cat": "技能範圍",
+   "item": "雙兒技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv6 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.renyingying",
+   "cat": "技能範圍",
+   "item": "任盈盈技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv6 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.zhangjiao",
+   "cat": "技能範圍",
+   "item": "張角技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W967。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.qiuchuji",
+   "cat": "技能範圍",
+   "item": "邱處機技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W967。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.huaxiong",
+   "cat": "技能範圍",
+   "item": "華雄技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W967。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.dongzhuo",
+   "cat": "技能範圍",
+   "item": "董卓技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv6 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.aobai",
+   "cat": "技能範圍",
+   "item": "鰲拜技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv6 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.xuchu",
+   "cat": "技能範圍",
+   "item": "許褚技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv6 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.zhangliao",
+   "cat": "技能範圍",
+   "item": "張遼技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv6 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.zuolengchan",
+   "cat": "技能範圍",
+   "item": "左冷禪技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv6 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.yanliang",
+   "cat": "技能範圍",
+   "item": "顏良技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv6 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.zhoubotong",
+   "cat": "技能範圍",
+   "item": "周伯通技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282（Lv7 推用）。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv7 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "採 Lv7 圖推用於 Lv6，C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.caocao",
+   "cat": "技能範圍",
+   "item": "曹操技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv6 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.xiongmao",
+   "cat": "技能範圍",
+   "item": "熊貓技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W967。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    }
+   ],
+   "conflicts": [
+    "P3R-SN8-XIONGMAO"
+   ],
+   "phase": "web2-P3-2",
+   "note": "來源差異：P3R-SN8-XIONGMAO。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.xuzhu",
+   "cat": "技能範圍",
+   "item": "虛竹技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv6 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.lvbu",
+   "cat": "技能範圍",
+   "item": "呂布技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W967。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.guojing",
+   "cat": "技能範圍",
+   "item": "郭靖技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282（Lv9 推用）。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv9 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "採 Lv9 圖推用於 Lv6，C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.yangguo",
+   "cat": "技能範圍",
+   "item": "楊過技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv6 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "W282 shape? 模糊格位，C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.zhangfei",
+   "cat": "技能範圍",
+   "item": "張飛技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282（Lv9 推用）。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv9 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "採 Lv9 圖推用於 Lv6，C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.wuyazi",
+   "cat": "技能範圍",
+   "item": "無崖子技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282（Lv7 推用）。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv7 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "採 Lv7 圖推用於 Lv6，C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.xiaofeng",
+   "cat": "技能範圍",
+   "item": "蕭峰技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv6 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.guanyu",
+   "cat": "技能範圍",
+   "item": "關羽技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282（Lv7 推用）。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv7 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "採 Lv7 圖推用於 Lv6，C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.renwoxing",
+   "cat": "技能範圍",
+   "item": "任我行技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv6 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.xiahoudun",
+   "cat": "技能範圍",
+   "item": "夏侯惇技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282（Lv7 推用）。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv7 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "採 Lv7 圖推用於 Lv6，C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.taishici",
+   "cat": "技能範圍",
+   "item": "太史慈技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv6 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.meichaofeng",
+   "cat": "技能範圍",
+   "item": "梅超風技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv6 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.limochou",
+   "cat": "技能範圍",
+   "item": "李莫愁技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv6 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.sunce",
+   "cat": "技能範圍",
+   "item": "孫策技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282（Lv7 推用）。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv7 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "採 Lv7 圖推用於 Lv6，C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.dianwei",
+   "cat": "技能範圍",
+   "item": "典韋技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv6 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.miejue",
+   "cat": "技能範圍",
+   "item": "滅絕師太技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv6 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "W282 shape? 模糊格位，C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.sunquan",
+   "cat": "技能範圍",
+   "item": "孫權技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282（Lv7 推用）。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv7 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "採 Lv7 圖推用於 Lv6，C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.liubei",
+   "cat": "技能範圍",
+   "item": "劉備技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W967。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.zhaoyun",
+   "cat": "技能範圍",
+   "item": "趙雲技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W967。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.zhangwuji",
+   "cat": "技能範圍",
+   "item": "張無忌技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv6 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.machao",
+   "cat": "技能範圍",
+   "item": "馬超技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv6 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "W282 shape? 模糊格位，C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.linghuchong",
+   "cat": "技能範圍",
+   "item": "令狐沖技能範圍",
+   "spec": "格圖",
+   "current": "普攻／無雙 W967；Lv6 W282。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能格圖"
+    },
+    {
+     "s": "W282",
+     "q": "Lv6 直接格圖"
+    }
+   ],
+   "conflicts": [],
+   "phase": "web2-P3-2",
+   "note": "●／■ 轉相對位移依 web2.range.glyph，規則為 C。",
+   "tentative": true
+  },
+  {
+   "id": "web2.range.hero.guanhai",
+   "cat": "技能範圍",
+   "item": "管亥技能範圍",
+   "spec": "未列來源",
+   "current": "未列來源；RV14 保留原 pattern。",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [],
+   "phase": "web2-P3-2",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "web2.range.hero.dengmao",
+   "cat": "技能範圍",
+   "item": "鄧茂技能範圍",
+   "spec": "未列來源",
+   "current": "未列來源；RV14 保留原 pattern。",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [],
+   "phase": "web2-P3-2",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "web2.range.hero.chengyz",
+   "cat": "技能範圍",
+   "item": "程遠志技能範圍",
+   "spec": "未列來源",
+   "current": "未列來源；RV14 保留原 pattern。",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [],
+   "phase": "web2-P3-2",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "web2.range.hero.ludayou",
+   "cat": "技能範圍",
+   "item": "陸大有技能範圍",
+   "spec": "未列來源",
+   "current": "未列來源；RV14 保留原 pattern。",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [],
+   "phase": "web2-P3-2",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "web2.range.hero.liaohua",
+   "cat": "技能範圍",
+   "item": "廖化技能範圍",
+   "spec": "未列來源",
+   "current": "未列來源；RV14 保留原 pattern。",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [],
+   "phase": "web2-P3-2",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "web2.range.hero.zhoucang",
+   "cat": "技能範圍",
+   "item": "周倉技能範圍",
+   "spec": "未列來源",
+   "current": "未列來源；RV14 保留原 pattern。",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [],
+   "phase": "web2-P3-2",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "web2.range.hero.peiys",
+   "cat": "技能範圍",
+   "item": "裴元紹技能範圍",
+   "spec": "未列來源",
+   "current": "未列來源；RV14 保留原 pattern。",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [],
+   "phase": "web2-P3-2",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "web2.range.hero.tianbg",
+   "cat": "技能範圍",
+   "item": "田伯光技能範圍",
+   "spec": "未列來源",
+   "current": "未列來源；RV14 保留原 pattern。",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [],
+   "phase": "web2-P3-2",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "web2.range.hero.yucanghai",
+   "cat": "技能範圍",
+   "item": "余滄海技能範圍",
+   "spec": "未列來源",
+   "current": "未列來源；RV14 保留原 pattern。",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [],
+   "phase": "web2-P3-2",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "web2.range.hero.baobutong",
+   "cat": "技能範圍",
+   "item": "包不同技能範圍",
+   "spec": "未列來源",
+   "current": "未列來源；RV14 保留原 pattern。",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [],
+   "phase": "web2-P3-2",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "web2.range.hero.zhurong",
+   "cat": "技能範圍",
+   "item": "祝融夫人技能範圍",
+   "spec": "未列來源",
+   "current": "未列來源；RV14 保留原 pattern。",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [],
+   "phase": "web2-P3-2",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "web2.range.hero.hongqigong",
+   "cat": "技能範圍",
+   "item": "洪七公技能範圍",
+   "spec": "未列來源",
+   "current": "未列來源；RV14 保留原 pattern。",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [],
+   "phase": "web2-P3-2",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "web2.range.hero.weiyan",
+   "cat": "技能範圍",
+   "item": "魏延技能範圍",
+   "spec": "未列來源",
+   "current": "未列來源；RV14 保留原 pattern。",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [],
+   "phase": "web2-P3-2",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "web2.range.hero.zixia",
+   "cat": "技能範圍",
+   "item": "紫霞技能範圍",
+   "spec": "未列來源",
+   "current": "未列來源；RV14 保留原 pattern。",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [],
+   "phase": "web2-P3-2",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "web2.range.hero.huangyaoshi",
+   "cat": "技能範圍",
+   "item": "黃藥師技能範圍",
+   "spec": "未列來源",
+   "current": "未列來源；RV14 保留原 pattern。",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [],
+   "phase": "web2-P3-2",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "web2.range.hero.ouyangfeng",
+   "cat": "技能範圍",
+   "item": "歐陽鋒技能範圍",
+   "spec": "未列來源",
+   "current": "未列來源；RV14 保留原 pattern。",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [],
+   "phase": "web2-P3-2",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "web2.range.hero.huangzhong",
+   "cat": "技能範圍",
+   "item": "黃忠技能範圍",
+   "spec": "未列來源",
+   "current": "未列來源；RV14 保留原 pattern。",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [],
+   "phase": "web2-P3-2",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "web2.range.hero.ganning",
+   "cat": "技能範圍",
+   "item": "甘寧技能範圍",
+   "spec": "未列來源",
+   "current": "未列來源；RV14 保留原 pattern。",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [],
+   "phase": "web2-P3-2",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "web2.range.hero.simayi",
+   "cat": "技能範圍",
+   "item": "司馬懿技能範圍",
+   "spec": "未列來源",
+   "current": "未列來源；RV14 保留原 pattern。",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [],
+   "phase": "web2-P3-2",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "web2.range.hero.zhizunbao",
+   "cat": "技能範圍",
+   "item": "至尊寶技能範圍",
+   "spec": "未列來源",
+   "current": "未列來源；RV14 保留原 pattern。",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [],
+   "phase": "web2-P3-2",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "web2.range.hero.yuebuqun",
+   "cat": "技能範圍",
+   "item": "岳不群技能範圍",
+   "spec": "未列來源",
+   "current": "未列來源；RV14 保留原 pattern。",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [],
+   "phase": "web2-P3-2",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "web2.range.hero.caobao",
+   "cat": "技能範圍",
+   "item": "曹豹技能範圍",
+   "spec": "未列來源",
+   "current": "未列來源；RV14 保留原 pattern。",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [],
+   "phase": "web2-P3-2",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "web2.range.hero.caode",
+   "cat": "技能範圍",
+   "item": "曹德技能範圍",
+   "spec": "未列來源",
+   "current": "未列來源；RV14 保留原 pattern。",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [],
+   "phase": "web2-P3-2",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "web2.range.hero.caoang",
+   "cat": "技能範圍",
+   "item": "曹昂技能範圍",
+   "spec": "未列來源",
+   "current": "未列來源；RV14 保留原 pattern。",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [],
+   "phase": "web2-P3-2",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "web2.range.hero.caojie",
+   "cat": "技能範圍",
+   "item": "曹節技能範圍",
+   "spec": "未列來源",
+   "current": "未列來源；RV14 保留原 pattern。",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [],
+   "phase": "web2-P3-2",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "web2.range.hero.dingguan",
+   "cat": "技能範圍",
+   "item": "丁管技能範圍",
+   "spec": "未列來源",
+   "current": "未列來源；RV14 保留原 pattern。",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [],
+   "phase": "web2-P3-2",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "web2.range.hero.hantiemo",
+   "cat": "技能範圍",
+   "item": "汗貼摩技能範圍",
+   "spec": "未列來源",
+   "current": "未列來源；RV14 保留原 pattern。",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [],
+   "phase": "web2-P3-2",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "web2.range.hero.lead",
+   "cat": "技能範圍",
+   "item": "主角技能範圍",
+   "spec": "未列來源",
+   "current": "未列來源；RV14 保留原 pattern。",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [],
+   "phase": "web2-P3-2",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "web2.skill.rangeShapes",
+   "cat": "技能範圍",
+   "item": "既有武將普攻／六等／無雙格圖",
+   "spec": "snA967／snA282／sn8",
+   "current": "61 名 W967 武將已映射；49 名有 W282 直接格位截圖（34 張 Lv6、15 張 Lv7+ 推用），其餘使用 W967 六等格圖。另 28 名（含主角）未列來源，保留原 pattern。每名均有 web2.range.hero.* provenance；格圖轉位依賴 C 級錨點推定。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "61 名普攻／六等普攻／無雙格圖"
+    },
+    {
+     "s": "W282",
+     "q": "34 張 Lv6 格位圖、15 張 Lv7+ 推用；模糊形狀 C"
+    },
+    {
+     "s": "W8",
+     "q": "六等範圍變化規則"
+    }
+   ],
+   "conflicts": [
+    "P3R-SHAPE-ZIYUN",
+    "P3R-SN8-XIONGMAO"
+   ],
+   "phase": "web2-P3",
+   "note": "有 W282 格位圖時優先；Lv7+ 推用及模糊格位標 C；缺來源者不作推測。",
+   "tentative": true
+  },
+  {
+   "id": "web2.skill.rangeLv6Rules",
+   "cat": "技能範圍",
+   "item": "六等範圍變化與無雙不變",
+   "spec": "sn8",
+   "current": "六大天王（六名綠魂將）不變；紫將趙雲、呂布不變；藍將全部改變；無雙範圍不隨等級改變。紫雲依 W282 Lv6 直接圖採改變；熊貓 W967 基礎／Lv6 格圖相同，W282 未提供形狀，保留 C 級衝突。",
+   "grade": "B",
+   "label": "原版（當年攻略記載）",
+   "sources": [
+    {
+     "s": "W8",
+     "q": "初期六天王六等不變、紫將只有趙雲／呂布不變、藍將全變、無雙不變"
+    },
+    {
+     "s": "W282",
+     "q": "Lv6 技能截圖格位；紫雲三格範圍"
+    },
+    {
+     "s": "W967",
+     "q": "表 5 格圖"
+    }
+   ],
+   "conflicts": [
+    "P3R-SHAPE-ZIYUN",
+    "P3R-SN8-XIONGMAO"
+   ],
+   "phase": "web2-P3",
+   "note": "來源衝突不以臆測補格：紫雲採用直接 Lv6 圖；熊貓暫保留 W967 明確格圖，待清晰截圖。",
+   "tentative": false
   }
  ]
 }

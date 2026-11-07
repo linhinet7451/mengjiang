@@ -49,7 +49,7 @@ pass-lines 40
 結果：通過 47，失敗 0
 pass-lines 48
 === unit-prov
-結果：通過 1136，失敗 0
+結果：通過 1928，失敗 0
 pass-lines 1
 === unit-art
 結果：通過 827，失敗 0
@@ -64,6 +64,9 @@ pass-lines 35
 === unit-web2-p3
 結果：通過 28，失敗 0
 pass-lines 29
+=== unit-web2-p3-range
+結果：通過 15，失敗 0
+pass-lines 16
 === unit-fix
   通過 rv 8 單位維持舊規則（舊戰報結果不變）
   通過 v9 規則（R.RV=9）固定種子戰鬥結果與 battle-golden-v9.json 相同（改規則時要更新樣本）
@@ -82,9 +85,9 @@ pass-lines 37
 === unit-wrap12
   通過 v12 規則固定種子結果與 battle-golden-v12.json 相同
   通過 v12 與 v11 結果不同（確實換了規則）
-  通過 v13 技能倍率固定種子結果與 battle-golden-v13.json 相同
-結果：通過 23／失敗 0
-pass-lines 24
+  通過 v14 技能格圖固定種子結果與 battle-golden-v14.json 相同
+結果：通過 24／失敗 0
+pass-lines 25
 === unit-bagfix
   通過 卸裝備不再因包裹滿而失敗
 結果：通過 7／失敗 0

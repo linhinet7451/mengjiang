@@ -27,6 +27,7 @@ src('W47', { title: '將星錄組合（巴哈姆特精華區 sn=47／53／48）'
 src('W4892', { title: '1.5.9 陣法優劣（巴哈姆特哈啦板 snA=4892）', url: 'https://m.gamer.com.tw/forum/C.php?bsn=22512&snA=4892', author: '巴哈玩家（轉自大陸玩家）', date: '2013-03-13', region: '陸版轉貼', grade: 'B', note: '內嵌 tooltip 截圖為 A' });
 src('W541', { title: '合成公式表（巴哈姆特哈啦板 snA=541）', url: 'https://m.gamer.com.tw/forum/C.php?bsn=22512&snA=541', author: '巴哈玩家', date: '2012-06', region: '台版', grade: 'B' });
 src('W282', { title: '6 級技能範圍（巴哈姆特哈啦板 snA=282，14 張技能截圖）', url: 'https://m.gamer.com.tw/forum/C.php?bsn=22512&snA=282', author: '孤風蒼月', date: '2012-05-30～2013-02', region: '台版', grade: 'A', note: '截圖為原版畫面（A）；內文規則為 B' });
+src('W8', { title: '六等變範圍（巴哈姆特精華區 sn=8）', url: 'https://forum.gamer.com.tw/G2.php?bsn=22512&sn=8', author: '未保存', date: '未保存', region: '台版', grade: 'B', note: '來源索引只保留「六大天王六等不變、紫將僅趙雲／呂布不變、藍將全變、無雙不變」摘要' });
 src('WPV', { title: '官方宣傳片「猛將無雙 ／ Facebook 臉書網頁遊戲 ／ 宣傳片」（YouTube，本地 reference/web2/video）', url: 'https://www.youtube.com/watch?v=tcxWoC-Rtb8', author: 'XtremeLegend2013', date: '2013-11-04', region: '台版', grade: 'A' });
 
 if (phases.indexOf('P1') >= 0) {
@@ -78,8 +79,8 @@ if (phases.indexOf('P2') >= 0) {
   console.log('P2 made', r2.made.length, 'passives', r2.nP, 'partners', r2.nL);
 }
 if (phases.indexOf('P3') >= 0) {
-  var r3 = require('./web2-p3.js')({ H: H, P: P, entry: entry, LB: LB });
-  console.log('P3 mapped', r3.mapped, '/', r3.rows, 'skill rows');
+  var r3 = require('./web2-p3.js')({ H: H, P: P, entry: entry, conflict: conflict, LB: LB });
+  console.log('P3 mapped', r3.mapped, '/', r3.rows, 'skill rows; ranges', r3.ranges, 'sourced /', r3.fallbackRanges, 'fallback');
 }
 if (phases.indexOf('P1') >= 0 || 1) { wr('heroes', H); wr('config', C); wr('formations', F); wr('provenance', P); }
 console.log('web2-data done', phases.join(','), 'heroes', H.list.length, 'prov', P.entries.length);

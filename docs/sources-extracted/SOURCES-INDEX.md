@@ -143,7 +143,7 @@
 
 - URL：https://forum.gamer.com.tw/C.php?bsn=22512&snA=967
 - 作者：gjo3xu04（水瀲）；日期：2012-06-14～2013-05-23；地區：台版；等級：B
-- 採用的事實（11 筆 provenance）：
+- 採用的事實（77 筆 provenance）：
   - `web2.hero.quality`〔B〕19 名武將品質修正：綠→藍 7、藍→紫 11、綠→紫 1（熊貓）
   - `web2.hero.type`〔B〕12 名武將類型修正：孫尚香/小喬 智耐、黃月英/雙兒 智敏、周伯通/曹操/呂布 力耐、典韋/滅絕/孫權/劉備/段譽 力敏；成長改為該類型成長
   - `web2.range.anchor`〔A〕範圍以施放者自己的格子為起點：技能範圍圖的起點是武將自己（往前數格）
@@ -154,7 +154,11 @@
   - `web2.passive.values`〔B〕被動數值（v9）：熱血 +5%、息怒 30%、連斬 20%、不死 15%、破咒 30%、吸血 12%/10%、化解 30% 偷 10、忍耐 30%、療傷 50% 攻擊×20%、復甦 5%/15%/2 次、回斬 15%、虛弱 31%/−24%/5 回合、辟邪 −50%、還施彼身 50%/300、凝心 +1%+2%/級、殺氣訣／強刃／強甲 +10
   - `web2.partner`〔B〕連攜對象：58 名武將有連攜對象
   - `web2.hero.new15`〔B〕補上 15 名武將：袁紹、阿珂、天山童姥、董卓、鰲拜、張遼、左冷禪、顏良、李莫愁、無崖子、任我行、夏侯惇、小昭、紫雲、甄姬（名稱／品質／類型／被動／連攜 B；技能名／倍率／外觀 D）
-  - `web2.range.glyph`〔C〕新武將攻擊範圍：格圖換算：● 是空白對齊；武將所在列（奇數列取中間）第一格 ■ 是自己，往右是前方第 1、2…格；7 列無雙圖只取上下 2 列
+  - `web2.range.glyph`〔C〕格圖換算：● 是空白對齊；武將所在列（奇數列取中間）第一格 ■ 是自己，往右是前方第 1、2…格；7 列無雙圖只取上下 2 列
+  - `web2.skill.rates`〔B〕技能倍率基準：61 名武將採表 5；其餘未列武將維持 D
+  - `web2.skill.activeCurve`〔C〕主動技能 Lv1/Lv6 倍率插值與固定值曲線
+  - `web2.skill.ultProgression`〔D〕無雙來源基準與本作升級曲線
+  - `web2.skill.rangeShapes`、`web2.skill.rangeLv6Rules`〔C/B〕及 `web2.range.hero.*`（61 筆）〔C〕既有武將普攻／六等／無雙格圖及逐人來源
 
 ### W60 — 將魂/品質表（巴哈姆特精華區 sn=60，轉貼百度）
 
@@ -226,9 +230,19 @@
 
 - URL：https://m.gamer.com.tw/forum/C.php?bsn=22512&snA=282
 - 作者：孤風蒼月；日期：2012-05-30～2013-02；地區：台版；等級：A；備註：截圖為原版畫面（A）；內文規則為 B
-- 採用的事實（2 筆 provenance）：
+- 採用的事實（56 筆 provenance）：
   - `web2.hero.type`〔B〕12 名武將類型修正：孫尚香/小喬 智耐、黃月英/雙兒 智敏、周伯通/曹操/呂布 力耐、典韋/滅絕/孫權/劉備/段譽 力敏；成長改為該類型成長
   - `web2.slot.necklace`〔A〕玉墜部位改稱項鍊：只改顯示名稱，存檔欄位 jade 不變
+  - `web2.skill.activeCurve`〔C〕、`web2.skill.capObserved`〔A〕、`web2.skill.capRule`〔C〕：技能曲線節點、傷害上限與引擎解讀
+  - `web2.skill.rangeShapes`、`web2.skill.rangeLv6Rules` 及 49 筆 `web2.range.hero.*`〔C/B〕：49 張 W282 格位截圖中有 34 張原為 Lv6、15 張為 Lv7+ 推用；均優先於 W967 轉換格圖，模糊或高等級推用標 C
+
+### W8 — 六等範圍規則（巴哈姆特精華區 sn=8）
+
+- URL：https://forum.gamer.com.tw/G2.php?bsn=22512&sn=8
+- 作者：未保存；日期：未保存；地區：台版；等級：B
+- 採用的事實（2 筆 provenance）：
+  - `web2.skill.rangeLv6Rules`〔B〕六大天王六等不變、紫將僅趙雲／呂布不變、藍將全變、無雙不變
+  - `web2.skill.rangeShapes`〔C〕：W8 規則套用於既有範圍映射；逐名 shape entries 另直接引用 W967/W282
 
 ### WPV — 官方宣傳片「猛將無雙 ／ Facebook 臉書網頁遊戲 ／ 宣傳片」（YouTube，本地 reference/web2/video）
 

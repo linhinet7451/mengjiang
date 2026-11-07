@@ -123,7 +123,7 @@ ok(JSON.stringify(now11) !== JSON.stringify(g10), 'v11 與 v10 結果不同（�
 console.log('[遊戲內戰鬥]');
 c = load(); M = c.MJ; M.U.now = function () { return 1767225600000; }; M.G.newGame('測', '力耐', 'm', 1);
 var res = M.G.fight('s1_1', 99);
-ok(res.battle.board && res.battle.board.v === 12 && res.battle.units.every(function (u) { return u.br === Math.floor(u.cell0 / 3); }), '實際關卡仍使用 BOARD-3 v12 棋盤（RV13 僅新增技能規則），沒有人換列');
+ok(res.battle.board && res.battle.board.v === 12 && res.battle.units.every(function (u) { return u.br === Math.floor(u.cell0 / 3); }), '實際關卡仍使用 BOARD-3 v12 棋盤（RV14 僅新增技能範圍），沒有人換列');
 var nt = 0;
 for (var s = 1; s <= 30; s++) { var rr = M.G.fight(['s1_1', 's1_2', 's1_3'][s % 3], s * 13); if (rr.battle.timeout) nt++; }
 ok(nt <= 3, '前三關 30 場超時 ' + nt + ' 場');

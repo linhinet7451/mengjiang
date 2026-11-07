@@ -114,6 +114,14 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   await act('[data-a="hallTab"][data-v="skill"]');
   ok((await page.locator('#screen').innerText()).indexOf('無雙') >= 0, '技能分頁顯示 主動/無雙/被動');
   await shot('6-hall-skill');
+  var shapeView = await J(function () {
+    var z = MJ.G.newHero('ziyun', MJ.S.state); z.lv = 9; z.sk = { a: 6, u: 1 }; MJ.S.state.heroes.push(z); MJ.G.commit();
+    MJ.UI.sel.hallUid = z.uid; MJ.UI.sel.hallTab = 'skill'; MJ.UI.render();
+    var g = document.querySelector('#screen .skill3 .pgrid.rgrid');
+    return { pattern: MJ.R.skillOf(z, 'a').pattern, level: MJ.R.skillLv(z, 'a'), targets: g ? g.querySelectorAll('i.on').length : 0, title: document.querySelector('#screen').innerText };
+  });
+  ok(shapeView.pattern === 'shape' && shapeView.level === 6 && shapeView.targets === 3 && shapeView.title.indexOf('Lv6') >= 0, '神武殿實際顯示紫雲 Lv6 三格主動範圍（W282 直接格位）');
+  await shot('6a-hall-skill-range');
 
   // ---------- 第二階段：養成 ----------
   await J(function () { var l = MJ.G.lead(); l.lv = Math.max(l.lv, 20); MJ.S.state.player.silver += 1e6; ['jinengshu', 'peiyangdan', 'xilianshi', 'xinfacanye'].forEach(function (k) { MJ.G.addItem(k, 20); }); MJ.G.addItem('xf_jinzhong', 1); MJ.G.addItem('gem_atk_1', 5); MJ.G.commit(); MJ.UI.sel.hallUid = l.uid; MJ.UI.sel.hallTab = 'skill'; MJ.UI.render(); });

@@ -5,6 +5,12 @@ module.exports = function (o) {
   var H = o.H, entry = o.entry, LB = o.LB;
   var sourcePath = path.join(__dirname, '..', 'docs', 'sources-extracted', 'web2', 'c-snA967-skills.json');
   var rows = JSON.parse(fs.readFileSync(sourcePath, 'utf8'));
+  var gridPath = path.join(__dirname, '..', 'docs', 'sources-extracted', 'web2', 'c-snA967-grids.json');
+  var grids = JSON.parse(fs.readFileSync(gridPath, 'utf8'));
+  var heroPath = path.join(__dirname, '..', 'docs', 'sources-extracted', 'web2', 'c-snA967-heroes.json');
+  var sourceHeroes = JSON.parse(fs.readFileSync(heroPath, 'utf8'));
+  var lv6Path = path.join(__dirname, '..', 'docs', 'sources-extracted', 'web2', 'c-snA282-lv6.json');
+  var lv6Rows = JSON.parse(fs.readFileSync(lv6Path, 'utf8')).heroes;
   var byName = {}, aliases = {
     '建甯公主': '建寧公主',
     '丘處機': '邱處機',
@@ -39,6 +45,90 @@ module.exports = function (o) {
   lb.ult.p3.maxDamage = 3000;
   lb.ult.p3.pattern = 'all';
 
+  // P3-2：將既有武將的 snA967 格圖轉成可執行範圍。若 W282 有直接 Lv6 截圖，
+  // 優先採用該格位；W967 的 ●/■ 錨點轉換仍標 C，來源缺列者維持既有 D pattern。
+  var glyph967 = require('./glyph967.js'), byId = {}, gridById = {}, heroMeta = {}, lv6ById = {};
+  H.list.forEach(function (h) { byName[h.name] = h; byId[h.id] = h; });
+  sourceHeroes.forEach(function (h) { if (h.color && h.color !== '-') heroMeta[h.name] = h; });
+  function sourceDisplay(name) { return aliases[name] || name; }
+  Object.keys(grids).forEach(function (name) {
+    var display = sourceDisplay(name), h = byName[display];
+    if (!h) throw new Error('P3-2 W967 格圖未映射：' + name);
+    if (gridById[h.id]) throw new Error('P3-2 W967 格圖重複映射：' + h.id);
+    gridById[h.id] = { name: name, rows: grids[name] };
+  });
+  Object.keys(lv6Rows).forEach(function (name) {
+    var display = sourceDisplay(name), h = byName[display], row = lv6Rows[name];
+    if (row.shape) {
+      if (!h) throw new Error('P3-2 W282 Lv6 格圖未映射：' + name);
+      lv6ById[h.id] = { name: name, row: row };
+    }
+  });
+  function shapeKey(shape) {
+    return JSON.stringify((shape || []).map(function (p) { return [p[0], p[1]]; }).sort(function (a, b) { return a[0] - b[0] || a[1] - b[1]; }));
+  }
+  function checkShape(shape, label) {
+    var seen = {};
+    if (!Array.isArray(shape) || !shape.length) throw new Error('P3-2 空範圍：' + label);
+    shape.forEach(function (p) {
+      if (!Array.isArray(p) || p.length !== 2 || Math.floor(p[0]) !== p[0] || Math.floor(p[1]) !== p[1] || p[0] < -2 || p[0] > 2 || p[1] < 0) throw new Error('P3-2 無效 offset：' + label);
+      var k = p[0] + ',' + p[1]; if (seen[k]) throw new Error('P3-2 重複 offset：' + label); seen[k] = true;
+    });
+  }
+  var sixKings = ['岳靈珊', '鹿杖客', '蔡文姬', '張角', '丘處機', '華雄'];
+  var purpleUnchanged = ['趙雲', '呂布'];
+  var rangeConflicts = [], ranges = 0, fallbackRanges = 0, w282ShapeRows = 0, w282HighRows = 0;
+  function recordConflict(c) { if (o.conflict) o.conflict(c); rangeConflicts.push(c.id); }
+  function addFallback(h) {
+    var id = 'web2.range.hero.' + h.id;
+    delete h.active.range14; delete h.ult.range14;
+    entry({ id: id, cat: '技能範圍', item: h.name + '技能範圍', spec: '未列來源', current: '未列來源；RV14 保留原 pattern。', grade: 'D', label: LB.D, sources: [], phase: 'web2-P3-2' });
+    fallbackRanges++;
+  }
+  Object.keys(gridById).forEach(function (id) {
+    var h = byId[id], srcRow = gridById[id], row = srcRow.rows, meta = heroMeta[srcRow.name];
+    if (!meta || !h.active || !h.ult || !Array.isArray(row) || row.length !== 3) throw new Error('P3-2 W967 缺技能／色階欄：' + srcRow.name);
+    var basic = glyph967(row[0]), ult = glyph967(row[2]), w282 = lv6ById[id], rawLv6 = row[1] === 'same' ? basic : glyph967(row[1]);
+    var level6Shape = w282 ? w282.row.shape : rawLv6.shape;
+    checkShape(basic.shape, srcRow.name + ' Lv1'); checkShape(level6Shape, srcRow.name + ' Lv6'); checkShape(ult.shape, srcRow.name + ' ult');
+    var changed = shapeKey(basic.shape) !== shapeKey(level6Shape), lv6Source = w282 ? 'W282' : 'W967';
+    var lv6Ambiguous = w282 ? !!w282.row.q : (row[1] !== 'same' && rawLv6.ambiguous);
+    var heroConflicts = [];
+    if (row[1] === 'same' && w282 && changed) {
+      var sameConflict = 'P3R-SHAPE-' + h.id.toUpperCase();
+      recordConflict({ id: sameConflict, item: h.name + ' Lv6 範圍', sides: [{ claim: 'W967 格圖標註 same', sources: ['W967'] }, { claim: 'W282 直接 Lv' + w282.row.lv + ' 截圖格位與 W967 基礎格位不同', sources: ['W282'] }], handling: '以 W282 直接截圖格位為 Lv6 shape；W967 same 記錄保留作為來源差異。', status: '已處理（web2-P3-2）' });
+      heroConflicts.push(sameConflict);
+    }
+    if (meta.color === '綠' && sixKings.indexOf(srcRow.name) < 0) throw new Error('P3-2 未知綠魂將：' + srcRow.name);
+    if (meta.color === '綠' && changed) throw new Error('P3-2 sn8 六大天王範圍應不變：' + srcRow.name);
+    if (meta.color === '藍' && !changed) throw new Error('P3-2 sn8 藍將範圍應改變：' + srcRow.name);
+    if (meta.color === '紫' && purpleUnchanged.indexOf(srcRow.name) >= 0 && changed) throw new Error('P3-2 sn8 紫將例外應不變：' + srcRow.name);
+    if (meta.color === '紫' && purpleUnchanged.indexOf(srcRow.name) < 0 && !changed) {
+      var ruleConflict = 'P3R-SN8-' + h.id.toUpperCase();
+      recordConflict({ id: ruleConflict, item: h.name + ' Lv6 範圍', sides: [{ claim: 'sn8 規則：除趙雲、呂布外紫將六等範圍會變', sources: ['W8'] }, { claim: 'W967 基礎與 Lv6 格圖相同；W282 只記 4 個目標、未記格位', sources: ['W967', 'W282'] }], handling: '沒有直接替代格位可採；保留 W967 shape 並標 C，待取得清晰 Lv6 格圖再解決。', status: '保留（待補直接範圍格圖）' });
+      heroConflicts.push(ruleConflict);
+    }
+    var pid = 'web2.range.hero.' + h.id;
+    h.active.range14 = [basic.shape, level6Shape];
+    h.ult.range14 = ult.shape;
+    var srcs = [{ s: 'W967', q: '技能格圖' }];
+    if (w282) srcs.push({ s: 'W282', q: 'Lv' + w282.row.lv + ' 直接格圖' });
+    var detailNote = '';
+    if (lv6Ambiguous) detailNote += (w282 ? 'W282' : 'W967') + ' shape? 模糊格位，C。';
+    if (basic.ambiguous || ult.ambiguous) detailNote += 'W967 基礎／無雙格圖讀圖有歧義，C。';
+    if (w282 && w282.row.lv > 6) detailNote += '採 Lv' + w282.row.lv + ' 圖推用於 Lv6，C。';
+    if (heroConflicts.length) detailNote += '來源差異：' + heroConflicts.join('、') + '。';
+    entry({ id: pid, cat: '技能範圍', item: h.name + '技能範圍', spec: '格圖', current: '普攻／無雙 W967；Lv6 ' + lv6Source + (w282 && w282.row.lv > 6 ? '（Lv' + w282.row.lv + ' 推用）' : '') + '。', grade: 'C', label: LB.C, sources: srcs, conflicts: heroConflicts, phase: 'web2-P3-2', note: detailNote || '●／■ 轉相對位移依 web2.range.glyph，規則為 C。' });
+    ranges++;
+    if (w282) { w282ShapeRows++; if (w282.row.lv > 6) w282HighRows++; }
+  });
+  H.list.forEach(function (h) { if (!gridById[h.id]) addFallback(h); });
+  addFallback(H.lead);
+  if (ranges !== Object.keys(grids).length || ranges !== 61 || w282ShapeRows !== 49 || w282HighRows !== 15 || fallbackRanges !== H.list.length + 1 - ranges) throw new Error('P3-2 範圍筆數不一致：來源 ' + Object.keys(grids).length + '，映射 ' + ranges + '，W282 格位 ' + w282ShapeRows + '（Lv6 ' + (w282ShapeRows - w282HighRows) + '、Lv7+ ' + w282HighRows + '），fallback ' + fallbackRanges);
+  var allConflictIds = rangeConflicts.slice();
+  entry({ id: 'web2.skill.rangeShapes', cat: '技能範圍', item: '既有武將普攻／六等／無雙格圖', spec: 'snA967／snA282／sn8', current: '61 名 W967 武將已映射；49 名有 W282 直接格位截圖（' + (w282ShapeRows - w282HighRows) + ' 張 Lv6、' + w282HighRows + ' 張 Lv7+ 推用），其餘使用 W967 六等格圖。另 ' + fallbackRanges + ' 名（含主角）未列來源，保留原 pattern。每名均有 web2.range.hero.* provenance；格圖轉位依賴 C 級錨點推定。', grade: 'C', label: LB.C, sources: [{ s: 'W967', q: '61 名普攻／六等普攻／無雙格圖' }, { s: 'W282', q: '34 張 Lv6 格位圖、15 張 Lv7+ 推用；模糊形狀 C' }, { s: 'W8', q: '六等範圍變化規則' }], conflicts: allConflictIds, phase: 'web2-P3', note: '有 W282 格位圖時優先；Lv7+ 推用及模糊格位標 C；缺來源者不作推測。' });
+  entry({ id: 'web2.skill.rangeLv6Rules', cat: '技能範圍', item: '六等範圍變化與無雙不變', spec: 'sn8', current: '六大天王（六名綠魂將）不變；紫將趙雲、呂布不變；藍將全部改變；無雙範圍不隨等級改變。紫雲依 W282 Lv6 直接圖採改變；熊貓 W967 基礎／Lv6 格圖相同，W282 未提供形狀，保留 C 級衝突。', grade: 'B', label: LB.B, sources: [{ s: 'W8', q: '初期六天王六等不變、紫將只有趙雲／呂布不變、藍將全變、無雙不變' }, { s: 'W282', q: 'Lv6 技能截圖格位；紫雲三格範圍' }, { s: 'W967', q: '表 5 格圖' }], conflicts: allConflictIds, phase: 'web2-P3', note: '來源衝突不以臆測補格：紫雲採用直接 Lv6 圖；熊貓暫保留 W967 明確格圖，待清晰截圖。' });
+
   var detail = (o.P.entries || []).filter(function (e) { return e.id === 'web2.hero.new.detail'; })[0];
   if (detail) detail.current = '21 名新增武將的名稱／外觀仍屬 D；技能倍率改由 web2.skill.rates 分開記錄，未列來源者保留本作倍率。';
   entry({ id: 'web2.skill.rates', cat: '技能', item: '技能倍率基準', spec: 'snA967 表 5：普攻、六等普攻、無雙', current: '61 名武將的 Lv1 普攻、Lv6 普攻與無雙基準採來源表；88 名中其餘未列者維持原本 D 級倍率。', grade: 'B', label: LB.B, sources: [{ s: 'W967', q: '表 5：武將普攻、六等普攻與無雙倍率' }], phase: 'web2-P3' });
@@ -46,5 +136,5 @@ module.exports = function (o) {
   entry({ id: 'web2.skill.ultProgression', cat: '技能', item: '無雙技能升級曲線', spec: '無雙基準 c+10', current: '來源替換無雙基準倍率與固定值；升級時沿用既有 6% 倍率／10% 固定值成長，因來源未提供完整逐級表，仍屬本作 D 級曲線。', grade: 'D', label: LB.D, sources: [{ s: 'W967', q: '表 5：無雙技能倍率基準' }], phase: 'web2-P3' });
   entry({ id: 'web2.skill.capObserved', cat: '技能', item: '截圖可見的技能傷害上限', spec: '楊過普攻 Lv6 上限 6000；劉備無雙 Lv1 上限 3000', current: '只套用到楊過 active 與劉備 ult；劉備無雙按截圖恢復為對敵全體攻擊。', grade: 'A', label: LB.A, sources: [{ s: 'W282', q: '楊過 Lv6 傷害上限 6000；劉備無雙 Lv1 傷害上限 3000、9 個目標' }], phase: 'web2-P3' });
   entry({ id: 'web2.skill.capRule', cat: '技能', item: '傷害上限引擎解讀', spec: '依截圖上限', current: '上限按每一目標的單次最終傷害套用（防禦、暴擊與增減傷計算後）；不跨目標累加，也不套用於治療／持續傷害。', grade: 'C', label: LB.C, sources: [{ s: 'W282', q: '截圖有上限數值，但未說明是單次、總傷害或計算階段；此為引擎解讀' }], phase: 'web2-P3', note: '上限作用範圍是明確的本作解讀，不聲稱原作證據已定義。' });
-  return { mapped: mapped, rows: Object.keys(rows).length, ids: used };
+  return { mapped: mapped, rows: Object.keys(rows).length, ids: used, ranges: ranges, fallbackRanges: fallbackRanges };
 };
