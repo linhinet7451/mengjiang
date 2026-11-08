@@ -52,7 +52,7 @@ MJ.G = (function () {
       recruit: { cands: [], normalUsed: 0, normalDay: U.dayKey(), cd: {}, firstDone: {} },
       buildings: { shenwu: 1, juxian: 1, xukong: 1 },
       training: null, mail: [], tasksClaimed: {}, gifts: { opening: false, sevenDay: [], lastDay: '' },
-      stats: { recruits: 0, battles: 0, wins: 0 }, log: [], settings: { speed: 1, rotate: true, energyMode: 'original' },
+      stats: { recruits: 0, battles: 0, wins: 0 }, log: [], settings: { speed: 1, rotate: true, energyMode: 'original', musou: true },
       nextUid: 1, freeGiftTs: U.now()
     };
     MJ.S.state = s;

@@ -18,7 +18,8 @@
   UI.screens.recruit = function () {
     var s = MJ.S.state, cfg = MJ.D.config, tab = UI.sel.recTab || 'cands';
     var h = '<div class="scr recruit-scr">' + UI.hud();
-    h += '<div class="frame bigframe"><div class="plaque">聚賢莊 Lv' + (s.buildings.juxian || 1) + '</div><a class="xbtn" data-a="city">×</a>';
+    // 宣傳片聚賢莊：金底面板＋深綠翠玉框＋四角飾，左側直書粉紅「聚賢莊」；招募邏輯、機率、費用不變
+    h += '<div class="jx-vtitle">聚賢莊</div><div class="frame bigframe juxian-gold"><i class="jx-cn tl"></i><i class="jx-cn tr"></i><i class="jx-cn bl"></i><i class="jx-cn br"></i><div class="plaque">聚賢莊 Lv' + (s.buildings.juxian || 1) + '</div><a class="xbtn" data-a="city">×</a>';
     h += '<div class="tabs"><a class="tab' + (tab === 'cands' ? ' on' : '') + '" data-a="recTab" data-v="cands">拜訪武將</a><a class="tab' + (tab === 'roster' ? ' on' : '') + '" data-a="recTab" data-v="roster">我的武將</a><a class="tab' + (tab === 'souls' ? ' on' : '') + '" data-a="recTab" data-v="souls">將魂召喚</a></div>';
     h += '<div class="parch inner">';
     if (tab === 'cands') {

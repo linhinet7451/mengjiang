@@ -134,8 +134,61 @@
   UI.actions.arReplay = function (v) { var r = G.arenaReplay(+v); if (!UI.res(r)) return; UI.startBattle(r); };
   UI.actions.arDaily = function () { var r = G.arenaClaimDaily(); if (UI.res(r)) { UI.render(); UI.rewardBox('排名獎勵', r.got); } };
   UI.actions.bArena = function () { var b = UI.battleState(); if (b) b.done = true; UI.go('arena'); };
+
+  // ---------- 武林大會（單機 AI 淘汰賽，第 41 屆，海選 Lv.70-75） ----------
+  // 入口：主城 → 原版玩法中心 → 武林大會（唯一入口）。對手、獎勵皆 D 級本作設計。
+  UI.screens.wulin = function () {
+    var s = MJ.S.state, w = G.wulinState(), lead = G.lead(), locked = lead.lv < G.WULIN_OPEN, rounds = ['八強', '四強', '決賽'];
+    var h = '<div class="scr hall-scr"><div class="frame bigframe hall arenaf"><div class="plaque">武林大會</div><a class="xbtn" data-a="city">×</a>';
+    h += '<div class="parch ar-side"><div class="ar-rank">第<b>' + G.WULIN_EDITION + '</b>屆</div>' +
+      '<div>海選 Lv.70-75</div><div>主角：Lv' + lead.lv + (locked ? '（未滿 ' + G.WULIN_OPEN + ' 級，尚未開放）' : '') + '</div>' +
+      '<div>歷屆冠軍：' + (w.champ ? '是' : '否') + '　累計勝場：' + (w.wins || 0) + '</div>' +
+      '<div class="fg-box"><b>輪次獎勵</b><br>八強勝：銀幣 1,000＋培養丹 ×2<br>四強勝：銀幣 2,000＋技能書 ×1、培養丹 ×3<br>決賽勝：銀幣 5,000＋技能書 ×2、培養丹 ×5<br><small>單機 AI 對戰，無真人、無邀請（D）。</small></div>' +
+      '<p class="note">8 人單淘汰賽：八強 → 四強 → 決賽。對手為電腦 AI（D）。</p></div>';
+    h += '<div class="ar-main">';
+    if (locked) { h += '<div class="parch ar-empty">主角未滿 ' + G.WULIN_OPEN + ' 級，武林大會海選尚未開放（海選 Lv.70-75）。請先提升主角等級。</div>'; }
+    else if (!w.bracket) { h += '<div class="parch ar-empty">第 ' + G.WULIN_EDITION + ' 屆武林大會尚未開幕。</div><div class="btn-row"><a class="btn red" data-a="wlStart">開始本屆大會</a></div>'; }
+    else {
+      var b = w.bracket;
+      h += '<div class="ar-h">對陣表（第 ' + G.WULIN_EDITION + ' 屆）</div><div class="parch wl-bracket">';
+      U.each(b.qf, function (m, i) { h += '<div>八強 ' + (i + 1) + '：' + U.esc(m.a) + ' vs ' + U.esc(m.b) + (m.w ? ' → <b>' + U.esc(m.w) + '</b>' : '') + '</div>'; });
+      h += '<div>四強對手：' + U.esc(b.foes[1].name) + '（Lv' + b.foes[1].lv + '）　決賽對手：' + U.esc(b.foes[2].name) + '（Lv' + b.foes[2].lv + '）</div></div>';
+      if (b.done) h += '<div class="parch ar-empty">' + (b.champ ? '奪冠！你是第 ' + G.WULIN_EDITION + ' 屆武林盟主。' : '本屆已結束（止步' + rounds[b.round] + '）。') + '</div><div class="btn-row"><a class="btn red" data-a="wlStart">開始下一屆</a></div>';
+      else {
+        var f = b.foes[b.round];
+        h += '<div class="parch ar-card wl-card"><div class="ar-info"><div class="ar-rk">' + rounds[b.round] + '</div><b>' + U.esc(f.name) + '</b><small>「' + U.esc(f.title) + '」</small><div>Lv' + f.lv + '．戰力 ' + U.fmt(f.power) + '</div></div>' +
+          '<a class="btn small red" data-a="wlFight">出戰</a>' +
+          '<div class="ar-win">勝：' + U.esc(UI.rwText(G.wulinRewards(b.round)).join('、')) + '</div></div>';
+      }
+    }
+    h += '<div class="ar-h">戰報（最近 3 場，可重播）</div><div class="ar-recs">';
+    if (!w.recs.length) h += '<div class="ar-rec none">還沒有戰報</div>';
+    U.each(w.recs, function (r, i) {
+      var t = new Date(r.ts);
+      h += '<div class="ar-rec ' + (r.win ? 'w' : 'l') + '"><span class="ar-res">' + (r.win ? '勝' : '敗') + '</span>' +
+        '<span>' + (t.getMonth() + 1) + '/' + t.getDate() + ' ' + ('0' + t.getHours()).slice(-2) + ':' + ('0' + t.getMinutes()).slice(-2) + '</span>' +
+        '<span>' + rounds[r.round] + ' ' + U.esc(r.name) + '</span>' +
+        '<a class="btn small" data-a="wlReplay" data-v="' + i + '">重播</a></div>';
+    });
+    h += '</div></div></div></div>';
+    return h;
+  };
+  UI.actions.wulin = function () { UI.go('wulin'); };
+  UI.actions.wlStart = function () { var r = G.wulinStart(); if (UI.res(r)) UI.render(); };
+  UI.actions.wlFight = function () { var r = G.wulinFight(); if (!UI.res(r)) return; UI.startBattle(r); };
+  UI.actions.wlReplay = function (v) { var r = G.wulinReplay(+v); if (!UI.res(r)) return; UI.startBattle(r); };
+  UI.actions.bWulin = function () { var b = UI.battleState(); if (b) b.done = true; UI.go('wulin'); };
   var mr0 = UI.modeResult;
   UI.modeResult = function (r, summary) {
+    if (r.mode === 'wulin') {
+      var rounds = ['八強', '四強', '決賽'];
+      var h = '<div class="dim"></div><div class="result ' + (r.win ? 'win' : 'lose') + '"><div class="banner">' + (r.replay ? '重播結束' : (r.win ? '勝 利' : '戰 敗')) + '</div><div class="parch rbody">';
+      if (r.replay) h += '<div>' + (r.win ? '這場戰鬥你獲勝了。' : '這場戰鬥你落敗了。') + '回合數：' + r.battle.rounds + '</div><div>重播依保存的雙方陣容與亂數種子重新演算' + (r.consistent ? '，結果與當時一致。' : '。') + '</div>';
+      else if (r.win) h += '<div>第 ' + rounds[r.round] + '擊敗了「' + U.esc(r.foe.name) + '」！回合數：' + r.battle.rounds + '</div>' + (r.bracket && r.bracket.champ ? '<div><b>奪冠！第 ' + G.WULIN_EDITION + ' 屆武林盟主！</b></div>' : (r.bracket ? '<div>晉級下一輪：' + rounds[r.bracket.round] + '</div>' : '')) + '<div class="rw-h">獲得獎勵</div><div class="reward-list">' + U.map(r.rewards, function (x) { return '<div class="rw">' + U.esc(x) + '</div>'; }).join('') + '</div>';
+      else h += '<div>「' + U.esc(r.foe.name) + '」太強了，本屆止步' + rounds[r.round] + '。沒有損失，可以再開一屆。</div><div class="tips">・提升等級、強化裝備、點亮將星後再來挑戰</div>';
+      h += '</div><div class="btn-row"><a class="btn" data-a="bWulin">返回武林大會</a><a class="btn" data-a="bCity">回主城</a></div></div>';
+      return h;
+    }
     if (r.mode !== 'arena') return mr0(r, summary);
     var h = '<div class="dim"></div><div class="result ' + (r.win ? 'win' : 'lose') + '"><div class="banner">' + (r.replay ? '重播結束' : (r.win ? '勝 利' : '戰 敗')) + '</div><div class="parch rbody">';
     if (r.replay) h += '<div>' + (r.win ? '這場戰鬥你獲勝了。' : '這場戰鬥你落敗了。') + '回合數：' + r.battle.rounds + '</div><div>重播依存下的雙方陣容與亂數種子重新演算' + (r.consistent ? '，結果與當時一致。' : '。') + '</div>';

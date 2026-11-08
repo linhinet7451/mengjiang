@@ -98,43 +98,40 @@
     UI.rewardBox(r.star + '星 · ' + r.luck.name, ['「' + r.luck.poem + '」', '目前星運：' + r.todayLuck.name + '（經驗 +' + r.todayLuck.exp + '%）'].concat(r.rewards));
   };
 
-  // ---------- 玄機盤 ----------
-  var WHEEL_COL = ['#c62828', '#f9a825', '#6a1b9a', '#1565c0', '#2e7d32', '#ef6c00', '#00838f', '#5d4037', '#ad1457', '#283593', '#558b2f', '#4527a0'];
-  function wheelSvg(rot) {
-    var n = G.WHEEL.length, R0 = 120, out = '<svg viewBox="-130 -130 260 260" width="260" height="260"><circle r="128" fill="#3e2723" stroke="#ffd54f" stroke-width="4"/>';
-    for (var i = 0; i < n; i++) {
-      var a0 = (i / n) * 2 * Math.PI - Math.PI / 2 - Math.PI / n, a1 = a0 + 2 * Math.PI / n;
-      var x0 = Math.cos(a0) * R0, y0 = Math.sin(a0) * R0, x1 = Math.cos(a1) * R0, y1 = Math.sin(a1) * R0;
-      out += '<path d="M0 0 L' + x0.toFixed(1) + ' ' + y0.toFixed(1) + ' A' + R0 + ' ' + R0 + ' 0 0 1 ' + x1.toFixed(1) + ' ' + y1.toFixed(1) + 'Z" fill="' + WHEEL_COL[i] + '" stroke="#ffe082" stroke-width="1"/>';
-      var am = (i / n) * 360;
-      out += '<text transform="rotate(' + am + ') translate(0 -78)" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold" style="paint-order:stroke" stroke="#000" stroke-width="2">' + U.esc(G.WHEEL[i].name) + '</text>';
-    }
-    for (var k = 0; k < 24; k++) { var ak = k / 24 * 2 * Math.PI; out += '<circle cx="' + (Math.cos(ak) * 124).toFixed(1) + '" cy="' + (Math.sin(ak) * 124).toFixed(1) + '" r="2.5" fill="#fff59d"/>'; }
-    out += '<circle r="30" fill="#ffd54f" stroke="#5d4037" stroke-width="3"/><text y="6" text-anchor="middle" font-size="17" font-weight="bold" fill="#5d4037">玄機</text></svg>';
-    return out;
+  // ---------- 玄機盤（5 顆骰子） ----------
+  // 宣傳片 0:50：金色橢圓盤上的 5 顆骰子。骰面為 CSS 點陣，無圖片。
+  var DICE_PIPS = { 1: [4], 2: [0, 8], 3: [0, 4, 8], 4: [0, 2, 6, 8], 5: [0, 2, 4, 6, 8], 6: [0, 2, 3, 5, 6, 8] };
+  function dieHtml(d, rolling) {
+    var pips = DICE_PIPS[d] || DICE_PIPS[1], h = '<div class="die' + (rolling ? ' rolling' : '') + '">';
+    for (var i = 0; i < 9; i++) h += '<i class="' + (pips.indexOf(i) >= 0 ? 'pip' : '') + '"></i>';
+    return h + '</div>';
+  }
+  function diceHtml(dice, rolling) {
+    var ds = dice || UI._wheelDice || [1, 2, 3, 4, 5];
+    return '<div class="dice-plate"><div class="dice-row">' + U.map(ds, function (d) { return dieHtml(d, rolling); }).join('') + '</div><div class="dice-cap">玄機盤</div></div>';
   }
   function wheelHtml() {
-    var x = G.wheelState(), rot = UI._wheelRot || 0;
-    var out = '<div class="wheel-wrap"><div class="wheel-box"><div class="wheel" id="wheel" style="-webkit-transform:rotate(' + rot + 'deg);transform:rotate(' + rot + 'deg)">' + wheelSvg() + '</div><div class="wheel-ptr"></div></div>';
-    out += '<div class="wheel-side parch"><div class="btn-row left"><a class="btn red" data-a="wheelSpin">' + (x.free ? '免費轉一次' : '轉動（' + U.fmt(x.cost) + ' 銀）') + '</a></div>';
-    out += '<div>距離保底「玄機大獎」還有 <b>' + x.pityLeft + '</b> 次（連續 ' + G.WHEEL_PITY + ' 次沒中，第 ' + G.WHEEL_PITY + ' 次必中）</div>';
-    out += '<div>每贏 5 場戰鬥可免費轉一次（不看日期）；其餘每次 500＋主角等級×100 銀幣。累計轉動 ' + x.spins + ' 次。</div>';
+    var x = G.wheelState();
+    var out = '<div class="wheel-wrap"><div id="diceBox">' + diceHtml(UI._wheelDice, false) + '</div>';
+    out += '<div class="wheel-side parch"><div class="btn-row left"><a class="btn red" data-a="wheelSpin">' + (x.free ? '免費擲一次' : '擲骰（' + U.fmt(x.cost) + ' 銀）') + '</a></div>';
+    out += '<div>擲 5 顆骰子決定獎項；距離保底「玄機大獎」還有 <b>' + x.pityLeft + '</b> 次（連續 ' + G.WHEEL_PITY + ' 次沒中，第 ' + G.WHEEL_PITY + ' 次必中）</div>';
+    out += '<div>每贏 5 場戰鬥可免費擲一次（不看日期）；其餘每次 500＋主角等級×100 銀幣。累計擲骰 ' + x.spins + ' 次。</div>';
     out += '<div class="odds"><b>機率表</b>' + U.map(G.wheelOdds(), function (o) { return '<span>' + U.esc(o.name) + ' ' + o.pct + '%</span>'; }).join('') + '</div>';
-    out += '<div class="small">獎項、機率與保底：D 級（原創）。單機版沒有任何真實付費。</div></div></div>';
+    out += '<div class="small">骰子外觀：宣傳片 0:50 金色橢圓盤上的 5 顆骰子（B）；骰子到獎項的對應：D 級（本作設計，5 顆骰子作 base-6 數字均勻對應加權表）。獎項、機率與保底不變。單機版沒有任何真實付費。</div></div></div>';
     return out;
   }
   UI.actions.wheelSpin = function () {
     if (UI._wheelBusy) return;
     var r = G.wheelSpin(); if (!UI.res(r)) return;
-    var n = G.WHEEL.length, cur = UI._wheelRot || 0, target = -(r.idx * 360 / n);
-    var base = cur - (cur % 360) + 360 * 5; UI._wheelRot = base + ((target % 360) + 360) % 360;
-    UI._wheelBusy = true; sfx('click');
-    var w = document.getElementById('wheel');
-    var done = function () { UI._wheelBusy = false; UI.renderModal(); sfx(r.idx === 0 ? 'win' : 'coin'); UI.rewardBox('玄機盤：' + r.prize.name, (r.free ? ['（免費）'] : ['花費 ' + U.fmt(r.cost) + ' 銀幣']).concat(r.rewards)); };
-    if (w && !(UI.lowFx && UI.lowFx())) {
-      w.className = 'wheel spin';
-      w.style.webkitTransform = 'rotate(' + UI._wheelRot + 'deg)'; w.style.transform = 'rotate(' + UI._wheelRot + 'deg)';
-      setTimeout(done, 2300);
+    UI._wheelDice = r.dice; UI._wheelBusy = true; sfx('click');
+    var box = document.getElementById('diceBox');
+    var done = function () { UI._wheelBusy = false; UI.renderModal(); sfx(r.idx === 0 ? 'win' : 'coin'); UI.rewardBox('玄機盤：' + r.prize.name, ['擲出 ' + r.dice.join('・')].concat(r.free ? ['（免費）'] : ['花費 ' + U.fmt(r.cost) + ' 銀幣']).concat(r.rewards)); };
+    if (box && !(UI.lowFx && UI.lowFx())) {
+      var t = 0, iv = setInterval(function () {
+        t += 120; var tmp = []; for (var i = 0; i < 5; i++) tmp.push(1 + Math.floor(Math.random() * 6));
+        box.innerHTML = diceHtml(tmp, true);
+        if (t >= 900) { clearInterval(iv); box.innerHTML = diceHtml(r.dice, false); done(); }
+      }, 120);
     } else done();
   };
 })();

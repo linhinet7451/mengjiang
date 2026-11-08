@@ -177,6 +177,7 @@
       '<div class="btn-row left"><a class="btn red" data-a="resetSave">重置遊戲</a></div></div>' +
       '<div class="set-col"><div class="set-h">遊戲</div>' +
       '<div class="set-row">戰鬥速度：<a class="tog' + (st.speed === 1 ? ' on' : '') + '" data-a="setOpt" data-v="speed:1">1x</a><a class="tog' + (st.speed === 2 ? ' on' : '') + '" data-a="setOpt" data-v="speed:2">2x</a><a class="tog' + (st.speed === 4 ? ' on' : '') + '" data-a="setOpt" data-v="speed:4">4x</a></div>' +
+      '<div class="set-row">無雙演出：<a class="tog' + (st.musou !== false ? ' on' : '') + '" data-a="setOpt" data-v="musou:1">開</a><a class="tog' + (st.musou === false ? ' on' : '') + '" data-a="setOpt" data-v="musou:0">關</a><br><small>關閉時無雙技不播放切入動畫與全屏特效，傷害直接結算（與戰鬥速度無關）。</small></div>' +
       '<div class="set-row">經濟模式：<a class="tog' + (st.econ !== 'fast' ? ' on' : '') + '" data-a="setEcon" data-v="std">標準</a><a class="tog' + (st.econ === 'fast' ? ' on' : '') + '" data-a="setEcon" data-v="fast">單機加速</a><br><small>標準：原速。單機加速：訓練經驗 2 倍、戰鬥銀幣與塔俸 ×1.5（D）。精力與現實時間等待已全部取消。</small></div>' +
       (UI.soundRows ? UI.soundRows() : '') +
       '<div class="set-row">手機直向時自動旋轉橫向：<a class="tog' + (st.rotate !== false ? ' on' : '') + '" data-a="setOpt" data-v="rotate:1">開</a><a class="tog' + (st.rotate === false ? ' on' : '') + '" data-a="setOpt" data-v="rotate:0">關</a></div>' +
@@ -187,6 +188,7 @@
     var a = v.split(':'), st = S.state.settings;
     if (a[0] === 'speed') st.speed = +a[1];
     else if (a[0] === 'rotate') st.rotate = a[1] === '1';
+    else if (a[0] === 'musou') st.musou = a[1] === '1'; // 無雙演出開關，與戰鬥速度獨立
     G.commit(); UI.layout(); UI.renderModal();
   };
   UI.actions.saveNow = function () { UI.toast(S.save(true) ? '已存檔' : '存檔失敗：瀏覽器不允許本機儲存，請改用匯出', S.storageOk ? 'good' : 'bad'); UI.renderModal(); };

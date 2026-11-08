@@ -111,6 +111,11 @@ hr{border:0;border-top:1px solid #b8a468;margin:8px 0}
 
 /* ---------- 聚賢莊 ---------- */
 .recruit-scr .inner{display:flex;display:-webkit-flex;gap:10px}
+/* 聚賢莊：金底面板＋深綠翠玉框＋四角飾（宣傳片聚賢莊金色面板，CSS 無圖片） */
+.recruit-scr .juxian-gold{background:linear-gradient(#f7d774,#e8b73a 40%,#c89020);border:3px solid #1b5e20;box-shadow:0 0 0 2px #ffd54f,0 0 0 4px #1b5e20,0 8px 24px rgba(0,0,0,.5)}
+.jx-cn{position:absolute;width:22px;height:22px;border:3px solid #ffd54f;background:radial-gradient(circle,#2e7d32,#1b5e20);border-radius:50%;z-index:2;pointer-events:none}
+.jx-cn.tl{left:-8px;top:-8px}.jx-cn.tr{right:-8px;top:-8px}.jx-cn.bl{left:-8px;bottom:-8px}.jx-cn.br{right:-8px;bottom:-8px}
+.jx-vtitle{position:absolute;left:0;top:170px;z-index:4;width:32px;padding:10px 0;font-size:26px;font-weight:900;letter-spacing:4px;text-align:center;color:#f8bbd0;background:linear-gradient(#ad1457,#6a0a30);border:2px solid #ffd54f;border-radius:6px;text-shadow:0 0 4px #400,1px 1px 0 #400;-webkit-writing-mode:vertical-rl;writing-mode:vertical-rl;pointer-events:none}
 .rec-left{width:170px;flex-shrink:0}
 .rbtn{display:block;margin-bottom:8px;padding:8px;text-align:center;color:#fff;border:2px solid #e2c060;border-radius:8px;box-shadow:0 2px 3px rgba(0,0,0,.4);text-shadow:0 1px 1px #000;min-height:64px}
 .rbtn b{display:block;font-size:16px}.rbtn span{display:block;font-size:12px}.rbtn .sub{color:#fff0a0}
@@ -352,7 +357,7 @@ hr{border:0;border-top:1px solid #b8a468;margin:8px 0}
 .b-round.pop{-webkit-animation:popin .4s;animation:popin .4s}
 .b-skill{position:absolute;left:50%;top:80px;-webkit-transform:translateX(-50%);transform:translateX(-50%);font-size:30px;font-weight:900;color:#fff;text-shadow:0 0 8px #f60,2px 2px 0 #800;opacity:0;z-index:30;font-family:"STKaiti","KaiTi","BiauKai",serif;-webkit-transition:opacity .2s;transition:opacity .2s}
 .b-skill.on{opacity:1}
-.cutin{position:absolute;left:0;top:170px;width:960px;height:180px;z-index:70;pointer-events:none;opacity:0;-webkit-transition:opacity .2s;transition:opacity .2s}
+.cutin{position:absolute;left:0;top:150px;width:960px;height:220px;z-index:70;pointer-events:none;opacity:0;-webkit-transition:opacity .2s;transition:opacity .2s}
 .cutin.on{opacity:1}
 .cutin.on.small{opacity:0}
 .cutin.on.small .ci-total{opacity:1}
@@ -371,9 +376,21 @@ hr{border:0;border-top:1px solid #b8a468;margin:8px 0}
 .mgrid{position:absolute;right:170px;top:24px;width:72px;height:72px;display:flex;display:-webkit-flex;flex-wrap:wrap;-webkit-flex-wrap:wrap;padding:2px;background:#2a1008;border:2px solid #ffd060}
 .mgrid i{width:20px;height:20px;margin:1px;background:#6a4a3a}
 .mgrid i.occ{background:#a08060}.mgrid i.on{background:#ff3010;box-shadow:0 0 4px #ff8000}
-.ci-total{position:absolute;right:120px;top:124px;font-size:18px;color:#fff;text-shadow:0 0 3px #000}
-.ci-total b{font-size:26px;color:#ffe040}
+.ci-top{position:absolute;left:12px;top:-18px;font-size:15px;letter-spacing:2px;color:#fff;text-shadow:1px 1px 0 #000,0 0 4px #000;white-space:nowrap}
+.ci-mini{position:absolute;right:10px;top:6px}
+.ci-mini .mgrid{position:static;width:auto;height:auto;background:rgba(42,16,8,.85);padding:2px}
+.ci-mini .mgrid.bd{width:auto;height:auto}
+.ci-mini .mgrid i{width:12px;height:12px;margin:1px}
+.ci-cards{position:absolute;left:50%;bottom:2px;-webkit-transform:translateX(-50%);transform:translateX(-50%);display:flex;display:-webkit-flex;gap:6px}
+.ci-card{width:44px;height:52px;padding:3px 2px;text-align:center;background:linear-gradient(#3a5a8a,#1e2e4e);border:2px solid #8ab4e8;border-radius:4px;box-shadow:0 2px 5px rgba(0,0,0,.6);-webkit-writing-mode:vertical-rl;writing-mode:vertical-rl}
+.ci-card:nth-child(even){background:linear-gradient(#6a4a2a,#3e2a16);border-color:#d8a860}
+.ci-card i{display:block;font-style:normal;font-size:12px;color:#ffe8b0;letter-spacing:1px}
+.ci-card b{display:block;font-size:12px;color:#fff;letter-spacing:1px}
+.ci-card.on{border-color:#ffe040;box-shadow:0 0 10px #ff8000}
+.ci-total{position:absolute;right:120px;top:124px;padding:2px 12px;font-size:18px;color:#fff;background:rgba(20,0,0,.55);border:2px solid #c02020;border-radius:4px;text-shadow:0 0 3px #000}
+.ci-total b{font-size:26px;color:#fff}
 .cutin.small .ci-band{display:none}
+.cutin.small .ci-cards,.cutin.small .ci-top,.cutin.small .ci-vname{display:none}
 .cutin.on.small{opacity:1}
 .cutin.on.small .ci-total{top:-6px;left:0;right:0;text-align:center;font-size:20px}
 .cutin.on.small .ci-total b{font-size:30px}
@@ -413,12 +430,69 @@ hr{border:0;border-top:1px solid #b8a468;margin:8px 0}
 .ld-t{font-size:15px}.ld-tip{max-width:560px;margin-top:14px;font-size:13px;line-height:1.6;text-align:center;color:#e8e0b0}
 /* 戰敗：畫面轉灰並模糊（A：影片3） */
 .battle.lost>.art.field,.battle.lost .bu,.battle.lost .tile{filter:grayscale(1) blur(2px);-webkit-filter:grayscale(1) blur(2px);-webkit-transition:filter .8s;transition:filter .8s}
-/* 戰鬥上方雙方總生命（A：影片3） */
-.b-tot{position:absolute;top:8px;width:270px;z-index:30;font-size:12px;color:#fff;text-shadow:0 0 2px #000}
-.b-tot.A{left:150px}.b-tot.B{right:150px;text-align:right}
-.b-tot .tb{height:12px;margin-top:2px;background:#3a1010;border:1px solid #e2c060;border-radius:6px;overflow:hidden}
-.b-tot .tb i{display:block;height:100%;background:linear-gradient(#ff8060,#c02010);-webkit-transition:width .3s;transition:width .3s}
-.b-tot.B .tb i{margin-left:auto;background:linear-gradient(#80b0ff,#2050c0)}
+/* 戰鬥上方雙方總生命（A：影片3）——一條合併條：左綠＝我方／右橙紅＝敵方，數字置中於條下方 */
+.b-tot{position:absolute;top:6px;z-index:30;font-size:12px;color:#fff;text-shadow:0 0 2px #000}
+.b-tot.split{left:50%;width:560px;-webkit-transform:translateX(-50%);transform:translateX(-50%);text-align:center}
+.b-tot.split .tb-wrap{display:flex;display:-webkit-flex;align-items:stretch}
+.b-tot.split .tb{flex:1;-webkit-flex:1;height:12px;background:#3a1010;border:1px solid #e2c060;overflow:hidden}
+.b-tot.split .tb-a{border-radius:6px 0 0 6px;border-right:0}
+.b-tot.split .tb-b{border-radius:0 6px 6px 0;border-left:0}
+.b-tot.split .tb-a i{display:block;height:100%;background:linear-gradient(#7ee787,#2e9e2e);-webkit-transition:width .3s;transition:width .3s}
+.b-tot.split .tb-b i{display:block;height:100%;margin-left:auto;background:linear-gradient(#ffb060,#e04000);-webkit-transition:width .3s;transition:width .3s}
+.b-tot.split .tb-sep{flex:none;-webkit-flex:none;width:6px;background:linear-gradient(#ffe070,#c08000);box-shadow:0 0 6px #ff8000}
+.b-tot.split .tb-nums{margin-top:1px}
+.b-tot.split .tb-nums span{margin:0 8px}
+.tb-flame{display:inline-block;width:9px;height:9px;background:linear-gradient(135deg,#ffe070,#ff6000);-webkit-transform:rotate(45deg);transform:rotate(45deg);box-shadow:0 0 6px #ff8000;vertical-align:1px}
+/* 底部資訊列：回合數＋雙方站位小格（綠＝我方／紅＝敵方）＋連擊數 */
+.b-info{position:absolute;left:50%;bottom:72px;-webkit-transform:translateX(-50%);transform:translateX(-50%);z-index:30;display:flex;display:-webkit-flex;align-items:center;-webkit-align-items:center;gap:10px;padding:2px 12px;font-size:13px;font-weight:bold;color:#ffe070;background:rgba(20,14,4,.72);border:1px solid #c0a050;border-radius:12px;text-shadow:1px 1px 0 #000;pointer-events:none;white-space:nowrap}
+.bi-grid{display:inline-flex;display:-webkit-inline-flex;flex-wrap:wrap;-webkit-flex-wrap:wrap;width:56px;gap:1px}
+.bi-grid i{width:6px;height:6px;background:#4a3a28}
+.bi-grid i.a{background:#3fd14a}.bi-grid i.b{background:#ff5030}
+.bi-combo{color:#fff}
+/* 戰場背景士兵剪影（D 純裝飾；省電模式隱藏） */
+.b-army{position:absolute;left:0;right:0;top:0;bottom:0;z-index:1;pointer-events:none}
+.b-army .soldier{position:absolute;opacity:.4}
+.b-army .soldier.flip{-webkit-transform:scaleX(-1);transform:scaleX(-1)}
+.lowfx .b-army{display:none}
+/* 全屏無雙特效（CSS/SVG，無圖片；D 級本作設計；省電模式由 JS 跳過） */
+.ultfx{position:absolute;left:0;top:0;width:960px;height:600px;pointer-events:none;z-index:65}
+.ultfx svg{width:100%;height:100%}
+.ultfx.dragon{background:#f5f0e0;-webkit-animation:ultfade 1.3s ease-out forwards;animation:ultfade 1.3s ease-out forwards}
+.ultfx.dragon svg{-webkit-animation:ultslide 1.1s ease-out;animation:ultslide 1.1s ease-out}
+.ultfx.beam{background:radial-gradient(ellipse at 50% 30%,#1a2450,#050510 75%)}
+.ultfx.beam .uf-planet{position:absolute;left:50%;top:120px;width:220px;height:220px;margin-left:-110px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#9fd8ff,#2a6ab0 45%,#0a2a50 75%);box-shadow:0 0 60px rgba(120,180,255,.8)}
+.ultfx.beam .uf-beam{position:absolute;left:50%;top:0;width:90px;height:600px;margin-left:-45px;background:linear-gradient(180deg,rgba(255,240,160,0),rgba(255,220,90,.95) 40%,rgba(255,180,40,.9));-webkit-animation:ultbeam 1.2s ease-out forwards;animation:ultbeam 1.2s ease-out forwards}
+.ultfx.claw{background:rgba(20,0,0,.25)}
+.ultfx.claw svg{-webkit-animation:ultclaw .5s ease-out;animation:ultclaw .5s ease-out}
+.ultfx.ice{background:rgba(10,30,60,.2)}
+.ultfx.ice .uf-ice{position:absolute;left:-200px;top:-100px;width:1400px;height:180px;background:linear-gradient(180deg,rgba(190,230,255,.95),rgba(80,160,255,.75) 55%,rgba(190,230,255,0));-webkit-transform:rotate(18deg);transform:rotate(18deg);box-shadow:0 0 40px rgba(120,200,255,.9);-webkit-animation:ultbeam 1.2s ease-out forwards;animation:ultbeam 1.2s ease-out forwards}
+.ultfx.flash{background:rgba(255,220,60,.85);-webkit-animation:ultfade 1s ease-out forwards;animation:ultfade 1s ease-out forwards}
+.ultfx.stomp{background:rgba(0,0,0,.3)}
+.ultfx.stomp .uf-foot{position:absolute;left:50%;top:180px;width:340px;height:220px;margin-left:-170px;background:rgba(10,5,0,.55);border-radius:50% 50% 46% 46%/62% 62% 38% 38%;-webkit-transform:rotate(-4deg);transform:rotate(-4deg);box-shadow:0 30px 40px rgba(0,0,0,.6)}
+.ultfx.petal{background:rgba(40,0,20,.15)}
+.ultfx.petal i{position:absolute;top:-30px;width:16px;height:22px;background:radial-gradient(ellipse at center,#ffb0d0,#e85a9a);border-radius:50% 50% 50% 50%/60% 60% 40% 40%;opacity:.9;-webkit-animation:petalfall 1.2s ease-in forwards;animation:petalfall 1.2s ease-in forwards}
+.ultfx.petal i:nth-child(1){left:12%}.ultfx.petal i:nth-child(2){left:26%;-webkit-animation-delay:.08s;animation-delay:.08s}.ultfx.petal i:nth-child(3){left:38%;-webkit-animation-delay:.15s;animation-delay:.15s}.ultfx.petal i:nth-child(4){left:50%;-webkit-animation-delay:.05s;animation-delay:.05s}.ultfx.petal i:nth-child(5){left:62%;-webkit-animation-delay:.18s;animation-delay:.18s}.ultfx.petal i:nth-child(6){left:74%;-webkit-animation-delay:.1s;animation-delay:.1s}.ultfx.petal i:nth-child(7){left:86%;-webkit-animation-delay:.2s;animation-delay:.2s}.ultfx.petal i:nth-child(8){left:95%;-webkit-animation-delay:.12s;animation-delay:.12s}
+@-webkit-keyframes ultfade{0%{opacity:1}100%{opacity:0}}@keyframes ultfade{0%{opacity:1}100%{opacity:0}}
+@-webkit-keyframes ultslide{0%{-webkit-transform:translateX(-120px);opacity:0}25%{opacity:1}100%{-webkit-transform:none;opacity:1}}@keyframes ultslide{0%{transform:translateX(-120px);opacity:0}25%{opacity:1}100%{transform:none;opacity:1}}
+@-webkit-keyframes ultbeam{0%{opacity:0}15%{opacity:1}100%{opacity:0}}@keyframes ultbeam{0%{opacity:0}15%{opacity:1}100%{opacity:0}}
+@-webkit-keyframes ultclaw{0%{opacity:0;-webkit-transform:scale(1.4)}20%{opacity:1}100%{-webkit-transform:scale(1);opacity:.9}}@keyframes ultclaw{0%{opacity:0;transform:scale(1.4)}20%{opacity:1}100%{transform:scale(1);opacity:.9}}
+@-webkit-keyframes petalfall{0%{-webkit-transform:translateY(0) rotate(0);opacity:0}15%{opacity:.95}100%{-webkit-transform:translateY(620px) rotate(320deg);opacity:.2}}@keyframes petalfall{0%{transform:translateY(0) rotate(0);opacity:0}15%{opacity:.95}100%{transform:translateY(620px) rotate(320deg);opacity:.2}}
+/* 攻擊動作動畫（D 級原創）：揮刀弧光／出拳衝擊波／氣功聚氣＋發射波；時長由 JS 依戰鬥速度等比縮放 */
+.atkfx{position:absolute;width:120px;height:120px;pointer-events:none;z-index:55}
+.atkfx svg{width:100%;height:100%}
+.atkfx.slash{-webkit-animation:atkslash .38s ease-out forwards;animation:atkslash .38s ease-out forwards}
+.atkfx.slash svg{-webkit-filter:drop-shadow(0 0 6px rgba(255,220,120,.9));filter:drop-shadow(0 0 6px rgba(255,220,120,.9))}
+.atkfx.fist{width:100px;height:100px}
+.atkfx.fist i{position:absolute;left:50%;top:50%;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;background:radial-gradient(circle,#fff,#ffb060 55%,rgba(255,120,0,0) 75%)}
+.atkfx.fist b{position:absolute;left:50%;top:50%;width:20px;height:20px;margin:-10px 0 0 -10px;border:3px solid rgba(255,200,100,.9);border-radius:50%;-webkit-animation:fistring .38s ease-out forwards;animation:fistring .38s ease-out forwards}
+.atkfx.charge{width:80px;height:80px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.95),rgba(140,200,255,.7) 45%,rgba(80,120,255,0) 70%);-webkit-animation:charge .3s ease-in forwards;animation:charge .3s ease-in forwards}
+.orb.wave{width:40px;height:40px;background:radial-gradient(#fff,#a0e0ff 35%,rgba(80,140,255,.6) 60%,rgba(80,120,255,0) 75%);box-shadow:0 0 18px #7ab8ff}
+@-webkit-keyframes atkslash{0%{opacity:0;-webkit-transform:rotate(-40deg) scale(.7)}25%{opacity:1}100%{opacity:0;-webkit-transform:rotate(25deg) scale(1.15)}}
+@keyframes atkslash{0%{opacity:0;transform:rotate(-40deg) scale(.7)}25%{opacity:1}100%{opacity:0;transform:rotate(25deg) scale(1.15)}}
+@-webkit-keyframes fistring{0%{-webkit-transform:scale(.4);opacity:1}100%{-webkit-transform:scale(4.2);opacity:0}}
+@keyframes fistring{0%{transform:scale(.4);opacity:1}100%{transform:scale(4.2);opacity:0}}
+@-webkit-keyframes charge{0%{-webkit-transform:scale(.4);opacity:.4}100%{-webkit-transform:scale(1.25);opacity:1}}
+@keyframes charge{0%{transform:scale(.4);opacity:.4}100%{transform:scale(1.25);opacity:1}}
 .b-title{top:40px}.b-round{top:74px}.b-skill{top:104px}
 
 .battle.ended .b-round,.battle.ended .b-skill{display:none}
@@ -575,6 +649,8 @@ hr{border:0;border-top:1px solid #b8a468;margin:8px 0}
 .ar-rec .btn{margin-left:auto}.ar-rec.none{color:#ccc}
 .ar-res{display:inline-block;width:22px;height:22px;line-height:22px;text-align:center;border-radius:50%;font-weight:bold}
 .ar-rec.w .ar-res{background:#c62828}.ar-rec.l .ar-res{background:#555}
+.wl-bracket{padding:8px 12px;line-height:1.8;font-size:14px}
+.wl-card{width:100%;height:auto;min-height:110px}
 
 /* ---------- 第四階段：戰場武將腳下金色法陣、高品質光焰、命中火花、無雙閃光 ---------- */
 .bcirc{position:absolute;left:6px;bottom:-2px;width:80px;height:22px;border-radius:50%;background:radial-gradient(ellipse at center,rgba(255,246,190,.85) 0,rgba(240,190,60,.55) 38%,rgba(160,100,10,.0) 70%);box-shadow:0 0 0 2px rgba(255,224,120,.75),inset 0 0 0 6px rgba(255,236,150,.25);pointer-events:none}
@@ -637,10 +713,16 @@ hr{border:0;border-top:1px solid #b8a468;margin:8px 0}
 .star-info .good{color:#2e7d32;font-weight:bold}
 .luck-daji{color:#c62828}.luck-zhongji{color:#e65100}.luck-xiaoji{color:#2e7d32}.luck-ping{color:#1565c0}.luck-moji{color:#6d4c41}
 .wheel-wrap{display:flex;display:-webkit-flex;gap:16px;align-items:center;justify-content:center}
-.wheel-box{position:relative;width:260px;height:270px;flex:none}
-.wheel{width:260px;height:260px;margin-top:10px}
-.wheel.spin{transition:transform 2.2s cubic-bezier(.15,.85,.25,1);-webkit-transition:-webkit-transform 2.2s cubic-bezier(.15,.85,.25,1)}
-.wheel-ptr{position:absolute;left:118px;top:0;width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-top:28px solid #ffeb3b;filter:drop-shadow(0 2px 2px #000)}
+/* 玄機盤：金色橢圓盤上的 5 顆骰子（宣傳片 0:50，B）；骰面為 CSS 點陣，無圖片 */
+.dice-plate{width:280px;flex:none;text-align:center;padding:18px 10px 10px;background:radial-gradient(ellipse at center,#ffe082,#c89020 60%,#8a5a10);border:3px solid #5d4037;border-radius:50%;box-shadow:0 4px 14px rgba(0,0,0,.5),inset 0 0 24px rgba(120,70,0,.5)}
+.dice-row{display:flex;display:-webkit-flex;justify-content:center;gap:10px}
+.die{width:40px;height:40px;padding:4px;background:linear-gradient(#fff,#e8e0d0);border:2px solid #3a2a10;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.5);display:flex;display:-webkit-flex;flex-wrap:wrap;-webkit-flex-wrap:wrap}
+.die i{display:block;width:33.33%;height:33.33%}
+.die i.pip{background:radial-gradient(circle at center,#222 58%,transparent 62%)}
+.die.rolling{-webkit-animation:dice .12s linear infinite;animation:dice .12s linear infinite}
+@-webkit-keyframes dice{0%{-webkit-transform:rotate(-8deg) translateY(-3px)}50%{-webkit-transform:rotate(6deg) translateY(2px)}100%{-webkit-transform:rotate(-8deg) translateY(-3px)}}
+@keyframes dice{0%{transform:rotate(-8deg) translateY(-3px)}50%{transform:rotate(6deg) translateY(2px)}100%{transform:rotate(-8deg) translateY(-3px)}}
+.dice-cap{margin-top:8px;font-size:16px;font-weight:bold;letter-spacing:6px;color:#5d4037}
 .wheel-side{width:380px;padding:10px;color:#5a2a00;font-size:14px;line-height:1.7}
 .wheel-side .btn-row.left{text-align:left;margin:0 0 6px}
 .odds{margin-top:6px}.odds b{display:block}.odds span{display:inline-block;width:50%;font-size:12px}
@@ -760,7 +842,7 @@ html,body{font-family:"PingFang TC","Heiti TC","Microsoft JhengHei","Noto Sans C
 .orb.magic{box-shadow:0 0 12px #7aa8ff}
 /* 傷害／治療數字 */
 .ftxt{font-family:"Arial Black","Helvetica Neue","PingFang TC",sans-serif}
-.ftxt.dmg{font-size:26px;color:#fff;text-shadow:-2px -2px 0 #8a0000,2px -2px 0 #8a0000,-2px 2px 0 #8a0000,2px 2px 0 #8a0000,0 0 6px #f00}
+.ftxt.dmg{font-size:30px;color:#ffe040;background:linear-gradient(180deg,#fff6c0,#ffc830 45%,#ff5010);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-shadow:-2px -2px 0 #000,2px -2px 0 #000,-2px 2px 0 #000,2px 2px 0 #000,0 0 8px rgba(255,60,0,.8)}
 .ftxt.crit{font-size:38px;color:#ffe040;text-shadow:-2px -2px 0 #a00,2px -2px 0 #a00,-2px 2px 0 #a00,2px 2px 0 #a00,0 0 10px #ff3000;-webkit-animation:ftxtc 1.2s ease-out forwards;animation:ftxtc 1.2s ease-out forwards}
 .ftxt.critlab{font-size:17px;color:#fff;letter-spacing:2px;text-shadow:0 0 4px #f00,1px 1px 0 #600;-webkit-animation:ftxtc 1.2s ease-out forwards;animation:ftxtc 1.2s ease-out forwards}
 .ftxt.heal{font-size:26px;color:#9dff70;text-shadow:-2px -2px 0 #0a4a00,2px -2px 0 #0a4a00,-2px 2px 0 #0a4a00,2px 2px 0 #0a4a00,0 0 6px #4f0}

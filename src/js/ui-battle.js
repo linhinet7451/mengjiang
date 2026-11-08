@@ -18,6 +18,109 @@
   var MELEE_WP = { sword: 1, blade: 1, spear: 1, halberd: 1, dagger: 1, whip: 1, none: 1, staff: 0, fan: 0, qin: 0, bow: 0, needle: 0 };
   function isMelee(u) { return u.phys && MELEE_WP[u.look.wp] !== 0; }
 
+  // 無雙演出開關（獨立於戰鬥速度 1x/2x/4x；預設開，見 state.js applyDefaults）
+  UI.musouOn = function () { var st = MJ.S.state && MJ.S.state.settings; return !st || st.musou !== false; };
+
+  // 全屏無雙特效（CSS/SVG，無圖片；D 級本作設計）。按無雙技「數據名稱」對應；
+  // 宣傳片 A 級名稱與數據名稱不同者（貂蟬 千秋蓮舞／千秋萬載、孫尚香 美人計／梟姬亂箭、王語嫣 滅絕劍法／口吐蓮花）
+  // 以數據名稱對應，名稱衝突見 provenance VID2-NAMES 與 docs/影片實戰分析-2.md。
+  var ULT_FX = { '義薄雲天': 'beam', '九陰白骨爪': 'claw', '口吐蓮花': 'ice', '千秋萬載': 'petal', '梟姬亂箭': 'petal', '神鬼亂舞': 'dragon', '雷霆震怒': 'stomp' };
+  function ultFx(skill) {
+    if (!UI.musouOn() || (UI.lowFx && UI.lowFx())) return;
+    var fx = el('fx'); if (!fx) return;
+    var kind = ULT_FX[skill] || 'flash';
+    var d = document.createElement('div');
+    d.className = 'ultfx ' + kind;
+    if (kind === 'dragon') d.innerHTML = '<svg viewBox="0 0 960 600"><path d="M60 500 C200 420 160 300 300 260 C400 230 440 300 540 240 C640 180 680 260 780 200 C850 160 900 220 930 180 L950 200 C890 300 830 280 770 340 C690 420 650 360 550 420 C450 480 430 540 310 540 C210 540 120 560 60 500 Z" fill="#141414"/><circle cx="830" cy="210" r="9" fill="#fff"/><path d="M690 330 q40 -30 80 0 M710 370 q40 -30 80 0" stroke="#141414" stroke-width="6" fill="none"/></svg>';
+    else if (kind === 'beam') d.innerHTML = '<div class="uf-planet"></div><div class="uf-beam"></div>';
+    else if (kind === 'claw') d.innerHTML = '<svg viewBox="0 0 960 600"><path d="M180 80 L700 520 M320 60 L840 500 M460 40 L900 420" stroke="#e02020" stroke-width="26" stroke-linecap="round" opacity=".85"/></svg>';
+    else if (kind === 'ice') d.innerHTML = '<div class="uf-ice"></div>';
+    else if (kind === 'petal') d.innerHTML = '<i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>';
+    else if (kind === 'stomp') d.innerHTML = '<div class="uf-foot"></div>';
+    fx.appendChild(d);
+    if (kind === 'stomp') shake(true);
+    setTimeout(function () { if (d.parentNode) d.parentNode.removeChild(d); }, 1300);
+  }
+  UI._ultFx = ultFx;
+
+  // 攻擊動作動畫（D 級原創；原版攻擊動作無法考察，自行合理製作）
+  // 對應表：揮刀＝物理近戰（力型，刀劍槍戟匕鞭：弧形刀光＋前衝＋回位）；
+  // 出拳＝物理徒手（wp none，如梅超風：拳影＋衝擊波）；氣功＝法術／絕技（dtype m/j：聚氣光球＋發射波）。
+  // 時長約 380ms 基準，隨戰鬥速度（1x/2x/4x）等比縮短；省電模式不加新光效；
+  // 與無雙演出開關獨立（關閉無雙演出時普通攻擊動畫照常）。每個行動只觸發一次，不影響傷害與回合邏輯。
+  function attackKind(u) {
+    if (!u) return 'slash';
+    if (u.dtype === 'm' || u.dtype === 'j') return 'wave';
+    if (!u.look || !u.look.wp || u.look.wp === 'none') return 'fist';
+    return 'slash';
+  }
+  UI._attackKind = attackKind;
+  function attackAnim(me, e) {
+    if (!me || e.heal || (UI.lowFx && UI.lowFx())) return;
+    var fx = el('fx'); if (!fx) return;
+    var kind = attackKind(me.u), dur = Math.round(380 / (BT ? BT.speed : 1));
+    var a = upos(me), d;
+    if (kind === 'slash') {
+      d = document.createElement('div'); d.className = 'atkfx slash';
+      d.style.left = (a.x - 60) + 'px'; d.style.top = (a.y - 140) + 'px';
+      d.innerHTML = '<svg viewBox="0 0 120 120"><path d="M14 96 A84 84 0 0 1 106 24 L92 34 A66 66 0 0 0 26 84 Z" fill="rgba(255,240,180,.95)"/></svg>';
+    } else if (kind === 'fist') {
+      var b = e.target && BT.units[e.target] ? upos(BT.units[e.target]) : a;
+      d = document.createElement('div'); d.className = 'atkfx fist';
+      d.style.left = (b.x - 50) + 'px'; d.style.top = (b.y - 130) + 'px';
+      d.innerHTML = '<i></i><b></b>';
+    } else {
+      d = document.createElement('div'); d.className = 'atkfx charge';
+      d.style.left = (a.x - 40) + 'px'; d.style.top = (a.y - 120) + 'px';
+    }
+    d.style.webkitAnimationDuration = dur + 'ms'; d.style.animationDuration = dur + 'ms';
+    fx.appendChild(d);
+    setTimeout(function () { if (d.parentNode) d.parentNode.removeChild(d); }, T(400) + 120);
+  }
+
+  // 無雙切入底部 6 枚技能牌：出招方全隊武將的無雙技名（CSS 直書籤，無圖片）
+  function ciCards(side, actorName) {
+    var list = side === 'A' ? BT.r.team : BT.r.foes;
+    var sorted = list.slice().sort(function (a, b) { return a.cell - b.cell; });
+    var h = '<div class="ci-cards">';
+    U.each(sorted.slice(0, 6), function (x) {
+      var u = x.unit, un = (u.ult && u.ult.name) || (u.active && u.active.name) || '';
+      h += '<div class="ci-card' + (u.name === actorName ? ' on' : '') + '"><i>' + U.esc(u.name) + '</i><b>' + U.esc(un) + '</b></div>';
+    });
+    return h + '</div>';
+  }
+
+  // 戰場背景士兵剪影（D 純裝飾）：兩側各一排深色半透明剪影，在棋盤後方，不參與判定
+  function armyHtml() {
+    function soldier(x, y, w, flip) {
+      return '<svg class="soldier' + (flip ? ' flip' : '') + '" style="left:' + x + 'px;top:' + y + 'px;width:' + w + 'px" viewBox="0 0 40 80"><path d="M20 2 L27 10 L27 16 L13 16 L13 10 Z M13 18 L27 18 L29 46 L11 46 Z M13 46 L17 46 L16 78 L12 78 Z M23 46 L27 46 L28 78 L24 78 Z M33 4 L37 4 L31 78 L28 78 Z" fill="#14100a"/></svg>';
+    }
+    return '<div class="b-army" aria-hidden="true">' +
+      soldier(52, 490, 34, false) + soldier(108, 505, 28, false) + soldier(158, 486, 36, false) + soldier(96, 528, 26, false) + soldier(152, 532, 30, false) +
+      soldier(874, 490, 34, true) + soldier(824, 505, 28, true) + soldier(766, 486, 36, true) + soldier(838, 528, 26, true) + soldier(778, 532, 30, true) + '</div>';
+  }
+
+  // 底部資訊列：回合數＋雙方站位小格（綠＝我方／紅＝敵方）＋連擊數。
+  // 連擊＝本回合內連續造成傷害的次數（雙方合計，每回合開始歸零；本作計數方式，D）。
+  function updateInfo() {
+    if (!BT) return;
+    var rd = el('binfo-round'); if (rd) rd.innerHTML = '第' + (BT.round || 1) + '回合';
+    var cb = el('binfo-combo'); if (cb) cb.innerHTML = '連擊 x' + (BT.combo || 0);
+    var g = el('binfo-grid'); if (!g) return;
+    var W = BT.bd ? BT.bd.cols : 3, h = '', r, c;
+    for (r = 0; r < 3; r++) for (c = 0; c < W; c++) {
+      var cls = '';
+      U.each(U.keys(BT.units), function (k) {
+        var x = BT.units[k]; if (x.hp <= 0) return;
+        var br = BT.bd ? x.br : Math.floor(x.cell / 3), bx = BT.bd ? x.bx : (x.side === 'A' ? 2 - (x.cell % 3) : x.cell % 3);
+        if (br === r && bx === c) cls = x.side === 'A' ? 'a' : 'b';
+      });
+      h += '<i class="' + cls + '"></i>';
+    }
+    g.innerHTML = h;
+  }
+  UI._bInfo = function () { updateInfo(); };
+
   function hpHtml(hp, max, layers) {
     if (layers > 1) {
       var per = max / layers, idx = Math.max(1, Math.ceil(hp / per)), w = hp <= 0 ? 0 : (hp - (idx - 1) * per) / per * 100;
@@ -40,6 +143,7 @@
   UI.screens.battle = function () {
     if (!BT) return '<div class="scr"></div>';
     var r = BT.r, h = '<div class="battle' + (BT.showGrid ? ' showgrid' : '') + (BT.done ? ' ended' + (r.win ? '' : ' lost') : '') + '" id="bt">' + MJ.Art.battlefield(r.stage.bg || (r.stage.ch ? MJ.D.stages.chapters[r.stage.ch - 1].bg : null), r.stage.id);
+    h += armyHtml();
     // 格子（v10：一個大棋盤）
     if (BT.bd) {
       for (var bi = 0; bi < 3 * BT.bd.cols; bi++) { var bp = bpos(Math.floor(bi / BT.bd.cols), bi % BT.bd.cols); h += '<div class="' + tileBase('X', bi) + '" id="tX' + bi + '" style="left:' + (bp.x - 45) + 'px;top:' + (bp.y - 16) + 'px"></div>'; }
@@ -56,9 +160,10 @@
         '<div class="bfig">' + MJ.Art.figure(u.look, { enemy: side === 'B', cape: u.boss }) + '</div>' +
         '<div class="bnm"><span>' + honorTag + U.esc(u.name) + ' <small>Lv' + u.lv + '</small></span></div></div>';
     });
-    // A（影片3）：上方顯示雙方全隊總生命
-    U.each(['A', 'B'], function (sd) { h += '<div class="b-tot ' + sd + '"><span id="tt' + sd + '">' + (sd === 'A' ? '我方' : '敵方') + '</span><div class="tb"><i id="tb' + sd + '" style="width:100%"></i></div></div>'; });
+    // 影片 HUD：上方一條合併總生命條（左綠＝我方／右橙紅＝敵方），數字置中於條下方，金色端頭、火焰分隔
+    h += '<div class="b-tot split"><div class="tb-wrap"><div class="tb tb-a"><i id="tbA" style="width:100%"></i></div><div class="tb-sep"></div><div class="tb tb-b"><i id="tbB" style="width:100%"></i></div></div><div class="tb-nums"><span id="ttA">我方</span><span class="tb-flame"></span><span id="ttB">敵方</span></div></div>';
     // art4：下方我方頭像列（原版戰鬥畫面下方的武將頭像，含生命／無雙條）
+    h += '<div class="b-info" id="binfo"><span class="bi-round" id="binfo-round">第1回合</span><span class="bi-grid" id="binfo-grid"></span><span class="bi-combo" id="binfo-combo">連擊 x0</span></div>';
     h += '<div class="b-pbar" id="bpbar">' + U.map(r.team.slice().sort(function (a, b) { return a.cell - b.cell; }), function (x) {
       var u = x.unit, k = 'A' + x.cell, q = u.boss ? 4 : (u.quality || 0), hp = u.curHp != null ? u.curHp : u.hp, rg = U.clamp(u.curRage || 0, 0, 100);
       return '<div class="pb' + (hp <= 0 ? ' dead' : '') + (rg >= 100 ? ' full' : '') + ' q' + q + '" id="pb' + k + '"><div class="pb-art">' + MJ.Art.portrait(u.look, q) + '</div>' +
@@ -89,6 +194,7 @@
     if (BT.bd) U.each(U.keys(BT.units), function (k) { var x = BT.units[k]; x.br = Math.floor(x.cell / 3); x.bx = MJ.Battle.homeBx(x.side, x.cell); });
     UI.modal = null;
     UI.go('battle');
+    updateInfo();
     BT.timer = setTimeout(step, 400);
     totals();
   };
@@ -270,6 +376,7 @@
       case 'hit':
         if (e.miss) { floatText(e.to, e.why === '等級壓制' ? '無效' : '閃避', 'red small'); break; }
         setHp(e.to, e.hp);
+        BT.combo = (BT.combo || 0) + 1; var cb = el('binfo-combo'); if (cb) cb.innerHTML = '連擊 x' + BT.combo;
         var eu = el('u' + e.to); if (eu) { eu.className = eu.className.replace(/ hurt( crit)?/g, ''); void eu.offsetWidth; eu.className += ' hurt' + (e.crit ? ' crit' : ''); }
         var at = BT.units[e.from]; skillFx(e.to, at ? (at.u.dtype || (at.u.phys ? 'p' : 'm')) : 'p', e.crit);
         if (e.crit) { floatText(e.to, '暴擊', 'critlab', 38); floatText(e.to, '-' + e.dmg, 'crit'); shake(!!BT.ultTotal); sfx('crit'); }
@@ -278,7 +385,7 @@
         if (BT.ultTotal && !e.dot && !e.reflect) { BT.ultTotal.v += e.dmg; var tt = el('ulttotal'); if (tt) tt.innerHTML = '總傷害 <b>' + U.fmt(BT.ultTotal.v) + '</b>'; }
         break;
       case 'heal': sfx('heal'); setHp(e.to, e.hp); floatText(e.to, '<i class="leaf"></i>+' + e.amt, 'heal'); var hu = el('u' + e.to); if (hu) { hu.className = hu.className.replace(/ healed/g, ''); void hu.offsetWidth; hu.className += ' healed'; } break;
-      case 'dead': setHp(e.to, 0); setDead(e.to, true); sfx('dead'); break;
+      case 'dead': setHp(e.to, 0); setDead(e.to, true); sfx('dead'); updateInfo(); break;
       case 'revive': setDead(e.to, false); setHp(e.to, e.hp); floatText(e.to, e.name, 'green small'); break;
       case 'status': floatText(e.to, e.s, 'red small', 20); break;
       case 'text': floatText(e.to, e.s, (e.c === 'green' ? 'green' : 'red') + ' small', 24); break;
@@ -295,8 +402,9 @@
     var e = ev[BT.i++];
     if (e.t === 'start') return next(0);
     if (e.t === 'round') {
-      BT.round = e.n;
+      BT.round = e.n; BT.combo = 0;
       var rd = el('bround'); if (rd) { rd.innerHTML = '第' + e.n + '回合'; rd.className = 'b-round pop'; }
+      updateInfo();
       var lf = el('bleft'); if (lf) lf.innerHTML = 'x ' + (MJ.D.config.maxRounds - e.n + 1);
       addLog('—— 第' + e.n + '回合 ——', 'rnd');
       return next(T(380));
@@ -316,24 +424,31 @@
     var t0 = 0;
     addLog(me.u.name + ' 施展「' + e.skill + '」' + (e.ult ? '（無雙）' : ''), e.ult ? 'ult' : '');
     if (e.ult) setRage(e.u, 0);
+    var showCi = true;
     if (e.ult) {
-      BT.ultTotal = { v: 0 }; sfx('ult');
-      var ci = el('cutin');
-      if (ci) {
-        ci.innerHTML = '<div class="ci-band side' + me.side + '"><div class="ci-art' + (MJ.Art.hasCutin(me.u.look) ? ' hi' : '') + '">' + MJ.Art.cutin(me.u.look, me.u.quality || 4, { enemy: me.side === 'B' }) + '</div>' +
-          '<div class="ci-vname">' + U.esc(e.skill) + '</div><div class="ci-txt"><div class="ci-combo">' + (e.lx ? '無雙連攜' : '無雙技') + '</div><div class="ci-name">' + U.esc(e.skill) + '</div><div class="ci-who">' + U.esc(me.u.name) + '</div></div>' +
-          (e.heal ? '' : miniGrid(e.cells, e.side, e.range, e)) + '</div><div class="ci-total" id="ulttotal">' + (e.heal ? '' : '總傷害 <b>0</b>') + '</div>';
-        ci.className = 'cutin on';
-      }
-      t0 = T(1000);
+      showCi = UI.musouOn();
+      if (showCi) {
+        BT.ultTotal = { v: 0 }; sfx('ult'); ultFx(e.skill);
+        var ci = el('cutin');
+        if (ci) {
+          ci.innerHTML = '<div class="ci-band side' + me.side + '"><div class="ci-art' + (MJ.Art.hasCutin(me.u.look) ? ' hi' : '') + '">' + MJ.Art.cutin(me.u.look, me.u.quality || 4, { enemy: me.side === 'B' }) + '</div>' +
+            '<div class="ci-top">' + U.esc(me.u.name) + '・' + U.esc(e.skill) + '</div>' +
+            '<div class="ci-vname">' + U.esc(e.skill) + '</div><div class="ci-txt"><div class="ci-combo">' + (e.lx ? '無雙連攜' : '無雙技') + '</div><div class="ci-name">' + U.esc(e.skill) + '</div><div class="ci-who">' + U.esc(me.u.name) + '</div></div>' +
+            (e.heal ? '' : '<div class="ci-mini">' + miniGrid(e.cells, e.side, e.range, e) + '</div>') + '</div>' +
+            ciCards(me.side, me.u.name) + '<div class="ci-total" id="ulttotal">' + (e.heal ? '' : '總傷害 <b>0</b>') + '</div>';
+          ci.className = 'cutin on';
+        }
+        t0 = T(1000);
+      } else t0 = 0; // 無雙演出關：不建 cut-in、不播全屏特效、不延遲，直接結算（傷害數字與戰報照常）
     } else {
       if (e.skill !== '普攻' && e.skill !== '攻擊') floatText(e.u, e.skill, 'skillname', 60);
     }
     BT.timer = setTimeout(function () {
-      var ci2 = el('cutin'); if (ci2 && e.ult) ci2.className = 'cutin on small';
-      if (e.ult) { var sk2 = el('bskill'); if (sk2) { sk2.innerHTML = U.esc(e.skill); sk2.className = 'b-skill on'; } flash(me.side === 'A' ? 'gold' : 'blue'); shake(true); }
+      var ci2 = el('cutin'); if (ci2 && e.ult && showCi) ci2.className = 'cutin on small';
+      if (e.ult && showCi) { var sk2 = el('bskill'); if (sk2) { sk2.innerHTML = U.esc(e.skill); sk2.className = 'b-skill on'; } flash(me.side === 'A' ? 'gold' : 'blue'); shake(true); }
       showRange(e, me, T(e.ult ? 900 : 560));
       highlight(e.side, e.cells, e.heal ? 'heal' : 'warn', T(e.ult ? 900 : 520));
+      attackAnim(me, e); // 攻擊動作（揮刀／出拳／氣功）：傷害在 impact 時才結算，時序不變
       var tgtKey = e.target, melee = !e.heal && isMelee(me.u) && e.pattern !== 'all';
       if (ue) ue.className = ue.className.replace(/ acting/g, '') + ' acting';
       if (melee && tgtKey && BT.units[tgtKey] && ue) {
@@ -345,7 +460,7 @@
         // 遠程／法術：投射光球
         var a = upos(me), b = upos(BT.units[tgtKey]), fx = el('fx');
         if (fx) {
-          var o = document.createElement('div'); o.className = 'orb ' + (me.u.dtype === 'j' ? 'jue' : me.u.phys ? 'arrow' : 'magic');
+          var o = document.createElement('div'); o.className = 'orb ' + (attackKind(me.u) === 'wave' ? 'wave' : (me.u.dtype === 'j' ? 'jue' : me.u.phys ? 'arrow' : 'magic'));
           o.style.left = (a.x - 14) + 'px'; o.style.top = (a.y - 84) + 'px'; fx.appendChild(o);
           setTimeout(function () { o.style.webkitTransform = o.style.transform = 'translate(' + (b.x - a.x) + 'px,' + (b.y - a.y) + 'px)'; }, T(150));
           setTimeout(function () { if (o.parentNode) o.parentNode.removeChild(o); }, T(450));
@@ -361,7 +476,7 @@
         BT.timer = setTimeout(function () {
           if (e.ult) { var ci3 = el('cutin'); if (ci3) ci3.className = 'cutin'; var sk3 = el('bskill'); if (sk3) sk3.className = 'b-skill'; BT.ultTotal = null; }
           step();
-        }, T(e.ult ? 900 : 560) + T(k * 45));
+        }, T((e.ult && showCi) ? 900 : 560) + T(k * 45));
       }, impact);
     }, t0);
   }

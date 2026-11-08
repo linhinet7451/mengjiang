@@ -152,7 +152,13 @@
   };
 
   // =================== 玄機盤 ===================
-  // 12 格轉盤；每贏 5 場可免費轉 1 次（P2，不看日期），其餘花銀幣（隨主角等級）。保底：連續 10 次沒有轉到「玄機大獎」，第 10 次必中。
+  // 宣傳片 0:50：金色橢圓盤上的 5 顆骰子（B）。擲 5 顆骰子，以 base-6 數字（0..7775）均勻對應既有的 12 項加權表（D 映射）；
+  // 獎項、權重、每贏 5 場免費 1 次、費用、10 次保底規則全部不變。骰子點數只決定獎項，不另加分數或倍率。
+  G.wheelDice = function (rng) {
+    var dice = [], v = 0, i, d;
+    for (i = 0; i < 5; i++) { d = 1 + Math.floor(rnd(rng) * 6); dice.push(d); v = v * 6 + (d - 1); }
+    return { dice: dice, v: v };
+  };
   G.WHEEL = [
     { id: 'big', name: '玄機大獎', w: 2, rw: function (L) { return { gold: 100, items: [{ item: 'gem_atk_3', n: 1 }, { item: 'shenjishu', n: 1 }] }; } },
     { id: 'gold', name: '金幣 30', w: 6, rw: function () { return { gold: 30 }; } },
@@ -177,14 +183,14 @@
     var w = wheelDay(), s = st(), free = w.free > 0, cost = free ? 0 : G.wheelCost();
     if (s.player.silver < cost) return fail('銀幣不足（需要 ' + U.fmt(cost) + '）');
     if (free) { w.free = 0; G.useTicket('wheel'); } else s.player.silver -= cost;
-    var idx;
-    if (w.pity >= G.WHEEL_PITY - 1) idx = 0;
-    else { var tot = 0; U.each(G.WHEEL, function (a) { tot += a.w; }); var r = rnd(rng) * tot; idx = G.WHEEL.length - 1; for (var i = 0; i < G.WHEEL.length; i++) { r -= G.WHEEL[i].w; if (r < 0) { idx = i; break; } } }
+    var idx, dice;
+    if (w.pity >= G.WHEEL_PITY - 1) { idx = 0; dice = G.wheelDice(rng).dice; } // 保底：仍擲骰顯示，第 10 次必中大獎
+    else { var tot = 0; U.each(G.WHEEL, function (a) { tot += a.w; }); var roll = G.wheelDice(rng); dice = roll.dice; var r = roll.v / 7776 * tot; idx = G.WHEEL.length - 1; for (var i = 0; i < G.WHEEL.length; i++) { r -= G.WHEEL[i].w; if (r < 0) { idx = i; break; } } }
     var pz = G.WHEEL[idx];
     w.pity = idx === 0 ? 0 : w.pity + 1; w.spins++; w.last = idx;
     var rewards = G.grant(pz.rw(lvl(), rng));
-    G.log('玄機盤轉到「' + pz.name + '」', 'sys');
+    G.log('玄機盤擲出「' + dice.join('・') + '」→「' + pz.name + '」', 'sys');
     G.commit();
-    return ok({ idx: idx, prize: pz, rewards: rewards, cost: cost, free: free, pity: idx === 0 && w.spins > 0 });
+    return ok({ idx: idx, prize: pz, rewards: rewards, cost: cost, free: free, pity: idx === 0 && w.spins > 0, dice: dice });
   };
 })(MJ.G);

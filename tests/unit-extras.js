@@ -108,10 +108,14 @@ ok(G.starExpBonus() === 0 && !G.starState().luck, '星運場數用完後失效')
 
 console.log('[玄機盤]');
 var odds = G.wheelOdds(), sum = 0; odds.forEach(function (o) { sum += o.pct; });
-ok(odds.length === 12 && Math.abs(sum - 100) < 0.5, '12 格轉盤，機率加總 100%');
+ok(odds.length === 12 && Math.abs(sum - 100) < 0.5, '12 個獎項（5 顆骰子），機率加總 100%');
+var dd = G.wheelDice(seq([0.5]));
+ok(dd.dice.join(',') === '4,4,4,4,4' && dd.v === 4665, '5 顆骰子作 base-6 數字（0.5 → 全 4，v=4665）');
+ok(G.wheelDice(seq([0])).dice.join(',') === '1,1,1,1,1' && G.wheelDice(seq([0.999])).dice.join(',') === '6,6,6,6,6', '骰面 1～6 邊界正確');
 var w0 = G.wheelState(); s.player.silver = 0;
 var sp1 = G.wheelSpin(seq([0.5]));
 ok(sp1.ok && sp1.free && sp1.cost === 0, '新存檔第一次免費（之後每贏 ' + G.TICKET.wheel + ' 場一次）');
+ok(sp1.dice.join(',') === '4,4,4,4,4' && sp1.idx === 6, '同種子擲出全 4，對應獎項「培養丹 ×5」（base-6 映射決定）');
 ok(!G.wheelSpin(seq([0.5])).ok, '銀幣不足時不能轉');
 s.player.silver = 1e9; s.qiyu.wheel.pity = 0;
 var hitBig = false;

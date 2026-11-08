@@ -58,6 +58,7 @@ MJ.S = (function () {
     def(st, 'counters', {});
     if (st.player) def(st.player, 'xinghun', 0);
     if (st.settings) def(st.settings, 'econ', st.settings.energyMode === 'fast' ? 'fast' : 'std');
+    if (st.settings) def(st.settings, 'musou', true); // 無雙演出開關：舊存檔預設開，與戰鬥速度（1x/2x/4x）無關
     if (st.buildings) def(st.buildings, 'shenbing', 1);
     U.each(st.heroes || [], function (h) {
       if (!h) return;

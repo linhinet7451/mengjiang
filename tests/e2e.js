@@ -264,12 +264,14 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
     return { out: out, w: w };
   });
   ok(fit.out === 0 && fit.w >= 100, '放大後的戰鬥武將全部在舞台內（人物寬 ' + fit.w + 'px，超出 ' + fit.out + '）');
-  ok(await page.locator('.b-tot.A .tb i').count() === 1 && await page.locator('.b-tot.B .tb i').count() === 1, '上方顯示雙方總生命條');
+  ok(await page.locator('.b-tot.split .tb-a i').count() === 1 && await page.locator('.b-tot.split .tb-b i').count() === 1, '上方一條合併總生命條（左綠我方／右橙紅敵方）');
   await shot('8-battle');
   ok(await J(function () { return document.querySelectorAll('.bu .bcirc').length === document.querySelectorAll('.bu').length && document.querySelectorAll('.bu').length >= 2; }), '每個戰鬥單位腳下都有法陣');
   await page.waitForTimeout(1500);
   await shot('8b-battle-later');
   ok(await J(function () { return (window.__fx && window.__fx.skfx) || 0; }) > 0, '受擊時出現依傷害類型的技能光效');
+  // VID-2：攻擊動作三種對應（揮刀／出拳／氣功）
+  ok(await J(function () { var k = MJ.UI._attackKind; return k && k({ dtype: 'p', look: { wp: 'sword' } }) === 'slash' && k({ dtype: 'p', look: { wp: 'none' } }) === 'fist' && k({ dtype: 'm', look: { wp: 'fan' } }) === 'wave' && k({ dtype: 'j', look: { wp: 'sword' } }) === 'wave'; }), '攻擊動作三種對應：揮刀／出拳／氣功');
   // 壓力測試：每個單位同時飄出最高的技能名、無雙+、暴擊、大數字
   await J(function () { var BT = MJ.UI._bt ? MJ.UI._bt() : null; [].forEach.call(document.querySelectorAll('.bu:not(.dead)'), function (u) { var k = u.id.slice(1); MJ.UI._floatText(k, '神鬼亂舞斬', 'skillname', 60); MJ.UI._floatText(k, '無雙+35', 'green small', 44); MJ.UI._floatText(k, '暴擊', 'critlab', 38); MJ.UI._floatText(k, '-123456', 'crit'); MJ.UI._floatText(k, '<i class="leaf"></i>+98765', 'heal'); }); });
   await page.waitForTimeout(300);
@@ -521,7 +523,7 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   await act('[data-a="confirmYes"]');
   await shot('21-qiyu-star');
   await act('[data-a="qyTab"][data-v="wheel"]');
-  ok(await page.locator('#wheel svg path').count() === 12, '玄機盤 12 格');
+  ok(await page.locator('.dice-plate .die').count() === 5, '玄機盤為金色橢圓盤上的 5 顆骰子');
   var sp0 = await J(function () { return MJ.S.state.qiyu.wheel.spins; });
   await act('[data-a="wheelSpin"]');
   await page.waitForSelector('#confirm .rw', { timeout: 4000 });

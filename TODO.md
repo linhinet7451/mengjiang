@@ -6,7 +6,7 @@ BOARD-3 已完成；維持現行 v12 棋盤規則，本次不重做、不改動�
 
 ## English summary
 Unofficial, offline, single-file HTML5 remake of the 2012–2013 Facebook game 猛將無雙. Build output: `dist/mengjiang.html` (one file, ES5, no CDN, < 12,000,000 bytes). With the original company's consent (as stated by the repository owner), original art, music, and similar assets may be referenced or used directly so the remake stays as close to the original as possible. Record each use in `docs/美術素材來源.md`. If no original file is available, redraw closer assets from the screenshots and videos in `reference/`.
-State on 2026-11-08 (UTC+8): ART-5 partially done (41 heroes redrawn from original screenshots; the rest pending). P1/P2 and P3-1–P3-6, SHOP-1, TASK-1, P4-1–P4-6 are complete; P4-3 is explicitly complete and P4-4 now has dedicated UI E2E acceptance. P3-1 rates/caps remain RV13; P3-2 skill range shapes RV14; P3-6 field-item replay events RV15. P3-3–P3-5 remain implemented in current save v12 (P3-5 migration introduced in v11; P4-3 added v12). P4-2 third-slot compatibility is idempotent. P4-7 and later remain pending where explicitly scoped or dependent on original assets, real-device tests, or external confirmation. Nothing here claims real-device testing; Playwright Chromium/WebKit iPhone 13 are emulations only. Social/online modes are not built (by design: single-player); the Honor Trial multiplayer item economy is not reconstructed. Many numbers remain grade D. Each item below lists goal, evidence + grade + URL, files/functions, acceptance tests, priority and dependencies. Read "Project rules" first.
+State on 2026-11-08 (UTC+8): ART-5 partially done (41 heroes redrawn from original screenshots; the rest pending). P1/P2 and P3-1–P3-6, SHOP-1, TASK-1, P4-1–P4-6 are complete; P4-3 is explicitly complete and P4-4 now has dedicated UI E2E acceptance. VID-2（兩支影片實戰分析-2：骰子玄機盤、6 枚技能牌無雙切入＋演出開關、士兵剪影、武林大會 AI、攻擊動作）已完成，見 §VID-2。P3-1 rates/caps remain RV13; P3-2 skill range shapes RV14; P3-6 field-item replay events RV15. P3-3–P3-5 remain implemented in current save v12 (P3-5 migration introduced in v11; P4-3 added v12). P4-2 third-slot compatibility is idempotent. P4-7 and later remain pending where explicitly scoped or dependent on original assets, real-device tests, or external confirmation. Nothing here claims real-device testing; Playwright Chromium/WebKit iPhone 13 are emulations only. Social/online modes are not built (by design: single-player); the Honor Trial multiplayer item economy is not reconstructed. Many numbers remain grade D. Each item below lists goal, evidence + grade + URL, files/functions, acceptance tests, priority and dependencies. Read "Project rules" first.
 
 ---
 
@@ -26,7 +26,8 @@ State on 2026-11-08 (UTC+8): ART-5 partially done (41 heroes redrawn from origin
 ## 建置與測試（摘要，詳見 README）
 - `npm install`（acorn、playwright、terser；e2e 需 `npx playwright install chromium webkit`）
 - 資料：`node tools/build-data.js`；素材：`node tools/build-assets.js`；單檔：`node tools/build.js` → `dist/mengjiang.html`、`dist/boot-test.html`
-- 單元：`sh tools/runtests.sh`（本輪 26 組、3,712 項通過／0 失敗，見 `docs/test-log-unit.txt`）；E2E：`node tests/e2e.js all`（456 通過／0 失敗，Chromium、WebKit iPhone 13、橫向手機各 152；見 `docs/test-log-e2e.txt`）；單檔 11,890,862 bytes（<12,000,000），51 個 inline script 全通過 ES5。平衡：`node tools/progress-sim.js --days 30`（P3-1 已執行）。
+- 單元：`sh tools/runtests.sh`（本輪 27 組、3,900 項通過／0 失敗，見 `docs/test-log-unit.txt`）；E2E：`node tests/e2e.js all`（**459 通過／0 失敗**，Chromium 桌機、WebKit iPhone 13、橫向手機各 153；見 `docs/test-log-e2e.txt`）；單檔 11,846,499 bytes（<12,000,000），54 個 inline script 全通過 ES5。平衡：`node tools/progress-sim.js --days 30`（P3-1 已執行）。
+- 注意：`node tools/gen-data.js` 目前不可直接跑——以乾淨 HEAD 驗證，它會把 `src/data/config.json` 從 50 個鍵砍到 39 個鍵（含 `soulCombine` 遺失），其內建 config 已落後於已提交資料；`node tools/web2-data.js P1 P2 P3 P4` 內容上可重跑，但會把 `config.json`／`provenance.json` 從 2 空格重排為 1 空格，並還原 3 筆手改的 provenance `current` 文字（`web2.range.advance`、`web2.range.sidestep`、`web2.formation.persist`）。本輪因此跳過這兩步，只跑 `build-data`／`build-assets`／`build`／`es5check`；修好前不要把它們放回預設建置流程。
 
 ---
 
@@ -50,6 +51,7 @@ State on 2026-11-08 (UTC+8): ART-5 partially done (41 heroes redrawn from origin
 | ART-5（部分）41 名武將依原版截圖重繪（含巴哈精華區 31 名） | B／C | 其餘美術與音樂仍待辦 |
 | MAIL-1 郵件一鍵領取（G.claimAllMail；包裹不足的附件郵件略過並提示） | 本作設計（D） | tests/unit-mailall.js |
 | BATTLE-SPEED 戰鬥 4x 加速（1x→2x→4x，設定頁同步） | 本作設計（D） | src/js/ui-battle.js、ui-misc.js |
+| VID-2 影片實戰分析-2：骰子玄機盤、6 牌無雙切入＋演出開關、士兵剪影、武林大會 AI、攻擊動作 | A／B／D 分項 | 見 §VID-2；`docs/影片實戰分析-2.md` |
 | PERF-1 網頁版載入優化：index.html 由 11.9 MB 降為 0.75 MB，圖片改為 assets/*.webp 依需要載入；單檔離線版保留為 mengjiang.html | 本作設計（D） | tools/build.js、src/js/art.js |
 
 ---
@@ -171,6 +173,23 @@ URL 縮寫：`G2(sn)` = `https://forum.gamer.com.tw/G2.php?bsn=22512&sn=<sn>`；
 - 每名武將使用 `_ci` 半身像（256px Q58，缺圖有既有回退），搭配直書金字技名、金色光效、側邊滑入動畫與總傷害顯示；敵方鏡像與省電模式均有對應處理。
 - 實作：`src/js/ui-battle.js` cut-in event、`src/css/style.css` `.ci-art.hi`／`ciin`／光帶、`src/js/art.js` cut-in asset mapping。新武將自動裁切的個別像素差異屬素材微調，不阻擋本項交付。
 - 驗收：`tests/e2e.js all` 驗證無雙特寫、技能名、總傷害與 battle replay 不回歸；`tools/showcase.js` 可產生特寫截圖。優先：低；已完成。
+
+### VID-2 影片實戰分析-2（已完成，2026-11-08）
+
+- 來源：兩支影片分析報告 `docs/影片實戰分析-2.md`（影片 1：https://youtu.be/RlsGxFnwKZk；影片 2 官方宣傳片：https://youtu.be/tcxWoC-Rtb8）。影片檔與抽幀不在 repo 內。
+- 高優先（已完成）：
+  - 無雙切入重做：左上武將名＋技名小字、紅框白字總傷害（從 0 計數）、直書金字技名（黃＋紅光暈）、範圍格縮小右置、底部 6 枚技能牌（出招方全隊無雙名，CSS 直書籤）；另加設置開關「無雙演出：開／關」（預設開，舊存檔預設開；關閉時不建切入、不播特效、不延遲，傷害直接結算）。戰鬥速度維持 1x→2x→4x 不變，兩開關獨立。實作：`src/js/ui-battle.js`（`UI.musouOn`、`ciCards`）、`src/css/style.css`（`.ci-top`／`.ci-cards`／`.ci-mini`／`.ci-total`）、`src/js/ui-misc.js`（`setOpt musou:`）、`src/js/state.js`／`src/js/game.js`（預設）。
+  - 戰鬥 HUD：上方一條合併總生命條（左綠＝我方／右橙紅＝敵方、金色端頭、火焰分隔、數字置中於條下方）；底部回合＋站位小格（綠／紅）＋連擊列（頭像列上方，頭像列保留）；傷害數字黃紅漸層黑邊、增益綠字。連擊＝本回合內連續造成傷害的命中次數（雙方合計，不計閃避／無效），每回合歸零（D）。實作：`src/js/ui-battle.js`（`updateInfo`、`BT.combo`）、`src/css/style.css`（`.b-tot.split`／`.b-info`／`.ftxt.dmg`）。
+  - 聚賢莊金底面板：金底＋深綠翠玉框＋四角飾＋左側直書粉紅「聚賢莊」；招募邏輯、機率、費用不變。實作：`src/js/ui-recruit.js`、`.juxian-gold`／`.jx-cn`／`.jx-vtitle`。
+- 中優先（已完成）：
+  - 全屏無雙特效（CSS/SVG，無圖片，D）：關羽→地球光束、梅超風→紅色爪痕、王語嫣→冰藍光束、貂蟬／孫尚香→粉瓣、呂布→水墨黑龍、張飛→巨足踩踏、其餘→黃色全屏閃光；省電模式與無雙演出關閉時不播。實作：`src/js/ui-battle.js`（`ULT_FX`、`ultFx`）、`.ultfx`。
+  - 玄機盤改骰子：金色橢圓盤上 5 顆骰子（CSS 點陣，擲骰動畫）；映射：5 顆骰子作 base-6 數字（0..7775）均勻對應既有 12 項加權表（D），分布與原加權表相同；獎項、權重、每贏 5 場免費 1 次、費用 500＋等級×100、10 次保底全部不變。實作：`src/js/sys5.js`（`G.wheelDice`）、`src/js/ui-p5.js`、`src/css/style.css`（`.dice-plate`／`.die`）。
+  - 武林大會 AI：第 41 屆、8 人單淘汰賽、海選 Lv.70（畫面標註 Lv.70-75）；對手沿用拜訪武將 AI 陣容（八強 vs 第 7 名、四強／決賽由非玩家對戰戰力模擬產生）；八強／四強／決賽三輪，獎勵銀幣 1,000／2,000／5,000＋培養丹／技能書分輪次（D）；戰報可重播；唯一入口：主城 → 原版玩法中心 → 武林大會。實作：`src/js/sys4.js`（`G.wulinBracket`／`G.wulinStart`／`G.wulinFight`／`G.wulinReplay`）、`src/js/ui-p4.js`（`UI.screens.wulin`）、`src/js/ui-p1p2.js`（原版玩法入口改指 `wulin`）。
+  - 士兵剪影：戰場背景兩側深色半透明剪影（CSS/SVG，棋盤後方，純裝飾；省電模式隱藏）。實作：`src/js/ui-battle.js`（`armyHtml`）、`.b-army`。
+- 追加（Tomas 2026-11-08，D 級原創）：攻擊動作動畫——揮刀（物理近戰：弧形刀光＋前衝＋回位）、出拳（物理徒手 `wp: none`：拳影＋衝擊波環）、氣功（法術／絕技 `dtype: m/j`：聚氣光球＋發射波）；約 380ms 基準，隨 1x/2x/4x 等比縮短；省電模式不加新光效；與無雙演出開關獨立；每個行動只觸發一次，傷害在既有 impact 時點結算。實作：`src/js/ui-battle.js`（`attackKind`／`attackAnim`）、`.atkfx`。原版攻擊動作無法考察。
+- 考證：`src/data/provenance.json` 新增 `video2.*` 15 條（248→263）與衝突 `VID2-NAMES`；`docs/資料考證.md` §18。無雙名衝突：關羽「義薄雲天」、梅超風「九陰白骨爪」與 W967 數據一致；貂蟬（宣傳片「千秋蓮舞」vs 數據「千秋萬載」）、孫尚香（「美人計」vs「梟姬亂箭」）、王語嫣（「滅絕劍法」vs「口吐蓮花」）保留 W967 數據名、不改名，切入與技能頁一律顯示數據名。神兵坊幸運值／好友祝福只記錄、不實作（B）。
+- 驗收：27 組單元測試 3,900／3,900（新增 `tests/unit-wulin.js` 19 項；`tests/unit-extras.js` 玄機盤 44→49 項）；E2E **459／459**（`tests/e2e.js` 更新 3 處：合併血條選擇器、骰子 5 顆、攻擊動作對應）；ES5 全過（54 個 inline script）；單檔 `dist/mengjiang.html` 11,846,499 bytes（<12,000,000）。存檔版本不變（v12；`musou` 與 `wulin` 欄位由 `applyDefaults`／`extraDefaults` 補齊，舊存檔有 fixture 測試）。
+- 未完成／保持原樣：ART-5 剩餘（其餘約 87 名武將、主城建築、UI 外框、音樂）；QA-1 真機測試未做；P4-7 不做（記錄）；神兵坊幸運值／好友祝福不實作。優先：高／中；已完成。
 
 ### ART-5 以原作素材或更貼近的重繪取代生成圖與音樂（進行中：41 名武將已重繪，2026-11-08）
 - 目標：在取得原作檔案，或有經同意的來源時，把目前生成的美術與音樂換成原作素材，或依 `reference/` 的截圖與影片重繪得更貼近原版。
