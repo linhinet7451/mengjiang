@@ -404,7 +404,7 @@
     h += '<div class="btn-row"><a class="btn" data-a="bAgain" data-v="' + sg.id + '">再戰一次</a><a class="btn" data-a="bBack">返回關卡</a><a class="btn" data-a="bCity">回主城</a></div></div>';
     b.innerHTML = h;
   }
-  UI.actions.bSpeed = function () { BT.speed = BT.speed === 1 ? 2 : 1; MJ.S.state.settings.speed = BT.speed; MJ.S.save(); var e = el('bspeed'); if (e) e.innerHTML = BT.speed + 'x'; };
+  UI.actions.bSpeed = function () { BT.speed = BT.speed === 1 ? 2 : (BT.speed === 2 ? 4 : 1); MJ.S.state.settings.speed = BT.speed; MJ.S.save(); var e = el('bspeed'); if (e) e.innerHTML = BT.speed + 'x'; };
   UI.actions.bSkip = function () {
     if (!BT || BT.done) return;
     clearTimeout(BT.timer);

@@ -176,7 +176,7 @@
       '<div class="set-row small">每 30 秒及每次操作後自動存檔。手動存檔會先備份上一份存檔。</div>' +
       '<div class="btn-row left"><a class="btn red" data-a="resetSave">重置遊戲</a></div></div>' +
       '<div class="set-col"><div class="set-h">遊戲</div>' +
-      '<div class="set-row">戰鬥速度：<a class="tog' + (st.speed === 1 ? ' on' : '') + '" data-a="setOpt" data-v="speed:1">1x</a><a class="tog' + (st.speed === 2 ? ' on' : '') + '" data-a="setOpt" data-v="speed:2">2x</a></div>' +
+      '<div class="set-row">戰鬥速度：<a class="tog' + (st.speed === 1 ? ' on' : '') + '" data-a="setOpt" data-v="speed:1">1x</a><a class="tog' + (st.speed === 2 ? ' on' : '') + '" data-a="setOpt" data-v="speed:2">2x</a><a class="tog' + (st.speed === 4 ? ' on' : '') + '" data-a="setOpt" data-v="speed:4">4x</a></div>' +
       '<div class="set-row">經濟模式：<a class="tog' + (st.econ !== 'fast' ? ' on' : '') + '" data-a="setEcon" data-v="std">標準</a><a class="tog' + (st.econ === 'fast' ? ' on' : '') + '" data-a="setEcon" data-v="fast">單機加速</a><br><small>標準：原速。單機加速：訓練經驗 2 倍、戰鬥銀幣與塔俸 ×1.5（D）。精力與現實時間等待已全部取消。</small></div>' +
       (UI.soundRows ? UI.soundRows() : '') +
       '<div class="set-row">手機直向時自動旋轉橫向：<a class="tog' + (st.rotate !== false ? ' on' : '') + '" data-a="setOpt" data-v="rotate:1">開</a><a class="tog' + (st.rotate === false ? ' on' : '') + '" data-a="setOpt" data-v="rotate:0">關</a></div>' +

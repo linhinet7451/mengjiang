@@ -6,7 +6,7 @@ BOARD-3 已完成；維持現行 v12 棋盤規則，本次不重做、不改動�
 
 ## English summary
 Unofficial, offline, single-file HTML5 remake of the 2012–2013 Facebook game 猛將無雙. Build output: `dist/mengjiang.html` (one file, ES5, no CDN, < 12,000,000 bytes). With the original company's consent (as stated by the repository owner), original art, music, and similar assets may be referenced or used directly so the remake stays as close to the original as possible. Record each use in `docs/美術素材來源.md`. If no original file is available, redraw closer assets from the screenshots and videos in `reference/`.
-State on 2026-11-08 (UTC+8): ART-5 partially done (10 heroes redrawn from original screenshots; the rest pending). P1/P2 and P3-1–P3-6, SHOP-1, TASK-1, P4-1–P4-6 are complete; P4-3 is explicitly complete and P4-4 now has dedicated UI E2E acceptance. P3-1 rates/caps remain RV13; P3-2 skill range shapes RV14; P3-6 field-item replay events RV15. P3-3–P3-5 remain implemented in current save v12 (P3-5 migration introduced in v11; P4-3 added v12). P4-2 third-slot compatibility is idempotent. P4-7 and later remain pending where explicitly scoped or dependent on original assets, real-device tests, or external confirmation. Nothing here claims real-device testing; Playwright Chromium/WebKit iPhone 13 are emulations only. Social/online modes are not built (by design: single-player); the Honor Trial multiplayer item economy is not reconstructed. Many numbers remain grade D. Each item below lists goal, evidence + grade + URL, files/functions, acceptance tests, priority and dependencies. Read "Project rules" first.
+State on 2026-11-08 (UTC+8): ART-5 partially done (41 heroes redrawn from original screenshots; the rest pending). P1/P2 and P3-1–P3-6, SHOP-1, TASK-1, P4-1–P4-6 are complete; P4-3 is explicitly complete and P4-4 now has dedicated UI E2E acceptance. P3-1 rates/caps remain RV13; P3-2 skill range shapes RV14; P3-6 field-item replay events RV15. P3-3–P3-5 remain implemented in current save v12 (P3-5 migration introduced in v11; P4-3 added v12). P4-2 third-slot compatibility is idempotent. P4-7 and later remain pending where explicitly scoped or dependent on original assets, real-device tests, or external confirmation. Nothing here claims real-device testing; Playwright Chromium/WebKit iPhone 13 are emulations only. Social/online modes are not built (by design: single-player); the Honor Trial multiplayer item economy is not reconstructed. Many numbers remain grade D. Each item below lists goal, evidence + grade + URL, files/functions, acceptance tests, priority and dependencies. Read "Project rules" first.
 
 ---
 
@@ -47,8 +47,9 @@ State on 2026-11-08 (UTC+8): ART-5 partially done (10 heroes redrawn from origin
 | 10 名查無來源武將保留、標 D | D | web2.hero.unsourced10 |
 | P4-3 生死劫九層 | B（層名）／D（戰鬥與獎勵規則） | v11→v12 遷移；26 組單元與 456 項 E2E 全通過 |
 | P4-4 5 魂合成公式 34 條 | B（來源公式） | 專屬 UI E2E：34 條、缺料狀態、合成扣料／產出；三種 viewport 全通過 |
-| ART-5（部分）10 名武將依原版截圖重繪 | B／C | 其餘美術與音樂仍待辦 |
+| ART-5（部分）41 名武將依原版截圖重繪（含巴哈精華區 31 名） | B／C | 其餘美術與音樂仍待辦 |
 | MAIL-1 郵件一鍵領取（G.claimAllMail；包裹不足的附件郵件略過並提示） | 本作設計（D） | tests/unit-mailall.js |
+| BATTLE-SPEED 戰鬥 4x 加速（1x→2x→4x，設定頁同步） | 本作設計（D） | src/js/ui-battle.js、ui-misc.js |
 | PERF-1 網頁版載入優化：index.html 由 11.9 MB 降為 0.75 MB，圖片改為 assets/*.webp 依需要載入；單檔離線版保留為 mengjiang.html | 本作設計（D） | tools/build.js、src/js/art.js |
 
 ---
@@ -171,7 +172,7 @@ URL 縮寫：`G2(sn)` = `https://forum.gamer.com.tw/G2.php?bsn=22512&sn=<sn>`；
 - 實作：`src/js/ui-battle.js` cut-in event、`src/css/style.css` `.ci-art.hi`／`ciin`／光帶、`src/js/art.js` cut-in asset mapping。新武將自動裁切的個別像素差異屬素材微調，不阻擋本項交付。
 - 驗收：`tests/e2e.js all` 驗證無雙特寫、技能名、總傷害與 battle replay 不回歸；`tools/showcase.js` 可產生特寫截圖。優先：低；已完成。
 
-### ART-5 以原作素材或更貼近的重繪取代生成圖與音樂（進行中：10 名武將已重繪，2026-11-08）
+### ART-5 以原作素材或更貼近的重繪取代生成圖與音樂（進行中：41 名武將已重繪，2026-11-08）
 - 目標：在取得原作檔案，或有經同意的來源時，把目前生成的美術與音樂換成原作素材，或依 `reference/` 的截圖與影片重繪得更貼近原版。
 - Replace generated art and music with original assets, or closer redraws, when original files or permission-backed sources are available.
 - 證據：原公司同意（依倉庫擁有者說明）。使用原作素材時記入 `docs/美術素材來源.md`。
