@@ -10,11 +10,17 @@ ok(eq(G.SSJ_LAYERS.map(function (x) { return x.name; }), names), '九層首領�
 ok(G.SSJ_LAYERS.length === 9 && G.SSJ_LAYERS.every(function (x, i, a) { return x.lv > 0 && (i === 0 || x.lv > a[i - 1].lv); }), '九層敵軍等級為明確遞增的 D 級設定');
 ok(G.ssjStage(1, 21).enemies.length === 1 && G.ssjStage(1, 21).enemies[0].honorFrame === 'gold', '每層建立單一金框首領');
 ok(G.ssjStage(0) === null && G.ssjStage(10) === null && G.ssjStage('x') === null, '越界或非數字層數不產生戰鬥');
+ok(!G.ssjChallenge('x', 1).ok, '挑戰拒絕非數字層數');
 ok(!G.ssjChallenge(2, 1).ok && /前一層/.test(G.ssjChallenge(2, 1).msg), '尚未通過前層時拒絕挑戰');
 var oldCells = S.state.team.cells;
 S.state.team.cells = {};
 ok(!G.ssjChallenge(1, 1).ok && G.ssjProgress().best === 0, '沒有隊伍時不開始挑戰');
 S.state.team.cells = oldCells;
+var live = load(), liveM = live.MJ, liveG = liveM.G;
+liveG.newGame('生死劫實戰', '力耐', 'm', 10);
+liveG.teamList().forEach(function (x) { x.hero.lv = 60; });
+var liveResult = liveG.ssjChallenge(1, 1);
+ok(liveResult.ok && liveResult.battle.rounds > 0 && liveResult.foes.length === 1, '實際戰鬥引擎可執行生死劫首領戰');
 
 var originalRun = M.Battle.run, call = 0;
 M.Battle.run = function (team, foes) {

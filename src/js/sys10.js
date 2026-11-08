@@ -42,7 +42,7 @@
     if (!(floor >= 1 && floor <= G.SSJ_LAYERS.length)) return null;
     var layer = G.SSJ_LAYERS[floor - 1], ch = MJ.D.stages.chapters[(floor - 1) % MJ.D.stages.chapters.length];
     var sg = G.makeFoes({ ch: ch, count: 1, lv: Math.min(R.maxLevel, layer.lv), kind: 'boss', seed: seed || floor * 7919, depth: 4 });
-    sg.kind = 'boss'; sg.id = 'ssj' + floor; sg.name = '生死劫・第 ' + floor + 層; sg.bg = ch.bg; sg.floor = floor; sg.chName = ch.name;
+    sg.kind = 'boss'; sg.id = 'ssj' + floor; sg.name = '生死劫・第 ' + floor + ' 層'; sg.bg = ch.bg; sg.floor = floor; sg.chName = ch.name;
     sg.enemies[0].name = layer.name;
     sg.enemies[0].honorFrame = 'gold';
     sg.silver = 500 + floor * 200;
@@ -53,7 +53,7 @@
   G.ssjChallenge = function (floor, seed) {
     var s = st(), p = progress();
     floor = Math.floor(+floor);
-    if (floor < 1 || floor > G.SSJ_LAYERS.length) return fail('沒有這一層');
+    if (!(floor >= 1 && floor <= G.SSJ_LAYERS.length)) return fail('沒有這一層');
     if (floor > p.best + 1) return fail('請先通過前一層');
     if (!G.teamCount()) return fail('沒有出戰武將');
     seed = seed || seedOf();

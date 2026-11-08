@@ -47,6 +47,11 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   ok(await J(function () { return MJ.UI.screen === 'city' && MJ.S.state.player.name; }) === '測試俠', '建立新角色並進入主城');
   // 關掉可能的新手提示
   await closeModals();
+  await act('[data-a="shengsijie"]');
+  ok(await J(function () { return MJ.UI.screen === 'shengsijie' && document.querySelectorAll('.sg-card').length === 9; }), '生死劫畫面顯示九層首領');
+  ok(await page.locator('.sg-card.locked').count() === 8 && await page.locator('.sg-card:not(.locked) [data-a="ssjGo"]').count() === 1, '生死劫僅開放第一層挑戰');
+  await act('[data-a="city"]');
+  ok(await J(function () { return MJ.UI.screen === 'city'; }), '從生死劫返回主城');
   await shot('1-main-city');
 
   // 招募

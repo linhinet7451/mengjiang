@@ -5159,6 +5159,25 @@
    "note": "兩條留言爭議公式保留於 contested，不進 runtime。",
    "tentative": false,
    "conflicts": []
+  },
+  {
+   "id": "web2.shengsijie.rules",
+   "cat": "生死劫",
+   "item": "九層首領名稱與挑戰規則",
+   "spec": "G2(88)",
+   "current": "九層名稱依攻略；逐層開放、首領等級／外觀／技能與首通銀幣及經驗獎勵均為本作暫定設計。",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [
+    {
+     "s": "W88",
+     "q": "攻略可確認九層名稱；未提供敵方數值與獎勵規則"
+    }
+   ],
+   "phase": "web2-P4-3",
+   "note": "沒有來源的戰鬥數值與解鎖／獎勵均明確標 D。",
+   "tentative": true,
+   "conflicts": []
   }
  ]
 }

@@ -24,9 +24,9 @@ State on 2026-11-08 (UTC+8): P1/P2 and P3-1–P3-6, SHOP-1, TASK-1 and P4-1–P4
 8. **不得宣稱沒測過的東西通過**。回報要寫實際數字（通過／失敗數、檔案大小）。
 
 ## 建置與測試（摘要，詳見 README）
-- `npm install`（acorn、playwright；e2e 需 `npx playwright install chromium webkit`）
+- `npm install`（acorn、playwright、terser；e2e 需 `npx playwright install chromium webkit`）
 - 資料：`node tools/build-data.js`；素材：`node tools/build-assets.js`；單檔：`node tools/build.js` → `dist/mengjiang.html`、`dist/boot-test.html`
-- 單元：`sh tools/runtests.sh`（2026-11-08：25 組、3,693 項通過／0 失敗，見 `docs/test-log-unit.txt`）；e2e：`node tests/e2e.js all`（435 通過／0 失敗，Chromium、WebKit iPhone 13、橫向手機各 145）；RV15 單檔 11,997,724 bytes（<12,000,000），ES5 49 個 inline script 全通過。平衡：`node tools/progress-sim.js --days 30`（P3-1 已執行）。
+- 單元：`sh tools/runtests.sh`（本輪 26 組、3,712 項通過／0 失敗，見 `docs/test-log-unit.txt`）；e2e：`node tests/e2e.js all`（444 通過／0 失敗，Chromium、WebKit iPhone 13、橫向手機各 148）；單檔 11,890,862 bytes（<12,000,000），51 個 inline script 全通過 ES5。平衡：`node tools/progress-sim.js --days 30`（P3-1 已執行）。
 
 ---
 
@@ -127,7 +127,7 @@ URL 縮寫：`G2(sn)` = `https://forum.gamer.com.tw/G2.php?bsn=22512&sn=<sn>`；
 - 目標：魑、冷香絕、摩羅、羅迦、魎、羲天、阿修羅、深淵之龍、窮奇。敵方數值與獎勵 D。
 - 證據：G2(88)（B；九層名稱）；逐層開放、首領等級／外觀／技能與首通獎勵均為本作 D 級。`provenance.json` 由 `tools/web2-data.js` 可重複產生並列明此界線。
 - 實作：`src/js/sys10.js`、`src/js/ui-p10.js`，`index.html` 載入順序在 ui-p9 之後；存檔 v11→v12 保留舊進度並建立生死劫欄位。
-- 驗收：`tests/unit-web2-p4-3.js` 覆蓋九層名稱、首領、鎖層／通關／敗北、首通獎勵、重複挑戰、邊界輸入與 v11 存檔遷移；完整單元及 E2E 回歸待本輪執行。
+- 驗收：`tests/unit-web2-p4-3.js` 17 項覆蓋九層名稱、首領、鎖層／通關／敗北、首通獎勵、重複挑戰、邊界輸入、實際戰鬥引擎與 v11 存檔遷移；E2E 驗證入口、九層與首層鎖定。完整 26 組單元與 444 項 E2E 回歸均通過。
 - 優先：低；已完成（本作規則明確標 D）。
 
 ### P4-4 5 魂合成公式 34 條（已完成）

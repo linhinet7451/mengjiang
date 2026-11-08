@@ -134,7 +134,7 @@ https://linhinet7451.github.io/mengjiang/
 需要 Node.js。測試另外需要 Playwright，以及 Chromium 和 WebKit 瀏覽器。
 
 ```bash
-npm install                                   # acorn、playwright
+npm install                                   # acorn、playwright、terser
 node tools/gen-data.js && node tools/web2-data.js P1 P2 P3 && node tools/build-data.js   # 基礎資料＋可重跑來源補丁＋runtime bundle
 node tools/build.js                           # 內嵌 CSS/JS，輸出 dist/mengjiang.html、dist/boot-test.html
 node tools/es5check.js                        # 確認所有 JS 都是 ES5
@@ -171,7 +171,7 @@ reference/      原作截圖、宣傳片與其他參考素材（依倉庫擁有�
 **最新狀態與待辦請看 [TODO.md](TODO.md)**（P1、P2、P3-1～P3-6、SHOP-1、TASK-1、P4-1～P4-6、ART-1～ART-4 完成；P4-7、ART-5 以後待辦；未做真機測試）。進度紀錄在 `docs/原版還原-進度.md`。
 
 ```bash
-npm install                                   # acorn（ES5 檢查）、playwright（e2e）
+npm install                                   # acorn（ES5 檢查）、playwright（e2e）、terser（單檔壓縮）
 npx playwright install chromium webkit        # 只有跑 e2e 才需要
 node tools/web2-data.js P1 P2 P3              # （選用）把考證補丁寫進 src/data/*.json；可重跑，結果相同
 node tools/build-data.js                      # src/data/*.json → src/js/data.generated.js
