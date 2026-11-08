@@ -208,6 +208,22 @@
    "date": "2012-06-23",
    "region": "台版",
    "grade": "B"
+  },
+  "W91": {
+   "title": "心法攻略（補充）（巴哈姆特精華區 sn=91）",
+   "url": "https://forum.gamer.com.tw/G2.php?bsn=22512&sn=91",
+   "author": "大溪（loamiia）",
+   "date": "2013-08-21",
+   "region": "台版",
+   "grade": "B"
+  },
+  "wikiXinfa": {
+   "title": "四、心法系統（猛將無雙攻略百科）",
+   "url": "https://wiki2.gamer.com.tw/wiki.php?n=55622:%E5%9B%9B%E3%80%81%E5%BF%83%E6%B3%95%E7%B3%BB%E7%B5%B1&ss=55622&f=M",
+   "author": "攻略百科編者",
+   "date": "未標示",
+   "region": "台版",
+   "grade": "B"
   }
  },
  "conflicts": [
@@ -5042,6 +5058,86 @@
    "sources": [],
    "phase": "web2-P3-6",
    "note": "來源未說明旗幟完整受益對象、燒傷數值與炸彈倍率；此為避免推測的本作政策。",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "web2.gems.levels",
+   "cat": "裝備",
+   "item": "寶石逐級數值",
+   "spec": "G2 sn=84",
+   "current": "W84 表套用至 gem_* ID；缺少 Lv6 不外推，舊存檔照等級讀新值。",
+   "grade": "B",
+   "label": "原版（當年攻略記載）",
+   "sources": [
+    {
+     "s": "W84",
+     "q": "逐級值及百分比說明"
+    }
+   ],
+   "phase": "web2-P4-1",
+   "note": "使用原始數值，不重算百分點。",
+   "tentative": false,
+   "conflicts": []
+  },
+  {
+   "id": "web2.xinfa.slots",
+   "cat": "心法",
+   "item": "心法兩格與魂經驗",
+   "spec": "G2 sn=86/91",
+   "current": "60 級開第二格；普通／特殊分格；白1、綠10、藍50、紫100；上限100。",
+   "grade": "B",
+   "label": "原版（當年攻略記載）",
+   "sources": [
+    {
+     "s": "W86",
+     "q": "欄位與魂經驗"
+    },
+    {
+     "s": "W91",
+     "q": "屬性套用"
+    }
+   ],
+   "phase": "web2-P4-2",
+   "note": "舊第三格退回秘笈，原資料留 xfOverflow。",
+   "tentative": false,
+   "conflicts": []
+  },
+  {
+   "id": "web2.skill.sourceEffects",
+   "cat": "技能",
+   "item": "W967 附加狀態",
+   "spec": "snA967",
+   "current": "61 名武將效果保留於來源摘錄；未明機率／持續回合不外推。",
+   "grade": "B",
+   "label": "原版（當年攻略記載）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "技能效果欄"
+    }
+   ],
+   "phase": "web2-P4-5",
+   "note": "既有明確 fx 才進戰鬥。",
+   "tentative": false,
+   "conflicts": []
+  },
+  {
+   "id": "web2.hero.unverifiedRoster",
+   "cat": "武將",
+   "item": "未充分來源武將",
+   "spec": "W967",
+   "current": "13 名保留現有登場／數值分級，不改未知倍率。",
+   "grade": "C",
+   "label": "推測（間接資料）",
+   "sources": [
+    {
+     "s": "W967",
+     "q": "武將技能欄"
+    }
+   ],
+   "phase": "web2-P4-6",
+   "note": "待補直接數值。",
    "tentative": true,
    "conflicts": []
   }

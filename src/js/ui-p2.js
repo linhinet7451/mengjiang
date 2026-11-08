@@ -49,15 +49,15 @@
 
   // ---------- 心法 ----------
   UI.hallTabs.xinfa = function (h0, s) {
-    var n = R.xinfaSlots(h0), h = '<div class="xf"><b>心法</b>（欄位 ' + n + '/3，於 ' + C().xinfaSlots.join('/') + ' 級開放）';
-    for (var i = 0; i < 3; i++) {
+    var n = R.xinfaSlots(h0), h = '<div class="xf"><b>心法</b>（欄位 ' + n + '/2，於 ' + C().xinfaSlots.join('/') + ' 級開放；第一格普通／第二格特殊）';
+    for (var i = 0; i < 2; i++) {
       var x = h0.xf[i], c = x && C().xinfa[x.id];
       if (x) {
         var cost = G.xinfaUpCost(x);
         h += '<div class="row-item xf-row">' + UI.icon('scroll2') + '<div class="ri-t"><b>' + c.name + ' Lv' + x.lv + '</b><small>' + c.desc + '（目前 +' + (c.flat ? (c.flat * x.lv).toFixed(1) : c.pct * x.lv + '%') + '）' + (x.lv < C().xinfaMax ? '<br>升級：殘頁 ' + have('xinfacanye') + '/' + cost.pages + '　' + U.fmt(cost.silver) + ' 銀' : '<br>已滿級') + '</small></div>' +
           (x.lv < C().xinfaMax ? '<a class="btn small" data-a="xfUp" data-v="' + i + '">升級</a>' : '') + '<a class="btn small red" data-a="xfForget" data-v="' + i + '">遺忘</a></div>';
       } else if (i < n) h += '<div class="row-item xf-row empty">空欄位</div>';
-      else h += '<div class="row-item xf-row empty dim2">' + C().xinfaSlots[i] + ' 級開放</div>';
+      else h += '<div class="row-item xf-row empty dim2">' + (C().xinfaSlotTypes && C().xinfaSlotTypes[i] === 'special' ? '60 級特殊欄開放' : '1 級普通欄開放') + '</div>';
     }
     var books = U.filter(U.keys(s.bag.stack), function (k) { return k.indexOf('xf_') === 0 && s.bag.stack[k] > 0; });
     h += '<b>可修練秘笈</b><div class="xf-books">' + (books.length ? U.map(books, function (k) { var it = MJ.D.equipment.items[k]; return '<a class="btn small" data-a="xfLearn" data-v="' + it.xinfa + '">' + C().xinfa[it.xinfa].name + ' ×' + s.bag.stack[k] + '</a>'; }).join('') : '<small>沒有秘笈（王關、隱藏關、商城可取得）</small>') + '</div>';

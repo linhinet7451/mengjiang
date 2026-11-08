@@ -13,7 +13,7 @@ function inline(html) {
     blk.replace(/src="([^"]+\.js)"/g, function (m, f) {
       // Keep readable source files; compact only the single-file distribution, not the original modules.
       var code = fs.readFileSync(path.join(SRC, f), 'utf8').replace(/<\/script/gi, '<\\/script').replace(/^\s*\/\/[^\n]*(?:\n|$)/gm, '').replace(/^[\t ]*\r?\n/gm, '').replace(/[\t ]+$/gm, '');
-      code.split('/*@@CHUNK*/').forEach(function (part) { out += '<script>\n' + part.replace(/\n+$/, '') + '\n</script>\n'; });
+      code.split('/*@@CHUNK*/').forEach(function (part) { out += '<script>\n' + part.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\n+$/, '') + '\n</script>\n'; });
     });
     return out;
   });

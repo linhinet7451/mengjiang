@@ -59,7 +59,18 @@ MJ.S = (function () {
     if (st.player) def(st.player, 'xinghun', 0);
     if (st.settings) def(st.settings, 'econ', st.settings.energyMode === 'fast' ? 'fast' : 'std');
     if (st.buildings) def(st.buildings, 'shenbing', 1);
-    U.each(st.heroes || [], function (h) { if (h) { S.heroDefaults(h); if (h.id !== 'lead') st.codex[h.id] = 1; } });
+    U.each(st.heroes || [], function (h) {
+      if (!h) return;
+      if (U.isArray(h.xf) && h.xf.length > 2 && !h.xfOverflowReturned) {
+        var old = h.xf.splice(2), returned = 0;
+        h.xfOverflow = (h.xfOverflow || []).concat(old);
+        st.bag = st.bag || { stack: {}, equips: [] }; st.bag.stack = st.bag.stack || {};
+        U.each(old, function (x) { if (x && x.id) { st.bag.stack['xf_' + x.id] = (st.bag.stack['xf_' + x.id] || 0) + 1; returned++; } });
+        h.xfOverflowReturned = true;
+        st.migrateNotes = (st.migrateNotes || []).concat(['P4-2：' + (h.name || h.id) + ' 的舊第三格心法已退回秘笈 ×' + returned + '，原資料保留於 xfOverflow。']);
+      }
+      S.heroDefaults(h); if (h.id !== 'lead') st.codex[h.id] = 1;
+    });
     if (st.bag && st.bag.equips) U.each(st.bag.equips, S.equipDefaults);
     U.each(st.mail || [], function (m) { if (m && m.att && m.att.equips) U.each(m.att.equips, S.equipDefaults); });
     if (S.extraDefaults) U.each(S.extraDefaults, function (f) { f(st); });

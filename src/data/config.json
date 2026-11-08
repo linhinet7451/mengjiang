@@ -406,7 +406,68 @@
     "crit": 0.5
    },
    "color": "#fb8c00"
-  }
+  },
+  "sourceLevels": {
+   "patk": [
+    17,
+    58,
+    164,
+    324,
+    665
+   ],
+   "matk": [
+    18,
+    59,
+    165,
+    325,
+    666
+   ],
+   "pdef": [
+    9,
+    29,
+    82,
+    162,
+    333
+   ],
+   "mdef": [
+    10,
+    30,
+    83,
+    163,
+    334
+   ],
+   "crit": [
+    55,
+    182,
+    345,
+    545,
+    1000,
+    1636
+   ],
+   "dodge": [
+    55,
+    182,
+    345,
+    545,
+    1000,
+    1636
+   ],
+   "hit": [
+    60,
+    200,
+    380,
+    600,
+    1100
+   ],
+   "hp": [
+    54,
+    177,
+    495,
+    975,
+    1998
+   ]
+  },
+  "source": "W84"
  },
  "skill": {
   "maxLv": 9,
@@ -434,10 +495,9 @@
  },
  "xinfaSlots": [
   1,
-  20,
-  40
+  60
  ],
- "xinfaMax": 10,
+ "xinfaMax": 100,
  "xinfaSilver": 300,
  "enhance": {
   "silverK": 12,
@@ -1174,5 +1234,15 @@
    "status": "burn",
    "relativePower": "higherThanBombs"
   }
+ },
+ "xinfaSlotTypes": [
+  "normal",
+  "special"
+ ],
+ "xinfaSoulExp": {
+  "white": 1,
+  "green": 10,
+  "blue": 50,
+  "purple": 100
  }
 }

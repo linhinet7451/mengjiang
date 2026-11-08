@@ -83,6 +83,8 @@ https://linhinet7451.github.io/mengjiang/
 - P3-6：來源支持的大／中／小炸彈掩碼、旗幟 1–3 次級距與左右火焰斜線作為 RV15 可重播事件；既有精英銀框／BOSS 金框由 stage 資料標記。來源未載的傷害、灼傷機率／回合數及旗幟完整屬性池不自行推定（`tests/unit-web2-p3-6.js` 21 項）。
 - 第三階段副本與經濟：通天塔、無極幻境（多波、生命怒氣延續）、農田（真實時間／離線成長、時間倒退防護）、每日任務與活躍寶箱、成就、簽到與補簽、經濟模式、一鍵任務獎勵領取、第 5～8 章多層血條首領（`tests/unit-p3.js` 80 項＋端對端）。
 - 商城新增商品類別（裝備／寶石／心法／種子／其他）與銀幣／金幣交叉篩選、空結果提示與分頁重設；不改購買規則。
+- P4-1／P4-2：W84 寶石逐級表依 `gem_*` ID 套用且不丟舊存檔寶石；心法改為 Lv1／Lv60 兩格、白／綠／藍／紫魂經驗 1／10／50／100，舊第三格退回秘笈並保留於 `xfOverflow`。
+- P4-5／P4-6：P3-2 RV14 六等範圍全面沿用；W967 技能效果只在有明確 `fx` 時進戰鬥，未知機率／回合不外推；十名未充分來源武將維持現有保守分級。
 - 第四階段演出與聲音：戰場法陣、品質光焰、命中火花、無雙切入與總傷害、首領戰大震動；十首場景配樂（標題、主城、關卡選擇、戰鬥、首領戰、勝利、戰敗、塔與幻境、聚賢莊、農田）與十一種音效（程序化合成）、一鍵靜音、場景切換讀取提示；拜訪武將 AI 排名賽與戰報重播（`tests/unit-p4.js` 79 項＋端對端）。
 - 第五階段正式版：sn=6 Lv7–79 來源經驗表、Lv1–6／80–90 的 D 級邊界政策、中後期敵人成長平衡、越戰越勇、30 天進度模擬（`tools/progress-sim.js`）、勝率模擬（`tools/balance.js`）、戰鬥特效省電模式、舊存檔升級與損毀存檔拒絕（`tests/unit-p5.js` 20 項＋端對端）。
 - 奇遇加碼玩法：華容道（六個布局的最少步數以 BFS 驗證，並實際照最短解走完）、觀星台、玄機盤（保底、機率分布）（`tests/unit-extras.js` 44 項＋端對端）。
@@ -95,7 +97,7 @@ https://linhinet7451.github.io/mengjiang/
 - 美術 art2：金邊外框、木紋／卷軸面板、紅漆與翠玉按鈕、標題匾額、原創圖示 44 個、通天塔插圖；戰鬥武將放大 1.25 倍、蓄力突進與回位、受擊閃白擊退、物理刀光／法術法陣／絕技光柱三種光效、暴擊彈跳數字、陣亡淡出、256px 無雙半身像切入；素材分 12 段載入並顯示百分比（`tests/unit-art.js`＋端對端；`node tools/loadtest.js` 量測限速載入）。
 - 美術 art3：飄字不再被上緣裁切或蓋住總生命條（含壓力測試）、棕色寶石改為飽和棕色、聚賢莊高階刷新按鈕補上底色、神兵坊寶石格圖文不重疊、無雙切入時戰場壓暗。
 - 美術 art4：戰鬥下方我方頭像列（生命／無雙條）、深橄欖色裝備格與候選卡、提示訊息移到下方金框、最上排飄字時淡化名牌（e2e 新增 3 項檢查）。
-- 本次驗收：24 組單元測試 3,686／3,686；E2E 435／435（Chromium 桌機、WebKit iPhone 13 模擬、Chromium 橫向手機各 145）；啟動自檢 18／18（Chromium／WebKit）；49 個 inline script 通過 ES5 檢查；單檔 11,999,000 bytes（上限 12,000,000）。未做真機測試。
+- 本次驗收：25 組單元測試 3,693／3,693；E2E 435／435（Chromium 桌機、WebKit iPhone 13 模擬、Chromium 橫向手機各 145）；P4 專項 7／7；49 個 inline script 通過 ES5 檢查；單檔 11,997,724 bytes（上限 12,000,000）。未做真機測試。
 
 ### 已做但只有基本測試
 
@@ -135,7 +137,7 @@ node tools/gen-data.js && node tools/web2-data.js P1 P2 P3 && node tools/build-d
 node tools/build.js                           # 內嵌 CSS/JS，輸出 dist/mengjiang.html、dist/boot-test.html
 node tools/es5check.js                        # 確認所有 JS 都是 ES5
 node tools/gen-appendix.js                    # 產生 docs/附錄-資料表.md
-sh tools/runtests.sh                          # 完整單元測試（含 P3-3～P3-6 專項）
+sh tools/runtests.sh                          # 完整單元測試（含 P3-3～P3-6、P4 專項）
 node tests/e2e.js all                         # 端對端測試：chromium | webkit-iphone | chromium-phone | all
 node tools/showcase.js                        # 宣傳截圖：無雙特寫、AOE 總傷害、首領戰
 node tools/loadtest.js 40 12 5                # WebKit iPhone 13 限速（Mbps）載入時間與進度條
@@ -164,7 +166,7 @@ reference/      原作截圖、宣傳片與其他參考素材（依倉庫擁有�
 
 > English: Clone, `npm install`, then `node tools/build-data.js && node tools/build-assets.js && node tools/build.js && node tools/es5check.js`. Unit tests: `sh tools/runtests.sh`. E2E: `npx playwright install chromium webkit && node tests/e2e.js all`. Output: `dist/mengjiang.html` (single file, < 12,000,000 bytes). Remaining work: see `TODO.md`.
 
-**最新狀態與待辦請看 [TODO.md](TODO.md)**（P1、P2、P3-1～P3-6、SHOP-1 與 TASK-1 完成；P4 以後待辦；未做真機測試）。進度紀錄在 `docs/原版還原-進度.md`。
+**最新狀態與待辦請看 [TODO.md](TODO.md)**（P1、P2、P3-1～P3-6、SHOP-1、TASK-1、P4-1／P4-2／P4-5／P4-6 完成；P4-3／P4-4／P4-7 以後待辦；未做真機測試）。進度紀錄在 `docs/原版還原-進度.md`。
 
 ```bash
 npm install                                   # acorn（ES5 檢查）、playwright（e2e）

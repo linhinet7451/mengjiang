@@ -6,7 +6,7 @@ BOARD-3 已完成；維持現行 v12 棋盤規則，本次不重做、不改動�
 
 ## English summary
 Unofficial, offline, single-file HTML5 remake of the 2012–2013 Facebook game 猛將無雙. Build output: `dist/mengjiang.html` (one file, ES5, no CDN, < 12,000,000 bytes). With the original company's consent (as stated by the repository owner), original art, music, and similar assets may be referenced or used directly so the remake stays as close to the original as possible. Record each use in `docs/美術素材來源.md`. If no original file is available, redraw closer assets from the screenshots and videos in `reference/`.
-State on 2026-11-08 (UTC+8): P1/P2 and P3-1–P3-6, SHOP-1 and TASK-1 are complete. P3-1 rates/caps remain versioned at RV13; P3-2 skill range shapes remain RV14; P3-6 field-item replay events use RV15. P3-3–P3-5 remain in save v11 (no save schema change this task). P4 onward remains pending. BOARD-3 remains the completed v12 board. Nothing here claims real-device testing; Playwright Chromium/WebKit iPhone 13 are emulations only. Social/online modes are not built (by design: single-player); the Honor Trial multiplayer item economy is not reconstructed. Many numbers remain grade D. Each item below lists goal, evidence + grade + URL, files/functions, acceptance tests, priority and dependencies. Read "Project rules" first.
+State on 2026-11-08 (UTC+8): P1/P2 and P3-1–P3-6, SHOP-1, TASK-1 and P4-1/P4-2/P4-5/P4-6 are complete. P3-1 rates/caps remain RV13; P3-2 skill range shapes RV14; P3-6 field-item replay events RV15. P3-3–P3-5 remain in save v11; P4-2 third-slot compatibility is idempotent without changing the save version. P4-3/P4-4/P4-7 and later remain pending. Nothing here claims real-device testing; Playwright Chromium/WebKit iPhone 13 are emulations only. Social/online modes are not built (by design: single-player); the Honor Trial multiplayer item economy is not reconstructed. Many numbers remain grade D. Each item below lists goal, evidence + grade + URL, files/functions, acceptance tests, priority and dependencies. Read "Project rules" first.
 
 ---
 
@@ -26,7 +26,7 @@ State on 2026-11-08 (UTC+8): P1/P2 and P3-1–P3-6, SHOP-1 and TASK-1 are comple
 ## 建置與測試（摘要，詳見 README）
 - `npm install`（acorn、playwright；e2e 需 `npx playwright install chromium webkit`）
 - 資料：`node tools/build-data.js`；素材：`node tools/build-assets.js`；單檔：`node tools/build.js` → `dist/mengjiang.html`、`dist/boot-test.html`
-- 單元：`sh tools/runtests.sh`（2026-11-08：24 組、3,686 項通過／0 失敗，見 `docs/test-log-unit.txt`）；e2e：`node tests/e2e.js all`（435 通過／0 失敗，Chromium、WebKit iPhone 13、橫向手機各 145）；RV15 單檔 11,999,000 bytes（<12,000,000）。平衡：`node tools/progress-sim.js --days 30`（P3-1 已執行）。
+- 單元：`sh tools/runtests.sh`（2026-11-08：25 組、3,693 項通過／0 失敗，見 `docs/test-log-unit.txt`）；e2e：`node tests/e2e.js all`（435 通過／0 失敗，Chromium、WebKit iPhone 13、橫向手機各 145）；RV15 單檔 11,997,724 bytes（<12,000,000），ES5 49 個 inline script 全通過。平衡：`node tools/progress-sim.js --days 30`（P3-1 已執行）。
 
 ---
 
@@ -113,16 +113,15 @@ URL 縮寫：`G2(sn)` = `https://forum.gamer.com.tw/G2.php?bsn=22512&sn=<sn>`；
 - 驗收：`unit-p3.js` 覆蓋混合主線、歷練、寶箱、多階成就、簽到累計獎勵排除、空集合、重複呼叫與獎勵／活躍度帳目；E2E 覆蓋 UI 批領。
 - 優先：中；已完成。
 
-### P4-1 寶石數值（未做）
-- 目標：物攻 17/58/164/324/665、物防 9/29/82/162/333、暴擊／閃避 55/182/345/545/1000（Lv6 1636）、命中 60…1100、生命 54…1998；545＝4.54%、基礎閃避 5%；敏捷上限＝屬性×0.4。
-- 證據：G2(84)（B）。
-- 檔案：`src/data/config.json` gems、`src/js/sys2.js`（神兵坊）。
-- 驗收：已鑲寶石的存檔照等級換新數值，不丟寶石；unit 測表。優先：中。
+### P4-1 寶石數值（已完成）
+- W84 逐級表已寫入 `config.gems.sourceLevels`：物攻 17/58/164/324/665、物防 9/29/82/162/333、暴擊／閃避 55/182/345/545/1000/1636，命中／生命照來源摘錄；缺值不外推。`rules.equipStats` 依既有 `gem_*` ID 讀新表，已鑲寶石存檔不丟等級。
+- 545＝4.54%、基礎閃避 5%、敏捷上限＝屬性×0.4 仍按來源／既有規則保留，不把說明百分比誤換算成另一套 runtime 數值。證據：G2(84)（B）；P4 摘錄與 provenance 可重建。
+- 驗收：`unit-web2-p4-1-2-5-6.js` 驗證 W84 表與 gem_atk Lv1/Lv5 套值；`unit-pt4.js` 鑲嵌回歸通過。優先：中；已完成。
 
-### P4-2 心法 2 格與魂經驗（未做）
-- 目標：心法 2 格（隨機＋特殊）；魂經驗 白 1／綠 10／藍 50／紫 100。目前 20、40 級各多 1 欄（D）。
-- 證據：G2(86)、G2(91)（B）。檔案：`src/js/sys2.js` xinfaSlots、`src/js/rules.js` 78 行、`ui-p2.js`。
-- 驗收：已修第 3 格的存檔要退回秘笈而不是刪除；unit＋e2e。優先：中。
+### P4-2 心法 2 格與魂經驗（已完成）
+- `xinfaSlots` 改為 Lv1／Lv60 兩格，第一格普通、第二格特殊；白／綠／藍／紫魂經驗為 1／10／50／100，心法上限 100。`xinfaFeed` 的特殊欄僅接受武將連攜魂。
+- 舊存檔第三格載入時退回對應 `xf_*` 秘笈，原資料保留於 `xfOverflow`，旗標避免重複退還；介面不再顯示第三格。證據：G2(86)、G2(91)（B）。
+- 驗收：P4 專項 3 項遷移／魂經驗測試與 `unit-pt4.js` 心法回歸通過。優先：中；已完成。
 
 ### P4-3 生死劫 9 層（未做）
 - 目標：魑、冷香絕、摩羅、羅迦、魎、羲天、阿修羅、深淵之龍、窮奇。敵方數值與獎勵 D。
@@ -133,10 +132,13 @@ URL 縮寫：`G2(sn)` = `https://forum.gamer.com.tw/G2.php?bsn=22512&sn=<sn>`；
 - 證據：C(541)（B；留言中爭議兩條標 C 不實作）；G2(4)（B）。整理檔 `docs/sources-extracted/web2/c-snA541-recipes.json`。
 - 檔案：`src/js/sys3.js` 將魂合成。驗收：每條公式 unit；爭議兩條不觸發。優先：中。
 
-### P4-5 六等範圍規則全面套用（未做）→ 見 P3-2；另把 967 的狀態效果（附加狀態、機率）套到全部武將。證據 C(967)、C(282)（A／B）。優先：中。
+### P4-5 六等範圍規則全面套用（已完成／P3-2 已覆蓋）
+- 六等範圍與來源格圖沿用 P3-2 的 RV14 實作；本次補上 W967 61 名技能列的來源效果抽取／狀態 tags provenance。已有明確 `fx` 才套入戰鬥；W967 未列的觸發機率、持續回合或完整屬性不自行補值。
+- 證據：C(967)、C(282)（A／B）；驗收：P4 provenance 測試與 `unit-pt4` 狀態機率回歸。優先：中；已完成（保守來源邊界）。
 
-### P4-6 10 名查無來源武將（洪七公、紫霞、黃藥師、歐陽鋒、司馬懿、至尊寶、岳不群、魏延、黃忠、甘寧）
-- 目前：保留、整組標 D（web2.hero.unsourced10）。待辦：繼續找來源（巴哈精華區已失效圖、Wayback mjws.snsyx.com 2016 快照原檔 0 bytes）；找到就升級，找不到維持 D。優先：低。
+### P4-6 10 名查無來源武將（已完成本輪查核；維持保守分級）
+- 洪七公、紫霞、黃藥師、歐陽鋒、司馬懿、至尊寶、岳不群、魏延、黃忠、甘寧均保留現有登場／技能資料與既有品質，不以搜尋結果補改未知倍率；`web2.hero.unverifiedRoster` 及 P4 摘錄記錄 W967 可辨識登場欄，但數值仍 C/D。
+- 巴哈失效圖與 Wayback 2016 快照未取得可驗證原檔；本項交付是完成查核與標記，不宣稱已找到完整原版數值。找到直接圖證後可升級，不需重寫存檔。優先：低；已完成本輪來源邊界處理。
 
 ### P4-7 體力規則（不做，記錄）
 - 原版：虛空每戰 1 點、30 級前敗不扣、上古 5 點、30 分回 1（G2(15)、G2(17)，B）。本作依 Tomas 規格**取消精力**（D，K9）。只需在 UI 說明，不還原。

@@ -49,7 +49,7 @@ pass-lines 40
 結果：通過 47，失敗 0
 pass-lines 48
 === unit-prov
-結果：通過 2051，失敗 0
+結果：通過 2082，失敗 0
 pass-lines 1
 === unit-art
 結果：通過 827，失敗 0
@@ -71,6 +71,9 @@ pass-lines 24
 === unit-web2-p3-6
 結果：通過 21，失敗 0
 pass-lines 22
+=== unit-web2-p4-1-2-5-6
+結果：通過 7，失敗 0
+pass-lines 8
 === unit-web2-p3-range
 結果：通過 15，失敗 0
 pass-lines 16

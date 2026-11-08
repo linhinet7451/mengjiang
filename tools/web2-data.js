@@ -23,6 +23,7 @@ src('W48', { title: '【討論】將星錄武將升級所需將魂數資料補�
 src('W53', { title: '【問題】將星等級所需魂數（巴哈姆特精華區 sn=53）', url: 'https://forum.gamer.com.tw/G2.php?bsn=22512&sn=53', author: 'Will（willwillhi）', date: '2012-12-16', region: '台版', grade: 'B' });
 src('W84', { title: '寶石數值（巴哈姆特精華區 sn=84）', url: 'https://forum.gamer.com.tw/G2.php?bsn=22512&sn=84', author: '巴哈玩家', date: '2013', region: '台版', grade: 'B' });
 src('W86', { title: '心法（巴哈姆特精華區 sn=86／91）', url: 'https://forum.gamer.com.tw/G2.php?bsn=22512&sn=86', author: '巴哈玩家', date: '2013', region: '台版', grade: 'B' });
+src('W91', { title: '心法攻略（補充）（巴哈姆特精華區 sn=91）', url: 'https://forum.gamer.com.tw/G2.php?bsn=22512&sn=91', author: '大溪（loamiia）', date: '2013-08-21', region: '台版', grade: 'B' });
 src('W88', { title: '生死劫（巴哈姆特精華區 sn=88）', url: 'https://forum.gamer.com.tw/G2.php?bsn=22512&sn=88', author: '巴哈玩家', date: '2013', region: '台版', grade: 'B' });
 src('W51', { title: '【攻略】戰場物品效果（巴哈姆特精華區 sn=51）', url: 'https://forum.gamer.com.tw/G2.php?bsn=22512&sn=51', author: '水瀲（gjo3xu04）', date: '2012-12-06', region: '台版', grade: 'B' });
 src('W17', { title: '【攻略】新手導覽（巴哈姆特精華區 sn=17）', url: 'https://forum.gamer.com.tw/G2.php?bsn=22512&sn=17', author: '水瀲（gjo3xu04）', date: '2012-06-23', region: '台版', grade: 'B' });

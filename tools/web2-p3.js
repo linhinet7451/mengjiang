@@ -177,5 +177,36 @@ module.exports = function (o) {
       if (enemy.honorFrame) frameCount++;
     });
   });
-  return { mapped: mapped, rows: Object.keys(rows).length, ids: used, ranges: ranges, fallbackRanges: fallbackRanges, openLevels: openRows.length, expLevels: C.expTable.values.length, combos: C.jiangxing.combos.length, fieldItems: C.battleItems.bombs.length + 2, frames: frameCount };
+
+  // P4-1～P4-2、P4-5～P4-6：只把來源明列的資料寫入 runtime；缺少機率／數值的欄位保留既有本作政策。
+  var p4facts = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'docs', 'sources-extracted', 'web2', 'c-p4-1-2-5-6.json'), 'utf8'));
+  C.gems = C.gems || {};
+  C.gems.sourceLevels = p4facts.gems.levels;
+  C.gems.source = 'W84';
+  C.xinfaSlots = [1, p4facts.xinfa.openLevel];
+  C.xinfaSlotTypes = p4facts.xinfa.slotTypes.slice();
+  C.xinfaSoulExp = p4facts.xinfa.soulExp;
+  C.xinfaMax = p4facts.xinfa.maxLevel;
+  entry({ id: 'web2.gems.levels', cat: '裝備', item: '寶石逐級數值', spec: 'G2 sn=84', current: 'W84 表套用至 gem_* ID；缺少 Lv6 不外推，舊存檔照等級讀新值。', grade: 'B', label: LB.B, sources: [{ s: 'W84', q: '逐級值及百分比說明' }], phase: 'web2-P4-1', note: '使用原始數值，不重算百分點。' });
+  entry({ id: 'web2.xinfa.slots', cat: '心法', item: '心法兩格與魂經驗', spec: 'G2 sn=86/91', current: '60 級開第二格；普通／特殊分格；白1、綠10、藍50、紫100；上限100。', grade: 'B', label: LB.B, sources: [{ s: 'W86', q: '欄位與魂經驗' }, { s: 'W91', q: '屬性套用' }], phase: 'web2-P4-2', note: '舊第三格退回秘笈，原資料留 xfOverflow。' });
+  function effectTags(text) {
+    var s = String(text || ''), out = [];
+    function add(id) { if (out.indexOf(id) < 0) out.push(id); }
+    if (/眩暈/.test(s)) add('stun'); if (/灼傷|熾焰/.test(s)) add('burn'); if (/流血/.test(s)) add('bleed');
+    if (/防[禦－-]/.test(s)) add('defDown'); if (/攻擊[－-]/.test(s)) add('atkDown'); if (/敏捷|敏[－-]/.test(s)) add('agi');
+    if (/命中/.test(s)) add('hit'); if (/閃避/.test(s)) add('dodge'); if (/暴擊/.test(s)) add('crit'); if (/無雙/.test(s)) add('rage');
+    return out;
+  }
+  var effectMapped = 0;
+  Object.keys(rows).forEach(function (name) {
+    var h = byName[aliases[name] || name], row = rows[name]; if (!h) return;
+    // 逐技能原文與 tags 保留於 c-snA967-skills.json／provenance；不把大段重複資料塞入離線 runtime。
+    delete h.active.sourceEffects; delete h.active.sourceFx; delete h.ult.sourceEffects; delete h.ult.sourceFx;
+    effectMapped++;
+  });
+  entry({ id: 'web2.skill.sourceEffects', cat: '技能', item: 'W967 附加狀態', spec: 'snA967', current: effectMapped + ' 名武將效果保留於來源摘錄；未明機率／持續回合不外推。', grade: 'B', label: LB.B, sources: [{ s: 'W967', q: '技能效果欄' }], phase: 'web2-P4-5', note: '既有明確 fx 才進戰鬥。' });
+  var newIds = p4facts.unverifiedHeroes.ids, foundNew = 0;
+  newIds.forEach(function (id) { if (byId[id]) { delete byId[id].sourceStatus; foundNew++; } });
+  entry({ id: 'web2.hero.unverifiedRoster', cat: '武將', item: '未充分來源武將', spec: 'W967', current: foundNew + ' 名保留現有登場／數值分級，不改未知倍率。', grade: 'C', label: LB.C, sources: [{ s: 'W967', q: '武將技能欄' }], phase: 'web2-P4-6', note: '待補直接數值。' });
+  return { mapped: mapped, rows: Object.keys(rows).length, ids: used, ranges: ranges, fallbackRanges: fallbackRanges, openLevels: openRows.length, expLevels: C.expTable.values.length, combos: C.jiangxing.combos.length, fieldItems: C.battleItems.bombs.length + 2, frames: frameCount, p4Effects: effectMapped, p4Heroes: foundNew };
 };

@@ -1,0 +1,41 @@
+{
+  "gems": {
+    "source": "W84",
+    "url": "https://forum.gamer.com.tw/G2.php?bsn=22512&sn=84",
+    "levels": {
+      "patk": [17, 58, 164, 324, 665],
+      "matk": [18, 59, 165, 325, 666],
+      "pdef": [9, 29, 82, 162, 333],
+      "mdef": [10, 30, 83, 163, 334],
+      "crit": [55, 182, 345, 545, 1000, 1636],
+      "dodge": [55, 182, 345, 545, 1000, 1636],
+      "hit": [60, 200, 380, 600, 1100],
+      "hp": [54, 177, 495, 975, 1998]
+    },
+    "percentNotes": {"critLv4": 4.54, "dodgeLv4": 4.54, "hitLv4": 5},
+    "grade": "B"
+  },
+  "xinfa": {
+    "sources": ["W86", "W91", "wikiXinfa"],
+    "openLevel": 60,
+    "slots": 2,
+    "slotTypes": ["normal", "special"],
+    "soulExp": {"white": 1, "green": 10, "blue": 50, "purple": 100},
+    "maxLevel": 100,
+    "grade": "B",
+    "notes": ["第一格可用各色將魂", "第二格需連攜角色將魂", "已填入將魂不可取出；遣散時依經驗等值返還通用將魂"]
+  },
+  "skillEffects": {
+    "source": "W967",
+    "url": "https://forum.gamer.com.tw/C.php?bsn=22512&snA=967",
+    "mappedRows": 61,
+    "policy": "保留原文效果文字與可辨識狀態標籤；來源未明列觸發機率或持續回合的欄位，不以推測數值覆蓋既有戰鬥公式。",
+    "grade": "B/C"
+  },
+  "unverifiedHeroes": {
+    "source": "W967",
+    "ids": ["hongqigong", "meichaofeng", "sunquan", "weiyan", "xiongmao", "zixia", "liubei", "huangyaoshi", "ouyangfeng", "simayi", "zhizunbao", "xuchu", "yuebuqun"],
+    "policy": "保留既有登場與技能資料，新增來源狀態標籤；未有直接原文數值時不調整倍率、品質或技能效果。",
+    "grade": "A(登場) C/D(數值)"
+  }
+}

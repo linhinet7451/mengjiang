@@ -90,9 +90,27 @@
     if (!have('xf_' + xid)) return fail('沒有「' + cfg.name + '」秘笈');
     if (U.find(h.xf, function (x) { return x.id === xid; })) return fail('已修練此心法');
     if (h.xf.length >= R.xinfaSlots(h)) return fail('心法欄位不足（等級 ' + C().xinfaSlots.join('/') + ' 開放）');
-    take('xf_' + xid, 1); h.xf.push({ id: xid, lv: 1 });
+    take('xf_' + xid, 1); h.xf.push({ id: xid, lv: 1, kind: h.xf.length === 0 ? 'normal' : 'special', exp: 0 });
     G.log(G.nameOf(h) + ' 修練了心法「' + cfg.name + '」', 'lv');
     G.commit(); return ok({ msg: G.nameOf(h) + ' 修練了「' + cfg.name + '」' });
+  };
+  G.xinfaSoulExp = function (soulId) {
+    var d = R.heroDef(soulId), q = d && d.quality, x = C().xinfaSoulExp || { white: 1, green: 10, blue: 50, purple: 100 };
+    return q === 1 ? x.white : q === 2 ? x.green : q === 3 ? x.blue : q === 4 ? x.purple : 0;
+  };
+  G.xinfaFeed = function (uid, idx, soulId, n) {
+    var s = st(), h = G.hero(uid), x = h && h.xf[idx], d = R.heroDef(soulId), count = Math.max(1, Math.floor(n || 1)), key = 'soul:' + soulId;
+    if (!x || !d) return fail('找不到心法或將魂');
+    if (x.kind === 'special') {
+      var partner = R.heroDef(h.id) && R.heroDef(h.id).partner;
+      if (!partner || partner !== soulId) return fail('特殊心法只能使用連攜武將將魂');
+    }
+    if ((s.bag.stack[key] || 0) < count) return fail('將魂不足');
+    var gain = G.xinfaSoulExp(soulId) * count; if (!gain) return fail('此將魂沒有心法經驗值');
+    s.bag.stack[key] -= count; if (!s.bag.stack[key]) delete s.bag.stack[key];
+    x.exp = (x.exp || 0) + gain;
+    while (x.lv < C().xinfaMax && x.exp >= x.lv * 100) { x.exp -= x.lv * 100; x.lv++; }
+    G.commit(); return ok({ lv: x.lv, exp: x.exp, gained: gain });
   };
   G.xinfaUpCost = function (x) { return { pages: x.lv, silver: C().xinfaSilver * x.lv }; };
   G.xinfaUp = function (uid, idx) {

@@ -60,7 +60,14 @@ MJ.R = (function () {
     if (!tpl) return o;
     if (plus) U.each(U.keys(tpl.stats), function (k) { o[k] = Math.round(o[k] * (1 + C().enhance.perPlus * plus)); });
     U.each(e.aff || [], function (a) { o[a.k] = r2((o[a.k] || 0) + a.v); });
-    U.each(e.gems || [], function (g) { var it = g && MJ.D.equipment.items[g]; if (it && it.gem) U.each(U.keys(it.gem.stats), function (k) { o[k] = r2((o[k] || 0) + it.gem.stats[k]); }); });
+    U.each(e.gems || [], function (g) {
+      var it = g && MJ.D.equipment.items[g], gm = C().gems && C().gems.sourceLevels, m = String(g || '').match(/^gem_([^_]+)_(\d+)$/), kind = m && m[1], lv = m && Number(m[2]), src = gm && kind && gm[kind === 'atk' ? 'patk' : kind];
+      if (src && lv && src[lv - 1] != null) {
+        var stat = {}; stat[kind === 'atk' ? 'patk' : kind === 'hp' ? 'hp' : kind === 'pdef' ? 'pdef' : kind === 'mdef' ? 'mdef' : kind === 'jdef' ? 'jdef' : kind] = src[lv - 1];
+        if (kind === 'atk') { stat.matk = src[lv - 1]; stat.jatk = src[lv - 1]; }
+        U.each(U.keys(stat), function (k) { o[k] = r2((o[k] || 0) + stat[k]); });
+      } else if (it && it.gem) U.each(U.keys(it.gem.stats), function (k) { o[k] = r2((o[k] || 0) + it.gem.stats[k]); });
+    });
     return o;
   };
   R.sockets = function (e) { return C().sockets[e.q] || 1; };
