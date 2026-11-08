@@ -6,7 +6,7 @@ BOARD-3 已完成；維持現行 v12 棋盤規則，本次不重做、不改動�
 
 ## English summary
 Unofficial, offline, single-file HTML5 remake of the 2012–2013 Facebook game 猛將無雙. Build output: `dist/mengjiang.html` (one file, ES5, no CDN, < 12,000,000 bytes). With the original company's consent (as stated by the repository owner), original art, music, and similar assets may be referenced or used directly so the remake stays as close to the original as possible. Record each use in `docs/美術素材來源.md`. If no original file is available, redraw closer assets from the screenshots and videos in `reference/`.
-State on 2026-11-08 (UTC+8): P1/P2 and P3-1–P3-6, SHOP-1, TASK-1 and P4-1–P4-6 are complete. P3-1 rates/caps remain RV13; P3-2 skill range shapes RV14; P3-6 field-item replay events RV15. P3-3–P3-5 remain in save v12; P4-2 third-slot compatibility is idempotent. P4-7 and later remain pending. Nothing here claims real-device testing; Playwright Chromium/WebKit iPhone 13 are emulations only. Social/online modes are not built (by design: single-player); the Honor Trial multiplayer item economy is not reconstructed. Many numbers remain grade D. Each item below lists goal, evidence + grade + URL, files/functions, acceptance tests, priority and dependencies. Read "Project rules" first.
+State on 2026-11-08 (UTC+8): P1/P2 and P3-1–P3-6, SHOP-1, TASK-1 and P4-1–P4-6 are complete. P3-1 rates/caps remain RV13; P3-2 skill range shapes RV14; P3-6 field-item replay events RV15. P3-3–P3-5 remain implemented in current save v12 (P3-5 migration introduced in v11; P4-3 added v12). P4-2 third-slot compatibility is idempotent. P4-7 and later remain pending. Nothing here claims real-device testing; Playwright Chromium/WebKit iPhone 13 are emulations only. Social/online modes are not built (by design: single-player); the Honor Trial multiplayer item economy is not reconstructed. Many numbers remain grade D. Each item below lists goal, evidence + grade + URL, files/functions, acceptance tests, priority and dependencies. Read "Project rules" first.
 
 ---
 
@@ -26,7 +26,7 @@ State on 2026-11-08 (UTC+8): P1/P2 and P3-1–P3-6, SHOP-1, TASK-1 and P4-1–P4
 ## 建置與測試（摘要，詳見 README）
 - `npm install`（acorn、playwright、terser；e2e 需 `npx playwright install chromium webkit`）
 - 資料：`node tools/build-data.js`；素材：`node tools/build-assets.js`；單檔：`node tools/build.js` → `dist/mengjiang.html`、`dist/boot-test.html`
-- 單元：`sh tools/runtests.sh`（本輪 26 組、3,712 項通過／0 失敗，見 `docs/test-log-unit.txt`）；e2e：`node tests/e2e.js all`（444 通過／0 失敗，Chromium、WebKit iPhone 13、橫向手機各 148）；單檔 11,890,862 bytes（<12,000,000），51 個 inline script 全通過 ES5。平衡：`node tools/progress-sim.js --days 30`（P3-1 已執行）。
+- 單元：`sh tools/runtests.sh`（本輪 26 組、3,712 項通過／0 失敗，見 `docs/test-log-unit.txt`）；E2E：`node tests/e2e.js all`（444 通過／0 失敗，Chromium、WebKit iPhone 13、橫向手機各 148；見 `docs/test-log-e2e.txt`）；單檔 11,890,862 bytes（<12,000,000），51 個 inline script 全通過 ES5。平衡：`node tools/progress-sim.js --days 30`（P3-1 已執行）。
 
 ---
 
@@ -45,6 +45,7 @@ State on 2026-11-08 (UTC+8): P1/P2 and P3-1–P3-6, SHOP-1, TASK-1 and P4-1–P4
 | 緊急修正：陣法／站位保存 | D（規則）| 見 docs/原版還原-進度.md |
 | 緊急修正：攻擊範圍以攻擊者為起點、往前數活人 | A／B／C／D 分項 | web2.range.* |
 | 10 名查無來源武將保留、標 D | D | web2.hero.unsourced10 |
+| P4-3 生死劫九層 | B（層名）／D（戰鬥與獎勵規則） | v11→v12 遷移；26 組單元與 444 項 E2E 全通過 |
 
 ---
 
@@ -85,12 +86,12 @@ URL 縮寫：`G2(sn)` = `https://forum.gamer.com.tw/G2.php?bsn=22512&sn=<sn>`；
 - 驗收：`tests/unit-web2-p3-3-5.js` 逐筆比對 Lv7–79 共 73 值、檢查 Lv72／73 重複與單調 D 尾段；`tests/unit-p5.js` 更新來源值與 7 天進度模擬。
 - 優先：中；已完成。
 
-### P3-5 將星錄組合名與將星魂量（已完成；存檔 v11）
+### P3-5 將星錄組合名與將星魂量（已完成；遷移 v10→v11，現行存檔 v12）
 - 將 19 組來源名稱取代我方二十八宿；只有傲血忠魂（力耐 Lv1＋智敏 Lv2）與天山霜雪（天山童姥／許褚／孫策各 Lv2）判斷來源明列的條件。其他 17 組只呈現已知名稱／部分文字，缺漏明確顯示未知。所有組合效果（包括原文物攻 +17、法攻 +27／法防 +23／敏捷 +20）目前只顯示原文參考，尚未套入戰鬥屬性；原文未說明受益範圍與套用時點。
 - 魂量：白／綠／藍／30 魂紫／45 魂紫逐級表，原文有值照錄、空白 null 不外推。W53 白魂 Lv10=11、W48 白魂 9→10=10 相衝：conflict `P3R-JX-WHITE-L10`，runtime 留 null、該級升級被阻擋，待直接圖證。
 - 證據：G2(47/53/48/41/60)（B，逐項分開記錄作者／日期／URL）；S1／W60 部分組合只是名稱、推薦或將魂線索，未當成完整條件。詳見 `docs/sources-extracted/web2/c-p3-3-5.json` 和 `SOURCES-INDEX.md`。
 - 實作：`tools/web2-p3.js`、`src/data/config.json`、`src/js/rules.js` 魂量查表、`src/js/sys2.js` 兩組條件進度／扣同名魂、`src/js/ui-p2.js`／`ui-p6.js`、`src/css/style.css`；效果文字明示「尚未套入戰鬥」，provenance 另列 D 級保守範圍。
-- 遷移：`S.VERSION=11`；舊二十八宿已點亮 N 顆依舊本作 D 級成本 `10+8×index` 全額退回星魂，保留既有餘額、主角等級／經驗、武將和 v10 以下存檔相容；不允許新舊星盤重複套用加成。
+- 遷移：此項引入時 `S.VERSION=11`；舊二十八宿已點亮 N 顆依舊本作 D 級成本 `10+8×index` 全額退回星魂，保留既有餘額、主角等級／經驗、武將和 v10 以下存檔相容；P4-3 後現行版本為 v12。不允許新舊星盤重複套用加成。
 - 驗收：`tests/unit-web2-p3-3-5.js` 覆蓋 19 組名稱、五類 Lv1–18 魂量、白 Lv10 衝突阻擋、兩組已知條件、未知條件不推測、故障遷移拒絕升版、舊星盤不再套戰鬥；`unit-p2.js`、`unit-pt3.js`、`tests/e2e.js` 覆蓋 UI 與操作。
 - 優先：中；已完成。
 
