@@ -47,6 +47,11 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   ok(await J(function () { return MJ.UI.screen === 'city' && MJ.S.state.player.name; }) === '測試俠', '建立新角色並進入主城');
   // 關掉可能的新手提示
   await closeModals();
+  await act('[data-a="shengsijie"]');
+  ok(await J(function () { return MJ.UI.screen === 'shengsijie' && document.querySelectorAll('.sg-card').length === 9; }), '生死劫畫面顯示九層首領');
+  ok(await page.locator('.sg-card.locked').count() === 8 && await page.locator('.sg-card:not(.locked) [data-a="ssjGo"]').count() === 1, '生死劫僅開放第一層挑戰');
+  await act('[data-a="city"]');
+  ok(await J(function () { return MJ.UI.screen === 'city'; }), '從生死劫返回主城');
   await shot('1-main-city');
 
   // 招募
@@ -191,6 +196,34 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   await act('[data-a="confirmYes"]');
   ok(await J(function (id) { var h = MJ.S.state.heroes.filter(function (x) { return x.id === id && x.id !== 'lead'; })[0]; return h && h.jxLevel; }, jxTarget.id) === 1, '將星升至 Lv1');
   ok(await J(function (id) { return MJ.S.state.bag.stack['soul:' + id] || 0; }, jxTarget.id) === 0, '扣除表列同名將魂數 ' + jxTarget.cost);
+  var recipeData = await J(function () {
+    var recipe = MJ.D.config.soulCombine.recipes[0].split(','), need = {};
+    recipe.slice(0, 5).forEach(function (id) { need[id] = (need[id] || 0) + 1; });
+    MJ.D.config.soulCombine.recipes.forEach(function (r) {
+      r.split(',').forEach(function (id) { delete MJ.S.state.bag.stack['soul:' + id]; });
+    });
+    MJ.G.commit(); MJ.UI.render();
+    return { recipe: recipe, need: need };
+  });
+  ok(await page.locator('.sc-rows .row-item').count() === 34, 'P4-4 將魂合成介面列出 34 條公式');
+  ok((await page.locator('.sc-rows .row-item').first().innerText()).indexOf('材料不足') >= 0 && await page.locator('.sc-rows [data-a="soulRecipe"][data-v="0"]').count() === 0, '材料不足時顯示提示且不提供該配方合成按鈕');
+  var expectedSoulState = await J(function (d) {
+    Object.keys(d.need).forEach(function (id) { MJ.S.state.bag.stack['soul:' + id] = d.need[id]; });
+    var expected = {};
+    Object.keys(d.need).forEach(function (id) { expected[id] = d.need[id]; });
+    d.recipe.slice(0, 5).forEach(function (id) { expected[id]--; });
+    expected[d.recipe[5]] = (expected[d.recipe[5]] || 0) + 1;
+    MJ.G.commit(); MJ.UI.render();
+    return expected;
+  }, recipeData);
+  ok(await page.locator('.sc-rows [data-a="soulRecipe"][data-v="0"]').count() === 1, '材料齊備時顯示該配方的合成按鈕');
+  await act('.sc-rows [data-a="soulRecipe"][data-v="0"]');
+  ok(await J(function (expected) {
+    return Object.keys(expected).every(function (id) {
+      var want = expected[id] || 0, actual = MJ.S.state.bag.stack['soul:' + id] || 0;
+      return actual === want;
+    }) && (MJ.S.state.soulLog[0] || {}).recipe === 0;
+  }, expectedSoulState), '合成後扣除指定五魂、加入公式輸出並記錄合成');
   await shot('6d-jiangxing');
   await act('[data-a="open"][data-v="codex"]');
   ok(await page.locator('.cdx').count() > 10, '圖鑑顯示武將格');
