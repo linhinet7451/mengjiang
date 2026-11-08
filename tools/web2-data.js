@@ -16,6 +16,7 @@ function entry(o) {
 }
 var LB = { A: '原版（原版畫面證實）', B: '原版（當年攻略記載）', C: '推測（間接資料）', D: '本作設計（暫定）' };
 src('W967', { title: '【攻略】武將技能一覽表(段譽降臨)（巴哈姆特哈啦板 snA=967）', url: 'https://forum.gamer.com.tw/C.php?bsn=22512&snA=967', author: 'gjo3xu04（水瀲）', date: '2012-06-14～2013-05-23', region: '台版', grade: 'B' });
+src('W7', { title: '武將技能表（精華區 sn=7）', url: 'https://forum.gamer.com.tw/G2.php?bsn=22512&sn=7', grade: 'B' });
 src('W60', { title: '將魂/品質表（巴哈姆特精華區 sn=60，轉貼百度）', url: 'https://forum.gamer.com.tw/G2.php?bsn=22512&sn=60', author: '巴哈玩家', date: '2012-12-29', region: '台版轉陸版', grade: 'B' });
 src('W77', { title: '陣法（巴哈姆特精華區 sn=77，8 張陣法面板截圖）', url: 'https://forum.gamer.com.tw/G2.php?bsn=22512&sn=77', author: '巴哈玩家', date: '2013-03', region: '台版', grade: 'A' });
 src('W6', { title: '經驗表（巴哈姆特精華區 sn=6）', url: 'https://forum.gamer.com.tw/G2.php?bsn=22512&sn=6', author: '巴哈玩家', date: '2012', region: '台版', grade: 'B' });

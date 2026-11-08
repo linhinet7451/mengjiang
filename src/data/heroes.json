@@ -32,7 +32,25 @@
    "pattern": "single",
    "mult": 1,
    "flat": 0,
-   "fx": null
+   "fx": null,
+   "range14": [
+    [
+     [
+      0,
+      0
+     ]
+    ],
+    [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ]
+    ]
+   ]
   },
   "ult": {
    "name": "必殺",

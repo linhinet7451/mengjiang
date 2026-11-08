@@ -68,11 +68,11 @@ URL 縮寫：`G2(sn)` = `https://forum.gamer.com.tw/G2.php?bsn=22512&sn=<sn>`；
 - 優先：高；已完成。
 
 ### P3-2 967 範圍形狀套到既有武將（已完成，RV14）
-- 覆蓋：W967 有來源的 61/88 名既有武將已映射主動 Lv1、Lv6 與無雙格圖；4 個姓名差異以 alias 對應。49 筆使用 W282 格位截圖（34 張原始 Lv6、15 張 Lv7+ 推用）；其餘 12 筆使用 W967 格圖。未列來源的 27 名武將及主角保留原 pattern/D 級，不臆造格位。
+- 覆蓋：W967 有來源的 61/88 名既有武將已映射主動 Lv1、Lv6 與無雙格圖；4 個姓名差異以 alias 對應。49 筆使用 W282 格位截圖（34 張原始 Lv6、15 張 Lv7+ 推用）；其餘 12 筆使用 W967 格圖。未列來源的 27 名武將保留原 pattern/D 級；主角依 G2 sn=7 與使用者補充改為 Lv1 向前一格、Lv6 向前兩格。
 - sn8 規則：六名綠魂將範圍不變、20 名藍魂將範圍改變、紫將趙雲／呂布不變；紫雲採 W282 直接 Lv6 圖處理 W967「same」差異。熊貓缺清晰 Lv6 格圖，保留 W967 shape 並將未解衝突標 C。
-- Provenance：89 名武將/主角逐人留檔（61 C、28 D）；19 筆 W282 shape?／Lv7+ 推用有逐人 C 級註記（shape? 6、Lv7+ 15，其中 2 筆重疊）。W967 格圖錨點換算規則依 C 級 provenance；資料和來源索引皆可重建。
+- Provenance：89 名武將/主角逐人留檔（61 C、27 D、主角 B）；19 筆 W282 shape?／Lv7+ 推用有逐人 C 級註記（shape? 6、Lv7+ 15，其中 2 筆重疊）。W967 格圖錨點換算規則依 C 級 provenance；資料和來源索引皆可重建。
 - 實作：`tools/web2-p3.js` 寫入 compact offsets（主動 [Lv1,Lv6]、無雙 shape）；`src/js/rules.js` 只在 RV14 套用，新舊 replay 分流，BOARD-3 棋盤維持 v12。新增 `battle-golden-v14.json`；RV10–RV13 golden 不覆寫。
-- 驗收：完整單元 22 組、3,513/3,513；完整 E2E 408/408（桌機 Chromium、WebKit iPhone 13、橫向 Chromium；三平台均驗證神武殿紫雲 Lv6 三格圖）；ES5 全通過，部署單檔 11,994,670 bytes，小於 12,000,000。詳見 `docs/test-log-unit.txt`、`docs/test-log-e2e.txt`。
+- 驗收：完整單元 24 組、3,657/3,657；完整 E2E 435/435（桌機 Chromium、WebKit iPhone 13、橫向 Chromium；三平台均驗證神武殿紫雲 Lv6 三格圖）；ES5 全通過，部署單檔 11,994,670 bytes，小於 12,000,000。詳見 `docs/test-log-unit.txt`、`docs/test-log-e2e.txt`。
 - 優先：高；已完成。
 
 ### P3-3 開放等級（已完成）
@@ -178,8 +178,11 @@ URL 縮寫：`G2(sn)` = `https://forum.gamer.com.tw/G2.php?bsn=22512&sn=<sn>`；
 - 證據：原公司同意（依倉庫擁有者說明）。使用原作素材時記入 `docs/美術素材來源.md`。
 - 檔案：`src/assets/`、`src/js/audio.js`、`src/js/art.js`、`docs/美術素材來源.md`。
 - 驗收：每項替換都有來源紀錄；`sh tools/runtests.sh` 仍通過；單檔仍 < 12,000,000 bytes。
-- 已做（2026-11-08，B/C）：依原版面板截圖重繪 10 名武將立繪、頭像、無雙切入像（h_*、h_*_av、h_*_ci）：韋小寶、貂蟬、呂布、東方不敗（擁有者提供截圖）；王語嫣、鰲拜、典韋、梅超風、袁紹、阿珂（eference/native-pack/hero-sheet-reference.webp）。來源與 sha256 記入 docs/美術素材來源.md、src/assets/provenance-hashes.txt。截圖同時核對 10 名武將類型，與 heroes.json 全部一致（A，記於 docs/網路資料搜查-2.md）。驗收：單元 25 檔 0 失敗；E2E 455 通過／1 失敗（WebKit iPhone 13「沒有水平/垂直捲軸」，重繪前版本在同一台 Windows 機器上同樣失敗，非本次造成）；ES5 全過；單檔 11,883,146 bytes（<12,000,000）。未做真機測試。
-- 待做：其餘約 87 名武將、主城建築、UI 外框、音樂。優先：中；相依：有原始檔，或 eference/ 的截圖與影片可對照。
+- 本輪已分析 2026-11-08 提供的實戰影片，整理可辨識的 HUD、範圍提示、技能／無雙演出、飄字、音效與待取得素材，詳見 `docs/影片實戰分析_2026-11-08.md`；新增行動角色腳下旋轉虛線光環（CSS，不增加圖片素材）。透明包角色仍因 ID 對應不足而不替換，避免錯配。
+- 已做（2026-11-08，B/C）：依原版面板截圖重繪 10 名武將立繪、頭像、無雙切入像（h_*、h_*_av、h_*_ci）：韋小寶、貂蟬、呂布、東方不敗（擁有者提供截圖）；王語嫣、鰲拜、典韋、梅超風、袁紹、阿珂（
+eference/native-pack/hero-sheet-reference.webp）。來源與 sha256 記入 docs/美術素材來源.md、src/assets/provenance-hashes.txt。截圖同時核對 10 名武將類型，與 heroes.json 全部一致（A，記於 docs/網路資料搜查-2.md）。驗收：單元 25 檔 0 失敗；E2E 455 通過／1 失敗（WebKit iPhone 13「沒有水平/垂直捲軸」，重繪前版本在同一台 Windows 機器上同樣失敗，非本次造成）；ES5 全過；單檔 11,883,146 bytes（<12,000,000）。未做真機測試。
+- 待做：其餘約 87 名武將、主城建築、UI 外框、音樂。優先：中；相依：有原始檔，或 
+eference/ 的截圖與影片可對照。
 
 ### JX-1 聚賢莊升級（完成數值 D，2026-11-04）
 - 已做：升級按鈕與目前／下一級效果。數值（5＋(lv−1)、500×lv² 銀、不超過主角等級）全是 D。待查：原作每級欄位數、費用、經驗池上限、解僱返還經驗（S1 提到，未做）。優先：中。

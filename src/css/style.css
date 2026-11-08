@@ -582,6 +582,8 @@ hr{border:0;border-top:1px solid #b8a468;margin:8px 0}
 .bu.sideB .bcirc{background:radial-gradient(ellipse at center,rgba(255,220,200,.7) 0,rgba(210,70,40,.45) 38%,rgba(120,20,10,0) 70%);box-shadow:0 0 0 2px rgba(255,150,110,.7)}
 .bu.sideB .bcirc:after{border-color:rgba(255,200,170,.8)}
 .bcirc.boss{left:-6px;width:104px;height:26px;bottom:-4px}
+.bu.acting .bcirc:after{-webkit-animation:aimring .72s linear infinite;box-shadow:0 0 8px #fd6}
+@-webkit-keyframes aimring{to{-webkit-transform:rotate(1turn)}}
 .baura{position:absolute;left:10px;top:0;width:72px;height:110px;border-radius:50% 50% 40% 40%;pointer-events:none;opacity:.8;-webkit-animation:baura 1.6s ease-in-out infinite;animation:baura 1.6s ease-in-out infinite}
 .baura.q3{background:radial-gradient(ellipse at 50% 65%,rgba(110,180,255,.0) 20%,rgba(90,160,255,.55) 50%,rgba(40,80,200,0) 72%)}
 .baura.q4{background:radial-gradient(ellipse at 50% 65%,rgba(220,120,255,.0) 18%,rgba(200,100,255,.7) 48%,rgba(120,30,200,0) 72%);box-shadow:0 -6px 18px rgba(190,90,255,.35)}

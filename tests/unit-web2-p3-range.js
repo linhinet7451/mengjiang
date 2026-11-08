@@ -48,7 +48,9 @@ ok(ambiguous === 19 && highLevel === 15, 'W282 模糊/升級後等級推用 19 �
 var entries = prov.entries.filter(function (e) { return /^web2\.range\.hero\./.test(e.id); });
 var missing = H.list.filter(function (h) { return !grids[Object.keys(grids).filter(function (n) { return (aliases[n] || n) === h.name; })[0]]; });
 var leadProv = pe('web2.range.hero.lead');
-ok(entries.length === H.list.length + 1 && entries.filter(function (e) { return e.grade === 'C'; }).length === 61 && entries.filter(function (e) { return e.grade === 'D'; }).length === 28 && !!leadProv && missing.length === 27, '89 名武將/主角各有來源記錄：61 名 C、未列來源 27 名＋主角 1 名 D fallback');
+ok(entries.length === H.list.length + 1 && entries.filter(function (e) { return e.grade === 'C'; }).length === 61 && entries.filter(function (e) { return e.grade === 'D'; }).length === 27 && !!leadProv && leadProv.grade === 'B' && missing.length === 27, '89 名武將/主角各有來源記錄：61 名 C、未列來源 27 名、主角 1 名 B');
+var leadLv1 = R.skillOf({ id: 'lead', sk: { a: 1 } }, 'a'), leadLv6 = R.skillOf({ id: 'lead', sk: { a: 6 } }, 'a');
+ok(leadLv1.pattern === 'shape' && same(leadLv1.shape, [[0, 0]]) && leadLv6.pattern === 'shape' && same(leadLv6.shape, [[0, 0], [0, 1]]), '主角普攻：Lv1 向前一格，Lv6 向前兩格');
 
 console.log('[sn8：六等範圍規則]');
 var sixKings = ['岳靈珊', '鹿杖客', '蔡文姬', '張角', '丘處機', '華雄'];

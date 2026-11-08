@@ -123,10 +123,13 @@ module.exports = function (o) {
     if (w282) { w282ShapeRows++; if (w282.row.lv > 6) w282HighRows++; }
   });
   H.list.forEach(function (h) { if (!gridById[h.id]) addFallback(h); });
-  addFallback(H.lead);
-  if (ranges !== Object.keys(grids).length || ranges !== 61 || w282ShapeRows !== 49 || w282HighRows !== 15 || fallbackRanges !== H.list.length + 1 - ranges) throw new Error('P3-2 範圍筆數不一致：來源 ' + Object.keys(grids).length + '，映射 ' + ranges + '，W282 格位 ' + w282ShapeRows + '（Lv6 ' + (w282ShapeRows - w282HighRows) + '、Lv7+ ' + w282HighRows + '），fallback ' + fallbackRanges);
+  // G2 sn=7 的早期技能表未列主角，但原版主角普攻規則為 Lv1 向前一格、Lv6 向前兩格。
+  // 以相同的相對座標格式寫入，讓主角也走 RV14 的 range14 引擎；Lv6 來源依使用者補充確認記錄。
+  H.lead.active.range14 = [[[0, 0]], [[0, 0], [0, 1]]];
+  entry({ id: 'web2.range.hero.lead', cat: '技能範圍', item: '主角普攻範圍', spec: 'G2／補充', current: 'Lv1 一格；Lv6 兩格。', grade: 'B', label: LB.B, sources: [{ s: 'W7', q: '技能表；主角規則補充' }], phase: 'web2-P3-2' });
+  if (ranges !== Object.keys(grids).length || ranges !== 61 || w282ShapeRows !== 49 || w282HighRows !== 15 || fallbackRanges !== H.list.length - ranges) throw new Error('P3-2 範圍筆數不一致：來源 ' + Object.keys(grids).length + '，映射 ' + ranges + '，W282 格位 ' + w282ShapeRows + '（Lv6 ' + (w282ShapeRows - w282HighRows) + '、Lv7+ ' + w282HighRows + '），fallback ' + fallbackRanges);
   var allConflictIds = rangeConflicts.slice();
-  entry({ id: 'web2.skill.rangeShapes', cat: '技能範圍', item: '既有武將普攻／六等／無雙格圖', spec: 'snA967／snA282／sn8', current: '61 名 W967 武將已映射；49 名有 W282 直接格位截圖（' + (w282ShapeRows - w282HighRows) + ' 張 Lv6、' + w282HighRows + ' 張 Lv7+ 推用），其餘使用 W967 六等格圖。另 ' + fallbackRanges + ' 名（含主角）未列來源，保留原 pattern。每名均有 web2.range.hero.* provenance；格圖轉位依賴 C 級錨點推定。', grade: 'C', label: LB.C, sources: [{ s: 'W967', q: '61 名普攻／六等普攻／無雙格圖' }, { s: 'W282', q: '34 張 Lv6 格位圖、15 張 Lv7+ 推用；模糊形狀 C' }, { s: 'W8', q: '六等範圍變化規則' }], conflicts: allConflictIds, phase: 'web2-P3', note: '有 W282 格位圖時優先；Lv7+ 推用及模糊格位標 C；缺來源者不作推測。' });
+  entry({ id: 'web2.skill.rangeShapes', cat: '技能範圍', item: '既有武將普攻／六等／無雙格圖', spec: 'snA967／snA282／sn8', current: '61 名 W967；49 名 W282（' + (w282ShapeRows - w282HighRows) + ' 張 Lv6、' + w282HighRows + ' 張 Lv7+ 推用）；其餘採 W967。另 ' + fallbackRanges + ' 名非主角未列來源；主角依 W7 補入 Lv1／Lv6。', grade: 'C', label: LB.C, sources: [{ s: 'W967', q: '61 名技能格圖' }, { s: 'W282', q: 'Lv6 格位圖' }, { s: 'W8', q: '六等規則' }], conflicts: allConflictIds, phase: 'web2-P3', note: 'W282 優先；推用與模糊格位標 C；主角依 W7／使用者補充。' });
   entry({ id: 'web2.skill.rangeLv6Rules', cat: '技能範圍', item: '六等範圍變化與無雙不變', spec: 'sn8', current: '六大天王（六名綠魂將）不變；紫將趙雲、呂布不變；藍將全部改變；無雙範圍不隨等級改變。紫雲依 W282 Lv6 直接圖採改變；熊貓 W967 基礎／Lv6 格圖相同，W282 未提供形狀，保留 C 級衝突。', grade: 'B', label: LB.B, sources: [{ s: 'W8', q: '初期六天王六等不變、紫將只有趙雲／呂布不變、藍將全變、無雙不變' }, { s: 'W282', q: 'Lv6 技能截圖格位；紫雲三格範圍' }, { s: 'W967', q: '表 5 格圖' }], conflicts: allConflictIds, phase: 'web2-P3', note: '來源衝突不以臆測補格：紫雲採用直接 Lv6 圖；熊貓暫保留 W967 明確格圖，待清晰截圖。' });
 
   var detail = (o.P.entries || []).filter(function (e) { return e.id === 'web2.hero.new.detail'; })[0];
