@@ -6,7 +6,7 @@ BOARD-3 已完成；維持現行 v12 棋盤規則，本次不重做、不改動�
 
 ## English summary
 Unofficial, offline, single-file HTML5 remake of the 2012–2013 Facebook game 猛將無雙. Build output: `dist/mengjiang.html` (one file, ES5, no CDN, < 12,000,000 bytes). With the original company's consent (as stated by the repository owner), original art, music, and similar assets may be referenced or used directly so the remake stays as close to the original as possible. Record each use in `docs/美術素材來源.md`. If no original file is available, redraw closer assets from the screenshots and videos in `reference/`.
-State on 2026-11-08 (UTC+8): P1/P2 and P3-1–P3-5 are complete; P3-1 rates/caps remain versioned at RV13, and P3-2 range shapes at RV14. P3-3–P3-5 are included in save v11. BOARD-3 remains the completed v12 board. P3-6 onward and P4 remain pending. Nothing here claims real-device testing; Playwright Chromium/WebKit iPhone 13 are emulations only. Social/online modes are not built (by design: single-player). Many numbers remain grade D. Each item below lists goal, evidence + grade + URL, files/functions, acceptance tests, priority and dependencies. Read "Project rules" first.
+State on 2026-11-08 (UTC+8): P1/P2 and P3-1–P3-6, SHOP-1 and TASK-1 are complete. P3-1 rates/caps remain versioned at RV13; P3-2 skill range shapes remain RV14; P3-6 field-item replay events use RV15. P3-3–P3-5 remain in save v11 (no save schema change this task). P4 onward remains pending. BOARD-3 remains the completed v12 board. Nothing here claims real-device testing; Playwright Chromium/WebKit iPhone 13 are emulations only. Social/online modes are not built (by design: single-player); the Honor Trial multiplayer item economy is not reconstructed. Many numbers remain grade D. Each item below lists goal, evidence + grade + URL, files/functions, acceptance tests, priority and dependencies. Read "Project rules" first.
 
 ---
 
@@ -26,7 +26,7 @@ State on 2026-11-08 (UTC+8): P1/P2 and P3-1–P3-5 are complete; P3-1 rates/caps
 ## 建置與測試（摘要，詳見 README）
 - `npm install`（acorn、playwright；e2e 需 `npx playwright install chromium webkit`）
 - 資料：`node tools/build-data.js`；素材：`node tools/build-assets.js`；單檔：`node tools/build.js` → `dist/mengjiang.html`、`dist/boot-test.html`
-- 單元：`sh tools/runtests.sh`（2026-11-07：22 組、3,513 項通過／0 失敗，見 `docs/test-log-unit.txt`）；e2e：`node tests/e2e.js all`（408 通過／0 失敗，Chromium、WebKit iPhone 13、橫向手機）；RV14 單檔 11,994,670 bytes（<12,000,000）。平衡：`node tools/progress-sim.js --days 30`（P3-1 已執行）。
+- 單元：`sh tools/runtests.sh`（2026-11-08：24 組、3,686 項通過／0 失敗，見 `docs/test-log-unit.txt`）；e2e：`node tests/e2e.js all`（435 通過／0 失敗，Chromium、WebKit iPhone 13、橫向手機各 145）；RV15 單檔 11,999,000 bytes（<12,000,000）。平衡：`node tools/progress-sim.js --days 30`（P3-1 已執行）。
 
 ---
 
@@ -94,12 +94,24 @@ URL 縮寫：`G2(sn)` = `https://forum.gamer.com.tw/G2.php?bsn=22512&sn=<sn>`；
 - 驗收：`tests/unit-web2-p3-3-5.js` 覆蓋 19 組名稱、五類 Lv1–18 魂量、白 Lv10 衝突阻擋、兩組已知條件、未知條件不推測、故障遷移拒絕升版、舊星盤不再套戰鬥；`unit-p2.js`、`unit-pt3.js`、`tests/e2e.js` 覆蓋 UI 與操作。
 - 優先：中；已完成。
 
-### P3-6 戰場道具與榮譽試煉 BOSS／精英（未做）
-- 目標：炸彈 3 形（大 XOOX/OOOO/XOOX、中 OXO/XOX/OXO、小 XOX/OOO/XOX）、旗幟 8%×1／7%×2／6%×3、火焰器 4 格斜線＋燒傷；BOSS 金框、精英銀框。
-- 證據：G2(51)、G2(17)（B）。
-- 檔案：`src/js/battle.js`（新事件類型，須 v9 閘門或新 RV）、`src/js/ui-battle.js`、`src/data/stages.json`。
-- 驗收：固定種子 unit；舊戰報重播不變；e2e 顯示。
-- 優先：低；相依：P3-1。
+### P3-6 戰場道具與榮譽試煉 BOSS／精英（已完成：資料、RV15 事件與畫面）
+- 目標：炸彈大／中／小三形分別為 XOOX/OOOO/XOOX、OXO/XOX/OXO、XOX/OOO/XOX；威力定性分低／中／高，命中目標隨機。旗幟命中 1／2／3 次的來源級距為 8%×1／7%×2／6%×3，屬性例子包括物攻、法攻、命中、法防且隨機。噴火槍按左右方向發射 4 格斜線並附灼傷。BOSS 金框、精英銀框。
+- 證據：G2(51)「戰場物品效果」（B，2012-12-06）、G2(17)「新手導覽」（B，2012-06-23）；作者均為水瀲。`docs/sources-extracted/web2/c-p3-6.json` 保存結構化摘錄與 URL。來源沒有傷害係數、灼傷機率／持續時間、旗幟完整屬性池／受益對象，或第 4 次起級距，不得外推。
+- 實作：`tools/web2-p3.js`／`web2-data.js` 可重跑寫入 config、provenance 與 24 個 stage leader frame 標記；`battle.js`／`ui-battle.js` 以 RV15 支援可重播道具事件與範圍預覽。道具事件需由戰鬥呼叫明確傳入；沒有把道具任意發給一般關卡或推測傷害。未重建未在本作存在的榮譽試煉多人棋盤／道具經濟。
+- 驗收：`unit-web2-p3-6.js` 21/21 固定 seed 的炸彈／旗幟事件可重現、三種格形與左右 4 格火焰方向逐格比對、來源未記載數值不改戰鬥屬性、RV14 golden 完全不變；`tests/e2e.js all` 三種 viewport 均顯示精英銀框／BOSS 金框與道具事件。
+- 優先：低；已完成。
+
+### SHOP-1 商城商品篩選（已完成）
+- 在商城可依商品類別（全部、裝備、寶石、心法、種子、其他道具）及付款貨幣（金幣／銀幣）篩選；兩種篩選可同時套用。結果數量及空結果清楚可見，切換篩選後回到第一頁，不改商品、價格、庫存或購買規則。
+- 實作：`src/js/ui-misc.js` 商城列表與篩選 action、`src/css/style.css` chip 樣式；分類依商品 ID 前綴／資料型態，不依顯示名稱猜測。
+- 驗收：`tests/e2e.js all` 在三種 viewport 覆蓋類別／貨幣交叉篩選、空結果提示、分頁重設與篩選後購買仍可用。
+- 優先：中；已完成。
+
+### TASK-1 任務獎勵一鍵領取（已完成）
+- 任務面板提供一鍵領取目前所有可領的主線、歷練任務、已達活躍度寶箱與已達成成就獎勵；先領歷練任務再檢查活躍寶箱。逐階可領成就依序領完。不可重領或略過現有資格檢查；簽到／簽到累計獎勵仍由原按鈕手動領取。回報領取項數並在同一獎勵窗合併顯示所有獎勵；無可領時停用按鈕。
+- 實作：`src/js/sys3.js` 共用 `taskRewardCount`／`claimAllTaskRewards`；`src/js/ui-p3.js` 在任務各分頁提供按鈕及合併回報。
+- 驗收：`unit-p3.js` 覆蓋混合主線、歷練、寶箱、多階成就、簽到累計獎勵排除、空集合、重複呼叫與獎勵／活躍度帳目；E2E 覆蓋 UI 批領。
+- 優先：中；已完成。
 
 ### P4-1 寶石數值（未做）
 - 目標：物攻 17/58/164/324/665、物防 9/29/82/162/333、暴擊／閃避 55/182/345/545/1000（Lv6 1636）、命中 60…1100、生命 54…1998；545＝4.54%、基礎閃避 5%；敏捷上限＝屬性×0.4。

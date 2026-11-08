@@ -1,0 +1,89 @@
+{
+  "sources": [
+    {
+      "id": "W51",
+      "title": "【攻略】戰場物品效果",
+      "author": "水瀲（gjo3xu04）",
+      "date": "2012-12-06",
+      "url": "https://forum.gamer.com.tw/G2.php?bsn=22512&sn=51",
+      "region": "台版",
+      "grade": "B",
+      "facts": [
+        "炸彈分大範圍小威力、中範圍中威力、小範圍大威力；命中目標為隨機。大炸彈圖中的 O 是爆炸格。原文沒有傷害係數。",
+        "旗幟被兩方攻擊會改變顏色；BUFF 屬性隨機，原文舉物攻、法攻、命中、法防等例子。命中 1 次為 8%×1，2 次為 7%×2，3 次為 6%×3；更多次數只描述效果會更大，沒有列後續級距。",
+        "噴火槍因左右方向分別形成 4 格斜線，傷害定性高於炸彈並附帶灼傷；原文沒有傷害係數、灼傷機率或持續回合數。"
+      ]
+    },
+    {
+      "id": "W17",
+      "title": "【攻略】新手導覽",
+      "author": "水瀲（gjo3xu04）",
+      "date": "2012-06-23",
+      "url": "https://forum.gamer.com.tw/G2.php?bsn=22512&sn=17",
+      "region": "台版",
+      "grade": "B",
+      "facts": [
+        "榮譽試煉中，BOSS 玩家周圍鑲金框；精英玩家周圍鑲銀邊。此來源只支持角色框色與身分辨識，不代表本作已重建整個榮譽試煉玩法。"
+      ]
+    }
+  ],
+  "battleItems": {
+    "bombs": [
+      {
+        "id": "bombLarge",
+        "name": "大範圍炸彈",
+        "rows": ["XOOX", "OOOO", "XOOX"],
+        "strength": "low",
+        "randomTarget": true
+      },
+      {
+        "id": "bombMedium",
+        "name": "中範圍炸彈",
+        "rows": ["OXO", "XOX", "OXO"],
+        "strength": "medium",
+        "randomTarget": true
+      },
+      {
+        "id": "bombSmall",
+        "name": "小範圍炸彈",
+        "rows": ["XOX", "OOO", "XOX"],
+        "strength": "high",
+        "randomTarget": true
+      }
+    ],
+    "flag": {
+      "id": "flag",
+      "name": "旗幟",
+      "sideColors": {"A": "green", "B": "red"},
+      "buffExamples": ["patk", "matk", "hit", "mdef"],
+      "randomBuff": true,
+      "tiers": [
+        {"hits": 1, "perHitPercent": 8, "stacks": 1, "totalPercent": 8},
+        {"hits": 2, "perHitPercent": 7, "stacks": 2, "totalPercent": 14},
+        {"hits": 3, "perHitPercent": 6, "stacks": 3, "totalPercent": 18}
+      ],
+      "beyondThreeHits": null
+    },
+    "flame": {
+      "id": "flame",
+      "name": "噴火槍",
+      "patterns": {
+        "fromLeft": ["PXXXX", "XOXXX", "XXOXX", "XXXOX", "XXXXO"],
+        "fromRight": ["XXXXP", "XXXOX", "XXOXX", "XOXXX", "OXXXX"]
+      },
+      "affectedCellsPerDirection": 4,
+      "status": "burn",
+      "relativePower": "higherThanBombs"
+    }
+  },
+  "honorTrialFrames": {
+    "boss": "gold",
+    "elite": "silver",
+    "scope": "Only the enemy leader on stages already typed boss/elite receives this frame; honor-trial multiplayer/board rules are not added."
+  },
+  "implementationLimits": [
+    "The sources do not give bomb/flame damage coefficients or burn duration/probability; do not invent them.",
+    "The sources do not identify the exact recipients or complete random stat pool for flag buffs; preserve and display the known schedule but do not mutate combat stats.",
+    "Flag hit tiers beyond three are unspecified; keep unresolved rather than extrapolating."
+  ]
+}

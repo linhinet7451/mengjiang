@@ -167,6 +167,40 @@
     if (x.count < n) return fail('本輪累計簽到 ' + n + ' 次才能領取');
     s.sign.bonus[n] = true; var got = G.grant(G.SIGN_BONUS[n]); G.commit(); return ok({ got: got });
   };
+  // 一鍵領取範圍不含簽到／累計簽到獎勵；每日寶箱以領完可領的歷練任務後活躍度計算。
+  G.taskRewardCount = function () {
+    var s = st(), d = G.daily(), n = 0, act = d.act || 0;
+    U.each(MJ.D.tasks, function (t) { if (!s.tasksClaimed[t.id] && G.taskDone(t)) n++; });
+    U.each(G.DAILY, function (q) {
+      if (!d.claimed[q.id] && G.dailyProgress(q) >= q.n) { n++; act += q.act; }
+    });
+    U.each(G.DAILY_CHEST, function (c) { if (!d.chest[c.id] && act >= c.need) n++; });
+    U.each(G.ACH, function (a) {
+      var tier = s.ach[a.id] || 0, value = a.val(s);
+      while (tier < a.tiers.length && value >= a.tiers[tier]) { n++; tier++; }
+    });
+    return n;
+  };
+  G.claimAllTaskRewards = function () {
+    var s = st(), d = G.daily(), n = 0, got = [], failed = [];
+    function collect(r, label) {
+      if (r && r.ok) { n++; got = got.concat(r.got || []); }
+      else if (r) failed.push(label + '：' + (r.msg || '領取失敗'));
+    }
+    U.each(MJ.D.tasks, function (t) { if (!s.tasksClaimed[t.id] && G.taskDone(t)) collect(G.claimTask(t.id), t.name); });
+    U.each(G.DAILY, function (q) { if (!d.claimed[q.id] && G.dailyProgress(q) >= q.n) collect(G.claimDaily(q.id), q.name); });
+    U.each(G.DAILY_CHEST, function (c) { if (!d.chest[c.id] && d.act >= c.need) collect(G.claimDailyChest(c.id), '活躍 ' + c.need + ' 寶箱'); });
+    U.each(G.ACH, function (a) {
+      var guard = 0, x = G.achState(a);
+      while (x.can && guard < a.tiers.length) {
+        collect(G.claimAch(a.id), a.name + ' 第 ' + (x.tier + 1) + ' 階');
+        guard++; x = G.achState(a);
+      }
+    });
+    if (!n) return fail('目前沒有可領取的任務獎勵');
+    if (failed.length) got.push('未能領取 ' + failed.length + ' 項：' + failed.join('；'));
+    return ok({ count: n, got: got, failed: failed.length });
+  };
 
   // ---------- 農田（P2：種下立即成熟，不等現實時間；化肥改成收成 +50%；D） ----------
   G.SEEDS = {

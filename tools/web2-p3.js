@@ -2,7 +2,7 @@
 // 來源列只提供基準點；中間等級插值與 cap 套用範圍另列 C/D，不冒充原始證據。
 var fs = require('fs'), path = require('path');
 module.exports = function (o) {
-  var H = o.H, C = o.C, entry = o.entry, conflict = o.conflict, LB = o.LB;
+  var H = o.H, C = o.C, T = o.T, entry = o.entry, conflict = o.conflict, LB = o.LB;
   var sourcePath = path.join(__dirname, '..', 'docs', 'sources-extracted', 'web2', 'c-snA967-skills.json');
   var rows = JSON.parse(fs.readFileSync(sourcePath, 'utf8'));
   var gridPath = path.join(__dirname, '..', 'docs', 'sources-extracted', 'web2', 'c-snA967-grids.json');
@@ -157,5 +157,25 @@ module.exports = function (o) {
   conflict({ id: 'P3R-JX-WHITE-L10', item: '白魂升到 Lv10 所需魂數', sides: [{ claim: '11 魂', sources: ['W53'], date: '2012-12-16' }, { claim: '10 魂（9-10 升級）', sources: ['W48'], date: '2012-11-26' }], handling: 'runtime 表留 null，暫不允許依猜值升至白魂 Lv10；兩個原值與來源均保留。', status: '待補原圖或直接證據（web2-P3-5）' });
   entry({ id: 'web2.jiangxing.soulCosts.white10', cat: '將星錄', item: '白魂 Lv10 所需魂數', spec: 'W48／W53', current: 'null（衝突未裁決，升級不猜值）', grade: 'C', label: LB.C, sources: [{ s: 'W53', q: 'Lv10 欄 11 魂' }, { s: 'W48', q: '9-10 欄 10 魂' }], conflicts: ['P3R-JX-WHITE-L10'], phase: 'web2-P3-5' });
   entry({ id: 'web2.jiangxing.legacyRefund', cat: '存檔', item: '舊二十八宿星盤遷移', spec: 'v10→v11', current: '將舊星盤已點亮顆數依舊本作成本全數折回星魂餘額；原有餘額保留，舊星盤加成停止套用。', grade: 'D', label: LB.D, sources: [], phase: 'web2-P3-5', note: '這是存檔相容政策，不是原作規則。' });
-  return { mapped: mapped, rows: Object.keys(rows).length, ids: used, ranges: ranges, fallbackRanges: fallbackRanges, openLevels: openRows.length, expLevels: C.expTable.values.length, combos: C.jiangxing.combos.length };
+
+  // P3-6：保存來源明示的戰場道具圖形與效果欄；傷害係數、灼傷數值及旗幟受益對象不推測。
+  var p36facts = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'docs', 'sources-extracted', 'web2', 'c-p3-6.json'), 'utf8'));
+  C.battleItems = p36facts.battleItems;
+  var bombText = C.battleItems.bombs.map(function (x) { return x.name + ' ' + x.rows.join('/'); }).join('；');
+  entry({ id: 'web2.battleItems.bombs', cat: '戰場道具', item: '炸彈範圍與威力級距', spec: 'G2 sn=51', current: bombText + '；大／中／小威力依序低／中／高，命中目標隨機。', grade: 'B', label: LB.B, sources: [{ s: 'W51', q: '炸彈三種 X/O 圖格及大小範圍／威力級距；命中隨機' }], phase: 'web2-P3-6', note: 'O 表示來源明確標示的爆炸格；沒有傷害係數，沿用呼叫者的技能傷害，不另造數值。' });
+  entry({ id: 'web2.battleItems.flag', cat: '戰場道具', item: '旗幟增益級距', spec: 'G2 sn=51', current: '命中 1 次 8%×1；2 次 7%×2＝14%；3 次 6%×3＝18%。可辨識例子為物攻、法攻、命中、法防；屬性隨機。', grade: 'B', label: LB.B, sources: [{ s: 'W51', q: '旗幟變色、隨機 BUFF 屬性及 1～3 次級距' }], phase: 'web2-P3-6', note: '來源稱還有其他屬性且次數越多效果越大，但未列完整屬性池／受益對象，也未列第 4 次起級距；引擎只解析已列級距，不套戰鬥屬性。' });
+  entry({ id: 'web2.battleItems.flame', cat: '戰場道具', item: '噴火槍範圍與灼傷', spec: 'G2 sn=51', current: '依左右方向發射 4 格斜線；附帶灼傷，傷害定性高於炸彈。', grade: 'B', label: LB.B, sources: [{ s: 'W51', q: '左右兩種噴火槍四格斜線示意、灼傷及相對傷害描述' }], phase: 'web2-P3-6', note: '沒有傷害係數、灼傷機率或持續回合數；保留形狀與狀態名稱，不臆造數值。' });
+  entry({ id: 'web2.honorTrial.frames', cat: '榮譽試煉', item: 'BOSS／精英外框', spec: 'G2 sn=17', current: 'BOSS 金框；精英銀框。已用於現有對應關卡的敵方首領辨識。', grade: 'B', label: LB.B, sources: [{ s: 'W17', q: '榮譽試煉 BOSS 周圍金框、精英周圍銀邊' }], phase: 'web2-P3-6', note: '只重用身分框色；不宣稱榮譽試煉多人棋盤玩法已實作。' });
+  entry({ id: 'web2.battleItems.applicationLimits', cat: '戰場道具', item: '未明示道具戰鬥數值', spec: 'W51', current: '旗幟只呈現已知隨機級距；炸彈／噴火槍只呈現格形與定性效果，不套用未記載的戰鬥數值。', grade: 'D', label: LB.D, sources: [], phase: 'web2-P3-6', note: '來源未說明旗幟完整受益對象、燒傷數值與炸彈倍率；此為避免推測的本作政策。' });
+  var frameCount = 0;
+  if (T && Array.isArray(T.stages)) T.stages.forEach(function (stage) {
+    (stage.enemies || []).forEach(function (enemy) {
+      if (!enemy.leader) return;
+      if (stage.kind === 'boss') enemy.honorFrame = 'gold';
+      else if (stage.kind === 'elite') enemy.honorFrame = 'silver';
+      else delete enemy.honorFrame;
+      if (enemy.honorFrame) frameCount++;
+    });
+  });
+  return { mapped: mapped, rows: Object.keys(rows).length, ids: used, ranges: ranges, fallbackRanges: fallbackRanges, openLevels: openRows.length, expLevels: C.expTable.values.length, combos: C.jiangxing.combos.length, fieldItems: C.battleItems.bombs.length + 2, frames: frameCount };
 };

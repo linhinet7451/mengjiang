@@ -55,6 +55,46 @@ MJ.Battle = (function () {
     if (p === 'square') return [[0, 0], [0, 1], [d, 0], [d, 1]];
     return B.RANGE[p] || B.RANGE.single;
   };
+  // P3-6：道具範圍取自 provenance-backed config；不包含來源未提供的傷害係數／燒傷數值。
+  function fieldCfg() { return MJ.D && MJ.D.config && MJ.D.config.battleItems; }
+  function maskCells(rows) {
+    var out = [];
+    U.each(rows || [], function (row, r) { for (var c = 0; c < row.length; c++) if (row.charAt(c) === 'O') out.push([r, c]); });
+    return out;
+  }
+  B.fieldItemCells = function (id, side) {
+    var cfg = fieldCfg(), rows = null, item = null, direction = null;
+    if (!cfg) return null;
+    if (id === 'flame') {
+      item = cfg.flame; direction = side === 'B' ? 'fromRight' : 'fromLeft';
+      rows = item.patterns[direction];
+    } else {
+      item = U.find(cfg.bombs || [], function (x) { return x.id === id; });
+      if (item) rows = item.rows;
+    }
+    if (!rows) return null;
+    return { rows: rows.slice(), cells: maskCells(rows), direction: direction, emitter: direction ? (direction === 'fromLeft' ? [0, 0] : [0, 4]) : null };
+  };
+  B.resolveFieldItem = function (id, opt) {
+    opt = opt || {};
+    var cfg = fieldCfg(), side = opt.side === 'B' ? 'B' : 'A', seed = opt.seed || 1, rng = U.rng(seed), layout, item, tier, stat, stats;
+    if (!cfg) return null;
+    if (id === 'flag') {
+      item = cfg.flag; tier = U.find(item.tiers, function (x) { return x.hits === opt.hits; });
+      if (!tier) return { t: 'fieldItem', id: 'flag', name: item.name, side: side, hits: opt.hits || 0, unresolved: true, scope: 'displayOnly' };
+      stats = item.buffExamples || []; stat = stats.length ? stats[Math.floor(rng() * stats.length)] : null;
+      return { t: 'fieldItem', id: 'flag', name: item.name, side: side, color: item.sideColors[side], hits: tier.hits, percent: tier.totalPercent, perHitPercent: tier.perHitPercent, stacks: tier.stacks, stat: stat, statPoolPartial: true, scope: 'displayOnly' };
+    }
+    if (id === 'flame') {
+      item = cfg.flame; layout = B.fieldItemCells(id, side);
+      return { t: 'fieldItem', id: id, name: item.name, side: side, rows: layout.rows, cells: layout.cells, direction: layout.direction, status: item.status, relativePower: item.relativePower, scope: 'displayOnly' };
+    }
+    item = U.find(cfg.bombs || [], function (x) { return x.id === id; });
+    if (!item) return null;
+    layout = B.fieldItemCells(id, side);
+    var pick = layout.cells.length ? Math.floor(rng() * layout.cells.length) : -1;
+    return { t: 'fieldItem', id: id, name: item.name, side: side, rows: layout.rows, cells: layout.cells, hitCell: pick >= 0 ? layout.cells[pick] : null, strength: item.strength, randomTarget: !!item.randomTarget, scope: 'displayOnly' };
+  };
   // 同一列、在 u 前方（欄號較小）還活著的單位
   function aheadAlive(u, list) { var p = rc(u.cell); return U.filter(list, function (x) { return x !== u && x.hp > 0 && rc(x.cell).r === p.r && rc(x.cell).c < p.c; }).length; }
   function rowAlive(list, r) { return U.filter(list, function (x) { return x.hp > 0 && rc(x.cell).r === r; }).sort(function (a, b) { return a.cell - b.cell; }); }
@@ -249,6 +289,8 @@ MJ.Battle = (function () {
     all = A.concat(Bs);
     // v10 大棋盤：全部單位都是 rv>=10 才啟用（舊戰報的單位沒有 rv 10，照舊規則）
     var BD = all.length > 0 && U.filter(all, function (u) { return u.rv >= 10; }).length === all.length;
+    // v15 戰場道具事件只附加在所有快照都為 rv>=15 的新戰報；舊戰報逐位保留原事件序列。
+    var FI = all.length > 0 && U.filter(all, function (u) { return u.rv >= 15; }).length === all.length;
     // v11 持續前進＋走到底排隊：全部單位都是 rv>=11 才啟用（rv 10 的舊戰報照 v10 前線規則重播）
     var BV = BD ? (U.filter(all, function (u) { return u.rv >= 12; }).length === all.length ? 12 : (U.filter(all, function (u) { return u.rv >= 11; }).length === all.length ? 11 : 10)) : 0;
     if (BD) U.each(all, function (u) { u.br = Math.floor(u.cell / 3); u.bx = B.homeBx(u.side, u.cell); });
@@ -407,6 +449,10 @@ MJ.Battle = (function () {
       if (U.find(alliesOf(u), function (m) { return m !== u && m.did === u.partner; })) { u.lx = true; u.patk = Math.floor(u.patk * 1.1); u.matk = Math.floor(u.matk * 1.1); u.jatk = Math.floor(u.jatk * 1.1); }
     });
     ev.push(BD ? { t: 'start', units: U.map(all, snapshot), bd: BV >= 11 ? { gap: B.BOARD.gap, cols: B.BOARD.cols, v: BV, pos: U.map(all, function (u) { return [u.key, u.br, u.bx]; }) } : { gap: B.BOARD.gap, cols: B.BOARD.cols, pos: U.map(all, function (u) { return [u.key, u.br, u.bx]; }) } } : { t: 'start', units: U.map(all, snapshot) });
+    if (FI && Array.isArray(opt.fieldItems)) U.each(opt.fieldItems, function (x, i) {
+      var f = B.resolveFieldItem(x.id, { side: x.side, seed: x.seed || ((opt.seed || 1) + i + 1), hits: x.hits });
+      if (f) ev.push(f);
+    });
     U.each(all, function (u) { if (u.lx) ev.push({ t: 'text', to: u.key, s: '連攜', c: 'green' }); });
     var quiet = 0, qFrom = 0, blk11 = {}; // v11 僵局計數、上一回合緊貼敵人停下的人
     while (round < maxRounds && !winner) {

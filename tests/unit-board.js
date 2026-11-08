@@ -8,7 +8,7 @@ function hitsBy(r) { var o = {}; r.events.forEach(function (e) { if (e.t === 'hi
 function advs(r) { return r.events.filter(function (e) { return e.t === 'adv'; }); }
 
 console.log('[規則版本]');
-ok(M.R.RV === 14, "現行規則版本 R.RV = 14（棋盤規則仍為 v12）");
+ok(M.R.RV === 15, "現行規則版本 R.RV = 15（技能格圖 v14、棋盤規則仍為 v12）");
 ok(B.BOARD.cols === 8 && B.BOARD.gap === 2, '棋盤每列 8 格（我方 3＋中間 2＋敵方 3）');
 ok(B.homeBx('A', 0) === 2 && B.homeBx('A', 2) === 0 && B.homeBx('B', 0) === 5 && B.homeBx('B', 2) === 7, '開場位置：我方前排第 2 格、敵方前排第 5 格');
 

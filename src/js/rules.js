@@ -17,7 +17,7 @@ MJ.R = (function () {
     return lv <= 10 ? b : Math.round(b * (1 + (lv - 10) * R.EXP_K));
   };
   R.maxLevel = 90; // P5：B（90 級主角升橙）；原為 80（D）
-  R.RV = 14; // v14：既有武將技能範圍依來源格圖；BOARD-3 棋盤仍為 v12，舊戰報保留技能快照
+  R.RV = 15; // v15：來源支持的戰場道具事件與角色框色；技能格圖 v14、BOARD-3 棋盤 v12，舊戰報仍按快照重播
   // D：精力上限（截圖可見精力條，宣傳片 156/156；上限公式為推定）
   R.energyMax = function (lv) { return 100 + lv * 2; };
   R.teamSlots = function (lv) {

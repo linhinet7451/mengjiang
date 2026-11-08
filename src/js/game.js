@@ -392,7 +392,7 @@ MJ.G = (function () {
     return '';
   };
   G.buildEnemy = function (sg) {
-    return U.map(sg.enemies, function (e) { return { cell: e.cell, unit: R.enemyUnit(e, sg) }; });
+    return U.map(sg.enemies, function (e) { var u = R.enemyUnit(e, sg); u.honorFrame = e.honorFrame || null; return { cell: e.cell, unit: u }; });
   };
   G.buildTeam = function () {
     var s = st();
@@ -408,7 +408,7 @@ MJ.G = (function () {
     // D（原創防卡關）：越戰越勇——同一關每連敗一次，我方生命與攻擊 +8%，最多 +80%，通關後歸零
     var morale = R.moraleBonus(G.stageState(id).fails || 0);
     if (morale > 0) U.each(team, function (t) { var u = t.unit; u.hp = Math.round(u.hp * (1 + morale)); u.patk = Math.round(u.patk * (1 + morale)); u.matk = Math.round(u.matk * (1 + morale)); u.jatk = Math.round(u.jatk * (1 + morale)); });
-    var res = MJ.Battle.run(team, foes, { seed: seed, maxRounds: C().maxRounds, levelSuppression: C().levelSuppression });
+    var res = MJ.Battle.run(team, foes, { seed: seed, maxRounds: C().maxRounds, levelSuppression: C().levelSuppression, fieldItems: sg.fieldItems || [] });
     s.stats.battles++;
     var out = { win: res.win, battle: res, stage: sg, team: team, foes: foes, rewards: [], levelUps: [], seed: seed, energyCost: 0, morale: morale };
     var lead = G.lead();

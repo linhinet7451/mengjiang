@@ -112,6 +112,20 @@ ok(G.claimAch('a_win').ok && S.state.player.gold === gg + 20, '第 1 階（10 �
 ok(G.claimAch('a_win').ok && G.achState(a).tier === 2, '第 2 階（100 勝）可接著領');
 ok(!G.claimAch('a_win').ok, '第 3 階（500 勝）未達，不能領');
 
+console.log('[任務獎勵一鍵領取]');
+c = fresh(); M = c.MJ; G = M.G; S = M.S;
+S.state.stats.recruits = 1;
+G.daily().c = { fight: 3, win: 5 }; G.daily().claimed = {}; G.daily().chest = {}; G.daily().act = 0;
+S.state.stats.wins = 2000;
+S.state.sign.days = [1, 2, 3, 4, 5, 6, 7]; S.state.sign.total = 0; S.state.sign.bonus = {};
+var beforeBatch = G.taskRewardCount(), batch = G.claimAllTaskRewards();
+ok(beforeBatch > 0 && batch.ok && batch.count === beforeBatch, '一鍵領完目前全部可領項（按鈕計數 ' + beforeBatch + '／實領 ' + (batch.count || 0) + '）');
+ok(S.state.tasksClaimed.t1 && G.daily().claimed.d1 && G.daily().claimed.d2 && G.daily().chest.c1, '主線、歷練任務與其達成的活躍寶箱皆領取');
+ok(S.state.ach.a_win === 4 && G.taskRewardCount() === 0, '同一成就可連領多階且不再留有可領任務');
+ok(!S.state.sign.bonus[7] && S.state.sign.days.length === 7, '簽到累計獎勵不納入任務一鍵領取');
+var silverBatch = S.state.player.silver, goldBatch = S.state.player.gold;
+ok(!G.claimAllTaskRewards().ok && S.state.player.silver === silverBatch && S.state.player.gold === goldBatch, '無可領時重複呼叫被拒，不重複發獎');
+
 console.log('[簽到]');
 c = fresh(); M = c.MJ; G = M.G; S = M.S;
 sl = S.state.player.silver; r = G.sign();

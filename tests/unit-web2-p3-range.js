@@ -19,7 +19,7 @@ function pe(id) { return prov.entries.filter(function (e) { return e.id === id; 
 function hasSource(e, id) { return !!e && (e.sources || []).some(function (s) { return s.s === id; }); }
 
 console.log('[來源覆蓋、逐人 provenance]');
-ok(R.RV === 14, '現行技能規則 RV14');
+ok(R.RV === 15, '現行技能規則 RV15（技能格圖仍照 RV14 規則）');
 ok(Object.keys(grids).length === 61, 'W967 來源格圖有 61 名武將');
 var mapped = 0, direct = 0, badBasic = [], badLv6 = [], badUlt = [], ambiguous = 0, highLevel = 0;
 Object.keys(grids).forEach(function (sourceName) {

@@ -7,7 +7,7 @@ function mk(n, o) { var u = { name: n, hp: 1e6, patk: 1000, matk: 100, pdef: 0, 
 function bu(side, br, bx, hp) { return { side: side, br: br, bx: bx, hp: hp == null ? 100 : hp, key: side + br + bx }; }
 
 console.log('[版本]');
-ok(M.R.RV === 14, '現行規則版本 R.RV = 14（棋盤仍使用 v12）');
+ok(M.R.RV === 15, '現行規則版本 R.RV = 15（棋盤仍使用 v12）');
 var r = B.run([{ cell: 3, unit: mk('前') }], [{ cell: 3, unit: mk('敵') }], { seed: 1, maxRounds: 2 });
 ok(r.board && r.board.v === 12 && r.events[0].bd.v === 12, '全部單位 rv 12：戰報標示 v12 棋盤');
 r = B.run([{ cell: 3, unit: mk('前', { rv: 11 }) }], [{ cell: 3, unit: mk('敵') }], { seed: 1, maxRounds: 2 });
@@ -59,6 +59,6 @@ ok(fs.existsSync(g14p) && JSON.stringify(JSON.parse(fs.readFileSync(g14p, 'utf8'
 console.log('[遊戲內戰鬥]');
 c = load(); M = c.MJ; M.U.now = function () { return 1767225600000; }; M.G.newGame('測', '力耐', 'm', 1);
 var res = M.G.fight('s1_1', 99);
-ok(res.battle.board && res.battle.board.v === 12, '實際關卡使用 v12 棋盤（R.RV 14 只新增技能範圍規則）');
+ok(res.battle.board && res.battle.board.v === 12, '實際關卡使用 v12 棋盤（RV15 僅增場上道具事件，棋盤規則不變）');
 console.log('結果：通過 ' + pass + '／失敗 ' + fail);
 process.exit(fail ? 1 : 0);

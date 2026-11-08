@@ -134,17 +134,34 @@
   UI.actions.claimTask = function (id) { var r = G.claimTask(id); if (UI.res(r)) { UI.renderModal(); UI.rewardBox('任務完成', r.got); } };
 
   // ---------- 商城 ----------
+  function shopCategory(e) {
+    if (e.item.indexOf('eq:') === 0) return 'equip';
+    if (e.item.indexOf('gem_') === 0) return 'gem';
+    if (e.item.indexOf('xf_') === 0 || e.item === 'xinfacanye') return 'xinfa';
+    if (e.item.indexOf('seed_') === 0) return 'seed';
+    return 'item';
+  }
+  function shopCurrency(e) { return e.price.silver ? 'silver' : 'gold'; }
+  UI.shopCategory = shopCategory;
+  UI.shopCurrency = shopCurrency;
   UI.modals.shop = function () {
-    var s = S.state;
-    var pg = UI.pager('shopP', MJ.D.shop, 6, function (e) {
+    var s = S.state, cat = UI.sel.shopCategory || 'all', currency = UI.sel.shopCurrency || 'all';
+    var categories = [['all', '全部'], ['equip', '裝備'], ['gem', '寶石'], ['xinfa', '心法'], ['seed', '種子'], ['item', '其他道具']], currencies = [['all', '全部'], ['silver', '銀幣'], ['gold', '金幣']];
+    var list = U.filter(MJ.D.shop, function (e) { return (cat === 'all' || shopCategory(e) === cat) && (currency === 'all' || shopCurrency(e) === currency); });
+    var pg = UI.pager('shopP', list, 6, function (e) {
       var nm, ic, sub = '';
       if (e.item.indexOf('eq:') === 0) { var tpl = R.equipTpl(e.item.slice(3)); nm = MJ.D.config.equipQualityNames[e.q || 0] + '·' + tpl.name; ic = UI.equipCell({ t: tpl.id, q: e.q || 0, uid: 0 }); sub = '需要 Lv' + tpl.lv + '　' + UI.equipLines(R.equipStats({ t: tpl.id, q: e.q || 0 })).join('　'); }
       else { var it = MJ.D.equipment.items[e.item]; nm = it.name + (e.n > 1 ? ' ×' + e.n : ''); ic = UI.icon(it.icon, it.color); sub = it.desc; }
-      var cur = e.price.silver ? 'silver' : 'gold';
-      return '<div class="row-item">' + ic + '<div class="ri-t"><b>' + U.esc(nm) + '</b><small>' + U.esc(sub) + '</small></div><a class="btn small" data-a="buy" data-v="' + e.id + '">' + UI.icon(cur) + U.fmt(e.price[cur]) + '</a></div>';
+      var cur = shopCurrency(e), category = shopCategory(e);
+      return '<div class="row-item shop-item" data-shop-id="' + U.esc(e.id) + '" data-shop-category="' + category + '" data-shop-currency="' + cur + '">' + ic + '<div class="ri-t"><b>' + U.esc(nm) + '</b><small>' + U.esc(sub) + '</small></div><a class="btn small" data-a="buy" data-v="' + e.id + '">' + UI.icon(cur) + U.fmt(e.price[cur]) + '</a></div>';
     });
-    return UI.panel('商城', '<div class="shop-note">單機重製版：只用遊戲內貨幣，沒有任何真實付費。</div><div class="rows">' + pg.html + '</div>' + pg.nav, { cls: 'mid' });
+    var filters = '<div class="shop-filters"><div class="shop-filter-row"><b>類別</b>' + U.map(categories, function (x) { return '<a class="chip' + (cat === x[0] ? ' on' : '') + '" data-a="shopFilter" data-v="' + x[0] + '">' + x[1] + '</a>'; }).join('') + '</div>' +
+      '<div class="shop-filter-row"><b>貨幣</b>' + U.map(currencies, function (x) { return '<a class="chip' + (currency === x[0] ? ' on' : '') + '" data-a="shopCurrency" data-v="' + x[0] + '">' + x[1] + '</a>'; }).join('') + '</div>' +
+      '<div class="shop-count">顯示 ' + list.length + ' / ' + MJ.D.shop.length + ' 件商品</div></div>';
+    return UI.panel('商城', '<div class="shop-note">單機重製版：只用遊戲內貨幣，沒有任何真實付費。</div>' + filters + '<div class="rows">' + (list.length ? pg.html : '<div class="shop-empty">沒有符合篩選的商品</div>') + '</div>' + (list.length ? pg.nav : ''), { cls: 'mid' });
   };
+  UI.actions.shopFilter = function (v) { UI.sel.shopCategory = v; UI.page.shopP = 0; UI.renderModal(); };
+  UI.actions.shopCurrency = function (v) { UI.sel.shopCurrency = v; UI.page.shopP = 0; UI.renderModal(); };
   UI.actions.buy = function (id) { var r = G.buy(id); if (UI.res(r, '購得 ' + r.got.join('、'))) UI.renderModal(); };
 
   // ---------- 設置（存檔管理） ----------

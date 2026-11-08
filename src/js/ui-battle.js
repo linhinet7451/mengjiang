@@ -36,7 +36,7 @@
     }
     return 'tile' + (side === 'A' && BT && BT.open && BT.open.indexOf(c) >= 0 ? ' open' : '');
   }
-  function auraQ(u) { var q = u.boss ? 4 : (u.quality || 0); return q >= 3 ? q : 0; }
+  function auraQ(u) { if (u.honorFrame === 'silver') return 0; var q = u.honorFrame === 'gold' || u.boss ? 4 : (u.quality || 0); return q >= 3 ? q : 0; }
   UI.screens.battle = function () {
     if (!BT) return '<div class="scr"></div>';
     var r = BT.r, h = '<div class="battle' + (BT.showGrid ? ' showgrid' : '') + (BT.done ? ' ended' + (r.win ? '' : ' lost') : '') + '" id="bt">' + MJ.Art.battlefield(r.stage.bg || (r.stage.ch ? MJ.D.stages.chapters[r.stage.ch - 1].bg : null), r.stage.id);
@@ -49,11 +49,12 @@
     // 單位
     U.each(r.team.concat(r.foes), function (x, i) {
       var side = i < r.team.length ? 'A' : 'B', u = x.unit, key = side + x.cell, p = BT.units[key] ? upos(BT.units[key]) : pos(side, x.cell);
-      h += '<div class="bu side' + side + (u.boss ? ' boss' : '') + '" id="u' + key + '" style="left:' + (p.x - 56) + 'px;top:' + (p.y - 130) + 'px;z-index:' + (10 + Math.floor(x.cell / 3)) + '">' +
-        '<div class="bcirc' + (u.boss ? ' boss' : '') + '"></div>' + (auraQ(u) ? '<div class="baura q' + auraQ(u) + '"></div>' : '') +
+      var honorClass = u.honorFrame === 'gold' ? ' rank-boss' : (u.honorFrame === 'silver' ? ' rank-elite' : ''), honorTag = u.honorFrame === 'gold' ? '<em class="rank-tag gold">BOSS</em>' : (u.honorFrame === 'silver' ? '<em class="rank-tag silver">精英</em>' : '');
+      h += '<div class="bu side' + side + (u.boss ? ' boss' : '') + honorClass + '" data-honor-frame="' + U.esc(u.honorFrame || '') + '" id="u' + key + '" style="left:' + (p.x - 56) + 'px;top:' + (p.y - 130) + 'px;z-index:' + (10 + Math.floor(x.cell / 3)) + '">' +
+        '<div class="bcirc' + (u.boss ? ' boss' : '') + honorClass + '"></div>' + (auraQ(u) ? '<div class="baura q' + auraQ(u) + '"></div>' : '') +
         '<div class="bhp" id="h' + key + '">' + hpHtml(u.curHp != null ? u.curHp : u.hp, u.hp, u.layers) + '</div>' +
         '<div class="bfig">' + MJ.Art.figure(u.look, { enemy: side === 'B', cape: u.boss }) + '</div>' +
-        '<div class="bnm"><span>' + U.esc(u.name) + ' <small>Lv' + u.lv + '</small></span></div></div>';
+        '<div class="bnm"><span>' + honorTag + U.esc(u.name) + ' <small>Lv' + u.lv + '</small></span></div></div>';
     });
     // A（影片3）：上方顯示雙方全隊總生命
     U.each(['A', 'B'], function (sd) { h += '<div class="b-tot ' + sd + '"><span id="tt' + sd + '">' + (sd === 'A' ? '我方' : '敵方') + '</span><div class="tb"><i id="tb' + sd + '" style="width:100%"></i></div></div>'; });
@@ -221,6 +222,31 @@
     addLog('雙方前進一格（' + e.m.length + ' 人移動）' + (np.length ? '；' + U.map(np, function (m) { return nameOf(m.u); }).join('、') + ' 打不到人，從敵人身邊穿過去' : '') + (nw.length ? '；' + U.map(nw, function (m) { return nameOf(m.u); }).join('、') + (BT.bd && BT.bd.v >= 12 ? ' 走到底，統一換到第一列排隊' : ' 走到底，回到第一排後方排隊') : ''), '');
   }
   UI._bAdv = function (e) { if (BT) advUnits(e); };
+  function fieldItemPreview(e) {
+    var fx = el('fx'); if (!fx) return;
+    var box = document.createElement('div'), body = '', rows = e.rows || [];
+    box.className = 'field-preview ' + (e.id === 'flag' ? 'flag' : '');
+    if (e.id === 'flag') {
+      var labels = { patk: '物攻', matk: '法攻', hit: '命中', mdef: '法防' };
+      body = e.unresolved ? '此命中級距來源未列' : (labels[e.stat] || e.stat || '屬性未知') + ' +' + e.percent + '%（命中 ' + e.hits + ' 次）';
+    } else if (e.id === 'flame') body = '四格斜線・附灼傷（數值未載）';
+    else body = (e.strength === 'low' ? '小威力' : e.strength === 'medium' ? '中威力' : '大威力') + '・隨機命中格';
+    var html = '<b>' + U.esc(e.name || '戰場道具') + '</b><span>' + U.esc(body) + '</span>';
+    if (rows.length) {
+      html += '<div class="field-map">';
+      U.each(rows, function (row, r) {
+        html += '<div class="field-row">';
+        for (var c = 0; c < row.length; c++) {
+          var mark = row.charAt(c), selected = e.hitCell && e.hitCell[0] === r && e.hitCell[1] === c;
+          html += '<i class="' + (mark === 'O' ? 'area' : mark === 'P' ? 'source' : '') + (selected ? ' selected' : '') + '">' + (mark === 'P' ? '◆' : mark === 'O' ? '●' : '') + '</i>';
+        }
+        html += '</div>';
+      });
+      html += '</div>';
+    }
+    box.innerHTML = html; fx.appendChild(box);
+    setTimeout(function () { if (box.parentNode) box.parentNode.removeChild(box); }, 1800);
+  }
   function evLog(e) {
     switch (e.t) {
       case 'hit': return e.miss ? nameOf(e.to) + (e.why === '等級壓制' ? ' 等級壓制，攻擊無效' : ' 閃避了攻擊') : nameOf(e.from) + ' 對 ' + nameOf(e.to) + ' 造成 ' + e.dmg + ' 傷害' + (e.crit ? '（暴擊）' : '');
@@ -232,6 +258,7 @@
       case 'whiff': return nameOf(e.u) + ' 「' + e.skill + '」範圍內沒有敵人，揮空';
       case 'wait': return nameOf(e.u) + ' 攻擊格內沒有敵人，等待前進';
       case 'stale': return (e.quiet ? '連續 ' + e.quiet + ' 回合雙方都沒有人受傷（剩下的人不同列、技能打不到）：' : '雙方都走不動、攻擊格也碰不到對方：') + '依剩餘生命判定（我方 ' + e.a + '%／敵方 ' + e.b + '%）→ ' + (e.win ? '我方勝' : '敵方勝');
+      case 'fieldItem': return e.id === 'flag' ? (e.unresolved ? '戰場道具「旗幟」：來源未列命中 ' + e.hits + ' 次級距' : '旗幟：' + ({ patk: '物攻', matk: '法攻', hit: '命中', mdef: '法防' }[e.stat] || e.stat) + ' +' + e.percent + '%（命中 ' + e.hits + ' 次）') : (e.name + '：' + (e.id === 'flame' ? '四格斜線，附灼傷（數值未載）' : '範圍內隨機命中，' + (e.strength === 'low' ? '小威力' : e.strength === 'medium' ? '中威力' : '大威力')));
       default: return null;
     }
   }
@@ -254,6 +281,7 @@
       case 'revive': setDead(e.to, false); setHp(e.to, e.hp); floatText(e.to, e.name, 'green small'); break;
       case 'status': floatText(e.to, e.s, 'red small', 20); break;
       case 'text': floatText(e.to, e.s, (e.c === 'green' ? 'green' : 'red') + ' small', 24); break;
+      case 'fieldItem': fieldItemPreview(e); break;
       case 'rage': setRage(e.u, e.rage); floatText(e.u, '無雙+' + e.gain, 'green small', 44); break;
       case 'ultEnd': break;
     }

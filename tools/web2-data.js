@@ -5,7 +5,7 @@ var D = path.join(__dirname, '..', 'src', 'data');
 function rd(n) { return JSON.parse(fs.readFileSync(path.join(D, n + '.json'), 'utf8')); }
 function wr(n, o) { fs.writeFileSync(path.join(D, n + '.json'), JSON.stringify(o, null, 1)); }
 var phases = process.argv.slice(2); if (!phases.length) phases = ['P1', 'P2', 'P3', 'P4'];
-var H = rd('heroes'), C = rd('config'), F = rd('formations'), P = rd('provenance');
+var H = rd('heroes'), C = rd('config'), F = rd('formations'), P = rd('provenance'), T = rd('stages');
 var byId = {}; H.list.forEach(function (h) { byId[h.id] = h; });
 function src(id, o) { P.sources[id] = o; }
 function conflict(o) { var i = P.conflicts.findIndex(function (k) { return k.id === o.id; }); if (i >= 0) P.conflicts[i] = o; else P.conflicts.push(o); }
@@ -24,7 +24,8 @@ src('W53', { title: '【問題】將星等級所需魂數（巴哈姆特精華�
 src('W84', { title: '寶石數值（巴哈姆特精華區 sn=84）', url: 'https://forum.gamer.com.tw/G2.php?bsn=22512&sn=84', author: '巴哈玩家', date: '2013', region: '台版', grade: 'B' });
 src('W86', { title: '心法（巴哈姆特精華區 sn=86／91）', url: 'https://forum.gamer.com.tw/G2.php?bsn=22512&sn=86', author: '巴哈玩家', date: '2013', region: '台版', grade: 'B' });
 src('W88', { title: '生死劫（巴哈姆特精華區 sn=88）', url: 'https://forum.gamer.com.tw/G2.php?bsn=22512&sn=88', author: '巴哈玩家', date: '2013', region: '台版', grade: 'B' });
-src('W51', { title: '戰場道具（巴哈姆特精華區 sn=51）', url: 'https://forum.gamer.com.tw/G2.php?bsn=22512&sn=51', author: '巴哈玩家', date: '2012', region: '台版', grade: 'B' });
+src('W51', { title: '【攻略】戰場物品效果（巴哈姆特精華區 sn=51）', url: 'https://forum.gamer.com.tw/G2.php?bsn=22512&sn=51', author: '水瀲（gjo3xu04）', date: '2012-12-06', region: '台版', grade: 'B' });
+src('W17', { title: '【攻略】新手導覽（巴哈姆特精華區 sn=17）', url: 'https://forum.gamer.com.tw/G2.php?bsn=22512&sn=17', author: '水瀲（gjo3xu04）', date: '2012-06-23', region: '台版', grade: 'B' });
 src('W47', { title: '將星錄組合（巴哈姆特精華區 sn=47／53／48）', url: 'https://forum.gamer.com.tw/G2.php?bsn=22512&sn=47', author: '巴哈玩家', date: '2012–2013', region: '台版', grade: 'B' });
 src('W4892', { title: '1.5.9 陣法優劣（巴哈姆特哈啦板 snA=4892）', url: 'https://m.gamer.com.tw/forum/C.php?bsn=22512&snA=4892', author: '巴哈玩家（轉自大陸玩家）', date: '2013-03-13', region: '陸版轉貼', grade: 'B', note: '內嵌 tooltip 截圖為 A' });
 src('W541', { title: '合成公式表（巴哈姆特哈啦板 snA=541）', url: 'https://m.gamer.com.tw/forum/C.php?bsn=22512&snA=541', author: '巴哈玩家', date: '2012-06', region: '台版', grade: 'B' });
@@ -81,8 +82,9 @@ if (phases.indexOf('P2') >= 0) {
   console.log('P2 made', r2.made.length, 'passives', r2.nP, 'partners', r2.nL);
 }
 if (phases.indexOf('P3') >= 0) {
-  var r3 = require('./web2-p3.js')({ H: H, C: C, P: P, entry: entry, conflict: conflict, LB: LB });
-  console.log('P3 mapped', r3.mapped, '/', r3.rows, 'skill rows; ranges', r3.ranges, 'sourced /', r3.fallbackRanges, 'fallback');
+  var r3 = require('./web2-p3.js')({ H: H, C: C, P: P, T: T, entry: entry, conflict: conflict, LB: LB });
+  console.log('P3 mapped', r3.mapped, '/', r3.rows, 'skill rows; ranges', r3.ranges, 'sourced /', r3.fallbackRanges, 'fallback; honor frames', r3.frames);
 }
 if (phases.indexOf('P1') >= 0 || 1) { wr('heroes', H); wr('config', C); wr('formations', F); wr('provenance', P); }
+if (phases.indexOf('P3') >= 0) wr('stages', T);
 console.log('web2-data done', phases.join(','), 'heroes', H.list.length, 'prov', P.entries.length);

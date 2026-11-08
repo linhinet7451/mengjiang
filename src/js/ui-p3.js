@@ -204,6 +204,8 @@
     body += '<div class="tabs">' + U.map([['daily', '歷練', dDot], ['main', '主線', mDot], ['ach', '成就', aDot], ['sign', '簽到', sDot]], function (t) {
       return '<a class="tab' + (tab === t[0] ? ' on' : '') + '" data-a="taskTab" data-v="' + t[0] + '">' + t[1] + (t[2] ? '<i class="dot"></i>' : '') + '</a>';
     }).join('') + '</div>';
+    var claimable = G.taskRewardCount();
+    body += '<div class="task-claimbar"><span>目前可領 <b>' + claimable + '</b> 項（不含簽到獎勵）</span><a class="btn small' + (claimable ? '' : ' disabled') + '" data-why="目前沒有可領取的任務獎勵" data-a="claimAllTasks">一鍵領取</a></div>';
     if (tab === 'main') {
       var pg = UI.pager('taskP', MJ.D.tasks, 5, function (t) {
         var done = G.taskDone(t), cl = s.tasksClaimed[t.id];
@@ -254,6 +256,10 @@
   UI.actions.claimDaily = function (id) { var r = G.claimDaily(id); if (UI.res(r)) { UI.renderModal(); UI.rewardBox('歷練任務', r.got); } };
   UI.actions.dailyChest = function (id) { var r = G.claimDailyChest(id); if (UI.res(r)) { UI.renderModal(); UI.rewardBox('活躍寶箱', r.got); } };
   UI.actions.claimAch = function (id) { var r = G.claimAch(id); if (UI.res(r)) { UI.renderModal(); UI.rewardBox('成就達成', r.got); } };
+  UI.actions.claimAllTasks = function () {
+    var r = G.claimAllTaskRewards();
+    if (UI.res(r, r.ok ? '一鍵領取 ' + r.count + ' 項' : '')) { UI.renderModal(); UI.rewardBox('一鍵領取 ' + r.count + ' 項', r.got); }
+  };
   UI.actions.signDo = function () { var r = G.sign(); if (UI.res(r)) { UI.renderModal(); UI.rewardBox('簽到成功（本月第 ' + r.n + ' 天）', r.got); } };
   UI.actions.signMk = function () {
     UI.confirm('補簽', '花 ' + G.SIGN_MAKEUP_GOLD + ' 金幣補簽本月最早漏簽的一天？', function () { var r = G.signMakeup(); if (UI.res(r)) { UI.renderModal(); UI.rewardBox('補簽 ' + r.day + ' 號', r.got); } }, '補簽');

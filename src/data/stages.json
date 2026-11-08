@@ -1595,7 +1595,8 @@
      "e": "zhangbao",
      "cell": 4,
      "lv": 5,
-     "leader": 1
+     "leader": 1,
+     "honorFrame": "silver"
     },
     {
      "e": "hj_bing",
@@ -1867,7 +1868,8 @@
      "e": "zhangliang",
      "cell": 4,
      "lv": 8,
-     "leader": 1
+     "leader": 1,
+     "honorFrame": "silver"
     },
     {
      "e": "hj_bing",
@@ -1967,7 +1969,8 @@
      "e": "zj_boss",
      "cell": 4,
      "lv": 9,
-     "leader": 1
+     "leader": 1,
+     "honorFrame": "gold"
     },
     {
      "e": "hj_lishi",
@@ -2437,7 +2440,8 @@
      "e": "e_dingchunqiu",
      "cell": 4,
      "lv": 12,
-     "leader": 1
+     "leader": 1,
+     "honorFrame": "silver"
     },
     {
      "e": "mt_shinv",
@@ -2724,7 +2728,8 @@
      "e": "e_jiumozhi",
      "cell": 4,
      "lv": 14,
-     "leader": 1
+     "leader": 1,
+     "honorFrame": "silver"
     },
     {
      "e": "mr_jiachen",
@@ -2829,7 +2834,8 @@
      "e": "murongfu",
      "cell": 4,
      "lv": 15,
-     "leader": 1
+     "leader": 1,
+     "honorFrame": "gold"
     },
     {
      "e": "mt_shinv",
@@ -3324,7 +3330,8 @@
      "e": "e_huaxiong",
      "cell": 4,
      "lv": 19,
-     "leader": 1
+     "leader": 1,
+     "honorFrame": "silver"
     },
     {
      "e": "lj_moushi",
@@ -3616,7 +3623,8 @@
      "e": "e_lijue",
      "cell": 4,
      "lv": 21,
-     "leader": 1
+     "leader": 1,
+     "honorFrame": "silver"
     },
     {
      "e": "dz_qinwei",
@@ -3726,7 +3734,8 @@
      "e": "b_lvbu",
      "cell": 4,
      "lv": 22,
-     "leader": 1
+     "leader": 1,
+     "honorFrame": "gold"
     },
     {
      "e": "lj_moushi",
@@ -4241,7 +4250,8 @@
      "e": "e_luzhangke",
      "cell": 4,
      "lv": 26,
-     "leader": 1
+     "leader": 1,
+     "honorFrame": "silver"
     },
     {
      "e": "wd_dizi",
@@ -4538,7 +4548,8 @@
      "e": "e_hebiweng",
      "cell": 4,
      "lv": 28,
-     "leader": 1
+     "leader": 1,
+     "honorFrame": "silver"
     },
     {
      "e": "kl_dizi",
@@ -4653,7 +4664,8 @@
      "e": "b_miejue",
      "cell": 4,
      "lv": 29,
-     "leader": 1
+     "leader": 1,
+     "honorFrame": "gold"
     },
     {
      "e": "wd_dizi",
@@ -5198,7 +5210,8 @@
      "e": "e_huodu",
      "cell": 4,
      "lv": 33,
-     "leader": 1
+     "leader": 1,
+     "honorFrame": "silver"
     },
     {
      "e": "mg_wushi",
@@ -5520,7 +5533,8 @@
      "e": "e_daerba",
      "cell": 4,
      "lv": 35,
-     "leader": 1
+     "leader": 1,
+     "honorFrame": "silver"
     },
     {
      "e": "mg_lama",
@@ -5640,7 +5654,8 @@
      "e": "b_jinlun",
      "cell": 4,
      "lv": 36,
-     "leader": 1
+     "leader": 1,
+     "honorFrame": "gold"
     },
     {
      "e": "mg_wushi",
@@ -6205,7 +6220,8 @@
      "e": "e_zhangliao",
      "cell": 4,
      "lv": 40,
-     "leader": 1
+     "leader": 1,
+     "honorFrame": "silver"
     },
     {
      "e": "cj_nushou",
@@ -6532,7 +6548,8 @@
      "e": "e_caoren",
      "cell": 4,
      "lv": 42,
-     "leader": 1
+     "leader": 1,
+     "honorFrame": "silver"
     },
     {
      "e": "cj_moushi",
@@ -6657,7 +6674,8 @@
      "e": "b_caocao",
      "cell": 4,
      "lv": 43,
-     "leader": 1
+     "leader": 1,
+     "honorFrame": "gold"
     },
     {
      "e": "cj_nushou",
@@ -7222,7 +7240,8 @@
      "e": "e_xiangwentian",
      "cell": 4,
      "lv": 47,
-     "leader": 1
+     "leader": 1,
+     "honorFrame": "silver"
     },
     {
      "e": "ry_hufa",
@@ -7549,7 +7568,8 @@
      "e": "e_yanglianting",
      "cell": 4,
      "lv": 49,
-     "leader": 1
+     "leader": 1,
+     "honorFrame": "silver"
     },
     {
      "e": "ry_anqi",
@@ -7674,7 +7694,8 @@
      "e": "b_renwoxing",
      "cell": 4,
      "lv": 50,
-     "leader": 1
+     "leader": 1,
+     "honorFrame": "gold"
     },
     {
      "e": "ry_hufa",
@@ -8239,7 +8260,8 @@
      "e": "e_ouyangke",
      "cell": 4,
      "lv": 54,
-     "leader": 1
+     "leader": 1,
+     "honorFrame": "silver"
     },
     {
      "e": "hs_yinshi",
@@ -8566,7 +8588,8 @@
      "e": "e_qiuqianren",
      "cell": 4,
      "lv": 56,
-     "leader": 1
+     "leader": 1,
+     "honorFrame": "silver"
     },
     {
      "e": "hs_tiezhang",
@@ -8691,7 +8714,8 @@
      "e": "b_ouyangfeng",
      "cell": 4,
      "lv": 57,
-     "leader": 1
+     "leader": 1,
+     "honorFrame": "gold"
     },
     {
      "e": "hs_yinshi",

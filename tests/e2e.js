@@ -300,6 +300,22 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   ok(await J(function () { return MJ.Audio.wanted(); }) === 'defeat', '戰敗後切換為二胡式戰敗配樂');
   await J(function () { MJ.S.state.stages = { s1_1: { stars: 3, clears: 1 } }; MJ.G.commit(); MJ.UI.go('city'); });
 
+  // P3-6：固定 seed 道具事件與既有關卡 BOSS／精英框色
+  await J(function () {
+    var sg = MJ.D.stageIndex.s1_4, team = MJ.G.buildTeam(), foes = MJ.G.buildEnemy(sg), battle = MJ.Battle.run(team, foes, { seed: 715, maxRounds: 1, fieldItems: [{ id: 'bombLarge', side: 'A' }, { id: 'flag', side: 'B', hits: 2 }, { id: 'flame', side: 'B' }] });
+    MJ.UI.startBattle({ battle: battle, stage: sg, team: team, foes: foes, win: false, rewards: [] });
+  });
+  await page.waitForSelector('.field-preview .field-map', { timeout: 5000 });
+  ok(await J(function () { var e = MJ.UI.battleState().ev || []; return e.filter(function (x) { return x.t === 'fieldItem'; }).length === 3 && !!document.querySelector('.field-preview .field-map'); }), 'RV15 戰鬥顯示可重播的炸彈／旗幟／噴火槍事件格形');
+  ok(await page.locator('.bu[data-honor-frame="silver"] .rank-tag.silver').count() === 1, '精英首領顯示來源銀框與精英標籤');
+  await J(function () { MJ.UI.go('city'); });
+  await J(function () {
+    var sg = MJ.D.stageIndex.s1_8, team = MJ.G.buildTeam(), foes = MJ.G.buildEnemy(sg), battle = MJ.Battle.run(team, foes, { seed: 716, maxRounds: 1 });
+    MJ.UI.startBattle({ battle: battle, stage: sg, team: team, foes: foes, win: false, rewards: [] });
+  });
+  ok(await page.locator('.bu[data-honor-frame="gold"] .rank-tag.gold').count() === 1, 'BOSS 首領顯示來源金框與 BOSS 標籤');
+  await J(function () { MJ.UI.go('city'); });
+
   // ---------- 第三階段：通天塔／無極幻境／農田／任務 ----------
   await J(function () { MJ.G.teamList().forEach(function (x) { x.hero.lv = 45; }); MJ.G.lead().lv = 45; MJ.G.commit(); MJ.UI.go('city'); });
   await act('.bld[data-a="tower"]');
@@ -391,8 +407,33 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   ok(await J(function (b) { return !MJ.S.state.farm.plots[0] && MJ.S.state.player.silver > b; }, sv0), '收成獲得銀幣並清空田地');
   await act('[data-a="confirmYes"]');
   await J(function () { MJ.UI.go('city'); });
+  // 商城篩選：商品類別與貨幣可交叉套用，空結果明示，篩選會重設分頁，購買仍沿用原 API
+  await J(function () { MJ.UI.sel.shopCategory = 'all'; MJ.UI.sel.shopCurrency = 'all'; MJ.UI.open('shop'); });
+  ok(await page.locator('.shop-filters .shop-filter-row').count() === 2 && await page.locator('.shop-item').count() === 6, '商城顯示類別／貨幣篩選器與原商品分頁');
+  await act('[data-a="shopFilter"][data-v="seed"]');
+  await act('[data-a="shopCurrency"][data-v="gold"]');
+  ok(await page.locator('.shop-item').count() === 1 && await page.locator('[data-shop-id="shop_sd4"][data-shop-category="seed"][data-shop-currency="gold"]').count() === 1, '交叉篩選「種子＋金幣」只顯示金幣種子');
+  await act('[data-a="shopFilter"][data-v="equip"]');
+  ok(await page.locator('.shop-empty').count() === 1, '不相符條件顯示空結果提示');
+  await act('[data-a="shopCurrency"][data-v="silver"]');
+  await J(function () { MJ.UI.page.shopP = 2; MJ.UI.renderModal(); });
+  await act('[data-a="shopCurrency"][data-v="gold"]');
+  ok(await J(function () { return MJ.UI.page.shopP === 0; }) && await page.locator('.shop-empty').count() === 1, '變更篩選重設分頁且交叉篩選仍生效');
+  await act('[data-a="shopCurrency"][data-v="silver"]');
+  var shopSilver = await J(function () { return MJ.S.state.player.silver; });
+  await act('[data-a="buy"][data-v="shop_w1"]');
+  ok(await J(function (b) { return MJ.S.state.player.silver < b && MJ.S.state.bag.equips.some(function (x) { return x.t === 'wp1'; }); }, shopSilver), '篩選後原商城購買 action 仍可購買並扣除銀幣');
+  await closeModals();
   await act('.gift[data-a="open"][data-v="tasks"]');
   ok(await page.locator('.task-p .tab').count() === 4, '任務分成 歷練／主線／成就／簽到 四個分頁');
+  await J(function () {
+    var s = MJ.S.state, d = MJ.G.daily(); s.stats.recruits = Math.max(1, s.stats.recruits || 0); s.stats.wins = 2000;
+    d.c = { fight: 3, win: 5 }; d.claimed = {}; d.chest = {}; d.act = 0; MJ.G.commit(); MJ.UI.renderModal();
+  });
+  var taskCount = await J(function () { return MJ.G.taskRewardCount(); });
+  await act('[data-a="claimAllTasks"]');
+  ok(taskCount > 0 && await J(function () { return MJ.G.taskRewardCount() === 0 && MJ.G.daily().claimed.d1 && MJ.G.daily().claimed.d2 && MJ.G.daily().chest.c1; }), '一鍵領取跨主線／歷練／活躍寶箱／多階成就，全部可領項歸零');
+  await act('[data-a="confirmYes"]');
   await shot('15-tasks-daily');
   await act('[data-a="taskTab"][data-v="sign"]');
   await act('[data-a="signDo"]');

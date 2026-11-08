@@ -117,10 +117,10 @@
    "grade": "B"
   },
   "W51": {
-   "title": "戰場道具（巴哈姆特精華區 sn=51）",
+   "title": "【攻略】戰場物品效果（巴哈姆特精華區 sn=51）",
    "url": "https://forum.gamer.com.tw/G2.php?bsn=22512&sn=51",
-   "author": "巴哈玩家",
-   "date": "2012",
+   "author": "水瀲（gjo3xu04）",
+   "date": "2012-12-06",
    "region": "台版",
    "grade": "B"
   },
@@ -198,6 +198,14 @@
    "url": "https://forum.gamer.com.tw/G2.php?bsn=22512&sn=53",
    "author": "Will（willwillhi）",
    "date": "2012-12-16",
+   "region": "台版",
+   "grade": "B"
+  },
+  "W17": {
+   "title": "【攻略】新手導覽（巴哈姆特精華區 sn=17）",
+   "url": "https://forum.gamer.com.tw/G2.php?bsn=22512&sn=17",
+   "author": "水瀲（gjo3xu04）",
+   "date": "2012-06-23",
    "region": "台版",
    "grade": "B"
   }
@@ -4944,6 +4952,96 @@
    ],
    "phase": "web2-P3-5",
    "note": "若取得直接玩法證據，再以結構化 bonus 欄位實作並補戰鬥快照測試。",
+   "tentative": true,
+   "conflicts": []
+  },
+  {
+   "id": "web2.battleItems.bombs",
+   "cat": "戰場道具",
+   "item": "炸彈範圍與威力級距",
+   "spec": "G2 sn=51",
+   "current": "大範圍炸彈 XOOX/OOOO/XOOX；中範圍炸彈 OXO/XOX/OXO；小範圍炸彈 XOX/OOO/XOX；大／中／小威力依序低／中／高，命中目標隨機。",
+   "grade": "B",
+   "label": "原版（當年攻略記載）",
+   "sources": [
+    {
+     "s": "W51",
+     "q": "炸彈三種 X/O 圖格及大小範圍／威力級距；命中隨機"
+    }
+   ],
+   "phase": "web2-P3-6",
+   "note": "O 表示來源明確標示的爆炸格；沒有傷害係數，沿用呼叫者的技能傷害，不另造數值。",
+   "tentative": false,
+   "conflicts": []
+  },
+  {
+   "id": "web2.battleItems.flag",
+   "cat": "戰場道具",
+   "item": "旗幟增益級距",
+   "spec": "G2 sn=51",
+   "current": "命中 1 次 8%×1；2 次 7%×2＝14%；3 次 6%×3＝18%。可辨識例子為物攻、法攻、命中、法防；屬性隨機。",
+   "grade": "B",
+   "label": "原版（當年攻略記載）",
+   "sources": [
+    {
+     "s": "W51",
+     "q": "旗幟變色、隨機 BUFF 屬性及 1～3 次級距"
+    }
+   ],
+   "phase": "web2-P3-6",
+   "note": "來源稱還有其他屬性且次數越多效果越大，但未列完整屬性池／受益對象，也未列第 4 次起級距；引擎只解析已列級距，不套戰鬥屬性。",
+   "tentative": false,
+   "conflicts": []
+  },
+  {
+   "id": "web2.battleItems.flame",
+   "cat": "戰場道具",
+   "item": "噴火槍範圍與灼傷",
+   "spec": "G2 sn=51",
+   "current": "依左右方向發射 4 格斜線；附帶灼傷，傷害定性高於炸彈。",
+   "grade": "B",
+   "label": "原版（當年攻略記載）",
+   "sources": [
+    {
+     "s": "W51",
+     "q": "左右兩種噴火槍四格斜線示意、灼傷及相對傷害描述"
+    }
+   ],
+   "phase": "web2-P3-6",
+   "note": "沒有傷害係數、灼傷機率或持續回合數；保留形狀與狀態名稱，不臆造數值。",
+   "tentative": false,
+   "conflicts": []
+  },
+  {
+   "id": "web2.honorTrial.frames",
+   "cat": "榮譽試煉",
+   "item": "BOSS／精英外框",
+   "spec": "G2 sn=17",
+   "current": "BOSS 金框；精英銀框。已用於現有對應關卡的敵方首領辨識。",
+   "grade": "B",
+   "label": "原版（當年攻略記載）",
+   "sources": [
+    {
+     "s": "W17",
+     "q": "榮譽試煉 BOSS 周圍金框、精英周圍銀邊"
+    }
+   ],
+   "phase": "web2-P3-6",
+   "note": "只重用身分框色；不宣稱榮譽試煉多人棋盤玩法已實作。",
+   "tentative": false,
+   "conflicts": []
+  },
+  {
+   "id": "web2.battleItems.applicationLimits",
+   "cat": "戰場道具",
+   "item": "未明示道具戰鬥數值",
+   "spec": "W51",
+   "current": "旗幟只呈現已知隨機級距；炸彈／噴火槍只呈現格形與定性效果，不套用未記載的戰鬥數值。",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [],
+   "phase": "web2-P3-6",
+   "note": "來源未說明旗幟完整受益對象、燒傷數值與炸彈倍率；此為避免推測的本作政策。",
    "tentative": true,
    "conflicts": []
   }

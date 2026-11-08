@@ -1078,5 +1078,101 @@
    1390253
   ],
   "tailRate": 0.05
+ },
+ "battleItems": {
+  "bombs": [
+   {
+    "id": "bombLarge",
+    "name": "大範圍炸彈",
+    "rows": [
+     "XOOX",
+     "OOOO",
+     "XOOX"
+    ],
+    "strength": "low",
+    "randomTarget": true
+   },
+   {
+    "id": "bombMedium",
+    "name": "中範圍炸彈",
+    "rows": [
+     "OXO",
+     "XOX",
+     "OXO"
+    ],
+    "strength": "medium",
+    "randomTarget": true
+   },
+   {
+    "id": "bombSmall",
+    "name": "小範圍炸彈",
+    "rows": [
+     "XOX",
+     "OOO",
+     "XOX"
+    ],
+    "strength": "high",
+    "randomTarget": true
+   }
+  ],
+  "flag": {
+   "id": "flag",
+   "name": "旗幟",
+   "sideColors": {
+    "A": "green",
+    "B": "red"
+   },
+   "buffExamples": [
+    "patk",
+    "matk",
+    "hit",
+    "mdef"
+   ],
+   "randomBuff": true,
+   "tiers": [
+    {
+     "hits": 1,
+     "perHitPercent": 8,
+     "stacks": 1,
+     "totalPercent": 8
+    },
+    {
+     "hits": 2,
+     "perHitPercent": 7,
+     "stacks": 2,
+     "totalPercent": 14
+    },
+    {
+     "hits": 3,
+     "perHitPercent": 6,
+     "stacks": 3,
+     "totalPercent": 18
+    }
+   ],
+   "beyondThreeHits": null
+  },
+  "flame": {
+   "id": "flame",
+   "name": "噴火槍",
+   "patterns": {
+    "fromLeft": [
+     "PXXXX",
+     "XOXXX",
+     "XXOXX",
+     "XXXOX",
+     "XXXXO"
+    ],
+    "fromRight": [
+     "XXXXP",
+     "XXXOX",
+     "XXOXX",
+     "XOXXX",
+     "OXXXX"
+    ]
+   },
+   "affectedCellsPerDirection": 4,
+   "status": "burn",
+   "relativePower": "higherThanBombs"
+  }
  }
 }
