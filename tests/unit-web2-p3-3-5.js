@@ -13,7 +13,7 @@ G.lead().lv = 30; ok(G.buildingOpen('jiangxing'), '主角 Lv30 將星錄開放')
 var old = JSON.parse(JSON.stringify(S.state)), oldLead = old.heroes.filter(function (h) { return h.id === 'lead'; })[0];
 old.version = 10; oldLead.lv = 63; oldLead.exp = R.expNeed(63) + 54321; old.jiangxing = { lit: 5, pts: 7 }; old.player.xinghun = 17; delete old.buildingUnlocks;
 var oldLevel = oldLead.lv, oldExp = oldLead.exp, migrated = S.migrate(old);
-ok(migrated.version === 11 && migrated.migratedFrom === 10, 'v10 存檔升至 v11');
+ok(migrated.version === 12 && migrated.migratedFrom === 10, 'v10 存檔一路升至 v12');
 ok(migrated.heroes.filter(function (h) { return h.id === 'lead'; })[0].lv === oldLevel && migrated.heroes.filter(function (h) { return h.id === 'lead'; })[0].exp === oldExp, '經驗表切換不降主角等級、不清除現有經驗');
 ok(migrated.jiangxing.lit === 0 && migrated.jiangxing.legacyStarsRefunded === 5 && migrated.jiangxing.legacySoulRefunded === 130 && migrated.player.xinghun === 147, '5 顆舊星盤投入按 10+18+26+34+42 全數退回，既有星魂一併保留');
 S.state = migrated;
@@ -26,7 +26,7 @@ try { S.migrate(failingState); } catch (migrationError) { migrationThrew = /v10/
 var rejectedMigration = S.parse(JSON.stringify({ app: S.APP, version: 10, data: failingState }));
 S.STEPS[10] = savedStep10;
 ok(migrationThrew && failingState.version === 10, '遷移步驟拋錯時版本留在 v10');
-ok(!rejectedMigration.ok && /v10/.test(rejectedMigration.errors[0]), '失敗的部分遷移存檔由 parse 拒絕，不回存假 v11');
+ok(!rejectedMigration.ok && /v10/.test(rejectedMigration.errors[0]), '失敗的部分遷移存檔由 parse 拒絕，不回存假新版');
 
 console.log('[P3-4 sn=6 逐級經驗表]');
 var exp = facts.experience, badLv = [];

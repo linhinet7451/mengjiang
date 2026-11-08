@@ -6,7 +6,7 @@ BOARD-3 已完成；維持現行 v12 棋盤規則，本次不重做、不改動�
 
 ## English summary
 Unofficial, offline, single-file HTML5 remake of the 2012–2013 Facebook game 猛將無雙. Build output: `dist/mengjiang.html` (one file, ES5, no CDN, < 12,000,000 bytes). With the original company's consent (as stated by the repository owner), original art, music, and similar assets may be referenced or used directly so the remake stays as close to the original as possible. Record each use in `docs/美術素材來源.md`. If no original file is available, redraw closer assets from the screenshots and videos in `reference/`.
-State on 2026-11-08 (UTC+8): P1/P2 and P3-1–P3-6, SHOP-1, TASK-1 and P4-1/P4-2/P4-5/P4-6 are complete. P3-1 rates/caps remain RV13; P3-2 skill range shapes RV14; P3-6 field-item replay events RV15. P3-3–P3-5 remain in save v11; P4-2 third-slot compatibility is idempotent without changing the save version. P4-3/P4-4/P4-7 and later remain pending. Nothing here claims real-device testing; Playwright Chromium/WebKit iPhone 13 are emulations only. Social/online modes are not built (by design: single-player); the Honor Trial multiplayer item economy is not reconstructed. Many numbers remain grade D. Each item below lists goal, evidence + grade + URL, files/functions, acceptance tests, priority and dependencies. Read "Project rules" first.
+State on 2026-11-08 (UTC+8): P1/P2 and P3-1–P3-6, SHOP-1, TASK-1 and P4-1–P4-6 are complete. P3-1 rates/caps remain RV13; P3-2 skill range shapes RV14; P3-6 field-item replay events RV15. P3-3–P3-5 remain in save v12; P4-2 third-slot compatibility is idempotent. P4-7 and later remain pending. Nothing here claims real-device testing; Playwright Chromium/WebKit iPhone 13 are emulations only. Social/online modes are not built (by design: single-player); the Honor Trial multiplayer item economy is not reconstructed. Many numbers remain grade D. Each item below lists goal, evidence + grade + URL, files/functions, acceptance tests, priority and dependencies. Read "Project rules" first.
 
 ---
 
@@ -123,9 +123,12 @@ URL 縮寫：`G2(sn)` = `https://forum.gamer.com.tw/G2.php?bsn=22512&sn=<sn>`；
 - 舊存檔第三格載入時退回對應 `xf_*` 秘笈，原資料保留於 `xfOverflow`，旗標避免重複退還；介面不再顯示第三格。證據：G2(86)、G2(91)（B）。
 - 驗收：P4 專項 3 項遷移／魂經驗測試與 `unit-pt4.js` 心法回歸通過。優先：中；已完成。
 
-### P4-3 生死劫 9 層（未做）
+### P4-3 生死劫 9 層（已完成；數值與規則為 D）
 - 目標：魑、冷香絕、摩羅、羅迦、魎、羲天、阿修羅、深淵之龍、窮奇。敵方數值與獎勵 D。
-- 證據：G2(88)（B）。檔案：新 `sys10.js`／`ui-p10.js`，`index.html` 載入順序在 ui-p9 之後。優先：低。
+- 證據：G2(88)（B；九層名稱）；逐層開放、首領等級／外觀／技能與首通獎勵均為本作 D 級。`provenance.json` 由 `tools/web2-data.js` 可重複產生並列明此界線。
+- 實作：`src/js/sys10.js`、`src/js/ui-p10.js`，`index.html` 載入順序在 ui-p9 之後；存檔 v11→v12 保留舊進度並建立生死劫欄位。
+- 驗收：`tests/unit-web2-p4-3.js` 覆蓋九層名稱、首領、鎖層／通關／敗北、首通獎勵、重複挑戰、邊界輸入與 v11 存檔遷移；完整單元及 E2E 回歸待本輪執行。
+- 優先：低；已完成（本作規則明確標 D）。
 
 ### P4-4 5 魂合成公式 34 條（已完成）
 - 目標：照 C(541) 34 條公式（順序無關、綠將無公式、30 級開放、正確配方提示）取代原本沒有來源的隨機合成；正確配方消耗 5 個指定將魂並產出指定將魂。兩條留言爭議公式不啟用。

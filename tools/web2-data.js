@@ -95,6 +95,7 @@ if (phases.indexOf('P4') >= 0) {
     return r.in.map(function (name) { if (!byName[name]) throw new Error('W541 recipe hero missing: ' + name); return byName[name]; }).concat([byName[r.out]]).join(',');
   });
   entry({ id: 'web2.soulCombine.recipes', cat: '將魂合成', item: '5 魂合成公式', spec: 'snA541', current: '34 條非爭議公式；放置順序無關；綠將無公式；正確配方提示；爭議兩條不觸發', grade: 'B', label: LB.B, sources: [{ s: 'W541', q: '2012-06 合成公式表；34 條配方及合成規則' }], phase: 'web2-P4', note: '兩條留言爭議公式保留於 contested，不進 runtime。' });
+  entry({ id: 'web2.shengsijie.rules', cat: '生死劫', item: '九層首領名稱與挑戰規則', spec: 'G2(88)', current: '九層名稱依攻略；逐層開放、首領等級／外觀／技能與首通銀幣及經驗獎勵均為本作暫定設計。', grade: 'D', label: LB.D, sources: [{ s: 'W88', q: '攻略可確認九層名稱；未提供敵方數值與獎勵規則' }], phase: 'web2-P4-3', note: '沒有來源的戰鬥數值與解鎖／獎勵均明確標 D。' });
 }
 if (phases.indexOf('P1') >= 0 || 1) { wr('heroes', H); wr('config', C); wr('formations', F); wr('provenance', P); }
 if (phases.indexOf('P3') >= 0) wr('stages', T);

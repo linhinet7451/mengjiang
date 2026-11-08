@@ -1,4 +1,4 @@
-// 網路資料搜查-2 P2：陣法 8 格、被動兩格、連攜、新被動、新武將、格圖換算、存檔 v9→v11。node tests/unit-web2-p2.js
+// 網路資料搜查-2 P2：陣法 8 格、被動兩格、連攜、新被動、新武將、格圖換算、存檔 v9→v12。node tests/unit-web2-p2.js
 var load = require('./harness.js'), fs = require('fs'), path = require('path');
 var pass = 0, fail = 0;
 function ok(cond, name) { if (cond) { pass++; console.log('  通過', name); } else { fail++; console.log('✗ 失敗', name); } }
@@ -80,7 +80,7 @@ var st = S.state; G.lead().lv = 70;
 st.team.formation = 'bagua'; st.team.cells = {}; st.team.cells[4] = st.heroes[0].uid; for (var i = 1; i < st.heroes.length; i++) st.team.cells[[0, 1, 2, 3, 5][i - 1]] = st.heroes[i].uid;
 st.version = 9; var nHero = st.heroes.length, uids = st.heroes.map(function (h) { return h.uid; }).join();
 var p = S.parse(JSON.stringify({ app: S.APP, version: 9, savedAt: T0, data: JSON.parse(JSON.stringify(st)) }));
-  ok(p.ok && p.state.version === S.VERSION && S.VERSION === 11, 'v9 存檔升級到 v' + (p.state && p.state.version));
+  ok(p.ok && p.state.version === S.VERSION && S.VERSION === 12, 'v9 存檔升級到 v' + (p.state && p.state.version));
 if (p.ok) {
   var s2 = p.state;
   ok(s2.heroes.length === nHero && s2.heroes.map(function (h) { return h.uid; }).join() === uids, '武將 ' + nHero + ' 人全部保留');
