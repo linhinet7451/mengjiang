@@ -1,2032 +1,2032 @@
 {
- "list": [
-  {
-   "id": "wp1",
-   "slot": "weapon",
-   "name": "鐵劍",
-   "lv": 1,
-   "icon": "sword",
-   "stats": {
-    "patk": 18
-   },
-   "sec": "hit"
-  },
-  {
-   "id": "wm1",
-   "slot": "weapon",
-   "name": "桃木杖",
-   "lv": 1,
-   "icon": "staff",
-   "stats": {
-    "matk": 18
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "wj1",
-   "slot": "weapon",
-   "name": "飛鏢",
-   "lv": 1,
-   "icon": "dart",
-   "stats": {
-    "jatk": 18
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "hm1",
-   "slot": "helm",
-   "name": "布巾",
-   "lv": 1,
-   "icon": "helm",
-   "stats": {
-    "pdef": 4,
-    "mdef": 4,
-    "jdef": 3
-   },
-   "sec": "hit"
-  },
-  {
-   "id": "ar1",
-   "slot": "armor",
-   "name": "布衣",
-   "lv": 1,
-   "icon": "armor",
-   "stats": {
-    "pdef": 8,
-    "hp": 40
-   },
-   "sec": "dodge"
-  },
-  {
-   "id": "cp1",
-   "slot": "cape",
-   "name": "麻布披風",
-   "lv": 1,
-   "icon": "cape",
-   "stats": {
-    "mdef": 9,
-    "jdef": 5
-   },
-   "sec": "dodge"
-  },
-  {
-   "id": "bt1",
-   "slot": "belt",
-   "name": "麻繩腰帶",
-   "lv": 1,
-   "icon": "belt",
-   "stats": {
-    "hp": 70,
-    "pdef": 3
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "rg1",
-   "slot": "ring",
-   "name": "銅戒",
-   "lv": 1,
-   "icon": "ring",
-   "stats": {
-    "hp": 30,
-    "jdef": 4
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "wp6",
-   "slot": "weapon",
-   "name": "青鋼刀",
-   "lv": 6,
-   "icon": "sword",
-   "stats": {
-    "patk": 65
-   },
-   "sec": "hit"
-  },
-  {
-   "id": "wm6",
-   "slot": "weapon",
-   "name": "青竹扇",
-   "lv": 6,
-   "icon": "staff",
-   "stats": {
-    "matk": 65
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "wj6",
-   "slot": "weapon",
-   "name": "柳葉刀",
-   "lv": 6,
-   "icon": "dart",
-   "stats": {
-    "jatk": 65
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "hm6",
-   "slot": "helm",
-   "name": "皮盔",
-   "lv": 6,
-   "icon": "helm",
-   "stats": {
-    "pdef": 14,
-    "mdef": 14,
-    "jdef": 11
-   },
-   "sec": "hit"
-  },
-  {
-   "id": "ar6",
-   "slot": "armor",
-   "name": "皮甲",
-   "lv": 6,
-   "icon": "armor",
-   "stats": {
-    "pdef": 29,
-    "hp": 144
-   },
-   "sec": "dodge"
-  },
-  {
-   "id": "cp6",
-   "slot": "cape",
-   "name": "青布披風",
-   "lv": 6,
-   "icon": "cape",
-   "stats": {
-    "mdef": 32,
-    "jdef": 18
-   },
-   "sec": "dodge"
-  },
-  {
-   "id": "bt6",
-   "slot": "belt",
-   "name": "皮革腰帶",
-   "lv": 6,
-   "icon": "belt",
-   "stats": {
-    "hp": 253,
-    "pdef": 11
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "rg6",
-   "slot": "ring",
-   "name": "銀戒",
-   "lv": 6,
-   "icon": "ring",
-   "stats": {
-    "hp": 108,
-    "jdef": 14
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "wp12",
-   "slot": "weapon",
-   "name": "寒鐵槍",
-   "lv": 12,
-   "icon": "sword",
-   "stats": {
-    "patk": 141
-   },
-   "sec": "hit"
-  },
-  {
-   "id": "wm12",
-   "slot": "weapon",
-   "name": "白玉笛",
-   "lv": 12,
-   "icon": "staff",
-   "stats": {
-    "matk": 141
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "wj12",
-   "slot": "weapon",
-   "name": "袖箭",
-   "lv": 12,
-   "icon": "dart",
-   "stats": {
-    "jatk": 141
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "hm12",
-   "slot": "helm",
-   "name": "鐵盔",
-   "lv": 12,
-   "icon": "helm",
-   "stats": {
-    "pdef": 31,
-    "mdef": 31,
-    "jdef": 24
-   },
-   "sec": "hit"
-  },
-  {
-   "id": "ar12",
-   "slot": "armor",
-   "name": "鎖子甲",
-   "lv": 12,
-   "icon": "armor",
-   "stats": {
-    "pdef": 63,
-    "hp": 314
-   },
-   "sec": "dodge"
-  },
-  {
-   "id": "cp12",
-   "slot": "cape",
-   "name": "錦緞披風",
-   "lv": 12,
-   "icon": "cape",
-   "stats": {
-    "mdef": 71,
-    "jdef": 39
-   },
-   "sec": "dodge"
-  },
-  {
-   "id": "bt12",
-   "slot": "belt",
-   "name": "銅扣腰帶",
-   "lv": 12,
-   "icon": "belt",
-   "stats": {
-    "hp": 549,
-    "pdef": 24
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "rg12",
-   "slot": "ring",
-   "name": "玉佩",
-   "lv": 12,
-   "icon": "ring",
-   "stats": {
-    "hp": 235,
-    "jdef": 31
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "wp18",
-   "slot": "weapon",
-   "name": "精鋼戟",
-   "lv": 18,
-   "icon": "sword",
-   "stats": {
-    "patk": 246
-   },
-   "sec": "hit"
-  },
-  {
-   "id": "wm18",
-   "slot": "weapon",
-   "name": "紫檀杖",
-   "lv": 18,
-   "icon": "staff",
-   "stats": {
-    "matk": 246
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "wj18",
-   "slot": "weapon",
-   "name": "梅花針",
-   "lv": 18,
-   "icon": "dart",
-   "stats": {
-    "jatk": 246
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "hm18",
-   "slot": "helm",
-   "name": "虎頭盔",
-   "lv": 18,
-   "icon": "helm",
-   "stats": {
-    "pdef": 55,
-    "mdef": 55,
-    "jdef": 41
-   },
-   "sec": "hit"
-  },
-  {
-   "id": "ar18",
-   "slot": "armor",
-   "name": "魚鱗甲",
-   "lv": 18,
-   "icon": "armor",
-   "stats": {
-    "pdef": 110,
-    "hp": 548
-   },
-   "sec": "dodge"
-  },
-  {
-   "id": "cp18",
-   "slot": "cape",
-   "name": "雲紋披風",
-   "lv": 18,
-   "icon": "cape",
-   "stats": {
-    "mdef": 123,
-    "jdef": 68
-   },
-   "sec": "dodge"
-  },
-  {
-   "id": "bt18",
-   "slot": "belt",
-   "name": "銀扣腰帶",
-   "lv": 18,
-   "icon": "belt",
-   "stats": {
-    "hp": 958,
-    "pdef": 41
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "rg18",
-   "slot": "ring",
-   "name": "翡翠戒",
-   "lv": 18,
-   "icon": "ring",
-   "stats": {
-    "hp": 411,
-    "jdef": 55
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "wp24",
-   "slot": "weapon",
-   "name": "玄鐵劍",
-   "lv": 24,
-   "icon": "sword",
-   "stats": {
-    "patk": 381
-   },
-   "sec": "hit"
-  },
-  {
-   "id": "wm24",
-   "slot": "weapon",
-   "name": "玄冰扇",
-   "lv": 24,
-   "icon": "staff",
-   "stats": {
-    "matk": 381
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "wj24",
-   "slot": "weapon",
-   "name": "流星錘",
-   "lv": 24,
-   "icon": "dart",
-   "stats": {
-    "jatk": 381
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "hm24",
-   "slot": "helm",
-   "name": "紫金冠",
-   "lv": 24,
-   "icon": "helm",
-   "stats": {
-    "pdef": 85,
-    "mdef": 85,
-    "jdef": 63
-   },
-   "sec": "hit"
-  },
-  {
-   "id": "ar24",
-   "slot": "armor",
-   "name": "明光鎧",
-   "lv": 24,
-   "icon": "armor",
-   "stats": {
-    "pdef": 169,
-    "hp": 846
-   },
-   "sec": "dodge"
-  },
-  {
-   "id": "cp24",
-   "slot": "cape",
-   "name": "玄羽披風",
-   "lv": 24,
-   "icon": "cape",
-   "stats": {
-    "mdef": 190,
-    "jdef": 106
-   },
-   "sec": "dodge"
-  },
-  {
-   "id": "bt24",
-   "slot": "belt",
-   "name": "金絲腰帶",
-   "lv": 24,
-   "icon": "belt",
-   "stats": {
-    "hp": 1481,
-    "pdef": 63
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "rg24",
-   "slot": "ring",
-   "name": "龍紋佩",
-   "lv": 24,
-   "icon": "ring",
-   "stats": {
-    "hp": 635,
-    "jdef": 85
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "wp30",
-   "slot": "weapon",
-   "name": "龍吟刀",
-   "lv": 30,
-   "icon": "sword",
-   "stats": {
-    "patk": 545
-   },
-   "sec": "hit"
-  },
-  {
-   "id": "wm30",
-   "slot": "weapon",
-   "name": "鳳鳴琴",
-   "lv": 30,
-   "icon": "staff",
-   "stats": {
-    "matk": 545
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "wj30",
-   "slot": "weapon",
-   "name": "奪魄環",
-   "lv": 30,
-   "icon": "dart",
-   "stats": {
-    "jatk": 545
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "hm30",
-   "slot": "helm",
-   "name": "鳳翅盔",
-   "lv": 30,
-   "icon": "helm",
-   "stats": {
-    "pdef": 121,
-    "mdef": 121,
-    "jdef": 91
-   },
-   "sec": "hit"
-  },
-  {
-   "id": "ar30",
-   "slot": "armor",
-   "name": "龍鱗鎧",
-   "lv": 30,
-   "icon": "armor",
-   "stats": {
-    "pdef": 242,
-    "hp": 1210
-   },
-   "sec": "dodge"
-  },
-  {
-   "id": "cp30",
-   "slot": "cape",
-   "name": "鳳翎披風",
-   "lv": 30,
-   "icon": "cape",
-   "stats": {
-    "mdef": 272,
-    "jdef": 151
-   },
-   "sec": "dodge"
-  },
-  {
-   "id": "bt30",
-   "slot": "belt",
-   "name": "玉帶",
-   "lv": 30,
-   "icon": "belt",
-   "stats": {
-    "hp": 2118,
-    "pdef": 91
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "rg30",
-   "slot": "ring",
-   "name": "乾坤戒",
-   "lv": 30,
-   "icon": "ring",
-   "stats": {
-    "hp": 908,
-    "jdef": 121
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "wp36",
-   "slot": "weapon",
-   "name": "寒鐵槍·精",
-   "lv": 36,
-   "icon": "sword",
-   "stats": {
-    "patk": 737
-   },
-   "sec": "hit"
-  },
-  {
-   "id": "wm36",
-   "slot": "weapon",
-   "name": "白玉笛·精",
-   "lv": 36,
-   "icon": "staff",
-   "stats": {
-    "matk": 737
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "wj36",
-   "slot": "weapon",
-   "name": "袖箭·精",
-   "lv": 36,
-   "icon": "dart",
-   "stats": {
-    "jatk": 737
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "hm36",
-   "slot": "helm",
-   "name": "鐵盔·精",
-   "lv": 36,
-   "icon": "helm",
-   "stats": {
-    "pdef": 164,
-    "mdef": 164,
-    "jdef": 123
-   },
-   "sec": "hit"
-  },
-  {
-   "id": "ar36",
-   "slot": "armor",
-   "name": "鎖子甲·精",
-   "lv": 36,
-   "icon": "armor",
-   "stats": {
-    "pdef": 328,
-    "hp": 1638
-   },
-   "sec": "dodge"
-  },
-  {
-   "id": "cp36",
-   "slot": "cape",
-   "name": "錦緞披風·精",
-   "lv": 36,
-   "icon": "cape",
-   "stats": {
-    "mdef": 369,
-    "jdef": 205
-   },
-   "sec": "dodge"
-  },
-  {
-   "id": "bt36",
-   "slot": "belt",
-   "name": "銅扣腰帶·精",
-   "lv": 36,
-   "icon": "belt",
-   "stats": {
-    "hp": 2867,
-    "pdef": 123
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "rg36",
-   "slot": "ring",
-   "name": "玉佩·精",
-   "lv": 36,
-   "icon": "ring",
-   "stats": {
-    "hp": 1229,
-    "jdef": 164
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "wp42",
-   "slot": "weapon",
-   "name": "精鋼戟·極",
-   "lv": 42,
-   "icon": "sword",
-   "stats": {
-    "patk": 959
-   },
-   "sec": "hit"
-  },
-  {
-   "id": "wm42",
-   "slot": "weapon",
-   "name": "紫檀杖·極",
-   "lv": 42,
-   "icon": "staff",
-   "stats": {
-    "matk": 959
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "wj42",
-   "slot": "weapon",
-   "name": "梅花針·極",
-   "lv": 42,
-   "icon": "dart",
-   "stats": {
-    "jatk": 959
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "hm42",
-   "slot": "helm",
-   "name": "虎頭盔·極",
-   "lv": 42,
-   "icon": "helm",
-   "stats": {
-    "pdef": 213,
-    "mdef": 213,
-    "jdef": 160
-   },
-   "sec": "hit"
-  },
-  {
-   "id": "ar42",
-   "slot": "armor",
-   "name": "魚鱗甲·極",
-   "lv": 42,
-   "icon": "armor",
-   "stats": {
-    "pdef": 426,
-    "hp": 2132
-   },
-   "sec": "dodge"
-  },
-  {
-   "id": "cp42",
-   "slot": "cape",
-   "name": "雲紋披風·極",
-   "lv": 42,
-   "icon": "cape",
-   "stats": {
-    "mdef": 480,
-    "jdef": 266
-   },
-   "sec": "dodge"
-  },
-  {
-   "id": "bt42",
-   "slot": "belt",
-   "name": "銀扣腰帶·極",
-   "lv": 42,
-   "icon": "belt",
-   "stats": {
-    "hp": 3730,
-    "pdef": 160
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "rg42",
-   "slot": "ring",
-   "name": "翡翠戒·極",
-   "lv": 42,
-   "icon": "ring",
-   "stats": {
-    "hp": 1599,
-    "jdef": 213
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "wp48",
-   "slot": "weapon",
-   "name": "玄鐵劍·聖",
-   "lv": 48,
-   "icon": "sword",
-   "stats": {
-    "patk": 1210
-   },
-   "sec": "hit"
-  },
-  {
-   "id": "wm48",
-   "slot": "weapon",
-   "name": "玄冰扇·聖",
-   "lv": 48,
-   "icon": "staff",
-   "stats": {
-    "matk": 1210
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "wj48",
-   "slot": "weapon",
-   "name": "流星錘·聖",
-   "lv": 48,
-   "icon": "dart",
-   "stats": {
-    "jatk": 1210
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "hm48",
-   "slot": "helm",
-   "name": "紫金冠·聖",
-   "lv": 48,
-   "icon": "helm",
-   "stats": {
-    "pdef": 269,
-    "mdef": 269,
-    "jdef": 202
-   },
-   "sec": "hit"
-  },
-  {
-   "id": "ar48",
-   "slot": "armor",
-   "name": "明光鎧·聖",
-   "lv": 48,
-   "icon": "armor",
-   "stats": {
-    "pdef": 538,
-    "hp": 2690
-   },
-   "sec": "dodge"
-  },
-  {
-   "id": "cp48",
-   "slot": "cape",
-   "name": "玄羽披風·聖",
-   "lv": 48,
-   "icon": "cape",
-   "stats": {
-    "mdef": 605,
-    "jdef": 336
-   },
-   "sec": "dodge"
-  },
-  {
-   "id": "bt48",
-   "slot": "belt",
-   "name": "金絲腰帶·聖",
-   "lv": 48,
-   "icon": "belt",
-   "stats": {
-    "hp": 4707,
-    "pdef": 202
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "rg48",
-   "slot": "ring",
-   "name": "龍紋佩·聖",
-   "lv": 48,
-   "icon": "ring",
-   "stats": {
-    "hp": 2017,
-    "jdef": 269
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "wp54",
-   "slot": "weapon",
-   "name": "龍吟刀·聖",
-   "lv": 54,
-   "icon": "sword",
-   "stats": {
-    "patk": 1491
-   },
-   "sec": "hit"
-  },
-  {
-   "id": "wm54",
-   "slot": "weapon",
-   "name": "鳳鳴琴·聖",
-   "lv": 54,
-   "icon": "staff",
-   "stats": {
-    "matk": 1491
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "wj54",
-   "slot": "weapon",
-   "name": "奪魄環·聖",
-   "lv": 54,
-   "icon": "dart",
-   "stats": {
-    "jatk": 1491
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "hm54",
-   "slot": "helm",
-   "name": "鳳翅盔·聖",
-   "lv": 54,
-   "icon": "helm",
-   "stats": {
-    "pdef": 331,
-    "mdef": 331,
-    "jdef": 248
-   },
-   "sec": "hit"
-  },
-  {
-   "id": "ar54",
-   "slot": "armor",
-   "name": "龍鱗鎧·聖",
-   "lv": 54,
-   "icon": "armor",
-   "stats": {
-    "pdef": 662,
-    "hp": 3312
-   },
-   "sec": "dodge"
-  },
-  {
-   "id": "cp54",
-   "slot": "cape",
-   "name": "鳳翎披風·聖",
-   "lv": 54,
-   "icon": "cape",
-   "stats": {
-    "mdef": 745,
-    "jdef": 414
-   },
-   "sec": "dodge"
-  },
-  {
-   "id": "bt54",
-   "slot": "belt",
-   "name": "玉帶·聖",
-   "lv": 54,
-   "icon": "belt",
-   "stats": {
-    "hp": 5797,
-    "pdef": 248
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "rg54",
-   "slot": "ring",
-   "name": "乾坤戒·聖",
-   "lv": 54,
-   "icon": "ring",
-   "stats": {
-    "hp": 2484,
-    "jdef": 331
-   },
-   "sec": "crit"
-  },
-  {
-   "id": "jd1",
-   "slot": "jade",
-   "name": "青玉墜",
-   "lv": 1,
-   "icon": "jade",
-   "stats": {
-    "mdef": 3,
-    "res": 2.1
-   },
-   "sec": "dbf",
-   "grade": "A(部位：玉墜) D(名稱/數值)"
-  },
-  {
-   "id": "gl1",
-   "slot": "glove",
-   "name": "皮護手",
-   "lv": 1,
-   "icon": "glove",
-   "stats": {
-    "pdef": 3,
-    "pve": 2.1
-   },
-   "sec": "pvp",
-   "grade": "A(部位：護手) D(名稱/數值)"
-  },
-  {
-   "id": "jd6",
-   "slot": "jade",
-   "name": "白玉墜",
-   "lv": 6,
-   "icon": "jade",
-   "stats": {
-    "mdef": 11,
-    "res": 2.7
-   },
-   "sec": "dbf",
-   "grade": "A(部位：玉墜) D(名稱/數值)"
-  },
-  {
-   "id": "gl6",
-   "slot": "glove",
-   "name": "鐵護手",
-   "lv": 6,
-   "icon": "glove",
-   "stats": {
-    "pdef": 11,
-    "pve": 2.7
-   },
-   "sec": "pvp",
-   "grade": "A(部位：護手) D(名稱/數值)"
-  },
-  {
-   "id": "jd12",
-   "slot": "jade",
-   "name": "碧玉墜",
-   "lv": 12,
-   "icon": "jade",
-   "stats": {
-    "mdef": 25,
-    "res": 3.3
-   },
-   "sec": "dbf",
-   "grade": "A(部位：玉墜) D(名稱/數值)"
-  },
-  {
-   "id": "gl12",
-   "slot": "glove",
-   "name": "虎紋護手",
-   "lv": 12,
-   "icon": "glove",
-   "stats": {
-    "pdef": 25,
-    "pve": 3.3
-   },
-   "sec": "pvp",
-   "grade": "A(部位：護手) D(名稱/數值)"
-  },
-  {
-   "id": "jd18",
-   "slot": "jade",
-   "name": "羊脂玉墜",
-   "lv": 18,
-   "icon": "jade",
-   "stats": {
-    "mdef": 44,
-    "res": 4.0
-   },
-   "sec": "dbf",
-   "grade": "A(部位：玉墜) D(名稱/數值)"
-  },
-  {
-   "id": "gl18",
-   "slot": "glove",
-   "name": "玄鐵護手",
-   "lv": 18,
-   "icon": "glove",
-   "stats": {
-    "pdef": 44,
-    "pve": 4.0
-   },
-   "sec": "pvp",
-   "grade": "A(部位：護手) D(名稱/數值)"
-  },
-  {
-   "id": "jd24",
-   "slot": "jade",
-   "name": "龍鳳玉墜",
-   "lv": 24,
-   "icon": "jade",
-   "stats": {
-    "mdef": 68,
-    "res": 4.7
-   },
-   "sec": "dbf",
-   "grade": "A(部位：玉墜) D(名稱/數值)"
-  },
-  {
-   "id": "gl24",
-   "slot": "glove",
-   "name": "龍鱗護手",
-   "lv": 24,
-   "icon": "glove",
-   "stats": {
-    "pdef": 68,
-    "pve": 4.7
-   },
-   "sec": "pvp",
-   "grade": "A(部位：護手) D(名稱/數值)"
-  },
-  {
-   "id": "jd30",
-   "slot": "jade",
-   "name": "崑崙玉墜",
-   "lv": 30,
-   "icon": "jade",
-   "stats": {
-    "mdef": 97,
-    "res": 5.3
-   },
-   "sec": "dbf",
-   "grade": "A(部位：玉墜) D(名稱/數值)"
-  },
-  {
-   "id": "gl30",
-   "slot": "glove",
-   "name": "金蠶護手",
-   "lv": 30,
-   "icon": "glove",
-   "stats": {
-    "pdef": 97,
-    "pve": 5.3
-   },
-   "sec": "pvp",
-   "grade": "A(部位：護手) D(名稱/數值)"
-  },
-  {
-   "id": "jd36",
-   "slot": "jade",
-   "name": "碧玉墜·精",
-   "lv": 36,
-   "icon": "jade",
-   "stats": {
-    "mdef": 131,
-    "res": 6.0
-   },
-   "sec": "dbf",
-   "grade": "A(部位：玉墜) D(名稱/數值)"
-  },
-  {
-   "id": "gl36",
-   "slot": "glove",
-   "name": "虎紋護手·精",
-   "lv": 36,
-   "icon": "glove",
-   "stats": {
-    "pdef": 131,
-    "pve": 6.0
-   },
-   "sec": "pvp",
-   "grade": "A(部位：護手) D(名稱/數值)"
-  },
-  {
-   "id": "jd42",
-   "slot": "jade",
-   "name": "羊脂玉墜·極",
-   "lv": 42,
-   "icon": "jade",
-   "stats": {
-    "mdef": 170,
-    "res": 6.7
-   },
-   "sec": "dbf",
-   "grade": "A(部位：玉墜) D(名稱/數值)"
-  },
-  {
-   "id": "gl42",
-   "slot": "glove",
-   "name": "玄鐵護手·極",
-   "lv": 42,
-   "icon": "glove",
-   "stats": {
-    "pdef": 170,
-    "pve": 6.7
-   },
-   "sec": "pvp",
-   "grade": "A(部位：護手) D(名稱/數值)"
-  },
-  {
-   "id": "jd48",
-   "slot": "jade",
-   "name": "龍鳳玉墜·聖",
-   "lv": 48,
-   "icon": "jade",
-   "stats": {
-    "mdef": 215,
-    "res": 7.3
-   },
-   "sec": "dbf",
-   "grade": "A(部位：玉墜) D(名稱/數值)"
-  },
-  {
-   "id": "gl48",
-   "slot": "glove",
-   "name": "龍鱗護手·聖",
-   "lv": 48,
-   "icon": "glove",
-   "stats": {
-    "pdef": 215,
-    "pve": 7.3
-   },
-   "sec": "pvp",
-   "grade": "A(部位：護手) D(名稱/數值)"
-  },
-  {
-   "id": "jd54",
-   "slot": "jade",
-   "name": "崑崙玉墜·聖",
-   "lv": 54,
-   "icon": "jade",
-   "stats": {
-    "mdef": 265,
-    "res": 8.0
-   },
-   "sec": "dbf",
-   "grade": "A(部位：玉墜) D(名稱/數值)"
-  },
-  {
-   "id": "gl54",
-   "slot": "glove",
-   "name": "金蠶護手·聖",
-   "lv": 54,
-   "icon": "glove",
-   "stats": {
-    "pdef": 265,
-    "pve": 8.0
-   },
-   "sec": "pvp",
-   "grade": "A(部位：護手) D(名稱/數值)"
+  "list": [
+    {
+      "id": "wp1",
+      "slot": "weapon",
+      "name": "鐵劍",
+      "lv": 1,
+      "icon": "sword",
+      "stats": {
+        "patk": 18
+      },
+      "sec": "hit"
+    },
+    {
+      "id": "wm1",
+      "slot": "weapon",
+      "name": "桃木杖",
+      "lv": 1,
+      "icon": "staff",
+      "stats": {
+        "matk": 18
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "wj1",
+      "slot": "weapon",
+      "name": "飛鏢",
+      "lv": 1,
+      "icon": "dart",
+      "stats": {
+        "jatk": 18
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "hm1",
+      "slot": "helm",
+      "name": "布巾",
+      "lv": 1,
+      "icon": "helm",
+      "stats": {
+        "pdef": 4,
+        "mdef": 4,
+        "jdef": 3
+      },
+      "sec": "hit"
+    },
+    {
+      "id": "ar1",
+      "slot": "armor",
+      "name": "布衣",
+      "lv": 1,
+      "icon": "armor",
+      "stats": {
+        "pdef": 8,
+        "hp": 40
+      },
+      "sec": "dodge"
+    },
+    {
+      "id": "cp1",
+      "slot": "cape",
+      "name": "麻布披風",
+      "lv": 1,
+      "icon": "cape",
+      "stats": {
+        "mdef": 9,
+        "jdef": 5
+      },
+      "sec": "dodge"
+    },
+    {
+      "id": "bt1",
+      "slot": "belt",
+      "name": "麻繩腰帶",
+      "lv": 1,
+      "icon": "belt",
+      "stats": {
+        "hp": 70,
+        "pdef": 3
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "rg1",
+      "slot": "ring",
+      "name": "銅戒",
+      "lv": 1,
+      "icon": "ring",
+      "stats": {
+        "hp": 30,
+        "jdef": 4
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "wp6",
+      "slot": "weapon",
+      "name": "青鋼刀",
+      "lv": 6,
+      "icon": "sword",
+      "stats": {
+        "patk": 65
+      },
+      "sec": "hit"
+    },
+    {
+      "id": "wm6",
+      "slot": "weapon",
+      "name": "青竹扇",
+      "lv": 6,
+      "icon": "staff",
+      "stats": {
+        "matk": 65
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "wj6",
+      "slot": "weapon",
+      "name": "柳葉刀",
+      "lv": 6,
+      "icon": "dart",
+      "stats": {
+        "jatk": 65
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "hm6",
+      "slot": "helm",
+      "name": "皮盔",
+      "lv": 6,
+      "icon": "helm",
+      "stats": {
+        "pdef": 14,
+        "mdef": 14,
+        "jdef": 11
+      },
+      "sec": "hit"
+    },
+    {
+      "id": "ar6",
+      "slot": "armor",
+      "name": "皮甲",
+      "lv": 6,
+      "icon": "armor",
+      "stats": {
+        "pdef": 29,
+        "hp": 144
+      },
+      "sec": "dodge"
+    },
+    {
+      "id": "cp6",
+      "slot": "cape",
+      "name": "青布披風",
+      "lv": 6,
+      "icon": "cape",
+      "stats": {
+        "mdef": 32,
+        "jdef": 18
+      },
+      "sec": "dodge"
+    },
+    {
+      "id": "bt6",
+      "slot": "belt",
+      "name": "皮革腰帶",
+      "lv": 6,
+      "icon": "belt",
+      "stats": {
+        "hp": 253,
+        "pdef": 11
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "rg6",
+      "slot": "ring",
+      "name": "銀戒",
+      "lv": 6,
+      "icon": "ring",
+      "stats": {
+        "hp": 108,
+        "jdef": 14
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "wp12",
+      "slot": "weapon",
+      "name": "寒鐵槍",
+      "lv": 12,
+      "icon": "sword",
+      "stats": {
+        "patk": 141
+      },
+      "sec": "hit"
+    },
+    {
+      "id": "wm12",
+      "slot": "weapon",
+      "name": "白玉笛",
+      "lv": 12,
+      "icon": "staff",
+      "stats": {
+        "matk": 141
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "wj12",
+      "slot": "weapon",
+      "name": "袖箭",
+      "lv": 12,
+      "icon": "dart",
+      "stats": {
+        "jatk": 141
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "hm12",
+      "slot": "helm",
+      "name": "鐵盔",
+      "lv": 12,
+      "icon": "helm",
+      "stats": {
+        "pdef": 31,
+        "mdef": 31,
+        "jdef": 24
+      },
+      "sec": "hit"
+    },
+    {
+      "id": "ar12",
+      "slot": "armor",
+      "name": "鎖子甲",
+      "lv": 12,
+      "icon": "armor",
+      "stats": {
+        "pdef": 63,
+        "hp": 314
+      },
+      "sec": "dodge"
+    },
+    {
+      "id": "cp12",
+      "slot": "cape",
+      "name": "錦緞披風",
+      "lv": 12,
+      "icon": "cape",
+      "stats": {
+        "mdef": 71,
+        "jdef": 39
+      },
+      "sec": "dodge"
+    },
+    {
+      "id": "bt12",
+      "slot": "belt",
+      "name": "銅扣腰帶",
+      "lv": 12,
+      "icon": "belt",
+      "stats": {
+        "hp": 549,
+        "pdef": 24
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "rg12",
+      "slot": "ring",
+      "name": "玉佩",
+      "lv": 12,
+      "icon": "ring",
+      "stats": {
+        "hp": 235,
+        "jdef": 31
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "wp18",
+      "slot": "weapon",
+      "name": "精鋼戟",
+      "lv": 18,
+      "icon": "sword",
+      "stats": {
+        "patk": 246
+      },
+      "sec": "hit"
+    },
+    {
+      "id": "wm18",
+      "slot": "weapon",
+      "name": "紫檀杖",
+      "lv": 18,
+      "icon": "staff",
+      "stats": {
+        "matk": 246
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "wj18",
+      "slot": "weapon",
+      "name": "梅花針",
+      "lv": 18,
+      "icon": "dart",
+      "stats": {
+        "jatk": 246
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "hm18",
+      "slot": "helm",
+      "name": "虎頭盔",
+      "lv": 18,
+      "icon": "helm",
+      "stats": {
+        "pdef": 55,
+        "mdef": 55,
+        "jdef": 41
+      },
+      "sec": "hit"
+    },
+    {
+      "id": "ar18",
+      "slot": "armor",
+      "name": "魚鱗甲",
+      "lv": 18,
+      "icon": "armor",
+      "stats": {
+        "pdef": 110,
+        "hp": 548
+      },
+      "sec": "dodge"
+    },
+    {
+      "id": "cp18",
+      "slot": "cape",
+      "name": "雲紋披風",
+      "lv": 18,
+      "icon": "cape",
+      "stats": {
+        "mdef": 123,
+        "jdef": 68
+      },
+      "sec": "dodge"
+    },
+    {
+      "id": "bt18",
+      "slot": "belt",
+      "name": "銀扣腰帶",
+      "lv": 18,
+      "icon": "belt",
+      "stats": {
+        "hp": 958,
+        "pdef": 41
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "rg18",
+      "slot": "ring",
+      "name": "翡翠戒",
+      "lv": 18,
+      "icon": "ring",
+      "stats": {
+        "hp": 411,
+        "jdef": 55
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "wp24",
+      "slot": "weapon",
+      "name": "玄鐵劍",
+      "lv": 24,
+      "icon": "sword",
+      "stats": {
+        "patk": 381
+      },
+      "sec": "hit"
+    },
+    {
+      "id": "wm24",
+      "slot": "weapon",
+      "name": "玄冰扇",
+      "lv": 24,
+      "icon": "staff",
+      "stats": {
+        "matk": 381
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "wj24",
+      "slot": "weapon",
+      "name": "流星錘",
+      "lv": 24,
+      "icon": "dart",
+      "stats": {
+        "jatk": 381
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "hm24",
+      "slot": "helm",
+      "name": "紫金冠",
+      "lv": 24,
+      "icon": "helm",
+      "stats": {
+        "pdef": 85,
+        "mdef": 85,
+        "jdef": 63
+      },
+      "sec": "hit"
+    },
+    {
+      "id": "ar24",
+      "slot": "armor",
+      "name": "明光鎧",
+      "lv": 24,
+      "icon": "armor",
+      "stats": {
+        "pdef": 169,
+        "hp": 846
+      },
+      "sec": "dodge"
+    },
+    {
+      "id": "cp24",
+      "slot": "cape",
+      "name": "玄羽披風",
+      "lv": 24,
+      "icon": "cape",
+      "stats": {
+        "mdef": 190,
+        "jdef": 106
+      },
+      "sec": "dodge"
+    },
+    {
+      "id": "bt24",
+      "slot": "belt",
+      "name": "金絲腰帶",
+      "lv": 24,
+      "icon": "belt",
+      "stats": {
+        "hp": 1481,
+        "pdef": 63
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "rg24",
+      "slot": "ring",
+      "name": "龍紋佩",
+      "lv": 24,
+      "icon": "ring",
+      "stats": {
+        "hp": 635,
+        "jdef": 85
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "wp30",
+      "slot": "weapon",
+      "name": "龍吟刀",
+      "lv": 30,
+      "icon": "sword",
+      "stats": {
+        "patk": 545
+      },
+      "sec": "hit"
+    },
+    {
+      "id": "wm30",
+      "slot": "weapon",
+      "name": "鳳鳴琴",
+      "lv": 30,
+      "icon": "staff",
+      "stats": {
+        "matk": 545
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "wj30",
+      "slot": "weapon",
+      "name": "奪魄環",
+      "lv": 30,
+      "icon": "dart",
+      "stats": {
+        "jatk": 545
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "hm30",
+      "slot": "helm",
+      "name": "鳳翅盔",
+      "lv": 30,
+      "icon": "helm",
+      "stats": {
+        "pdef": 121,
+        "mdef": 121,
+        "jdef": 91
+      },
+      "sec": "hit"
+    },
+    {
+      "id": "ar30",
+      "slot": "armor",
+      "name": "龍鱗鎧",
+      "lv": 30,
+      "icon": "armor",
+      "stats": {
+        "pdef": 242,
+        "hp": 1210
+      },
+      "sec": "dodge"
+    },
+    {
+      "id": "cp30",
+      "slot": "cape",
+      "name": "鳳翎披風",
+      "lv": 30,
+      "icon": "cape",
+      "stats": {
+        "mdef": 272,
+        "jdef": 151
+      },
+      "sec": "dodge"
+    },
+    {
+      "id": "bt30",
+      "slot": "belt",
+      "name": "玉帶",
+      "lv": 30,
+      "icon": "belt",
+      "stats": {
+        "hp": 2118,
+        "pdef": 91
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "rg30",
+      "slot": "ring",
+      "name": "乾坤戒",
+      "lv": 30,
+      "icon": "ring",
+      "stats": {
+        "hp": 908,
+        "jdef": 121
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "wp36",
+      "slot": "weapon",
+      "name": "寒鐵槍·精",
+      "lv": 36,
+      "icon": "sword",
+      "stats": {
+        "patk": 737
+      },
+      "sec": "hit"
+    },
+    {
+      "id": "wm36",
+      "slot": "weapon",
+      "name": "白玉笛·精",
+      "lv": 36,
+      "icon": "staff",
+      "stats": {
+        "matk": 737
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "wj36",
+      "slot": "weapon",
+      "name": "袖箭·精",
+      "lv": 36,
+      "icon": "dart",
+      "stats": {
+        "jatk": 737
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "hm36",
+      "slot": "helm",
+      "name": "鐵盔·精",
+      "lv": 36,
+      "icon": "helm",
+      "stats": {
+        "pdef": 164,
+        "mdef": 164,
+        "jdef": 123
+      },
+      "sec": "hit"
+    },
+    {
+      "id": "ar36",
+      "slot": "armor",
+      "name": "鎖子甲·精",
+      "lv": 36,
+      "icon": "armor",
+      "stats": {
+        "pdef": 328,
+        "hp": 1638
+      },
+      "sec": "dodge"
+    },
+    {
+      "id": "cp36",
+      "slot": "cape",
+      "name": "錦緞披風·精",
+      "lv": 36,
+      "icon": "cape",
+      "stats": {
+        "mdef": 369,
+        "jdef": 205
+      },
+      "sec": "dodge"
+    },
+    {
+      "id": "bt36",
+      "slot": "belt",
+      "name": "銅扣腰帶·精",
+      "lv": 36,
+      "icon": "belt",
+      "stats": {
+        "hp": 2867,
+        "pdef": 123
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "rg36",
+      "slot": "ring",
+      "name": "玉佩·精",
+      "lv": 36,
+      "icon": "ring",
+      "stats": {
+        "hp": 1229,
+        "jdef": 164
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "wp42",
+      "slot": "weapon",
+      "name": "精鋼戟·極",
+      "lv": 42,
+      "icon": "sword",
+      "stats": {
+        "patk": 959
+      },
+      "sec": "hit"
+    },
+    {
+      "id": "wm42",
+      "slot": "weapon",
+      "name": "紫檀杖·極",
+      "lv": 42,
+      "icon": "staff",
+      "stats": {
+        "matk": 959
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "wj42",
+      "slot": "weapon",
+      "name": "梅花針·極",
+      "lv": 42,
+      "icon": "dart",
+      "stats": {
+        "jatk": 959
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "hm42",
+      "slot": "helm",
+      "name": "虎頭盔·極",
+      "lv": 42,
+      "icon": "helm",
+      "stats": {
+        "pdef": 213,
+        "mdef": 213,
+        "jdef": 160
+      },
+      "sec": "hit"
+    },
+    {
+      "id": "ar42",
+      "slot": "armor",
+      "name": "魚鱗甲·極",
+      "lv": 42,
+      "icon": "armor",
+      "stats": {
+        "pdef": 426,
+        "hp": 2132
+      },
+      "sec": "dodge"
+    },
+    {
+      "id": "cp42",
+      "slot": "cape",
+      "name": "雲紋披風·極",
+      "lv": 42,
+      "icon": "cape",
+      "stats": {
+        "mdef": 480,
+        "jdef": 266
+      },
+      "sec": "dodge"
+    },
+    {
+      "id": "bt42",
+      "slot": "belt",
+      "name": "銀扣腰帶·極",
+      "lv": 42,
+      "icon": "belt",
+      "stats": {
+        "hp": 3730,
+        "pdef": 160
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "rg42",
+      "slot": "ring",
+      "name": "翡翠戒·極",
+      "lv": 42,
+      "icon": "ring",
+      "stats": {
+        "hp": 1599,
+        "jdef": 213
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "wp48",
+      "slot": "weapon",
+      "name": "玄鐵劍·聖",
+      "lv": 48,
+      "icon": "sword",
+      "stats": {
+        "patk": 1210
+      },
+      "sec": "hit"
+    },
+    {
+      "id": "wm48",
+      "slot": "weapon",
+      "name": "玄冰扇·聖",
+      "lv": 48,
+      "icon": "staff",
+      "stats": {
+        "matk": 1210
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "wj48",
+      "slot": "weapon",
+      "name": "流星錘·聖",
+      "lv": 48,
+      "icon": "dart",
+      "stats": {
+        "jatk": 1210
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "hm48",
+      "slot": "helm",
+      "name": "紫金冠·聖",
+      "lv": 48,
+      "icon": "helm",
+      "stats": {
+        "pdef": 269,
+        "mdef": 269,
+        "jdef": 202
+      },
+      "sec": "hit"
+    },
+    {
+      "id": "ar48",
+      "slot": "armor",
+      "name": "明光鎧·聖",
+      "lv": 48,
+      "icon": "armor",
+      "stats": {
+        "pdef": 538,
+        "hp": 2690
+      },
+      "sec": "dodge"
+    },
+    {
+      "id": "cp48",
+      "slot": "cape",
+      "name": "玄羽披風·聖",
+      "lv": 48,
+      "icon": "cape",
+      "stats": {
+        "mdef": 605,
+        "jdef": 336
+      },
+      "sec": "dodge"
+    },
+    {
+      "id": "bt48",
+      "slot": "belt",
+      "name": "金絲腰帶·聖",
+      "lv": 48,
+      "icon": "belt",
+      "stats": {
+        "hp": 4707,
+        "pdef": 202
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "rg48",
+      "slot": "ring",
+      "name": "龍紋佩·聖",
+      "lv": 48,
+      "icon": "ring",
+      "stats": {
+        "hp": 2017,
+        "jdef": 269
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "wp54",
+      "slot": "weapon",
+      "name": "龍吟刀·聖",
+      "lv": 54,
+      "icon": "sword",
+      "stats": {
+        "patk": 1491
+      },
+      "sec": "hit"
+    },
+    {
+      "id": "wm54",
+      "slot": "weapon",
+      "name": "鳳鳴琴·聖",
+      "lv": 54,
+      "icon": "staff",
+      "stats": {
+        "matk": 1491
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "wj54",
+      "slot": "weapon",
+      "name": "奪魄環·聖",
+      "lv": 54,
+      "icon": "dart",
+      "stats": {
+        "jatk": 1491
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "hm54",
+      "slot": "helm",
+      "name": "鳳翅盔·聖",
+      "lv": 54,
+      "icon": "helm",
+      "stats": {
+        "pdef": 331,
+        "mdef": 331,
+        "jdef": 248
+      },
+      "sec": "hit"
+    },
+    {
+      "id": "ar54",
+      "slot": "armor",
+      "name": "龍鱗鎧·聖",
+      "lv": 54,
+      "icon": "armor",
+      "stats": {
+        "pdef": 662,
+        "hp": 3312
+      },
+      "sec": "dodge"
+    },
+    {
+      "id": "cp54",
+      "slot": "cape",
+      "name": "鳳翎披風·聖",
+      "lv": 54,
+      "icon": "cape",
+      "stats": {
+        "mdef": 745,
+        "jdef": 414
+      },
+      "sec": "dodge"
+    },
+    {
+      "id": "bt54",
+      "slot": "belt",
+      "name": "玉帶·聖",
+      "lv": 54,
+      "icon": "belt",
+      "stats": {
+        "hp": 5797,
+        "pdef": 248
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "rg54",
+      "slot": "ring",
+      "name": "乾坤戒·聖",
+      "lv": 54,
+      "icon": "ring",
+      "stats": {
+        "hp": 2484,
+        "jdef": 331
+      },
+      "sec": "crit"
+    },
+    {
+      "id": "jd1",
+      "slot": "jade",
+      "name": "青玉墜",
+      "lv": 1,
+      "icon": "jade",
+      "stats": {
+        "mdef": 3,
+        "res": 2.1
+      },
+      "sec": "dbf",
+      "grade": "A(部位：玉墜) D(名稱/數值)"
+    },
+    {
+      "id": "gl1",
+      "slot": "glove",
+      "name": "皮護手",
+      "lv": 1,
+      "icon": "glove",
+      "stats": {
+        "pdef": 3,
+        "pve": 2.1
+      },
+      "sec": "pvp",
+      "grade": "A(部位：護手) D(名稱/數值)"
+    },
+    {
+      "id": "jd6",
+      "slot": "jade",
+      "name": "白玉墜",
+      "lv": 6,
+      "icon": "jade",
+      "stats": {
+        "mdef": 11,
+        "res": 2.7
+      },
+      "sec": "dbf",
+      "grade": "A(部位：玉墜) D(名稱/數值)"
+    },
+    {
+      "id": "gl6",
+      "slot": "glove",
+      "name": "鐵護手",
+      "lv": 6,
+      "icon": "glove",
+      "stats": {
+        "pdef": 11,
+        "pve": 2.7
+      },
+      "sec": "pvp",
+      "grade": "A(部位：護手) D(名稱/數值)"
+    },
+    {
+      "id": "jd12",
+      "slot": "jade",
+      "name": "碧玉墜",
+      "lv": 12,
+      "icon": "jade",
+      "stats": {
+        "mdef": 25,
+        "res": 3.3
+      },
+      "sec": "dbf",
+      "grade": "A(部位：玉墜) D(名稱/數值)"
+    },
+    {
+      "id": "gl12",
+      "slot": "glove",
+      "name": "虎紋護手",
+      "lv": 12,
+      "icon": "glove",
+      "stats": {
+        "pdef": 25,
+        "pve": 3.3
+      },
+      "sec": "pvp",
+      "grade": "A(部位：護手) D(名稱/數值)"
+    },
+    {
+      "id": "jd18",
+      "slot": "jade",
+      "name": "羊脂玉墜",
+      "lv": 18,
+      "icon": "jade",
+      "stats": {
+        "mdef": 44,
+        "res": 4
+      },
+      "sec": "dbf",
+      "grade": "A(部位：玉墜) D(名稱/數值)"
+    },
+    {
+      "id": "gl18",
+      "slot": "glove",
+      "name": "玄鐵護手",
+      "lv": 18,
+      "icon": "glove",
+      "stats": {
+        "pdef": 44,
+        "pve": 4
+      },
+      "sec": "pvp",
+      "grade": "A(部位：護手) D(名稱/數值)"
+    },
+    {
+      "id": "jd24",
+      "slot": "jade",
+      "name": "龍鳳玉墜",
+      "lv": 24,
+      "icon": "jade",
+      "stats": {
+        "mdef": 68,
+        "res": 4.7
+      },
+      "sec": "dbf",
+      "grade": "A(部位：玉墜) D(名稱/數值)"
+    },
+    {
+      "id": "gl24",
+      "slot": "glove",
+      "name": "龍鱗護手",
+      "lv": 24,
+      "icon": "glove",
+      "stats": {
+        "pdef": 68,
+        "pve": 4.7
+      },
+      "sec": "pvp",
+      "grade": "A(部位：護手) D(名稱/數值)"
+    },
+    {
+      "id": "jd30",
+      "slot": "jade",
+      "name": "崑崙玉墜",
+      "lv": 30,
+      "icon": "jade",
+      "stats": {
+        "mdef": 97,
+        "res": 5.3
+      },
+      "sec": "dbf",
+      "grade": "A(部位：玉墜) D(名稱/數值)"
+    },
+    {
+      "id": "gl30",
+      "slot": "glove",
+      "name": "金蠶護手",
+      "lv": 30,
+      "icon": "glove",
+      "stats": {
+        "pdef": 97,
+        "pve": 5.3
+      },
+      "sec": "pvp",
+      "grade": "A(部位：護手) D(名稱/數值)"
+    },
+    {
+      "id": "jd36",
+      "slot": "jade",
+      "name": "碧玉墜·精",
+      "lv": 36,
+      "icon": "jade",
+      "stats": {
+        "mdef": 131,
+        "res": 6
+      },
+      "sec": "dbf",
+      "grade": "A(部位：玉墜) D(名稱/數值)"
+    },
+    {
+      "id": "gl36",
+      "slot": "glove",
+      "name": "虎紋護手·精",
+      "lv": 36,
+      "icon": "glove",
+      "stats": {
+        "pdef": 131,
+        "pve": 6
+      },
+      "sec": "pvp",
+      "grade": "A(部位：護手) D(名稱/數值)"
+    },
+    {
+      "id": "jd42",
+      "slot": "jade",
+      "name": "羊脂玉墜·極",
+      "lv": 42,
+      "icon": "jade",
+      "stats": {
+        "mdef": 170,
+        "res": 6.7
+      },
+      "sec": "dbf",
+      "grade": "A(部位：玉墜) D(名稱/數值)"
+    },
+    {
+      "id": "gl42",
+      "slot": "glove",
+      "name": "玄鐵護手·極",
+      "lv": 42,
+      "icon": "glove",
+      "stats": {
+        "pdef": 170,
+        "pve": 6.7
+      },
+      "sec": "pvp",
+      "grade": "A(部位：護手) D(名稱/數值)"
+    },
+    {
+      "id": "jd48",
+      "slot": "jade",
+      "name": "龍鳳玉墜·聖",
+      "lv": 48,
+      "icon": "jade",
+      "stats": {
+        "mdef": 215,
+        "res": 7.3
+      },
+      "sec": "dbf",
+      "grade": "A(部位：玉墜) D(名稱/數值)"
+    },
+    {
+      "id": "gl48",
+      "slot": "glove",
+      "name": "龍鱗護手·聖",
+      "lv": 48,
+      "icon": "glove",
+      "stats": {
+        "pdef": 215,
+        "pve": 7.3
+      },
+      "sec": "pvp",
+      "grade": "A(部位：護手) D(名稱/數值)"
+    },
+    {
+      "id": "jd54",
+      "slot": "jade",
+      "name": "崑崙玉墜·聖",
+      "lv": 54,
+      "icon": "jade",
+      "stats": {
+        "mdef": 265,
+        "res": 8
+      },
+      "sec": "dbf",
+      "grade": "A(部位：玉墜) D(名稱/數值)"
+    },
+    {
+      "id": "gl54",
+      "slot": "glove",
+      "name": "金蠶護手·聖",
+      "lv": 54,
+      "icon": "glove",
+      "stats": {
+        "pdef": 265,
+        "pve": 8
+      },
+      "sec": "pvp",
+      "grade": "A(部位：護手) D(名稱/數值)"
+    }
+  ],
+  "items": {
+    "jinglitang": {
+      "name": "小銀袋",
+      "icon": "potion",
+      "desc": "使用後獲得 500 銀幣（原「精力湯」；精力已取消，舊道具自動改為銀袋）",
+      "use": {
+        "silver": 500
+      },
+      "sell": 50,
+      "grade": "D（精力取消後的替代道具）"
+    },
+    "dabuwan": {
+      "name": "大銀袋",
+      "icon": "pill",
+      "desc": "使用後獲得 1500 銀幣（原「大補丸」；精力已取消，舊道具自動改為銀袋）",
+      "use": {
+        "silver": 1500
+      },
+      "sell": 100,
+      "grade": "D（精力取消後的替代道具）"
+    },
+    "tufeiling": {
+      "name": "突飛令",
+      "icon": "token",
+      "desc": "對一名非主角武將使用，立即獲得經驗（等級 × 40）",
+      "use": {
+        "heroExp": 40
+      },
+      "sell": 80,
+      "grade": "B(名稱/不可對主角使用) D(數值)"
+    },
+    "yinbidai": {
+      "name": "銀幣袋",
+      "icon": "bag",
+      "desc": "打開後獲得 500 銀幣",
+      "use": {
+        "silver": 500
+      },
+      "sell": 0,
+      "grade": "D"
+    },
+    "jinengshu": {
+      "name": "技能書",
+      "icon": "book",
+      "desc": "升級武將的主動／無雙／被動技能",
+      "sell": 60,
+      "grade": "D"
+    },
+    "shenjishu": {
+      "name": "神技卷",
+      "icon": "book2",
+      "desc": "技能 9 級後突破為「·神」所需",
+      "sell": 300,
+      "grade": "D"
+    },
+    "peiyangdan": {
+      "name": "榮譽令",
+      "icon": "pill2",
+      "desc": "取得時自動換成 50 榮譽（培養一次 50 榮譽）",
+      "sell": 40,
+      "grade": "B(培養用榮譽 50) D(道具名)"
+    },
+    "xinfacanye": {
+      "name": "心法殘頁",
+      "icon": "scroll",
+      "desc": "升級已修練的心法",
+      "sell": 40,
+      "grade": "D"
+    },
+    "xilianshi": {
+      "name": "洗煉石",
+      "icon": "stone",
+      "desc": "神兵坊．洗煉：重新隨機裝備附加屬性",
+      "sell": 50,
+      "grade": "B(洗煉功能) D(道具名)"
+    },
+    "zhaochufu": {
+      "name": "摘除符",
+      "icon": "token2",
+      "desc": "摘除寶石時保留寶石（沒有則寶石碎裂）",
+      "sell": 100,
+      "grade": "B"
+    },
+    "seed_yin": {
+      "name": "搖錢樹苗",
+      "icon": "seed",
+      "desc": "農田種植：收成銀幣",
+      "sell": 10,
+      "grade": "D"
+    },
+    "seed_exp": {
+      "name": "悟道竹種",
+      "icon": "seed",
+      "desc": "農田種植：收成經驗（給主角）",
+      "sell": 10,
+      "grade": "D"
+    },
+    "seed_gem": {
+      "name": "靈石花種",
+      "icon": "seed",
+      "desc": "農田種植：收成寶石",
+      "sell": 20,
+      "grade": "D"
+    },
+    "seed_soul": {
+      "name": "英魂草種",
+      "icon": "seed",
+      "desc": "農田種植：收成隨機將魂",
+      "sell": 30,
+      "grade": "D"
+    },
+    "huafei": {
+      "name": "化肥",
+      "icon": "potion",
+      "desc": "施肥：剩餘成長時間減半",
+      "sell": 20,
+      "grade": "B(施肥) D(效果)"
+    },
+    "gem_atk_1": {
+      "name": "1級攻擊石",
+      "icon": "gem",
+      "color": "#e53935",
+      "desc": "鑲嵌於裝備",
+      "gem": {
+        "k": "atk",
+        "lv": 1,
+        "stats": {
+          "patk": 17,
+          "matk": 17,
+          "jatk": 17
+        }
+      },
+      "sell": 30,
+      "grade": "B（攻擊三項同步：W84，Lv1-5）D（Lv6）"
+    },
+    "gem_atk_2": {
+      "name": "2級攻擊石",
+      "icon": "gem",
+      "color": "#e53935",
+      "desc": "鑲嵌於裝備",
+      "gem": {
+        "k": "atk",
+        "lv": 2,
+        "stats": {
+          "patk": 58,
+          "matk": 58,
+          "jatk": 58
+        }
+      },
+      "sell": 120,
+      "grade": "B（攻擊三項同步：W84，Lv1-5）D（Lv6）"
+    },
+    "gem_atk_3": {
+      "name": "3級攻擊石",
+      "icon": "gem",
+      "color": "#e53935",
+      "desc": "鑲嵌於裝備",
+      "gem": {
+        "k": "atk",
+        "lv": 3,
+        "stats": {
+          "patk": 164,
+          "matk": 164,
+          "jatk": 164
+        }
+      },
+      "sell": 480,
+      "grade": "B（攻擊三項同步：W84，Lv1-5）D（Lv6）"
+    },
+    "gem_atk_4": {
+      "name": "4級攻擊石",
+      "icon": "gem",
+      "color": "#e53935",
+      "desc": "鑲嵌於裝備",
+      "gem": {
+        "k": "atk",
+        "lv": 4,
+        "stats": {
+          "patk": 324,
+          "matk": 324,
+          "jatk": 324
+        }
+      },
+      "sell": 1920,
+      "grade": "B（攻擊三項同步：W84，Lv1-5）D（Lv6）"
+    },
+    "gem_atk_5": {
+      "name": "5級攻擊石",
+      "icon": "gem",
+      "color": "#e53935",
+      "desc": "鑲嵌於裝備",
+      "gem": {
+        "k": "atk",
+        "lv": 5,
+        "stats": {
+          "patk": 665,
+          "matk": 665,
+          "jatk": 665
+        }
+      },
+      "sell": 7680,
+      "grade": "B（攻擊三項同步：W84，Lv1-5）D（Lv6）"
+    },
+    "gem_atk_6": {
+      "name": "6級攻擊石",
+      "icon": "gem",
+      "color": "#e53935",
+      "desc": "鑲嵌於裝備",
+      "gem": {
+        "k": "atk",
+        "lv": 6,
+        "stats": {
+          "patk": 618.44,
+          "matk": 618.44,
+          "jatk": 618.44
+        }
+      },
+      "sell": 30720,
+      "grade": "B(鑲嵌/合成) D(數值)"
+    },
+    "gem_hp_1": {
+      "name": "1級生命石",
+      "icon": "gem",
+      "color": "#43a047",
+      "desc": "鑲嵌於裝備",
+      "gem": {
+        "k": "hp",
+        "lv": 1,
+        "stats": {
+          "hp": 54
+        }
+      },
+      "sell": 30,
+      "grade": "B（W84，Lv1-5）D（Lv6）"
+    },
+    "gem_hp_2": {
+      "name": "2級生命石",
+      "icon": "gem",
+      "color": "#43a047",
+      "desc": "鑲嵌於裝備",
+      "gem": {
+        "k": "hp",
+        "lv": 2,
+        "stats": {
+          "hp": 177
+        }
+      },
+      "sell": 120,
+      "grade": "B（W84，Lv1-5）D（Lv6）"
+    },
+    "gem_hp_3": {
+      "name": "3級生命石",
+      "icon": "gem",
+      "color": "#43a047",
+      "desc": "鑲嵌於裝備",
+      "gem": {
+        "k": "hp",
+        "lv": 3,
+        "stats": {
+          "hp": 495
+        }
+      },
+      "sell": 480,
+      "grade": "B（W84，Lv1-5）D（Lv6）"
+    },
+    "gem_hp_4": {
+      "name": "4級生命石",
+      "icon": "gem",
+      "color": "#43a047",
+      "desc": "鑲嵌於裝備",
+      "gem": {
+        "k": "hp",
+        "lv": 4,
+        "stats": {
+          "hp": 975
+        }
+      },
+      "sell": 1920,
+      "grade": "B（W84，Lv1-5）D（Lv6）"
+    },
+    "gem_hp_5": {
+      "name": "5級生命石",
+      "icon": "gem",
+      "color": "#43a047",
+      "desc": "鑲嵌於裝備",
+      "gem": {
+        "k": "hp",
+        "lv": 5,
+        "stats": {
+          "hp": 1998
+        }
+      },
+      "sell": 7680,
+      "grade": "B（W84，Lv1-5）D（Lv6）"
+    },
+    "gem_hp_6": {
+      "name": "6級生命石",
+      "icon": "gem",
+      "color": "#43a047",
+      "desc": "鑲嵌於裝備",
+      "gem": {
+        "k": "hp",
+        "lv": 6,
+        "stats": {
+          "hp": 4638.27
+        }
+      },
+      "sell": 30720,
+      "grade": "B(鑲嵌/合成) D(數值)"
+    },
+    "gem_pdef_1": {
+      "name": "1級護體石",
+      "icon": "gem",
+      "color": "#8d6e63",
+      "desc": "鑲嵌於裝備",
+      "gem": {
+        "k": "pdef",
+        "lv": 1,
+        "stats": {
+          "pdef": 9
+        }
+      },
+      "sell": 30,
+      "grade": "B（W84，Lv1-5）D（Lv6）"
+    },
+    "gem_pdef_2": {
+      "name": "2級護體石",
+      "icon": "gem",
+      "color": "#8d6e63",
+      "desc": "鑲嵌於裝備",
+      "gem": {
+        "k": "pdef",
+        "lv": 2,
+        "stats": {
+          "pdef": 29
+        }
+      },
+      "sell": 120,
+      "grade": "B（W84，Lv1-5）D（Lv6）"
+    },
+    "gem_pdef_3": {
+      "name": "3級護體石",
+      "icon": "gem",
+      "color": "#8d6e63",
+      "desc": "鑲嵌於裝備",
+      "gem": {
+        "k": "pdef",
+        "lv": 3,
+        "stats": {
+          "pdef": 82
+        }
+      },
+      "sell": 480,
+      "grade": "B（W84，Lv1-5）D（Lv6）"
+    },
+    "gem_pdef_4": {
+      "name": "4級護體石",
+      "icon": "gem",
+      "color": "#8d6e63",
+      "desc": "鑲嵌於裝備",
+      "gem": {
+        "k": "pdef",
+        "lv": 4,
+        "stats": {
+          "pdef": 162
+        }
+      },
+      "sell": 1920,
+      "grade": "B（W84，Lv1-5）D（Lv6）"
+    },
+    "gem_pdef_5": {
+      "name": "5級護體石",
+      "icon": "gem",
+      "color": "#8d6e63",
+      "desc": "鑲嵌於裝備",
+      "gem": {
+        "k": "pdef",
+        "lv": 5,
+        "stats": {
+          "pdef": 333
+        }
+      },
+      "sell": 7680,
+      "grade": "B（W84，Lv1-5）D（Lv6）"
+    },
+    "gem_pdef_6": {
+      "name": "6級護體石",
+      "icon": "gem",
+      "color": "#8d6e63",
+      "desc": "鑲嵌於裝備",
+      "gem": {
+        "k": "pdef",
+        "lv": 6,
+        "stats": {
+          "pdef": 412.29
+        }
+      },
+      "sell": 30720,
+      "grade": "B(鑲嵌/合成) D(數值)"
+    },
+    "gem_mdef_1": {
+      "name": "1級靈犀石",
+      "icon": "gem",
+      "color": "#1e88e5",
+      "desc": "鑲嵌於裝備",
+      "gem": {
+        "k": "mdef",
+        "lv": 1,
+        "stats": {
+          "mdef": 10
+        }
+      },
+      "sell": 30,
+      "grade": "B（W84，Lv1-5）D（Lv6）"
+    },
+    "gem_mdef_2": {
+      "name": "2級靈犀石",
+      "icon": "gem",
+      "color": "#1e88e5",
+      "desc": "鑲嵌於裝備",
+      "gem": {
+        "k": "mdef",
+        "lv": 2,
+        "stats": {
+          "mdef": 30
+        }
+      },
+      "sell": 120,
+      "grade": "B（W84，Lv1-5）D（Lv6）"
+    },
+    "gem_mdef_3": {
+      "name": "3級靈犀石",
+      "icon": "gem",
+      "color": "#1e88e5",
+      "desc": "鑲嵌於裝備",
+      "gem": {
+        "k": "mdef",
+        "lv": 3,
+        "stats": {
+          "mdef": 83
+        }
+      },
+      "sell": 480,
+      "grade": "B（W84，Lv1-5）D（Lv6）"
+    },
+    "gem_mdef_4": {
+      "name": "4級靈犀石",
+      "icon": "gem",
+      "color": "#1e88e5",
+      "desc": "鑲嵌於裝備",
+      "gem": {
+        "k": "mdef",
+        "lv": 4,
+        "stats": {
+          "mdef": 163
+        }
+      },
+      "sell": 1920,
+      "grade": "B（W84，Lv1-5）D（Lv6）"
+    },
+    "gem_mdef_5": {
+      "name": "5級靈犀石",
+      "icon": "gem",
+      "color": "#1e88e5",
+      "desc": "鑲嵌於裝備",
+      "gem": {
+        "k": "mdef",
+        "lv": 5,
+        "stats": {
+          "mdef": 334
+        }
+      },
+      "sell": 7680,
+      "grade": "B（W84，Lv1-5）D（Lv6）"
+    },
+    "gem_mdef_6": {
+      "name": "6級靈犀石",
+      "icon": "gem",
+      "color": "#1e88e5",
+      "desc": "鑲嵌於裝備",
+      "gem": {
+        "k": "mdef",
+        "lv": 6,
+        "stats": {
+          "mdef": 412.29
+        }
+      },
+      "sell": 30720,
+      "grade": "B(鑲嵌/合成) D(數值)"
+    },
+    "gem_jdef_1": {
+      "name": "1級身法石",
+      "icon": "gem",
+      "color": "#8e24aa",
+      "desc": "鑲嵌於裝備",
+      "gem": {
+        "k": "jdef",
+        "lv": 1,
+        "stats": {
+          "jdef": 8
+        }
+      },
+      "sell": 30,
+      "grade": "B(鑲嵌/合成) D(數值)"
+    },
+    "gem_jdef_2": {
+      "name": "2級身法石",
+      "icon": "gem",
+      "color": "#8e24aa",
+      "desc": "鑲嵌於裝備",
+      "gem": {
+        "k": "jdef",
+        "lv": 2,
+        "stats": {
+          "jdef": 17.6
+        }
+      },
+      "sell": 120,
+      "grade": "B(鑲嵌/合成) D(數值)"
+    },
+    "gem_jdef_3": {
+      "name": "3級身法石",
+      "icon": "gem",
+      "color": "#8e24aa",
+      "desc": "鑲嵌於裝備",
+      "gem": {
+        "k": "jdef",
+        "lv": 3,
+        "stats": {
+          "jdef": 38.72
+        }
+      },
+      "sell": 480,
+      "grade": "B(鑲嵌/合成) D(數值)"
+    },
+    "gem_jdef_4": {
+      "name": "4級身法石",
+      "icon": "gem",
+      "color": "#8e24aa",
+      "desc": "鑲嵌於裝備",
+      "gem": {
+        "k": "jdef",
+        "lv": 4,
+        "stats": {
+          "jdef": 85.18
+        }
+      },
+      "sell": 1920,
+      "grade": "B(鑲嵌/合成) D(數值)"
+    },
+    "gem_jdef_5": {
+      "name": "5級身法石",
+      "icon": "gem",
+      "color": "#8e24aa",
+      "desc": "鑲嵌於裝備",
+      "gem": {
+        "k": "jdef",
+        "lv": 5,
+        "stats": {
+          "jdef": 187.4
+        }
+      },
+      "sell": 7680,
+      "grade": "B(鑲嵌/合成) D(數值)"
+    },
+    "gem_jdef_6": {
+      "name": "6級身法石",
+      "icon": "gem",
+      "color": "#8e24aa",
+      "desc": "鑲嵌於裝備",
+      "gem": {
+        "k": "jdef",
+        "lv": 6,
+        "stats": {
+          "jdef": 412.29
+        }
+      },
+      "sell": 30720,
+      "grade": "B(鑲嵌/合成) D(數值)"
+    },
+    "gem_crit_1": {
+      "name": "1級暴擊石",
+      "icon": "gem",
+      "color": "#fb8c00",
+      "desc": "鑲嵌於裝備",
+      "gem": {
+        "k": "crit",
+        "lv": 1,
+        "stats": {
+          "crit": 55
+        }
+      },
+      "sell": 30,
+      "grade": "B（W84，Lv1-6；原始點數，不換算百分比）"
+    },
+    "gem_crit_2": {
+      "name": "2級暴擊石",
+      "icon": "gem",
+      "color": "#fb8c00",
+      "desc": "鑲嵌於裝備",
+      "gem": {
+        "k": "crit",
+        "lv": 2,
+        "stats": {
+          "crit": 182
+        }
+      },
+      "sell": 120,
+      "grade": "B（W84，Lv1-6；原始點數，不換算百分比）"
+    },
+    "gem_crit_3": {
+      "name": "3級暴擊石",
+      "icon": "gem",
+      "color": "#fb8c00",
+      "desc": "鑲嵌於裝備",
+      "gem": {
+        "k": "crit",
+        "lv": 3,
+        "stats": {
+          "crit": 345
+        }
+      },
+      "sell": 480,
+      "grade": "B（W84，Lv1-6；原始點數，不換算百分比）"
+    },
+    "gem_crit_4": {
+      "name": "4級暴擊石",
+      "icon": "gem",
+      "color": "#fb8c00",
+      "desc": "鑲嵌於裝備",
+      "gem": {
+        "k": "crit",
+        "lv": 4,
+        "stats": {
+          "crit": 545
+        }
+      },
+      "sell": 1920,
+      "grade": "B（W84，Lv1-6；原始點數，不換算百分比）"
+    },
+    "gem_crit_5": {
+      "name": "5級暴擊石",
+      "icon": "gem",
+      "color": "#fb8c00",
+      "desc": "鑲嵌於裝備",
+      "gem": {
+        "k": "crit",
+        "lv": 5,
+        "stats": {
+          "crit": 1000
+        }
+      },
+      "sell": 7680,
+      "grade": "B（W84，Lv1-6；原始點數，不換算百分比）"
+    },
+    "gem_crit_6": {
+      "name": "6級暴擊石",
+      "icon": "gem",
+      "color": "#fb8c00",
+      "desc": "鑲嵌於裝備",
+      "gem": {
+        "k": "crit",
+        "lv": 6,
+        "stats": {
+          "crit": 1636
+        }
+      },
+      "sell": 30720,
+      "grade": "B（W84，Lv1-6；原始點數，不換算百分比）"
+    },
+    "xf_jinzhong": {
+      "name": "心法·金鐘罩",
+      "icon": "scroll2",
+      "desc": "修練心法：物防 +4%/級",
+      "xinfa": "jinzhong",
+      "sell": 80,
+      "grade": "D"
+    },
+    "xf_yijin": {
+      "name": "心法·易筋經",
+      "icon": "scroll2",
+      "desc": "修練心法：生命 +4%/級",
+      "xinfa": "yijin",
+      "sell": 80,
+      "grade": "D"
+    },
+    "xf_jiuyang": {
+      "name": "心法·九陽神功",
+      "icon": "scroll2",
+      "desc": "修練心法：法防 +4%/級",
+      "xinfa": "jiuyang",
+      "sell": 80,
+      "grade": "D"
+    },
+    "xf_kuangfeng": {
+      "name": "心法·狂風刀訣",
+      "icon": "scroll2",
+      "desc": "修練心法：物攻 +3%/級",
+      "xinfa": "kuangfeng",
+      "sell": 80,
+      "grade": "D"
+    },
+    "xf_beiming": {
+      "name": "心法·北冥神功",
+      "icon": "scroll2",
+      "desc": "修練心法：法攻 +3%/級",
+      "xinfa": "beiming",
+      "sell": 80,
+      "grade": "D"
+    },
+    "xf_kuihua": {
+      "name": "心法·葵花心經",
+      "icon": "scroll2",
+      "desc": "修練心法：絕技攻擊 +3%/級",
+      "xinfa": "kuihua",
+      "sell": 80,
+      "grade": "D"
+    },
+    "xf_lingbo": {
+      "name": "心法·凌波微步",
+      "icon": "scroll2",
+      "desc": "修練心法：閃避 +0.6/級",
+      "xinfa": "lingbo",
+      "sell": 80,
+      "grade": "D"
+    },
+    "xf_xixing": {
+      "name": "心法·吸星大法",
+      "icon": "scroll2",
+      "desc": "修練心法：暴擊 +0.6/級",
+      "xinfa": "xixing",
+      "sell": 80,
+      "grade": "D"
+    },
+    "xf_zhanzhuang": {
+      "name": "心法·站樁功",
+      "icon": "scroll2",
+      "desc": "修練心法：命中 +0.6/級",
+      "xinfa": "zhanzhuang",
+      "sell": 80,
+      "grade": "D"
+    },
+    "xf_shenxing": {
+      "name": "心法·神行百變",
+      "icon": "scroll2",
+      "desc": "修練心法：絕技防禦 +4%/級",
+      "xinfa": "shenxing",
+      "sell": 80,
+      "grade": "D"
+    },
+    "xf_jiuyin": {
+      "name": "心法·九陰真經",
+      "icon": "scroll2",
+      "desc": "修練心法：四維屬性 +1.5%/級",
+      "xinfa": "jiuyin",
+      "sell": 80,
+      "grade": "D"
+    },
+    "zizhuang_frag": {
+      "name": "紫裝碎片",
+      "icon": "gem",
+      "desc": "通天塔每 20 層獎勵；10 個可在神武殿合成一件紫色裝備",
+      "sell": 0,
+      "grade": "D"
+    },
+    "xf_jingang": {
+      "name": "心法·金剛心法",
+      "icon": "scroll2",
+      "desc": "修練心法：狀態抵抗 +1.5%/級",
+      "xinfa": "jingang",
+      "sell": 80,
+      "grade": "D"
+    },
+    "xf_shehun": {
+      "name": "心法·攝魂心法",
+      "icon": "scroll2",
+      "desc": "修練心法：負面狀態施加機率 +1.5%/級",
+      "xinfa": "shehun",
+      "sell": 80,
+      "grade": "D"
+    },
+    "xf_zhengfeng": {
+      "name": "心法·爭鋒心法",
+      "icon": "scroll2",
+      "desc": "修練心法：PVP 傷害 +1%/級",
+      "xinfa": "zhengfeng",
+      "sell": 80,
+      "grade": "D"
+    },
+    "xf_fumo": {
+      "name": "心法·伏魔心法",
+      "icon": "scroll2",
+      "desc": "修練心法：PVE 傷害 +1%/級",
+      "xinfa": "fumo",
+      "sell": 80,
+      "grade": "D"
+    },
+    "sg_bag_2": {
+      "name": "綠將魂袋",
+      "icon": "bag",
+      "desc": "打開後隨機獲得一個綠色武將的將魂（上古寶窟）",
+      "use": {
+        "soulBag": 2
+      },
+      "sell": 0,
+      "grade": "B(上古寶窟給將魂) D(袋子/內容)"
+    },
+    "sg_bag_3": {
+      "name": "藍將魂袋",
+      "icon": "bag",
+      "desc": "打開後隨機獲得一個藍色武將的將魂（上古寶窟）",
+      "use": {
+        "soulBag": 3
+      },
+      "sell": 0,
+      "grade": "B(上古寶窟給將魂) D(袋子/內容)"
+    },
+    "sg_bag_4": {
+      "name": "紫將魂袋",
+      "icon": "bag",
+      "desc": "打開後隨機獲得一個紫色武將的將魂（上古寶窟）",
+      "use": {
+        "soulBag": 4
+      },
+      "sell": 0,
+      "grade": "B(上古寶窟給將魂) D(袋子/內容)"
+    }
   }
- ],
- "items": {
-  "jinglitang": {
-   "name": "小銀袋",
-   "icon": "potion",
-   "desc": "使用後獲得 500 銀幣（原「精力湯」；精力已取消，舊道具自動改為銀袋）",
-   "use": {
-    "silver": 500
-   },
-   "sell": 50,
-   "grade": "D（精力取消後的替代道具）"
-  },
-  "dabuwan": {
-   "name": "大銀袋",
-   "icon": "pill",
-   "desc": "使用後獲得 1500 銀幣（原「大補丸」；精力已取消，舊道具自動改為銀袋）",
-   "use": {
-    "silver": 1500
-   },
-   "sell": 100,
-   "grade": "D（精力取消後的替代道具）"
-  },
-  "tufeiling": {
-   "name": "突飛令",
-   "icon": "token",
-   "desc": "對一名非主角武將使用，立即獲得經驗（等級 × 40）",
-   "use": {
-    "heroExp": 40
-   },
-   "sell": 80,
-   "grade": "B(名稱/不可對主角使用) D(數值)"
-  },
-  "yinbidai": {
-   "name": "銀幣袋",
-   "icon": "bag",
-   "desc": "打開後獲得 500 銀幣",
-   "use": {
-    "silver": 500
-   },
-   "sell": 0,
-   "grade": "D"
-  },
-  "jinengshu": {
-   "name": "技能書",
-   "icon": "book",
-   "desc": "升級武將的主動／無雙／被動技能",
-   "sell": 60,
-   "grade": "D"
-  },
-  "shenjishu": {
-   "name": "神技卷",
-   "icon": "book2",
-   "desc": "技能 9 級後突破為「·神」所需",
-   "sell": 300,
-   "grade": "D"
-  },
-  "peiyangdan": {
-   "name": "榮譽令",
-   "icon": "pill2",
-   "desc": "取得時自動換成 50 榮譽（培養一次 50 榮譽）",
-   "sell": 40,
-   "grade": "B(培養用榮譽 50) D(道具名)"
-  },
-  "xinfacanye": {
-   "name": "心法殘頁",
-   "icon": "scroll",
-   "desc": "升級已修練的心法",
-   "sell": 40,
-   "grade": "D"
-  },
-  "xilianshi": {
-   "name": "洗煉石",
-   "icon": "stone",
-   "desc": "神兵坊．洗煉：重新隨機裝備附加屬性",
-   "sell": 50,
-   "grade": "B(洗煉功能) D(道具名)"
-  },
-  "zhaochufu": {
-   "name": "摘除符",
-   "icon": "token2",
-   "desc": "摘除寶石時保留寶石（沒有則寶石碎裂）",
-   "sell": 100,
-   "grade": "B"
-  },
-  "seed_yin": {
-   "name": "搖錢樹苗",
-   "icon": "seed",
-   "desc": "農田種植：收成銀幣",
-   "sell": 10,
-   "grade": "D"
-  },
-  "seed_exp": {
-   "name": "悟道竹種",
-   "icon": "seed",
-   "desc": "農田種植：收成經驗（給主角）",
-   "sell": 10,
-   "grade": "D"
-  },
-  "seed_gem": {
-   "name": "靈石花種",
-   "icon": "seed",
-   "desc": "農田種植：收成寶石",
-   "sell": 20,
-   "grade": "D"
-  },
-  "seed_soul": {
-   "name": "英魂草種",
-   "icon": "seed",
-   "desc": "農田種植：收成隨機將魂",
-   "sell": 30,
-   "grade": "D"
-  },
-  "huafei": {
-   "name": "化肥",
-   "icon": "potion",
-   "desc": "施肥：剩餘成長時間減半",
-   "sell": 20,
-   "grade": "B(施肥) D(效果)"
-  },
-  "gem_atk_1": {
-   "name": "1級攻擊石",
-   "icon": "gem",
-   "color": "#e53935",
-   "desc": "鑲嵌於裝備",
-   "gem": {
-    "k": "atk",
-    "lv": 1,
-    "stats": {
-     "patk": 12,
-     "matk": 12,
-     "jatk": 12
-    }
-   },
-   "sell": 30,
-   "grade": "B(鑲嵌/合成) D(數值)"
-  },
-  "gem_atk_2": {
-   "name": "2級攻擊石",
-   "icon": "gem",
-   "color": "#e53935",
-   "desc": "鑲嵌於裝備",
-   "gem": {
-    "k": "atk",
-    "lv": 2,
-    "stats": {
-     "patk": 26.4,
-     "matk": 26.4,
-     "jatk": 26.4
-    }
-   },
-   "sell": 120,
-   "grade": "B(鑲嵌/合成) D(數值)"
-  },
-  "gem_atk_3": {
-   "name": "3級攻擊石",
-   "icon": "gem",
-   "color": "#e53935",
-   "desc": "鑲嵌於裝備",
-   "gem": {
-    "k": "atk",
-    "lv": 3,
-    "stats": {
-     "patk": 58.08,
-     "matk": 58.08,
-     "jatk": 58.08
-    }
-   },
-   "sell": 480,
-   "grade": "B(鑲嵌/合成) D(數值)"
-  },
-  "gem_atk_4": {
-   "name": "4級攻擊石",
-   "icon": "gem",
-   "color": "#e53935",
-   "desc": "鑲嵌於裝備",
-   "gem": {
-    "k": "atk",
-    "lv": 4,
-    "stats": {
-     "patk": 127.78,
-     "matk": 127.78,
-     "jatk": 127.78
-    }
-   },
-   "sell": 1920,
-   "grade": "B(鑲嵌/合成) D(數值)"
-  },
-  "gem_atk_5": {
-   "name": "5級攻擊石",
-   "icon": "gem",
-   "color": "#e53935",
-   "desc": "鑲嵌於裝備",
-   "gem": {
-    "k": "atk",
-    "lv": 5,
-    "stats": {
-     "patk": 281.11,
-     "matk": 281.11,
-     "jatk": 281.11
-    }
-   },
-   "sell": 7680,
-   "grade": "B(鑲嵌/合成) D(數值)"
-  },
-  "gem_atk_6": {
-   "name": "6級攻擊石",
-   "icon": "gem",
-   "color": "#e53935",
-   "desc": "鑲嵌於裝備",
-   "gem": {
-    "k": "atk",
-    "lv": 6,
-    "stats": {
-     "patk": 618.44,
-     "matk": 618.44,
-     "jatk": 618.44
-    }
-   },
-   "sell": 30720,
-   "grade": "B(鑲嵌/合成) D(數值)"
-  },
-  "gem_hp_1": {
-   "name": "1級生命石",
-   "icon": "gem",
-   "color": "#43a047",
-   "desc": "鑲嵌於裝備",
-   "gem": {
-    "k": "hp",
-    "lv": 1,
-    "stats": {
-     "hp": 90
-    }
-   },
-   "sell": 30,
-   "grade": "B(鑲嵌/合成) D(數值)"
-  },
-  "gem_hp_2": {
-   "name": "2級生命石",
-   "icon": "gem",
-   "color": "#43a047",
-   "desc": "鑲嵌於裝備",
-   "gem": {
-    "k": "hp",
-    "lv": 2,
-    "stats": {
-     "hp": 198
-    }
-   },
-   "sell": 120,
-   "grade": "B(鑲嵌/合成) D(數值)"
-  },
-  "gem_hp_3": {
-   "name": "3級生命石",
-   "icon": "gem",
-   "color": "#43a047",
-   "desc": "鑲嵌於裝備",
-   "gem": {
-    "k": "hp",
-    "lv": 3,
-    "stats": {
-     "hp": 435.6
-    }
-   },
-   "sell": 480,
-   "grade": "B(鑲嵌/合成) D(數值)"
-  },
-  "gem_hp_4": {
-   "name": "4級生命石",
-   "icon": "gem",
-   "color": "#43a047",
-   "desc": "鑲嵌於裝備",
-   "gem": {
-    "k": "hp",
-    "lv": 4,
-    "stats": {
-     "hp": 958.32
-    }
-   },
-   "sell": 1920,
-   "grade": "B(鑲嵌/合成) D(數值)"
-  },
-  "gem_hp_5": {
-   "name": "5級生命石",
-   "icon": "gem",
-   "color": "#43a047",
-   "desc": "鑲嵌於裝備",
-   "gem": {
-    "k": "hp",
-    "lv": 5,
-    "stats": {
-     "hp": 2108.3
-    }
-   },
-   "sell": 7680,
-   "grade": "B(鑲嵌/合成) D(數值)"
-  },
-  "gem_hp_6": {
-   "name": "6級生命石",
-   "icon": "gem",
-   "color": "#43a047",
-   "desc": "鑲嵌於裝備",
-   "gem": {
-    "k": "hp",
-    "lv": 6,
-    "stats": {
-     "hp": 4638.27
-    }
-   },
-   "sell": 30720,
-   "grade": "B(鑲嵌/合成) D(數值)"
-  },
-  "gem_pdef_1": {
-   "name": "1級護體石",
-   "icon": "gem",
-   "color": "#8d6e63",
-   "desc": "鑲嵌於裝備",
-   "gem": {
-    "k": "pdef",
-    "lv": 1,
-    "stats": {
-     "pdef": 8
-    }
-   },
-   "sell": 30,
-   "grade": "B(鑲嵌/合成) D(數值)"
-  },
-  "gem_pdef_2": {
-   "name": "2級護體石",
-   "icon": "gem",
-   "color": "#8d6e63",
-   "desc": "鑲嵌於裝備",
-   "gem": {
-    "k": "pdef",
-    "lv": 2,
-    "stats": {
-     "pdef": 17.6
-    }
-   },
-   "sell": 120,
-   "grade": "B(鑲嵌/合成) D(數值)"
-  },
-  "gem_pdef_3": {
-   "name": "3級護體石",
-   "icon": "gem",
-   "color": "#8d6e63",
-   "desc": "鑲嵌於裝備",
-   "gem": {
-    "k": "pdef",
-    "lv": 3,
-    "stats": {
-     "pdef": 38.72
-    }
-   },
-   "sell": 480,
-   "grade": "B(鑲嵌/合成) D(數值)"
-  },
-  "gem_pdef_4": {
-   "name": "4級護體石",
-   "icon": "gem",
-   "color": "#8d6e63",
-   "desc": "鑲嵌於裝備",
-   "gem": {
-    "k": "pdef",
-    "lv": 4,
-    "stats": {
-     "pdef": 85.18
-    }
-   },
-   "sell": 1920,
-   "grade": "B(鑲嵌/合成) D(數值)"
-  },
-  "gem_pdef_5": {
-   "name": "5級護體石",
-   "icon": "gem",
-   "color": "#8d6e63",
-   "desc": "鑲嵌於裝備",
-   "gem": {
-    "k": "pdef",
-    "lv": 5,
-    "stats": {
-     "pdef": 187.4
-    }
-   },
-   "sell": 7680,
-   "grade": "B(鑲嵌/合成) D(數值)"
-  },
-  "gem_pdef_6": {
-   "name": "6級護體石",
-   "icon": "gem",
-   "color": "#8d6e63",
-   "desc": "鑲嵌於裝備",
-   "gem": {
-    "k": "pdef",
-    "lv": 6,
-    "stats": {
-     "pdef": 412.29
-    }
-   },
-   "sell": 30720,
-   "grade": "B(鑲嵌/合成) D(數值)"
-  },
-  "gem_mdef_1": {
-   "name": "1級靈犀石",
-   "icon": "gem",
-   "color": "#1e88e5",
-   "desc": "鑲嵌於裝備",
-   "gem": {
-    "k": "mdef",
-    "lv": 1,
-    "stats": {
-     "mdef": 8
-    }
-   },
-   "sell": 30,
-   "grade": "B(鑲嵌/合成) D(數值)"
-  },
-  "gem_mdef_2": {
-   "name": "2級靈犀石",
-   "icon": "gem",
-   "color": "#1e88e5",
-   "desc": "鑲嵌於裝備",
-   "gem": {
-    "k": "mdef",
-    "lv": 2,
-    "stats": {
-     "mdef": 17.6
-    }
-   },
-   "sell": 120,
-   "grade": "B(鑲嵌/合成) D(數值)"
-  },
-  "gem_mdef_3": {
-   "name": "3級靈犀石",
-   "icon": "gem",
-   "color": "#1e88e5",
-   "desc": "鑲嵌於裝備",
-   "gem": {
-    "k": "mdef",
-    "lv": 3,
-    "stats": {
-     "mdef": 38.72
-    }
-   },
-   "sell": 480,
-   "grade": "B(鑲嵌/合成) D(數值)"
-  },
-  "gem_mdef_4": {
-   "name": "4級靈犀石",
-   "icon": "gem",
-   "color": "#1e88e5",
-   "desc": "鑲嵌於裝備",
-   "gem": {
-    "k": "mdef",
-    "lv": 4,
-    "stats": {
-     "mdef": 85.18
-    }
-   },
-   "sell": 1920,
-   "grade": "B(鑲嵌/合成) D(數值)"
-  },
-  "gem_mdef_5": {
-   "name": "5級靈犀石",
-   "icon": "gem",
-   "color": "#1e88e5",
-   "desc": "鑲嵌於裝備",
-   "gem": {
-    "k": "mdef",
-    "lv": 5,
-    "stats": {
-     "mdef": 187.4
-    }
-   },
-   "sell": 7680,
-   "grade": "B(鑲嵌/合成) D(數值)"
-  },
-  "gem_mdef_6": {
-   "name": "6級靈犀石",
-   "icon": "gem",
-   "color": "#1e88e5",
-   "desc": "鑲嵌於裝備",
-   "gem": {
-    "k": "mdef",
-    "lv": 6,
-    "stats": {
-     "mdef": 412.29
-    }
-   },
-   "sell": 30720,
-   "grade": "B(鑲嵌/合成) D(數值)"
-  },
-  "gem_jdef_1": {
-   "name": "1級身法石",
-   "icon": "gem",
-   "color": "#8e24aa",
-   "desc": "鑲嵌於裝備",
-   "gem": {
-    "k": "jdef",
-    "lv": 1,
-    "stats": {
-     "jdef": 8
-    }
-   },
-   "sell": 30,
-   "grade": "B(鑲嵌/合成) D(數值)"
-  },
-  "gem_jdef_2": {
-   "name": "2級身法石",
-   "icon": "gem",
-   "color": "#8e24aa",
-   "desc": "鑲嵌於裝備",
-   "gem": {
-    "k": "jdef",
-    "lv": 2,
-    "stats": {
-     "jdef": 17.6
-    }
-   },
-   "sell": 120,
-   "grade": "B(鑲嵌/合成) D(數值)"
-  },
-  "gem_jdef_3": {
-   "name": "3級身法石",
-   "icon": "gem",
-   "color": "#8e24aa",
-   "desc": "鑲嵌於裝備",
-   "gem": {
-    "k": "jdef",
-    "lv": 3,
-    "stats": {
-     "jdef": 38.72
-    }
-   },
-   "sell": 480,
-   "grade": "B(鑲嵌/合成) D(數值)"
-  },
-  "gem_jdef_4": {
-   "name": "4級身法石",
-   "icon": "gem",
-   "color": "#8e24aa",
-   "desc": "鑲嵌於裝備",
-   "gem": {
-    "k": "jdef",
-    "lv": 4,
-    "stats": {
-     "jdef": 85.18
-    }
-   },
-   "sell": 1920,
-   "grade": "B(鑲嵌/合成) D(數值)"
-  },
-  "gem_jdef_5": {
-   "name": "5級身法石",
-   "icon": "gem",
-   "color": "#8e24aa",
-   "desc": "鑲嵌於裝備",
-   "gem": {
-    "k": "jdef",
-    "lv": 5,
-    "stats": {
-     "jdef": 187.4
-    }
-   },
-   "sell": 7680,
-   "grade": "B(鑲嵌/合成) D(數值)"
-  },
-  "gem_jdef_6": {
-   "name": "6級身法石",
-   "icon": "gem",
-   "color": "#8e24aa",
-   "desc": "鑲嵌於裝備",
-   "gem": {
-    "k": "jdef",
-    "lv": 6,
-    "stats": {
-     "jdef": 412.29
-    }
-   },
-   "sell": 30720,
-   "grade": "B(鑲嵌/合成) D(數值)"
-  },
-  "gem_crit_1": {
-   "name": "1級暴擊石",
-   "icon": "gem",
-   "color": "#fb8c00",
-   "desc": "鑲嵌於裝備",
-   "gem": {
-    "k": "crit",
-    "lv": 1,
-    "stats": {
-     "crit": 0.5
-    }
-   },
-   "sell": 30,
-   "grade": "B(鑲嵌/合成) D(數值)"
-  },
-  "gem_crit_2": {
-   "name": "2級暴擊石",
-   "icon": "gem",
-   "color": "#fb8c00",
-   "desc": "鑲嵌於裝備",
-   "gem": {
-    "k": "crit",
-    "lv": 2,
-    "stats": {
-     "crit": 1.1
-    }
-   },
-   "sell": 120,
-   "grade": "B(鑲嵌/合成) D(數值)"
-  },
-  "gem_crit_3": {
-   "name": "3級暴擊石",
-   "icon": "gem",
-   "color": "#fb8c00",
-   "desc": "鑲嵌於裝備",
-   "gem": {
-    "k": "crit",
-    "lv": 3,
-    "stats": {
-     "crit": 2.42
-    }
-   },
-   "sell": 480,
-   "grade": "B(鑲嵌/合成) D(數值)"
-  },
-  "gem_crit_4": {
-   "name": "4級暴擊石",
-   "icon": "gem",
-   "color": "#fb8c00",
-   "desc": "鑲嵌於裝備",
-   "gem": {
-    "k": "crit",
-    "lv": 4,
-    "stats": {
-     "crit": 5.32
-    }
-   },
-   "sell": 1920,
-   "grade": "B(鑲嵌/合成) D(數值)"
-  },
-  "gem_crit_5": {
-   "name": "5級暴擊石",
-   "icon": "gem",
-   "color": "#fb8c00",
-   "desc": "鑲嵌於裝備",
-   "gem": {
-    "k": "crit",
-    "lv": 5,
-    "stats": {
-     "crit": 11.71
-    }
-   },
-   "sell": 7680,
-   "grade": "B(鑲嵌/合成) D(數值)"
-  },
-  "gem_crit_6": {
-   "name": "6級暴擊石",
-   "icon": "gem",
-   "color": "#fb8c00",
-   "desc": "鑲嵌於裝備",
-   "gem": {
-    "k": "crit",
-    "lv": 6,
-    "stats": {
-     "crit": 25.77
-    }
-   },
-   "sell": 30720,
-   "grade": "B(鑲嵌/合成) D(數值)"
-  },
-  "xf_jinzhong": {
-   "name": "心法·金鐘罩",
-   "icon": "scroll2",
-   "desc": "修練心法：物防 +4%/級",
-   "xinfa": "jinzhong",
-   "sell": 80,
-   "grade": "D"
-  },
-  "xf_yijin": {
-   "name": "心法·易筋經",
-   "icon": "scroll2",
-   "desc": "修練心法：生命 +4%/級",
-   "xinfa": "yijin",
-   "sell": 80,
-   "grade": "D"
-  },
-  "xf_jiuyang": {
-   "name": "心法·九陽神功",
-   "icon": "scroll2",
-   "desc": "修練心法：法防 +4%/級",
-   "xinfa": "jiuyang",
-   "sell": 80,
-   "grade": "D"
-  },
-  "xf_kuangfeng": {
-   "name": "心法·狂風刀訣",
-   "icon": "scroll2",
-   "desc": "修練心法：物攻 +3%/級",
-   "xinfa": "kuangfeng",
-   "sell": 80,
-   "grade": "D"
-  },
-  "xf_beiming": {
-   "name": "心法·北冥神功",
-   "icon": "scroll2",
-   "desc": "修練心法：法攻 +3%/級",
-   "xinfa": "beiming",
-   "sell": 80,
-   "grade": "D"
-  },
-  "xf_kuihua": {
-   "name": "心法·葵花心經",
-   "icon": "scroll2",
-   "desc": "修練心法：絕技攻擊 +3%/級",
-   "xinfa": "kuihua",
-   "sell": 80,
-   "grade": "D"
-  },
-  "xf_lingbo": {
-   "name": "心法·凌波微步",
-   "icon": "scroll2",
-   "desc": "修練心法：閃避 +0.6/級",
-   "xinfa": "lingbo",
-   "sell": 80,
-   "grade": "D"
-  },
-  "xf_xixing": {
-   "name": "心法·吸星大法",
-   "icon": "scroll2",
-   "desc": "修練心法：暴擊 +0.6/級",
-   "xinfa": "xixing",
-   "sell": 80,
-   "grade": "D"
-  },
-  "xf_zhanzhuang": {
-   "name": "心法·站樁功",
-   "icon": "scroll2",
-   "desc": "修練心法：命中 +0.6/級",
-   "xinfa": "zhanzhuang",
-   "sell": 80,
-   "grade": "D"
-  },
-  "xf_shenxing": {
-   "name": "心法·神行百變",
-   "icon": "scroll2",
-   "desc": "修練心法：絕技防禦 +4%/級",
-   "xinfa": "shenxing",
-   "sell": 80,
-   "grade": "D"
-  },
-  "xf_jiuyin": {
-   "name": "心法·九陰真經",
-   "icon": "scroll2",
-   "desc": "修練心法：四維屬性 +1.5%/級",
-   "xinfa": "jiuyin",
-   "sell": 80,
-   "grade": "D"
-  },
-  "zizhuang_frag": {
-   "name": "紫裝碎片",
-   "icon": "gem",
-   "desc": "通天塔每 20 層獎勵；10 個可在神武殿合成一件紫色裝備",
-   "sell": 0,
-   "grade": "D"
-  },
-  "xf_jingang": {
-   "name": "心法·金剛心法",
-   "icon": "scroll2",
-   "desc": "修練心法：狀態抵抗 +1.5%/級",
-   "xinfa": "jingang",
-   "sell": 80,
-   "grade": "D"
-  },
-  "xf_shehun": {
-   "name": "心法·攝魂心法",
-   "icon": "scroll2",
-   "desc": "修練心法：負面狀態施加機率 +1.5%/級",
-   "xinfa": "shehun",
-   "sell": 80,
-   "grade": "D"
-  },
-  "xf_zhengfeng": {
-   "name": "心法·爭鋒心法",
-   "icon": "scroll2",
-   "desc": "修練心法：PVP 傷害 +1%/級",
-   "xinfa": "zhengfeng",
-   "sell": 80,
-   "grade": "D"
-  },
-  "xf_fumo": {
-   "name": "心法·伏魔心法",
-   "icon": "scroll2",
-   "desc": "修練心法：PVE 傷害 +1%/級",
-   "xinfa": "fumo",
-   "sell": 80,
-   "grade": "D"
-  },
-  "sg_bag_2": {
-   "name": "綠將魂袋",
-   "icon": "bag",
-   "desc": "打開後隨機獲得一個綠色武將的將魂（上古寶窟）",
-   "use": {
-    "soulBag": 2
-   },
-   "sell": 0,
-   "grade": "B(上古寶窟給將魂) D(袋子/內容)"
-  },
-  "sg_bag_3": {
-   "name": "藍將魂袋",
-   "icon": "bag",
-   "desc": "打開後隨機獲得一個藍色武將的將魂（上古寶窟）",
-   "use": {
-    "soulBag": 3
-   },
-   "sell": 0,
-   "grade": "B(上古寶窟給將魂) D(袋子/內容)"
-  },
-  "sg_bag_4": {
-   "name": "紫將魂袋",
-   "icon": "bag",
-   "desc": "打開後隨機獲得一個紫色武將的將魂（上古寶窟）",
-   "use": {
-    "soulBag": 4
-   },
-   "sell": 0,
-   "grade": "B(上古寶窟給將魂) D(袋子/內容)"
-  }
- }
 }

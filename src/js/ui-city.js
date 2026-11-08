@@ -58,7 +58,7 @@
     h += '<div class="chat" id="chat">' + UI.chatHtml() + '</div>';
     // 底部功能列（A：道具、陣法、日志、郵件、商城、設置）
     h += '<div class="bottombar">';
-    U.each([['bag', '道具', 'bag'], ['formation', '陣法', 'formation'], ['log', '日志', 'scroll'], ['mail', '郵件', 'mail'], ['shop', '商城', 'shop'], ['settings', '設置', 'gear']], function (x) {
+    U.each([['bag', '道具', 'bag'], ['formation', '陣法', 'formation'], ['log', '日志', 'scroll'], ['mail', '郵件', 'mail'], ['shop', '商城', 'shop'], ['provenance', '考證', 'scroll2'], ['settings', '設置', 'gear']], function (x) {
       h += '<a class="bb" data-a="open" data-v="' + x[0] + '">' + UI.icon(x[2]) + '<span>' + x[1] + '</span></a>';
     });
     h += '</div></div>';
