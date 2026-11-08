@@ -5,10 +5,10 @@ function ok(cond, name) { if (cond) { pass++; console.log('  通過', name); } e
 var c = load(), M = c.MJ, G = M.G, R = M.R, S = M.S, D = M.D;
 console.log('[經驗曲線]');
 ok(R.expNeed(6) === 125, 'Lv6 升級需要 125 經驗（截圖 C 級資料不變）');
-ok(R.expNeed(10) === 325, '10 級以內維持原公式');
-ok(R.expNeed(20) === Math.round(1245 * (1 + 10 * R.EXP_K)), '10 級以上乘上成長係數');
-var mono = true; for (var lv = 1; lv < R.maxLevel; lv++) if (R.expNeed(lv + 1) <= R.expNeed(lv)) mono = false;
-ok(mono, '每一級所需經驗都比前一級多');
+ok(R.expNeed(10) === 840 && R.expNeed(20) === 4610 && R.expNeed(30) === 16070 && R.expNeed(60) === 210470 && R.expNeed(70) === 830732, 'sn=6 指定等級逐級經驗值照錄');
+ok(R.expNeed(72) === 892766 && R.expNeed(73) === 892766, '保留 sn=6 Lv72／73 原文重複值');
+var mono = true; for (var lv = 1; lv < R.maxLevel; lv++) if (R.expNeed(lv + 1) < R.expNeed(lv)) mono = false;
+ok(mono && R.expNeed(79) === 1390253 && R.expNeed(80) > R.expNeed(79) && R.expNeed(90) > R.expNeed(89), '來源範圍非遞減；Lv80–90 使用單調 D 級外插');
 console.log('[越戰越勇]');
 ok(R.moraleBonus(0) === 0 && R.moraleBonus(1) > 0 && R.moraleBonus(99) === R.moraleBonus(10), '連敗加成從 0 開始，有上限');
 G.newGame('測試', '力耐', 'm', 7);

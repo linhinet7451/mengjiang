@@ -32,7 +32,7 @@
     var s = MJ.S.state, lead = G.lead(), cfg = MJ.D.config;
     var h = '<div class="city">' + MJ.Art.sky();
     U.each(B, function (b) {
-      var c = cfg.buildings[b.k], lv = s.buildings[b.k] || 1, locked = lead.lv < c.open, phase = c.phase;
+      var c = cfg.buildings[b.k], lv = s.buildings[b.k] || 1, unlocked = b.k === 'jiangxing' ? G.buildingOpen(b.k) : lead.lv >= c.open, locked = !unlocked, phase = c.phase;
       var tag = phase ? '第' + ['', '一', '二', '三', '四'][phase] + '階段開放' : (locked ? '需要等級 ' + c.open : 'Lv' + lv);
       if (phase && locked) tag = '需要等級 ' + c.open;
       var act = (!phase && !locked && b.act) ? b.act : 'bLocked';
@@ -70,7 +70,8 @@
   };
   UI.actions.bLocked = function (k) {
     var c = MJ.D.config.buildings[k];
-    UI.toast(c.name + '：' + (G.lead().lv < c.open ? '需要等級 ' + c.open + '。' : '') + (c.phase ? '此功能預定於第' + ['', '一', '二', '三', '四'][c.phase] + '階段開放。' : ''));
+    var unlocked = k === 'jiangxing' ? G.buildingOpen(k) : G.lead().lv >= c.open;
+    UI.toast(c.name + '：' + (!unlocked ? '需要等級 ' + c.open + '。' : '') + (c.phase ? '此功能預定於第' + ['', '一', '二', '三', '四'][c.phase] + '階段開放。' : ''));
   };
   UI.actions.hall = function () { UI.go('hall'); };
   UI.actions.recruit = function () { UI.go('recruit'); };

@@ -43,6 +43,8 @@ if (p.ok) {
   var st = p.state; M.S.state = st;
   ok(st.heroes.length === raw8.heroes.length && st.heroes.every(function (h, i) { return h.uid === raw8.heroes[i].uid && h.id === raw8.heroes[i].id && h.lv === raw8.heroes[i].lv && h.star === raw8.heroes[i].star; }), '武將 ' + st.heroes.length + ' 人全部保留（uid／等級／星級不變）');
   ok(st.player.silver === raw8.player.silver && st.player.gold === raw8.player.gold && st.bag.stack['soul:liubei'] === 12, '銀幣、金幣、將魂保留');
+  ok(raw8.jiangxing.lit === 5 && st.jiangxing.lit === 0 && st.jiangxing.legacySoulRefunded === 130 && st.player.xinghun === (raw8.player.xinghun || 0) + 130, 'v8 fixture 的 5 顆舊星盤投入退款 130 星魂，舊 lit 停用');
+  ok(st.buildingUnlocks.jiangxing && st.heroes.every(function (h) { return h.jxLevel === 0; }), '舊將星錄入口解鎖保留並補齊每名武將 jxLevel');
   var eq8 = [], eq9 = []; raw8.heroes.forEach(function (h) { for (var k in h.eq) eq8.push(h.eq[k].uid); }); st.heroes.forEach(function (h) { for (var k in h.eq) eq9.push(h.eq[k].uid); });
   ok(eq8.join() === eq9.join() && st.bag.equips.length === raw8.bag.equips.length, '穿戴中 ' + eq9.length + ' 件與背包 ' + st.bag.equips.length + ' 件裝備都保留');
   function H(id) { return st.heroes.filter(function (h) { return h.id === id; })[0]; }

@@ -75,7 +75,7 @@
     h += '每階四維 +' + Math.round(C().star.perStar * 100) + '%（目前 +' + Math.round((h0.star || 0) * C().star.perStar * 100) + '%）<br>';
     if ((h0.star || 0) < max) h += '下一階需要 ' + R.heroDef(h0.id).name + ' 將魂：<b>' + have(k) + '/' + cost + '</b><div class="btn-row"><a class="btn small" data-a="starUp">升階</a></div>';
     else h += '<b>已達最高階</b>';
-    h += '<small>將魂來源：重複招募的武將解僱、王關／隱藏關掉落、農田英魂草。多餘將魂可在將星錄換成星魂。</small>';
+    h += '<small>將魂來源：重複招募的武將解僱、王關／隱藏關掉落、農田英魂草。此處一般升階與將星錄將星等級為不同系統，消耗分開計算。</small>';
     return h + '<p class="note">將魂：A（截圖有「將魂」道具）；升階規則與數值：D。</p></div>';
   };
   UI.actions.starUp = function () { var r = G.starUp(UI.sel.hallUid); if (UI.res(r, '升到 ' + r.star + ' 階！')) UI.render(); };
@@ -164,40 +164,43 @@
   UI.actions.gemComb = function (k) { var r = G.gemCombine(k); if (UI.res(r, '合成：' + G.itemName(r.to))) UI.render(); };
 
   // ---------- 將星錄 ----------
-  UI.actions.jxl = function () { UI.go('jxl'); };
+  UI.actions.jxl = function () { if (!G.buildingOpen('jiangxing')) { UI.toast('將星錄：主角 30 級開放', 'bad'); return; } UI.go('jxl'); };
   UI.screens.jxl = function () {
-    var s = MJ.S.state, lit = s.jiangxing.lit, bon = R.teamBonus(s);
+    var s = MJ.S.state, cfg = C().jiangxing, combos = cfg.combos || [], groupNames = { white: '白魂', green: '綠魂', blue: '藍魂', purple30: '30 魂紫', purple45: '45 魂紫' };
     var h = '<div class="scr hall-scr"><div class="frame bigframe hall jxl"><div class="plaque">將星錄</div><a class="xbtn" data-a="city">×</a>';
-    // 星盤
-    h += '<div class="jx-map"><svg viewBox="0 0 400 400" class="art jx-svg"><circle cx="200" cy="200" r="180" fill="none" stroke="#5a4a8a" stroke-width="2"/><circle cx="200" cy="200" r="120" fill="none" stroke="#3a3a6a" stroke-width="1.5"/>';
-    var ring = Math.floor(lit / 28), base = ring * 28;
-    for (var i = 0; i < 28; i++) {
-      var a = (i / 28) * Math.PI * 2 - Math.PI / 2, rr = i % 2 ? 150 : 172, x = 200 + Math.cos(a) * rr, y = 200 + Math.sin(a) * rr, on = base + i < lit;
-      if (i) { var a0 = ((i - 1) / 28) * Math.PI * 2 - Math.PI / 2, r0 = (i - 1) % 2 ? 150 : 172; h += '<line x1="' + (200 + Math.cos(a0) * r0).toFixed(1) + '" y1="' + (200 + Math.sin(a0) * r0).toFixed(1) + '" x2="' + x.toFixed(1) + '" y2="' + y.toFixed(1) + '" stroke="' + (on ? '#ffd54f' : '#4a4a7a') + '" stroke-width="' + (on ? 2 : 1) + '"/>'; }
-      h += '<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + (on ? 9 : 6) + '" fill="' + (on ? '#ffe082' : '#3a3a6a') + '" stroke="' + (base + i === lit ? '#fff' : '#8a7ac8') + '" stroke-width="2"' + (on ? ' class="jx-on"' : '') + '/>';
-      h += '<text x="' + x.toFixed(1) + '" y="' + (y + 4).toFixed(1) + '" font-size="9" text-anchor="middle" fill="' + (on ? '#5a3a00' : '#cfc8ff') + '">' + C().jiangxing.names[i] + '</text>';
-    }
-    h += '<text x="200" y="190" font-size="26" text-anchor="middle" fill="#ffe082" font-weight="bold">' + lit + '/' + R.jxMax + '</text><text x="200" y="218" font-size="14" text-anchor="middle" fill="#cfc8ff">已點亮將星</text></svg></div>';
-    // 右側
-    h += '<div class="parch jx-side">';
-    if (lit < R.jxMax) { var nx = R.jxStar(lit); h += '<b>下一顆：' + nx.name + '</b><br>全隊 ' + UI.STAT_NAMES[nx.k] + ' +' + nx.pct + '%<br>需要星魂 <b>' + s.player.xinghun + '/' + nx.cost + '</b><div class="btn-row"><a class="btn" data-a="jxLight">點亮</a></div>'; }
-    else h += '<b>將星已全部點亮！</b>';
-    h += '<hr><b>目前全隊加成</b>（將星＋圖鑑＋陣法）<br><small>' + (U.keys(bon).length ? U.map(U.keys(bon), function (k) { return UI.STAT_NAMES[k] + ' +' + bon[k] + '%'; }).join('　') : '無') + '</small>';
-    var souls = U.filter(U.keys(s.bag.stack), function (k) { return k.indexOf('soul:') === 0 && s.bag.stack[k] > 0; });
-    h += '<hr><b>獻祭將魂換星魂</b>（' + U.map(C().qualityNames.slice(0, 5), function (q, i) { return q + C().soulValue[i]; }).join(' ') + ' 點/個）<div class="rows jx-souls">' + (souls.length ? U.map(souls, function (k) {
-      var d = R.heroDef(k.slice(5)), n = s.bag.stack[k];
-      return '<div class="row-item">' + UI.icon('soul', d.quality) + '<div class="ri-t"><b>' + U.esc(d.name) + ' ×' + n + '</b></div><a class="btn small" data-a="jxSac" data-v="' + k.slice(5) + ':1">獻祭1</a>' + (n > 1 ? '<a class="btn small" data-a="jxSac" data-v="' + k.slice(5) + ':' + n + '">全部</a>' : '') + '</div>';
-    }).join('') : '<small>沒有將魂</small>') + '</div>';
+    h += '<div class="parch jx-map jx-list"><b>原版組合（' + combos.length + ' 組）</b><small>名稱依攻略記載；未載條件／效果留白。來源效果字串僅供參考，本版尚未套入戰鬥。</small>';
+    h += U.map(combos, function (c) {
+      var state = G.jxComboStatus(c.id), stat = state.state === 'ready' ? '條件符合（效果未套戰鬥）' : (state.state === 'incomplete' ? '條件未符合' : '條件資料不完整');
+      return '<div class="jx-combo" data-jx="' + U.esc(c.id) + '"><b>' + U.esc(c.name) + '</b><span class="jx-status">' + stat + '</span><small>條件：' + U.esc(c.requirement || '來源未載') + '</small><small>效果：' + U.esc(c.effect || '來源未載') + '</small></div>';
+    }).join('');
+    h += '</div><div class="parch jx-side"><b>武將將星等級</b><small>此等級獨立於神武殿「升階」。升級會消耗該武將將魂；放入後不可取回。</small>';
+    var owned = U.filter(s.heroes, function (x) { return x.id !== 'lead'; });
+    h += '<div class="rows jx-roster">' + (owned.length ? U.map(owned, function (x) {
+      var def = R.heroDef(x.id), next = (x.jxLevel || 0) + 1, cost = R.jxSoulCost(x, next), n = s.bag.stack['soul:' + x.id] || 0;
+      var need = cost == null ? (next > R.jxMaxLevel ? '已達 Lv18 上限' : '來源未提供 Lv' + next + ' 魂數') : '升至 Lv' + next + '：' + n + '/' + cost + ' 魂';
+      return '<div class="row-item"><div class="ri-t"><b>' + U.esc(def.name) + '　Lv' + (x.jxLevel || 0) + '</b><small>' + (groupNames[R.jxSoulGroup(x)] || '未列品階') + '　' + need + '</small></div>' + (cost == null ? '' : '<a class="btn small" data-a="jxHeroUp" data-v="' + x.uid + '">升級</a>') + '</div>';
+    }).join('') : '<small>尚無武將</small>') + '</div>';
+    h += '<details class="jx-table"><summary>原文將魂量表（升至該級所需魂）</summary><div class="jx-table-scroll"><table><tr><th>品階</th>';
+    for (var level = 1; level <= R.jxMaxLevel; level++) h += '<th>' + level + '</th>';
+    h += '</tr>';
+    U.each(['white', 'green', 'blue', 'purple30', 'purple45'], function (group) {
+      h += '<tr><th>' + groupNames[group] + '</th>';
+      U.each(cfg.soulCostsByLevel[group], function (n) { h += '<td>' + (n == null ? '—' : n) + '</td>'; });
+      h += '</tr>';
+    });
+    h += '</table></div><small>空白不補算；白魂 Lv10 來源 W48／W53 相異，故保留空白（C）。</small></details>';
+    h += '<small>舊星盤星魂餘額：' + U.fmt(s.player.xinghun || 0) + '（遷移退款與原餘額均保留；本版不再使用二十八宿扣點）。</small>';
     h += '<div class="btn-row"><a class="btn small" data-a="open" data-v="codex">圖鑑（' + G.codexCount() + '/' + MJ.D.heroes.list.length + '）</a><a class="btn small" data-a="city">返回</a></div>';
-    h += '<p class="note">將星錄：A（建築存在）；二十八宿名稱：中國傳統星官；加成與消耗：D。</p></div></div></div>';
+    h += '<p class="note">組合名稱／部分條件與效果文字：B；逐級魂量：B（空白／衝突留空）。本版所有組合效果只顯示來源文字，尚未套入戰鬥屬性。</p></div></div></div>';
     return h;
   };
-  UI.actions.jxLight = function () { var r = G.lightStar(); if (UI.res(r, '點亮「' + (r.star && r.star.name) + '」')) UI.render(); };
-  UI.actions.jxSac = function (v) {
-    var a = v.split(':'), d = R.heroDef(a[0]);
-    UI.confirm('獻祭將魂', '把 ' + a[1] + ' 個「' + U.esc(d.name) + '」將魂換成 ' + C().soulValue[d.quality] * a[1] + ' 星魂？（將魂也可用於召喚或升階）', function () {
-      var r = G.sacrificeSoul(a[0], +a[1]); if (UI.res(r, '星魂 +' + r.pts)) UI.render();
-    }, '獻祭');
+  UI.actions.jxHeroUp = function (uid) {
+    var h0 = G.hero(+uid), level = h0 ? (h0.jxLevel || 0) + 1 : 0, cost = h0 && R.jxSoulCost(h0, level);
+    if (!h0 || cost == null) { UI.toast('來源未提供此級魂數；不扣魂、不推算', 'bad'); return; }
+    var def = R.heroDef(h0.id);
+    UI.confirm('將星升級', '將「' + U.esc(def.name) + '」升至 Lv' + level + '，消耗 ' + cost + ' 個同名將魂？<br><b>放入後不可取回</b>。確定？', function () {
+      var r = G.jxLevelUp(+uid); if (UI.res(r, '已升至將星 Lv' + (r.level || level))) UI.render();
+    }, '升級');
   };
 
   // ---------- 圖鑑 ----------

@@ -1,6 +1,6 @@
 # 來源索引（Source index）
 
-> English: Index of every source cited in `src/data/provenance.json`, with URL, date, author, grade and the facts this project took from it. Raw HTML/text copies of forum posts are **not** included (Bahamut posts were written by individual players). `docs/sources-extracted/web2/c-*.json` holds only the facts we extracted (tables we rebuilt), used by `tools/web2-p2.js` and `tests/unit-web2.js`.
+> English: Index of every source cited in `src/data/provenance.json`, with URL, date, author, grade and the facts this project took from it. Raw HTML/text copies of forum posts are **not** included (Bahamut posts were written by individual players). `docs/sources-extracted/web2/c-*.json` holds only extracted facts, used by the web2 data patches and their unit tests.
 
 產生方式：由 `src/data/provenance.json` 自動整理（2026-11-04）。等級：A 原版畫面／B 玩家攻略／C 推論／D 本作自訂。
 
@@ -14,6 +14,7 @@
 | c-snA282-lv6.json | W282 | 14 張技能 tooltip 截圖讀出的 Lv6 範圍與數值 |
 | c-snA4892-formations.json | W4892 | 8 張陣法 tooltip（名稱、Lv、加成） |
 | c-snA541-recipes.json | W541 | 34 條 5 魂合成公式與規則 |
+| c-p3-3-5.json | W6、W47、W48、W53、W60、S1 | 開放等級、Lv7–79 逐級經驗、19 組合摘錄與各品階魂量（含原文缺值／衝突） |
 
 ## 來源與採用的事實
 
@@ -180,8 +181,8 @@
 ### W6 — 經驗表（巴哈姆特精華區 sn=6）
 
 - URL：https://forum.gamer.com.tw/G2.php?bsn=22512&sn=6
-- 作者：巴哈玩家；日期：2012；地區：台版；等級：B
-- 採用的事實：尚未採用（P3／P4 待辦，見 TODO.md）
+- 作者：不知所云（anice0004720）；日期：2012-06-22；地區：台版（原文註明逐級表為對岸資料）；等級：B
+- 採用的事實（P3-4）：Lv7–79 共 73 筆逐級經驗；原文 Lv72／73 皆為 892,766，照錄不修。其他等級保留本作 D 級邊界政策。
 
 ### W84 — 寶石數值（巴哈姆特精華區 sn=84）
 
@@ -207,11 +208,23 @@
 - 作者：巴哈玩家；日期：2012；地區：台版；等級：B
 - 採用的事實：尚未採用（P3／P4 待辦，見 TODO.md）
 
-### W47 — 將星錄組合（巴哈姆特精華區 sn=47／53／48）
+### W47 — 【情報】新增之將星錄（巴哈姆特精華區 sn=47）
 
 - URL：https://forum.gamer.com.tw/G2.php?bsn=22512&sn=47
-- 作者：巴哈玩家；日期：2012–2013；地區：台版；等級：B
-- 採用的事實：尚未採用（P3／P4 待辦，見 TODO.md）
+- 作者：☆猖獗☆（diabl9ooo）；日期：2012-11-26；地區：台版；等級：B
+- 採用的事實（P3-5）：傲血忠魂（力耐 L1＋智敏 L2，物攻 +17）、天山霜雪（天山童姥／許褚／孫策 L2，法攻 +27／法防 +23／敏捷 +20）。條件可判斷，效果數字暫作來源文字呈現、不套入戰鬥，因原文未完整說明受益範圍與套用時點；runtime 另以 `web2.jiangxing.combatEffects` 標 D。
+
+### W48 — 【討論】將星錄武將升級所需將魂數資料補完計劃（巴哈姆特精華區 sn=48）
+
+- URL：https://forum.gamer.com.tw/G2.php?bsn=22512&sn=48
+- 作者：賀賀（gadder）；日期：2012-11-26；地區：台版；等級：B；與 S1 同作者，非獨立作者證據。
+- 採用的事實（P3-5）：提供白／綠／藍／紫將升級區間的部分魂數；表格有空白／欄位對齊不明處。白魂升至 Lv10 列 10 魂，與 W53 的 11 魂相異；runtime 欄位留空並標 C。
+
+### W53 — 【問題】將星等級所需魂數（巴哈姆特精華區 sn=53）
+
+- URL：https://forum.gamer.com.tw/G2.php?bsn=22512&sn=53
+- 作者：Will（willwillhi）；日期：2012-12-16；地區：台版；等級：B。
+- 採用的事實（P3-5）：白／綠／藍／30 魂紫／45 魂紫逐級表。依原表保留空白；白魂 Lv10 原文列 11，與 W48 的 10 有差異，未裁決。
 
 ### W4892 — 1.5.9 陣法優劣（巴哈姆特哈啦板 snA=4892）
 
@@ -266,6 +279,7 @@
 - K10 孫權／東方不敗／夏侯惇 的將魂數：紫將有公式的要 30 個（此三人在公式表中有公式）〔W541〕 ↔ 30 魂紫將名單不含此三人（45 魂）〔W60,W967〕
 - K11 吸血機率：攻擊有 12% 機率轉化 10% 傷害〔W967〕 ↔ Lv1 10% 機率／10%（技能說明圖）〔W282〕
 - K12 紫霞與紫雲的「往昔若凝」：往昔若凝是紫雲的無雙（治療）〔W967,W282〕 ↔ 本作原有紫霞無雙「往昔若凝」（登場資料）〔S1〕
+- P3R-JX-WHITE-L10 白魂升至 Lv10 所需魂數：11〔W53，2012-12-16〕 ↔ 10〔W48，2012-11-26〕；處理：保留兩說，runtime 留空、升級阻擋，待補直接圖證。
 
 ## 未取得的來源
 

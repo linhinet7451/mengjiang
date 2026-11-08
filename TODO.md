@@ -6,7 +6,7 @@ BOARD-3 已完成；維持現行 v12 棋盤規則，本次不重做、不改動�
 
 ## English summary
 Unofficial, offline, single-file HTML5 remake of the 2012–2013 Facebook game 猛將無雙. Build output: `dist/mengjiang.html` (one file, ES5, no CDN, < 12,000,000 bytes). With the original company's consent (as stated by the repository owner), original art, music, and similar assets may be referenced or used directly so the remake stays as close to the original as possible. Record each use in `docs/美術素材來源.md`. If no original file is available, redraw closer assets from the screenshots and videos in `reference/`.
-State on 2026-11-07 (UTC+8): P1/P2 and P3-1/P3-2 are complete; P3-1 rates/caps remain versioned at RV13, and P3-2 range shapes are added at RV14. BOARD-3 remains the completed v12 board. P3-3 onward and P4 remain pending. Nothing here claims real-device testing; Playwright Chromium/WebKit iPhone 13 are emulations only. Social/online modes are not built (by design: single-player). Many numbers remain grade D. Each item below lists goal, evidence + grade + URL, files/functions, acceptance tests, priority and dependencies. Read "Project rules" first.
+State on 2026-11-08 (UTC+8): P1/P2 and P3-1–P3-5 are complete; P3-1 rates/caps remain versioned at RV13, and P3-2 range shapes at RV14. P3-3–P3-5 are included in save v11. BOARD-3 remains the completed v12 board. P3-6 onward and P4 remain pending. Nothing here claims real-device testing; Playwright Chromium/WebKit iPhone 13 are emulations only. Social/online modes are not built (by design: single-player). Many numbers remain grade D. Each item below lists goal, evidence + grade + URL, files/functions, acceptance tests, priority and dependencies. Read "Project rules" first.
 
 ---
 
@@ -69,26 +69,30 @@ URL 縮寫：`G2(sn)` = `https://forum.gamer.com.tw/G2.php?bsn=22512&sn=<sn>`；
 - 驗收：完整單元 22 組、3,513/3,513；完整 E2E 408/408（桌機 Chromium、WebKit iPhone 13、橫向 Chromium；三平台均驗證神武殿紫雲 Lv6 三格圖）；ES5 全通過，部署單檔 11,994,670 bytes，小於 12,000,000。詳見 `docs/test-log-unit.txt`、`docs/test-log-e2e.txt`。
 - 優先：高；已完成。
 
-### P3-3 開放等級（未做）
-- 目標：榮譽試煉 8、榮譽商城 8、無極 12、公會 15、聯賽 20、圖騰 20、通天 22、上古 25、將星錄 30（30/45/60/75/80 分段）、華容道 30、武林大會 35、銅雀台 35、觀星台 40、玄機盤 50、除魔殿 65。
-- 證據：G2(41)「1～60 全攻略」2013-02-17（B＋A 截圖）。
-- 檔案：`src/data/config.json` buildings.*.openLv、`src/js/ui-city.js`；我方沒有的系統（公會、聯賽、圖騰、銅雀台、除魔殿）不要做開關，只在 TODO 社群項目記錄。
-- 驗收：unit 測各建築 openLv；舊存檔已超過等級者不得被鎖；e2e 主城仍可進各建築。
-- 優先：中；相依：無。
+### P3-3 開放等級（已完成）
+- 來源摘錄保存 sn=41 全部建築等級及分段：榮譽試煉／榮譽商城 8、無極 12、公會 15、聯賽／圖騰 20、通天 22、上古 25、將星錄 30（30/45/60/75/80 分段）、華容道 30、武林大會／銅雀台 35、觀星台 40、玄機盤 50、除魔殿 65。只更新已實作入口的無極 12、通天 22、將星錄 30；未實作／社群建築僅記來源，不新增假入口。
+- 證據：G2(41)「1～60 全攻略」2013-02-17（B；截圖可見部分建築）。`docs/sources-extracted/web2/c-p3-3-5.json`、`SOURCES-INDEX.md` 保留來源與採用範圍；不把不同版本通用化。
+- 實作：`tools/web2-p3.js` 寫 `config.buildings.*.open`；`G.buildingOpen`、`ui-city.js` 使用 30 級門檻。
+- 遷移：v10→v11 對舊版 16 級門檻已能進入者設 `buildingUnlocks.jiangxing`；已存在新版本存檔亦保留等級與入口旗標。
+- 驗收：`tests/unit-web2-p3-3-5.js` 檢查 12/22/30、Lv29 鎖定/Lv30 開放與舊入口保留；E2E 將星錄流程另測。
+- 優先：中；已完成。
 
-### P3-4 經驗表 Lv7～79（未做）
-- 目標：主角／武將升級經驗改用原版表（例 10:840、20:4610、30:16070、60:210470、70:830732）；Lv1～6、80～90 標 D 補間。
-- 證據：G2(6)（B）。
-- 檔案：`src/js/rules.js` expNeed、`src/data/config.json` grow；`src/js/state.js` 85 行。
-- 驗收：unit 比對表中每一級；存檔遷移時不降級（經驗超過時保留等級）；平衡 sim 30 天。
-- 優先：中；相依：與 P3-1 一起調平衡。
+### P3-4 經驗表 Lv7～79（已完成）
+- 目標：主角／武將升級使用來源逐級表：10:840、20:4610、30:16070、60:210470、70:830732。Lv1–6 沿用原低階公式；Lv80–90 從 Lv79 原表值錨定、每級 ×1.05；兩者皆標 D，不冒充來源值。
+- 證據：G2(6)（B，2012-06-22；逐級表註明為對岸資料），見 `docs/sources-extracted/web2/c-p3-3-5.json`。Lv72／73 均為 892,766，照錄；不以階段合計改寫逐級數值。
+- 實作：`tools/web2-p3.js` 產生 `config.expTable`；`src/js/rules.js` `R.expNeed` 讀取來源表和 D 邊界政策。
+- 存檔：v10→v11 不重算／清除舊角色等級與經驗；最高主角等級維持舊值。
+- 驗收：`tests/unit-web2-p3-3-5.js` 逐筆比對 Lv7–79 共 73 值、檢查 Lv72／73 重複與單調 D 尾段；`tests/unit-p5.js` 更新來源值與 7 天進度模擬。
+- 優先：中；已完成。
 
-### P3-5 將星錄組合名與將星魂量（未做）
-- 目標：以原版組合（傲血忠魂 物攻+17、月下舞劍、天公將軍、紅袖添香、百戰將軍、替天行道、六大天王、金剛神力丸、三風、五嶽盟主、雄霸一方、五虎名將、曹魏英豪、嵩山劍氣、世外高人、妻妾成群、天山霜雪、千嬌百媚、玉貌仙姿）取代目前二十八宿（D）；白／綠／藍／30 紫／45 紫各等所需魂到 Lv18。
-- 證據：G2(47)、G2(53)、G2(48)、G2(41)、G2(60)（B）；多數組合效果數值未記載（D）。
-- 檔案：`src/js/sys3.js`／`ui-p3.js`（將星錄）、`src/data/config.json` jiangxing。
-- 驗收：存檔遷移把舊星盤投入的星魂全數退回或換算，不得遺失；unit 測組合條件與魂量表。
-- 優先：中；相依：P3-3（將星錄 30 級開放）。
+### P3-5 將星錄組合名與將星魂量（已完成；存檔 v11）
+- 將 19 組來源名稱取代我方二十八宿；只有傲血忠魂（力耐 Lv1＋智敏 Lv2）與天山霜雪（天山童姥／許褚／孫策各 Lv2）判斷來源明列的條件。其他 17 組只呈現已知名稱／部分文字，缺漏明確顯示未知。所有組合效果（包括原文物攻 +17、法攻 +27／法防 +23／敏捷 +20）目前只顯示原文參考，尚未套入戰鬥屬性；原文未說明受益範圍與套用時點。
+- 魂量：白／綠／藍／30 魂紫／45 魂紫逐級表，原文有值照錄、空白 null 不外推。W53 白魂 Lv10=11、W48 白魂 9→10=10 相衝：conflict `P3R-JX-WHITE-L10`，runtime 留 null、該級升級被阻擋，待直接圖證。
+- 證據：G2(47/53/48/41/60)（B，逐項分開記錄作者／日期／URL）；S1／W60 部分組合只是名稱、推薦或將魂線索，未當成完整條件。詳見 `docs/sources-extracted/web2/c-p3-3-5.json` 和 `SOURCES-INDEX.md`。
+- 實作：`tools/web2-p3.js`、`src/data/config.json`、`src/js/rules.js` 魂量查表、`src/js/sys2.js` 兩組條件進度／扣同名魂、`src/js/ui-p2.js`／`ui-p6.js`、`src/css/style.css`；效果文字明示「尚未套入戰鬥」，provenance 另列 D 級保守範圍。
+- 遷移：`S.VERSION=11`；舊二十八宿已點亮 N 顆依舊本作 D 級成本 `10+8×index` 全額退回星魂，保留既有餘額、主角等級／經驗、武將和 v10 以下存檔相容；不允許新舊星盤重複套用加成。
+- 驗收：`tests/unit-web2-p3-3-5.js` 覆蓋 19 組名稱、五類 Lv1–18 魂量、白 Lv10 衝突阻擋、兩組已知條件、未知條件不推測、故障遷移拒絕升版、舊星盤不再套戰鬥；`unit-p2.js`、`unit-pt3.js`、`tests/e2e.js` 覆蓋 UI 與操作。
+- 優先：中；已完成。
 
 ### P3-6 戰場道具與榮譽試煉 BOSS／精英（未做）
 - 目標：炸彈 3 形（大 XOOX/OOOO/XOOX、中 OXO/XOX/OXO、小 XOX/OOO/XOX）、旗幟 8%×1／7%×2／6%×3、火焰器 4 格斜線＋燒傷；BOSS 金框、精英銀框。

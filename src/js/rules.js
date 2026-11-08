@@ -6,10 +6,16 @@ MJ.R = (function () {
     if (id === 'lead') return MJ.D.heroes.lead;
     return MJ.D.heroIndex[id] || null;
   };
-  // C：經驗公式，與截圖 Lv6 = 125 吻合（10 級以內維持原公式）
-  // D（第五階段平衡）：10 級以上乘上 1＋(Lv−10)×0.6，依 tools/progress-sim.js 30 天模擬調整，避免一天練滿
+  // P3-4：Lv7–79 採 W6 逐級表；Lv1–6 與 Lv80–90 為明確標 D 的邊界政策。
   R.EXP_K = 0.6;
-  R.expNeed = function (lv) { var b = 3 * lv * lv + 2 * lv + 5; return lv <= 10 ? b : Math.round(b * (1 + (lv - 10) * R.EXP_K)); };
+  R.expNeed = function (lv) {
+    lv = Math.max(1, Math.floor(+lv || 1));
+    var t = C().expTable;
+    if (t && lv >= t.minLevel && lv <= t.maxLevel) return t.values[lv - t.minLevel];
+    if (t && lv > t.maxLevel && lv <= R.maxLevel) return Math.round(t.values[t.values.length - 1] * Math.pow(1 + t.tailRate, lv - t.maxLevel));
+    var b = 3 * lv * lv + 2 * lv + 5;
+    return lv <= 10 ? b : Math.round(b * (1 + (lv - 10) * R.EXP_K));
+  };
   R.maxLevel = 90; // P5：B（90 級主角升橙）；原為 80（D）
   R.RV = 14; // v14：既有武將技能範圍依來源格圖；BOARD-3 棋盤仍為 v12，舊戰報保留技能快照
   // D：精力上限（截圖可見精力條，宣傳片 156/156；上限公式為推定）
@@ -108,12 +114,24 @@ MJ.R = (function () {
   R.peiyangCap = function (h) { var c = C().peiyang; return Math.floor(c.capBase + c.capPerLv * h.lv); };
   R.xinfaSlots = function (h) { var n = 0; U.each(C().xinfaSlots, function (lv) { if (h.lv >= lv) n++; }); return n; };
   R.starCost = function (h) { var def = R.heroDef(h.id); return C().star.cost[def.quality] * ((h.star || 0) + 1); };
-  // 將星錄：第 i 顆星（0 起算）
-  R.jxStar = function (i) {
-    var j = C().jiangxing, cy = j.cycle[i % j.cycle.length];
-    return { i: i, name: j.names[i % 28] + '宿' + (i >= 28 ? '·' + (Math.floor(i / 28) + 1) + '重' : ''), k: cy[0], pct: cy[1], cost: j.costBase + j.costStep * i };
+  // 將星錄魂量：表格數值是「升至該級」的消耗；缺值回傳 null，不作外推。
+  R.jxSoulGroup = function (hero) {
+    var id = typeof hero === 'string' ? hero : hero && hero.id, def = R.heroDef(id);
+    if (!def) return null;
+    if (def.quality === 1) return 'white';
+    if (def.quality === 2) return 'green';
+    if (def.quality === 3) return 'blue';
+    if (def.quality === 4) return def.souls === 30 ? 'purple30' : (def.souls === 45 ? 'purple45' : null);
+    return null;
   };
-  R.jxMax = 56;
+  R.jxSoulCost = function (hero, level) {
+    var group = R.jxSoulGroup(hero), table = C().jiangxing && C().jiangxing.soulCostsByLevel;
+    if (!group || !table || !table[group]) return null;
+    var lv = level == null ? ((hero && hero.jxLevel) || 0) + 1 : Math.floor(level);
+    if (lv < 1 || lv > 18 || table[group][lv - 1] == null) return null;
+    return table[group][lv - 1];
+  };
+  R.jxMaxLevel = 18;
   // P5 主角品質：綠 2 → 藍 3（20 級）→ 紫 4（60 級）→ 橙 5（90 級）；屬性倍率 D
   R.leadQ = function (st) { var q = st && st.player && st.player.leadQ; return q == null ? 3 : q; };
   R.leadMult = function (st) { var c = C().leadPromote, q = st && st.player && st.player.leadQ; return (q != null && c && c.statMult[String(q)]) || 1; }; // 未設定＝舊行為（倍率 1）
@@ -156,12 +174,10 @@ MJ.R = (function () {
     d.phys = dt === 'p'; d.dtype = dt;
     return d;
   };
-  // 全隊加成（%）：將星錄＋圖鑑＋陣法（D）
+  // 全隊百分比加成：圖鑑＋陣法（D）。舊二十八宿投入在存檔遷移時退回，不再套用。
   R.teamBonus = function (st) {
     var o = {}, cfg = C();
     function add(k, v) { if (k === 'npcCut') return; if (k === 'atk' || k === 'def') { U.each(k === 'atk' ? ['patk', 'matk', 'jatk'] : ['pdef', 'mdef', 'jdef'], function (x) { add(x, v); }); return; } if (k === 'all') { U.each(['patk', 'matk', 'jatk', 'pdef', 'mdef', 'jdef', 'hp'], function (x) { add(x, v); }); return; } o[k] = (o[k] || 0) + v; }
-    var n = (st.jiangxing && st.jiangxing.lit) || 0;
-    for (var i = 0; i < n; i++) { var s = R.jxStar(i); add(s.k, s.pct); }
     var cn = st.codex ? U.keys(st.codex).length : 0;
     if (cn) add('all', Math.min(cfg.codexMax, cn * cfg.codexPer));
     var f = st.team && MJ.D.formIndex && MJ.D.formIndex[st.team.formation];

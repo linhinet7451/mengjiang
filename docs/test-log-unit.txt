@@ -14,8 +14,8 @@ pass-lines 47
   通過 有待確認結果時不能再培養
   通過 強化失敗：扣銀幣但不掉級
   通過 保留洗煉結果
-結果：通過 56，失敗 0
-pass-lines 57
+結果：通過 54，失敗 0
+pass-lines 55
 === unit-p3
   通過 弱隊挑戰化境中途失敗，不算全破
 結果：通過 75，失敗 0
@@ -35,8 +35,8 @@ pass-lines 37
   通過 重試：再付 50 榮譽並得到新結果
   通過 榮譽不足時重試失敗，保留上一個結果
   通過 替換：採用新結果
-結果：通過 61，失敗 0
-pass-lines 62
+結果：通過 62，失敗 0
+pass-lines 63
 === unit-pt4
   通過 技能書不足時失敗，不改變被動
   通過 新戰報重播結果相同
@@ -49,21 +49,25 @@ pass-lines 40
 結果：通過 47，失敗 0
 pass-lines 48
 === unit-prov
-結果：通過 1928，失敗 0
+結果：通過 2017，失敗 0
 pass-lines 1
 === unit-art
 結果：通過 827，失敗 0
 pass-lines 1
 === unit-web2
   通過 v8 戰報以舊規則重播，結果相同
-結果：通過 33，失敗 0
-pass-lines 34
+結果：通過 35，失敗 0
+pass-lines 36
 === unit-web2-p2
 結果：通過 34，失敗 0
 pass-lines 35
 === unit-web2-p3
 結果：通過 28，失敗 0
 pass-lines 29
+=== unit-web2-p3-3-5
+  通過 失敗的部分遷移存檔由 parse 拒絕，不回存假 v11
+結果：通過 23，失敗 0
+pass-lines 24
 === unit-web2-p3-range
 結果：通過 15，失敗 0
 pass-lines 16

@@ -176,16 +176,21 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   ok(await J(function () { return (MJ.S.state.bag.stack.gem_atk_2 || 0) === 1; }), '寶石合成 1 級→2 級');
   // 將星錄 + 圖鑑
   await act('[data-a="city"]');
-  await J(function () { var l = MJ.G.lead(); MJ.S.state.player.xinghun = 50; MJ.G.commit(); MJ.UI.render(); });
+  var jxTarget = await J(function () {
+    var s = MJ.S.state, h = s.heroes.filter(function (x) { return x.id !== 'lead'; })[0];
+    MJ.G.lead().lv = 30;
+    var cost = MJ.R.jxSoulCost(h, 1); s.bag.stack['soul:' + h.id] = cost;
+    MJ.G.commit(); MJ.UI.render();
+    return { uid: h.uid, id: h.id, cost: cost };
+  });
   await act('[data-a="jxl"]');
   ok(await J(function () { return MJ.UI.screen; }) === 'jxl', '進入將星錄');
-  ok((await page.locator('.jx-irrev').innerText()).indexOf('無法復原') >= 0, '將星錄顯示不可逆提示');
-  await act('[data-a="jxLight"]');
-  ok(await J(function () { return MJ.S.state.jiangxing.lit; }) === 0 && (await page.locator('.confirm-box').innerText()).indexOf('無法復原') >= 0, '點亮前先確認（不可逆）');
+  ok(await page.locator('.jx-combo').count() === 19 && await page.locator('.jx-svg').count() === 0, '顯示 19 組來源組合，移除二十八宿星盤');
+  await act('[data-a="jxHeroUp"][data-v="' + jxTarget.uid + '"]');
+  ok((await page.locator('.confirm-box').innerText()).indexOf('放入後不可取回') >= 0, '將星升級前顯示不可逆確認');
   await act('[data-a="confirmYes"]');
-  ok(await J(function () { return MJ.S.state.jiangxing.lit; }) === 1, '點亮第一顆將星');
-  var jxTxt = await J(function () { var m = document.body.innerText.match(/獻祭將魂換星魂（([^）]*)）/); return m ? m[1] : ''; });
-  ok(/^黑1 白2 綠4 藍8 紫16/.test(jxTxt), '星魂換算文字品質正確（' + jxTxt + '）');
+  ok(await J(function (id) { var h = MJ.S.state.heroes.filter(function (x) { return x.id === id && x.id !== 'lead'; })[0]; return h && h.jxLevel; }, jxTarget.id) === 1, '將星升至 Lv1');
+  ok(await J(function (id) { return MJ.S.state.bag.stack['soul:' + id] || 0; }, jxTarget.id) === 0, '扣除表列同名將魂數 ' + jxTarget.cost);
   await shot('6d-jiangxing');
   await act('[data-a="open"][data-v="codex"]');
   ok(await page.locator('.cdx').count() > 10, '圖鑑顯示武將格');
@@ -235,6 +240,7 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   // 壓力測試：每個單位同時飄出最高的技能名、無雙+、暴擊、大數字
   await J(function () { var BT = MJ.UI._bt ? MJ.UI._bt() : null; [].forEach.call(document.querySelectorAll('.bu:not(.dead)'), function (u) { var k = u.id.slice(1); MJ.UI._floatText(k, '神鬼亂舞斬', 'skillname', 60); MJ.UI._floatText(k, '無雙+35', 'green small', 44); MJ.UI._floatText(k, '暴擊', 'critlab', 38); MJ.UI._floatText(k, '-123456', 'crit'); MJ.UI._floatText(k, '<i class="leaf"></i>+98765', 'heal'); }); });
   await page.waitForTimeout(300);
+  await page.waitForFunction(function () { var top = 0, fade = 0; [].forEach.call(document.querySelectorAll('.bu:not(.dead)'), function (u) { if (parseFloat(u.style.top) + 130 <= 210) { top++; var n = u.querySelector('.bnm'); if (/ ftop/.test(u.className) && n && +getComputedStyle(n).opacity < 0.5) fade++; } }); return top === 0 || fade === top; }, null, { timeout: 500, polling: 50 }).catch(function () {});
   var ftop = await J(function () { var top = 0, fade = 0; [].forEach.call(document.querySelectorAll('.bu:not(.dead)'), function (u) { if (parseFloat(u.style.top) + 130 <= 210) { top++; var n = u.querySelector('.bnm'); if (/ ftop/.test(u.className) && n && +getComputedStyle(n).opacity < 0.5) fade++; } }); return { top: top, fade: fade }; });
   ok(ftop.top === 0 || ftop.fade === ftop.top, '最上排飄字期間淡化名牌以減少重疊（最上排 ' + ftop.top + ' 人，淡化 ' + ftop.fade + '）');
   await page.waitForTimeout(800);
@@ -422,13 +428,18 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   ok(await page.locator('.qiyu-p .tab').count() === 3 && await page.locator('.hrd-pc').count() === 10, '奇遇視窗：三個分頁，華容道 10 塊棋子');
   // 選曹操以外的一塊可動棋子，點方向鍵移動一格
   var mv = await J(function () { var G = MJ.G, b = G.hrd().cur; for (var i = 0; i < b.length; i++) { var d = [[1, 0], [-1, 0], [0, 1], [0, -1]]; for (var k = 0; k < 4; k++) if (G.hrdCanMove(i, d[k][0], d[k][1])) return [i, d[k][0] + ':' + d[k][1]]; } return null; });
-  await act('.hrd-pc[data-v="' + mv[0] + '"]');
-  ok(await page.locator('.hrd-pc.sel').count() === 1, '點選棋子會反白');
-  await act('[data-a="hrdDir"][data-v="' + mv[1] + '"]');
-  ok(await J(function () { return MJ.G.hrd().moves; }) === 1 && (await page.locator('.hrd-moves').innerText()) === '1', '按方向鍵移動一格，步數 +1');
-  await shot('20-qiyu-huarongdao');
-  await act('[data-a="hrdUndo"]');
-  ok(await J(function () { return MJ.G.hrd().hist.length; }) === 0, '悔一步');
+  if (mv) {
+    await act('.hrd-pc[data-v="' + mv[0] + '"]');
+    ok(await page.locator('.hrd-pc.sel').count() === 1, '點選棋子會反白');
+    await act('[data-a="hrdDir"][data-v="' + mv[1] + '"]');
+    ok(await J(function () { return MJ.G.hrd().moves; }) === 1 && (await page.locator('.hrd-moves').innerText()) === '1', '按方向鍵移動一格，步數 +1');
+    await shot('20-qiyu-huarongdao');
+    await act('[data-a="hrdUndo"]');
+    ok(await J(function () { return MJ.G.hrd().hist.length; }) === 0, '悔一步');
+  } else {
+    ok(false, '初始華容道棋盤必須至少有一個可移動棋子');
+    ok(false, '沒有移動記錄時華容道悔棋無法驗收');
+  }
   await act('[data-a="qyTab"][data-v="star"]');
   ok(await page.locator('.star-pt').count() === 7, '觀星台顯示北斗七星');
   await act('.star-pt[data-v="4"]');

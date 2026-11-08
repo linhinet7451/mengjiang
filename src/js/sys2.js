@@ -188,23 +188,38 @@
     G.log(G.nameOf(h) + ' 升到 ' + h.star + ' 階！', 'lv');
     G.commit(); return ok({ star: h.star });
   };
-  // ---------- 將星錄 ----------
-  G.sacrificeSoul = function (id, n) {
-    var s = st(), k = 'soul:' + id, def = R.heroDef(id);
-    n = Math.floor(n || 0);
-    if (!def) return fail('未知武將'); if (n <= 0) return fail('數量錯誤');
-    if (have(k) < n) return fail('將魂不足');
-    take(k, n); var pts = C().soulValue[def.quality] * n; s.player.xinghun += pts;
-    G.commit(); return ok({ pts: pts });
+  G.jxLevelUp = function (uid) {
+    var s = st(), h = G.hero(uid);
+    if (!h) return fail('找不到武將');
+    if (h.id === 'lead') return fail('主角不在來源所列的將星魂量範圍');
+    if (!G.buildingOpen('jiangxing')) return fail('將星錄主角 30 級開放');
+    var level = (h.jxLevel || 0) + 1;
+    if (level > R.jxMaxLevel) return fail('已達將星 Lv18 上限');
+    var cost = R.jxSoulCost(h, level);
+    if (cost == null) return fail('來源未提供此品階升至 Lv' + level + ' 的魂數；不以推算值扣魂');
+    var k = 'soul:' + h.id;
+    if (have(k) < cost) return fail('將魂不足（' + have(k) + '/' + cost + '）');
+    take(k, cost); h.jxLevel = level; count('jxLevelUp');
+    G.commit(); return ok({ level: level, cost: cost, hero: h });
   };
-  G.lightStar = function () {
-    var s = st(), j = s.jiangxing;
-    if (j.lit >= R.jxMax) return fail('將星已全部點亮');
-    var star = R.jxStar(j.lit);
-    if (s.player.xinghun < star.cost) return fail('星魂不足（需要 ' + star.cost + '）');
-    s.player.xinghun -= star.cost; j.lit++;
-    G.log('點亮將星「' + star.name + '」：全隊' + (MJ.UI && MJ.UI.STAT_NAMES ? MJ.UI.STAT_NAMES[star.k] : star.k) + ' +' + star.pct + '%', 'lv');
-    G.commit(); return ok({ star: star });
+  G.jxLevelTotal = function () {
+    var n = 0; U.each(st().heroes || [], function (h) { if (h && h.id !== 'lead') n += h.jxLevel || 0; }); return n;
+  };
+  G.jxComboStatus = function (id) {
+    var list = C().jiangxing && C().jiangxing.combos || [], combo = U.find(list, function (x) { return x.id === id; });
+    if (!combo) return { state: 'unknown', combo: null, missing: [] };
+    if (!combo.requirements || !combo.requirements.length) return { state: 'unknown', combo: combo, missing: [] };
+    var heroes = st().heroes || [], used = {}, missing = [];
+    U.each(combo.requirements, function (req) {
+      var found = U.find(heroes, function (h) {
+        if (!h || h.id === 'lead' || used[h.uid] || (h.jxLevel || 0) < req.level) return false;
+        var def = R.heroDef(h.id);
+        return req.hero ? h.id === req.hero : (!!def && req.type && def.type === req.type);
+      });
+      if (found) used[found.uid] = true;
+      else missing.push(req);
+    });
+    return { state: missing.length ? 'incomplete' : 'ready', combo: combo, missing: missing };
   };
   // ---------- 圖鑑 ----------
   G.codexCount = function () { return U.keys(st().codex).length; };
@@ -224,7 +239,7 @@
     if (c.plus) return !!U.find(s.heroes.concat([]), function (h) { return U.find(R.SLOTS, function (sl) { return h.eq[sl] && h.eq[sl].plus >= c.plus; }); }) || !!U.find(s.bag.equips, function (e) { return e.plus >= c.plus; });
     if (c.skill) return !!U.find(s.heroes, function (h) { return h.sk && (h.sk.a >= c.skill || h.sk.u >= c.skill || h.sk.p >= c.skill); });
     if (c.peiyang) return (s.counters.peiyang || 0) >= c.peiyang;
-    if (c.stars) return s.jiangxing.lit >= c.stars;
+    if (c.stars) return G.jxLevelTotal() >= c.stars;
     if (c.codex) return G.codexCount() >= c.codex;
     if (c.tower) return ((s.tower && s.tower.best) || 0) >= c.tower;
     return oldDone(t);

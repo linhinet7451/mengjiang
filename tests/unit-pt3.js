@@ -109,10 +109,14 @@ ok(M.D.heroes.list.every(function (d) { return ['力敏', '力耐', '智敏', '�
 ok(M.D.config.leadTypes['敏耐'] != null, '主角仍可選敏耐（B：主角可配點成敏耐）');
 ok(R.dtypeOf(R.heroDef('duanyu').type) === 'p' && R.dtypeOf(R.heroDef('ganning').type) === 'p', '段譽（v9 力敏）、甘寧改物理傷害');
 
-console.log('[將星錄：不可逆]');
-c = fresh(); M = c.MJ; G = M.G; S = M.S;
-S.state.player.xinghun = 9999; G.lightStar(); var lit = S.state.jiangxing.lit;
-ok(lit === 1 && typeof G.unlightStar === 'undefined', '點亮後沒有復原功能');
+console.log('[將星錄：來源魂升級不可逆]');
+c = fresh(); M = c.MJ; G = M.G; R = M.R; S = M.S;
+G.lead().lv = 30;
+var jxh = G.newHero('caocao', S.state); S.state.heroes.push(jxh);
+G.addItem('soul:caocao', R.jxSoulCost(jxh, 1));
+var jxu = G.jxLevelUp(jxh.uid);
+ok(jxu.ok && jxh.jxLevel === 1 && typeof G.unJxLevel === 'undefined', '依來源魂量升至 Lv1，且沒有退回功能');
+ok(typeof G.lightStar === 'undefined' && typeof G.unlightStar === 'undefined', '二十八宿點亮／復原 API 已退役');
 
 console.log('[存檔 v5 → v6 遷移]');
 var txt = fs.readFileSync(path.join(__dirname, 'fixtures', 'save-v5.json'), 'utf8');

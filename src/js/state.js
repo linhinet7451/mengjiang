@@ -3,7 +3,7 @@ MJ.S = (function () {
   var S = {}, U = MJ.U;
   S.KEY = 'mjws_save';
   S.BACKUP_KEY = 'mjws_save_backup';
-  S.VERSION = 10; // v10=網路資料搜查-2 P2（陣法 8 格、被動兩格、連攜、補將） v9=網路資料搜查-2 還原（品質類型修正、被動兩格、陣法、連攜、經驗表、合成公式、六等範圍） v8=P5（8 部位、主角升階、上古寶窟、等級上限 90） v7=P4（被動擴充、新屬性、PVP 戰報） v6=P3（將魂合成、榮譽培養、敏耐轉型） v1=第一階段 v2=第二階段養成 v3=第三階段副本與經濟 v4=第四階段音效與拜訪武將 v5=原版還原 P2（取消精力與現實時間等待）
+  S.VERSION = 11; // v11=P3-3～P3-5（開放等級、經驗來源表、將星組合／魂量與舊星盤退款）；v10=網路資料搜查-2 P2（陣法 8 格、被動兩格、連攜、補將） v9=網路資料搜查-2 還原（品質類型修正、被動兩格、陣法、連攜、經驗表、合成公式、六等範圍） v8=P5（8 部位、主角升階、上古寶窟、等級上限 90） v7=P4（被動擴充、新屬性、PVP 戰報） v6=P3（將魂合成、榮譽培養、敏耐轉型） v1=第一階段 v2=第二階段養成 v3=第三階段副本與經濟 v4=第四階段音效與拜訪武將 v5=原版還原 P2（取消精力與現實時間等待）
   S.RELEASE = '正式版（第五階段＋奇遇）';
   S.APP = 'mengjiang-remake';
   S.state = null;
@@ -49,12 +49,12 @@ MJ.S = (function () {
   function def(o, k, v) { if (o[k] == null) o[k] = v; return o[k]; }
   S.equipDefaults = function (e) { if (!e) return e; def(e, 'plus', 0); def(e, 'aff', []); def(e, 'gems', []); return e; };
   S.heroDefaults = function (h) {
-    def(h, 'eq', {}); def(h, 'sk', { a: 1, u: 1, p: 1 }); def(h, 'py', { str: 0, int: 0, agi: 0, con: 0 }); def(h, 'xf', []); def(h, 'star', 0);
+    def(h, 'eq', {}); def(h, 'sk', { a: 1, u: 1, p: 1 }); def(h, 'py', { str: 0, int: 0, agi: 0, con: 0 }); def(h, 'xf', []); def(h, 'star', 0); def(h, 'jxLevel', 0);
     U.each(U.keys(h.eq), function (k) { S.equipDefaults(h.eq[k]); });
     return h;
   };
   S.applyDefaults = function (st) {
-    def(st, 'codex', {}); def(st, 'jiangxing', { lit: 0, pts: 0 });
+    def(st, 'codex', {}); def(st, 'jiangxing', { lit: 0, pts: 0 }); def(st, 'buildingUnlocks', {});
     def(st, 'counters', {});
     if (st.player) def(st.player, 'xinghun', 0);
     if (st.settings) def(st.settings, 'econ', st.settings.energyMode === 'fast' ? 'fast' : 'std');
@@ -91,6 +91,24 @@ MJ.S = (function () {
       // 簽到改為依序計次
       if (st.sign && st.sign.days) { var n = st.sign.days.length, d = []; for (var i = 1; i <= n; i++) d.push(i); st.sign.days = d; }
       if (st.daily && st.daily.round == null) st.daily.round = 1;
+    },
+    10: function (st) { // v10→v11：原版組合資料、將星魂等級與舊二十八宿餘額退款
+      var j = st.jiangxing || { lit: 0, pts: 0 }, rawLit = j.lit || 0, lit = Math.floor(rawLit), refund = 0, lead = null;
+      if (lit < 0 || lit > 56 || lit !== rawLit) throw new Error('舊星盤點亮數超出 0–56，停止升版以免退款錯誤');
+      if (lit > 0 && !st.player) throw new Error('舊存檔缺少玩家資源欄位，停止升版以免遺失星魂退款');
+      if (!j.migratedV11) {
+        for (var i = 0; i < lit; i++) refund += 10 + 8 * i; // v10 舊本作：costBase 10 + costStep 8 × index
+        if (st.player) st.player.xinghun = (st.player.xinghun || 0) + refund;
+        j.legacyStarsRefunded = lit; j.legacySoulRefunded = refund; j.migratedV11 = true;
+        if (lit || refund) st.migrateNotes = (st.migrateNotes || []).concat(['P3-5：舊二十八宿已點亮 ' + lit + ' 顆，依原本作成本退回 ' + refund + ' 星魂；既有星魂餘額保留。']);
+      }
+      j.lit = 0;
+      U.each(st.heroes || [], function (h) { if (h && h.id === 'lead') lead = h; });
+      st.buildingUnlocks = st.buildingUnlocks || {};
+      if (lit > 0 || (lead && lead.lv >= 16)) st.buildingUnlocks.jiangxing = true; // 舊版 16 級門檻下已能進入者不被新門檻鎖回
+      st.jiangxing = j;
+      U.each(st.heroes || [], function (h) { if (h) { if (h.jxLevel == null) h.jxLevel = 0; } });
+      st.migrateNotes = (st.migrateNotes || []).concat(['P3-3：已保留舊版將星錄存取權；既有主角等級／經驗不降級或清除。']);
     }
   };
   // 遷移：舊版本存檔逐步升級
@@ -100,8 +118,15 @@ MJ.S = (function () {
     if (st.version > S.VERSION) return st; // 交給 validate 回報
     if (st.version < S.VERSION && !st.migratedFrom) st.migratedFrom = st.version;
     // 逐版升級步驟（每一步只做該版本需要的轉換；欄位補齊統一交給 applyDefaults）
-    for (var v = st.version; v < S.VERSION; v++) if (S.STEPS[v]) { try { S.STEPS[v](st); } catch (e) { /* 單一步驟失敗不影響其餘欄位補齊 */ } }
-    S.applyDefaults(st);
+    for (var v = st.version; v < S.VERSION; v++) {
+      if (S.STEPS[v]) {
+        try { S.STEPS[v](st); }
+        catch (e) { st.version = v; throw new Error('v' + v + '→v' + (v + 1) + ' 存檔遷移失敗：' + (e && e.message || e)); }
+      }
+      st.version = v + 1;
+    }
+    try { S.applyDefaults(st); }
+    catch (e2) { throw new Error('存檔欄位補齊失敗：' + (e2 && e2.message || e2)); }
     st.version = S.VERSION;
     return st;
   };
@@ -112,7 +137,9 @@ MJ.S = (function () {
     var obj;
     try { obj = JSON.parse(text); } catch (e) { return { ok: false, errors: ['不是有效的 JSON 檔案'] }; }
     if (!obj || obj.app !== S.APP || !obj.data) return { ok: false, errors: ['不是《猛將無雙》重製版的存檔'] };
-    var st = S.migrate(obj.data);
+    var st;
+    try { st = S.migrate(obj.data); }
+    catch (e) { return { ok: false, errors: [e && e.message || '存檔遷移失敗'] }; }
     var errs = S.validate(st);
     if (errs.length) return { ok: false, errors: errs };
     return { ok: true, state: st, savedAt: obj.savedAt };

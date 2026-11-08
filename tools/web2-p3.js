@@ -2,7 +2,7 @@
 // 來源列只提供基準點；中間等級插值與 cap 套用範圍另列 C/D，不冒充原始證據。
 var fs = require('fs'), path = require('path');
 module.exports = function (o) {
-  var H = o.H, entry = o.entry, LB = o.LB;
+  var H = o.H, C = o.C, entry = o.entry, conflict = o.conflict, LB = o.LB;
   var sourcePath = path.join(__dirname, '..', 'docs', 'sources-extracted', 'web2', 'c-snA967-skills.json');
   var rows = JSON.parse(fs.readFileSync(sourcePath, 'utf8'));
   var gridPath = path.join(__dirname, '..', 'docs', 'sources-extracted', 'web2', 'c-snA967-grids.json');
@@ -136,5 +136,26 @@ module.exports = function (o) {
   entry({ id: 'web2.skill.ultProgression', cat: '技能', item: '無雙技能升級曲線', spec: '無雙基準 c+10', current: '來源替換無雙基準倍率與固定值；升級時沿用既有 6% 倍率／10% 固定值成長，因來源未提供完整逐級表，仍屬本作 D 級曲線。', grade: 'D', label: LB.D, sources: [{ s: 'W967', q: '表 5：無雙技能倍率基準' }], phase: 'web2-P3' });
   entry({ id: 'web2.skill.capObserved', cat: '技能', item: '截圖可見的技能傷害上限', spec: '楊過普攻 Lv6 上限 6000；劉備無雙 Lv1 上限 3000', current: '只套用到楊過 active 與劉備 ult；劉備無雙按截圖恢復為對敵全體攻擊。', grade: 'A', label: LB.A, sources: [{ s: 'W282', q: '楊過 Lv6 傷害上限 6000；劉備無雙 Lv1 傷害上限 3000、9 個目標' }], phase: 'web2-P3' });
   entry({ id: 'web2.skill.capRule', cat: '技能', item: '傷害上限引擎解讀', spec: '依截圖上限', current: '上限按每一目標的單次最終傷害套用（防禦、暴擊與增減傷計算後）；不跨目標累加，也不套用於治療／持續傷害。', grade: 'C', label: LB.C, sources: [{ s: 'W282', q: '截圖有上限數值，但未說明是單次、總傷害或計算階段；此為引擎解讀' }], phase: 'web2-P3', note: '上限作用範圍是明確的本作解讀，不聲稱原作證據已定義。' });
-  return { mapped: mapped, rows: Object.keys(rows).length, ids: used, ranges: ranges, fallbackRanges: fallbackRanges };
+
+  // P3-3～P3-5：僅把可取得的原始資料寫入 runtime；不替缺值補算。
+  var p3facts = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'docs', 'sources-extracted', 'web2', 'c-p3-3-5.json'), 'utf8'));
+  var openRows = p3facts.buildingOpenLevels.filter(function (x) { return x.implemented; });
+  openRows.forEach(function (x) { if (!C.buildings[x.key]) throw new Error('P3-3 找不到建築設定：' + x.key); C.buildings[x.key].open = x.level; });
+  entry({ id: 'web2.building.openLevels', cat: '建築', item: '已實作建築開放等級', spec: 'G2 sn=41', current: '無極幻境 12、通天塔 22、將星錄 30；其他原版社群／尚未實作建築僅記於來源摘錄，不新增入口。', grade: 'B', label: LB.B, sources: [{ s: 'S1', q: '無極幻境 12、通天塔 22、將星錄 30 級開放' }], phase: 'web2-P3-3', note: '舊存檔曾依本作舊門檻開放的將星錄，由 v10→v11 遷移保留存取。' });
+  entry({ id: 'web2.building.jiangxingStages', cat: '建築', item: '將星錄分段', spec: '30/45/60/75/80', current: '門檻表記為 30、45、60、75、80；原文只說每到一階段可多開將星錄，本作未據此猜測每段數量或效果。', grade: 'B', label: LB.B, sources: [{ s: 'S1', q: '30,45,60,75,80 為一個階段；等級未到開了也多不了一個將星錄' }], phase: 'web2-P3-3' });
+
+  C.expTable = { minLevel: p3facts.experience.minLevel, maxLevel: p3facts.experience.maxLevel, values: p3facts.experience.values.slice(), tailRate: 0.05 };
+  if (C.expTable.values.length !== 73 || C.expTable.values[65] !== C.expTable.values[66]) throw new Error('P3-4 經驗表長度／Lv72-73 原文值不一致');
+  entry({ id: 'web2.exp.levels', cat: '經驗', item: '逐級升級經驗 Lv7–79', spec: 'G2 sn=6', current: '73 級直接採表；原文 Lv72 與 Lv73 都是 892766，照錄，不修正。', grade: 'B', label: LB.B, sources: [{ s: 'W6', q: '每等級升級所需經驗值 7–79' }], phase: 'web2-P3-4', note: '原文另列 7 至若干等級的階級累計值；遊戲使用逐級表，不把兩種欄位混用。' });
+  entry({ id: 'web2.exp.edges', cat: '經驗', item: '來源表外等級經驗', spec: 'Lv1–6、Lv80–90', current: 'Lv1–6 沿用既有低階公式；Lv80–90 以 Lv79 原表值為錨，每級 ×1.05。均標 D，不冒充原版逐級值。', grade: 'D', label: LB.D, sources: [], phase: 'web2-P3-4', note: '尾段採單調遞增的暫定外插政策；若找到原表，直接替換並保留舊存檔等級。' });
+
+  C.jiangxing = { soulCostsByLevel: p3facts.jiangxing.soulCostsByLevel, combos: p3facts.jiangxing.combinations };
+  entry({ id: 'web2.jiangxing.comboNames', cat: '將星錄', item: '原版組合名稱', spec: 'G2 sn=41/47/60', current: p3facts.jiangxing.combinations.map(function (x) { return x.name; }).join('、'), grade: 'B', label: LB.B, sources: [{ s: 'S1', q: '將星錄段落列出推薦組合名稱' }, { s: 'W47', q: '新增之將星錄組合名稱' }, { s: 'W60', q: '曹魏英豪、嵩山劍氣、世外高人、妻妾成群等相關將魂記載' }], phase: 'web2-P3-5' });
+  entry({ id: 'web2.jiangxing.comboDetails', cat: '將星錄', item: '組合條件與效果文字', spec: 'G2 sn=47/41/60', current: '傲血忠魂、天山霜雪有可直接抄錄的條件與效果；其他組合只有部分條件、推薦或名稱，缺項留白。效果文字只供參考，本版不套入戰鬥。', grade: 'C', label: LB.C, sources: [{ s: 'W47', q: '部分新增組合含條件與效果' }, { s: 'S1', q: '組合名稱及分段說明' }, { s: 'W60', q: '部分組合所需武將／不可合成提示' }], phase: 'web2-P3-5', note: '只有完整列明的兩組條件才判斷進度；組合效果的受益角色與屬性套用時點未充分說明。' });
+  entry({ id: 'web2.jiangxing.combatEffects', cat: '將星錄', item: '原版組合效果戰鬥套用', spec: 'P3-5', current: '來源效果字串只在組合卡片呈現；本版所有組合效果均未加進戰鬥屬性，避免自行推斷受益角色、屬性累加時點或效果持續規則。', grade: 'D', label: LB.D, sources: [{ s: 'W47', q: '列出部分效果數值，但未完整描述戰鬥屬性的對應欄位、受益範圍與套用時點' }], phase: 'web2-P3-5', note: '若取得直接玩法證據，再以結構化 bonus 欄位實作並補戰鬥快照測試。' });
+  entry({ id: 'web2.jiangxing.soulCosts', cat: '將星錄', item: '白／綠／藍／30 紫／45 紫升至 Lv18 所需魂', spec: 'G2 sn=53，對照 sn=48', current: '逐級資料照錄；空白保持 null。綠魂資料列到 Lv18，其他品階只到原表有值的等級。', grade: 'B', label: LB.B, sources: [{ s: 'W53', q: '白／綠／藍／30 紫／45 紫逐級所需魂數表' }, { s: 'W48', q: '1-2、2-3 等升級區間所需魂數；局部對照' }], conflicts: ['P3R-JX-WHITE-L10'], phase: 'web2-P3-5', note: '升至該級的消耗；空白不外推。白魂 Lv10 來源差異另留 C 級欄位。' });
+  conflict({ id: 'P3R-JX-WHITE-L10', item: '白魂升到 Lv10 所需魂數', sides: [{ claim: '11 魂', sources: ['W53'], date: '2012-12-16' }, { claim: '10 魂（9-10 升級）', sources: ['W48'], date: '2012-11-26' }], handling: 'runtime 表留 null，暫不允許依猜值升至白魂 Lv10；兩個原值與來源均保留。', status: '待補原圖或直接證據（web2-P3-5）' });
+  entry({ id: 'web2.jiangxing.soulCosts.white10', cat: '將星錄', item: '白魂 Lv10 所需魂數', spec: 'W48／W53', current: 'null（衝突未裁決，升級不猜值）', grade: 'C', label: LB.C, sources: [{ s: 'W53', q: 'Lv10 欄 11 魂' }, { s: 'W48', q: '9-10 欄 10 魂' }], conflicts: ['P3R-JX-WHITE-L10'], phase: 'web2-P3-5' });
+  entry({ id: 'web2.jiangxing.legacyRefund', cat: '存檔', item: '舊二十八宿星盤遷移', spec: 'v10→v11', current: '將舊星盤已點亮顆數依舊本作成本全數折回星魂餘額；原有餘額保留，舊星盤加成停止套用。', grade: 'D', label: LB.D, sources: [], phase: 'web2-P3-5', note: '這是存檔相容政策，不是原作規則。' });
+  return { mapped: mapped, rows: Object.keys(rows).length, ids: used, ranges: ranges, fallbackRanges: fallbackRanges, openLevels: openRows.length, expLevels: C.expTable.values.length, combos: C.jiangxing.combos.length };
 };

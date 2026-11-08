@@ -1,0 +1,120 @@
+{
+  "sources": {
+    "W6": {
+      "title": "【情報】武將升級所需經驗 以及 各等級階段所需經驗值",
+      "url": "https://forum.gamer.com.tw/G2.php?bsn=22512&sn=6",
+      "author": "不知所云（anice0004720）",
+      "date": "2012-06-22",
+      "region": "台版；原文註明逐級表為對岸資料、階級合計為作者統計",
+      "grade": "B"
+    },
+    "W47": {
+      "title": "【情報】新增之將星錄",
+      "url": "https://forum.gamer.com.tw/G2.php?bsn=22512&sn=47",
+      "author": "☆猖獗☆（diabl9ooo）",
+      "date": "2012-11-26",
+      "region": "台版",
+      "grade": "B"
+    },
+    "W48": {
+      "title": "【討論】將星錄 武將升級 所需將魂數 資料補完計劃!!",
+      "url": "https://forum.gamer.com.tw/G2.php?bsn=22512&sn=48",
+      "author": "賀賀（gadder）",
+      "date": "2012-11-26",
+      "region": "台版；表格有空白與欄位對齊不明處",
+      "grade": "B"
+    },
+    "W53": {
+      "title": "【問題】將星等級所需魂數",
+      "url": "https://forum.gamer.com.tw/G2.php?bsn=22512&sn=53",
+      "author": "Will（willwillhi）",
+      "date": "2012-12-16",
+      "region": "台版",
+      "grade": "B"
+    },
+    "W60": {
+      "title": "【心得】哪些將魂可以合，那些不能合吧",
+      "url": "https://forum.gamer.com.tw/G2.php?bsn=22512&sn=60",
+      "author": "Will（willwillhi；轉貼百度文章）",
+      "date": "2012-12-29",
+      "region": "台版轉貼陸版資料",
+      "grade": "B"
+    },
+    "S1": {
+      "title": "【心得】1~60以後全攻略 內有你等不知道的小撇步",
+      "url": "https://forum.gamer.com.tw/G2.php?bsn=22512&sn=41",
+      "author": "賀賀（gadder）",
+      "date": "2013-02-17",
+      "region": "台版",
+      "grade": "B"
+    }
+  },
+  "buildingOpenLevels": [
+    {"key":"honorTrial","name":"榮譽試煉","level":8,"source":"S1","implemented":false},
+    {"key":"honorShop","name":"榮譽商城","level":8,"source":"S1","implemented":false},
+    {"key":"wuji","name":"無極幻境","level":12,"source":"S1","implemented":true},
+    {"key":"guild","name":"公會","level":15,"source":"S1","implemented":false},
+    {"key":"league","name":"聯賽","level":20,"source":"S1","implemented":false},
+    {"key":"totem","name":"圖騰","level":20,"source":"S1","implemented":false},
+    {"key":"tongtian","name":"通天塔","level":22,"source":"S1","implemented":true},
+    {"key":"shanggu","name":"上古寶窟","level":25,"source":"S1","implemented":false},
+    {"key":"jiangxing","name":"將星錄","level":30,"stages":[30,45,60,75,80],"source":"S1","implemented":true},
+    {"key":"huarong","name":"華容道","level":30,"source":"S1","implemented":false},
+    {"key":"wulin","name":"武林大會","level":35,"source":"S1","implemented":false},
+    {"key":"tongque","name":"銅雀台","level":35,"source":"S1","implemented":false},
+    {"key":"observatory","name":"觀星台","level":40,"source":"S1","implemented":false},
+    {"key":"xuanji","name":"玄機盤","level":50,"source":"S1","implemented":false},
+    {"key":"demonHall","name":"除魔殿","level":65,"source":"S1","implemented":false}
+  ],
+  "experience": {
+    "minLevel": 7,
+    "maxLevel": 79,
+    "values": [160,225,240,840,1070,1145,1210,1285,1305,3310,3485,3665,3850,4610,6035,6350,6580,6860,7145,7600,11835,12290,15290,16070,19960,20340,23880,27830,31450,37360,38500,39650,40800,41970,43140,55410,56900,58400,68470,70210,71960,73720,75490,96590,98830,134790,137810,140850,143910,161680,165080,168500,171930,210470,214630,218820,223030,227250,309222,314921,320659,326411,332203,830732,863266,892766,892766,907598,999358,1138706,1171785,1190306,1390253],
+    "source":"W6",
+    "grade":"B",
+    "notes":["原文表格保留 Lv72=892766 與 Lv73=892766；此重複值可能是原表問題，但未自行修正。","原文另列階級累計經驗，未用來取代逐級數值。"]
+  },
+  "jiangxing": {
+    "soulCostsByLevel": {
+      "white": [1,2,3,4,5,6,7,8,9,null,29,36,null,null,null,null,null,null],
+      "green": [1,4,8,12,13,15,30,35,46,76,225,314,430,550,null,null,1081,1407],
+      "blue": [1,8,19,37,38,39,40,56,74,75,185,278,279,371,null,null,null,null],
+      "purple30": [1,6,13,21,57,58,59,64,85,86,142,143,177,178,355,427,852,null],
+      "purple45": [1,13,32,69,70,138,139,206,207,275,276,344,345,688,689,null,null,null]
+    },
+    "soulCostsSources": ["W53","W48"],
+    "soulCostsGrade": "B",
+    "soulCostsNotes": [
+      "表格數字視為升至該級所需魂數；W48 的 1-2、2-3 等轉級數與 W53 多數列可對照。空白欄不補算。",
+      "白魂 Lv10 有來源衝突：W53 逐級表為 11 魂；W48 轉級表 9-10 欄列 10 魂。實作資料留 null，待查原圖或更多直接證據。",
+      "紫魂依 30 魂／45 魂兩組保留；武將目前有魂量來源衝突者沿用專案既有 C 級分類，不在此輪重定義。"
+    ],
+    "combinations": [
+      {"id":"aoxuezhonghun","name":"傲血忠魂","nameSource":"W47","requirement":"力耐 L1 + 智敏 L2","requirements":[{"type":"力耐","level":1},{"type":"智敏","level":2}],"effect":"物攻 +17","sources":["W47"],"grade":"B","detailsComplete":true},
+      {"id":"yuexiawujian","name":"月下舞劍","nameSource":"S1","requirement":null,"requirements":null,"effect":null,"sources":["S1","W60"],"grade":"B","detailsComplete":false},
+      {"id":"tiangongjiangjun","name":"天公將軍","nameSource":"S1","requirement":null,"requirements":null,"effect":null,"sources":["S1"],"grade":"B","detailsComplete":false},
+      {"id":"hongxiutianxiang","name":"紅袖添香","nameSource":"S1","requirement":null,"requirements":null,"effect":null,"sources":["S1"],"grade":"B","detailsComplete":false},
+      {"id":"baizhanjiangjun","name":"百戰將軍","nameSource":"S1","requirement":null,"requirements":null,"effect":null,"sources":["S1"],"grade":"B","detailsComplete":false},
+      {"id":"titianxingdao","name":"替天行道","nameSource":"S1","requirement":null,"requirements":null,"effect":null,"sources":["S1"],"grade":"B","detailsComplete":false},
+      {"id":"liudatianwang","name":"六大天王","nameSource":"S1","requirement":"張角、邱處機、岳靈珊、鹿杖客、華雄、蔡文姬；各自所需星級未列","requirements":null,"effect":null,"sources":["S1"],"grade":"B","detailsComplete":false},
+      {"id":"jingangshenlidan","name":"金剛神力丸","nameSource":"S1","requirement":null,"requirements":null,"effect":null,"sources":["S1"],"grade":"B","detailsComplete":false},
+      {"id":"sanfeng","name":"三風","nameSource":"S1","requirement":null,"requirements":null,"effect":null,"sources":["S1"],"grade":"B","detailsComplete":false},
+      {"id":"wuyuemengzhu","name":"五嶽盟主","nameSource":"S1","requirement":null,"requirements":null,"effect":null,"sources":["S1"],"grade":"B","detailsComplete":false},
+      {"id":"xiongbayifang","name":"雄霸一方","nameSource":"S1","requirement":null,"requirements":null,"effect":null,"sources":["S1"],"grade":"B","detailsComplete":false},
+      {"id":"wuhumingjiang","name":"五虎名將","nameSource":"S1","requirement":null,"requirements":null,"effect":null,"sources":["S1"],"grade":"B","detailsComplete":false},
+      {"id":"caoweiyinghao","name":"曹魏英豪","nameSource":"S1","requirement":"W60 說曹豹、曹德、曹昂、曹節是必備魂並至少 Lv7；丁管與汗貼摩的段落沒有證明其為此組完整條件","requirements":null,"effect":null,"sources":["S1","W60"],"grade":"B","detailsComplete":false},
+      {"id":"songshanjianqi","name":"嵩山劍氣","nameSource":"S1","requirement":"W60 列任我行、岳靈珊、左冷禪、令狐沖；岳靈珊至少 Lv11，其餘等級未列","requirements":null,"effect":null,"sources":["S1","W60"],"grade":"B","detailsComplete":false},
+      {"id":"shiwai_gaoren","name":"世外高人","nameSource":"S1","requirement":"W60 列梅超風、滅絕師太、李莫愁、天山童姥、李秋水；等級未列，且與天山霜雪有資源衝突","requirements":null,"effect":null,"sources":["S1","W60"],"grade":"B","detailsComplete":false},
+      {"id":"qieqichengqun","name":"妻妾成群","nameSource":"S1","requirement":"W60 列韋小寶、建寧、阿珂；各自所需星級未列","requirements":null,"effect":null,"sources":["S1","W60"],"grade":"B","detailsComplete":false},
+      {"id":"tianshanshuangxue","name":"天山霜雪","nameSource":"W47","requirement":"天山童姥 L2 + 許褚 L2 + 孫策 L2","requirements":[{"hero":"tianshantonglao","level":2},{"hero":"xuchu","level":2},{"hero":"sunce","level":2}],"effect":"法攻 +27、法防 +23、敏捷 +20","sources":["W47","W60"],"grade":"B","detailsComplete":true},
+      {"id":"qianjiaobaimei","name":"千嬌百媚","nameSource":"S1","requirement":"W60 提到蔡文姬為相關將魂；完整條件與等級未列","requirements":null,"effect":null,"sources":["S1","W60"],"grade":"B","detailsComplete":false},
+      {"id":"yumao_xianzi","name":"玉貌仙姿","nameSource":"S1","requirement":"W60 提到王語嫣為相關將魂；完整條件與等級未列","requirements":null,"effect":null,"sources":["S1","W60"],"grade":"B","detailsComplete":false}
+    ],
+    "combinationSourceNotes": [
+      "S1 列出將星錄名稱與分段等級，但沒有完整描述 19 組的條件與數值效果。",
+      "W47 明列部分組合的條件與效果；本目標清單僅採用傲血忠魂與天山霜雪的明確欄位，其餘 W47 內容不混入清單。",
+      "W60 的文字能支持若干將魂與等級線索，但對部分組合只說明不可合成／推薦，不能當成完整啟動條件。",
+      "W47 的效果數字未充分說明受益角色範圍與套用時點；本版所有組合效果只展示原文，不套入戰鬥屬性。"
+    ]
+  }
+}

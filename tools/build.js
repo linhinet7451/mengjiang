@@ -11,7 +11,8 @@ function inline(html) {
   html = html.replace(/<!--INLINE_JS_START-->[\s\S]*?<!--INLINE_JS_END-->/, function (blk) {
     var out = '';
     blk.replace(/src="([^"]+\.js)"/g, function (m, f) {
-      var code = fs.readFileSync(path.join(SRC, f), 'utf8').replace(/<\/script/gi, '<\\/script');
+      // Keep readable source files; omit only standalone // comment lines in the single-file distribution.
+      var code = fs.readFileSync(path.join(SRC, f), 'utf8').replace(/<\/script/gi, '<\\/script').replace(/^\s*\/\/[^\n]*(?:\n|$)/gm, '');
       code.split('/*@@CHUNK*/').forEach(function (part, i) { out += '<script>/* ' + f + (i ? ' #' + (i + 1) : '') + ' */\n' + part + '\n</script>\n'; });
     });
     return out;

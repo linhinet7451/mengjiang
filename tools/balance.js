@@ -18,7 +18,6 @@ function profile(kind, L) {
     gearQ: typ ? (L < 15 ? 1 : L < 35 ? 2 : 3) : (L < 25 ? 0 : L < 45 ? 1 : 2),
     plus: Math.floor(L / (typ ? 5 : 9)),
     sk: Math.min(9, 1 + Math.floor(L / (typ ? 6 : 10))),
-    jx: Math.min(R.jxMax, Math.max(0, Math.floor((L - 16) * (typ ? 0.9 : 0.4)))),
     codex: Math.min(60, Math.floor(3 + L * (typ ? 0.8 : 0.4))),
     py: Math.floor(L * (typ ? 0.6 : 0.25))
   };
@@ -54,7 +53,6 @@ function playerTeam(kind, L, seed) {
     h.py = { str: p.py / 2 | 0, int: p.py / 2 | 0, agi: p.py / 2 | 0, con: p.py / 2 | 0 };
     s.heroes.push(h); s.team.cells[order[ci++]] = h.uid;
   });
-  s.jiangxing.lit = p.jx;
   for (var n = 0; n < p.codex; n++) s.codex['sim' + n] = 1;
   return G.buildTeam();
 }

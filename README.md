@@ -33,7 +33,7 @@ https://linhinet7451.github.io/mengjiang/
    - 「訓練」分頁可讓一名武將掛機獲得經驗。
    - 傷害分三種：力系＝物理（對物防）、智系＝法術（對法防）、敏系＝絕技（對絕技防）。
 4b. **神兵坊**（5 級開放）：強化（上限＝神兵坊等級，+5 以下必成功，失敗不掉級）、洗煉（附加屬性，可保留或放棄）、鑲嵌（依品質 1/1/2/3 孔，同類寶石限 1 顆；摘除符可保留寶石）、寶石合成（4 合 1，最高 6 級）。
-4c. **將星錄**（16 級開放）：二十八宿星盤，共 56 顆；用星魂點亮，每顆給全隊戰鬥屬性 %。將魂可獻祭換星魂。內含**武將圖鑑**：每收錄一名武將，全隊四維戰鬥屬性 +0.2%（上限 15%）。
+4c. **將星錄**（主角 30 級開放）：顯示原版攻略記載的 19 組將星組合，並可消耗同名將魂提升武將將星等級（各品階依來源表，最高記載 Lv18；來源缺值不可升級）。只有兩組來源完整的條件會顯示進度，其餘缺值明示未知。所有組合效果（包括原文列出的數字）目前只顯示來源文字，尚未套入戰鬥屬性。舊版二十八宿星盤投入會在存檔遷移時折回星魂餘額；已在舊 16 級門檻下解鎖者保留入口。內含**武將圖鑑**：每收錄一名武將，全隊四維戰鬥屬性 +0.2%（上限 15%）。
    - 武將可以出戰或休息。
 5. **陣法**：在底部列開啟，選擇陣型（方圓、魚鱗……），把武將放到格子上。可上陣人數隨主角等級增加：Lv1 3 人，15/25/35/45/55/65 級各 +1，最多 9 人（9 人時九宮格全開）。陣法加成會實際套用到全隊。
 6. **虛空之門**：
@@ -65,7 +65,7 @@ https://linhinet7451.github.io/mengjiang/
 - 「設置」裡可以：
   - 立即存檔。
   - 匯出存檔：產生文字，可以複製。
-  - 匯入存檔：會檢查格式與版本，錯誤時拒絕匯入並提示。
+  - 匯入存檔：會檢查格式與版本；升級步驟失敗時保留舊版本並拒絕匯入，不會把部分轉換的存檔假標為新版。
   - 刪除存檔重來。
 - 遇到未預期的錯誤時會顯示錯誤畫面，提供「重新開始」「顯示存檔文字（備份用）」「刪除存檔重來」三個按鈕，不會只留下白畫面。
 
@@ -77,12 +77,13 @@ https://linhinet7451.github.io/mengjiang/
 - 聚賢莊：刷新、招募確認、招募結果、解僱、將魂召喚。
 - 神武殿：裝備、技能、訓練分頁；穿脫裝備；一鍵最強。
 - 陣法與上陣（9 格）。
-- 第二階段養成：技能升級與「·神」、培養、心法、升階、神兵坊（強化／洗煉／鑲嵌／合成）、將星錄、圖鑑、三種傷害類型（`tests/unit-p2.js` 56 項＋端對端）。
+- 第二階段養成：技能升級與「·神」、培養、心法、升階、神兵坊（強化／洗煉／鑲嵌／合成）、將星錄、圖鑑、三種傷害類型（`tests/unit-p2.js` 54 項＋端對端）。
+- P3-3～P3-5 原版資料：無極／通天／將星錄開放等級、sn=6 Lv7–79 經驗表、19 組將星組合與五種魂量表；v10→v11 退回舊二十八宿投入並保留既有入口／等級。白魂 Lv10 的 sn=48／53 差異保留 null 並阻擋升級；所有組合效果只顯示來源文字，尚未套入戰鬥（`tests/unit-web2-p3-3-5.js` 23 項）。
 - 第三階段副本與經濟：通天塔、無極幻境（多波、生命怒氣延續）、農田（真實時間／離線成長、時間倒退防護）、每日任務與活躍寶箱、成就、簽到與補簽、經濟模式、第 5～8 章多層血條首領（`tests/unit-p3.js` 70 項＋端對端）。
 - 第四階段演出與聲音：戰場法陣、品質光焰、命中火花、無雙切入與總傷害、首領戰大震動；十首場景配樂（標題、主城、關卡選擇、戰鬥、首領戰、勝利、戰敗、塔與幻境、聚賢莊、農田）與十一種音效（程序化合成）、一鍵靜音、場景切換讀取提示；拜訪武將 AI 排名賽與戰報重播（`tests/unit-p4.js` 79 項＋端對端）。
-- 第五階段正式版：經驗曲線與中後期敵人成長重新平衡、越戰越勇防卡關、30 天進度模擬（`tools/progress-sim.js`）、勝率模擬（`tools/balance.js`）、戰鬥特效省電模式、v1／v2 舊存檔升級、損毀存檔拒絕（`tests/unit-p5.js` 20 項＋端對端）。
+- 第五階段正式版：sn=6 Lv7–79 來源經驗表、Lv1–6／80–90 的 D 級邊界政策、中後期敵人成長平衡、越戰越勇、30 天進度模擬（`tools/progress-sim.js`）、勝率模擬（`tools/balance.js`）、戰鬥特效省電模式、舊存檔升級與損毀存檔拒絕（`tests/unit-p5.js` 20 項＋端對端）。
 - 奇遇加碼玩法：華容道（六個布局的最少步數以 BFS 驗證，並實際照最短解走完）、觀星台、玄機盤（保底、機率分布）（`tests/unit-extras.js` 44 項＋端對端）。
-- 存檔版本遷移：v1、v2 存檔都可直接匯入，自動補齊新欄位（以 `tests/fixtures/save-v1.json`、`save-v2.json` 測試）；比目前版本新的存檔會被拒絕。目前存檔版本 4。
+- 存檔版本遷移：v1–v10 存檔會逐版升級並補齊新欄位；P3-5 v10→v11 退回舊星盤投入且不降主角等級／經驗。遷移步驟失敗會拒絕載入、保留舊版本，不會默默升版；比目前版本新的存檔也會被拒絕。目前存檔版本 11。
 - 虛空之門：關卡、精力、獎勵、解鎖、星數。
 - 可視化自動戰鬥：勝利、失敗、超時判負。
 - 存檔：自動存檔、匯出、匯入（含錯誤檢查）、備份回復、重置。
@@ -91,6 +92,7 @@ https://linhinet7451.github.io/mengjiang/
 - 美術 art2：金邊外框、木紋／卷軸面板、紅漆與翠玉按鈕、標題匾額、原創圖示 44 個、通天塔插圖；戰鬥武將放大 1.25 倍、蓄力突進與回位、受擊閃白擊退、物理刀光／法術法陣／絕技光柱三種光效、暴擊彈跳數字、陣亡淡出、256px 無雙半身像切入；素材分 12 段載入並顯示百分比（`tests/unit-art.js`＋端對端；`node tools/loadtest.js` 量測限速載入）。
 - 美術 art3：飄字不再被上緣裁切或蓋住總生命條（含壓力測試）、棕色寶石改為飽和棕色、聚賢莊高階刷新按鈕補上底色、神兵坊寶石格圖文不重疊、無雙切入時戰場壓暗。
 - 美術 art4：戰鬥下方我方頭像列（生命／無雙條）、深橄欖色裝備格與候選卡、提示訊息移到下方金框、最上排飄字時淡化名牌（e2e 新增 3 項檢查）。
+- 本次驗收：單元測試 3,626／3,626；E2E 408／408（Chromium 桌機、WebKit iPhone 13 模擬、Chromium 橫向手機各 136）；啟動自檢 18／18（Chromium／WebKit）；49 個 inline script 通過 ES5 檢查。未做真機測試。
 
 ### 已做但只有基本測試
 
@@ -130,7 +132,7 @@ node tools/gen-data.js && node tools/build-data.js   # 產生 src/data/*.json �
 node tools/build.js                           # 內嵌 CSS/JS，輸出 dist/mengjiang.html、dist/boot-test.html
 node tools/es5check.js                        # 確認所有 JS 都是 ES5
 node tools/gen-appendix.js                    # 產生 docs/附錄-資料表.md
-for t in unit unit-p2 unit-p3 unit-p4 unit-p5 unit-extras; do node tests/$t.js; done   # 單元測試
+sh tools/runtests.sh                          # 完整單元測試（含 P3-3～P3-5 專項）
 node tests/e2e.js all                         # 端對端測試：chromium | webkit-iphone | chromium-phone | all
 node tools/showcase.js                        # 宣傳截圖：無雙特寫、AOE 總傷害、首領戰
 node tools/loadtest.js 40 12 5                # WebKit iPhone 13 限速（Mbps）載入時間與進度條
@@ -159,23 +161,23 @@ reference/      原作截圖、宣傳片與其他參考素材（依倉庫擁有�
 
 > English: Clone, `npm install`, then `node tools/build-data.js && node tools/build-assets.js && node tools/build.js && node tools/es5check.js`. Unit tests: `sh tools/runtests.sh`. E2E: `npx playwright install chromium webkit && node tests/e2e.js all`. Output: `dist/mengjiang.html` (single file, < 12,000,000 bytes). Remaining work: see `TODO.md`.
 
-**最新狀態與待辦請看 [TODO.md](TODO.md)**（P1、P2 完成；P3、P4 未開始；未做真機測試）。進度紀錄在 `docs/原版還原-進度.md`。
+**最新狀態與待辦請看 [TODO.md](TODO.md)**（P1、P2 與 P3-1～P3-5 完成；P3-6 以後及 P4 待辦；未做真機測試）。進度紀錄在 `docs/原版還原-進度.md`。
 
 ```bash
 npm install                                   # acorn（ES5 檢查）、playwright（e2e）
 npx playwright install chromium webkit        # 只有跑 e2e 才需要
-node tools/web2-data.js P1 P2                 # （選用）把考證補丁寫進 src/data/*.json；已套用過，可重跑，結果相同
+node tools/web2-data.js P1 P2 P3              # （選用）把考證補丁寫進 src/data/*.json；可重跑，結果相同
 node tools/build-data.js                      # src/data/*.json → src/js/data.generated.js
 node tools/build-assets.js                    # src/assets/out/ → src/js/assets.generated.js（內嵌圖片）
 node tools/build.js                           # → dist/mengjiang.html、dist/boot-test.html
 node tools/es5check.js                        # 所有 inline script 必須是 ES5
 sh tools/runtests.sh                          # 全部單元測試（最後一行 UNIT EXIT 0 才算通過）
-node tests/e2e.js all                         # Chromium 桌機、WebKit iPhone 13、Chromium 橫向，約 4 分鐘
+node tests/e2e.js all                         # Chromium 桌機、WebKit iPhone 13、Chromium 橫向，約 5 分鐘
 node tools/progress-sim.js --days 30          # 30 天進度／卡關模擬
 node tools/shots.js dist/mengjiang.html <輸出資料夾> <前綴>   # 截圖比對
 ```
 
-- 部署：把 `dist/mengjiang.html` 複製成 GitHub Pages 的 `index.html`（另附 `boot-test.html` 供手機載入測試）。
+- 部署至 GitHub Pages 根目錄：`cp dist/mengjiang.html index.html && cp dist/boot-test.html boot-test.html && sed -i 's/href="mengjiang.html"/href="index.html"/' boot-test.html`；根目錄自檢頁的返回連結應指向 `index.html`。推送 `main` 後由 GitHub Pages 發布。
 - 美術：`src/assets/out/` 目前是處理好的生成圖（建置只讀這裡）。原始生成圖（raw／iraw／bgraw，共約 57MB）沒有放進 repo，重建既有生成圖不需要它們。經原公司同意（依倉庫擁有者說明），可參考或直接使用原作的美術、音樂等素材，目標是盡量貼近原作。使用原作素材時需在 docs/美術素材來源.md 記錄來源。若無原始檔案，可依 reference/ 的截圖與影片重繪貼近原版的素材。既有生成圖的流程：GenerateImage → tools/cpart.sh → art_process.py → ci_process.py → build-assets.js。
 - 資料來源：`docs/sources-extracted/SOURCES-INDEX.md`（URL、日期、採用的事實）；`docs/sources-extracted/web2/c-*.json` 是我們整理的表格。巴哈姆特文章原始網頁（玩家個人撰寫）不放進 repo。
 - 分級：每項數字都在 `src/data/provenance.json`（A 原版畫面／B 玩家攻略／C 推論／D 本作自訂）；C、D 不得標成「原版」。

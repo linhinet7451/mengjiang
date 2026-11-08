@@ -23,6 +23,10 @@ MJ.G = (function () {
   function fail(msg) { return { ok: false, msg: msg }; }
   G.lead = function (s) { s = s || st(); return U.find(s.heroes, function (h) { return h.id === 'lead'; }); };
   G.hero = function (uid, s) { s = s || st(); return U.find(s.heroes, function (h) { return h.uid === uid; }); };
+  G.buildingOpen = function (key) {
+    var b = C().buildings && C().buildings[key], state = st(), lead = G.lead();
+    return !!b && !!lead && (lead.lv >= b.open || !!(state.buildingUnlocks && state.buildingUnlocks[key]));
+  };
   G.nameOf = function (h) { return h.id === 'lead' ? st().player.name : R.heroDef(h.id).name; };
   G.log = function (text, kind) {
     var s = st(); s.log.unshift({ t: U.now(), text: text, k: kind || '' });
@@ -72,7 +76,7 @@ MJ.G = (function () {
   G.newHero = function (id, s) {
     s = s || st();
     if (id !== 'lead') { s.codex = s.codex || {}; s.codex[id] = 1; }
-    return { uid: s.nextUid++, id: id, lv: 1, exp: 0, eq: {}, sk: { a: 1, u: 1, p: 1 }, py: { str: 0, int: 0, agi: 0, con: 0 }, xf: [], star: 0 };
+    return { uid: s.nextUid++, id: id, lv: 1, exp: 0, eq: {}, sk: { a: 1, u: 1, p: 1 }, py: { str: 0, int: 0, agi: 0, con: 0 }, xf: [], star: 0, jxLevel: 0 };
   };
 
   // ---------- 精力（P2 起取消：規格書「完全取消精力」；存檔欄位保留但不再使用） ----------

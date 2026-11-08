@@ -19,6 +19,8 @@ src('W967', { title: '【攻略】武將技能一覽表(段譽降臨)（巴哈�
 src('W60', { title: '將魂/品質表（巴哈姆特精華區 sn=60，轉貼百度）', url: 'https://forum.gamer.com.tw/G2.php?bsn=22512&sn=60', author: '巴哈玩家', date: '2012-12-29', region: '台版轉陸版', grade: 'B' });
 src('W77', { title: '陣法（巴哈姆特精華區 sn=77，8 張陣法面板截圖）', url: 'https://forum.gamer.com.tw/G2.php?bsn=22512&sn=77', author: '巴哈玩家', date: '2013-03', region: '台版', grade: 'A' });
 src('W6', { title: '經驗表（巴哈姆特精華區 sn=6）', url: 'https://forum.gamer.com.tw/G2.php?bsn=22512&sn=6', author: '巴哈玩家', date: '2012', region: '台版', grade: 'B' });
+src('W48', { title: '【討論】將星錄武將升級所需將魂數資料補完計劃（巴哈姆特精華區 sn=48）', url: 'https://forum.gamer.com.tw/G2.php?bsn=22512&sn=48', author: '賀賀（gadder）', date: '2012-11-26', region: '台版', grade: 'B', note: '表格有空白與欄位對齊不明處；與 W53 白魂 Lv10 有差異' });
+src('W53', { title: '【問題】將星等級所需魂數（巴哈姆特精華區 sn=53）', url: 'https://forum.gamer.com.tw/G2.php?bsn=22512&sn=53', author: 'Will（willwillhi）', date: '2012-12-16', region: '台版', grade: 'B' });
 src('W84', { title: '寶石數值（巴哈姆特精華區 sn=84）', url: 'https://forum.gamer.com.tw/G2.php?bsn=22512&sn=84', author: '巴哈玩家', date: '2013', region: '台版', grade: 'B' });
 src('W86', { title: '心法（巴哈姆特精華區 sn=86／91）', url: 'https://forum.gamer.com.tw/G2.php?bsn=22512&sn=86', author: '巴哈玩家', date: '2013', region: '台版', grade: 'B' });
 src('W88', { title: '生死劫（巴哈姆特精華區 sn=88）', url: 'https://forum.gamer.com.tw/G2.php?bsn=22512&sn=88', author: '巴哈玩家', date: '2013', region: '台版', grade: 'B' });
@@ -79,7 +81,7 @@ if (phases.indexOf('P2') >= 0) {
   console.log('P2 made', r2.made.length, 'passives', r2.nP, 'partners', r2.nL);
 }
 if (phases.indexOf('P3') >= 0) {
-  var r3 = require('./web2-p3.js')({ H: H, P: P, entry: entry, conflict: conflict, LB: LB });
+  var r3 = require('./web2-p3.js')({ H: H, C: C, P: P, entry: entry, conflict: conflict, LB: LB });
   console.log('P3 mapped', r3.mapped, '/', r3.rows, 'skill rows; ranges', r3.ranges, 'sourced /', r3.fallbackRanges, 'fallback');
 }
 if (phases.indexOf('P1') >= 0 || 1) { wr('heroes', H); wr('config', C); wr('formations', F); wr('provenance', P); }

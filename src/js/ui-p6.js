@@ -24,7 +24,7 @@
   UI.actions.pyOk = function () { if (UI.res(G.peiyangAccept(UI.sel.hallUid), '已替換為新結果')) UI.render(); };
   UI.actions.pyNo = function () { if (UI.res(G.peiyangCancel(UI.sel.hallUid), '已保持原數值')) UI.render(); };
 
-  // ---------- 將星錄：將魂合成＋不可逆提示 ----------
+  // ---------- 將星錄：將魂合成 ----------
   function soulPanel() {
     var s = S(), cfg = C().soulCombine, rule = s.settings.soulRule || 'S4';
     var h = '<hr><b>將魂合成</b>（主角 ' + cfg.open + ' 級開放；' + cfg.n + ' 個同品階 → 1 個，不會降低品質）';
@@ -39,15 +39,7 @@
   var baseJxl = UI.screens.jxl;
   UI.screens.jxl = function () {
     var h = baseJxl.apply(this, arguments), at = h.indexOf('<div class="btn-row"><a class="btn small" data-a="open" data-v="codex">');
-    var warn = '<p class="note jx-irrev">⚠ 點亮將星<b>無法復原</b>，消耗的星魂不退還（規格書：將星錄不可逆）。</p>';
-    return at < 0 ? h : h.slice(0, at) + soulPanel() + warn + h.slice(at);
-  };
-  UI.actions.jxLight = function () {
-    var lit = S().jiangxing.lit; if (lit >= R.jxMax) { UI.toast('將星已全部點亮', 'bad'); return; }
-    var nx = R.jxStar(lit);
-    UI.confirm('點亮將星', '點亮「' + U.esc(nx.name) + '」需要 ' + nx.cost + ' 星魂。<br><b>點亮後無法復原</b>，星魂不退還。確定？', function () {
-      var r = G.lightStar(); if (UI.res(r, '點亮「' + (r.star && r.star.name) + '」')) UI.render();
-    }, '點亮');
+    return at < 0 ? h : h.slice(0, at) + soulPanel() + h.slice(at);
   };
   UI.actions.soulRule = function (k) { S().settings.soulRule = k; G.commit(); UI.render(); };
   UI.actions.soulMix = function (r) { var x = G.soulCombine(+r); if (UI.res(x, '獲得 ' + (x.name || '') + '將魂' + (x.up ? '（升階！）' : ''))) UI.render(); };
