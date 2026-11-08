@@ -540,5 +540,15 @@ MJ.G = (function () {
     m.claimed = true; m.read = true; var got = m.att ? G.grant(m.att) : [];
     G.commit(); return ok({ got: got });
   };
+  G.claimAllMail = function () {
+    var s = st(), got = [], n = 0, skipped = 0;
+    U.each(s.mail.slice(), function (m) {
+      if (m.claimed || !m.att) return;
+      var r = G.claimMail(m.id);
+      if (r && r.ok !== false && r.got) { n++; got = got.concat(r.got); } else skipped++;
+    });
+    if (!n) return fail(skipped ? '包裹已滿，無法領取附件' : '沒有可領取的郵件');
+    return ok({ got: got, n: n, skipped: skipped });
+  };
   return G;
 })();

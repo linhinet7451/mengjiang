@@ -115,8 +115,11 @@
       return '<div class="row-item">' + UI.icon('mail') + '<div class="ri-t"><b>' + U.esc(m.title) + '</b><small>' + U.esc(m.text) + (parts.length ? '<br>附件：' + U.esc(parts.join('、')) : '') + '</small></div>' +
         (parts.length ? (m.claimed ? '<span class="dim2">已領取</span>' : '<a class="btn small" data-a="claimMail" data-v="' + m.id + '">領取</a>') : '') + '</div>';
     }, '沒有郵件');
-    return UI.panel('郵件', '<div class="rows">' + pg.html + '</div>' + pg.nav, { cls: 'mid' });
+    var pend = 0; U.each(s.mail, function (m) { if (m.att && !m.claimed) pend++; });
+    var bar = '<div class="row"><a class="btn small" data-a="claimAllMail">一鍵領取' + (pend ? '（' + pend + '）' : '') + '</a></div>';
+    return UI.panel('郵件', bar + '<div class="rows">' + pg.html + '</div>' + pg.nav, { cls: 'mid' });
   };
+  UI.actions.claimAllMail = function () { var r = G.claimAllMail(); if (UI.res(r)) { UI.renderModal(); UI.rewardBox('一鍵領取 ' + r.n + ' 封' + (r.skipped ? '（' + r.skipped + ' 封因包裹已滿略過）' : ''), r.got); } };
   UI.actions.claimMail = function (id) { var r = G.claimMail(+id); if (UI.res(r)) { UI.renderModal(); UI.rewardBox('領取成功', r.got); } };
 
   // ---------- 任務 ----------

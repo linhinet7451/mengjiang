@@ -48,6 +48,7 @@ State on 2026-11-08 (UTC+8): ART-5 partially done (10 heroes redrawn from origin
 | P4-3 生死劫九層 | B（層名）／D（戰鬥與獎勵規則） | v11→v12 遷移；26 組單元與 456 項 E2E 全通過 |
 | P4-4 5 魂合成公式 34 條 | B（來源公式） | 專屬 UI E2E：34 條、缺料狀態、合成扣料／產出；三種 viewport 全通過 |
 | ART-5（部分）10 名武將依原版截圖重繪 | B／C | 其餘美術與音樂仍待辦 |
+| MAIL-1 郵件一鍵領取（G.claimAllMail；包裹不足的附件郵件略過並提示） | 本作設計（D） | tests/unit-mailall.js |
 
 ---
 
