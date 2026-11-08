@@ -1,0 +1,68 @@
+{
+  "purpose": "original-reference visual QA; not runtime assets",
+  "items": [
+    {
+      "source": "mengjiang_asset_pack/reference/main_city.jpg",
+      "optimized": "reference/native-pack/city-ui-reference.webp",
+      "source_sha256": "e82ce65c3e6c8397761640c09ede76eab67a9a34a7e88026105d2a36e9dcacf9",
+      "optimized_bytes": 148828,
+      "width": 1179,
+      "height": 959,
+      "runtime_use": false
+    },
+    {
+      "source": "mengjiang_asset_pack/reference/shenwudian.jpg",
+      "optimized": "reference/native-pack/shenwu-ui-reference.webp",
+      "source_sha256": "539f41f0d3265c10ca6b7945602af20b20f0d6a5cc70226f78aa4e4549ff4e4c",
+      "optimized_bytes": 81788,
+      "width": 1179,
+      "height": 927,
+      "runtime_use": false
+    },
+    {
+      "source": "mengjiang_asset_pack/reference/fb/fb_08.jpg",
+      "optimized": "reference/native-pack/battle-ui-reference.webp",
+      "source_sha256": "f9a2b96ae75e67ce23a465f3b74ffa1f90204686a0c0117f7995f3b86f5bd68a",
+      "optimized_bytes": 11860,
+      "width": 206,
+      "height": 206,
+      "runtime_use": false
+    },
+    {
+      "source": "mengjiang_asset_pack/reference/fb/fb_10.jpg",
+      "optimized": "reference/native-pack/cutin-reference.webp",
+      "source_sha256": "dadb8818034cccdd45cc681a884f7a3ade8bbae4ba854d7227a2d94b1433baf4",
+      "optimized_bytes": 7606,
+      "width": 206,
+      "height": 205,
+      "runtime_use": false
+    },
+    {
+      "source": "mengjiang_asset_pack/reference/web3/sn282-01.JPG",
+      "optimized": "reference/native-pack/hero-sheet-reference.webp",
+      "source_sha256": "fc80158a0ce3ecdcd2fac3dd528c2222baf689bf6fbd20073ca07b81689f1e93",
+      "optimized_bytes": 207588,
+      "width": 1258,
+      "height": 892,
+      "runtime_use": false
+    },
+    {
+      "source": "mengjiang_asset_pack/reference/web3/sn4892-01.JPG",
+      "optimized": "reference/native-pack/skill-ui-reference.webp",
+      "source_sha256": "21b130435d40fe872702e5d7990c0a47184b9c7c82275822a56fde471673154b",
+      "optimized_bytes": 10656,
+      "width": 342,
+      "height": 122,
+      "runtime_use": false
+    },
+    {
+      "source": "mengjiang_asset_pack/reference/web2/video/hi/h03.jpg",
+      "optimized": "reference/native-pack/showcase-reference.webp",
+      "source_sha256": "38e5d7a4c349819b5714a9ccdd44ad13252e68eb09be773dc163ad83ce4059f2",
+      "optimized_bytes": 17906,
+      "width": 400,
+      "height": 225,
+      "runtime_use": false
+    }
+  ]
+}
