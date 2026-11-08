@@ -2,7 +2,7 @@
 var fs = require('fs'), path = require('path'), terser = require('terser');
 var SRC = path.join(__dirname, '..', 'src'), DIST = path.join(__dirname, '..', 'dist');
 if (!fs.existsSync(DIST)) fs.mkdirSync(DIST);
-async function inline(html) {
+async function inline(html, web) {
   html = html.replace(/<!--INLINE_CSS_START-->[\s\S]*?<!--INLINE_CSS_END-->/, function (blk) {
     var out = '';
     blk.replace(/href="([^"]+\.css)"/g, function (m, f) { out += '<style>\n' + fs.readFileSync(path.join(SRC, f), 'utf8') + '\n</style>\n'; });
@@ -17,6 +17,7 @@ async function inline(html) {
       var f = files[i];
       // Keep readable source files; compact only the single-file distribution, not the original modules.
       var code = fs.readFileSync(path.join(SRC, f), 'utf8').replace(/<\/script/gi, '<\\/script').replace(/^\s*\/\/[^\n]*(?:\n|$)/gm, '').replace(/^[\t ]*\r?\n/gm, '').replace(/[\t ]+$/gm, '');
+      if (web && f === 'js/assets.generated.js') code = code.replace(/^(MJ\.ASSETS\["([^"]+)"\]=)"data:[^"]*"/gm, function (m, pre, key) { return pre + '"assets/' + key + '.webp"'; });
       var parts = code.split('/*@@CHUNK*/');
       for (var j = 0; j < parts.length; j++) {
         var part = parts[j].replace(/\/\*[\s\S]*?\*\//g, '').replace(/\n+$/, '');
@@ -41,6 +42,11 @@ function stamp(html, id) { return html.replace('<meta charset="utf-8">', '<meta 
   var BID = d.getFullYear() + p2(d.getMonth() + 1) + p2(d.getDate()) + '-' + p2(d.getHours()) + p2(d.getMinutes()) + '-' + require('crypto').createHash('sha256').update(main).digest('hex').slice(0, 8);
   main = stamp(main, BID);
   fs.writeFileSync(path.join(DIST, 'mengjiang.html'), main);
+  var web = stamp(await inline(fs.readFileSync(path.join(SRC, 'index.html'), 'utf8'), true), BID);
+  fs.writeFileSync(path.join(DIST, 'index.web.html'), web);
+  var wa = path.join(DIST, 'assets'); if (!fs.existsSync(wa)) fs.mkdirSync(wa);
+  fs.readdirSync(path.join(SRC, 'assets', 'out')).forEach(function (n) { if (/\.webp$/.test(n)) fs.copyFileSync(path.join(SRC, 'assets', 'out', n), path.join(wa, n)); });
+  console.log('web build dist/index.web.html', Buffer.byteLength(web, 'utf8'), 'bytes + dist/assets/');
   var bootHtml = await inline(fs.readFileSync(path.join(SRC, 'boot-test.html'), 'utf8'));
   var bt = stamp(bootHtml.replace('href="index.html"', 'href="mengjiang.html"'), BID);
   fs.writeFileSync(path.join(DIST, 'boot-test.html'), bt);

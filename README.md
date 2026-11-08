@@ -138,7 +138,7 @@ https://linhinet7451.github.io/mengjiang/
 ```bash
 npm install                                   # acorn、playwright、terser
 node tools/gen-data.js && node tools/web2-data.js P1 P2 P3 P4 && node tools/build-data.js   # 基礎資料＋可重跑來源補丁＋runtime bundle
-node tools/build.js                           # 內嵌 CSS/JS，輸出 dist/mengjiang.html、dist/boot-test.html
+node tools/build.js                           # 內嵌 CSS/JS，輸出 dist/mengjiang.html、dist/boot-test.html，並輸出載入較快的網頁版 dist/index.web.html + dist/assets/
 node tools/es5check.js                        # 確認所有 JS 都是 ES5
 node tools/gen-appendix.js                    # 產生 docs/附錄-資料表.md
 sh tools/runtests.sh                          # 完整單元測試（含 P3-3～P3-6、P4 專項）
@@ -186,7 +186,7 @@ node tools/progress-sim.js --days 30          # 30 天進度／卡關模擬
 node tools/shots.js dist/mengjiang.html <輸出資料夾> <前綴>   # 截圖比對
 ```
 
-- 部署至 GitHub Pages 根目錄：`cp dist/mengjiang.html index.html && cp dist/boot-test.html boot-test.html && sed -i 's/href="mengjiang.html"/href="index.html"/' boot-test.html`；根目錄自檢頁的返回連結應指向 `index.html`。推送 `main` 後由 GitHub Pages 發布。
+- 部署至 GitHub Pages 根目錄（網頁版：index.html 只有程式碼約 0.75 MB，圖片放 assets/ 依需要載入，首次載入約為單檔版的 1/10）：`cp dist/index.web.html index.html && cp -r dist/assets . && cp dist/mengjiang.html mengjiang.html && cp dist/boot-test.html boot-test.html`；單檔離線版仍是 `mengjiang.html`。推送 `main` 後由 GitHub Pages 發布。
 - 美術：`src/assets/out/` 目前是處理好的生成圖（建置只讀這裡）。原始生成圖（raw／iraw／bgraw，共約 57MB）沒有放進 repo，重建既有生成圖不需要它們。經原公司同意（依倉庫擁有者說明），可參考或直接使用原作的美術、音樂等素材，目標是盡量貼近原作。使用原作素材時需在 docs/美術素材來源.md 記錄來源。若無原始檔案，可依 reference/ 的截圖與影片重繪貼近原版的素材。既有生成圖的流程：GenerateImage → tools/cpart.sh → art_process.py → ci_process.py → build-assets.js。
 - 資料來源：`docs/sources-extracted/SOURCES-INDEX.md`（URL、日期、採用的事實）；`docs/sources-extracted/web2/c-*.json` 是我們整理的表格。巴哈姆特文章原始網頁（玩家個人撰寫）不放進 repo。
 - 分級：每項數字都在 `src/data/provenance.json`（A 原版畫面／B 玩家攻略／C 推論／D 本作自訂）；C、D 不得標成「原版」。

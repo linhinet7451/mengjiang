@@ -382,6 +382,7 @@ MJ.Art = (function () {
     if (!MJ.ASSETS || !MJ.ASSETS[key]) return null;
     if (urlCache[key]) return urlCache[key];
     var d = MJ.ASSETS[key], u = d;
+    if (d.indexOf('data:') !== 0) { urlCache[key] = d; return d; }
     try {
       if (window.Blob && window.URL && URL.createObjectURL && window.atob && window.Uint8Array) {
         var b = atob(d.slice(d.indexOf(',') + 1)), n = b.length, a = new Uint8Array(n), i;
