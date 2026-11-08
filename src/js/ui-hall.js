@@ -46,7 +46,7 @@
       '<tr class="sep p4st"><td>抵抗</td><td>' + pct(d.res || 0) + '</td><td>施加</td><td>' + pct(d.dbf || 0) + '</td></tr>' +
       '<tr class="p4st"><td>PVP</td><td>' + pct(d.pvp || 0) + '</td><td>PVE</td><td>' + pct(d.pve || 0) + '</td></tr></table>' +
       '<div class="sp-team">傷害：' + MJ.D.config.damageTypes[d.dtype] + (h0.star ? '　' + UI.stars(h0.star) : '') + '<br>含全隊加成：攻 ' + Math.max(bs.patk, bs.matk, bs.jatk) + '　命 ' + bs.hp + '</div>' +
-      '<div class="sp-btns">' + (G.inTeam(h0.uid) != null ? (h0.id === 'lead' ? '<span class="tagok">出戰中</span>' : '<a class="btn small" data-a="hallRest" data-v="' + h0.uid + '">休息</a>') : '<a class="btn small" data-a="hallJoin" data-v="' + h0.uid + '">出戰</a>') +
+      '<div class="sp-btns"><a class="btn small" data-a="open" data-v="heroCompare">成長比較</a>' + (G.inTeam(h0.uid) != null ? (h0.id === 'lead' ? '<span class="tagok">出戰中</span>' : '<a class="btn small" data-a="hallRest" data-v="' + h0.uid + '">休息</a>') : '<a class="btn small" data-a="hallJoin" data-v="' + h0.uid + '">出戰</a>') +
       (h0.id !== 'lead' && s.bag.stack.tufeiling ? '<a class="btn small" data-a="useTufei" data-v="' + h0.uid + '">突飛令 ×' + s.bag.stack.tufeiling + '</a>' : '') + '</div></div>';
     // 中
     h += '<div class="hall-center"><div class="starry"></div><div class="rock"></div><div class="mc-wrap">' + MJ.Art.magicCircle() + '</div><div class="aura-wrap">' + MJ.Art.aura(h0.id === 'lead' ? 3 : def.quality) + '</div><div class="hero-fig">' + MJ.Art.figure(h0.id === 'lead' ? s.player.look : def.look, { cape: h0.id === 'lead' }) + '</div>';

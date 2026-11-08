@@ -53,6 +53,7 @@
     h += '<a class="gift" data-a="open" data-v="tasks">' + UI.icon('quest') + '<span>任務</span>' + (UI.taskDot && UI.taskDot() ? '<i class="dot"></i>' : '') + '</a>';
     if (G.signState) { var sgs = G.signState(); h += '<a class="gift' + (sgs.signedToday ? ' dim2' : '') + '" data-a="openSign">' + UI.icon('scroll2') + '<span>簽到</span>' + (sgs.signedToday ? '' : '<i class="dot"></i>') + '</a>'; }
     if (G.qiyuOpen && G.qiyuOpen()) h += '<a class="gift" data-a="open" data-v="qiyu">' + UI.icon('star') + '<span>奇遇</span>' + (UI.qiyuDot && UI.qiyuDot() ? '<i class="dot"></i>' : '') + '</a>';
+    h += '<a class="gift" data-a="open" data-v="originalModes">' + UI.icon('scroll2') + '<span>原版玩法</span></a>';
     h += '</div>';
     // 系統訊息
     h += '<div class="chat" id="chat">' + UI.chatHtml() + '</div>';

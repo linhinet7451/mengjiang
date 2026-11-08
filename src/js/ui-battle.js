@@ -73,8 +73,9 @@
     h += '<div class="cutin" id="cutin"></div>';
     h += '<div class="b-bl"><a class="zhen' + (BT.showGrid ? ' on' : '') + '" data-a="bGrid">陣</a><div class="swords"><svg viewBox="0 0 40 40" class="art"><path d="M6 6 L30 30 M34 6 L10 30" stroke="#e0e0e0" stroke-width="4" stroke-linecap="round"/><path d="M26 26 L32 32 M14 26 L8 32" stroke="#c9a24a" stroke-width="6" stroke-linecap="round"/></svg><b id="bleft">x ' + MJ.D.config.maxRounds + '</b></div></div>';
     h += '<div class="b-br">' + (UI.muteBtn ? UI.muteBtn('big') : '') + '<a class="sbtn" id="bspeed" data-a="bSpeed">' + BT.speed + 'x</a><a class="sbtn" data-a="bSkip">跳過</a></div>';
-    h += '<div class="b-tr"><a class="sbtn small" data-a="bLog">戰報</a><a class="sbtn small" data-a="bFormula">公式</a></div>';
+    h += '<div class="b-tr"><a class="sbtn small" data-a="bLog">戰報</a><a class="sbtn small" data-a="bDetail">明細</a><a class="sbtn small" data-a="bFormula">公式</a></div>';
     h += '<div class="blog' + (BT.showLog ? ' on' : '') + '" id="blog">' + BT.logHtml + '</div>';
+    if (BT.showDetail) { h += '<div class="bdetail"><b>事件明細（已播放 ' + BT.i + '/' + BT.ev.length + '）</b>'; U.each(BT.ev.slice(0, BT.i), function (ev, ix) { var line = evLog(ev); if (line) h += '<div><small>#' + (ix + 1) + '</small> ' + U.esc(line) + '</div>'; }); h += '</div>'; }
     h += '<div id="bresult"></div></div>';
     return h;
   };
@@ -82,7 +83,7 @@
   UI.startBattle = function (res) {
     if (BT && BT.timer) clearTimeout(BT.timer);
     var s = MJ.S.state;
-    BT = { r: res, ev: res.battle.events, i: 0, speed: s.settings.speed || 1, units: {}, logHtml: '', showLog: false, showGrid: false, done: false, round: 0, open: G.openCells ? G.openCells() : null, bd: res.battle.board || null };
+    BT = { r: res, ev: res.battle.events, i: 0, speed: s.settings.speed || 1, units: {}, logHtml: '', showLog: false, showDetail: false, showGrid: false, done: false, round: 0, open: G.openCells ? G.openCells() : null, bd: res.battle.board || null };
     U.each(res.team, function (x) { BT.units['A' + x.cell] = { u: x.unit, hp: x.unit.curHp != null ? x.unit.curHp : x.unit.hp, max: x.unit.hp, side: 'A', cell: x.cell }; });
     U.each(res.foes, function (x) { BT.units['B' + x.cell] = { u: x.unit, hp: x.unit.hp, max: x.unit.hp, side: 'B', cell: x.cell }; });
     if (BT.bd) U.each(U.keys(BT.units), function (k) { var x = BT.units[k]; x.br = Math.floor(x.cell / 3); x.bx = MJ.Battle.homeBx(x.side, x.cell); });
@@ -414,6 +415,7 @@
     finish();
   };
   UI.actions.bLog = function () { BT.showLog = !BT.showLog; var l = el('blog'); if (l) l.className = 'blog' + (BT.showLog ? ' on' : ''); };
+  UI.actions.bDetail = function () { BT.showDetail = !BT.showDetail; UI.render(); };
   UI.actions.bGrid = function (v, a) { BT.showGrid = !BT.showGrid; var b = el('bt'); if (b) b.className = b.className.replace(/ showgrid/g, '') + (BT.showGrid ? ' showgrid' : ''); a.className = 'zhen' + (BT.showGrid ? ' on' : ''); };
   UI.actions.bFormula = function () { UI.toast(MJ.Battle.FORMULA_NOTE); var t = el('toast'); if (t) { clearTimeout(UI._ft); } };
   UI.actions.bAgain = function (id) { BT.done = true; var r = G.fight(id); if (!r.ok) { UI.toast(r.msg, 'bad'); return; } UI.startBattle(r); };

@@ -213,7 +213,7 @@
     b += '<div class="cdx-h">已收錄 <b>' + n + '/' + MJ.D.heroes.list.length + '</b>　全隊四維戰鬥屬性 +' + (Math.round(bon * 100) / 100) + '%（每名 +' + C().codexPer + '%，上限 ' + C().codexMax + '%，D）</div>';
     var pg = UI.pager('codexP', list, 18, function (d) {
       var got = !!s.codex[d.id];
-      return '<div class="cdx' + (got ? '' : ' no') + '" data-a="codexInfo" data-v="' + d.id + '">' + MJ.Art.portrait(d.look, d.quality) + '<span class="nm">' + (got ? U.esc(d.name) : '？？？') + '</span></div>';
+      return '<div class="cdx' + (got ? '' : ' no') + '" data-a="codexInfo" data-v="' + d.id + '">' + MJ.Art.portrait(d.look, d.quality) + '<span class="nm">' + (got ? U.esc(d.name) : '？？？') + '</span><small class="source-tag">' + U.esc(d.grade || 'D 待補') + '</small></div>';
     });
     b += '<div class="cdx-grid">' + pg.html + '</div>' + pg.nav;
     return UI.panel('武將圖鑑', b, { cls: 'wide' });

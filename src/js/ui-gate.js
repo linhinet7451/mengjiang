@@ -61,7 +61,10 @@
     b += '<div class="row">最佳：' + ['未通關', '★', '★★', '★★★'][ss.stars] + '　通關次數 ' + ss.clears + '</div>';
     if (ss.fails) b += '<div class="row morale">越戰越勇：連敗 ' + ss.fails + ' 次，我方生命／攻擊 +' + Math.round(R.moraleBonus(ss.fails) * 100) + '%</div>';
     b += '<div class="note">星級：無陣亡 3 星、陣亡 1 人 2 星、其他 1 星（D）。</div>';
-    b += '<div class="btn-row"><a class="btn big red" data-a="startBattle" data-v="' + id + '">開始戰鬥</a></div></div></div>';
+    var tp = '<div class="prebattle"><b>我方主動技範圍預覽</b><div class="prebattle-grid">';
+    U.each(G.teamList(), function (tx) { var sk = R.skillOf(tx.hero, 'a'); tp += '<div class="prebattle-card"><b>' + U.esc(G.nameOf(tx.hero)) + ' Lv' + tx.hero.lv + '</b><small>' + U.esc(sk.name) + '．' + U.esc(sk.pattern || '') + '．倍率 ' + Math.round((sk.mult || 0) * 100) + '%</small>' + (UI.patternGrid ? UI.patternGrid(sk.pattern, 1, sk) : '') + '</div>'; });
+    tp += '</div><small class="note">綠格為施放者，紅格為目前技能可命中的範圍；實際命中仍會受敵方站位與阻擋影響。</small></div>';
+    b += tp + '<div class="btn-row"><a class="btn big red" data-a="startBattle" data-v="' + id + '">開始戰鬥</a></div></div></div>';
     return UI.panel('出戰．' + sg.name, b, { cls: 'narrow2' });
   };
 })();
