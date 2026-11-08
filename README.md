@@ -101,7 +101,7 @@ https://linhinet7451.github.io/mengjiang/
 - 美術 art4：戰鬥下方我方頭像列（生命／無雙條）、深橄欖色裝備格與候選卡、提示訊息移到下方金框、最上排飄字時淡化名牌（e2e 新增 3 項檢查）。
 - ART-1～ART-4：血條／無雙條統一 5px、戰鬥底部只列我方頭像、主城／養成／戰鬥提示分流定位、無雙半身特寫進場與金字技名光效；已有素材缺圖沿用既有回退，不宣稱逐像素等同原片。
 - 2026-11-08 素材包整理：使用者提供的原版截圖／影片畫格已篩選 7 張轉為 WebP 參考集，供主城、神武殿、戰鬥 HUD、無雙特寫與品質框校色；因未含透明 Sprite／獨立背景圖層，未直接嵌入 runtime，避免把原版 UI 文字誤當遊戲素材並維持單檔大小。
-- 本次驗收：26 組單元測試 3,712／3,712；E2E 444／444（Chromium 桌機、WebKit iPhone 13 模擬、Chromium 橫向手機各 148）；ART-1～ART-4 視覺流程與 P4-3 生死劫入口涵蓋於 E2E；51 個 inline script 通過 ES5 檢查；單檔 11,890,862 bytes（上限 12,000,000）。未做真機測試。
+- 本次驗收：26 組單元測試 3,712／3,712；E2E 456／456（Chromium 桌機、WebKit iPhone 13 模擬、Chromium 橫向手機各 152），新增 P4-4 將魂合成 UI 操作驗收；ART-1～ART-4 視覺流程與 P4-3 生死劫入口涵蓋於 E2E；51 個 inline script 通過 ES5 檢查；單檔 11,890,862 bytes（上限 12,000,000）。未做真機測試。
 
 ### 已做但只有基本測試
 
@@ -170,7 +170,7 @@ reference/      原作截圖、宣傳片與其他參考素材（依倉庫擁有�
 
 > English: Clone, `npm install`, then `node tools/build-data.js && node tools/build-assets.js && node tools/build.js && node tools/es5check.js`. Unit tests: `sh tools/runtests.sh`. E2E: `npx playwright install chromium webkit && node tests/e2e.js all`. Output: `dist/mengjiang.html` (single file, < 12,000,000 bytes). Remaining work: see `TODO.md`.
 
-**最新狀態與待辦請看 [TODO.md](TODO.md)**（P1、P2、P3-1～P3-6、SHOP-1、TASK-1、P4-1～P4-3、P4-5、P4-6、ART-1～ART-4 完成；P4-4 尚待介面 E2E 驗收，P4-7、ART-5 以後待辦；未做真機測試）。進度紀錄在 `docs/原版還原-進度.md`。
+**最新狀態與待辦請看 [TODO.md](TODO.md)**（P1、P2、P3-1～P3-6、SHOP-1、TASK-1、P4-1～P4-6、ART-1～ART-4 完成；P4-3 已明確標註完成，P4-4 專屬介面 E2E 已通過；P4-7、ART-5 以後仍依各項所列範圍／來源／設備條件待辦；未做真機測試）。進度紀錄在 `docs/原版還原-進度.md`。
 
 ```bash
 npm install                                   # acorn（ES5 檢查）、playwright（e2e）、terser（單檔壓縮）
