@@ -170,7 +170,7 @@ reference/      原作截圖、宣傳片與其他參考素材（依倉庫擁有�
 
 > English: Clone, `npm install`, then `node tools/build-data.js && node tools/build-assets.js && node tools/build.js && node tools/es5check.js`. Unit tests: `sh tools/runtests.sh`. E2E: `npx playwright install chromium webkit && node tests/e2e.js all`. Output: `dist/mengjiang.html` (single file, < 12,000,000 bytes). Remaining work: see `TODO.md`.
 
-**最新狀態與待辦請看 [TODO.md](TODO.md)**（P1、P2、P3-1～P3-6、SHOP-1、TASK-1、P4-1～P4-6、ART-1～ART-4 完成；P4-7、ART-5 以後待辦；未做真機測試）。進度紀錄在 `docs/原版還原-進度.md`。
+**最新狀態與待辦請看 [TODO.md](TODO.md)**（P1、P2、P3-1～P3-6、SHOP-1、TASK-1、P4-1～P4-3、P4-5、P4-6、ART-1～ART-4 完成；P4-4 尚待介面 E2E 驗收，P4-7、ART-5 以後待辦；未做真機測試）。進度紀錄在 `docs/原版還原-進度.md`。
 
 ```bash
 npm install                                   # acorn（ES5 檢查）、playwright（e2e）、terser（單檔壓縮）

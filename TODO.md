@@ -6,7 +6,7 @@ BOARD-3 已完成；維持現行 v12 棋盤規則，本次不重做、不改動�
 
 ## English summary
 Unofficial, offline, single-file HTML5 remake of the 2012–2013 Facebook game 猛將無雙. Build output: `dist/mengjiang.html` (one file, ES5, no CDN, < 12,000,000 bytes). With the original company's consent (as stated by the repository owner), original art, music, and similar assets may be referenced or used directly so the remake stays as close to the original as possible. Record each use in `docs/美術素材來源.md`. If no original file is available, redraw closer assets from the screenshots and videos in `reference/`.
-State on 2026-11-08 (UTC+8): P1/P2 and P3-1–P3-6, SHOP-1, TASK-1 and P4-1–P4-6 are complete. P3-1 rates/caps remain RV13; P3-2 skill range shapes RV14; P3-6 field-item replay events RV15. P3-3–P3-5 remain implemented in current save v12 (P3-5 migration introduced in v11; P4-3 added v12). P4-2 third-slot compatibility is idempotent. P4-7 and later remain pending. Nothing here claims real-device testing; Playwright Chromium/WebKit iPhone 13 are emulations only. Social/online modes are not built (by design: single-player); the Honor Trial multiplayer item economy is not reconstructed. Many numbers remain grade D. Each item below lists goal, evidence + grade + URL, files/functions, acceptance tests, priority and dependencies. Read "Project rules" first.
+State on 2026-11-08 (UTC+8): P1/P2 and P3-1–P3-6, SHOP-1, TASK-1, P4-1–P4-3 and P4-5/P4-6 are complete; P4-4 implementation and unit tests are done but its dedicated UI E2E acceptance remains. P3-1 rates/caps remain RV13; P3-2 skill range shapes RV14; P3-6 field-item replay events RV15. P3-3–P3-5 remain implemented in current save v12 (P3-5 migration introduced in v11; P4-3 added v12). P4-2 third-slot compatibility is idempotent. P4-7 and later remain pending. Nothing here claims real-device testing; Playwright Chromium/WebKit iPhone 13 are emulations only. Social/online modes are not built (by design: single-player); the Honor Trial multiplayer item economy is not reconstructed. Many numbers remain grade D. Each item below lists goal, evidence + grade + URL, files/functions, acceptance tests, priority and dependencies. Read "Project rules" first.
 
 ---
 
@@ -131,11 +131,12 @@ URL 縮寫：`G2(sn)` = `https://forum.gamer.com.tw/G2.php?bsn=22512&sn=<sn>`；
 - 驗收：`tests/unit-web2-p4-3.js` 17 項覆蓋九層名稱、首領、鎖層／通關／敗北、首通獎勵、重複挑戰、邊界輸入、實際戰鬥引擎與 v11 存檔遷移；E2E 驗證入口、九層與首層鎖定。完整 26 組單元與 444 項 E2E 回歸均通過。
 - 優先：低；已完成（本作規則明確標 D）。
 
-### P4-4 5 魂合成公式 34 條（已完成）
+### P4-4 5 魂合成公式 34 條（部分完成；待補介面 E2E 驗收）
 - 目標：照 C(541) 34 條公式（順序無關、綠將無公式、30 級開放、正確配方提示）取代原本沒有來源的隨機合成；正確配方消耗 5 個指定將魂並產出指定將魂。兩條留言爭議公式不啟用。
 - 證據：C(541)（B；留言中爭議兩條標 C 不實作）；G2(4)（B）。整理檔 `docs/sources-extracted/web2/c-snA541-recipes.json`。
 - 實作：`tools/web2-data.js` 將來源公式映射成 `config.soulCombine.recipes`；`src/js/sys6.js` 提供順序無關的公式比對、缺料保護與合成；`src/js/ui-p6.js` 顯示 34 條配方與可用狀態。
-- 驗收：P4 專項測試覆蓋 34 條、固定 5 材料、順序無關、正確輸出、缺料不扣除與爭議公式不觸發；完整單元／E2E 回歸另行執行。優先：中；已完成。
+- 已完成：實作與單元測試覆蓋 34 條、固定 5 材料、順序無關、30 級開放、正確輸出、缺料不扣除與爭議公式不觸發。
+- 待完成：補端對端操作驗收，確認介面顯示 34 條配方、材料不足時的狀態，以及實際合成後材料扣除與輸出；目前全站 E2E 回歸通過不等同此項 UI 流程已驗收。優先：中。
 
 ### P4-5 六等範圍規則全面套用（已完成／P3-2 已覆蓋）
 - 六等範圍與來源格圖沿用 P3-2 的 RV14 實作；本次補上 W967 61 名技能列的來源效果抽取／狀態 tags provenance。已有明確 `fx` 才套入戰鬥；W967 未列的觸發機率、持續回合或完整屬性不自行補值。
