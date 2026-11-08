@@ -17,43 +17,44 @@
     def(s, 'soulLog', []);
   });
 
-  // ================= 將魂合成（B：主角 30 級開放、5 個同品質合成 1 個；K1 規則衝突兩種都保留） =================
+  // ================= 將魂合成（W541：主角 30 級開放、34 條五魂公式） =================
   // 品階：0 黑 1 白 2 綠 3 藍 4 紫(30 魂) 5 紫(45 魂)。K2：30 魂與 45 魂紫將並存。
   G.SOUL_RULES = {
-    S4: '同品階隨機 1 個，10% 機率升 1 階（D 機率；來源 B：「不會降低品質」）',
-    S1: '必定升 1 階（來源 B 另一說；紫 30 魂 ×5 → 紫 45 魂）'
+    recipe: '依 W541 公式放入 5 個指定將魂，順序不拘；正確配方可合成指定將魂',
+    legacy: '舊版隨機合成設定僅供存檔相容，不再提供隨機合成'
   };
   G.soulRank = function (id) { var d = R.heroDef(id); if (!d) return -1; return d.quality === 4 ? (d.souls >= 45 ? 5 : 4) : d.quality; };
-  G.SOUL_RANK_NAMES = ['黑', '白', '綠', '藍', '紫(30)', '紫(45)'];
-  G.soulPool = function (rank) { return U.filter(MJ.D.heroes.list, function (d) { return d.souls > 0 && G.soulRank(d.id) === rank; }); };
   G.soulCombineOpen = function () { return G.lead().lv >= C().soulCombine.open; };
-  G.soulStock = function (rank) {
-    var s = st(), out = [], tot = 0;
-    U.each(U.keys(s.bag.stack), function (k) {
-      if (k.indexOf('soul:') !== 0 || !(s.bag.stack[k] > 0)) return;
-      if (G.soulRank(k.slice(5)) === rank) { out.push({ k: k, n: s.bag.stack[k] }); tot += s.bag.stack[k]; }
-    });
-    out.sort(function (a, b) { return b.n - a.n || (a.k < b.k ? -1 : 1); });
-    return { list: out, total: tot };
+  G.soulRecipes = function () { return (C().soulCombine && C().soulCombine.recipes) || []; };
+  function recipeIn(r) { return r.split(',').slice(0, 5); }
+  function recipeOut(r) { return r.split(',')[5]; }
+  function recipeKey(ids) { return ids.slice().sort().join('|'); }
+  G.soulRecipeState = function (i) {
+    var r = G.soulRecipes()[i], need = {}, haveAll = true;
+    if (!r) return null;
+    U.each(recipeIn(r), function (id) { need[id] = (need[id] || 0) + 1; });
+    U.each(U.keys(need), function (id) { if (have('soul:' + id) < need[id]) haveAll = false; });
+    return { index: i, recipe: r, need: need, can: haveAll, out: R.heroDef(recipeOut(r)) };
   };
-  G.soulCombine = function (rank, rng, rule) {
-    var s = st(), cfg = C().soulCombine; rng = rng || Math.random; rule = rule || s.settings.soulRule || 'S4';
+  G.soulRecipeFind = function (ids) {
+    var key = recipeKey(ids), found = null;
+    U.each(G.soulRecipes(), function (r, i) { if (!found && recipeKey(recipeIn(r)) === key) found = { index: i, recipe: r }; });
+    return found;
+  };
+  G.soulCombineRecipe = function (i) {
+    var s = st(), cfg = C().soulCombine, x = G.soulRecipeState(+i);
     if (!G.soulCombineOpen()) return fail('將魂合成需要主角 ' + cfg.open + ' 級');
-    var stock = G.soulStock(rank);
-    if (stock.total < cfg.n) return fail(G.SOUL_RANK_NAMES[rank] + '將魂不足 ' + cfg.n + ' 個（目前 ' + stock.total + '）');
-    var out = rank;
-    if (rule === 'S1') out = Math.min(5, rank + 1);
-    else if (rng() < cfg.up) out = Math.min(5, rank + 1);
-    while (out > rank && !G.soulPool(out).length) out--; // 沒有更高品階時維持同品階（不會降低）
-    var pool = G.soulPool(out); if (!pool.length) return fail('沒有可合成的武將');
-    var need = cfg.n, used = [];
-    U.each(stock.list, function (x) { if (!need) return; var t = Math.min(need, x.n); take(x.k, t); need -= t; used.push({ k: x.k, n: t }); });
-    var pick = pool[Math.floor(rng() * pool.length)];
+    if (!x) return fail('沒有這條合成公式');
+    if (!x.can) return fail('指定將魂不足，正確配方需要 5 個材料各 1 個');
+    U.each(U.keys(x.need), function (id) { take('soul:' + id, x.need[id]); });
+    var pick = x.out;
     G.addItem('soul:' + pick.id, 1);
-    s.soulLog.unshift({ from: rank, to: out, id: pick.id, rule: rule }); if (s.soulLog.length > 20) s.soulLog.length = 20;
-    G.log('將魂合成：' + cfg.n + ' 個' + G.SOUL_RANK_NAMES[rank] + '將魂 → ' + pick.name + '將魂' + (out > rank ? '（升階！）' : ''), 'lv');
-    G.commit(); return ok({ id: pick.id, name: pick.name, rank: out, up: out > rank, used: used });
+    s.soulLog.unshift({ recipe: +i, id: pick.id, rule: 'W541' }); if (s.soulLog.length > 20) s.soulLog.length = 20;
+    G.log('將魂合成：W541 配方 → ' + pick.name + '將魂', 'lv');
+    G.commit(); return ok({ id: pick.id, name: pick.name, recipe: +i, used: x.need });
   };
+  // 舊呼叫端仍可得到明確錯誤，不再執行未有來源的隨機合成。
+  G.soulCombine = function () { return fail('請選擇 W541 指定合成公式'); };
 
   // ================= 通天塔：每 10 層獎勵（B：每 10 層有獎勵；內容 D）與紫裝碎片 =================
   G.FRAG = 'zizhuang_frag'; G.FRAG_NEED = 10; // D

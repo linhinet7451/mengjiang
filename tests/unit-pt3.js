@@ -7,36 +7,29 @@ function fresh() { var c = load(); c._t = T0; c.MJ.U.now = function () { return 
 function seq(a) { var i = 0; return function () { return a[i++ % a.length]; }; }
 var c, M, G, S, R, r, i;
 
-console.log('[將魂合成：30 級開放、5 合 1、不降品質]');
+console.log('[將魂合成：W541 34 條公式、30 級開放]');
 c = fresh(); M = c.MJ; G = M.G; S = M.S; R = M.R;
-var greens = M.D.heroes.list.filter(function (d) { return d.quality === 2; }), blues = M.D.heroes.list.filter(function (d) { return d.quality === 3; });
-G.addItem('soul:' + greens[0].id, 3); G.addItem('soul:' + greens[1].id, 4);
-r = G.soulCombine(2, seq([0.9, 0.1]));
+var recipes = M.D.config.soulCombine.recipes, firstRecipe = recipes[0].split(',');
+var greens = M.D.heroes.list.filter(function (d) { return d.quality === 2; });
+G.addItem('soul:' + firstRecipe[0], 1);
+r = G.soulCombineRecipe(0);
 ok(!r.ok && /30/.test(r.msg), '主角未滿 30 級不能合成');
 G.lead().lv = 30;
-r = G.soulCombine(3, seq([0.5]));
-ok(!r.ok && /不足/.test(r.msg), '藍將魂不足 5 個時失敗');
-r = G.soulCombine(2, seq([0.9, 0.1]), 'S4');
-ok(r.ok && !r.up && G.soulRank(r.id) === 2 && G.soulStock(2).total === 7 - 5 + 1, 'S4：5 個綠將魂 → 1 個綠將魂（共 7→3）');
-ok(S.state.bag.stack['soul:' + greens[1].id] === undefined || S.state.bag.stack['soul:' + greens[1].id] < 4, '優先消耗數量最多的將魂');
-G.addItem('soul:' + greens[2].id, 5);
-r = G.soulCombine(2, seq([0.05, 0.3]), 'S4');
-ok(r.ok && r.up && G.soulRank(r.id) === 3, 'S4：10% 升階時得到藍將魂（不會更低）');
-G.addItem('soul:' + blues[0].id, 5);
-r = G.soulCombine(3, seq([0.99, 0.5]), 'S1');
-ok(r.ok && G.soulRank(r.id) === 4, 'S1：5 個藍將魂必定升成紫將魂');
+ok(recipes.length === 34 && recipes.every(function (x) { var p = x.split(','); return p.length === 6 && p[5]; }), 'W541 載入 34 條固定五魂公式');
+var shuffled = firstRecipe.slice(0, 5).reverse();
+ok(G.soulRecipeFind(shuffled).index === 0, '公式材料順序無關');
+firstRecipe.slice(0, 5).forEach(function (id) { G.addItem('soul:' + id, 1); });
+r = G.soulCombineRecipe(0);
+ok(r.ok && r.id === firstRecipe[5], '正確 5 魂配方產出指定將魂');
+var secondRecipe = recipes[1].split(','), missing = 'soul:' + secondRecipe[0];
+delete S.state.bag.stack[missing];
+var beforeOut = S.state.bag.stack['soul:' + secondRecipe[5]] || 0;
+r = G.soulCombineRecipe(1);
+ok(!r.ok && (S.state.bag.stack['soul:' + secondRecipe[5]] || 0) === beforeOut, '缺少材料時不合成、不產出');
 var p30 = M.D.heroes.list.filter(function (d) { return G.soulRank(d.id) === 4; }), p45 = M.D.heroes.list.filter(function (d) { return G.soulRank(d.id) === 5; });
 ok(p30.length > 0 && p45.length > 0, 'K2：30 魂紫將（' + p30.length + ' 名）與 45 魂紫將（' + p45.length + ' 名）並存');
-G.addItem('soul:' + p30[0].id, 5);
-r = G.soulCombine(4, seq([0.99, 0.5]), 'S1');
-ok(r.ok && G.soulRank(r.id) === 5, 'S1：紫(30)×5 → 紫(45)');
-G.addItem('soul:' + p45[0].id, 5);
-r = G.soulCombine(5, seq([0.01, 0.5]), 'S1');
-ok(r.ok && G.soulRank(r.id) === 5, '最高品階合成仍是紫(45)，不會降低');
-var worst = 9; for (i = 0; i < 40; i++) { G.addItem('soul:' + greens[0].id, 5); r = G.soulCombine(2, Math.random); if (!r.ok || G.soulRank(r.id) < 2) worst = -1; }
-ok(worst !== -1, '隨機 40 次合成全部成功且沒有低於綠');
-ok(S.state.soulLog.length === 20, '合成紀錄只保留最近 20 筆');
-ok(M.D.config.soulCombine.open === 30 && M.D.config.soulCombine.n === 5, '設定：30 級開放、5 合 1');
+ok(M.D.config.soulCombine.recipes.length === 34, '爭議公式不進入 runtime');
+ok(M.D.config.soulCombine.open === 30 && M.D.config.soulCombine.n === 5, '設定：30 級開放、5 魂配方');
 
 console.log('[無極幻境：無盡波次、每 5 波 1 將魂]');
 c = fresh(); M = c.MJ; G = M.G; S = M.S;

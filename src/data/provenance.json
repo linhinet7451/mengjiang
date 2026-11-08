@@ -5140,6 +5140,25 @@
    "note": "待補直接數值。",
    "tentative": true,
    "conflicts": []
+  },
+  {
+   "id": "web2.soulCombine.recipes",
+   "cat": "將魂合成",
+   "item": "5 魂合成公式",
+   "spec": "snA541",
+   "current": "34 條非爭議公式；放置順序無關；綠將無公式；正確配方提示；爭議兩條不觸發",
+   "grade": "B",
+   "label": "原版（當年攻略記載）",
+   "sources": [
+    {
+     "s": "W541",
+     "q": "2012-06 合成公式表；34 條配方及合成規則"
+    }
+   ],
+   "phase": "web2-P4",
+   "note": "兩條留言爭議公式保留於 contested，不進 runtime。",
+   "tentative": false,
+   "conflicts": []
   }
  ]
 }

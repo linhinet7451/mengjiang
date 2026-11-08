@@ -86,6 +86,16 @@ if (phases.indexOf('P3') >= 0) {
   var r3 = require('./web2-p3.js')({ H: H, C: C, P: P, T: T, entry: entry, conflict: conflict, LB: LB });
   console.log('P3 mapped', r3.mapped, '/', r3.rows, 'skill rows; ranges', r3.ranges, 'sourced /', r3.fallbackRanges, 'fallback; honor frames', r3.frames);
 }
+
+if (phases.indexOf('P4') >= 0) {
+  var soulRecipeNames = [{"in":["張角","張角","蔡文姬","鹿杖客","岳靈珊"],"out":"韋小寶"},{"in":["蔡文姬","蔡文姬","蔡文姬","張角","華雄"],"out":"韋小寶"},{"in":["邱處機","邱處機","張角","蔡文姬","岳靈珊"],"out":"建寧公主"},{"in":["邱處機","邱處機","岳靈珊","岳靈珊","蔡文姬"],"out":"建寧公主"},{"in":["邱處機","邱處機","張角","鹿杖客","岳靈珊"],"out":"許褚"},{"in":["邱處機","邱處機","邱處機","鹿杖客","岳靈珊"],"out":"許褚"},{"in":["華雄","華雄","張角","岳靈珊","鹿杖客"],"out":"鰲拜"},{"in":["蔡文姬","蔡文姬","蔡文姬","岳靈珊","張角"],"out":"鰲拜"},{"in":["鹿杖客","鹿杖客","蔡文姬","蔡文姬","岳靈珊"],"out":"梅超風"},{"in":["華雄","華雄","張角","張角","岳靈珊"],"out":"梅超風"},{"in":["典韋","韋小寶","張遼","滅絕師太","左冷禪"],"out":"虛竹"},{"in":["董卓","韋小寶","袁紹","阿珂","顏良"],"out":"虛竹"},{"in":["李秋水","韋小寶","韋小寶","建寧公主","顏良"],"out":"虛竹"},{"in":["鰲拜","韋小寶","梅超風","典韋","許褚"],"out":"虛竹"},{"in":["董卓","鰲拜","建寧公主","張遼","顏良"],"out":"曹操"},{"in":["周伯通","孫策","天山童姥","阿珂","李莫愁"],"out":"曹操"},{"in":["周伯通","李秋水","孫策","梅超風","滅絕師太"],"out":"曹操"},{"in":["李秋水","韋小寶","梅超風","典韋","顏良"],"out":"曹操"},{"in":["孫策","典韋","梅超風","袁紹","建寧公主"],"out":"任我行"},{"in":["李莫愁","鰲拜","梅超風","梅超風","左冷禪"],"out":"任我行"},{"in":["董卓","梅超風","建寧公主","王語嫣","王語嫣"],"out":"任我行"},{"in":["李秋水","張遼","張遼","滅絕師太","左冷禪"],"out":"任我行"},{"in":["孫策","韋小寶","太史慈","滅絕師太","李莫愁"],"out":"張無忌"},{"in":["孫策","孫策","建寧公主","袁紹","左冷禪"],"out":"張無忌"},{"in":["周伯通","孫策","李秋水","鰲拜","左冷禪"],"out":"張無忌"},{"in":["李莫愁","梅超風","袁紹","許褚","王語嫣"],"out":"張無忌"},{"in":["太史慈","袁紹","許褚","滅絕師太","王語嫣"],"out":"孫權"},{"in":["王語嫣","左冷禪","袁紹","許褚","李莫愁"],"out":"孫權"},{"in":["鰲拜","天山童姥","建寧公主","梅超風","顏良"],"out":"孫權"},{"in":["周伯通","天山童姥","韋小寶","阿珂","許褚"],"out":"孫權"},{"in":["典韋","梅超風","阿珂","許褚","李莫愁"],"out":"令狐沖"},{"in":["李秋水","建寧公主","袁紹","許褚","張遼"],"out":"東方不敗"},{"in":["周伯通","李秋水","韋小寶","許褚","左冷禪"],"out":"周瑜"},{"in":["董卓","鰲拜","周伯通","許褚","滅絕師太"],"out":"夏侯惇"}];
+  var byName = {}; H.list.forEach(function (h) { byName[h.name] = h.id; });
+  // Compact runtime form: "materialId,materialId,materialId,materialId,materialId,outputId".
+  C.soulCombine.recipes = soulRecipeNames.map(function (r) {
+    return r.in.map(function (name) { if (!byName[name]) throw new Error('W541 recipe hero missing: ' + name); return byName[name]; }).concat([byName[r.out]]).join(',');
+  });
+  entry({ id: 'web2.soulCombine.recipes', cat: '將魂合成', item: '5 魂合成公式', spec: 'snA541', current: '34 條非爭議公式；放置順序無關；綠將無公式；正確配方提示；爭議兩條不觸發', grade: 'B', label: LB.B, sources: [{ s: 'W541', q: '2012-06 合成公式表；34 條配方及合成規則' }], phase: 'web2-P4', note: '兩條留言爭議公式保留於 contested，不進 runtime。' });
+}
 if (phases.indexOf('P1') >= 0 || 1) { wr('heroes', H); wr('config', C); wr('formations', F); wr('provenance', P); }
 if (phases.indexOf('P3') >= 0) wr('stages', T);
 console.log('web2-data done', phases.join(','), 'heroes', H.list.length, 'prov', P.entries.length);

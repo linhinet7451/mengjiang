@@ -1,0 +1,53 @@
+{
+  "purpose": "transparent native candidates; identity mapping required before runtime use",
+  "items": [
+    {
+      "source": "mengjiang_pack_transparent/assets-transparent/fb/all/t_006.png",
+      "optimized": "reference/native-transparent/native-character-01.webp",
+      "source_sha256": "c6a19895b0f99b08192976ecb38086efa6108296d2e81580437e165fdc0ae295",
+      "width": 206,
+      "height": 206,
+      "alpha_nonzero": 22794,
+      "alpha_pixels": 42436,
+      "optimized_bytes": 10090,
+      "mapped_hero_id": null,
+      "runtime_use": false
+    },
+    {
+      "source": "mengjiang_pack_transparent/assets-transparent/fb/all/t_011.png",
+      "optimized": "reference/native-transparent/native-character-02.webp",
+      "source_sha256": "4b405dd7f0a15e7d618bcce6f6e9d21d6cd40f7fbbbdd678c619421b5df994d4",
+      "width": 206,
+      "height": 206,
+      "alpha_nonzero": 8185,
+      "alpha_pixels": 42436,
+      "optimized_bytes": 5590,
+      "mapped_hero_id": null,
+      "runtime_use": false
+    },
+    {
+      "source": "mengjiang_pack_transparent/assets-transparent/fb/all/t_036.png",
+      "optimized": "reference/native-transparent/native-character-03.webp",
+      "source_sha256": "bc6de4aa34541866f32e3dc74330a1cafb9cca6a7ec6368078ad2a6b8b8fd936",
+      "width": 206,
+      "height": 206,
+      "alpha_nonzero": 18466,
+      "alpha_pixels": 42436,
+      "optimized_bytes": 8892,
+      "mapped_hero_id": null,
+      "runtime_use": false
+    },
+    {
+      "source": "mengjiang_pack_transparent/assets-transparent/fb/all/t_078.png",
+      "optimized": "reference/native-transparent/native-character-04.webp",
+      "source_sha256": "b2d64f43e1909b34832849e9f46cab166081e019cc9a3bdba95430958f50adbe",
+      "width": 206,
+      "height": 206,
+      "alpha_nonzero": 25867,
+      "alpha_pixels": 42436,
+      "optimized_bytes": 12454,
+      "mapped_hero_id": null,
+      "runtime_use": false
+    }
+  ]
+}

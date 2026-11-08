@@ -26,23 +26,23 @@
 
   // ---------- 將星錄：將魂合成 ----------
   function soulPanel() {
-    var s = S(), cfg = C().soulCombine, rule = s.settings.soulRule || 'S4';
-    var h = '<hr><b>將魂合成</b>（主角 ' + cfg.open + ' 級開放；' + cfg.n + ' 個同品階 → 1 個，不會降低品質）';
+    var cfg = C().soulCombine;
+    var h = '<hr><b>將魂合成</b>（主角 ' + cfg.open + ' 級開放；W541 指定 5 魂公式，材料順序不限）';
     if (!G.soulCombineOpen()) return h + '<br><small>主角 ' + cfg.open + ' 級開放</small>';
-    h += '<div class="tabs small">' + U.map(['S4', 'S1'], function (k) { return '<a class="tab' + (rule === k ? ' on' : '') + '" data-a="soulRule" data-v="' + k + '">' + (k === 'S4' ? '同階（升階 ' + Math.round(cfg.up * 100) + '%）' : '必定升階') + '</a>'; }).join('') + '</div><small>' + G.SOUL_RULES[rule] + '</small><div class="rows sc-rows">';
-    for (var r = 0; r <= 5; r++) {
-      var stk = G.soulStock(r); if (!stk.total) continue;
-      h += '<div class="row-item">' + UI.icon('soul', Math.min(4, r)) + '<div class="ri-t"><b>' + G.SOUL_RANK_NAMES[r] + '將魂 ×' + stk.total + '</b></div>' + (stk.total >= cfg.n ? '<a class="btn small" data-a="soulMix" data-v="' + r + '">合成</a>' : '<small>需 ' + cfg.n + '</small>') + '</div>';
-    }
-    return h + '</div><p class="note">K1 來源衝突：合成規則兩種說法都保留，可切換（B）。升階機率：D。</p>';
+    h += '<small>' + G.SOUL_RULES.recipe + '</small><div class="rows sc-rows">';
+    U.each(G.soulRecipes(), function (r, i) {
+      var parts = r.split(','), x = G.soulRecipeState(i), names = U.map(parts.slice(0, 5), function (id) { var d = R.heroDef(id); return d ? d.name : '?'; }).join('＋'), out = R.heroDef(parts[5]);
+      h += '<div class="row-item"><div class="ri-t"><b>' + (i + 1) + '. ' + U.esc(names) + ' → ' + U.esc(out ? out.name : '?') + '將魂</b><small>' + (x.can ? '材料足夠，可合成' : '材料不足') + '</small></div>' + (x.can ? '<a class="btn small" data-a="soulRecipe" data-v="' + i + '">合成</a>' : '<small>需 5 個指定魂</small>') + '</div>';
+    });
+    if (!G.soulRecipes().length) h += '<div class="row-item"><small>尚未載入 W541 合成公式。</small></div>';
+    return h + '</div><p class="note">W541（B）：綠將無合成公式；兩條爭議留言公式不進入本作。</p>';
   }
   var baseJxl = UI.screens.jxl;
   UI.screens.jxl = function () {
     var h = baseJxl.apply(this, arguments), at = h.indexOf('<div class="btn-row"><a class="btn small" data-a="open" data-v="codex">');
     return at < 0 ? h : h.slice(0, at) + soulPanel() + h.slice(at);
   };
-  UI.actions.soulRule = function (k) { S().settings.soulRule = k; G.commit(); UI.render(); };
-  UI.actions.soulMix = function (r) { var x = G.soulCombine(+r); if (UI.res(x, '獲得 ' + (x.name || '') + '將魂' + (x.up ? '（升階！）' : ''))) UI.render(); };
+  UI.actions.soulRecipe = function (i) { var x = G.soulCombineRecipe(+i); if (UI.res(x, '獲得 ' + (x.name || '') + '將魂')) UI.render(); };
 
   // ---------- 通天塔：紫裝碎片合成 ----------
   var baseTower = UI.screens.tower;
