@@ -81,6 +81,10 @@ Object.keys(grids).forEach(function (sourceName) {
 ok(ultStable, '61 名無雙範圍在 Lv1/Lv9 固定不變');
 ok(healsPreserved, '全體治療仍保留治療語義，劉備沿用既有全體傷害規則');
 ok(activeCorrect, 'RV14 R.skillOf 對 61 名主動技能採 Lv1/Lv6 shape');
+var leadLv1 = R.skillOf({ id: 'lead', sk: { a: 1 } }, 'a');
+var leadLv6 = R.skillOf({ id: 'lead', sk: { a: 6 } }, 'a');
+var leadLv7 = R.skillOf({ id: 'lead', sk: { a: 7 } }, 'a');
+ok(same(leadLv1.shape, [[0, 0]]) && same(leadLv6.shape, [[0, 0], [0, 1]]) && same(leadLv7.shape, [[0, 0], [0, 1]]), '主角主動技 Lv1 一格、Lv6/Lv7 兩格，Lv7 不回退');
 var fallbackHero = missing.length ? missing[0] : null;
 if (fallbackHero) {
   var old = R.skillOf({ id: fallbackHero.id, sk: { a: 6 } }, 'a');
