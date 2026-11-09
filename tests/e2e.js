@@ -496,6 +496,30 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   ok(await J(function () { return MJ.UI.screen; }) === 'wulin', '重播後返回武林大會');
   await J(function (lv) { MJ.G.lead().lv = lv; MJ.G.commit(); }, wulinLv0);
   await act('[data-a="city"]');
+  // 虛空之門擴充（WL-2）：ch9 雁門關在地圖第三卷，進入 s9_1 戰鬥並有結算
+  // 注意：先前關卡流程已選過 gateCh=1（未經 gateBack 不會歸零），重進地圖前先清掉，否則畫面停在第 1 章關卡格而非地圖
+  var gateLv0 = await J(function () { return MJ.G.lead().lv; });
+  await J(function () { MJ.G.lead().lv = 70; var s = MJ.S.state; s.stages['s8_8'] = { stars: 3, clears: 1 }; MJ.UI.sel.gateCh = null; MJ.UI.sel.gateVol = null; MJ.G.commit(); MJ.UI.go('city'); });
+  await act('[data-a="gate"]');
+  ok(await J(function () { return MJ.D.stages.chapters.length === 10; }), '虛空之門共 10 章（新增 ch9 雁門關、ch10 長安）');
+  ok(await J(function () { return MJ.UI.sel.gateVol === 2; }), '地圖預設切到第三卷（目前進度第 9 章）');
+  await act('[data-a="gateVol"][data-v="1"]');
+  ok(await J(function () { return MJ.UI.sel.gateVol === 1; }), '上一卷切到第二卷');
+  await act('[data-a="gateVol"][data-v="2"]');
+  ok(await J(function () { return MJ.UI.sel.gateVol === 2; }), '下一卷回到第三卷（第 9／10 章）');
+  await act('[data-a="gateCh"][data-v="9"]');
+  ok(await J(function () { return MJ.UI.sel.gateCh === 9; }), '進入第 9 章雁門關');
+  await shot('17-gate-ch9');
+  await act('[data-a="stagePop"][data-v="s9_1"]');
+  await act('[data-a="startBattle"]');
+  ok(await J(function () { return MJ.UI.screen; }) === 'battle', '進入 s9_1 戰鬥畫面');
+  await page.waitForTimeout(400);
+  await act('[data-a="bSkip"]');
+  await page.waitForSelector('.result', { timeout: 15000 });
+  ok(await page.locator('.result.win, .result.lose').count() === 1, 's9_1 戰鬥有結算畫面');
+  await act('[data-a="bCity"]');
+  ok(await J(function () { return MJ.UI.screen; }) === 'city', '結算後回主城');
+  await J(function (lv) { MJ.G.lead().lv = lv; MJ.G.commit(); }, gateLv0);
   await J(function () { MJ.G.addItem('seed_yin', 3); MJ.G.commit(); });
   await act('.bld[data-a="farm"]');
   ok(await page.locator('.fm-plot').count() === 9, '農田顯示 3x3 田地');

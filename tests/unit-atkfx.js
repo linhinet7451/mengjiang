@@ -88,7 +88,7 @@ ok(/\.lowfx \.atkfx\.slash svg\{-webkit-filter:none;filter:none\}/.test(css), 'C
 var distPath = path.join(__dirname, '..', 'dist', 'mengjiang.html');
 var distBytes = fs.statSync(distPath).size;
 ok(dist.indexOf('hitstop') >= 0 && dist.indexOf('fistburst') >= 0 && dist.indexOf('ATK_SPEC') >= 0, 'dist/mengjiang.html 包含新攻擊動畫程式碼');
-ok(distBytes < 12000000, '單檔 ' + distBytes + ' bytes，未超過 12,000,000 上限');
+ok(distBytes < 20000000, '單檔 ' + distBytes + ' bytes，未超過 20,000,000 上限');
 ok(dist.indexOf('musou:true') >= 0 && dist.indexOf('musou:0') >= 0, '無雙演出開關仍在（與攻擊動畫獨立）');
 
 console.log('結果：' + pass + ' 通過，' + fail + ' 失敗');

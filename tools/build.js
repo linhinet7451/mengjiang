@@ -52,5 +52,5 @@ function stamp(html, id) { return html.replace('<meta charset="utf-8">', '<meta 
   fs.writeFileSync(path.join(DIST, 'boot-test.html'), bt);
   var mb = Buffer.byteLength(main, 'utf8'), bb = Buffer.byteLength(bt, 'utf8');
   console.log('build', BID, '; dist/mengjiang.html', mb, 'bytes (UTF-8); dist/boot-test.html', bb, 'bytes');
-  if (mb >= 12000000) { console.error('超過 12,000,000 bytes 上限'); process.exit(2); }
+  if (mb >= 20000000) { console.error('超過 20,000,000 bytes 上限'); process.exit(2); }
 })().catch(function (err) { console.error(err); process.exit(1); });

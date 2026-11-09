@@ -15,9 +15,11 @@ var TARGETS = {
   5: { normal: [8, 8, 8, 8, 8], elite: 9, boss: 9, hidden: 9 },
   6: { normal: [9, 9, 9, 9, 9], elite: 9, boss: 9, hidden: 9 },
   7: { normal: [9, 9, 9, 9, 9], elite: 9, boss: 9, hidden: 9 },
-  8: { normal: [9, 9, 9, 9, 9], elite: 9, boss: 9, hidden: 9 }
+  8: { normal: [9, 9, 9, 9, 9], elite: 9, boss: 9, hidden: 9 },
+  9: { normal: [9, 9, 9, 9, 9], elite: 9, boss: 9, hidden: 9 },
+  10: { normal: [9, 9, 9, 9, 9], elite: 9, boss: 9, hidden: 9 }
 };
-ok(stages.length === 72, '共 72 關');
+ok(stages.length === 90, '共 90 關');
 var normalSeen = {}, total = 0, bad = [];
 stages.forEach(function (s) {
   var ch = chapters[s.ch], t = TARGETS[s.ch];
@@ -45,7 +47,7 @@ stages.forEach(function (s) {
   if (s.kind !== 'normal' && leaders !== 1) bad.push(s.id + ' ' + s.kind + '關應恰有 1 名首領，實際 ' + leaders);
 });
 ok(!bad.length, '每關數量符合梯度、cell 唯一且在 0-8、種類屬於該章 pool、首領關恰有 1 名首領' + (bad.length ? '（' + bad.slice(0, 5).join('；') + '）' : ''));
-ok(total === 556, '小兵＋首領總數 556（改前 499，新增 57）');
+ok(total === 718, '小兵＋首領總數 718（WL-1：556；WL-2 新增 ch9／ch10 共 162）');
 var counts = {};
 stages.forEach(function (s) { counts[s.ch + '-' + s.kind] = (counts[s.ch + '-' + s.kind] || []).concat(s.enemies.length); });
 ok(counts['1-normal'].join(',') === '4,4,5,5,5' && counts['2-normal'].join(',') === '5,5,6,6,6', '第 1-2 章普通關 4-6 名（教學關保留 4 名，不一次填滿）');
