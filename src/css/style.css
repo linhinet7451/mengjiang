@@ -235,6 +235,8 @@ hr{border:0;border-top:1px solid #b8a468;margin:8px 0}
 .eg.boss{outline:2px solid #ff6030}.eg.none{background:#4a3e28}
 .eg span{position:absolute;right:2px;bottom:1px;font-size:11px;color:#fff;background:rgba(0,0,0,.6);padding:0 3px;border-radius:3px}
 .sp-r{flex:1;-webkit-flex:1;font-size:14px}.sp-r .row{margin-bottom:5px}
+/* WL-4 首領詞綴列：關卡面板（出戰視窗）戰前顯示，紅字強調 */
+.sp-r .row.affix{color:#c22;background:rgba(200,40,60,.08);border-left:3px solid #c22;padding:2px 6px}
 .sp-r .art.icon{display:inline-block;width:18px;height:18px;vertical-align:-4px}
 
 /* ---------- 共用：彈窗、確認、提示 ---------- */
@@ -320,6 +322,8 @@ hr{border:0;border-top:1px solid #b8a468;margin:8px 0}
 .rank-tag{display:inline-block;margin-right:2px;padding:0 3px;border:1px solid;border-radius:3px;font-size:9px;font-style:normal;line-height:11px;vertical-align:1px}
 .rank-tag.gold{color:#fff0a0;border-color:#ffd34a;background:rgba(95,55,0,.85)}
 .rank-tag.silver{color:#fff;border-color:#dbe2ed;background:rgba(60,70,85,.85)}
+/* WL-4 首領詞綴標籤：戰鬥中首領頭像旁，紫紅底，與 BOSS 金標並列 */
+.affix-tag{display:inline-block;margin-right:2px;padding:0 3px;border:1px solid #e08ab0;border-radius:3px;font-size:9px;font-style:normal;line-height:11px;vertical-align:1px;color:#ffe3ef;background:rgba(90,20,50,.85)}
 .bu.acting{z-index:40!important}
 .bu.acting .bfig{filter:drop-shadow(0 0 6px #fff6a0)}
 .bu.hurt .bfig{-webkit-animation:hurt .3s;animation:hurt .3s}

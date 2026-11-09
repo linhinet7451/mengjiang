@@ -394,7 +394,7 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   await page.waitForSelector('.result', { timeout: 15000 });
   ok(await page.locator('.result.win').count() === 1 && await J(function () { return MJ.S.state.tower.best; }) === 1, '登上通天塔第 1 層並記錄');
   ok((await page.locator('.result').innerText()).indexOf('第 1 層') >= 0, '塔層結算顯示樓層與首登獎勵');
-  // WL-3 任務 2：勝利結算預設自動接續（約 1.2 秒後打下一層），期間顯示倒數與「停止」
+  // WL-3 任務 2：勝利結算預設自動接續（約 3 秒後打下一層），期間顯示倒數與「停止」
   ok((await page.locator('#autoNext').innerText()).indexOf('即將挑戰下一層') >= 0, '塔結算顯示「即將挑戰下一層…」與停止鈕（自動接續預設開）');
   await act('[data-a="autoStop"]');
   ok(await J(function () { return MJ.UI.autoContinue.tower === false; }) && (await page.locator('#autoNext').innerText()).indexOf('已停止自動接續') >= 0, '按「停止」中斷自動接續，停在結算不進下一層');
@@ -412,7 +412,7 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   await page.waitForSelector('.result', { timeout: 15000 });
   ok(await page.locator('.result.win').count() === 1, '登上通天塔第 2 層');
   await page.waitForFunction(function () { var b = MJ.UI.battleState(); return b && b.r && b.r.stage && b.r.stage.floor === 3; }, null, { timeout: 10000 });
-  ok(await J(function () { return MJ.UI.battleState().r.stage.floor === 3 && MJ.S.state.tower.best === 3; }), '結算後約 1.2 秒自動挑戰第 3 層（不需手動點下一層）');
+  ok(await J(function () { return MJ.UI.battleState().r.stage.floor === 3 && MJ.S.state.tower.best === 3; }), '結算後約 3 秒自動挑戰第 3 層（不需手動點下一層）');
   await act('[data-a="bSkipAll"]');
   await page.waitForTimeout(400);
   if (await page.locator('[data-a="twSkipAll"]').count()) await act('[data-a="twSkipAll"]');
@@ -455,7 +455,7 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   await act('[data-a="bSkip"]');
   await page.waitForSelector('.result', { timeout: 15000 });
   await page.waitForFunction(function () { var b = MJ.UI.battleState(); return b && b.r && b.r.idx === 1; }, null, { timeout: 10000 });
-  ok(await J(function () { return MJ.UI.battleState().r.idx === 1; }), '結算後約 1.2 秒自動播放第 2 波（不需手動點下一波）');
+  ok(await J(function () { return MJ.UI.battleState().r.idx === 1; }), '結算後約 3 秒自動播放第 2 波（不需手動點下一波）');
   await act('[data-a="bSkipAll"]');
   await page.waitForTimeout(400);
   if (await page.locator('[data-a="wjSum"]').count()) await act('[data-a="wjSum"]');

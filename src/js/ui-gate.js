@@ -52,6 +52,9 @@
     }
     b += '</div><div class="note">敵方站位（右側為前排）</div></div><div class="sp-r">';
     b += '<div class="row"><b>' + U.esc(MJ.D.stages.enemies[leader.e].name) + '</b>　等級 ' + leader.lv + '</div>';
+    // WL-4 首領詞綴（D 級原創）：王關／隱藏關才有；戰前顯示，開戰用的就是同一顆種子，顯示與實戰一致
+    var affix = G.stageAffix(id);
+    if (affix) b += '<div class="row affix">首領詞綴：<b>' + U.esc(affix.name) + '</b>（' + U.esc(affix.desc) + '）</div>';
     b += '<div class="row">類型：' + KIND[sg.kind] + '關　敵人 ' + sg.enemies.length + ' 名</div>';
     b += '<div class="row">獎勵：經驗 ' + sg.exp + '／人　銀幣 ' + sg.silver + '</div>';
     b += '<div class="row">可能掉落：' + U.map(sg.drops, function (d) { return (d.item.indexOf('eq:') === 0 ? MJ.D.config.equipQualityNames[d.q] + '．' : '') + G.itemName(d.item) + '(' + Math.round(d.chance * 100) + '%)'; }).join('、') + '</div>';

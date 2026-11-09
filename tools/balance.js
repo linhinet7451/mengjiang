@@ -95,6 +95,19 @@ for (var rk = G.ARENA_N; rk >= 1; rk -= (rk > 5 ? 3 : 1)) {
   var fn3 = (function (fo) { return function () { return JSON.parse(JSON.stringify(fo.foes)); }; })(fo);
   out.arena.push({ rank: rk, lv: fo.lv, n: fo.count, typ: winRate('typ', Math.max(G.ARENA_OPEN, fo.lv), fn3), typ5: winRate('typ', Math.min(80, Math.max(G.ARENA_OPEN, fo.lv + 5)), fn3), weak: winRate('weak', Math.max(G.ARENA_OPEN, fo.lv), fn3), weak8: winRate('weak', Math.min(80, Math.max(G.ARENA_OPEN, fo.lv + 8)), fn3) });
 }
+// 5) 首領詞綴量測（WL-4）：王關／隱藏關每詞綴 vs 不帶詞綴對照（不改既有量測與數值）
+out.affix = [];
+U.each(D.stages.stages, function (sg) {
+  if (sg.kind !== 'boss' && sg.kind !== 'hidden') return;
+  var L = Math.max(1, sg.lv);
+  var base = U.find(out.stages, function (x) { return x.id === sg.id; });
+  var row = { id: sg.id, kind: sg.kind, lv: sg.lv, baseTyp: base.typ, baseWeak3: base.weak3, affixes: {} };
+  U.each(MJ.Battle.AFFIXES, function (af) {
+    var fn = function (sd) { var foes = G.buildEnemy(sg); G.applyStageAffix(sg, foes, sd * 977 + 3, af.id); return foes; };
+    row.affixes[af.id] = { typ: winRate('typ', L, fn), weak3: winRate('weak', Math.min(80, L + 3), fn) };
+  });
+  out.affix.push(row);
+});
 // 硬牆判定：一般玩家高出 5 級仍 < 40%
 U.each(out.stages, function (x) { if (x.typ5 < 0.4) out.walls.push('主線 ' + x.id + '（Lv' + x.lv + '）+5 級勝率 ' + pct(x.typ5)); });
 U.each(out.tower, function (x) { if (x.typ3 < 0.4 && x.lv < 80) out.walls.push('通天塔 ' + x.floor + ' 層 +3 級勝率 ' + pct(x.typ3)); });
@@ -109,5 +122,10 @@ console.log('== 無極幻境（單波；一般@開放等級 / +4）==');
 U.each(out.wuji, function (x) { console.log(x.tier, 'W' + x.wave, ('Lv' + x.lv).padEnd(5), pct(x.typ), pct(x.typ4)); });
 console.log('== 拜訪武將（一般@同等級 / +5 / 弱勢同等級 / 弱勢+8）==');
 U.each(out.arena, function (x) { console.log(('#' + x.rank).padEnd(4), ('Lv' + x.lv).padEnd(5), x.n + '人', pct(x.typ), pct(x.typ5), pct(x.weak), pct(x.weak8)); });
+console.log('== 首領詞綴（WL-4；王關／隱藏關：一般@關卡等級 / 弱勢@+3；「無」為不帶詞綴對照）==');
+U.each(out.affix, function (x) {
+  console.log(x.id.padEnd(6), x.kind.padEnd(7), ('Lv' + x.lv).padEnd(5), '無'.padEnd(6), pct(x.baseTyp), pct(x.baseWeak3));
+  U.each(MJ.Battle.AFFIXES, function (af) { var a = x.affixes[af.id]; console.log('      ', af.name.padEnd(6), pct(a.typ), pct(a.weak3)); });
+});
 console.log('== 硬牆 ==\n' + (out.walls.length ? out.walls.join('\n') : '無'));
 if (JSON_OUT) require('fs').writeFileSync(JSON_OUT, JSON.stringify(out, null, 1));

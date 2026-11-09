@@ -49,7 +49,7 @@ pass-lines 40
 結果：通過 47，失敗 0
 pass-lines 48
 === unit-prov
-結果：通過 2453，失敗 0
+結果：通過 2461，失敗 0
 pass-lines 1
 === unit-art
 結果：通過 875，失敗 0
@@ -128,4 +128,7 @@ pass-lines 8
 === unit-gate2
 結果：35 通過，0 失敗
 pass-lines 36
+=== unit-affix
+結果：通過 59，失敗 0
+pass-lines 60
 UNIT EXIT 0

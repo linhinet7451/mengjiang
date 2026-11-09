@@ -398,19 +398,57 @@ MJ.G = (function () {
     var s = st();
     return U.map(G.teamList(), function (x) { return { cell: x.cell, unit: R.heroUnit(x.hero, s) }; });
   };
+  // ---------- WL-4 首領詞綴（D 級原創）----------
+  // 待用戰鬥種子（執行期狀態，不寫入存檔）：詞綴由戰鬥種子派生，但種子在開戰那一刻才產生，
+  // 關卡面板要戰前就顯示詞綴，所以開啟王關／隱藏關面板時先把「下一場的種子」定下來存在這裡，
+  // 面板用同一顆種子算詞綴顯示，G.fight 開戰時用同一顆種子，顯示與實戰保證一致。
+  // 只有王關／隱藏關面板會產生待用種子；直接呼叫 G.fight（重打、測試、平衡量測）時沒有待用種子，就照舊公式現場產生。
+  G.pendingSeed = null;
+  // 取某關的詞綴（回傳詞綴物件或 null；非王關／隱藏關一定回傳 null）。面板顯示用。
+  G.stageAffix = function (id) {
+    var sg = MJ.D.stageIndex[id];
+    if (!sg || (sg.kind !== 'boss' && sg.kind !== 'hidden')) return null;
+    if (!G.pendingSeed || G.pendingSeed.id !== id) {
+      var s = st();
+      G.pendingSeed = { id: id, seed: ((U.now() ^ (s.stats.battles * 2654435761)) >>> 0) || 1 };
+    }
+    return MJ.Battle.affixById(MJ.Battle.pickAffix(G.pendingSeed.seed));
+  };
+  // 把詞綴套到敵軍上（只動該關的首領本人，不動小兵；非王關／隱藏關不套用）。
+  // forcedId 供單元測試與平衡量測指定詞綴；實戰不傳，由種子派生。
+  // 立即生效的屬性（疾風敏捷、堅岩防禦）直接寫進單位數值；動態效果（嗜血、荊棘、狂怒）由 battle.js 讀 u.affix 生效。
+  G.applyStageAffix = function (sg, foes, seed, forcedId) {
+    if (!sg || (sg.kind !== 'boss' && sg.kind !== 'hidden')) return null;
+    var affix = forcedId || MJ.Battle.pickAffix(seed);
+    if (!MJ.Battle.affixById(affix)) return null;
+    var lead = U.find(sg.enemies, function (e) { return e.leader; });
+    if (!lead) return null;
+    var foe = U.find(foes, function (f) { return f.cell === lead.cell; });
+    if (!foe) return null;
+    var u = foe.unit;
+    u.affix = affix;
+    // 疾風：敏捷 +30%（絕技攻防由敏捷衍生，一併 +30%，否則敏捷在戰鬥中不起作用；先手由 battle.js 行動順序處理）
+    if (affix === 'swift') { u.agi = Math.floor(u.agi * 1.3); u.jatk = Math.floor(u.jatk * 1.3); u.jdef = Math.floor(u.jdef * 1.3); }
+    // 堅岩：物防法防 +20%
+    if (affix === 'rock') { u.pdef = Math.floor(u.pdef * 1.2); u.mdef = Math.floor(u.mdef * 1.2); }
+    return affix;
+  };
   G.fight = function (id, seed) {
     var s = st(), sg = MJ.D.stageIndex[id];
     if (!sg) return fail('關卡不存在');
     if (!G.stageUnlocked(id)) return fail('關卡未解鎖：' + G.lockReason(id));
     if (!G.teamCount()) return fail('沒有出戰武將');
+    // 明確傳入的種子優先；否則用面板先定下的待用種子（同一關才用，用完清除）；都沒有才現場產生。
+    if (!seed && G.pendingSeed && G.pendingSeed.id === id) { seed = G.pendingSeed.seed; G.pendingSeed = null; }
     seed = seed || ((U.now() ^ (s.stats.battles * 2654435761)) >>> 0) || 1;
     var team = G.buildTeam(), foes = G.buildEnemy(sg);
+    var affix = G.applyStageAffix(sg, foes, seed);
     // D（原創防卡關）：越戰越勇——同一關每連敗一次，我方生命與攻擊 +8%，最多 +80%，通關後歸零
     var morale = R.moraleBonus(G.stageState(id).fails || 0);
     if (morale > 0) U.each(team, function (t) { var u = t.unit; u.hp = Math.round(u.hp * (1 + morale)); u.patk = Math.round(u.patk * (1 + morale)); u.matk = Math.round(u.matk * (1 + morale)); u.jatk = Math.round(u.jatk * (1 + morale)); });
     var res = MJ.Battle.run(team, foes, { seed: seed, maxRounds: C().maxRounds, levelSuppression: C().levelSuppression, fieldItems: sg.fieldItems || [] });
     s.stats.battles++;
-    var out = { win: res.win, battle: res, stage: sg, team: team, foes: foes, rewards: [], levelUps: [], seed: seed, energyCost: 0, morale: morale };
+    var out = { win: res.win, battle: res, stage: sg, team: team, foes: foes, rewards: [], levelUps: [], seed: seed, energyCost: 0, morale: morale, affix: affix };
     var lead = G.lead();
     if (res.win) {
       s.stats.wins++;

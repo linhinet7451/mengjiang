@@ -222,11 +222,13 @@
     U.each(r.team.concat(r.foes), function (x, i) {
       var side = i < r.team.length ? 'A' : 'B', u = x.unit, key = side + x.cell, p = BT.units[key] ? upos(BT.units[key]) : pos(side, x.cell);
       var honorClass = u.honorFrame === 'gold' ? ' rank-boss' : (u.honorFrame === 'silver' ? ' rank-elite' : ''), honorTag = u.honorFrame === 'gold' ? '<em class="rank-tag gold">BOSS</em>' : (u.honorFrame === 'silver' ? '<em class="rank-tag silver">精英</em>' : '');
+      // WL-4 首領詞綴：戰鬥中首領頭像旁顯示詞綴名（只會出現在王關／隱藏關首領身上）
+      var affixTag = (u.affix && MJ.Battle.affixById(u.affix)) ? '<em class="affix-tag">' + U.esc(MJ.Battle.affixById(u.affix).name) + '</em>' : '';
       h += '<div class="bu side' + side + (u.boss ? ' boss' : '') + honorClass + '" data-honor-frame="' + U.esc(u.honorFrame || '') + '" id="u' + key + '" style="left:' + (p.x - 56) + 'px;top:' + (p.y - 130) + 'px;z-index:' + (10 + Math.floor(x.cell / 3)) + '">' +
         '<div class="bcirc' + (u.boss ? ' boss' : '') + honorClass + '"></div>' + (auraQ(u) ? '<div class="baura q' + auraQ(u) + '"></div>' : '') +
         '<div class="bhp" id="h' + key + '">' + hpHtml(u.curHp != null ? u.curHp : u.hp, u.hp, u.layers) + '</div>' +
         '<div class="bfig">' + MJ.Art.figure(u.look, { enemy: side === 'B', cape: u.boss }) + '</div>' +
-        '<div class="bnm"><span>' + honorTag + U.esc(u.name) + ' <small>Lv' + u.lv + '</small></span></div></div>';
+        '<div class="bnm"><span>' + honorTag + affixTag + U.esc(u.name) + ' <small>Lv' + u.lv + '</small></span></div></div>';
     });
     // 影片 HUD：上方一條合併總生命條（左綠＝我方／右橙紅＝敵方），數字置中於條下方，金色端頭、火焰分隔
     h += '<div class="b-tot split"><div class="tb-wrap"><div class="tb tb-a"><i id="tbA" style="width:100%"></i></div><div class="tb-sep"></div><div class="tb tb-b"><i id="tbB" style="width:100%"></i></div></div><div class="tb-nums"><span id="ttA">我方</span><span class="tb-flame"></span><span id="ttB">敵方</span></div></div>';
@@ -580,10 +582,15 @@
     // 以模擬結果校正最終畫面
     U.each(BT.r.battle.units, function (u) { setHp(u.key, u.hp); setDead(u.key, u.hp <= 0); });
     var ci = el('cutin'); if (ci) ci.className = 'cutin';
-    setTimeout(showResult, 300);
+    // 2026-11-09：結算畫面延後 300ms 才出現；若這段時間玩家已離開戰鬥
+    // （bBack/bCity 會把 BT 清成 null）或已開新戰鬥，舊結算就不再顯示，
+    // 否則 showResult 讀 BT.r 會在 WebKit 拋「null is not an object」。
+    var bt = BT;
+    setTimeout(function () { if (BT === bt) showResult(); }, 300);
   }
   UI.battleFinish = finish;
   function showResult() {
+    if (!BT) return; // 已離開戰鬥（bBack/bCity 清掉 BT），不顯示舊結算
     var r = BT.r, s = MJ.S.state, h;
     var b = el('bresult'); if (!b) return;
     var btEl = el('bt'); if (btEl && btEl.className.indexOf('ended') < 0) btEl.className += ' ended';

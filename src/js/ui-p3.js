@@ -23,9 +23,10 @@
   }
 
   // ---------- 自動接續（WL-3 任務 2）：執行期狀態，不寫入存檔；預設開 ----------
-  // 預設開：勝利結算出現後約 1.2 秒自動打下一層／播下一波；期間可按「停止」中斷。
+  // 預設開：勝利結算出現後約 3 秒自動打下一層／播下一波；期間可按「停止」中斷。
+  // （2026-11-09 由 1.2 秒放寬：WebKit iPhone 13 上結算畫面布局穩定較慢，1.2 秒內按不到「停止」就被自動接續搶走，E2E 連續兩次在 autoStop 點擊逾時；3 秒給人手與慢裝置留出反應時間。）
   UI.autoContinue = { tower: true, wuji: true };
-  UI.AUTO_DELAY = 1200;
+  UI.AUTO_DELAY = 3000;
   UI._autoTimer = null; UI._autoKind = null;
   UI.clearAuto = function () { if (UI._autoTimer) { clearTimeout(UI._autoTimer); UI._autoTimer = null; UI._autoKind = null; } };
   UI.scheduleAuto = function (kind, fn) {
@@ -84,7 +85,7 @@
     var sw = G.towerSweepReward(), twt = G.ticket('tower'), swDone = !twt.ready;
     h += '<div class="fg-box tw-sweep"><b>塔俸</b>（依最高層數；每贏 ' + twt.every + ' 場可領一次）<br>' + (best ? U.esc(UI.rwText(sw).join('、')) : '至少通過第 1 層才能領取') +
       '<div class="btn-row"><a class="btn small' + (swDone || !best ? ' disabled' : '') + '" data-a="twSweep">' + (swDone ? '再勝 ' + twt.left + ' 場' : '領取') + '</a></div></div>';
-    h += '<p class="note">通天塔可無限挑戰；戰敗沒有懲罰。勝利後預設自動接續下一層（約 1.2 秒後，結算畫面按「停止」可中斷）；戰鬥重播或結算畫面按「跳過全部／跳過剩餘層數」可直接連打到戰敗或登頂再看總結。建築：A；樓層內容、獎勵：D。</p></div></div></div>';
+    h += '<p class="note">通天塔可無限挑戰；戰敗沒有懲罰。勝利後預設自動接續下一層（約 3 秒後，結算畫面按「停止」可中斷）；戰鬥重播或結算畫面按「跳過全部／跳過剩餘層數」可直接連打到戰敗或登頂再看總結。建築：A；樓層內容、獎勵：D。</p></div></div></div>';
     return h;
   };
   UI.actions.tower = function () { UI.go('tower'); };
@@ -95,7 +96,7 @@
   UI.screens.wuji = function () {
     var s = S(), lead = G.lead();
     var h = '<div class="scr hall-scr"><div class="frame bigframe hall wujif"><div class="plaque">無極幻境</div><a class="xbtn" data-a="city">×</a>';
-    h += '<div class="wj-tip">無盡波次：連續挑戰敵軍，<b>生命與怒氣會延續到下一波</b>。<b>每 5 波得 1 個將魂</b>，每 10 波道具包，每次最多 ' + G.WUJI_SEG + ' 波。最深紀錄：第 <b>' + (s.wuji.best || 0) + '</b> 波<br>勝利後預設自動接續下一波（約 1.2 秒後，結算畫面按「停止」可中斷）；戰鬥重播按「跳過全部」或結算畫面按「略過，看結算」可直接跳到總結。</div><div class="wj-cards">';
+    h += '<div class="wj-tip">無盡波次：連續挑戰敵軍，<b>生命與怒氣會延續到下一波</b>。<b>每 5 波得 1 個將魂</b>，每 10 波道具包，每次最多 ' + G.WUJI_SEG + ' 波。最深紀錄：第 <b>' + (s.wuji.best || 0) + '</b> 波<br>勝利後預設自動接續下一波（約 3 秒後，結算畫面按「停止」可中斷）；戰鬥重播按「跳過全部」或結算畫面按「略過，看結算」可直接跳到總結。</div><div class="wj-cards">';
     U.each(G.WUJI, function (t, i) {
       var locked = lead.lv < t.open, left = G.wujiLeft(t.id), boss = G.wujiWave(t, t.waves - 1, 1);
       var bu = R.enemyUnit(boss.enemies[0], boss);
@@ -132,7 +133,7 @@
         (r.exp ? '<div>全隊經驗 +' + r.exp + '</div>' : '') + (r.levelUps.length ? '<div class="lvup">升級！' + U.esc(r.levelUps.join('、')) + '</div>' : '') +
         '<div class="rw-h">首次登頂獎勵</div>' + rwHtml(r.rewards, 'first') + '</div>';
       else h = '<div class="dim"></div><div class="result lose"><div class="banner">戰 敗</div><div class="parch rbody"><div>第 ' + f + ' 層的守軍太強了。' + (r.battle.timeout ? '（超過 ' + C().maxRounds + ' 回合）' : '') + '通天塔戰敗沒有任何損失。</div>' + tips + '</div>';
-      // 自動接續（預設開）：勝利且未登頂時，約 1.2 秒後走現有 bTower 路徑打下一層
+      // 自動接續（預設開）：勝利且未登頂時，約 3 秒後走現有 bTower 路徑打下一層
       var autoT = r.win && UI.autoContinue.tower && G.towerAutoNext(r);
       if (autoT) {
         h += '<div class="auto-next" id="autoNext">即將挑戰下一層… <a class="btn small" data-a="autoStop" data-v="tower">停止</a></div>';

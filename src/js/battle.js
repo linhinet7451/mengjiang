@@ -5,6 +5,20 @@ MJ.Battle = (function () {
   var B = {}, U = MJ.U;
   B.FORMULA_NOTE = '暫定傷害公式（D，非原作數值）：傷害 = max(1, (攻擊 × 技能倍率 + 固定值) × 隨機(0.95~1.05) − 防禦)；物理對物防、法術對法防、絕技對絕技防禦（A：三種傷害）；命中率 = 90% + (命中 − 閃避)%；暴擊率 = 5% + 暴擊%，暴擊 ×1.5；目標高於攻擊者 10 級以上傷害遞減，每多 1 級 −5%，最低 10%（D 級原創，2026-11-09 Tomas 指示；舊 B 級「必定未命中」已取代）。';
 
+  // WL-4 首領詞綴（D 級原創，2026-11-09 Tomas 指示；原版沒有）：只上虛空之門王關與隱藏關的首領，
+  // 每場一個，由戰鬥種子派生（pickAffix 用獨立的 U.rng(seed)，不消耗戰鬥本身的亂數流；同一種子同一關詞綴相同）。
+  // 寫入方式：G.fight 在開戰前把詞綴寫進首領單位的 affix 欄位（見 game.js G.applyStageAffix），
+  // 引擎只讀 u.affix 生效；精英關首領雖也是 boss 模板，但不帶詞綴。
+  B.AFFIXES = [
+    { id: 'life', name: '嗜血', desc: '吸血 10%' },
+    { id: 'thorns', name: '荊棘', desc: '反彈所受傷害 15%' },
+    { id: 'swift', name: '疾風', desc: '敏捷 +30%、先手' },
+    { id: 'rock', name: '堅岩', desc: '物防法防 +20%' },
+    { id: 'fury', name: '狂怒', desc: '血量低於 50% 時攻擊 +15%' }
+  ];
+  B.affixById = function (id) { return U.find(B.AFFIXES, function (a) { return a.id === id; }) || null; };
+  B.pickAffix = function (seed) { var r = U.rng(seed || 1); return B.AFFIXES[Math.floor(r() * B.AFFIXES.length)].id; };
+
   function rc(cell) { return { r: Math.floor(cell / 3), c: cell % 3 }; }
   function cellOf(r, c) { return r * 3 + c; }
   B.patternCells = function (pattern, tcell) {
@@ -337,7 +351,10 @@ MJ.Battle = (function () {
       ev.push(e);
       if (skill.ultTotal) skill.ultTotal.v += dmg;
       // A：「狂暴」字樣見於官方圖；觸發條件與數值為 D——王關首領生命低於 30% 時攻擊 +20%
-      if (tgt.hp > 0 && tgt.boss && tgt.layers > 1 && !tgt.kb && tgt.hp < tgt.maxHp * 0.3) { tgt.kb = true; tgt.atkBuff = 0.2; ev.push({ t: 'text', to: tgt.key, s: '狂暴', c: 'red' }); }
+      // WL-4：狂暴改為累加（原為直接賦值 0.2），才能與詞綴「狂怒」疊加到 +35%；無其他地方寫 atkBuff，改動安全。
+      if (tgt.hp > 0 && tgt.boss && tgt.layers > 1 && !tgt.kb && tgt.hp < tgt.maxHp * 0.3) { tgt.kb = true; tgt.atkBuff = (tgt.atkBuff || 0) + 0.2; ev.push({ t: 'text', to: tgt.key, s: '狂暴', c: 'red' }); }
+      // WL-4 詞綴「狂怒」：首領生命低於 50% 時攻擊 +15%，與狂暴疊加（<30% 時合計 +35%）
+      if (tgt.hp > 0 && tgt.boss && tgt.affix === 'fury' && !tgt.furyOn && tgt.hp < tgt.maxHp * 0.5) { tgt.furyOn = true; tgt.atkBuff = (tgt.atkBuff || 0) + 0.15; ev.push({ t: 'text', to: tgt.key, s: '狂怒', c: 'red' }); }
       if (tgt.hp > 0) {
         if (v9(att)) {
           if (has(att, 'xinu') && rng() < 0.3) { var xn9 = Math.round(30 * pmOf(att, 'xinu')); tgt.rage = Math.max(0, tgt.rage - xn9); ev.push({ t: 'text', to: tgt.key, s: '無雙-' + xn9, c: 'red' }); }
@@ -351,9 +368,18 @@ MJ.Battle = (function () {
         var hv = Math.max(1, Math.floor(dmg * (v9(att) ? 0.1 : 0.15) * pmOf(att, 'xixue'))); if (v9(att)) hv = healAmt(att, hv); att.hp = Math.min(att.maxHp, att.hp + hv);
         ev.push({ t: 'heal', to: att.key, amt: hv, hp: att.hp, why: '吸血' });
       }
+      // WL-4 詞綴「嗜血」：首領造成傷害的 10% 回血（固定吸血，不經機率；與被動吸血可疊加）
+      if (att.affix === 'life' && att.hp > 0) {
+        var lv = Math.max(1, Math.floor(dmg * 0.1)); if (v9(att)) lv = healAmt(att, lv); att.hp = Math.min(att.maxHp, att.hp + lv);
+        ev.push({ t: 'heal', to: att.key, amt: lv, hp: att.hp, why: '嗜血' });
+      }
       // 還施彼身（B）：被攻擊後反彈 50% 傷害，上限 300
       if (v9(tgt) && !isCounter && has(tgt, 'huanshi') && att.hp > 0 && att !== tgt) {
         var rf = Math.min(300, Math.floor(dmg * 0.5)); if (rf > 0) { att.hp = Math.max(0, att.hp - rf); ev.push({ t: 'text', to: tgt.key, s: '還施彼身', c: 'green' }); ev.push({ t: 'hit', from: tgt.key, to: att.key, dmg: rf, hp: att.hp, reflect: true }); if (att.hp <= 0) die(att); }
+      }
+      // WL-4 詞綴「荊棘」：首領受擊時反彈所受傷害 15%（無上限；反擊不反彈，避免遞迴；與還施彼身可疊加）
+      if (!isCounter && tgt.affix === 'thorns' && att.hp > 0 && att !== tgt) {
+        var th = Math.max(1, Math.floor(dmg * 0.15)); att.hp = Math.max(0, att.hp - th); ev.push({ t: 'text', to: tgt.key, s: '荊棘', c: 'green' }); ev.push({ t: 'hit', from: tgt.key, to: att.key, dmg: th, hp: att.hp, reflect: true }); if (att.hp <= 0) die(att);
       }
       if (tgt.hp <= 0) die(tgt);
       else if (skill.fx) {
@@ -459,6 +485,8 @@ MJ.Battle = (function () {
       if (f) ev.push(f);
     });
     U.each(all, function (u) { if (u.lx) ev.push({ t: 'text', to: u.key, s: '連攜', c: 'green' }); });
+    // WL-4：開場顯示首領詞綴（戰鬥 log 與浮字都看得到，與「連攜」提示同一位置）
+    U.each(all, function (u) { if (u.affix) { var af = B.affixById(u.affix); if (af) ev.push({ t: 'text', to: u.key, s: '詞綴·' + af.name, c: 'red' }); } });
     var quiet = 0, qFrom = 0, blk11 = {}; // v11 僵局計數、上一回合緊貼敵人停下的人
     while (round < maxRounds && !winner) {
       round++;
@@ -491,6 +519,10 @@ MJ.Battle = (function () {
         }
         order = B.turnOrder10(A, Bs);
       } else order = B.turnOrder(A, Bs);
+      // WL-4 詞綴「疾風」：先手——帶詞綴的首領排在行動順序最前（每回合都如此；本作行動順序本來只看站位，
+      // 敏捷不影響順序，所以先手必須明寫在這裡。移動順序仍照站位，不動。）
+      var sw = U.filter(order, function (u) { return u.affix === 'swift'; });
+      if (sw.length) order = sw.concat(U.filter(order, function (u) { return sw.indexOf(u) < 0; }));
       for (var i = 0; i < order.length && !winner; i++) {
         var u = order[i];
         if (u.hp <= 0) continue; // 陣亡單位不行動
