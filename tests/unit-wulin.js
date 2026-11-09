@@ -46,5 +46,20 @@ var old2 = JSON.parse(JSON.stringify(s)); delete old2.wulin;
 var po2 = S.parse(JSON.stringify(S.wrap(old2)));
 ok(po2.ok && po2.state.wulin && po2.state.wulin.edition === 41, '沒有武林大會欄位的舊存檔會自動補上');
 
+console.log('[入口接線回歸：2026-11-09 當機]');
+var fs = require('fs'), path = require('path');
+var p1p2 = fs.readFileSync(path.join(__dirname, '..', 'src', 'js', 'ui-p1p2.js'), 'utf8');
+var uijs = fs.readFileSync(path.join(__dirname, '..', 'src', 'js', 'ui.js'), 'utf8');
+var p4 = fs.readFileSync(path.join(__dirname, '..', 'src', 'js', 'ui-p4.js'), 'utf8');
+// 武林大會是全屏（UI.screens.wulin），不是 modal：玩法中心按鈕必須走 data-a="wulin"（UI.actions.wulin → UI.go('wulin')），
+// 不能走 data-a="open" data-v="wulin"（UI.modals 沒有 wulin，舊寫法會顯示空白 #modal 蓋住全畫面且無關閉鈕，看似當機）
+ok(/'league','武林大會','單機 8 人淘汰賽：第 41 屆，海選 Lv\.70-75','wulin','進入武林大會'/.test(p1p2), '玩法中心武林大會按鈕走全屏入口 data-a="wulin"');
+ok(!/'open','進入武林大會','wulin'/.test(p1p2), '玩法中心不再把武林大會當 modal 開（舊寫法已移除）');
+ok(/UI\.screens\.wulin = function/.test(p4) && !/UI\.modals\.wulin = function/.test(p4), '武林大會是全屏（screens），不是 modal（modals 無 wulin）');
+ok(/UI\.actions\.wulin = function \(\) \{ UI\.go\('wulin'\); \}/.test(p4), 'UI.actions.wulin 進全屏並清除 modal');
+// 縱深防禦：未知 modal 名稱不得留下空白遮罩
+ok(/UI\.open = function \(name, arg\) \{ if \(!UI\.modals\[name\]\) \{ UI\.toast/.test(uijs), 'UI.open 拒絕未知的 modal 名稱（不留空白遮罩）');
+ok(/if \(!fn\) \{ m\.innerHTML = ''; m\.style\.display = 'none'; UI\.modal = null; return; \}/.test(uijs), 'UI.renderModal 遇未知 modal 時隱藏遮罩並清除狀態');
+
 console.log('\n武林大會：' + pass + ' 通過，' + fail + ' 失敗');
 process.exit(fail ? 1 : 0);

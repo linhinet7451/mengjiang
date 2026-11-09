@@ -46,8 +46,21 @@
   // 攻擊動作動畫（D 級原創；原版攻擊動作無法考察，自行合理製作）
   // 對應表：揮刀＝物理近戰（力型，刀劍槍戟匕鞭：弧形刀光＋前衝＋回位）；
   // 出拳＝物理徒手（wp none，如梅超風：拳影＋衝擊波）；氣功＝法術／絕技（dtype m/j：聚氣光球＋發射波）。
-  // 時長約 380ms 基準，隨戰鬥速度（1x/2x/4x）等比縮短；省電模式不加新光效；
-  // 與無雙演出開關獨立（關閉無雙演出時普通攻擊動畫照常）。每個行動只觸發一次，不影響傷害與回合邏輯。
+  // 全身動作版（2026-11-09，實機測試回饋：舊版只有小光效、人物不動、看不出在打）：
+  // 人物是單張點陣圖（art.js A.figure 回傳 <img>，手臂與武器畫死在圖裡），無法只轉動手臂；
+  // 因此用整體位移＋傾斜做出動作：蓄力後仰 → 前衝 → 轉身揮砍 → 回位；受擊方後仰閃白。
+  // 時長約 380ms 基準（揮刀 500ms，讓刀光蓋到命中瞬間），隨戰鬥速度（1x/2x/4x）等比縮短；
+  // 省電模式不加新光效與頓停（只保留既有前衝位移）；與無雙演出開關獨立（關閉無雙演出時普通攻擊動畫照常）。
+  // 每個行動只觸發一次，不影響傷害與回合邏輯。命中頓停（hit-stop）只延後傷害顯示約 60ms（1x），不改傷害數值。
+  var ATK_SPEC = { slash: 200, fist: 160, wave: 120, dur: 380, slashDur: 500, hitstop: 60 };
+  UI._atkSpec = ATK_SPEC;
+  UI._atkDur = function (sp) { return Math.round(ATK_SPEC.dur / (sp || 1)); };
+  UI._hitstopMs = function (sp) { return Math.round(ATK_SPEC.hitstop / (sp || 1)); };
+  // 攻擊方向：朝目標的 x 方向（+1 向右／-1 向左）；沒有目標時依陣營（A 向右、B 向左）
+  UI._atkDir = function (me, tgt) {
+    if (me && tgt) { var a = upos(me), b = upos(tgt); if (b.x !== a.x) return b.x > a.x ? 1 : -1; }
+    return me && me.side === 'B' ? -1 : 1;
+  };
   function attackKind(u) {
     if (!u) return 'slash';
     if (u.dtype === 'm' || u.dtype === 'j') return 'wave';
@@ -55,27 +68,82 @@
     return 'slash';
   }
   UI._attackKind = attackKind;
+  // 命中閃光（目標處；全屏震動只保留給暴擊／無雙——每擊都震會讓整個舞台（含跳過按鈕）一直位移，
+  // WebKit 上曾導致 bSkip 點擊 30s 等不到穩定而逾時；目標的翻身（kbA/kbB）已是該處的小震動）
+  function impactFlash(p, when) {
+    if (UI.lowFx && UI.lowFx()) return;
+    setTimeout(function () {
+      var fx = el('fx'); if (!fx || !BT || BT.done) return;
+      var f = document.createElement('div'); f.className = 'hitflash';
+      f.style.left = (p.x - 60) + 'px'; f.style.top = (p.y - 120) + 'px';
+      fx.appendChild(f);
+      setTimeout(function () { if (f.parentNode) f.parentNode.removeChild(f); }, 260);
+    }, when);
+  }
+  // 非近戰全身動作：蓄力後仰 → 向目標前推 → 回位（step() 的 windup/lunge 只處理近戰）
+  // 結束時一定清除 inline transform 與 class；棋盤位置（left/top）從不改動
+  function bodyThrust(ue, kind, dir, impact) {
+    if (!ue) return;
+    var cls = kind === 'wave' ? 'atk-raise' : 'atk-thrust';
+    ue.className = ue.className.replace(/ atk-(raise|thrust|hit|cast)/g, '') + ' ' + cls;
+    setTimeout(function () {
+      if (!ue.parentNode) return;
+      ue.className = ue.className.replace(/ atk-(raise|thrust|hit|cast)/g, '') + (kind === 'wave' ? ' atk-cast' : ' atk-hit');
+      var dx = dir * (kind === 'wave' ? 14 : 22);
+      ue.style.webkitTransform = ue.style.transform = 'translate(' + dx + 'px,0)';
+    }, T(140));
+    setTimeout(function () {
+      ue.style.webkitTransform = ue.style.transform = '';
+      ue.className = ue.className.replace(/ atk-(raise|thrust|hit|cast)/g, '');
+    }, impact + T(300));
+  }
   function attackAnim(me, e) {
     if (!me || e.heal || (UI.lowFx && UI.lowFx())) return;
     var fx = el('fx'); if (!fx) return;
-    var kind = attackKind(me.u), dur = Math.round(380 / (BT ? BT.speed : 1));
-    var a = upos(me), d;
+    var kind = attackKind(me.u), sp = BT ? BT.speed : 1, dur = UI._atkDur(sp);
+    var a = upos(me), tgt = e.target && BT.units[e.target] ? BT.units[e.target] : null, b = tgt ? upos(tgt) : null;
+    var dir = UI._atkDir(me, tgt), impact = T(e.ult ? 520 : 420), d;
+    var ue = el('u' + e.u);
+    var melee = isMelee(me.u) && e.pattern !== 'all' && !!tgt;
+    // 非近戰 step() 不會前衝：這裡補全身動作（近戰由 step() 的 windup/lunge 處理，不重複）
+    if (!melee && ue) bodyThrust(ue, kind, dir, impact);
     if (kind === 'slash') {
+      // 200px 雙弧刀光（主弧＋殘影弧），置於出招者與目標之間，揮向目標方向
+      var cx = b ? Math.round((a.x + b.x) / 2) : a.x, cy = b ? Math.round((a.y + b.y) / 2) : a.y;
       d = document.createElement('div'); d.className = 'atkfx slash';
-      d.style.left = (a.x - 60) + 'px'; d.style.top = (a.y - 140) + 'px';
-      d.innerHTML = '<svg viewBox="0 0 120 120"><path d="M14 96 A84 84 0 0 1 106 24 L92 34 A66 66 0 0 0 26 84 Z" fill="rgba(255,240,180,.95)"/></svg>';
+      d.style.left = (cx - 100) + 'px'; d.style.top = (cy - 150) + 'px';
+      d.innerHTML = '<svg viewBox="0 0 200 200"><path d="M22 162 A140 140 0 0 1 178 38 L154 56 A110 110 0 0 0 42 142 Z" fill="rgba(255,244,200,.98)"/><path d="M30 170 A132 132 0 0 1 170 50 L158 62 A112 112 0 0 0 44 152 Z" fill="rgba(255,190,60,.9)"/></svg>';
+      // B 方揮向左：鏡像內層 svg（外層 div 不動，避免與旋轉動畫衝突）
+      if (dir < 0) { var sv = d.getElementsByTagName('svg')[0]; if (sv) sv.style.webkitTransform = sv.style.transform = 'scaleX(-1)'; }
+      d.style.webkitAnimationDuration = d.style.animationDuration = Math.round(ATK_SPEC.slashDur / sp) + 'ms';
+      fx.appendChild(d);
+      setTimeout(function () { if (d.parentNode) d.parentNode.removeChild(d); }, T(ATK_SPEC.slashDur) + 160);
+      impactFlash(b || a, impact);
     } else if (kind === 'fist') {
-      var b = e.target && BT.units[e.target] ? upos(BT.units[e.target]) : a;
-      d = document.createElement('div'); d.className = 'atkfx fist';
-      d.style.left = (b.x - 50) + 'px'; d.style.top = (b.y - 130) + 'px';
-      d.innerHTML = '<i></i><b></b>';
+      // 拳影從出招者飛向目標，命中時在目標處爆開
+      var fb = document.createElement('div'); fb.className = 'atkfx fistfly';
+      fb.style.left = (a.x - 30) + 'px'; fb.style.top = (a.y - 120) + 'px';
+      fx.appendChild(fb);
+      var fdx = (b ? b.x : a.x) - a.x, fdy = (b ? b.y : a.y) - a.y;
+      fb.style.webkitTransitionDuration = fb.style.transitionDuration = T(220) + 'ms';
+      setTimeout(function () { fb.style.webkitTransform = fb.style.transform = 'translate(' + fdx + 'px,' + fdy + 'px)'; }, 30);
+      setTimeout(function () {
+        if (fb.parentNode) fb.parentNode.removeChild(fb);
+        var bb = document.createElement('div'); bb.className = 'atkfx fistburst';
+        var p = b || a; bb.style.left = (p.x - 80) + 'px'; bb.style.top = (p.y - 130) + 'px';
+        fx.appendChild(bb);
+        setTimeout(function () { if (bb.parentNode) bb.parentNode.removeChild(bb); }, T(320) + 120);
+      }, T(240));
+      impactFlash(b || a, impact);
     } else {
+      // 氣功：聚氣光球加大加亮（投射光球由 step() 另行發射）
       d = document.createElement('div'); d.className = 'atkfx charge';
-      d.style.left = (a.x - 40) + 'px'; d.style.top = (a.y - 120) + 'px';
+      d.style.left = (a.x - 60) + 'px'; d.style.top = (a.y - 130) + 'px';
+      d.style.webkitAnimationDuration = d.style.animationDuration = dur + 'ms';
+      fx.appendChild(d);
+      setTimeout(function () { if (d.parentNode) d.parentNode.removeChild(d); }, T(420) + 120);
+      impactFlash(b || a, impact);
     }
-    d.style.webkitAnimationDuration = dur + 'ms'; d.style.animationDuration = dur + 'ms';
-    fx.appendChild(d);
-    setTimeout(function () { if (d.parentNode) d.parentNode.removeChild(d); }, T(400) + 120);
   }
 
   // 無雙切入底部 6 枚技能牌：出招方全隊武將的無雙技名（CSS 直書籤，無圖片）
@@ -457,26 +525,48 @@
         ue.className += ' windup';
         setTimeout(function () { ue.className = ue.className.replace(/ windup/g, '') + ' lunge'; ue.style.webkitTransform = ue.style.transform = 'translate(' + dx + 'px,' + dy + 'px)'; }, T(150));
       } else if (!e.heal && tgtKey && BT.units[tgtKey]) {
-        // 遠程／法術：投射光球
+        // 遠程／法術：投射光球（飛行時間隨速度等比縮短，抵達時在目標處爆開）
         var a = upos(me), b = upos(BT.units[tgtKey]), fx = el('fx');
         if (fx) {
           var o = document.createElement('div'); o.className = 'orb ' + (attackKind(me.u) === 'wave' ? 'wave' : (me.u.dtype === 'j' ? 'jue' : me.u.phys ? 'arrow' : 'magic'));
-          o.style.left = (a.x - 14) + 'px'; o.style.top = (a.y - 84) + 'px'; fx.appendChild(o);
+          o.style.left = (a.x - 14) + 'px'; o.style.top = (a.y - 84) + 'px';
+          o.style.webkitTransitionDuration = o.style.transitionDuration = T(300) + 'ms';
+          fx.appendChild(o);
           setTimeout(function () { o.style.webkitTransform = o.style.transform = 'translate(' + (b.x - a.x) + 'px,' + (b.y - a.y) + 'px)'; }, T(150));
-          setTimeout(function () { if (o.parentNode) o.parentNode.removeChild(o); }, T(450));
+          setTimeout(function () {
+            if (o.parentNode) o.parentNode.removeChild(o);
+            if (!(UI.lowFx && UI.lowFx())) {
+              var ob = document.createElement('div'); ob.className = 'hitflash';
+              ob.style.left = (b.x - 60) + 'px'; ob.style.top = (b.y - 120) + 'px';
+              fx.appendChild(ob);
+              setTimeout(function () { if (ob.parentNode) ob.parentNode.removeChild(ob); }, 260);
+            }
+          }, T(450));
         }
       }
       var impact = T(e.ult ? 520 : 420);
+      // 命中頓停（hit-stop，D）：命中瞬間凍結約 60ms（1x，隨速度等比縮短），再結算傷害；
+      // 只延後顯示時序，不改傷害數值與事件順序；省電模式或治療不頓停
+      var hs = (!e.heal && !(UI.lowFx && UI.lowFx())) ? UI._hitstopMs(BT.speed) : 0;
       setTimeout(function () {
-        var k = 0;
-        U.each(group, function (g) { setTimeout(function () { if (BT && !BT.done) applyEv(g); }, T(k * 45)); if (g.t === 'hit' || g.t === 'heal') k++; });
+        var btEl = el('bt');
+        if (hs > 0 && btEl && btEl.className.indexOf('hitstop') < 0) btEl.className += ' hitstop';
         setTimeout(function () {
-          if (ue) { ue.style.webkitTransform = ue.style.transform = ''; ue.className = ue.className.replace(/ (acting|lunge|windup)/g, ''); }
-        }, T(260 + k * 45));
-        BT.timer = setTimeout(function () {
-          if (e.ult) { var ci3 = el('cutin'); if (ci3) ci3.className = 'cutin'; var sk3 = el('bskill'); if (sk3) sk3.className = 'b-skill'; BT.ultTotal = null; }
-          step();
-        }, T((e.ult && showCi) ? 900 : 560) + T(k * 45));
+          if (btEl) btEl.className = btEl.className.replace(/ hitstop/g, '');
+          var k = 0;
+          U.each(group, function (g) { if (g.t === 'hit' || g.t === 'heal') k++; });
+          // 還原一定執行（即使已跳過戰鬥）：攻擊者回位，棋盤不漂移（原版 step() 也是無條件還原）
+          setTimeout(function () {
+            if (ue) { ue.style.webkitTransform = ue.style.transform = ''; ue.className = ue.className.replace(/ (acting|lunge|windup|atk-raise|atk-thrust|atk-hit|atk-cast)/g, ''); }
+          }, T(260 + k * 45));
+          if (!BT || BT.done) return;
+          var k2 = 0;
+          U.each(group, function (g) { setTimeout(function () { if (BT && !BT.done) applyEv(g); }, T(k2 * 45)); if (g.t === 'hit' || g.t === 'heal') k2++; });
+          BT.timer = setTimeout(function () {
+            if (e.ult) { var ci3 = el('cutin'); if (ci3) ci3.className = 'cutin'; var sk3 = el('bskill'); if (sk3) sk3.className = 'b-skill'; BT.ultTotal = null; }
+            step();
+          }, T((e.ult && showCi) ? 900 : 560) + T(k2 * 45));
+        }, hs);
       }, impact);
     }, t0);
   }

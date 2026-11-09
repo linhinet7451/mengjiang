@@ -1372,6 +1372,11 @@
      "e": "hj_shushi",
      "cell": 7,
      "lv": 1
+    },
+    {
+     "e": "hj_bing",
+     "cell": 0,
+     "lv": 1
     }
    ],
    "drops": [
@@ -1447,6 +1452,11 @@
     {
      "e": "hj_bing",
      "cell": 8,
+     "lv": 2
+    },
+    {
+     "e": "hj_lishi",
+     "cell": 1,
      "lv": 2
     }
    ],
@@ -1528,6 +1538,11 @@
     {
      "e": "hj_shushi",
      "cell": 4,
+     "lv": 3
+    },
+    {
+     "e": "hj_bing",
+     "cell": 1,
      "lv": 3
     }
    ],
@@ -1611,6 +1626,16 @@
     {
      "e": "hj_shushi",
      "cell": 0,
+     "lv": 4
+    },
+    {
+     "e": "hj_bing",
+     "cell": 3,
+     "lv": 4
+    },
+    {
+     "e": "hj_lishi",
+     "cell": 6,
      "lv": 4
     }
    ],
@@ -1885,6 +1910,16 @@
      "e": "hj_shushi",
      "cell": 6,
      "lv": 7
+    },
+    {
+     "e": "hj_bing",
+     "cell": 1,
+     "lv": 7
+    },
+    {
+     "e": "hj_lishi",
+     "cell": 7,
+     "lv": 7
     }
    ],
    "drops": [
@@ -1990,6 +2025,16 @@
     {
      "e": "hj_lishi",
      "cell": 3,
+     "lv": 8
+    },
+    {
+     "e": "hj_shushi",
+     "cell": 6,
+     "lv": 8
+    },
+    {
+     "e": "hj_bing",
+     "cell": 2,
      "lv": 8
     }
    ],
@@ -2106,6 +2151,16 @@
      "e": "hj_shushi",
      "cell": 7,
      "lv": 10
+    },
+    {
+     "e": "hj_bing",
+     "cell": 3,
+     "lv": 10
+    },
+    {
+     "e": "hj_lishi",
+     "cell": 6,
+     "lv": 10
     }
    ],
    "drops": [
@@ -2207,6 +2262,11 @@
      "e": "mt_shinv",
      "cell": 1,
      "lv": 8
+    },
+    {
+     "e": "mt_jiading",
+     "cell": 7,
+     "lv": 8
     }
    ],
    "drops": [
@@ -2287,6 +2347,11 @@
     {
      "e": "mt_jiading",
      "cell": 4,
+     "lv": 9
+    },
+    {
+     "e": "xx_dizi",
+     "cell": 1,
      "lv": 9
     }
    ],
@@ -2373,6 +2438,11 @@
     {
      "e": "mr_jiachen",
      "cell": 2,
+     "lv": 10
+    },
+    {
+     "e": "mt_shinv",
+     "cell": 1,
      "lv": 10
     }
    ],
@@ -2461,6 +2531,16 @@
     {
      "e": "mr_jiachen",
      "cell": 7,
+     "lv": 11
+    },
+    {
+     "e": "mt_shinv",
+     "cell": 3,
+     "lv": 11
+    },
+    {
+     "e": "mt_jiading",
+     "cell": 6,
      "lv": 11
     }
    ],
@@ -2750,6 +2830,16 @@
      "e": "xx_dizi",
      "cell": 3,
      "lv": 13
+    },
+    {
+     "e": "mr_jiachen",
+     "cell": 6,
+     "lv": 13
+    },
+    {
+     "e": "mt_shinv",
+     "cell": 2,
+     "lv": 13
     }
    ],
    "drops": [
@@ -2860,6 +2950,11 @@
     {
      "e": "mt_shinv",
      "cell": 3,
+     "lv": 14
+    },
+    {
+     "e": "mt_jiading",
+     "cell": 6,
      "lv": 14
     }
    ],
@@ -2981,6 +3076,11 @@
      "e": "mt_jiading",
      "cell": 7,
      "lv": 17
+    },
+    {
+     "e": "xx_dizi",
+     "cell": 2,
+     "lv": 17
     }
    ],
    "drops": [
@@ -3087,6 +3187,11 @@
      "e": "xl_qibing",
      "cell": 1,
      "lv": 15
+    },
+    {
+     "e": "xl_gongshou",
+     "cell": 7,
+     "lv": 15
     }
    ],
    "drops": [
@@ -3172,6 +3277,11 @@
     {
      "e": "xl_gongshou",
      "cell": 2,
+     "lv": 16
+    },
+    {
+     "e": "dz_qinwei",
+     "cell": 1,
      "lv": 16
     }
    ],
@@ -3263,6 +3373,11 @@
     {
      "e": "lj_moushi",
      "cell": 6,
+     "lv": 17
+    },
+    {
+     "e": "xl_qibing",
+     "cell": 2,
      "lv": 17
     }
    ],
@@ -3356,6 +3471,16 @@
     {
      "e": "lj_moushi",
      "cell": 7,
+     "lv": 18
+    },
+    {
+     "e": "xl_qibing",
+     "cell": 2,
+     "lv": 18
+    },
+    {
+     "e": "xl_gongshou",
+     "cell": 5,
      "lv": 18
     }
    ],
@@ -3466,6 +3591,11 @@
      "e": "xl_gongshou",
      "cell": 7,
      "lv": 19
+    },
+    {
+     "e": "dz_qinwei",
+     "cell": 2,
+     "lv": 19
     }
    ],
    "drops": [
@@ -3556,6 +3686,11 @@
     {
      "e": "dz_qinwei",
      "cell": 8,
+     "lv": 20
+    },
+    {
+     "e": "lj_moushi",
+     "cell": 1,
      "lv": 20
     }
    ],
@@ -3649,6 +3784,16 @@
     {
      "e": "dz_qinwei",
      "cell": 3,
+     "lv": 20
+    },
+    {
+     "e": "lj_moushi",
+     "cell": 6,
+     "lv": 20
+    },
+    {
+     "e": "xl_qibing",
+     "cell": 2,
      "lv": 20
     }
    ],
@@ -3765,6 +3910,11 @@
     {
      "e": "xl_qibing",
      "cell": 2,
+     "lv": 21
+    },
+    {
+     "e": "xl_gongshou",
+     "cell": 5,
      "lv": 21
     }
    ],
@@ -3891,6 +4041,11 @@
      "e": "xl_gongshou",
      "cell": 5,
      "lv": 24
+    },
+    {
+     "e": "dz_qinwei",
+     "cell": 1,
+     "lv": 24
     }
    ],
    "drops": [
@@ -4002,6 +4157,11 @@
      "e": "em_dizi",
      "cell": 8,
      "lv": 22
+    },
+    {
+     "e": "kl_dizi",
+     "cell": 1,
+     "lv": 22
     }
    ],
    "drops": [
@@ -4093,6 +4253,11 @@
      "e": "kl_dizi",
      "cell": 6,
      "lv": 23
+    },
+    {
+     "e": "wd_dizi",
+     "cell": 2,
+     "lv": 23
     }
    ],
    "drops": [
@@ -4183,6 +4348,11 @@
     {
      "e": "wd_dizi",
      "cell": 3,
+     "lv": 24
+    },
+    {
+     "e": "mj_jiaozhong",
+     "cell": 6,
      "lv": 24
     }
    ],
@@ -4281,6 +4451,11 @@
     {
      "e": "mj_jiaozhong",
      "cell": 5,
+     "lv": 25
+    },
+    {
+     "e": "em_dizi",
+     "cell": 1,
      "lv": 25
     }
    ],
@@ -4391,6 +4566,11 @@
      "e": "em_dizi",
      "cell": 8,
      "lv": 26
+    },
+    {
+     "e": "kl_dizi",
+     "cell": 1,
+     "lv": 26
     }
    ],
    "drops": [
@@ -4481,6 +4661,11 @@
     {
      "e": "kl_dizi",
      "cell": 6,
+     "lv": 27
+    },
+    {
+     "e": "wd_dizi",
+     "cell": 2,
      "lv": 27
     }
    ],
@@ -4579,6 +4764,11 @@
     {
      "e": "wd_dizi",
      "cell": 2,
+     "lv": 27
+    },
+    {
+     "e": "mj_jiaozhong",
+     "cell": 5,
      "lv": 27
     }
    ],
@@ -4947,6 +5137,11 @@
      "e": "mg_lama",
      "cell": 2,
      "lv": 29
+    },
+    {
+     "e": "mg_wushi",
+     "cell": 5,
+     "lv": 29
     }
    ],
    "drops": [
@@ -5042,6 +5237,11 @@
     {
      "e": "mg_wushi",
      "cell": 6,
+     "lv": 30
+    },
+    {
+     "e": "mg_qibing",
+     "cell": 2,
      "lv": 30
     }
    ],
@@ -5246,6 +5446,11 @@
     {
      "e": "mg_sheshou",
      "cell": 5,
+     "lv": 32
+    },
+    {
+     "e": "mg_lama",
+     "cell": 8,
      "lv": 32
     }
    ],
@@ -5569,6 +5774,11 @@
     {
      "e": "mg_qibing",
      "cell": 1,
+     "lv": 34
+    },
+    {
+     "e": "mg_sheshou",
+     "cell": 7,
      "lv": 34
     }
    ],
@@ -5952,6 +6162,11 @@
      "e": "cj_nushou",
      "cell": 2,
      "lv": 36
+    },
+    {
+     "e": "cj_shuibing",
+     "cell": 5,
+     "lv": 36
     }
    ],
    "drops": [
@@ -6053,6 +6268,11 @@
      "e": "cj_shuibing",
      "cell": 5,
      "lv": 37
+    },
+    {
+     "e": "cj_hubaoqi",
+     "cell": 8,
+     "lv": 37
     }
    ],
    "drops": [
@@ -6153,6 +6373,11 @@
     {
      "e": "cj_hubaoqi",
      "cell": 1,
+     "lv": 38
+    },
+    {
+     "e": "cj_moushi",
+     "cell": 7,
      "lv": 38
     }
    ],
@@ -6381,6 +6606,11 @@
      "e": "cj_nushou",
      "cell": 2,
      "lv": 40
+    },
+    {
+     "e": "cj_shuibing",
+     "cell": 5,
+     "lv": 40
     }
    ],
    "drops": [
@@ -6481,6 +6711,11 @@
     {
      "e": "cj_shuibing",
      "cell": 5,
+     "lv": 41
+    },
+    {
+     "e": "cj_hubaoqi",
+     "cell": 8,
      "lv": 41
     }
    ],
@@ -6972,6 +7207,11 @@
      "e": "ry_hufa",
      "cell": 5,
      "lv": 43
+    },
+    {
+     "e": "ry_jiaozhong",
+     "cell": 8,
+     "lv": 43
     }
    ],
    "drops": [
@@ -7073,6 +7313,11 @@
      "e": "ry_jiaozhong",
      "cell": 1,
      "lv": 44
+    },
+    {
+     "e": "ry_zhanglao",
+     "cell": 7,
+     "lv": 44
     }
    ],
    "drops": [
@@ -7173,6 +7418,11 @@
     {
      "e": "ry_zhanglao",
      "cell": 5,
+     "lv": 45
+    },
+    {
+     "e": "ry_anqi",
+     "cell": 8,
      "lv": 45
     }
    ],
@@ -7401,6 +7651,11 @@
      "e": "ry_hufa",
      "cell": 5,
      "lv": 47
+    },
+    {
+     "e": "ry_jiaozhong",
+     "cell": 8,
+     "lv": 47
     }
    ],
    "drops": [
@@ -7501,6 +7756,11 @@
     {
      "e": "ry_jiaozhong",
      "cell": 1,
+     "lv": 48
+    },
+    {
+     "e": "ry_zhanglao",
+     "cell": 7,
      "lv": 48
     }
    ],
@@ -7992,6 +8252,11 @@
      "e": "hs_yinshi",
      "cell": 1,
      "lv": 50
+    },
+    {
+     "e": "hs_jianke",
+     "cell": 7,
+     "lv": 50
     }
    ],
    "drops": [
@@ -8093,6 +8358,11 @@
      "e": "hs_jianke",
      "cell": 5,
      "lv": 51
+    },
+    {
+     "e": "hs_baituo",
+     "cell": 8,
+     "lv": 51
     }
    ],
    "drops": [
@@ -8193,6 +8463,11 @@
     {
      "e": "hs_baituo",
      "cell": 2,
+     "lv": 52
+    },
+    {
+     "e": "hs_tiezhang",
+     "cell": 5,
      "lv": 52
     }
    ],
@@ -8421,6 +8696,11 @@
      "e": "hs_yinshi",
      "cell": 1,
      "lv": 54
+    },
+    {
+     "e": "hs_jianke",
+     "cell": 7,
+     "lv": 54
     }
    ],
    "drops": [
@@ -8521,6 +8801,11 @@
     {
      "e": "hs_jianke",
      "cell": 5,
+     "lv": 55
+    },
+    {
+     "e": "hs_baituo",
+     "cell": 8,
      "lv": 55
     }
    ],

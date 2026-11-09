@@ -67,13 +67,14 @@ MJ.UI = (function () {
   };
   UI.refresh = function () { if (UI.screen === 'battle') { UI.renderModal(); return; } UI.render(); };
   UI.modals = {};
-  UI.open = function (name, arg) { UI.modal = { name: name, arg: arg }; UI.renderModal(); };
+  UI.open = function (name, arg) { if (!UI.modals[name]) { UI.toast('（未實作的動作：' + name + '）'); return; } UI.modal = { name: name, arg: arg }; UI.renderModal(); };
   UI.close = function () { UI.modal = null; UI.renderModal(); if (UI.screen !== 'battle') UI.render(); };
   UI.renderModal = function () {
     var m = $('modal');
     if (!UI.modal) { m.innerHTML = ''; m.style.display = 'none'; return; }
     var fn = UI.modals[UI.modal.name];
-    m.innerHTML = fn ? fn(UI.modal.arg) : '';
+    if (!fn) { m.innerHTML = ''; m.style.display = 'none'; UI.modal = null; return; } // 未知的 modal 名稱不顯示空白遮罩（2026-11-09 武林大會當機：空白 #modal 蓋住全畫面且無關閉鈕）
+    m.innerHTML = fn(UI.modal.arg);
     m.style.display = 'block';
   };
   UI.actions.close = function () { UI.close(); };

@@ -477,22 +477,31 @@ hr{border:0;border-top:1px solid #b8a468;margin:8px 0}
 @-webkit-keyframes ultbeam{0%{opacity:0}15%{opacity:1}100%{opacity:0}}@keyframes ultbeam{0%{opacity:0}15%{opacity:1}100%{opacity:0}}
 @-webkit-keyframes ultclaw{0%{opacity:0;-webkit-transform:scale(1.4)}20%{opacity:1}100%{-webkit-transform:scale(1);opacity:.9}}@keyframes ultclaw{0%{opacity:0;transform:scale(1.4)}20%{opacity:1}100%{transform:scale(1);opacity:.9}}
 @-webkit-keyframes petalfall{0%{-webkit-transform:translateY(0) rotate(0);opacity:0}15%{opacity:.95}100%{-webkit-transform:translateY(620px) rotate(320deg);opacity:.2}}@keyframes petalfall{0%{transform:translateY(0) rotate(0);opacity:0}15%{opacity:.95}100%{transform:translateY(620px) rotate(320deg);opacity:.2}}
-/* 攻擊動作動畫（D 級原創）：揮刀弧光／出拳衝擊波／氣功聚氣＋發射波；時長由 JS 依戰鬥速度等比縮放 */
-.atkfx{position:absolute;width:120px;height:120px;pointer-events:none;z-index:55}
+/* 攻擊動作動畫（D 級原創）：揮刀弧光／出拳衝擊波／氣功聚氣＋發射波；時長由 JS 依戰鬥速度等比縮放
+   全身動作版（2026-11-09）：刀光 200px 雙弧、出拳飛行＋爆開、命中閃光、命中頓停凍結動畫 */
+.atkfx{position:absolute;width:200px;height:200px;pointer-events:none;z-index:55}
 .atkfx svg{width:100%;height:100%}
-.atkfx.slash{-webkit-animation:atkslash .38s ease-out forwards;animation:atkslash .38s ease-out forwards}
-.atkfx.slash svg{-webkit-filter:drop-shadow(0 0 6px rgba(255,220,120,.9));filter:drop-shadow(0 0 6px rgba(255,220,120,.9))}
-.atkfx.fist{width:100px;height:100px}
-.atkfx.fist i{position:absolute;left:50%;top:50%;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;background:radial-gradient(circle,#fff,#ffb060 55%,rgba(255,120,0,0) 75%)}
-.atkfx.fist b{position:absolute;left:50%;top:50%;width:20px;height:20px;margin:-10px 0 0 -10px;border:3px solid rgba(255,200,100,.9);border-radius:50%;-webkit-animation:fistring .38s ease-out forwards;animation:fistring .38s ease-out forwards}
-.atkfx.charge{width:80px;height:80px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.95),rgba(140,200,255,.7) 45%,rgba(80,120,255,0) 70%);-webkit-animation:charge .3s ease-in forwards;animation:charge .3s ease-in forwards}
-.orb.wave{width:40px;height:40px;background:radial-gradient(#fff,#a0e0ff 35%,rgba(80,140,255,.6) 60%,rgba(80,120,255,0) 75%);box-shadow:0 0 18px #7ab8ff}
-@-webkit-keyframes atkslash{0%{opacity:0;-webkit-transform:rotate(-40deg) scale(.7)}25%{opacity:1}100%{opacity:0;-webkit-transform:rotate(25deg) scale(1.15)}}
-@keyframes atkslash{0%{opacity:0;transform:rotate(-40deg) scale(.7)}25%{opacity:1}100%{opacity:0;transform:rotate(25deg) scale(1.15)}}
-@-webkit-keyframes fistring{0%{-webkit-transform:scale(.4);opacity:1}100%{-webkit-transform:scale(4.2);opacity:0}}
-@keyframes fistring{0%{transform:scale(.4);opacity:1}100%{transform:scale(4.2);opacity:0}}
+.atkfx.slash{-webkit-animation:atkslash .5s ease-out forwards;animation:atkslash .5s ease-out forwards}
+.atkfx.slash svg{-webkit-filter:drop-shadow(0 0 10px rgba(255,220,120,.95)) drop-shadow(0 0 26px rgba(255,170,40,.6));filter:drop-shadow(0 0 10px rgba(255,220,120,.95)) drop-shadow(0 0 26px rgba(255,170,40,.6))}
+.atkfx.fistfly{width:60px;height:60px;border-radius:50%;background:radial-gradient(circle,#fff,#ffb060 55%,rgba(255,120,0,0) 78%);box-shadow:0 0 18px rgba(255,170,60,.9)}
+.atkfx.fistburst{width:160px;height:160px}
+.atkfx.fistburst:before{content:'';position:absolute;left:50%;top:50%;width:24px;height:24px;margin:-12px 0 0 -12px;border-radius:50%;background:radial-gradient(circle,#fff,#ffd070 55%,rgba(255,140,0,0) 75%);-webkit-animation:fistburst .3s ease-out forwards;animation:fistburst .3s ease-out forwards}
+.atkfx.fistburst:after{content:'';position:absolute;left:50%;top:50%;width:20px;height:20px;margin:-10px 0 0 -10px;border:4px solid rgba(255,200,100,.95);border-radius:50%;-webkit-animation:fistring .32s ease-out forwards;animation:fistring .32s ease-out forwards}
+.atkfx.charge{width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.98),rgba(140,200,255,.85) 45%,rgba(80,120,255,0) 70%);box-shadow:0 0 24px rgba(122,184,255,.9);-webkit-animation:charge .38s ease-in forwards;animation:charge .38s ease-in forwards}
+.orb.wave{width:52px;height:52px;background:radial-gradient(#fff,#a0e0ff 35%,rgba(80,140,255,.6) 60%,rgba(80,120,255,0) 75%);box-shadow:0 0 24px #7ab8ff}
+.hitflash{position:absolute;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.95),rgba(255,220,120,.75) 45%,rgba(255,160,40,0) 72%);-webkit-animation:hitflash .22s ease-out forwards;animation:hitflash .22s ease-out forwards;pointer-events:none;z-index:56}
+@-webkit-keyframes hitflash{0%{opacity:1;-webkit-transform:scale(.6)}100%{opacity:0;-webkit-transform:scale(1.3)}}
+@keyframes hitflash{0%{opacity:1;transform:scale(.6)}100%{opacity:0;transform:scale(1.3)}}
+@-webkit-keyframes atkslash{0%{opacity:0;-webkit-transform:rotate(-50deg) scale(.7)}25%{opacity:1}100%{opacity:0;-webkit-transform:rotate(30deg) scale(1.15)}}
+@keyframes atkslash{0%{opacity:0;transform:rotate(-50deg) scale(.7)}25%{opacity:1}100%{opacity:0;transform:rotate(30deg) scale(1.15)}}
+@-webkit-keyframes fistburst{0%{-webkit-transform:scale(.5);opacity:1}100%{-webkit-transform:scale(3.2);opacity:0}}
+@keyframes fistburst{0%{transform:scale(.5);opacity:1}100%{transform:scale(3.2);opacity:0}}
+@-webkit-keyframes fistring{0%{-webkit-transform:scale(.4);opacity:1}100%{-webkit-transform:scale(5);opacity:0}}
+@keyframes fistring{0%{transform:scale(.4);opacity:1}100%{transform:scale(5);opacity:0}}
 @-webkit-keyframes charge{0%{-webkit-transform:scale(.4);opacity:.4}100%{-webkit-transform:scale(1.25);opacity:1}}
 @keyframes charge{0%{transform:scale(.4);opacity:.4}100%{transform:scale(1.25);opacity:1}}
+/* 命中頓停：凍結動畫約 60ms（1x）再結算傷害 */
+.battle.hitstop .bfig,.battle.hitstop .atkfx,.battle.hitstop .spark,.battle.hitstop .skfx,.battle.hitstop .orb,.battle.hitstop .ftxt{-webkit-animation-play-state:paused;animation-play-state:paused}
 .b-title{top:40px}.b-round{top:74px}.b-skill{top:104px}
 
 .battle.ended .b-round,.battle.ended .b-skill{display:none}
@@ -798,22 +807,34 @@ html,body{font-family:"PingFang TC","Heiti TC","Microsoft JhengHei","Noto Sans C
 .bcirc{left:14px;width:84px;height:24px}
 .bcirc.boss{left:-2px;width:116px;height:28px}
 .baura{left:18px;top:2px;width:76px;height:136px}
-.bu.windup .bfig{-webkit-transform:translateX(-8px) scale(.96,1.03);transform:translateX(-8px) scale(.96,1.03);-webkit-transition:-webkit-transform .12s;transition:transform .12s}
-.bu.sideB.windup .bfig{-webkit-transform:scaleX(-1) translateX(-8px) scale(.96,1.03);transform:scaleX(-1) translateX(-8px) scale(.96,1.03)}
-.bu.lunge .bfig{-webkit-filter:drop-shadow(0 0 8px #fff6a0) drop-shadow(-14px 0 6px rgba(255,255,255,.35));filter:drop-shadow(0 0 8px #fff6a0) drop-shadow(-14px 0 6px rgba(255,255,255,.35))}
+.bu.windup .bfig{-webkit-transform:translateX(-18px) rotate(-5deg) scale(.94,1.05);transform:translateX(-18px) rotate(-5deg) scale(.94,1.05);-webkit-transition:-webkit-transform .14s;transition:transform .14s}
+.bu.sideB.windup .bfig{-webkit-transform:scaleX(-1) translateX(-18px) rotate(-5deg) scale(.94,1.05);transform:scaleX(-1) translateX(-18px) rotate(-5deg) scale(.94,1.05)}
+/* 全身動作版：前衝時身體向目標轉身揮砍（B 方鏡像，scaleX(-1) 在前則視覺方向正確） */
+.bu.lunge .bfig{-webkit-transform:rotate(12deg) scale(1.05,.95);transform:rotate(12deg) scale(1.05,.95);-webkit-transition:-webkit-transform .18s ease-out;transition:transform .18s ease-out;-webkit-filter:drop-shadow(0 0 10px #fff6a0) drop-shadow(-18px 0 8px rgba(255,255,255,.4));filter:drop-shadow(0 0 10px #fff6a0) drop-shadow(-18px 0 8px rgba(255,255,255,.4))}
+.bu.sideB.lunge .bfig{-webkit-transform:scaleX(-1) rotate(12deg) scale(1.05,.95);transform:scaleX(-1) rotate(12deg) scale(1.05,.95)}
+/* 非近戰全身動作：出拳蓄力→前頂、氣功蓄力抬手→前推（B 方同樣鏡像） */
+.bu.atk-thrust .bfig,.bu.atk-hit .bfig,.bu.atk-raise .bfig,.bu.atk-cast .bfig{-webkit-transition:-webkit-transform .14s ease-out;transition:transform .14s ease-out}
+.bu.atk-thrust .bfig{-webkit-transform:translateX(-10px) rotate(-4deg) scale(.97,1.03);transform:translateX(-10px) rotate(-4deg) scale(.97,1.03)}
+.bu.sideB.atk-thrust .bfig{-webkit-transform:scaleX(-1) translateX(-10px) rotate(-4deg) scale(.97,1.03);transform:scaleX(-1) translateX(-10px) rotate(-4deg) scale(.97,1.03)}
+.bu.atk-hit .bfig{-webkit-transform:translateX(12px) rotate(5deg) scale(1.05,.95);transform:translateX(12px) rotate(5deg) scale(1.05,.95)}
+.bu.sideB.atk-hit .bfig{-webkit-transform:scaleX(-1) translateX(12px) rotate(5deg) scale(1.05,.95);transform:scaleX(-1) translateX(12px) rotate(5deg) scale(1.05,.95)}
+.bu.atk-raise .bfig{-webkit-transform:translateY(-8px) scale(1.03,.97);transform:translateY(-8px) scale(1.03,.97)}
+.bu.sideB.atk-raise .bfig{-webkit-transform:scaleX(-1) translateY(-8px) scale(1.03,.97);transform:scaleX(-1) translateY(-8px) scale(1.03,.97)}
+.bu.atk-cast .bfig{-webkit-transform:translateX(6px) rotate(4deg) scale(1.04,.96);transform:translateX(6px) rotate(4deg) scale(1.04,.96)}
+.bu.sideB.atk-cast .bfig{-webkit-transform:scaleX(-1) translateX(6px) rotate(4deg) scale(1.04,.96);transform:scaleX(-1) translateX(6px) rotate(4deg) scale(1.04,.96)}
 /* 受擊：閃白＋往後擊退 */
 .bu.sideA.hurt .bfig{-webkit-animation:kbA .32s ease-out;animation:kbA .32s ease-out}
 .bu.sideB.hurt .bfig{-webkit-animation:kbB .32s ease-out;animation:kbB .32s ease-out}
 .bu.sideA.hurt.crit .bfig{-webkit-animation:kbA2 .42s ease-out;animation:kbA2 .42s ease-out}
 .bu.sideB.hurt.crit .bfig{-webkit-animation:kbB2 .42s ease-out;animation:kbB2 .42s ease-out}
-@-webkit-keyframes kbA{0%{-webkit-filter:brightness(3) saturate(0)}25%{-webkit-transform:translateX(-12px);-webkit-filter:brightness(2.2) sepia(1) hue-rotate(-40deg) saturate(4)}55%{-webkit-transform:translateX(3px)}100%{-webkit-transform:none;-webkit-filter:none}}
-@keyframes kbA{0%{filter:brightness(3) saturate(0)}25%{transform:translateX(-12px);filter:brightness(2.2) sepia(1) hue-rotate(-40deg) saturate(4)}55%{transform:translateX(3px)}100%{transform:none;filter:none}}
-@-webkit-keyframes kbB{0%{-webkit-transform:scaleX(-1);-webkit-filter:brightness(3) saturate(0)}25%{-webkit-transform:scaleX(-1) translateX(-12px);-webkit-filter:brightness(2.2) sepia(1) hue-rotate(-40deg) saturate(4)}55%{-webkit-transform:scaleX(-1) translateX(3px)}100%{-webkit-transform:scaleX(-1);-webkit-filter:none}}
-@keyframes kbB{0%{transform:scaleX(-1);filter:brightness(3) saturate(0)}25%{transform:scaleX(-1) translateX(-12px);filter:brightness(2.2) sepia(1) hue-rotate(-40deg) saturate(4)}55%{transform:scaleX(-1) translateX(3px)}100%{transform:scaleX(-1);filter:none}}
-@-webkit-keyframes kbA2{0%{-webkit-filter:brightness(4) saturate(0)}20%{-webkit-transform:translate(-24px,-4px) rotate(-4deg)}40%{-webkit-transform:translate(6px,0)}60%{-webkit-transform:translate(-4px,0)}100%{-webkit-transform:none;-webkit-filter:none}}
-@keyframes kbA2{0%{filter:brightness(4) saturate(0)}20%{transform:translate(-24px,-4px) rotate(-4deg)}40%{transform:translate(6px,0)}60%{transform:translate(-4px,0)}100%{transform:none;filter:none}}
-@-webkit-keyframes kbB2{0%{-webkit-transform:scaleX(-1);-webkit-filter:brightness(4) saturate(0)}20%{-webkit-transform:scaleX(-1) translate(-24px,-4px) rotate(-4deg)}40%{-webkit-transform:scaleX(-1) translate(6px,0)}60%{-webkit-transform:scaleX(-1) translate(-4px,0)}100%{-webkit-transform:scaleX(-1);-webkit-filter:none}}
-@keyframes kbB2{0%{transform:scaleX(-1);filter:brightness(4) saturate(0)}20%{transform:scaleX(-1) translate(-24px,-4px) rotate(-4deg)}40%{transform:scaleX(-1) translate(6px,0)}60%{transform:scaleX(-1) translate(-4px,0)}100%{transform:scaleX(-1);filter:none}}
+@-webkit-keyframes kbA{0%{-webkit-filter:brightness(3) saturate(0)}25%{-webkit-transform:translateX(-20px) rotate(-3deg);-webkit-filter:brightness(2.2) sepia(1) hue-rotate(-40deg) saturate(4)}55%{-webkit-transform:translateX(4px)}100%{-webkit-transform:none;-webkit-filter:none}}
+@keyframes kbA{0%{filter:brightness(3) saturate(0)}25%{transform:translateX(-20px) rotate(-3deg);filter:brightness(2.2) sepia(1) hue-rotate(-40deg) saturate(4)}55%{transform:translateX(4px)}100%{transform:none;filter:none}}
+@-webkit-keyframes kbB{0%{-webkit-transform:scaleX(-1);-webkit-filter:brightness(3) saturate(0)}25%{-webkit-transform:scaleX(-1) translateX(-20px) rotate(-3deg);-webkit-filter:brightness(2.2) sepia(1) hue-rotate(-40deg) saturate(4)}55%{-webkit-transform:scaleX(-1) translateX(4px)}100%{-webkit-transform:scaleX(-1);-webkit-filter:none}}
+@keyframes kbB{0%{transform:scaleX(-1);filter:brightness(3) saturate(0)}25%{transform:scaleX(-1) translateX(-20px) rotate(-3deg);filter:brightness(2.2) sepia(1) hue-rotate(-40deg) saturate(4)}55%{transform:scaleX(-1) translateX(4px)}100%{transform:scaleX(-1);filter:none}}
+@-webkit-keyframes kbA2{0%{-webkit-filter:brightness(4) saturate(0)}20%{-webkit-transform:translate(-30px,-6px) rotate(-6deg)}40%{-webkit-transform:translate(6px,0)}60%{-webkit-transform:translate(-4px,0)}100%{-webkit-transform:none;-webkit-filter:none}}
+@keyframes kbA2{0%{filter:brightness(4) saturate(0)}20%{transform:translate(-30px,-6px) rotate(-6deg)}40%{transform:translate(6px,0)}60%{transform:translate(-4px,0)}100%{transform:none;filter:none}}
+@-webkit-keyframes kbB2{0%{-webkit-transform:scaleX(-1);-webkit-filter:brightness(4) saturate(0)}20%{-webkit-transform:scaleX(-1) translate(-30px,-6px) rotate(-6deg)}40%{-webkit-transform:scaleX(-1) translate(6px,0)}60%{-webkit-transform:scaleX(-1) translate(-4px,0)}100%{-webkit-transform:scaleX(-1);-webkit-filter:none}}
+@keyframes kbB2{0%{transform:scaleX(-1);filter:brightness(4) saturate(0)}20%{transform:scaleX(-1) translate(-30px,-6px) rotate(-6deg)}40%{transform:scaleX(-1) translate(6px,0)}60%{transform:scaleX(-1) translate(-4px,0)}100%{transform:scaleX(-1);filter:none}}
 .bu.healed .bcirc{-webkit-animation:healglow .6s;animation:healglow .6s}
 @-webkit-keyframes healglow{40%{box-shadow:0 0 0 3px #b8ff90,0 0 22px 8px rgba(120,255,90,.8)}}@keyframes healglow{40%{box-shadow:0 0 0 3px #b8ff90,0 0 22px 8px rgba(120,255,90,.8)}}
 /* 陣亡：閃白、變灰、下沉淡出 */
@@ -861,6 +882,15 @@ html,body{font-family:"PingFang TC","Heiti TC","Microsoft JhengHei","Noto Sans C
 .lowfx .skfx i,.lowfx .skfx b{display:none}
 .lowfx .bu.hurt .bfig{-webkit-animation-duration:.2s;animation-duration:.2s}
 .lowfx .ci-art.hi .cimg img{-webkit-filter:none;filter:none}
+/* 全身動作版：省電模式只保留既有前衝位移，不加轉身光暈、閃光與新特效（JS 層已不產生新特效） */
+.lowfx .bu.lunge .bfig{-webkit-filter:none;filter:none}
+.lowfx .bu.sideA.lunge .bfig{-webkit-transform:none;transform:none}
+.lowfx .bu.sideB.lunge .bfig{-webkit-transform:scaleX(-1);transform:scaleX(-1)}
+.lowfx .bu.windup .bfig{-webkit-transform:translateX(-6px);transform:translateX(-6px)}
+.lowfx .bu.sideB.windup .bfig{-webkit-transform:scaleX(-1) translateX(-6px);transform:scaleX(-1) translateX(-6px)}
+.lowfx .hitflash,.lowfx .atkfx.fistfly,.lowfx .atkfx.fistburst{display:none}
+.lowfx .atkfx.slash svg{-webkit-filter:none;filter:none}
+.lowfx .atkfx.charge{box-shadow:none}
 .tab{white-space:nowrap}.tabs.small .tab{padding:4px 7px;-webkit-flex-shrink:1;flex-shrink:1;min-width:0}
 /* art3 */
 .rk-baijin{background:linear-gradient(#9fc4d8,#3e6a86)}.rk-zijin{background:linear-gradient(#b070e0,#5a2090)}.rk-zhizun{background:linear-gradient(#f0c040,#a04010)}

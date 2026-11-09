@@ -12,7 +12,7 @@
     var p = G.p2ModeState ? G.p2ModeState() : { guild: { lv: 1, contrib: 0 }, copper: { claimed: false }, exorcism: { clears: 0 } };
     var modes = [
       ['guild','公會','單機替代：捐獻銀幣累積幫貢與公會等級','guildDonate','捐獻 1,000 銀幣'],
-      ['league','武林大會','單機 8 人淘汰賽：第 41 屆，海選 Lv.70-75','open','進入武林大會','wulin'],
+      ['league','武林大會','單機 8 人淘汰賽：第 41 屆，海選 Lv.70-75','wulin','進入武林大會'],
       ['hrd','華容道','奇遇內六關滑塊解謎','open','進入奇遇','qiyu'],
       ['copper','銅雀台','單機替代：每日領取一次掛機獎勵','copperClaim',p.copper.claimed ? '今日已領取' : '領取今日獎勵'],
       ['star','觀星台','奇遇內星運與經驗加成','open','進入奇遇','qiyu'],

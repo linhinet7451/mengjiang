@@ -255,6 +255,16 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
     if (fx && window.MutationObserver) new MutationObserver(function (ms) { ms.forEach(function (m) { [].forEach.call(m.addedNodes, function (n) { if (!/ftxt/.test(n.className || '')) return; window.__ft.n++; [0, 250, 600, 950].forEach(function (t) { setTimeout(function () { chk(n); }, t); }); }); }); }).observe(fx, { childList: true });
   });
   await J(function () { window.__fx = {}; var fx = document.getElementById('fx'); if (fx && window.MutationObserver) new MutationObserver(function (ms) { ms.forEach(function (m) { [].forEach.call(m.addedNodes, function (n) { var c = n.className || ''; if (/skfx/.test(c)) window.__fx.skfx = (window.__fx.skfx || 0) + 1; }); }); }).observe(fx, { childList: true }); });
+  // 全身動作版（2026-11-09）：觀察攻擊特效、身體動作 class、命中頓停是否真實出現
+  await J(function () {
+    window.__atk = { n: 0, slash: 0, fistfly: 0, fistburst: 0, charge: 0, hitflash: 0, orb: 0 };
+    window.__body = { seen: 0 };
+    window.__hs = { seen: 0 };
+    var fx = document.getElementById('fx'), st = document.getElementById('stage'), bt = document.getElementById('bt');
+    if (fx && window.MutationObserver) new MutationObserver(function (ms) { ms.forEach(function (m) { [].forEach.call(m.addedNodes, function (n) { var c = n.className || ''; if (/atkfx/.test(c)) { window.__atk.n++; if (/slash/.test(c)) window.__atk.slash++; if (/fistfly/.test(c)) window.__atk.fistfly++; if (/fistburst/.test(c)) window.__atk.fistburst++; if (/charge/.test(c)) window.__atk.charge++; } if (/hitflash/.test(c)) window.__atk.hitflash++; if (/orb/.test(c)) window.__atk.orb++; }); }); }).observe(fx, { childList: true });
+    if (st && window.MutationObserver) new MutationObserver(function (ms) { ms.forEach(function (m) { var t = m.target; if (t && /bu/.test(t.className || '') && /(windup|lunge|atk-thrust|atk-hit|atk-raise|atk-cast)/.test(t.className)) window.__body.seen++; }); }).observe(st, { subtree: true, attributes: true, attributeFilter: ['class'] });
+    if (bt && window.MutationObserver) new MutationObserver(function (ms) { ms.forEach(function (m) { if (/hitstop/.test(m.target.className || '')) window.__hs.seen++; }); }).observe(bt, { attributes: true, attributeFilter: ['class'] });
+  });
   await page.waitForTimeout(2600);
   // art2：武將放大後仍完整在舞台內（直向／橫向都檢查），並出現依傷害類型的光效
   var fit = await J(function () {
@@ -272,6 +282,14 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   ok(await J(function () { return (window.__fx && window.__fx.skfx) || 0; }) > 0, '受擊時出現依傷害類型的技能光效');
   // VID-2：攻擊動作三種對應（揮刀／出拳／氣功）
   ok(await J(function () { var k = MJ.UI._attackKind; return k && k({ dtype: 'p', look: { wp: 'sword' } }) === 'slash' && k({ dtype: 'p', look: { wp: 'none' } }) === 'fist' && k({ dtype: 'm', look: { wp: 'fan' } }) === 'wave' && k({ dtype: 'j', look: { wp: 'sword' } }) === 'wave'; }), '攻擊動作三種對應：揮刀／出拳／氣功');
+  // 全身動作版：時長／頓停／方向純函數（1x/2x/4x 等比縮短；方向依真實站位）
+  ok(await J(function () { var U = MJ.UI; return U._atkSpec && U._atkSpec.slash === 200 && U._atkSpec.fist === 160 && U._atkSpec.wave === 120 && U._atkDur(1) === 380 && U._atkDur(2) === 190 && U._atkDur(4) === 95 && U._hitstopMs(1) === 60 && U._hitstopMs(2) === 30 && U._hitstopMs(4) === 15; }), '攻擊時長與命中頓停隨速度等比縮短（1x/2x/4x：380/190/95ms、60/30/15ms）');
+  ok(await J(function () { var U = MJ.UI, b = U.battleState(); if (!b) return false; var ak = Object.keys(b.units).filter(function (k) { return k.charAt(0) === 'A'; })[0], bk = Object.keys(b.units).filter(function (k) { return k.charAt(0) === 'B'; })[0]; return U._atkDir(b.units[ak], b.units[bk]) === 1 && U._atkDir(b.units[bk], b.units[ak]) === -1 && U._atkDir({ side: 'A' }, null) === 1 && U._atkDir({ side: 'B' }, null) === -1; }), '攻擊方向朝目標（A 向右／B 向左，無目標時依陣營）');
+  // 全身動作版：真實戰鬥中出現攻擊特效、身體動作、命中頓停
+  var atk = await J(function () { return window.__atk; });
+  ok(atk && atk.n >= 2, '攻擊特效出現（取樣 ' + (atk ? atk.n : 0) + ' 個：揮刀 ' + (atk ? atk.slash : 0) + '、拳影 ' + (atk ? atk.fistfly : 0) + '、聚氣 ' + (atk ? atk.charge : 0) + '、閃光 ' + (atk ? atk.hitflash : 0) + '、光球 ' + (atk ? atk.orb : 0) + '）');
+  ok(await J(function () { return window.__body.seen > 0; }), '攻擊時人物出現全身動作（蓄力／前衝／前頂／抬手，取樣 ' + await J(function () { return window.__body.seen; }) + ' 次）');
+  ok(await J(function () { return window.__hs.seen > 0; }), '命中時出現頓停（.hitstop，取樣 ' + await J(function () { return window.__hs.seen; }) + ' 次）');
   // 壓力測試：每個單位同時飄出最高的技能名、無雙+、暴擊、大數字
   await J(function () { var BT = MJ.UI._bt ? MJ.UI._bt() : null; [].forEach.call(document.querySelectorAll('.bu:not(.dead)'), function (u) { var k = u.id.slice(1); MJ.UI._floatText(k, '神鬼亂舞斬', 'skillname', 60); MJ.UI._floatText(k, '無雙+35', 'green small', 44); MJ.UI._floatText(k, '暴擊', 'critlab', 38); MJ.UI._floatText(k, '-123456', 'crit'); MJ.UI._floatText(k, '<i class="leaf"></i>+98765', 'heal'); }); });
   await page.waitForTimeout(300);
@@ -303,10 +321,23 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   var au = await J(function () { return { sup: MJ.Audio.supported, want: MJ.Audio.wanted(), cur: MJ.Audio.current(), st: MJ.Audio.state(), played: MJ.Audio.played.slice() }; });
   ok(au.want === 'battle' || au.want === 'boss', '進入戰鬥切換為戰鬥配樂（' + au.want + '，AudioContext：' + au.st + (au.cur ? '，播放中 ' + au.cur : '') + '）');
   ok(au.played.indexOf('hit') >= 0 || au.played.indexOf('crit') >= 0 || au.played.indexOf('ult') >= 0, '戰鬥中觸發命中音效（' + au.played.slice(-4).join(',') + '）');
+  // 全身動作版：省電模式不再產生新的攻擊特效（只保留既有前衝位移）
+  await J(function () { MJ.S.state.settings.fx = 'low'; MJ.UI.applyFx(); });
+  await page.waitForTimeout(400); // 讓飛行中的拳影／閃光落定，再取基準數
+  var atkLow0 = await J(function () { var b = MJ.UI.battleState(); return { n: window.__atk.n, running: !!(b && !b.done) }; });
+  await page.waitForTimeout(1500);
+  ok(await J(function () { return MJ.UI.lowFx() === true && document.body.className.indexOf('lowfx') >= 0; }), '省電模式開啟（lowfx）');
+  ok(await J(function (n) { return window.__atk.n === n; }, atkLow0.n), '省電模式下不再產生新的攻擊特效（' + atkLow0.n + ' 個，未增加' + (atkLow0.running ? '' : '；戰鬥已結束，此項為空判') + '）');
+  await J(function () { MJ.S.state.settings.fx = 'auto'; MJ.UI.applyFx(); });
+  ok(await J(function () { return MJ.UI.lowFx() === false; }), '切回完整特效');
   await act('[data-a="bSkip"]');
   await page.waitForSelector('.result', { timeout: 15000 });
   ok(await page.locator('.result.win').count() === 1, '1-1 戰鬥勝利並顯示結算');
   await shot('9-battle-win');
+  // 全身動作版：結算後所有武將回到原位（無殘留動作 class 或位移；含跳過戰鬥中途按下的情況）
+  await page.waitForTimeout(2000);
+  var stuck = await J(function () { var bad = []; [].forEach.call(document.querySelectorAll('.bu'), function (u) { if (/(acting|windup|lunge|atk-thrust|atk-hit|atk-raise|atk-cast)/.test(u.className) || u.style.transform) bad.push(u.id); }); return bad; });
+  ok(!stuck.length, '結算後所有武將回到原位（無殘留動作 class 或位移' + (stuck.length ? '：' + stuck.join(',') : '') + '）');
   ok(await J(function () { return MJ.Audio.wanted(); }) === 'victory', '勝利後切換為勝利配樂');
   var dead = await J(function () { return document.querySelectorAll('.bu.dead').length; });
   ok(dead >= 1, '陣亡單位以陣亡狀態顯示（' + dead + '）');
@@ -428,6 +459,42 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   await act('[data-a="arDaily"]');
   if (await page.locator('[data-a="confirmYes"]').count()) await act('[data-a="confirmYes"]');
   ok(await J(function () { return MJ.S.state.tickets.arena != null; }), '領取排名獎勵（以勝場計）');
+  await act('[data-a="city"]');
+  // 武林大會回歸（2026-11-09 當機修復）：玩法中心按鈕曾誤用 data-a="open" data-v="wulin"，
+  // 但武林大會是全屏（UI.screens.wulin）而非 modal，點下後出現空白 #modal 蓋住全畫面且無關閉鈕，看似當機
+  var wulinLv0 = await J(function () { return MJ.G.lead().lv; });
+  await J(function () { MJ.G.lead().lv = 2; MJ.G.commit(); MJ.UI.go('city'); });
+  await act('[data-a="open"][data-v="originalModes"]');
+  ok(await page.locator('#modal [data-a="wulin"]').count() === 1, '原版玩法中心武林大會按鈕走全屏入口（data-a="wulin"）');
+  await act('#modal [data-a="wulin"]');
+  ok(await J(function () { return MJ.UI.screen === 'wulin' && !MJ.UI.modal && document.getElementById('modal').style.display === 'none'; }), '低等級點進入武林大會直接進全屏，不出現空白 modal');
+  ok((await page.locator('#screen').innerText()).indexOf('未滿 70 級') >= 0 && await page.locator('[data-a="wlStart"]').count() === 0, '低等級只顯示未滿 70 級鎖定訊息，沒有開始按鈕');
+  await act('[data-a="city"]');
+  ok(await J(function () { return MJ.UI.screen === 'city'; }), '鎖定畫面可返回主城（畫面未卡住）');
+  await J(function () { MJ.G.lead().lv = 70; MJ.G.commit(); });
+  await act('[data-a="open"][data-v="originalModes"]');
+  await act('#modal [data-a="wulin"]');
+  ok(await J(function () { return MJ.UI.screen; }) === 'wulin' && await page.locator('[data-a="wlStart"]').count() === 1, 'Lv70 進入武林大會顯示開始本屆大會');
+  await act('[data-a="wlStart"]');
+  ok(await page.locator('.wl-bracket').count() === 1 && await page.locator('[data-a="wlFight"]').count() === 1, '開賽後顯示對陣表與出戰按鈕');
+  await shot('16c-wulin');
+  await act('[data-a="wlFight"]');
+  ok(await J(function () { return MJ.UI.screen; }) === 'battle', '出戰進入戰鬥');
+  await page.waitForTimeout(400);
+  await act('[data-a="bSkip"]');
+  await page.waitForSelector('.result', { timeout: 15000 });
+  ok(await page.locator('.result.win, .result.lose').count() === 1, '武林大會戰鬥有結算畫面');
+  await act('[data-a="bWulin"]');
+  ok(await J(function () { return MJ.UI.screen; }) === 'wulin' && await page.locator('.ar-rec').count() === 1, '返回武林大會且戰報新增一筆');
+  await act('[data-a="wlReplay"][data-v="0"]');
+  ok(await J(function () { return MJ.UI.screen; }) === 'battle', '重播進入戰鬥');
+  await page.waitForTimeout(400);
+  await act('[data-a="bSkip"]');
+  await page.waitForSelector('.result', { timeout: 15000 });
+  ok((await page.locator('.result').innerText()).indexOf('重播結束') >= 0, '武林大會重播有結算畫面');
+  await act('[data-a="bWulin"]');
+  ok(await J(function () { return MJ.UI.screen; }) === 'wulin', '重播後返回武林大會');
+  await J(function (lv) { MJ.G.lead().lv = lv; MJ.G.commit(); }, wulinLv0);
   await act('[data-a="city"]');
   await J(function () { MJ.G.addItem('seed_yin', 3); MJ.G.commit(); });
   await act('.bld[data-a="farm"]');
@@ -560,13 +627,16 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   ok(!posOk.length, '戰鬥中我方武將站在編好的格子（不符：' + (posOk.join(',') || '無') + '）');
   ok(await J(function () { return MJ.G.openCells().every(function (c) { var t = document.getElementById('tX' + (Math.floor(c / 3) * 8 + MJ.Battle.homeBx('A', c))); return t && t.className.indexOf('open') >= 0; }); }), '戰場上標出陣法開放的格子');
   // 緊急修正二：出手時壓暗戰場、紅格顯示範圍
+  // 取樣說明：截圖會阻塞迴圈數秒，短戰鬥會在截圖期間打完，使後續取樣全空（VID-2 三環境皆只取到 1 次，本輪曾因此抖動失敗）；
+  // 因此先取樣完再截圖，斷言（aim/warn/me 皆出現）不變，只讓檢測更穩
   var seen = { aim: 0, rng: 0, warn: 0, me: 0 };
   for (var q = 0; q < 40 && !(seen.aim && seen.warn && seen.me); q++) {
     var o = await J(function () { var b = document.getElementById('bt'); return { aim: b && / aim/.test(b.className) ? 1 : 0, rng: document.querySelectorAll('.tile.rng').length, warn: document.querySelectorAll('.tile.warn').length, me: document.querySelectorAll('.tile.me').length }; });
     for (var kk in o) if (o[kk]) seen[kk]++;
-    if (o.aim && o.warn && !seen.shot) { seen.shot = 1; await page.screenshot({ path: path.join(SHOT, shotPrefix + '24-battle-range.png') }); }
+    if (o.aim && o.warn && !seen.shot) seen.shot = 1;
     await page.waitForTimeout(60);
   }
+  if (seen.shot) await page.screenshot({ path: path.join(SHOT, shotPrefix + '24-battle-range.png') });
   ok(seen.aim && seen.warn && seen.me, '出手時壓暗戰場，紅格標出受擊格、綠格標出施放者（取樣 aim ' + seen.aim + '、warn ' + seen.warn + '、me ' + seen.me + '）');
   ok(await J(function () { return MJ.UI.battleState().r.battle.events.some(function (e) { return e.t === 'act' && e.rv === 12 && e.range; }); }), '戰報使用 v12 大棋盤攻擊範圍（rv 12）');
   ok(await J(function () { var b = document.querySelector('.b-rule'); return !!b && /一直往前/.test(b.textContent) && /走到底/.test(b.textContent) && /第一列/.test(b.textContent); }), '戰場說明：雙方每回合一直往前、走到底統一換到第一列排隊對打');
