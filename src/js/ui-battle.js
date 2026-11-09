@@ -245,7 +245,7 @@
     h += '<div class="b-skill" id="bskill"></div>';
     h += '<div class="cutin" id="cutin"></div>';
     h += '<div class="b-bl"><a class="zhen' + (BT.showGrid ? ' on' : '') + '" data-a="bGrid">陣</a><div class="swords"><svg viewBox="0 0 40 40" class="art"><path d="M6 6 L30 30 M34 6 L10 30" stroke="#e0e0e0" stroke-width="4" stroke-linecap="round"/><path d="M26 26 L32 32 M14 26 L8 32" stroke="#c9a24a" stroke-width="6" stroke-linecap="round"/></svg><b id="bleft">x ' + MJ.D.config.maxRounds + '</b></div></div>';
-    h += '<div class="b-br">' + (UI.muteBtn ? UI.muteBtn('big') : '') + '<a class="sbtn" id="bspeed" data-a="bSpeed">' + BT.speed + 'x</a><a class="sbtn" data-a="bSkip">跳過</a></div>';
+    h += '<div class="b-br">' + (UI.muteBtn ? UI.muteBtn('big') : '') + '<a class="sbtn" id="bspeed" data-a="bSpeed">' + BT.speed + 'x</a><a class="sbtn" data-a="bSkip">跳過</a>' + ((r.mode === 'tower' || r.mode === 'wuji') ? '<a class="sbtn" data-a="bSkipAll">跳過全部</a>' : '') + '</div>';
     h += '<div class="b-tr"><a class="sbtn small" data-a="bLog">戰報</a><a class="sbtn small" data-a="bDetail">明細</a><a class="sbtn small" data-a="bFormula">公式</a></div>';
     h += '<div class="blog' + (BT.showLog ? ' on' : '') + '" id="blog">' + BT.logHtml + '</div>';
     if (BT.showDetail) { h += '<div class="bdetail"><b>事件明細（已播放 ' + BT.i + '/' + BT.ev.length + '）</b>'; U.each(BT.ev.slice(0, BT.i), function (ev, ix) { var line = evLog(ev); if (line) h += '<div><small>#' + (ix + 1) + '</small> ' + U.esc(line) + '</div>'; }); h += '</div>'; }
@@ -254,6 +254,7 @@
   };
 
   UI.startBattle = function (res) {
+    if (UI.clearAuto) UI.clearAuto();
     if (BT && BT.timer) clearTimeout(BT.timer);
     var s = MJ.S.state;
     BT = { r: res, ev: res.battle.events, i: 0, speed: s.settings.speed || 1, units: {}, logHtml: '', showLog: false, showDetail: false, showGrid: false, done: false, round: 0, open: G.openCells ? G.openCells() : null, bd: res.battle.board || null };
@@ -424,7 +425,7 @@
   }
   function evLog(e) {
     switch (e.t) {
-      case 'hit': return e.miss ? nameOf(e.to) + (e.why === '等級壓制' ? ' 等級壓制，攻擊無效' : ' 閃避了攻擊') : nameOf(e.from) + ' 對 ' + nameOf(e.to) + ' 造成 ' + e.dmg + ' 傷害' + (e.crit ? '（暴擊）' : '');
+      case 'hit': return e.miss ? nameOf(e.to) + (e.why === '等級壓制' ? ' 等級壓制，攻擊無效' : ' 閃避了攻擊') : nameOf(e.from) + ' 對 ' + nameOf(e.to) + ' 造成 ' + e.dmg + ' 傷害' + (e.crit ? '（暴擊）' : '') + (e.sup && e.sup < 1 ? '（壓制 ×' + e.sup.toFixed(2) + '）' : '');
       case 'heal': return nameOf(e.to) + ' 回復 ' + e.amt + ' 生命' + (e.why ? '（' + e.why + '）' : '');
       case 'dead': return nameOf(e.to) + ' 陣亡';
       case 'revive': return nameOf(e.to) + ' 觸發「' + e.name + '」重新站起';
@@ -449,6 +450,7 @@
         var at = BT.units[e.from]; skillFx(e.to, at ? (at.u.dtype || (at.u.phys ? 'p' : 'm')) : 'p', e.crit);
         if (e.crit) { floatText(e.to, '暴擊', 'critlab', 38); floatText(e.to, '-' + e.dmg, 'crit'); shake(!!BT.ultTotal); sfx('crit'); }
         else { floatText(e.to, '-' + e.dmg, 'dmg'); sfx('hit'); }
+        if (e.sup && e.sup < 1) floatText(e.to, '壓制 ×' + e.sup.toFixed(2), 'red small', -28);
         hitSpark(e.to, e.crit);
         if (BT.ultTotal && !e.dot && !e.reflect) { BT.ultTotal.v += e.dmg; var tt = el('ulttotal'); if (tt) tt.innerHTML = '總傷害 <b>' + U.fmt(BT.ultTotal.v) + '</b>'; }
         break;
@@ -613,18 +615,38 @@
   UI.actions.bSpeed = function () { BT.speed = BT.speed === 1 ? 2 : (BT.speed === 2 ? 4 : 1); MJ.S.state.settings.speed = BT.speed; MJ.S.save(); var e = el('bspeed'); if (e) e.innerHTML = BT.speed + 'x'; };
   UI.actions.bSkip = function () {
     if (!BT || BT.done) return;
+    if (UI.clearAuto) UI.clearAuto();
     clearTimeout(BT.timer);
     // 把剩餘事件寫進戰報
     for (; BT.i < BT.ev.length; BT.i++) { var lg = evLog(BT.ev[BT.i]); if (lg) addLog(lg); }
     var fx = el('fx'); if (fx) fx.innerHTML = '';
     finish();
   };
+  // 跳過全部（WL-3 任務 2；只在通天塔／無極幻境出現）：
+  // 塔＝本層已打完，直接連打到戰敗或登頂再看總結；無極＝結果已算好，直接跳到總結。
+  UI.actions.bSkipAll = function () {
+    if (!BT || BT.done) return;
+    if (UI.clearAuto) UI.clearAuto();
+    clearTimeout(BT.timer);
+    var r = BT.r, fx = el('fx'); if (fx) fx.innerHTML = '';
+    var bt = el('bt'); if (bt && bt.className.indexOf('ended') < 0) bt.className += ' ended';
+    var b = el('bresult'); if (!b) return;
+    if (r.mode === 'tower') {
+      var agg = UI.towerSkipRun(r);
+      if (!agg.ok) { UI.toast(agg.msg || '無法跳過', 'bad'); return; }
+      BT.done = true;
+      b.innerHTML = UI.towerSkipSummary(agg);
+    } else if (r.mode === 'wuji') {
+      BT.done = true;
+      b.innerHTML = UI.modeResult(r, true);
+    }
+  };
   UI.actions.bLog = function () { BT.showLog = !BT.showLog; var l = el('blog'); if (l) l.className = 'blog' + (BT.showLog ? ' on' : ''); };
   UI.actions.bDetail = function () { BT.showDetail = !BT.showDetail; UI.render(); };
   UI.actions.bGrid = function (v, a) { BT.showGrid = !BT.showGrid; var b = el('bt'); if (b) b.className = b.className.replace(/ showgrid/g, '') + (BT.showGrid ? ' showgrid' : ''); a.className = 'zhen' + (BT.showGrid ? ' on' : ''); };
   UI.actions.bFormula = function () { UI.toast(MJ.Battle.FORMULA_NOTE); var t = el('toast'); if (t) { clearTimeout(UI._ft); } };
-  UI.actions.bAgain = function (id) { BT.done = true; var r = G.fight(id); if (!r.ok) { UI.toast(r.msg, 'bad'); return; } UI.startBattle(r); };
-  UI.actions.bBack = function () { if (BT) { BT.done = true; if (BT.r.stage.ch) UI.sel.gateCh = BT.r.stage.ch; } BT = null; UI.go('gate'); };
-  UI.actions.bCity = function () { if (BT) BT.done = true; BT = null; UI.go('city'); };
+  UI.actions.bAgain = function (id) { if (UI.clearAuto) UI.clearAuto(); BT.done = true; var r = G.fight(id); if (!r.ok) { UI.toast(r.msg, 'bad'); return; } UI.startBattle(r); };
+  UI.actions.bBack = function () { if (UI.clearAuto) UI.clearAuto(); if (BT) { BT.done = true; if (BT.r.stage.ch) UI.sel.gateCh = BT.r.stage.ch; } BT = null; UI.go('gate'); };
+  UI.actions.bCity = function () { if (UI.clearAuto) UI.clearAuto(); if (BT) BT.done = true; BT = null; UI.go('city'); };
   UI.battleState = function () { return BT; };
 })();

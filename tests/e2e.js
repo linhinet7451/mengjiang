@@ -394,11 +394,35 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   await page.waitForSelector('.result', { timeout: 15000 });
   ok(await page.locator('.result.win').count() === 1 && await J(function () { return MJ.S.state.tower.best; }) === 1, '登上通天塔第 1 層並記錄');
   ok((await page.locator('.result').innerText()).indexOf('第 1 層') >= 0, '塔層結算顯示樓層與首登獎勵');
+  // WL-3 任務 2：勝利結算預設自動接續（約 1.2 秒後打下一層），期間顯示倒數與「停止」
+  ok((await page.locator('#autoNext').innerText()).indexOf('即將挑戰下一層') >= 0, '塔結算顯示「即將挑戰下一層…」與停止鈕（自動接續預設開）');
+  await act('[data-a="autoStop"]');
+  ok(await J(function () { return MJ.UI.autoContinue.tower === false; }) && (await page.locator('#autoNext').innerText()).indexOf('已停止自動接續') >= 0, '按「停止」中斷自動接續，停在結算不進下一層');
   await shot('12b-tower-win');
   await act('[data-a="bTower"]:not([data-v])');
   await act('[data-a="twSweep"]');
   await act('[data-a="confirmYes"]');
   ok(await J(function () { return MJ.S.state.tickets.tower != null && !MJ.G.ticket('tower').ready; }), '領取塔俸（之後以勝場計，不看日期）');
+  // WL-3 任務 2：通天塔自動接續＋跳過（重新開啟自動接續後再打）
+  await act('[data-a="autoToggle"][data-v="tower"]');
+  ok(await J(function () { return MJ.UI.autoContinue.tower === true; }), '通天塔畫面可重新開啟自動接續');
+  await act('[data-a="twFight"]');
+  await page.waitForTimeout(600);
+  await act('[data-a="bSkip"]');
+  await page.waitForSelector('.result', { timeout: 15000 });
+  ok(await page.locator('.result.win').count() === 1, '登上通天塔第 2 層');
+  await page.waitForFunction(function () { var b = MJ.UI.battleState(); return b && b.r && b.r.stage && b.r.stage.floor === 3; }, null, { timeout: 10000 });
+  ok(await J(function () { return MJ.UI.battleState().r.stage.floor === 3 && MJ.S.state.tower.best === 3; }), '結算後約 1.2 秒自動挑戰第 3 層（不需手動點下一層）');
+  await act('[data-a="bSkipAll"]');
+  await page.waitForTimeout(400);
+  if (await page.locator('[data-a="twSkipAll"]').count()) await act('[data-a="twSkipAll"]');
+  await page.waitForSelector('.result', { timeout: 15000 });
+  var twSumTxt = await page.locator('.result').innerText();
+  var twBest = await J(function () { return MJ.S.state.tower.best; });
+  ok(twSumTxt.indexOf('本輪拿到獎勵') >= 0 && twSumTxt.indexOf('打到第 ' + twBest + ' 層') >= 0 && twBest >= 3, '跳過全部後顯示總結：打到第 ' + twBest + ' 層＋本輪拿到獎勵');
+  await shot('12c-tower-skip');
+  await act('[data-a="bTower"]:not([data-v])');
+  ok(await J(function () { return MJ.UI.screen; }) === 'tower', '跳過總結後返回通天塔畫面');
   await act('[data-a="city"]');
   await act('.bld[data-a="wuji"]');
   ok(await page.locator('.wj-card').count() === 3, '無極幻境顯示三欄挑戰面板');
@@ -408,6 +432,10 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   await page.waitForTimeout(500);
   await act('[data-a="bSkip"]');
   await page.waitForSelector('.result', { timeout: 15000 });
+  // WL-3 任務 2：無極結算同樣預設自動接續下一波；先按「停止」，保留原有手動流程
+  ok((await page.locator('#autoNext').innerText()).indexOf('即將播放下一波') >= 0, '無極結算顯示「即將播放下一波…」與停止鈕（自動接續預設開）');
+  await act('[data-a="autoStop"]');
+  ok(await J(function () { return MJ.UI.autoContinue.wuji === false; }), '按「停止」中斷無極自動接續');
   if (await page.locator('[data-a="wjNext"]').count()) {
     await act('[data-a="wjNext"]');
     ok(await J(function () { return MJ.UI.battleState().r.idx; }) === 1, '「下一波」播放第 2 波');
@@ -419,6 +447,24 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   ok((await page.locator('.result').innerText()).indexOf('波') >= 0 && await J(function () { return MJ.G.wujiLeft('w1') === Infinity; }), '幻境結算顯示通過波數，次數不限');
   await shot('13b-wuji-result');
   await act('[data-a="bWuji"]');
+  // WL-3 任務 2：無極幻境自動接續＋跳過（重新開啟自動接續後再打）
+  await act('[data-a="autoToggle"][data-v="wuji"]');
+  ok(await J(function () { return MJ.UI.autoContinue.wuji === true; }), '無極幻境畫面可重新開啟自動接續');
+  await act('[data-a="wjGo"][data-v="w1"]');
+  await page.waitForTimeout(500);
+  await act('[data-a="bSkip"]');
+  await page.waitForSelector('.result', { timeout: 15000 });
+  await page.waitForFunction(function () { var b = MJ.UI.battleState(); return b && b.r && b.r.idx === 1; }, null, { timeout: 10000 });
+  ok(await J(function () { return MJ.UI.battleState().r.idx === 1; }), '結算後約 1.2 秒自動播放第 2 波（不需手動點下一波）');
+  await act('[data-a="bSkipAll"]');
+  await page.waitForTimeout(400);
+  if (await page.locator('[data-a="wjSum"]').count()) await act('[data-a="wjSum"]');
+  await page.waitForSelector('.result', { timeout: 15000 });
+  var wjSumTxt = await page.locator('.result').innerText();
+  ok(/全 破|結 算/.test(await page.locator('.result .banner').last().innerText()) && wjSumTxt.indexOf('通過') >= 0 && wjSumTxt.indexOf('波') >= 0 && wjSumTxt.indexOf('獲得獎勵') >= 0, '跳過全部後直接顯示總結：通過波數＋獲得獎勵');
+  await shot('13b2-wuji-autoskip');
+  await act('[data-a="bWuji"]');
+  ok(await J(function () { return MJ.UI.screen; }) === 'wuji', '跳過總結後返回無極幻境畫面');
   await act('[data-a="city"]');
   // P5：上古寶窟（單人版，K4 兩種分階都保留）
   await J(function () { var l = MJ.G.lead(); l.lv = Math.max(l.lv, 25); MJ.G.commit(); MJ.UI.render(); });

@@ -123,7 +123,7 @@
   G.arenaReplay = function (i) {
     var a = st().arena, rec = a.recs[+i];
     if (!rec) return fail('找不到這場戰報');
-    var res = MJ.Battle.run(snap(rec.team), snap(rec.foes), { seed: rec.seed, maxRounds: C().maxRounds, levelSuppression: C().levelSuppression, pvp: !!rec.pvp }); // 舊戰報（v6 以前）沒有 pvp，以舊規則重播
+    var res = MJ.Battle.run(snap(rec.team), snap(rec.foes), { seed: rec.seed, maxRounds: C().maxRounds, levelSuppression: C().levelSuppression, pvp: !!rec.pvp, oldSuppression: (rec.v || 0) < 7 }); // 舊戰報（v6 以前）沒有 pvp，以舊規則重播；WL-3 前的等級壓制是必定未命中，重播沿用舊規則
     var sg = { id: 'arena' + rec.target, name: '重播．' + rec.name, kind: 'boss', bg: MJ.D.stages.chapters[rec.target % MJ.D.stages.chapters.length].bg };
     return ok({ mode: 'arena', replay: true, win: res.win, consistent: res.win === rec.win && res.rounds === rec.rounds, battle: res, stage: sg, team: snap(rec.team), foes: snap(rec.foes), rewards: [], levelUps: [], energyCost: 0, before: rec.before, after: rec.after, rec: rec });
   };
@@ -205,7 +205,7 @@
   G.wulinReplay = function (i) {
     var w = G.wulinState(), rec = w.recs[+i];
     if (!rec) return fail('找不到這場戰報');
-    var res = MJ.Battle.run(snap(rec.team), snap(rec.foes), { seed: rec.seed, maxRounds: C().maxRounds, levelSuppression: C().levelSuppression, pvp: !!rec.pvp });
+    var res = MJ.Battle.run(snap(rec.team), snap(rec.foes), { seed: rec.seed, maxRounds: C().maxRounds, levelSuppression: C().levelSuppression, pvp: !!rec.pvp, oldSuppression: (rec.v || 0) < 7 }); // v6 以前戰報重播沿用 WL-3 前的必定未命中舊規則
     var sg = { id: 'wulinR' + i, name: '重播．' + rec.name, kind: 'boss', bg: MJ.D.stages.chapters[(rec.round + 3) % MJ.D.stages.chapters.length].bg };
     return ok({ mode: 'wulin', replay: true, win: res.win, consistent: res.win === rec.win && res.rounds === rec.rounds, battle: res, stage: sg, team: snap(rec.team), foes: snap(rec.foes), rewards: [], levelUps: [], energyCost: 0, round: rec.round });
   };

@@ -22,6 +22,28 @@
     return sg.enemies.length + ' 名敵將　Lv' + sg.enemies[sg.enemies.length - 1].lv + (tpl ? '　首領：' + tpl.name : '');
   }
 
+  // ---------- 自動接續（WL-3 任務 2）：執行期狀態，不寫入存檔；預設開 ----------
+  // 預設開：勝利結算出現後約 1.2 秒自動打下一層／播下一波；期間可按「停止」中斷。
+  UI.autoContinue = { tower: true, wuji: true };
+  UI.AUTO_DELAY = 1200;
+  UI._autoTimer = null; UI._autoKind = null;
+  UI.clearAuto = function () { if (UI._autoTimer) { clearTimeout(UI._autoTimer); UI._autoTimer = null; UI._autoKind = null; } };
+  UI.scheduleAuto = function (kind, fn) {
+    UI.clearAuto(); UI._autoKind = kind;
+    UI._autoTimer = setTimeout(function () { UI._autoTimer = null; UI._autoKind = null; fn(); }, UI.AUTO_DELAY);
+  };
+  UI.actions.autoStop = function (v) {
+    UI.clearAuto();
+    if (v === 'tower' || v === 'wuji') UI.autoContinue[v] = false;
+    var el = document.getElementById('autoNext');
+    if (el) el.innerHTML = '已停止自動接續（可在通天塔／無極幻境畫面重新開啟）。';
+  };
+  UI.actions.autoToggle = function (v) {
+    if (v !== 'tower' && v !== 'wuji') return;
+    UI.autoContinue[v] = !UI.autoContinue[v];
+    UI.render();
+  };
+
   // =================== 通天塔 ===================
   UI.screens.tower = function () {
     var s = S(), best = s.tower.best, next = Math.min(best + 1, G.TOWER_MAX), sg = G.towerFloor(next);
@@ -57,12 +79,12 @@
     else {
       h += '<div class="fg-box"><b>' + U.esc(sg.name) + '</b>（' + ({ normal: '一般', elite: '精英', boss: '首領' })[sg.kind] + '　景：' + U.esc(sg.chName) + '）<br>' + U.esc(foeSummary(sg)) +
         '<div class="rw-h">首次登頂獎勵</div>' + rwHtml(UI.rwText(sg.first).concat(['星魂 +' + sg.xinghun, '全隊經驗 +' + sg.exp]), 'first') +
-        '<div class="btn-row"><a class="btn" data-a="twFight">挑　戰</a></div></div>';
+        '<div class="btn-row"><a class="btn" data-a="twFight">挑　戰</a><a class="btn small" data-a="autoToggle" data-v="tower">自動接續：' + (UI.autoContinue.tower ? '開' : '關') + '</a></div></div>';
     }
     var sw = G.towerSweepReward(), twt = G.ticket('tower'), swDone = !twt.ready;
     h += '<div class="fg-box tw-sweep"><b>塔俸</b>（依最高層數；每贏 ' + twt.every + ' 場可領一次）<br>' + (best ? U.esc(UI.rwText(sw).join('、')) : '至少通過第 1 層才能領取') +
       '<div class="btn-row"><a class="btn small' + (swDone || !best ? ' disabled' : '') + '" data-a="twSweep">' + (swDone ? '再勝 ' + twt.left + ' 場' : '領取') + '</a></div></div>';
-    h += '<p class="note">通天塔可無限挑戰；戰敗沒有懲罰。建築：A；樓層內容、獎勵：D。</p></div></div></div>';
+    h += '<p class="note">通天塔可無限挑戰；戰敗沒有懲罰。勝利後預設自動接續下一層（約 1.2 秒後，結算畫面按「停止」可中斷）；戰鬥重播或結算畫面按「跳過全部／跳過剩餘層數」可直接連打到戰敗或登頂再看總結。建築：A；樓層內容、獎勵：D。</p></div></div></div>';
     return h;
   };
   UI.actions.tower = function () { UI.go('tower'); };
@@ -73,7 +95,7 @@
   UI.screens.wuji = function () {
     var s = S(), lead = G.lead();
     var h = '<div class="scr hall-scr"><div class="frame bigframe hall wujif"><div class="plaque">無極幻境</div><a class="xbtn" data-a="city">×</a>';
-    h += '<div class="wj-tip">無盡波次：連續挑戰敵軍，<b>生命與怒氣會延續到下一波</b>。<b>每 5 波得 1 個將魂</b>，每 10 波道具包，每次最多 ' + G.WUJI_SEG + ' 波。最深紀錄：第 <b>' + (s.wuji.best || 0) + '</b> 波</div><div class="wj-cards">';
+    h += '<div class="wj-tip">無盡波次：連續挑戰敵軍，<b>生命與怒氣會延續到下一波</b>。<b>每 5 波得 1 個將魂</b>，每 10 波道具包，每次最多 ' + G.WUJI_SEG + ' 波。最深紀錄：第 <b>' + (s.wuji.best || 0) + '</b> 波<br>勝利後預設自動接續下一波（約 1.2 秒後，結算畫面按「停止」可中斷）；戰鬥重播按「跳過全部」或結算畫面按「略過，看結算」可直接跳到總結。</div><div class="wj-cards">';
     U.each(G.WUJI, function (t, i) {
       var locked = lead.lv < t.open, left = G.wujiLeft(t.id), boss = G.wujiWave(t, t.waves - 1, 1);
       var bu = R.enemyUnit(boss.enemies[0], boss);
@@ -85,7 +107,7 @@
         (s.wuji.first[t.id] ? '' : '<div class="rw-h">首次全破</div><small class="wj-first">' + U.esc(UI.rwText(t.first).join('、')) + '</small>') + '</div>' +
         (locked ? '<div class="wj-lock">主角 ' + t.open + ' 級開放</div>' : '<div class="btn-row"><a class="btn" data-a="wjGo" data-v="' + t.id + '">挑　戰</a></div>') + '</div>';
     });
-    h += '</div><p class="note wj-note">無極幻境：A（建築存在）；每 5 波 1 將魂：B（規格書）；三欄挑戰面板版面參考影片 3；波數、敵軍、獎勵數值：D。累計全破 ' + s.wuji.clears + ' 次。</p></div></div>';
+    h += '</div><p class="note wj-note">無極幻境：A（建築存在）；每 5 波 1 將魂：B（規格書）；三欄挑戰面板版面參考影片 3；波數、敵軍、獎勵數值：D。累計全破 ' + s.wuji.clears + ' 次。<a class="btn small" data-a="autoToggle" data-v="wuji">自動接續：' + (UI.autoContinue.wuji ? '開' : '關') + '</a></p></div></div>';
     return h;
   };
   UI.actions.wuji = function () { UI.go('wuji'); };
@@ -97,8 +119,8 @@
     var w = run.waves[i];
     UI.startBattle({ mode: 'wuji', run: run, idx: i, win: w.win, battle: w.battle, stage: w.stage, team: w.team, foes: w.foes, rewards: [], levelUps: [], energyCost: 0 });
   };
-  UI.actions.wjNext = function () { var b = UI.battleState(); if (!b) return; b.done = true; UI.wujiPlay(b.r.run, b.r.idx + 1); };
-  UI.actions.wjSum = function () { var b = UI.battleState(); if (!b) return; var el = document.getElementById('bresult'); if (el) el.innerHTML = UI.modeResult(b.r, true); };
+  UI.actions.wjNext = function () { UI.clearAuto(); var b = UI.battleState(); if (!b) return; b.done = true; UI.wujiPlay(b.r.run, b.r.idx + 1); };
+  UI.actions.wjSum = function () { UI.clearAuto(); var b = UI.battleState(); if (!b) return; var el = document.getElementById('bresult'); if (el) el.innerHTML = UI.modeResult(b.r, true); };
 
   // 戰鬥結算（通天塔／無極幻境）
   UI.modeResult = function (r, summary) {
@@ -110,16 +132,26 @@
         (r.exp ? '<div>全隊經驗 +' + r.exp + '</div>' : '') + (r.levelUps.length ? '<div class="lvup">升級！' + U.esc(r.levelUps.join('、')) + '</div>' : '') +
         '<div class="rw-h">首次登頂獎勵</div>' + rwHtml(r.rewards, 'first') + '</div>';
       else h = '<div class="dim"></div><div class="result lose"><div class="banner">戰 敗</div><div class="parch rbody"><div>第 ' + f + ' 層的守軍太強了。' + (r.battle.timeout ? '（超過 ' + C().maxRounds + ' 回合）' : '') + '通天塔戰敗沒有任何損失。</div>' + tips + '</div>';
-      h += '<div class="btn-row">' + (r.win && S().tower.best < G.TOWER_MAX ? '<a class="btn" data-a="bTower" data-v="1">下一層</a>' : '') + (!r.win ? '<a class="btn" data-a="bTower" data-v="1">再戰一次</a>' : '') + '<a class="btn" data-a="bTower">返回通天塔</a><a class="btn" data-a="bCity">回主城</a></div></div>';
+      // 自動接續（預設開）：勝利且未登頂時，約 1.2 秒後走現有 bTower 路徑打下一層
+      var autoT = r.win && UI.autoContinue.tower && G.towerAutoNext(r);
+      if (autoT) {
+        h += '<div class="auto-next" id="autoNext">即將挑戰下一層… <a class="btn small" data-a="autoStop" data-v="tower">停止</a></div>';
+        UI.scheduleAuto('tower', function () { UI.actions.bTower('1'); });
+      }
+      h += '<div class="btn-row">' + (r.win && S().tower.best < G.TOWER_MAX ? '<a class="btn" data-a="bTower" data-v="1">下一層</a>' : '') + (!r.win ? '<a class="btn" data-a="bTower" data-v="1">再戰一次</a>' : '') + (r.win && S().tower.best < G.TOWER_MAX ? '<a class="btn" data-a="twSkipAll">跳過剩餘層數</a>' : '') + '<a class="btn" data-a="bTower">返回通天塔</a><a class="btn" data-a="bCity">回主城</a></div></div>';
       return h;
     }
     // 無極幻境
     var run = r.run, t = run.tier, last = r.idx === run.waves.length - 1;
     if (!summary && r.win && !last) {
-      return '<div class="dim"></div><div class="result win"><div class="banner">第 ' + (r.idx + 1) + ' 波 勝</div><div class="parch rbody"><div>' + U.esc(t.name) + '：第 ' + (r.idx + 1) + '/' + t.waves + ' 波通過。</div>' +
+      var autoW = UI.autoContinue.wuji && G.wujiAutoNext(r);
+      var wh = '<div class="dim"></div><div class="result win"><div class="banner">第 ' + (r.idx + 1) + ' 波 勝</div><div class="parch rbody"><div>' + U.esc(t.name) + '：第 ' + (r.idx + 1) + '/' + t.waves + ' 波通過。</div>' +
         '<div>存活的武將會帶著目前的生命與怒氣進入下一波。</div>' +
         '<div>本波獎勵：銀幣 ×' + U.fmt(r.stage.silver) + '　全隊經驗 +' + r.stage.exp + '</div></div>' +
+        (autoW ? '<div class="auto-next" id="autoNext">即將播放下一波… <a class="btn small" data-a="autoStop" data-v="wuji">停止</a></div>' : '') +
         '<div class="btn-row"><a class="btn" data-a="wjNext">下一波</a><a class="btn" data-a="wjSum">略過，看結算</a></div></div>';
+      if (autoW) UI.scheduleAuto('wuji', function () { UI.actions.wjNext(); });
+      return wh;
     }
     h = '<div class="dim"></div><div class="result ' + (run.full ? 'win' : 'lose') + '"><div class="banner">' + (run.full ? '全 破' : '結 算') + '</div><div class="parch rbody">' +
       '<div>' + U.esc(t.name) + '：通過 <b>' + run.cleared + '/' + t.waves + '</b> 波' + (run.full ? '，全部擊破！' : '。') + (run.souls ? '　將魂 ×' + run.souls : '') + '</div>' +
@@ -129,8 +161,42 @@
       '<div class="btn-row"><a class="btn" data-a="bWuji">返回幻境</a><a class="btn" data-a="bCity">回主城</a></div></div>';
     return h;
   };
-  UI.actions.bTower = function (v) { var b = UI.battleState(); if (b) b.done = true; if (v === '1') { var r = G.towerFight(); if (!UI.res(r)) { UI.go('tower'); return; } UI.startBattle(r); } else UI.go('tower'); };
-  UI.actions.bWuji = function () { var b = UI.battleState(); if (b) b.done = true; UI.go('wuji'); };
+  UI.actions.bTower = function (v) { UI.clearAuto(); var b = UI.battleState(); if (b) b.done = true; if (v === '1') { var r = G.towerFight(); if (!UI.res(r)) { UI.go('tower'); return; } UI.startBattle(r); } else UI.go('tower'); };
+  UI.actions.bWuji = function () { UI.clearAuto(); var b = UI.battleState(); if (b) b.done = true; UI.go('wuji'); };
+
+  // ---------- 通天塔跳過（WL-3 任務 2）：本層已打過，只彙總；其餘層走 G.towerSkip ----------
+  // cur 為本層已打完的結果（獎勵已發放）。戰敗或已登頂時不再多打，直接以本層作結。
+  UI.towerSkipRun = function (cur) {
+    if (!cur || cur.mode !== 'tower') return { ok: false, msg: '不是通天塔戰鬥' };
+    var base = { startBest: cur.stage.floor - 1, fought: 1, rewards: (cur.rewards || []).slice(), levelUps: (cur.levelUps || []).slice(), exp: cur.exp || 0, topped: false, lostAt: 0 };
+    if (!cur.win) { base.reached = S().tower.best; base.lostAt = cur.stage.floor; base.win = false; return ok0(base); }
+    if (S().tower.best >= G.TOWER_MAX) { base.reached = S().tower.best; base.topped = true; base.win = true; return ok0(base); }
+    var skip = G.towerSkip();
+    if (!skip.ok) return skip;
+    base.reached = skip.reached; base.fought += skip.floors.length;
+    base.rewards = base.rewards.concat(skip.rewards); base.levelUps = base.levelUps.concat(skip.levelUps);
+    base.exp += skip.exp; base.topped = skip.topped; base.lostAt = skip.lostAt; base.win = skip.win;
+    return ok0(base);
+    function ok0(o) { o.ok = true; return o; }
+  };
+  UI.towerSkipSummary = function (agg) {
+    var h = '<div class="dim"></div><div class="result ' + (agg.topped ? 'win' : 'lose') + '"><div class="banner">' + (agg.topped ? '登 頂' : '跳 過 結 算') + '</div><div class="parch rbody">' +
+      '<div>跳過連戰：從第 <b>' + (agg.startBest + 1) + '</b> 層打到第 <b>' + agg.reached + '</b> 層' + (agg.topped ? '，登上塔頂！' : (agg.lostAt ? '，在第 ' + agg.lostAt + ' 層戰敗。' : '。')) + '</div>' +
+      '<div>本輪共打 ' + agg.fought + ' 層' + (agg.exp ? '，全隊經驗 +' + agg.exp : '') + '</div>' +
+      (agg.levelUps.length ? '<div class="lvup">升級！' + U.esc(agg.levelUps.join('、')) + '</div>' : '') +
+      '<div class="rw-h">本輪拿到獎勵</div>' + (agg.rewards.length ? rwHtml(agg.rewards) : '<div>沒有拿到獎勵。</div>') + '</div>' +
+      '<div class="btn-row"><a class="btn" data-a="bTower">返回通天塔</a><a class="btn" data-a="bCity">回主城</a></div></div>';
+    return h;
+  };
+  UI.actions.twSkipAll = function () {
+    UI.clearAuto();
+    var b = UI.battleState(); if (!b) return;
+    var agg = UI.towerSkipRun(b.r);
+    if (!agg.ok) { UI.toast(agg.msg || '無法跳過', 'bad'); return; }
+    b.done = true;
+    var bt = document.getElementById('bt'); if (bt && bt.className.indexOf('ended') < 0) bt.className += ' ended';
+    var el = document.getElementById('bresult'); if (el) el.innerHTML = UI.towerSkipSummary(agg);
+  };
 
   // =================== 農田 ===================
   var SEED_COL = { seed_yin: '#cfd8dc', seed_exp: '#7cb342', seed_gem: '#ba68c8', seed_soul: '#4fc3f7' };

@@ -6101,6 +6101,25 @@
       "conflicts": [],
       "tentative": true,
       "phase": "WL-2"
+    },
+    {
+      "id": "battle.suppressionCurve",
+      "cat": "戰鬥",
+      "item": "等級壓制：目標高於攻擊者時的傷害遞減曲線",
+      "spec": "本作設計",
+      "current": "WL-3（2026-11-09 Tomas 指示）：目標等級高於攻擊者 10 級以上時不再必定未命中，改為傷害遞減——等差 d≤10 倍率 1；d>10 時倍率 = max(0.10, 1 − 0.05 × (d − 10))，每多 1 級 −5%，最低 10%；門檻取 config.levelSuppression（=10）。命中判定（90%＋命中−閃避，最低 20%）不變。戰鬥 log 與傷害浮字標示「壓制 ×倍率」。例外：v6 以前戰報重播仍用舊必定未命中規則（opt.oldSuppression），勝負與回合數與當時相同。",
+      "grade": "D",
+      "label": "本作設計（暫定）",
+      "sources": [
+        {
+          "s": "SPEC",
+          "q": "2026-11-09 Tomas 指示：等級壓制改傷害遞減，等差 >10 每多 1 級 −5%，最低 10%。"
+        }
+      ],
+      "conflicts": [],
+      "tentative": true,
+      "phase": "WL-3",
+      "note": "取代舊 B 級規則「目標高於攻擊者 10 級以上必定未命中」（僅見於 battle.js FORMULA_NOTE，無獨立考證條目，故無舊條目可刪；歷史脈絡保留於此條目與 FORMULA_NOTE）。"
     }
   ],
   "matrix": {

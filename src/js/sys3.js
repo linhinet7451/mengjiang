@@ -328,6 +328,49 @@
     } else G.log('通天塔第 ' + f + ' 層挑戰失敗', 'battle');
     G.commit(); return ok(out);
   };
+
+  // ---------- 自動接續／跳過（WL-3 任務 2；純 G 層邏輯，可單元測試；不動存檔） ----------
+  // 自動接續判定：塔＝勝利且未登頂；無極＝勝利且未播完最後一波
+  G.towerAutoNext = function (r) {
+    return !!(r && r.ok !== false && r.win && r.mode === 'tower' && st().tower.best < G.TOWER_MAX);
+  };
+  G.wujiAutoNext = function (r) {
+    return !!(r && r.win && r.mode === 'wuji' && r.run && r.idx < r.run.waves.length - 1);
+  };
+  // 通天塔跳過：從目前 best 起連續呼叫 G.towerFight() 直到戰敗／登頂／失敗。
+  // 獎勵由 towerFight 內按首次登層發放，本函式只彙總，不重發、不漏發。
+  // maxFloors 為安全上限（預設 100＝塔高），避免萬一迴圈失控。
+  G.towerSkip = function (maxFloors) {
+    var s = st(), startBest = s.tower.best;
+    var limit = maxFloors == null ? G.TOWER_MAX : Math.max(0, +maxFloors || 0);
+    if (s.tower.best >= G.TOWER_MAX) return fail('已登上塔頂');
+    var out = { startBest: startBest, floors: [], rewards: [], levelUps: [], exp: 0, topped: false, lostAt: 0, win: false };
+    for (var i = 0; i < limit; i++) {
+      if (s.tower.best >= G.TOWER_MAX) { out.topped = true; break; }
+      var r = G.towerFight();
+      if (!r.ok) {
+        if (!out.floors.length && !out.topped) return fail(r.msg || '無法挑戰通天塔');
+        break;
+      }
+      out.floors.push(r.stage.floor);
+      out.rewards = out.rewards.concat(r.rewards || []);
+      out.levelUps = out.levelUps.concat(r.levelUps || []);
+      out.exp += r.exp || 0;
+      out.win = !!r.win;
+      if (!r.win) { out.lostAt = r.stage.floor; break; }
+      if (s.tower.best >= G.TOWER_MAX) out.topped = true;
+    }
+    out.reached = s.tower.best; out.fought = out.floors.length;
+    return ok(out);
+  };
+  // 無極幻境跳過：結果已在 G.wujiRun 內算好並發放，本函式只從 run 彙總總結資料，不重算、不重發。
+  // waveWins 為逐波勝場數，應等於 cleared（逐波播完與跳過總結一致的依據）。
+  G.wujiSummary = function (run) {
+    if (!run || !run.tier) return fail('沒有幻境結果');
+    var wins = 0;
+    U.each(run.waves || [], function (w) { if (w.win) wins++; });
+    return ok({ tier: run.tier, cleared: run.cleared, full: !!run.full, souls: run.souls || 0, rewards: run.rewards || [], firstRewards: run.firstRewards || null, exp: run.exp || 0, levelUps: run.levelUps || [], waveWins: wins });
+  };
   G.towerSweepReward = function () {
     var b = st().tower.best;
     return { silver: Math.floor(b * 150 * G.econ().reward), items: b >= 10 ? [{ item: 'peiyangdan', n: Math.floor(b / 10) }] : [] };

@@ -3,7 +3,7 @@
    傷害公式為「暫定」（D）：原作公式未公開。 */
 MJ.Battle = (function () {
   var B = {}, U = MJ.U;
-  B.FORMULA_NOTE = '暫定傷害公式（D，非原作數值）：傷害 = max(1, (攻擊 × 技能倍率 + 固定值) × 隨機(0.95~1.05) − 防禦)；物理對物防、法術對法防、絕技對絕技防禦（A：三種傷害）；命中率 = 90% + (命中 − 閃避)%；暴擊率 = 5% + 暴擊%，暴擊 ×1.5；目標高於攻擊者 10 級以上必定未命中（B）。';
+  B.FORMULA_NOTE = '暫定傷害公式（D，非原作數值）：傷害 = max(1, (攻擊 × 技能倍率 + 固定值) × 隨機(0.95~1.05) − 防禦)；物理對物防、法術對法防、絕技對絕技防禦（A：三種傷害）；命中率 = 90% + (命中 − 閃避)%；暴擊率 = 5% + 暴擊%，暴擊 ×1.5；目標高於攻擊者 10 級以上傷害遞減，每多 1 級 −5%，最低 10%（D 級原創，2026-11-09 Tomas 指示；舊 B 級「必定未命中」已取代）。';
 
   function rc(cell) { return { r: Math.floor(cell / 3), c: cell % 3 }; }
   function cellOf(r, c) { return r * 3 + c; }
@@ -282,7 +282,7 @@ MJ.Battle = (function () {
   B.run = function (teamA, teamB, opt) {
     opt = opt || {};
     var rng = U.rng(opt.seed || 1);
-    var maxRounds = opt.maxRounds || 36, lvSup = opt.levelSuppression || 10;
+    var maxRounds = opt.maxRounds || 36, lvSup = opt.levelSuppression || 10, oldSup = !!opt.oldSuppression;
     var A = [], Bs = [], ev = [], all, pending = [];
     U.each(teamA, function (x) { A.push(mkUnit(x.unit, 'A', x.cell)); });
     U.each(teamB, function (x) { Bs.push(mkUnit(x.unit, 'B', x.cell)); });
@@ -309,7 +309,8 @@ MJ.Battle = (function () {
     }
     function hurt(att, tgt, skill, isCounter) {
       var e = { t: 'hit', from: att.key, to: tgt.key };
-      if (tgt.lv - att.lv > lvSup) { e.miss = true; e.why = '等級壓制'; ev.push(e); return 0; }
+      // WL-3 前的舊規則只留給 v6 以前戰報重播（opt.oldSuppression；見 sys4 arenaReplay／wulinReplay）：其餘一律走下面傷害遞減
+      if (oldSup && tgt.lv - att.lv > lvSup) { e.miss = true; e.why = '等級壓制'; ev.push(e); return 0; }
       var hitCh = U.clamp(0.9 + ((att.hit || 0) - (tgt.dodge || 0)) / 100, 0.2, 1);
       if (rng() > hitCh) { e.miss = true; e.why = '閃避'; ev.push(e); return 0; }
       // 三種傷害（A）：物理對物防、法術對法防、絕技對絕技防禦（以敏捷為主，D）
@@ -324,6 +325,10 @@ MJ.Battle = (function () {
       var pv = opt.pvp ? (att.pvp || 0) : (att.pve || 0); // P4：PVP／PVE 傷害%（D）
       if (pv) dmg = Math.max(1, Math.floor(dmg * (1 + pv / 100)));
       if (!opt.pvp && tgt.npcCut && att.side === 'B') dmg = Math.max(1, Math.floor(dmg * (1 - tgt.npcCut / 100))); // 錐行陣（A：sn77）
+      // WL-3：等級壓制改傷害遞減（D：2026-11-09 Tomas 指示；舊 B 級「必定未命中」已取代）——等差 > lvSup 時每多 1 級 −5%，最低 10%
+      var supD = tgt.lv - att.lv, sup = 1;
+      if (supD > lvSup) sup = Math.max(0.10, 1 - 0.05 * (supD - lvSup));
+      if (sup < 1) { dmg = Math.max(1, Math.floor(dmg * sup)); e.sup = Math.round(sup * 100) / 100; }
       // P3：來源有明確上限者，依 provenance 的 C 級引擎解讀限制每次命中的最終傷害；舊快照無此欄位。
       if (skill.maxDamage != null) dmg = Math.min(dmg, skill.maxDamage);
       if (!v9(tgt) && has(tgt, 'huajie') && rng() < 0.2) { dmg = Math.max(1, Math.floor(dmg / 2)); e.hj = true; ev.push({ t: 'text', to: tgt.key, s: '化解', c: 'green' }); }

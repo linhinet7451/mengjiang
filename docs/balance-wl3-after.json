@@ -1,0 +1,1923 @@
+{
+ "stages": [
+  {
+   "id": "s1_1",
+   "kind": "normal",
+   "lv": 1,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 1
+  },
+  {
+   "id": "s1_2",
+   "kind": "normal",
+   "lv": 2,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 1
+  },
+  {
+   "id": "s1_3",
+   "kind": "normal",
+   "lv": 3,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 1
+  },
+  {
+   "id": "s1_4",
+   "kind": "elite",
+   "lv": 4,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 1
+  },
+  {
+   "id": "s1_5",
+   "kind": "normal",
+   "lv": 5,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 1
+  },
+  {
+   "id": "s1_6",
+   "kind": "normal",
+   "lv": 6,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 1
+  },
+  {
+   "id": "s1_7",
+   "kind": "elite",
+   "lv": 7,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0.75
+  },
+  {
+   "id": "s1_8",
+   "kind": "boss",
+   "lv": 8,
+   "typ": 1,
+   "weak3": 0.5833333333333334,
+   "typ5": 1,
+   "min3": 0.08333333333333333
+  },
+  {
+   "id": "s1_9",
+   "kind": "hidden",
+   "lv": 10,
+   "typ": 1,
+   "weak3": 0.75,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s2_1",
+   "kind": "normal",
+   "lv": 8,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 1
+  },
+  {
+   "id": "s2_2",
+   "kind": "normal",
+   "lv": 9,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 1
+  },
+  {
+   "id": "s2_3",
+   "kind": "normal",
+   "lv": 10,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 1
+  },
+  {
+   "id": "s2_4",
+   "kind": "elite",
+   "lv": 11,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0.08333333333333333
+  },
+  {
+   "id": "s2_5",
+   "kind": "normal",
+   "lv": 12,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 1
+  },
+  {
+   "id": "s2_6",
+   "kind": "normal",
+   "lv": 13,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 1
+  },
+  {
+   "id": "s2_7",
+   "kind": "elite",
+   "lv": 13,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0.08333333333333333
+  },
+  {
+   "id": "s2_8",
+   "kind": "boss",
+   "lv": 14,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s2_9",
+   "kind": "hidden",
+   "lv": 17,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s3_1",
+   "kind": "normal",
+   "lv": 15,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 1
+  },
+  {
+   "id": "s3_2",
+   "kind": "normal",
+   "lv": 16,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 1
+  },
+  {
+   "id": "s3_3",
+   "kind": "normal",
+   "lv": 17,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 1
+  },
+  {
+   "id": "s3_4",
+   "kind": "elite",
+   "lv": 18,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s3_5",
+   "kind": "normal",
+   "lv": 19,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0.9166666666666666
+  },
+  {
+   "id": "s3_6",
+   "kind": "normal",
+   "lv": 20,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0.4166666666666667
+  },
+  {
+   "id": "s3_7",
+   "kind": "elite",
+   "lv": 20,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s3_8",
+   "kind": "boss",
+   "lv": 21,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s3_9",
+   "kind": "hidden",
+   "lv": 24,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s4_1",
+   "kind": "normal",
+   "lv": 22,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 1
+  },
+  {
+   "id": "s4_2",
+   "kind": "normal",
+   "lv": 23,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 1
+  },
+  {
+   "id": "s4_3",
+   "kind": "normal",
+   "lv": 24,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0.4166666666666667
+  },
+  {
+   "id": "s4_4",
+   "kind": "elite",
+   "lv": 25,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s4_5",
+   "kind": "normal",
+   "lv": 26,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0.5833333333333334
+  },
+  {
+   "id": "s4_6",
+   "kind": "normal",
+   "lv": 27,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 1
+  },
+  {
+   "id": "s4_7",
+   "kind": "elite",
+   "lv": 27,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0.4166666666666667
+  },
+  {
+   "id": "s4_8",
+   "kind": "boss",
+   "lv": 28,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s4_9",
+   "kind": "hidden",
+   "lv": 31,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s5_1",
+   "kind": "normal",
+   "lv": 29,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0.75
+  },
+  {
+   "id": "s5_2",
+   "kind": "normal",
+   "lv": 30,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0.5
+  },
+  {
+   "id": "s5_3",
+   "kind": "normal",
+   "lv": 31,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0.08333333333333333
+  },
+  {
+   "id": "s5_4",
+   "kind": "elite",
+   "lv": 32,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s5_5",
+   "kind": "normal",
+   "lv": 33,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0.9166666666666666
+  },
+  {
+   "id": "s5_6",
+   "kind": "normal",
+   "lv": 34,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0.9166666666666666
+  },
+  {
+   "id": "s5_7",
+   "kind": "elite",
+   "lv": 34,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s5_8",
+   "kind": "boss",
+   "lv": 35,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s5_9",
+   "kind": "hidden",
+   "lv": 38,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s6_1",
+   "kind": "normal",
+   "lv": 36,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0.9166666666666666
+  },
+  {
+   "id": "s6_2",
+   "kind": "normal",
+   "lv": 37,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0.08333333333333333
+  },
+  {
+   "id": "s6_3",
+   "kind": "normal",
+   "lv": 38,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s6_4",
+   "kind": "elite",
+   "lv": 39,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s6_5",
+   "kind": "normal",
+   "lv": 40,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0.9166666666666666
+  },
+  {
+   "id": "s6_6",
+   "kind": "normal",
+   "lv": 41,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s6_7",
+   "kind": "elite",
+   "lv": 41,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s6_8",
+   "kind": "boss",
+   "lv": 42,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s6_9",
+   "kind": "hidden",
+   "lv": 45,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s7_1",
+   "kind": "normal",
+   "lv": 43,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0.08333333333333333
+  },
+  {
+   "id": "s7_2",
+   "kind": "normal",
+   "lv": 44,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s7_3",
+   "kind": "normal",
+   "lv": 45,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0.08333333333333333
+  },
+  {
+   "id": "s7_4",
+   "kind": "elite",
+   "lv": 46,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s7_5",
+   "kind": "normal",
+   "lv": 47,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s7_6",
+   "kind": "normal",
+   "lv": 48,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s7_7",
+   "kind": "elite",
+   "lv": 48,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s7_8",
+   "kind": "boss",
+   "lv": 49,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s7_9",
+   "kind": "hidden",
+   "lv": 52,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s8_1",
+   "kind": "normal",
+   "lv": 50,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s8_2",
+   "kind": "normal",
+   "lv": 51,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s8_3",
+   "kind": "normal",
+   "lv": 52,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s8_4",
+   "kind": "elite",
+   "lv": 53,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s8_5",
+   "kind": "normal",
+   "lv": 54,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s8_6",
+   "kind": "normal",
+   "lv": 55,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s8_7",
+   "kind": "elite",
+   "lv": 55,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s8_8",
+   "kind": "boss",
+   "lv": 56,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s8_9",
+   "kind": "hidden",
+   "lv": 59,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s9_1",
+   "kind": "normal",
+   "lv": 60,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s9_2",
+   "kind": "normal",
+   "lv": 61,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s9_3",
+   "kind": "normal",
+   "lv": 62,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s9_4",
+   "kind": "elite",
+   "lv": 63,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s9_5",
+   "kind": "normal",
+   "lv": 64,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s9_6",
+   "kind": "normal",
+   "lv": 65,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s9_7",
+   "kind": "elite",
+   "lv": 65,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s9_8",
+   "kind": "boss",
+   "lv": 66,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s9_9",
+   "kind": "hidden",
+   "lv": 69,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s10_1",
+   "kind": "normal",
+   "lv": 69,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s10_2",
+   "kind": "normal",
+   "lv": 70,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s10_3",
+   "kind": "normal",
+   "lv": 71,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s10_4",
+   "kind": "elite",
+   "lv": 72,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s10_5",
+   "kind": "normal",
+   "lv": 73,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s10_6",
+   "kind": "normal",
+   "lv": 74,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s10_7",
+   "kind": "elite",
+   "lv": 74,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s10_8",
+   "kind": "boss",
+   "lv": 75,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  },
+  {
+   "id": "s10_9",
+   "kind": "hidden",
+   "lv": 78,
+   "typ": 1,
+   "weak3": 1,
+   "typ5": 1,
+   "min3": 0
+  }
+ ],
+ "tower": [
+  {
+   "floor": 1,
+   "lv": 19,
+   "typ": 1,
+   "typ3": 1,
+   "weak5": 1
+  },
+  {
+   "floor": 4,
+   "lv": 20,
+   "typ": 1,
+   "typ3": 1,
+   "weak5": 1
+  },
+  {
+   "floor": 7,
+   "lv": 22,
+   "typ": 1,
+   "typ3": 1,
+   "weak5": 1
+  },
+  {
+   "floor": 10,
+   "lv": 24,
+   "typ": 1,
+   "typ3": 1,
+   "weak5": 1
+  },
+  {
+   "floor": 15,
+   "lv": 27,
+   "typ": 1,
+   "typ3": 1,
+   "weak5": 1
+  },
+  {
+   "floor": 20,
+   "lv": 30,
+   "typ": 1,
+   "typ3": 1,
+   "weak5": 1
+  },
+  {
+   "floor": 25,
+   "lv": 34,
+   "typ": 1,
+   "typ3": 1,
+   "weak5": 1
+  },
+  {
+   "floor": 30,
+   "lv": 37,
+   "typ": 1,
+   "typ3": 1,
+   "weak5": 1
+  },
+  {
+   "floor": 35,
+   "lv": 40,
+   "typ": 1,
+   "typ3": 1,
+   "weak5": 1
+  },
+  {
+   "floor": 40,
+   "lv": 43,
+   "typ": 1,
+   "typ3": 1,
+   "weak5": 1
+  },
+  {
+   "floor": 45,
+   "lv": 46,
+   "typ": 1,
+   "typ3": 1,
+   "weak5": 1
+  },
+  {
+   "floor": 50,
+   "lv": 49,
+   "typ": 1,
+   "typ3": 1,
+   "weak5": 1
+  },
+  {
+   "floor": 55,
+   "lv": 52,
+   "typ": 1,
+   "typ3": 1,
+   "weak5": 1
+  },
+  {
+   "floor": 60,
+   "lv": 55,
+   "typ": 1,
+   "typ3": 1,
+   "weak5": 1
+  },
+  {
+   "floor": 65,
+   "lv": 58,
+   "typ": 1,
+   "typ3": 1,
+   "weak5": 1
+  },
+  {
+   "floor": 70,
+   "lv": 61,
+   "typ": 1,
+   "typ3": 1,
+   "weak5": 1
+  },
+  {
+   "floor": 75,
+   "lv": 65,
+   "typ": 1,
+   "typ3": 1,
+   "weak5": 1
+  },
+  {
+   "floor": 80,
+   "lv": 68,
+   "typ": 1,
+   "typ3": 1,
+   "weak5": 1
+  },
+  {
+   "floor": 85,
+   "lv": 71,
+   "typ": 1,
+   "typ3": 1,
+   "weak5": 1
+  },
+  {
+   "floor": 90,
+   "lv": 74,
+   "typ": 1,
+   "typ3": 1,
+   "weak5": 1
+  },
+  {
+   "floor": 95,
+   "lv": 77,
+   "typ": 1,
+   "typ3": 1,
+   "weak5": 1
+  },
+  {
+   "floor": 100,
+   "lv": 80,
+   "typ": 1,
+   "typ3": 1,
+   "weak5": 0.75
+  }
+ ],
+ "wuji": [
+  {
+   "tier": "w1",
+   "wave": 1,
+   "lv": 14,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 2,
+   "lv": 14,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 3,
+   "lv": 14,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 4,
+   "lv": 15,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 5,
+   "lv": 15,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 6,
+   "lv": 16,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 7,
+   "lv": 16,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 8,
+   "lv": 16,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 9,
+   "lv": 17,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 10,
+   "lv": 17,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 11,
+   "lv": 18,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 12,
+   "lv": 18,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 13,
+   "lv": 18,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 14,
+   "lv": 19,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 15,
+   "lv": 19,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 16,
+   "lv": 20,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 17,
+   "lv": 20,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 18,
+   "lv": 20,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 19,
+   "lv": 21,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 20,
+   "lv": 21,
+   "typ": 0.8333333333333334,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 21,
+   "lv": 22,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 22,
+   "lv": 22,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 23,
+   "lv": 22,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 24,
+   "lv": 23,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 25,
+   "lv": 23,
+   "typ": 0.5833333333333334,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 26,
+   "lv": 24,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 27,
+   "lv": 24,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 28,
+   "lv": 24,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 29,
+   "lv": 25,
+   "typ": 0.8333333333333334,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 30,
+   "lv": 25,
+   "typ": 0,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 31,
+   "lv": 26,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 32,
+   "lv": 26,
+   "typ": 0.16666666666666666,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 33,
+   "lv": 26,
+   "typ": 0.25,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 34,
+   "lv": 27,
+   "typ": 0,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 35,
+   "lv": 27,
+   "typ": 0,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 36,
+   "lv": 28,
+   "typ": 0,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 37,
+   "lv": 28,
+   "typ": 0,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 38,
+   "lv": 28,
+   "typ": 0,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 39,
+   "lv": 29,
+   "typ": 0,
+   "typ4": 1
+  },
+  {
+   "tier": "w1",
+   "wave": 40,
+   "lv": 29,
+   "typ": 0,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 1,
+   "lv": 30,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 2,
+   "lv": 30,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 3,
+   "lv": 30,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 4,
+   "lv": 31,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 5,
+   "lv": 31,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 6,
+   "lv": 32,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 7,
+   "lv": 32,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 8,
+   "lv": 32,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 9,
+   "lv": 33,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 10,
+   "lv": 33,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 11,
+   "lv": 34,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 12,
+   "lv": 34,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 13,
+   "lv": 34,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 14,
+   "lv": 35,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 15,
+   "lv": 35,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 16,
+   "lv": 36,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 17,
+   "lv": 36,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 18,
+   "lv": 36,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 19,
+   "lv": 37,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 20,
+   "lv": 37,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 21,
+   "lv": 38,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 22,
+   "lv": 38,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 23,
+   "lv": 38,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 24,
+   "lv": 39,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 25,
+   "lv": 39,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 26,
+   "lv": 40,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 27,
+   "lv": 40,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 28,
+   "lv": 40,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 29,
+   "lv": 41,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 30,
+   "lv": 41,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 31,
+   "lv": 42,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 32,
+   "lv": 42,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 33,
+   "lv": 42,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 34,
+   "lv": 43,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 35,
+   "lv": 43,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 36,
+   "lv": 44,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 37,
+   "lv": 44,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 38,
+   "lv": 44,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 39,
+   "lv": 45,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w2",
+   "wave": 40,
+   "lv": 45,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 1,
+   "lv": 46,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 2,
+   "lv": 46,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 3,
+   "lv": 46,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 4,
+   "lv": 47,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 5,
+   "lv": 47,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 6,
+   "lv": 48,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 7,
+   "lv": 48,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 8,
+   "lv": 48,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 9,
+   "lv": 49,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 10,
+   "lv": 49,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 11,
+   "lv": 50,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 12,
+   "lv": 50,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 13,
+   "lv": 50,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 14,
+   "lv": 51,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 15,
+   "lv": 51,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 16,
+   "lv": 52,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 17,
+   "lv": 52,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 18,
+   "lv": 52,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 19,
+   "lv": 53,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 20,
+   "lv": 53,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 21,
+   "lv": 54,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 22,
+   "lv": 54,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 23,
+   "lv": 54,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 24,
+   "lv": 55,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 25,
+   "lv": 55,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 26,
+   "lv": 56,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 27,
+   "lv": 56,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 28,
+   "lv": 56,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 29,
+   "lv": 57,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 30,
+   "lv": 57,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 31,
+   "lv": 58,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 32,
+   "lv": 58,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 33,
+   "lv": 58,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 34,
+   "lv": 59,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 35,
+   "lv": 59,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 36,
+   "lv": 60,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 37,
+   "lv": 60,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 38,
+   "lv": 60,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 39,
+   "lv": 61,
+   "typ": 1,
+   "typ4": 1
+  },
+  {
+   "tier": "w3",
+   "wave": 40,
+   "lv": 61,
+   "typ": 1,
+   "typ4": 1
+  }
+ ],
+ "arena": [
+  {
+   "rank": 30,
+   "lv": 8,
+   "n": 3,
+   "typ": 1,
+   "typ5": 1,
+   "weak": 0,
+   "weak8": 1
+  },
+  {
+   "rank": 27,
+   "lv": 15,
+   "n": 4,
+   "typ": 1,
+   "typ5": 1,
+   "weak": 0,
+   "weak8": 1
+  },
+  {
+   "rank": 24,
+   "lv": 23,
+   "n": 4,
+   "typ": 1,
+   "typ5": 1,
+   "weak": 0,
+   "weak8": 1
+  },
+  {
+   "rank": 21,
+   "lv": 30,
+   "n": 5,
+   "typ": 1,
+   "typ5": 1,
+   "weak": 0,
+   "weak8": 1
+  },
+  {
+   "rank": 18,
+   "lv": 38,
+   "n": 6,
+   "typ": 1,
+   "typ5": 1,
+   "weak": 0,
+   "weak8": 1
+  },
+  {
+   "rank": 15,
+   "lv": 45,
+   "n": 6,
+   "typ": 1,
+   "typ5": 1,
+   "weak": 0,
+   "weak8": 1
+  },
+  {
+   "rank": 12,
+   "lv": 53,
+   "n": 6,
+   "typ": 1,
+   "typ5": 1,
+   "weak": 0,
+   "weak8": 1
+  },
+  {
+   "rank": 9,
+   "lv": 60,
+   "n": 7,
+   "typ": 1,
+   "typ5": 1,
+   "weak": 0,
+   "weak8": 0
+  },
+  {
+   "rank": 6,
+   "lv": 68,
+   "n": 7,
+   "typ": 1,
+   "typ5": 1,
+   "weak": 0,
+   "weak8": 0.08333333333333333
+  },
+  {
+   "rank": 3,
+   "lv": 75,
+   "n": 8,
+   "typ": 1,
+   "typ5": 1,
+   "weak": 0,
+   "weak8": 0.5
+  },
+  {
+   "rank": 2,
+   "lv": 78,
+   "n": 8,
+   "typ": 1,
+   "typ5": 1,
+   "weak": 0.5833333333333334,
+   "weak8": 0.5
+  },
+  {
+   "rank": 1,
+   "lv": 80,
+   "n": 8,
+   "typ": 1,
+   "typ5": 1,
+   "weak": 0.08333333333333333,
+   "weak8": 0.08333333333333333
+  }
+ ],
+ "walls": []
+}

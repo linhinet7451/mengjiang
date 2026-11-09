@@ -87,6 +87,58 @@ var sv = S.state.player.silver; r = G.wujiRun('w3', 5);
 ok(r.ok && !r.full && r.cleared < 40 && S.state.wuji.clears === 0, '弱隊挑戰化境中途失敗，不算全破');
 ok(S.state.player.silver >= sv && nonNeg(S).length === 0, '只發放已通過波次的獎勵，沒有負數資源');
 
+console.log('[自動接續／跳過：通天塔與無極幻境（WL-3 任務 2）]');
+c = fresh(); M = c.MJ; G = M.G; S = M.S;
+power(G, 80); S.state.heroes.forEach(function (h) { h.lv = 80; h.star = 5; });
+r = G.towerFight(12345);
+ok(r.ok && r.win && G.towerAutoNext(r), '塔勝利且未登頂時自動接續判定為真');
+S.state.tower.best = 100;
+ok(!G.towerAutoNext(r), '已登頂時自動接續判定為假（不再打下一層）');
+var sk = G.towerSkip();
+ok(!sk.ok, '已登頂時跳過被拒絕（不再重打）');
+c = fresh(); M = c.MJ; G = M.G; S = M.S;
+function strongTeam(g, s) { // 僅為測試登頂路徑：7 人滿級滿星、培養拉滿的隊伍
+  ['zhaoyun', 'guanyu', 'zhangfei', 'huangzhong', 'machao', 'diaochan'].forEach(function (id, i) { var h = g.newHero(id, s.state); s.state.heroes.push(h); s.state.team.cells[1 + i] = h.uid; });
+  s.state.heroes.forEach(function (h) { h.lv = 90; h.star = 5; h.py = { str: 2000, int: 2000, agi: 2000, con: 2000 }; });
+}
+strongTeam(G, S);
+sk = G.towerSkip(3);
+ok(sk.ok && sk.fought === 3 && sk.reached === 3 && !sk.topped && !sk.lostAt, '跳過設上限 3 層：只打 3 層就停，未登頂、未戰敗');
+var first3Rewards = sk.rewards.length;
+// 跳過到登頂，與逐層打的獎勵一致
+sk = G.towerSkip();
+ok(sk.ok && sk.topped && sk.reached === 100 && sk.fought === 97 && sk.rewards.length > 0, '強隊跳過：從第 4 層連打到登頂（97 層）');
+var cM = fresh(), GM = cM.MJ.G, SM = cM.MJ.S;
+strongTeam(GM, SM);
+var manRewards = 0, manBattles = 0;
+while (SM.state.tower.best < GM.TOWER_MAX && manBattles < 100) { var mr = GM.towerFight(); if (!mr.ok || !mr.win) break; manRewards += mr.rewards.length; manBattles++; }
+ok(manBattles === 100 && manRewards === sk.rewards.length + first3Rewards && S.state.player.silver === SM.state.player.silver && S.state.player.gold === SM.state.player.gold && S.state.player.xinghun === SM.state.player.xinghun, '跳過後獎勵與逐層打一致（獎勵 ' + sk.rewards.length + '＋前 3 層 ' + first3Rewards + '＝' + manRewards + ' 項，銀／金／星魂相同）');
+ok(S.state.stats.battles === SM.state.stats.battles, '跳過與逐層打的戰鬥場次一致（' + S.state.stats.battles + ' 場）');
+c = fresh(); M = c.MJ; G = M.G; S = M.S; G.lead().lv = 22; S.state.tower.best = 59;
+r = G.towerFight(7);
+ok(r.ok && !r.win && !G.towerAutoNext(r), '塔戰敗時自動接續判定為假，停在結算');
+sk = G.towerSkip();
+ok(sk.ok && sk.fought === 1 && sk.lostAt === 60 && sk.reached === 59 && sk.rewards.length === 0, '弱隊跳過：在第 60 層戰敗停下，不前進、不給獎勵');
+c = fresh(); M = c.MJ; G = M.G; S = M.S;
+power(G, 80); S.state.heroes.forEach(function (h) { h.lv = 80; h.star = 5; });
+r = G.wujiRun('w1', 99);
+ok(r.ok && r.full, '滿級隊伍全破無極 w1（供自動接續／跳過測試用）');
+var w0 = { mode: 'wuji', win: r.waves[0].win, run: r, idx: 0 };
+ok(G.wujiAutoNext(w0), '無極第 1 波勝利且未播完時自動接續判定為真');
+ok(!G.wujiAutoNext({ mode: 'wuji', win: true, run: r, idx: 39 }), '播到最後一波時自動接續判定為假，停在總結');
+ok(!G.wujiAutoNext({ mode: 'wuji', win: false, run: r, idx: 0 }), '無極戰敗時自動接續判定為假');
+var ws = G.wujiSummary(r);
+ok(ws.ok && ws.cleared === 40 && ws.waveWins === 40 && ws.souls === 8 && ws.rewards.length === r.rewards.length, '無極跳過總結：通過 40 波、將魂 8，與逐波播完的 run 一致');
+ok(ws.firstRewards && ws.firstRewards.length === r.firstRewards.length, '無極跳過總結保留首次全破獎勵');
+var idx = 0, guard = 0;
+while (G.wujiAutoNext({ mode: 'wuji', win: r.waves[idx].win, run: r, idx: idx }) && guard < 50) { idx++; guard++; }
+ok(idx === 39 && guard === 39, '無極自動接續逐波前進到最後一波就停，不卡住（39 步）');
+c = fresh(); M = c.MJ; G = M.G; S = M.S; G.teamList().forEach(function (x) { x.hero.lv = 12; }); G.lead().lv = 42;
+r = G.wujiRun('w3', 5);
+ws = G.wujiSummary(r);
+ok(!r.full && ws.cleared === ws.waveWins && ws.cleared < 40, '弱隊無極跳過總結：通過波數等於逐波勝場數（' + ws.cleared + ' 波），未全破');
+ok(!G.wujiSummary(null).ok, '沒有幻境結果時總結被拒絕');
+
 console.log('[歷練任務（原每日任務，P2 改為可重複的輪次）]');
 c = fresh(); M = c.MJ; G = M.G; S = M.S;
 ok(!G.claimDaily('d1').ok, '未完成不能領');

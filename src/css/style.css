@@ -413,6 +413,7 @@ hr{border:0;border-top:1px solid #b8a468;margin:8px 0}
 .result.lose .banner{color:#c8c8c8;text-shadow:4px 4px 0 #2a2a2a,0 0 16px #000}
 .rstars i{font-style:normal;font-size:44px;color:#5a5040;margin:0 4px}.rstars i.on{color:#ffc010;text-shadow:0 0 10px #fff0a0}
 .rbody{margin:8px 0;padding:12px;text-align:left;font-size:14px;line-height:1.6;max-height:300px;overflow-y:auto}
+.auto-next{margin:8px 0;padding:8px;font-size:15px;font-weight:bold;color:#ffe070;background:rgba(20,16,0,.55);border:2px solid #d9b45a;border-radius:8px}
 .lvup{color:#2a8a1a;font-weight:bold}
 .tips{font-size:13px}
 
