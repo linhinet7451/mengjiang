@@ -108,6 +108,86 @@ U.each(D.stages.stages, function (sg) {
   });
   out.affix.push(row);
 });
+// 6) 限回合挑戰量測（WL-5）：代表關卡 12 回合內打贏比例（一般@關卡等級 / 弱勢@+3），
+// 對照同一批種子、同一隊伍的 36 回合基線（第 1 節）；挑戰不動既有戰鬥數值，第 1～5 節數字必須與基線相同。
+function winRateRounds(kind, L, foesFn, rounds) {
+  var w = 0;
+  for (var sd = 1; sd <= SEEDS; sd++) {
+    var team = playerTeam(kind, L), foes = foesFn(sd);
+    var r = MJ.Battle.run(team, foes, { seed: sd * 977 + 3, maxRounds: rounds, levelSuppression: D.config.levelSuppression });
+    if (r.win) w++;
+  }
+  return w / SEEDS;
+}
+out.challenge = [];
+U.each(['s1_1', 's1_8', 's2_8', 's3_8', 's5_3', 's6_8', 's8_8', 's10_1'], function (id) {
+  var sg = MJ.D.stageIndex[id], L = Math.max(1, sg.lv);
+  var base = U.find(out.stages, function (x) { return x.id === id; });
+  var fn = function () { return G.buildEnemy(sg); };
+  out.challenge.push({ id: id, kind: sg.kind, lv: sg.lv, typ12: winRateRounds('typ', L, fn, 12), weak312: winRateRounds('weak', Math.min(80, L + 3), fn, 12), typ36: base.typ, weak336: base.weak3 });
+});
+// 7) 增援波次＋隨機敵方組合量測（WL-6）：精英／王關／隱藏關，隨機組合、增援、兩者疊加 vs 第 1 節基線。
+// 精英關沒有增援（只有王關／隱藏關），所以精英關 reinf＝base、both＝rand，作自我檢查。
+// 增援小兵不上詞綴；s1_8 另測詞綴（種子派生）＋隨機＋增援全疊加，及再加限回合挑戰（12 回合）。
+function winRateFull(kind, L, buildFn, rounds) {
+  var w = 0;
+  for (var sd = 1; sd <= SEEDS; sd++) {
+    var team = playerTeam(kind, L), b = buildFn(sd * 977 + 3);
+    var opt = { seed: sd * 977 + 3, maxRounds: rounds || D.config.maxRounds, levelSuppression: D.config.levelSuppression };
+    if (b.reinforce) opt.reinforce = { units: b.reinforce };
+    var r = MJ.Battle.run(team, b.foes, opt);
+    if (r.win) w++;
+  }
+  return w / SEEDS;
+}
+out.wl6 = [];
+U.each(D.stages.stages, function (sg) {
+  if (sg.kind !== 'elite' && sg.kind !== 'boss' && sg.kind !== 'hidden') return;
+  var L = Math.max(1, sg.lv);
+  var base = U.find(out.stages, function (x) { return x.id === sg.id; });
+  var isBH = sg.kind === 'boss' || sg.kind === 'hidden';
+  function mk(rand, reinf) {
+    return function (seed) {
+      var foes = rand ? G.drawFoes(sg, seed) : G.buildEnemy(sg);
+      return { foes: foes, reinforce: (reinf && isBH) ? G.drawReinforce(sg, seed) : null };
+    };
+  }
+  out.wl6.push({
+    id: sg.id, kind: sg.kind, lv: sg.lv,
+    baseTyp: base.typ, baseWeak3: base.weak3,
+    randTyp: winRateFull('typ', L, mk(true, false)),
+    randWeak3: winRateFull('weak', Math.min(80, L + 3), mk(true, false)),
+    reinfTyp: winRateFull('typ', L, mk(false, true)),
+    reinfWeak3: winRateFull('weak', Math.min(80, L + 3), mk(false, true)),
+    bothTyp: winRateFull('typ', L, mk(true, true)),
+    bothWeak3: winRateFull('weak', Math.min(80, L + 3), mk(true, true))
+  });
+});
+// s1_8 全疊加：詞綴（種子派生）＋隨機組合＋增援，36 回合與 12 回合（挑戰）各一組
+(function () {
+  var sg = MJ.D.stageIndex['s1_8'], L = Math.max(1, sg.lv);
+  var base = U.find(out.stages, function (x) { return x.id === 's1_8'; });
+  var chal = U.find(out.challenge, function (x) { return x.id === 's1_8'; });
+  var aff = U.find(out.affix, function (x) { return x.id === 's1_8'; });
+  var affAvgTyp = 0, affAvgWeak = 0, n = 0;
+  U.each(MJ.Battle.AFFIXES, function (af) { affAvgTyp += aff.affixes[af.id].typ; affAvgWeak += aff.affixes[af.id].weak3; n++; });
+  affAvgTyp /= n; affAvgWeak /= n;
+  function mkStack(seed) {
+    var foes = G.drawFoes(sg, seed);
+    G.applyStageAffix(sg, foes, seed);
+    return { foes: foes, reinforce: G.drawReinforce(sg, seed) };
+  }
+  out.wl6stack = {
+    id: 's1_8', lv: sg.lv,
+    baseTyp: base.typ, baseWeak3: base.weak3,
+    affixAvgTyp: affAvgTyp, affixAvgWeak3: affAvgWeak,
+    chalTyp12: chal.typ12, chalWeak312: chal.weak312,
+    stackTyp: winRateFull('typ', L, mkStack),
+    stackWeak3: winRateFull('weak', Math.min(80, L + 3), mkStack),
+    stackTyp12: winRateFull('typ', L, mkStack, 12),
+    stackWeak312: winRateFull('weak', Math.min(80, L + 3), mkStack, 12)
+  };
+})();
 // 硬牆判定：一般玩家高出 5 級仍 < 40%
 U.each(out.stages, function (x) { if (x.typ5 < 0.4) out.walls.push('主線 ' + x.id + '（Lv' + x.lv + '）+5 級勝率 ' + pct(x.typ5)); });
 U.each(out.tower, function (x) { if (x.typ3 < 0.4 && x.lv < 80) out.walls.push('通天塔 ' + x.floor + ' 層 +3 級勝率 ' + pct(x.typ3)); });
@@ -127,5 +207,11 @@ U.each(out.affix, function (x) {
   console.log(x.id.padEnd(6), x.kind.padEnd(7), ('Lv' + x.lv).padEnd(5), '無'.padEnd(6), pct(x.baseTyp), pct(x.baseWeak3));
   U.each(MJ.Battle.AFFIXES, function (af) { var a = x.affixes[af.id]; console.log('      ', af.name.padEnd(6), pct(a.typ), pct(a.weak3)); });
 });
+console.log('== 限回合挑戰（WL-5；代表關卡 12 回合內打贏：一般@關卡等級 / 弱勢@+3；括號為 36 回合基線）==');
+U.each(out.challenge, function (x) { console.log(x.id.padEnd(6), x.kind.padEnd(7), ('Lv' + x.lv).padEnd(5), pct(x.typ12), pct(x.weak312), '（36 回合：' + pct(x.typ36) + ' / ' + pct(x.weak336) + '）'); });
+console.log('== 增援＋隨機組合（WL-6；精英／王關／隱藏關：一般@關卡等級 / 弱勢@+3；基線為第 1 節原組合 36 回合；精英關無增援，增援＝基線、疊加＝隨機為自我檢查）==');
+U.each(out.wl6, function (x) { console.log(x.id.padEnd(6), x.kind.padEnd(7), ('Lv' + x.lv).padEnd(5), '基線', pct(x.baseTyp), pct(x.baseWeak3), '隨機', pct(x.randTyp), pct(x.randWeak3), '增援', pct(x.reinfTyp), pct(x.reinfWeak3), '疊加', pct(x.bothTyp), pct(x.bothWeak3)); });
+console.log('== s1_8 廣宗決戰全疊加（WL-6；詞綴種子派生＋隨機組合＋增援；挑戰＝12 回合）==');
+(function () { var s8 = out.wl6stack; console.log('s1_8', ('Lv' + s8.lv).padEnd(5), '基線', pct(s8.baseTyp), pct(s8.baseWeak3), '詞綴平均', pct(s8.affixAvgTyp), pct(s8.affixAvgWeak3), '挑戰12', pct(s8.chalTyp12), pct(s8.chalWeak312), '全疊加36', pct(s8.stackTyp), pct(s8.stackWeak3), '全疊加12', pct(s8.stackTyp12), pct(s8.stackWeak312)); })();
 console.log('== 硬牆 ==\n' + (out.walls.length ? out.walls.join('\n') : '無'));
 if (JSON_OUT) require('fs').writeFileSync(JSON_OUT, JSON.stringify(out, null, 1));

@@ -237,6 +237,13 @@ hr{border:0;border-top:1px solid #b8a468;margin:8px 0}
 .sp-r{flex:1;-webkit-flex:1;font-size:14px}.sp-r .row{margin-bottom:5px}
 /* WL-4 首領詞綴列：關卡面板（出戰視窗）戰前顯示，紅字強調 */
 .sp-r .row.affix{color:#c22;background:rgba(200,40,60,.08);border-left:3px solid #c22;padding:2px 6px}
+/* WL-5 限回合挑戰列：關卡面板戰前顯示，金字強調 */
+.sp-r .row.chal{color:#7a5c00;background:rgba(180,140,20,.08);border-left:3px solid #b48c14;padding:2px 6px}
+/* WL-6 隨機敵方組合列：關卡面板戰前顯示，藍字強調 */
+.sp-r .row.rand{color:#3d6b8e;background:rgba(40,120,180,.08);border-left:3px solid #4a90c2;padding:2px 6px}
+/* WL-6 增援波次列：關卡面板戰前顯示，紅字強調 */
+.sp-r .row.reinf{color:#8e3d3d;background:rgba(180,60,40,.08);border-left:3px solid #b0503c;padding:2px 6px}
+.rbody .chal{color:#7a5c00;font-weight:bold}
 .sp-r .art.icon{display:inline-block;width:18px;height:18px;vertical-align:-4px}
 
 /* ---------- 共用：彈窗、確認、提示 ---------- */

@@ -297,6 +297,13 @@ MJ.Battle = (function () {
     opt = opt || {};
     var rng = U.rng(opt.seed || 1);
     var maxRounds = opt.maxRounds || 36, lvSup = opt.levelSuppression || 10, oldSup = !!opt.oldSuppression;
+    // WL-6 增援波次（D 級原創，2026-11-09 Tomas 指示；原版沒有）：王關／隱藏關才有。
+    // G.fight 在開戰前把 2 名增援小兵的單位資料（由戰鬥種子派生，用獨立亂數流，不消耗戰鬥亂數流）
+    // 放進 opt.reinforce.units；引擎只在首領血量首次低於 50% 時觸發一次，有空格立刻進場、
+    // 滿編則待命，之後敵方小兵陣亡空出格子時立即補進。觸發與進場都不吃亂數，
+    // 同一組輸入重跑事件完全相同（戰報重播一致）；增援小兵不上詞綴。
+    var reinQueue = (opt.reinforce && opt.reinforce.units) ? opt.reinforce.units.slice() : [];
+    var reinPending = [], reinDone = false, reinSpawned = [], reinIdx = 0;
     var A = [], Bs = [], ev = [], all, pending = [];
     U.each(teamA, function (x) { A.push(mkUnit(x.unit, 'A', x.cell)); });
     U.each(teamB, function (x) { Bs.push(mkUnit(x.unit, 'B', x.cell)); });
@@ -314,6 +321,47 @@ MJ.Battle = (function () {
     function alliesOf(u) { return u.side === 'A' ? A : Bs; }
     function alive(list) { return U.filter(list, function (u) { return u.hp > 0; }); }
     function snapshot(u) { return { key: u.key, hp: u.hp, maxHp: u.maxHp, rage: u.rage }; }
+    // WL-6 增援進場：找敵方半場空格（大棋盤優先後排 bx 7→6→5，每欄由上而下；3×3 優先後排 c 2,5,8）
+    function reinFreeCells() {
+      var out = [];
+      if (BD) {
+        var bx, r;
+        for (bx = 7; bx >= 5; bx--) for (r = 0; r < 3; r++) {
+          if (!U.find(all, function (o) { return o.hp > 0 && o.br === r && o.bx === bx; })) out.push({ br: r, bx: bx, cell: r * 3 + (bx - 5) });
+        }
+      } else {
+        U.each([2, 5, 8, 1, 4, 7, 0, 3, 6], function (c) {
+          if (!U.find(Bs, function (o) { return o.hp > 0 && o.cell === c; })) out.push({ br: Math.floor(c / 3), bx: 0, cell: c });
+        });
+      }
+      return out;
+    }
+    function spawnReinforce(def, at) {
+      var u = mkUnit(def, 'B', at.cell);
+      // 唯一鍵值：待命增援補進陣亡小兵的格子時，格子與死者相同，key 不能只用 B+格子（會與死者重複，畫面認錯單位）
+      u.key = 'B' + at.cell + 'r' + (++reinIdx);
+      if (BD) { u.br = at.br; u.bx = at.bx; }
+      Bs.push(u); all.push(u);
+      reinSpawned.push(u.name);
+      ev.push({ t: 'reinforce', u: u.key, name: u.name, lv: u.lv, hp: u.hp, maxHp: u.maxHp, br: BD ? u.br : null, bx: BD ? u.bx : null, cell: at.cell, look: u.look, quality: u.quality || 0, dtype: u.dtype, phys: !!u.phys });
+      return u;
+    }
+    // 盡量補進：先補待命的，再補還沒觸發的佇列；補不進的佇列改待命（不丟失）
+    function trySpawnReinforce() {
+      var free = reinFreeCells();
+      while (free.length && (reinPending.length || reinQueue.length)) {
+        var def = reinPending.length ? reinPending.shift() : reinQueue.shift();
+        spawnReinforce(def, free.shift());
+      }
+      if (reinQueue.length) { reinPending = reinPending.concat(reinQueue); reinQueue = []; }
+    }
+    // 觸發檢查：首領活著且血量首次低於 50% 才觸發一次；待命的補進只在小兵陣亡時（見 die()），不在這裡補
+    function checkReinforce() {
+      if (reinDone || (!reinQueue.length && !reinPending.length)) return;
+      var boss = U.find(Bs, function (u) { return u.boss && u.hp > 0; });
+      if (!boss) return;
+      if (boss.hp < boss.maxHp * 0.5) { reinDone = true; trySpawnReinforce(); }
+    }
 
     // v9：治療量受「虛弱」影響
     function healAmt(m, amt) { return m.healCut ? Math.max(1, Math.floor(amt * (1 - m.healCut))) : amt; }
@@ -411,12 +459,18 @@ MJ.Battle = (function () {
       u.rage = Math.min(100, u.rage + n);
       ev.push({ t: 'rage', u: u.key, gain: n, rage: u.rage });
     }
+    // WL-6：敵方小兵陣亡空出格子，待命的增援立即補進（只在首領還活著時；首領死了戰鬥即將結束，不補）
+    function onMinionDead(u) {
+      if (u.side !== 'B' || u.boss || !reinDone || !reinPending.length) return;
+      if (!U.find(Bs, function (o) { return o.boss && o.hp > 0; })) return;
+      trySpawnReinforce();
+    }
     function die(u) {
       if (v9(u)) {
         // v9（B：snA967）：不死 15% 生命剩 1（每場 1 次，D）；復甦 5% 以 15% 生命復活（每場最多 2 次）
         if (has(u, 'busi') && !u.bsN && rng() < 0.15 * pmOf(u, 'busi')) { u.bsN = 1; u.hp = 1; ev.push({ t: 'revive', to: u.key, hp: 1, name: '不死' }); return; }
         if (has(u, 'suxing') && u.sxN < 2 && rng() < 0.05 * pmOf(u, 'suxing')) { u.sxN++; u.hp = Math.max(1, Math.floor(u.maxHp * 0.15)); ev.push({ t: 'revive', to: u.key, hp: u.hp, name: '復甦' }); return; }
-        u.hp = 0; ev.push({ t: 'dead', to: u.key }); return;
+        u.hp = 0; ev.push({ t: 'dead', to: u.key }); onMinionDead(u); return;
       }
       if (!u.revived && (has(u, 'suxing') || has(u, 'busi'))) {
         u.revived = true;
@@ -427,6 +481,7 @@ MJ.Battle = (function () {
       }
       u.hp = 0;
       ev.push({ t: 'dead', to: u.key });
+      onMinionDead(u);
     }
     function useSkill(u, skill, isUlt) {
       if (skill.pattern === 'healAll') {
@@ -606,6 +661,7 @@ MJ.Battle = (function () {
         }
         if (!alive(Bs).length) winner = 'A';
         else if (!alive(A).length) winner = 'B';
+        checkReinforce(); // WL-6：本回合行動後，首領血量首次低於 50% 即觸發增援（只觸發一次）
       }
     }
     var win = winner === 'A';
@@ -617,6 +673,7 @@ MJ.Battle = (function () {
       units: U.map(all, function (u) { var o = { key: u.key, side: u.side, cell: u.cell, cell0: u.cell0, name: u.name, hp: u.hp, maxHp: u.maxHp, rage: u.rage, hid: u.hid }; if (BD) { o.br = u.br; o.bx = u.bx; } return o; })
     };
     if (stale) res.stale = true;
+    if (opt.reinforce) { res.reinforced = reinSpawned.length; res.reinforceNames = reinSpawned.slice(); res.reinforcePending = reinPending.length; res.reinforceTriggered = reinDone; }
     return res;
   };
   return B;

@@ -274,6 +274,12 @@
     if (!UI.res(r)) return;
     UI.startBattle(r);
   };
+  // WL-5 限回合挑戰：只打已通關的關卡，12 回合內打贏（G.fight 的 challenge 分支處理規則與獎勵）
+  UI.actions.startChallenge = function (id) {
+    var r = G.fight(id, null, { challenge: true });
+    if (!UI.res(r)) return;
+    UI.startBattle(r);
+  };
   function T(ms) { return ms / (BT ? BT.speed : 1); }
   function el(id) { return document.getElementById(id); }
   function nameOf(key) { var x = BT.units[key]; return x ? x.u.name : key; }
@@ -435,6 +441,7 @@
       case 'skip': return nameOf(e.u) + ' 眩暈中，無法行動';
       case 'whiff': return nameOf(e.u) + ' 「' + e.skill + '」範圍內沒有敵人，揮空';
       case 'wait': return nameOf(e.u) + ' 攻擊格內沒有敵人，等待前進';
+      case 'reinforce': return e.name + ' 加入戰場（敵軍增援）';
       case 'stale': return (e.quiet ? '連續 ' + e.quiet + ' 回合雙方都沒有人受傷（剩下的人不同列、技能打不到）：' : '雙方都走不動、攻擊格也碰不到對方：') + '依剩餘生命判定（我方 ' + e.a + '%／敵方 ' + e.b + '%）→ ' + (e.win ? '我方勝' : '敵方勝');
       case 'fieldItem': return e.id === 'flag' ? (e.unresolved ? '戰場道具「旗幟」：來源未列命中 ' + e.hits + ' 次級距' : '旗幟：' + ({ patk: '物攻', matk: '法攻', hit: '命中', mdef: '法防' }[e.stat] || e.stat) + ' +' + e.percent + '%（命中 ' + e.hits + ' 次）') : (e.name + '：' + (e.id === 'flame' ? '四格斜線，附灼傷（數值未載）' : '範圍內隨機命中，' + (e.strength === 'low' ? '小威力' : e.strength === 'medium' ? '中威力' : '大威力')));
       default: return null;
@@ -462,10 +469,33 @@
       case 'status': floatText(e.to, e.s, 'red small', 20); break;
       case 'text': floatText(e.to, e.s, (e.c === 'green' ? 'green' : 'red') + ' small', 24); break;
       case 'fieldItem': fieldItemPreview(e); break;
+      case 'reinforce': spawnReinforceUnit(e); break;
       case 'rage': setRage(e.u, e.rage); floatText(e.u, '無雙+' + e.gain, 'green small', 44); break;
       case 'ultEnd': break;
     }
   }
+  // WL-6 增援波次：戰鬥中加入增援單位（棋盤上新建人像、血條與名牌；跳過戰鬥時由 finish() 以最終快照補齊 BT.units）
+  function spawnReinforceUnit(e) {
+    if (!BT.units[e.u]) {
+      BT.units[e.u] = { u: { name: e.name, lv: e.lv, look: e.look, quality: e.quality || 0, dtype: e.dtype, phys: !!e.phys, boss: false }, hp: e.hp, max: e.maxHp, side: 'B', cell: e.cell };
+      if (e.br != null) { BT.units[e.u].br = e.br; BT.units[e.u].bx = e.bx; }
+    }
+    var x = BT.units[e.u];
+    x.hp = e.hp;
+    var btEl = el('bt');
+    if (btEl && !el('u' + e.u)) {
+      var p = upos(x);
+      var d = document.createElement('div');
+      d.className = 'bu sideB';
+      d.id = 'u' + e.u;
+      d.style.left = (p.x - 56) + 'px'; d.style.top = (p.y - 130) + 'px'; d.style.zIndex = 10 + (e.br || 0);
+      d.innerHTML = '<div class="bcirc"></div><div class="bhp" id="h' + e.u + '">' + hpHtml(e.hp, e.maxHp, 1) + '</div><div class="bfig">' + MJ.Art.figure(e.look, { enemy: true }) + '</div><div class="bnm"><span>' + U.esc(e.name) + ' <small>Lv' + e.lv + '</small></span></div>';
+      btEl.appendChild(d);
+    }
+    floatText(e.u, '敵軍增援！', 'red');
+    updateInfo(); totals();
+  }
+  UI._bReinforce = spawnReinforceUnit;
   function step() {
     if (!BT || BT.done) return;
     if (UI.screen !== 'battle') { BT = null; return; }
@@ -579,6 +609,10 @@
     if (!BT || BT.done) return;
     BT.done = true;
     clearTimeout(BT.timer);
+    // WL-6：跳過戰鬥時，增援單位的事件可能還沒播放，先以最終快照補齊 BT.units（人像不上棋盤，只校正血量與總生命條）
+    U.each(BT.r.battle.units, function (u) {
+      if (!BT.units[u.key]) BT.units[u.key] = { u: { name: u.name, lv: 0, look: null, quality: 0 }, hp: u.hp, max: u.maxHp, side: u.side, cell: u.cell, br: u.br, bx: u.bx };
+    });
     // 以模擬結果校正最終畫面
     U.each(BT.r.battle.units, function (u) { setHp(u.key, u.hp); setDead(u.key, u.hp <= 0); });
     var ci = el('cutin'); if (ci) ci.className = 'cutin';
@@ -601,6 +635,9 @@
       var stars = ''; for (var i = 0; i < 3; i++) stars += '<i class="' + (i < r.stars ? 'on' : '') + '">★</i>';
       h = '<div class="dim"></div><div class="result win"><div class="banner">勝 利</div><div class="rstars">' + stars + '</div><div class="parch rbody">' +
         '<div>回合數：' + r.battle.rounds + '</div>' +
+        (r.challenge ? '<div class="chal">限回合挑戰成功！12 回合內獲勝（銀幣 +50%）</div>' : '') +
+        (r.chalGold ? '<div class="chal">首次挑戰獎勵：金幣 ×' + r.chalGold + '</div>' : '') +
+        (r.chalSoul ? '<div class="chal">無死亡：多一次將魂掉落判定（已掉落將魂）</div>' : '') +
         '<div>全隊經驗 +' + r.exp + '</div>' +
         (r.levelUps.length ? '<div class="lvup">升級！' + U.esc(r.levelUps.join('、')) + '</div>' : '') +
         '<div class="rw-h">戰利品</div><div class="reward-list">' + U.map(r.rewards, function (x) { return '<div class="rw">' + U.esc(x) + '</div>'; }).join('') + '</div>' +
@@ -610,7 +647,8 @@
       var bt = el('bt'); if (bt) bt.className += ' lost';
       var lead = G.lead();
       h = '<div class="dim"></div><div class="result lose"><div class="banner">戰 敗</div><div class="parch rbody">' +
-        '<div>' + (r.battle.stale ? '雙方都碰不到對方，依剩餘生命判定敵方勝。可以換陣法，讓武將和敵人站在同一列或用打得到別列的技能。' : r.battle.timeout ? '已達 ' + MJ.D.config.maxRounds + ' 回合上限，判定進攻方失敗。' : '我方全軍覆沒。') + '</div>' +
+        '<div>' + (r.battle.stale ? '雙方都碰不到對方，依剩餘生命判定敵方勝。可以換陣法，讓武將和敵人站在同一列或用打得到別列的技能。' : r.battle.timeout ? '已達 ' + (r.maxRounds || MJ.D.config.maxRounds) + ' 回合上限，判定進攻方失敗。' : '我方全軍覆沒。') + '</div>' +
+        (r.challenge ? '<div class="chal">限回合挑戰失敗：12 回合內未獲勝；通關紀錄與越戰越勇不受影響。</div>' : '') +
         '<div>沒有獲得任何獎勵；不扣任何資源，可以馬上再挑戰。</div>' +
         (r.nextMorale ? '<div class="morale">越戰越勇：下次挑戰本關，我方生命／攻擊 +' + Math.round(r.nextMorale * 100) + '%</div>' : '') +
         '<div class="rw-h">如何提升戰鬥力</div><div class="tips">・到神武殿培養武將：按「最強」換上更好的裝備、安排訓練<br>・重打已通關的關卡累積經驗<br>・在聚賢莊招募更高品質的武將<br>・調整陣法，把耐打的武將放在前排</div></div>';
@@ -652,7 +690,7 @@
   UI.actions.bDetail = function () { BT.showDetail = !BT.showDetail; UI.render(); };
   UI.actions.bGrid = function (v, a) { BT.showGrid = !BT.showGrid; var b = el('bt'); if (b) b.className = b.className.replace(/ showgrid/g, '') + (BT.showGrid ? ' showgrid' : ''); a.className = 'zhen' + (BT.showGrid ? ' on' : ''); };
   UI.actions.bFormula = function () { UI.toast(MJ.Battle.FORMULA_NOTE); var t = el('toast'); if (t) { clearTimeout(UI._ft); } };
-  UI.actions.bAgain = function (id) { if (UI.clearAuto) UI.clearAuto(); BT.done = true; var r = G.fight(id); if (!r.ok) { UI.toast(r.msg, 'bad'); return; } UI.startBattle(r); };
+  UI.actions.bAgain = function (id) { if (UI.clearAuto) UI.clearAuto(); BT.done = true; var r = G.fight(id, null, BT.r.challenge ? { challenge: true } : null); if (!r.ok) { UI.toast(r.msg, 'bad'); return; } UI.startBattle(r); };
   UI.actions.bBack = function () { if (UI.clearAuto) UI.clearAuto(); if (BT) { BT.done = true; if (BT.r.stage.ch) UI.sel.gateCh = BT.r.stage.ch; } BT = null; UI.go('gate'); };
   UI.actions.bCity = function () { if (UI.clearAuto) UI.clearAuto(); if (BT) BT.done = true; BT = null; UI.go('city'); };
   UI.battleState = function () { return BT; };

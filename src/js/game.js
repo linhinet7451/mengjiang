@@ -48,7 +48,7 @@ MJ.G = (function () {
       version: MJ.S.VERSION, created: U.now(),
       player: { name: name, gender: gender === 'f' ? 'f' : 'm', leadType: leadType, gold: 50, silver: 3000, energy: R.energyMax(1), energyTs: U.now(), look: look },
       heroes: [], team: { formation: 'fangyuan', cells: {} },
-      bag: { stack: {}, equips: [] }, stages: {}, firstClaimed: {},
+      bag: { stack: {}, equips: [] }, stages: {}, firstClaimed: {}, chal: {},
       recruit: { cands: [], normalUsed: 0, normalDay: U.dayKey(), cd: {}, firstDone: {} },
       buildings: { shenwu: 1, juxian: 1, xukong: 1 },
       training: null, mail: [], tasksClaimed: {}, gifts: { opening: false, sevenDay: [], lastDay: '' },
@@ -403,16 +403,21 @@ MJ.G = (function () {
   // 關卡面板要戰前就顯示詞綴，所以開啟王關／隱藏關面板時先把「下一場的種子」定下來存在這裡，
   // 面板用同一顆種子算詞綴顯示，G.fight 開戰時用同一顆種子，顯示與實戰保證一致。
   // 只有王關／隱藏關面板會產生待用種子；直接呼叫 G.fight（重打、測試、平衡量測）時沒有待用種子，就照舊公式現場產生。
+  // WL-6：待用種子也供隨機敵方組合顯示用（同一顆種子，面板與實戰同一組合）。
   G.pendingSeed = null;
-  // 取某關的詞綴（回傳詞綴物件或 null；非王關／隱藏關一定回傳 null）。面板顯示用。
-  G.stageAffix = function (id) {
-    var sg = MJ.D.stageIndex[id];
-    if (!sg || (sg.kind !== 'boss' && sg.kind !== 'hidden')) return null;
+  // 取（或定下）某關下一場的種子；面板顯示與實戰共用。
+  G.ensureSeed = function (id) {
     if (!G.pendingSeed || G.pendingSeed.id !== id) {
       var s = st();
       G.pendingSeed = { id: id, seed: ((U.now() ^ (s.stats.battles * 2654435761)) >>> 0) || 1 };
     }
-    return MJ.Battle.affixById(MJ.Battle.pickAffix(G.pendingSeed.seed));
+    return G.pendingSeed.seed;
+  };
+  // 取某關的詞綴（回傳詞綴物件或 null；非王關／隱藏關一定回傳 null）。面板顯示用。
+  G.stageAffix = function (id) {
+    var sg = MJ.D.stageIndex[id];
+    if (!sg || (sg.kind !== 'boss' && sg.kind !== 'hidden')) return null;
+    return MJ.Battle.affixById(MJ.Battle.pickAffix(G.ensureSeed(id)));
   };
   // 把詞綴套到敵軍上（只動該關的首領本人，不動小兵；非王關／隱藏關不套用）。
   // forcedId 供單元測試與平衡量測指定詞綴；實戰不傳，由種子派生。
@@ -433,37 +438,123 @@ MJ.G = (function () {
     if (affix === 'rock') { u.pdef = Math.floor(u.pdef * 1.2); u.mdef = Math.floor(u.mdef * 1.2); }
     return affix;
   };
-  G.fight = function (id, seed) {
+  // ---------- WL-6 增援波次＋隨機敵方組合（D 級原創，2026-11-09 Tomas 指示；原版沒有）----------
+  // 同章小兵池：該章各關非首領敵人用過的模板 id（去重、依模板 id 排序，決定性不依賴 stages.json 順序）
+  G.chapterMinions = function (ch) {
+    var pool = {}, out = [];
+    U.each(MJ.D.stages.stages, function (x) {
+      if (x.ch !== ch) return;
+      U.each(x.enemies, function (e) { if (!e.leader) pool[e.e] = 1; });
+    });
+    U.each(U.keys(pool).sort(), function (k) { out.push(k); });
+    return out;
+  };
+  // 隨機敵方組合：精英／王關／隱藏關的小兵重抽（首領固定不動；同種小兵最多 3 名；小兵等級與站位不變）。
+  // 獨立亂數流（seed ^ 0x6d2b79f5），不消耗戰鬥亂數；同一種子同一關組合相同；普通關回傳原組合。
+  G.drawFoes = function (sg, seed) {
+    var base = G.buildEnemy(sg);
+    if (!sg || (sg.kind !== 'elite' && sg.kind !== 'boss' && sg.kind !== 'hidden')) return base;
+    var pool = G.chapterMinions(sg.ch);
+    if (!pool.length) return base;
+    var rng = U.rng(((seed || 1) ^ 0x6d2b79f5) >>> 0);
+    var counts = {}, out = [];
+    U.each(base, function (f) {
+      if (f.unit.boss) { out.push(f); return; }
+      var pick = null, tries = 0;
+      while (tries++ < 20) {
+        var c = pool[Math.floor(rng() * pool.length)];
+        if ((counts[c] || 0) < 3) { pick = c; break; }
+      }
+      if (!pick) { // 池子太小、上限都滿時取最少用的那種
+        pick = pool[0];
+        U.each(pool, function (x) { if ((counts[x] || 0) < (counts[pick] || 0)) pick = x; });
+      }
+      counts[pick] = (counts[pick] || 0) + 1;
+      var u = R.enemyUnit({ e: pick, cell: f.cell, lv: f.unit.lv }, sg);
+      u.honorFrame = f.unit.honorFrame || null;
+      out.push({ cell: f.cell, unit: u });
+    });
+    return out;
+  };
+  // 面板顯示用：同一顆待用種子抽出的組合（與實戰一致）；普通關直接回原組合。
+  G.stageFoes = function (id) {
+    var sg = MJ.D.stageIndex[id];
+    if (!sg) return [];
+    if (sg.kind !== 'elite' && sg.kind !== 'boss' && sg.kind !== 'hidden') return G.buildEnemy(sg);
+    return G.drawFoes(sg, G.ensureSeed(id));
+  };
+  // 增援小兵：2 名同章小兵（等級取該關第一名小兵的等級；獨立亂數流 seed ^ 0x9e3779b1）。
+  // 回傳單位資料（不含 cell，進場格子由引擎在觸發時找空格決定）；eid 供測試辨認種類。
+  G.drawReinforce = function (sg, seed) {
+    var pool = G.chapterMinions(sg.ch), out = [];
+    if (!pool.length) return out;
+    var rng = U.rng(((seed || 1) ^ 0x9e3779b1) >>> 0);
+    var lv = sg.lv, i;
+    for (i = 0; i < sg.enemies.length; i++) if (!sg.enemies[i].leader) { lv = sg.enemies[i].lv; break; }
+    for (i = 0; i < 2; i++) {
+      var e = pool[Math.floor(rng() * pool.length)];
+      var u = R.enemyUnit({ e: e, lv: lv }, sg);
+      u.eid = e;
+      out.push(u);
+    }
+    return out;
+  };
+  // ---------- WL-5 限回合挑戰（D 級原創，2026-11-09 Tomas 指示；原版沒有）----------
+  // 零平衡風險：只在已通關關卡上加一個「玩家自選」的挑戰模式，不動既有戰鬥數值、主線進度與首次通關流程。
+  // 挑戰狀態存在 s.chal[id] = { cleared: 1（挑戰成功過）, gold: 1（首次挑戰金幣已領） }，加法性欄位，舊存檔由 S.applyDefaults 補齊。
+  G.CHALLENGE = { rounds: 12, silverMult: 1.5, firstGold: 5 };
+  G.challengeState = function (id) { var c = (st().chal || {})[id] || {}; return { cleared: !!c.cleared, gold: !!c.gold }; };
+  // 無死亡額外將魂判定：把該關 drops 裡的將魂再擲一次（沿用傳入的 rng 亂數流，不重開、不吃 Math.random）。
+  // 回傳掉落的將魂項目或 null；每關 drops 只有一個將魂，擲一次即夠。
+  G.extraSoulDrop = function (sg, rng) {
+    var hit = null;
+    U.each(sg.drops || [], function (d) { if (d.item.indexOf('soul:') === 0 && rng() < d.chance) hit = { item: d.item, q: d.q, n: d.n }; });
+    return hit;
+  };
+  G.fight = function (id, seed, opt) {
     var s = st(), sg = MJ.D.stageIndex[id];
     if (!sg) return fail('關卡不存在');
     if (!G.stageUnlocked(id)) return fail('關卡未解鎖：' + G.lockReason(id));
     if (!G.teamCount()) return fail('沒有出戰武將');
+    var chal = !!(opt && opt.challenge);
+    if (chal && G.stageState(id).clears === 0) return fail('此關尚未通關，無法進行限回合挑戰');
     // 明確傳入的種子優先；否則用面板先定下的待用種子（同一關才用，用完清除）；都沒有才現場產生。
     if (!seed && G.pendingSeed && G.pendingSeed.id === id) { seed = G.pendingSeed.seed; G.pendingSeed = null; }
     seed = seed || ((U.now() ^ (s.stats.battles * 2654435761)) >>> 0) || 1;
-    var team = G.buildTeam(), foes = G.buildEnemy(sg);
+    var team = G.buildTeam(), foes = (sg.kind === 'elite' || sg.kind === 'boss' || sg.kind === 'hidden') ? G.drawFoes(sg, seed) : G.buildEnemy(sg);
     var affix = G.applyStageAffix(sg, foes, seed);
+    // WL-6 增援：王關／隱藏關才有，2 名增援小兵由種子派生（獨立亂數流），引擎在首領血量首次低於 50% 時觸發
+    var reinforce = (sg.kind === 'boss' || sg.kind === 'hidden') ? G.drawReinforce(sg, seed) : null;
     // D（原創防卡關）：越戰越勇——同一關每連敗一次，我方生命與攻擊 +8%，最多 +80%，通關後歸零
     var morale = R.moraleBonus(G.stageState(id).fails || 0);
     if (morale > 0) U.each(team, function (t) { var u = t.unit; u.hp = Math.round(u.hp * (1 + morale)); u.patk = Math.round(u.patk * (1 + morale)); u.matk = Math.round(u.matk * (1 + morale)); u.jatk = Math.round(u.jatk * (1 + morale)); });
-    var res = MJ.Battle.run(team, foes, { seed: seed, maxRounds: C().maxRounds, levelSuppression: C().levelSuppression, fieldItems: sg.fieldItems || [] });
+    var res = MJ.Battle.run(team, foes, { seed: seed, maxRounds: chal ? G.CHALLENGE.rounds : C().maxRounds, levelSuppression: C().levelSuppression, fieldItems: sg.fieldItems || [], reinforce: reinforce && reinforce.length ? { units: reinforce } : null });
     s.stats.battles++;
-    var out = { win: res.win, battle: res, stage: sg, team: team, foes: foes, rewards: [], levelUps: [], seed: seed, energyCost: 0, morale: morale, affix: affix };
+    var out = { win: res.win, battle: res, stage: sg, team: team, foes: foes, rewards: [], levelUps: [], seed: seed, energyCost: 0, morale: morale, affix: affix, challenge: chal, maxRounds: chal ? G.CHALLENGE.rounds : C().maxRounds, reinforce: reinforce, reinforced: res.reinforced || 0, reinforceNames: res.reinforceNames || [] };
     var lead = G.lead();
     if (res.win) {
       s.stats.wins++;
       var stars = res.deadA === 0 ? 3 : (res.deadA === 1 ? 2 : 1); // D：星級規則
       var ss = s.stages[id] || { stars: 0, clears: 0 };
       var first = ss.clears === 0;
-      ss.clears++; ss.stars = Math.max(ss.stars, stars); ss.fails = 0; s.stages[id] = ss;
+      ss.clears++; ss.stars = Math.max(ss.stars, stars); if (!chal) ss.fails = 0; s.stages[id] = ss; // 挑戰不動越戰越勇計數
       out.stars = stars; out.first = first;
       var rng = U.rng(seed ^ 0x5bd1e995);
-      var rw = { silver: Math.floor(sg.silver * (G.econ ? G.econ().reward : 1)), items: [] };
+      var rw = { silver: Math.floor(sg.silver * (G.econ ? G.econ().reward : 1) * (chal ? G.CHALLENGE.silverMult : 1)), items: [] };
       U.each(sg.drops, function (d) { if (rng() < d.chance) rw.items.push({ item: d.item, q: d.q, n: d.n }); });
+      // 挑戰＋無死亡：多一次將魂掉落判定（沿用同一條 rng 亂數流，種子決定性不變）
+      if (chal && res.deadA === 0) { var extra = G.extraSoulDrop(sg, rng); if (extra) { rw.items.push(extra); out.chalSoul = true; } }
       out.rewards = G.grant(rw);
       if (first && !s.firstClaimed[id]) {
         s.firstClaimed[id] = true;
         out.firstRewards = G.grant(sg.first);
+      }
+      if (chal) {
+        s.chal = s.chal || {};
+        var cs = s.chal[id] || {};
+        cs.cleared = 1;
+        if (!cs.gold) { cs.gold = 1; out.chalGold = G.CHALLENGE.firstGold; out.rewards = G.grant({ gold: G.CHALLENGE.firstGold }).concat(out.rewards); }
+        s.chal[id] = cs;
       }
       // 經驗：全隊獲得（含陣亡）
       U.each(G.teamList(), function (x) {
@@ -471,11 +562,17 @@ MJ.G = (function () {
         if (x.hero.lv > before) out.levelUps.push(G.nameOf(x.hero) + ' Lv' + before + '→' + x.hero.lv);
       });
       out.exp = sg.exp;
-      G.log('通關「' + sg.name + '」' + stars + '星' + (first ? '（首通）' : ''), 'battle');
+      G.log('通關「' + sg.name + '」' + stars + '星' + (first ? '（首通）' : '') + (chal ? '（限回合挑戰成功）' : ''), 'battle');
     } else {
-      var fs = s.stages[id] || { stars: 0, clears: 0 }; fs.fails = (fs.fails || 0) + 1; s.stages[id] = fs;
-      out.nextMorale = R.moraleBonus(fs.fails);
-      G.log('挑戰「' + sg.name + '」失敗' + (res.timeout ? '（超過 ' + C().maxRounds + ' 回合）' : ''), 'battle');
+      if (!chal) {
+        var fs = s.stages[id] || { stars: 0, clears: 0 }; fs.fails = (fs.fails || 0) + 1; s.stages[id] = fs;
+        out.nextMorale = R.moraleBonus(fs.fails);
+        G.log('挑戰「' + sg.name + '」失敗' + (res.timeout ? '（超過 ' + C().maxRounds + ' 回合）' : ''), 'battle');
+      } else {
+        // 挑戰失敗：不影響通關紀錄（clears／stars 不動）與越戰越勇計數（fails 不加）
+        out.chalFailed = true;
+        G.log('限回合挑戰「' + sg.name + '」失敗' + (res.timeout ? '（12 回合內未獲勝）' : '') + '；通關紀錄不受影響', 'battle');
+      }
     }
     G.commit();
     return ok(out);

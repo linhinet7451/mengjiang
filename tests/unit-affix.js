@@ -189,7 +189,7 @@ console.log('[provenance]');
 var prov = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'src', 'data', 'provenance.json'), 'utf8'));
 var pe = prov.entries.filter(function (e) { return e.id === 'boss.affix'; })[0];
 ok(!!pe && pe.grade === 'D' && pe.phase === 'WL-4', 'provenance 有 boss.affix D 級紀錄（WL-4）');
-ok(prov.entries.length === 292, 'provenance 共 292 條（291＋1）');
+ok(prov.entries.length === 295, 'provenance 共 295 條（293＋2，WL-6 加 battle.reinforce／battle.randomFoes）');
 
 console.log('結果：通過 ' + pass + '，失敗 ' + fail);
 process.exit(fail ? 1 : 0);
