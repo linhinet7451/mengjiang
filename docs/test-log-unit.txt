@@ -110,6 +110,12 @@ pass-lines 19
 pass-lines 18
 === unit-wulin
   通過 戰報重播與當時結果一致
-武林大會：19 通過，0 失敗
-pass-lines 20
+武林大會：25 通過，0 失敗
+pass-lines 26
+=== unit-atkfx
+結果：57 通過，0 失敗
+pass-lines 58
+=== unit-stages
+結果：7 通過，0 失敗
+pass-lines 8
 UNIT EXIT 0

@@ -102,7 +102,8 @@ https://linhinet7451.github.io/mengjiang/
 - ART-1～ART-4：血條／無雙條統一 5px、戰鬥底部只列我方頭像、主城／養成／戰鬥提示分流定位、無雙半身特寫進場與金字技名光效；已有素材缺圖沿用既有回退，不宣稱逐像素等同原片。
 - 2026-11-08 素材包整理：使用者提供的原版截圖／影片畫格已篩選 7 張轉為 WebP 參考集，供主城、神武殿、戰鬥 HUD、無雙特寫與品質框校色；因未含透明 Sprite／獨立背景圖層，未直接嵌入 runtime，避免把原版 UI 文字誤當遊戲素材並維持單檔大小。
 - VID-2 影片實戰分析-2（2026-11-08）：玄機盤改為金色橢圓盤上 5 顆骰子（獎項／權重／保底不變）；無雙切入重做（左上小字、紅框總傷害、直書金字、底部 6 枚技能牌）＋設置「無雙演出：開／關」（戰鬥速度維持 1x→2x→4x）；戰鬥 HUD 一條合併總生命條＋底部回合／站位小格／連擊列；聚賢莊金底面板；6 種全屏無雙特效（CSS/SVG）；武林大會 AI（第 41 屆、8 人淘汰賽、海選 Lv.70）；戰場士兵剪影；攻擊動作動畫（揮刀／出拳／氣功，D 級原創）；詳見 `docs/影片實戰分析-2.md` §13 與 `TODO.md` §VID-2（`tests/unit-wulin.js` 19 項＋端對端）。
-- 本次驗收：27 組單元測試 3,900／3,900；E2E 459／459（Chromium 桌機、WebKit iPhone 13 模擬、Chromium 橫向手機各 153，新增攻擊動作對應檢查）；54 個 inline script 通過 ES5 檢查；單檔 11,846,499 bytes（上限 12,000,000）。未做真機測試。
+- WL-1 武林大會當機修復＋關卡小兵增加＋全身動作攻擊動畫（2026-11-09）：武林大會入口接線錯誤修復（原版玩法中心按鈕誤接 modal，改走全屏；另加 `UI.open`／`UI.renderModal` 未知 modal 防呆）；72 關敵方小兵 499→556 名（章節梯度，第 6–8 章普通關填滿 9 格，D 級設計）；攻擊動畫改全身動作版（蓄力後仰／前衝轉身／前頂／抬手、200px 雙弧刀光、拳影飛行＋拳爆、光球飛行＋抵達爆開、命中頓停 60／30／15ms、受擊後仰加大；武將立繪為單張點陣圖故僅全身變換，D 級原創）；詳見 `TODO.md` §WL-1（`tests/unit-wulin.js` 25 項、`tests/unit-stages.js` 7 項、`tests/unit-atkfx.js` 57 項＋端對端）。
+- 本次驗收：29 組單元測試 3,970／3,970；E2E 522／522（Chromium 桌機、WebKit iPhone 13 模擬、Chromium 橫向手機各 174，新增武林大會 12 項＋全身動作 9 項）；54 個 inline script 通過 ES5 檢查；單檔 11,855,789 bytes（上限 12,000,000）。未做真機測試。
 
 ### 已做但只有基本測試
 
@@ -171,7 +172,7 @@ reference/      原作截圖、宣傳片與其他參考素材（依倉庫擁有�
 
 > English: Clone, `npm install`, then `node tools/build-data.js && node tools/build-assets.js && node tools/build.js && node tools/es5check.js`. Unit tests: `sh tools/runtests.sh`. E2E: `npx playwright install chromium webkit && node tests/e2e.js all`. Output: `dist/mengjiang.html` (single file, < 12,000,000 bytes). Remaining work: see `TODO.md`.
 
-**最新狀態與待辦請看 [TODO.md](TODO.md)**（P1、P2、P3-1～P3-6、SHOP-1、TASK-1、P4-1～P4-6、ART-1～ART-4 完成；VID-2 影片實戰分析-2（骰子玄機盤、6 牌無雙切入＋演出開關、士兵剪影、武林大會 AI、攻擊動作）完成；P4-3 已明確標註完成，P4-4 專屬介面 E2E 已通過；P4-7、ART-5 以後仍依各項所列範圍／來源／設備條件待辦；未做真機測試）。進度紀錄在 `docs/原版還原-進度.md`。
+**最新狀態與待辦請看 [TODO.md](TODO.md)**（P1、P2、P3-1～P3-6、SHOP-1、TASK-1、P4-1～P4-6、ART-1～ART-4 完成；VID-2 影片實戰分析-2（骰子玄機盤、6 牌無雙切入＋演出開關、士兵剪影、武林大會 AI、攻擊動作）完成；WL-1 武林大會當機修復、關卡小兵增加、全身動作攻擊動畫完成；P4-3 已明確標註完成，P4-4 專屬介面 E2E 已通過；P4-7、ART-5 以後仍依各項所列範圍／來源／設備條件待辦；未做真機測試）。進度紀錄在 `docs/原版還原-進度.md`。
 
 ```bash
 npm install                                   # acorn（ES5 檢查）、playwright（e2e）、terser（單檔壓縮）

@@ -191,6 +191,28 @@ URL 縮寫：`G2(sn)` = `https://forum.gamer.com.tw/G2.php?bsn=22512&sn=<sn>`；
 - 驗收：27 組單元測試 3,900／3,900（新增 `tests/unit-wulin.js` 19 項；`tests/unit-extras.js` 玄機盤 44→49 項）；E2E **459／459**（`tests/e2e.js` 更新 3 處：合併血條選擇器、骰子 5 顆、攻擊動作對應）；ES5 全過（54 個 inline script）；單檔 `dist/mengjiang.html` 11,846,499 bytes（<12,000,000）。存檔版本不變（v12；`musou` 與 `wulin` 欄位由 `applyDefaults`／`extraDefaults` 補齊，舊存檔有 fixture 測試）。
 - 未完成／保持原樣：ART-5 剩餘（其餘約 87 名武將、主城建築、UI 外框、音樂）；QA-1 真機測試未做；P4-7 不做（記錄）；神兵坊幸運值／好友祝福不實作。優先：高／中；已完成。
 
+### WL-1 武林大會當機修復＋關卡小兵增加＋全身動作攻擊動畫（已完成，2026-11-09）
+
+- 武林大會當機修復（P0，Tomas 2026-11-09 回報：按進入武林大會，螢幕卡住）：
+  - 重現：新存檔 → 主城 → 原版玩法中心 → 點「進入武林大會」→ `#modal` 顯示空白全屏覆蓋層（`innerHTML` 長度 0、內無任何可關閉元素），下方主城可見但所有點擊都被空白層攔截；JS 引擎仍活著（`1+1` 可求值）、無 console 錯誤，唯一出路是重新整理頁面。直接呼叫 `MJ.UI.actions.wulin()` 則正常顯示 Lv70 鎖定訊息。Node harness 證明邏輯層無問題（`wulinState`／`wulinStart`／`wulinFight` 低等級皆 0ms 優雅失敗、`arenaFoe` 1–7ms、`wulinBracket` 10ms、八強戰鬥模擬 6ms、無無限迴圈）。
+  - 根本原因：`src/js/ui-p1p2.js:15` 把武林大會卡片接成 `data-a="open" data-v="wulin"`（當作 modal），但武林大會是全屏（`UI.screens.wulin`，`src/js/ui-p4.js`），根本沒有 `UI.modals.wulin`；`UI.renderModal` 於是渲染空白 HTML 並顯示覆蓋層（`src/css/style.css` `#modal` 為 960×600、z-index 50 的全屏絕對定位層）。其餘 `data-a="open"` 目標與所有直接 `UI.open('...')` 呼叫皆有對應 modal，武林大會是唯一接錯的。
+  - 修法：入口改為 `data-a="wulin"`（→ `UI.actions.wulin` → `UI.go('wulin')`，先清 modal 再渲染全屏）；另加防呆：`UI.open` 拒絕未知 modal 名（toast「未實作的動作」且不動 `UI.modal`），`UI.renderModal` 遇缺失 modal 函式時隱藏覆蓋層並清掉殘留狀態。實作：`src/js/ui-p1p2.js`、`src/js/ui.js`。
+  - 回歸：`tests/unit-wulin.js` 19→25 項（新增 6 項接線檢查）；E2E 武林大會 12 項（低等級進全屏無空白 modal、只顯示「未滿 70 級」鎖定訊息且無開始按鈕、可回主城；Lv70 開賽 → 淘汰賽 → 出戰 → 結算 → 戰報＋1 → 重播 →「重播結束」→ 返回），三環境全過。
+- 關卡小兵數量增加（Tomas 2026-11-09：每關敵方小兵太少，貼近原版人海；D 級設計）：
+  - `src/data/stages.json` 為手寫檔（`tools/build-data.js` 只打包），72 關敵人總數 499→556（＋57，僅新增、未動既有敵人／首領／掉落／獎勵；新增小兵沿用該章 pool 輪替、等級＝關卡 lv、空位依 [1,4,7,0,3,6,2,5,8] 填入、首領固定 cell 4）。新梯度：第 1 章普通 [4,4,5,5,5]、菁英 6、首領 7、隱藏 7；第 2 章普通 [5,5,6,6,6]、菁英 7、首領 7、隱藏 7；第 3 章普通 [6,6,7,7,7]、菁英 8、首領 8、隱藏 8；第 4 章普通 7、菁英 8、首領 8、隱藏 8；第 5 章普通 8、菁英 9、首領 9、隱藏 9；第 6–8 章普通 9、菁英／首領／隱藏 9（每方 9 格上限）。
+  - 平衡（`tools/balance.js`，12／40 顆種子前後對照）：典型玩家（typ）除 s1_4 菁英 92.5% 外皆 100%；弱勢模型（weak3）s1_8 68%（原 38%，敵人變多使範圍技更有效）、s1_9 85%（選打隱藏關）、其餘 ≥95%；最弱模型（min3，白將無裝備技能 Lv1）約 10 關勝率下降、min3＝0 的關數 31→33——接受：min 模型原本就已 31／72 關打不過、勝場多為血量比僵持，且實機有連敗士氣補償（每連敗 ＋8% 血／攻、上限 ＋80%，模擬器未建模）；小兵等級不調整。s1_1 新手隊 40 顆種子 40／40 勝（原 3 名敵人時亦 40／40），平均回合 4.2→5.1。
+  - 黃金 fixture：`tests/golden-run.js` 對 s1_1／s1_2／s1_3 的固定種子戰鬥雜湊全事件流，改數量後 v9–v14 六檔皆只變 5 場 stage run（事件數變多、仍全勝，例 s1_1 84→137 事件），mix run 與被動不變；已按 repo 機制重生（v9–v11 腳本、v12–v14 經 `node tests/unit-wrap12.js --write-golden`），每檔恰 20 行差異。新增 `tests/unit-stages.js` 7 項（72 關數量符合梯度、cell 唯一且 0–8、種類屬該章 pool、首領關恰 1 名 leader、總數 556、s1_1 新手隊 10／10 固定種子勝）。
+- 全身動作攻擊動畫（Tomas 2026-11-09 實機回饋：揮刀／出拳動作仍太不明顯，批准全身動作版；D 級原創——武將立繪是單張點陣圖，無手臂／武器分層可關節化，只能對整個立繪做全身變換）：
+  - 揮刀：蓄力後仰 -18px＋傾斜 -5°（約 120ms，1x）→ 向目標前衝約 20–30px、身體轉 12°（B 方鏡像 `scaleX(-1)`）→ 200px 雙弧刀光（主弧＋殘影弧，白金亮色雙層光暈）落在攻擊者與目標中點、隨速度縮放（500／250／125ms）→ 回位。受擊：目標後仰 -20px＋傾斜 -3°（無雙 -30px／-6°）＋目標處 120px 命中閃光。
+  - 出拳：蓄力後仰 → 向目標前頂 22px（`atk-thrust`／`atk-hit`，無轉身）；60px 拳影從攻擊者飛向目標（`T(220)`ms）→ 抵達時 160px 拳爆（光球＋擴張衝擊環）。
+  - 氣功：抬手蓄力（上移 -8px＋後仰）→ 前推 14px（`atk-raise`／`atk-cast`）；聚氣光球 80→120px；投射光球 40→52px，飛行時間改隨速度縮放（`T(300)`ms，原寫死 .3s）→ 抵達時在目標處爆開（`.hitflash`）。
+  - 命中頓停：命中瞬間在 `#bt` 加 `.hitstop`（CSS 暫停 `.bfig`／`.atkfx`／`.spark`／`.skfx`／`.orb`／`.ftxt` 動畫），60／30／15ms（1x／2x／4x），傷害仍經原 `applyEv` 結算、數值與事件順序不變；治療與省電模式不頓停。跳過戰鬥中途按下時攻擊者仍回位（還原排在 `BT.done` 檢查之前）。
+  - 安全：省電模式（`UI.lowFx()`）下不產生新特效（隱藏 `.hitflash`／`.fistfly`／`.fistburst`、取消刀光光暈與前衝轉身，僅保留原有前衝位移）；無雙演出開關獨立；治療跳過攻擊動畫；每行動最多觸發一次；傷害／怒氣／回合／棋盤狀態不變；存檔版本維持 v12（無新存檔欄位、無新設定）。實作：`src/js/ui-battle.js`（`ATK_SPEC`、`UI._atkDur`／`UI._hitstopMs`／`UI._atkDir`、`attackAnim`／`bodyThrust`／`impactFlash`、step() 命中頓停）、`src/css/style.css`（`.atkfx` 200px、`.hitflash`、`.hitstop`、`.bu.windup`／`.lunge`／`.atk-*`、加大後仰）；身體動作對應表記於 `attackAnim` 上方註解。
+  - 回歸（WebKit E2E 曾中斷）：`impactFlash` 每擊呼叫 `shake(false)`，會讓整個 `#bt`（含跳過按鈕）每擊震動 0.3s，忙碌戰鬥中 Playwright 等不到按鈕穩定、WebKit「戰鬥失敗」段 bSkip 點擊 30 秒逾時（80 通過後中斷）；已修為全屏震動只留給暴擊／無雙／重踏（原有行為），目標處閃光與翻身不變，`tests/unit-atkfx.js` 新增 2 項回歸檢查（`impactFlash` 本體不含 `shake(`、全檔 `shake(` 恰 5 處：定義＋內部正則＋3 處呼叫），重跑後三環境全過。
+  - 測試：`tests/unit-atkfx.js` 55→57 項（規格表、時長等比 1x／2x／4x＝380／190／95ms、頓停 60／30／15ms、方向、省電抑制、還原、雙弧／拳影／光球、CSS 尺寸與低電抑制）；E2E 9 項（時長與頓停等比、方向、特效出現、取樣全身動作、頓停出現、省電開啟／不新增特效／切回、結算後回位），三環境全過。
+- 驗收：29 組單元測試 3,970／3,970（VID-2 3,900＋unit-wulin 6＋unit-atkfx 57＋unit-stages 7＝3,970；`sh tools/runtests.sh` exit 0）；E2E **522／522**（Chromium 桌機、WebKit iPhone 13、Chromium 橫向手機各 174，新增武林大會 12＋全身動作 9 項）；ES5 全過（54 個 inline script）；單檔 `dist/mengjiang.html` 11,855,789 bytes（建置 20261109-0510-8e450778，md5 `06a6589d8a73720e116aacd49ef9e864`，上限 12,000,000）。存檔版本不變（v12）。
+- 未完成／保持原樣：QA-1 真機測試未做（Tomas 尚未回報）；ART-5 剩餘；P4-7 不做（記錄）；神兵坊幸運值／好友祝福不實作。優先：高；已完成。
+
 ### ART-5 以原作素材或更貼近的重繪取代生成圖與音樂（進行中：41 名武將已重繪，2026-11-08）
 - 目標：在取得原作檔案，或有經同意的來源時，把目前生成的美術與音樂換成原作素材，或依 `reference/` 的截圖與影片重繪得更貼近原版。
 - Replace generated art and music with original assets, or closer redraws, when original files or permission-backed sources are available.
