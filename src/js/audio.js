@@ -21,11 +21,23 @@
     // 勝利：明亮的宮調、鑼鼓、鈴聲
     victory: { bpm: 120, root: 0,  mode: 'gong',  seed: 97, lead: 'bell',  drums: 2, pad: 1, bass: 1, density: 0.85, lead2: 'dizi' },
     // 戰敗：緩慢的二胡式滑音（羽調）
-    defeat:  { bpm: 60,  root: -5, mode: 'yu',    seed: 103, lead: 'erhu', drums: 0, pad: 1, bass: 1, density: 0.45 }
+    defeat:  { bpm: 60,  root: -5, mode: 'yu',    seed: 103, lead: 'erhu', drums: 0, pad: 1, bass: 1, density: 0.45 },
+    // 神兵坊：打鐵節奏（宮調、撥弦主旋、重鼓）
+    forge:  { bpm: 108, root: -3, mode: 'gong',  seed: 113, lead: 'pluck', drums: 2, pad: 0, bass: 2, density: 0.6 },
+    // 神武殿：莊嚴肅穆（商調、鐘鈴主旋）
+    hall:   { bpm: 88,  root: -2, mode: 'shang', seed: 127, lead: 'bell', drums: 1, pad: 1, bass: 1, density: 0.55 },
+    // 聚賢莊：酒館群聚、溫暖熱鬧（宮調、撥弦＋笛子副旋）
+    jxl:    { bpm: 104, root: 2,  mode: 'gong',  seed: 131, lead: 'pluck', drums: 1, pad: 1, bass: 1, density: 0.65, lead2: 'dizi' },
+    // 商賈：市集熙攘（宮調、鐘鈴主旋、輕快）
+    shanggu: { bpm: 116, root: 0,  mode: 'gong',  seed: 137, lead: 'bell', drums: 1, pad: 0, bass: 1, density: 0.7 },
+    // 生死劫：陰森試煉（二胡主旋、羽調低音）
+    shengsijie: { bpm: 96, root: -7, mode: 'yu', seed: 139, lead: 'erhu', drums: 2, pad: 1, bass: 2, density: 0.6 },
+    // 武林大會：擂台競技、激昂（羽調、嗩吶主旋、重鼓）
+    wulin:  { bpm: 140, root: -5, mode: 'yu',    seed: 149, lead: 'reed', drums: 3, pad: 0, bass: 2, density: 0.85 }
   };
   // 主城：古箏（撥弦）主旋律＋笛子副旋律
   A.SONGS.city.lead2 = 'dizi';
-  A.SCENE_OF = { newgame: 'title', city: 'city', battle: 'battle', tower: 'mystic', wuji: 'mystic', juxian: 'recruit', recruit: 'recruit', farm: 'farm', arena: 'mystic', gate: 'gate' };
+  A.SCENE_OF = { newgame: 'title', city: 'city', battle: 'battle', tower: 'mystic', wuji: 'mystic', juxian: 'recruit', recruit: 'recruit', farm: 'farm', arena: 'mystic', gate: 'gate', forge: 'forge', hall: 'hall', jxl: 'jxl', shanggu: 'shanggu', shengsijie: 'shengsijie', wulin: 'wulin' };
   function rng(seed) { var x = seed * 9301 + 49297; return function () { x = (x * 9301 + 49297) % 233280; return x / 233280; }; }
   // 產生 64 步（4 小節×16 分音符）的旋律、低音、鼓點
   A.pattern = function (name) {

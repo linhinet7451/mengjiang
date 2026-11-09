@@ -46,7 +46,7 @@
     { id: 's70', lv: 70, name: '上古寶窟・五階', src: 'S1,S3', v2013: true, bag: 'sg_bag_3', bagN: 3, hBag: 'sg_bag_4', hN: 1, gold: 160 },
     { id: 's80', lv: 80, name: '上古寶窟・六階', src: 'S1,S3', v2013: true, bag: 'sg_bag_4', bagN: 1, hBag: 'sg_bag_4', hN: 2, gold: 200 }
   ];
-  G.SG_HIDDEN = 0.3; // D：通過第 3 關後出現隱藏關的機率
+  G.SG_HIDDEN = 0.3; // D（數字）：通過第 3 關後出現隱藏關的機率 30%；機制 B：出現機率受 3 名隊友人品總和影響（S1 全文；單機版無 3 人組隊，折算方式待定，見 st.shanggu.hidden.luck）
   G.sgTier = function (id) { return U.find(G.SG_TIERS, function (t) { return t.id === id; }); };
   G.sgOpen = function (t) { return G.lead().lv >= t.lv; };
   G.sgStage = function (t, i, seed) { // i：0..2 一般關，3 隱藏關

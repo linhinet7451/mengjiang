@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-08",
+  "updated": "2026-11-09",
   "about": "原版資料考證表。可以整檔替換。A＝官方或原版畫面，B＝當年可靠攻略，C＝推測，D＝本作設計或找不到來源。C、D 的 label 不得含「原版」。",
   "grades": {
     "A": "官方資料或原版畫面證實",
@@ -503,8 +503,8 @@
         }
       ],
       "chosen": "兩邊都保留：新增紫雲（往昔若凝＝治療）；紫霞照舊",
-      "handling": "兩邊都保留：新增紫雲（往昔若凝＝治療）；紫霞照舊，標 C",
-      "status": "已處理（web2-P2）",
+      "handling": "兩邊都保留：新增紫雲（往昔若凝＝治療）；紫霞照舊，標 C。WL-2：W282 截圖進一步坐實往昔若凝為紫雲無雙；紫霞無雙名仍無來源，維持 D，遊戲內暫沿用舊名顯示，待補。",
+      "status": "已處理（web2-P2）；WL-2 以 W282 再確認紫雲方",
       "grade": "C"
     },
     {
@@ -589,8 +589,118 @@
           "date": "2026-11-04"
         }
       ],
-      "handling": "保留 W967 數據名稱（戰鬥、神武殿、技能顯示一致），不改名；宣傳片名稱記於考證與 docs/影片實戰分析-2.md；全屏特效以武將 id／數據名對應。關羽「義薄雲天」與梅超風「九陰白骨爪」兩方一致，無衝突。",
-      "status": "已記錄，未改名（VID-2）"
+      "handling": "WL-2 依 Tomas 決定改用宣傳片 A 級名稱（貂蟬「千秋蓮舞」、孫尚香「美人計」、王語嫣「滅絕劍法」）；W967 舊名（千秋萬載／梟姬亂箭／口吐蓮花）保留於本條兩方記錄。另註：影片3（reference/video_ref3.mp4，後期畫面）亦見貂蟬「千秋萬載」（A 名稱／C 歸屬），與宣傳片不同，可能為版本更名，列為待考證；本次依 Tomas 決定採宣傳片名。關羽「義薄雲天」與梅超風「九陰白骨爪」兩方一致，無衝突。",
+      "status": "已解決（WL-2）：已改用宣傳片名"
+    },
+    {
+      "id": "K-N1",
+      "item": "息怒減多少無雙值",
+      "sides": [
+        {
+          "claim": "30% 機率減無雙 30 點",
+          "sources": [
+            "W967"
+          ],
+          "date": "2012-06"
+        },
+        {
+          "claim": "本作舊值：30% 機率減 20 點",
+          "sources": [
+            "SPEC"
+          ],
+          "date": "2026-11-04"
+        }
+      ],
+      "handling": "採 W967 12 樓 30 點（B）；WL-2 由 −20 改為 −30",
+      "status": "已解決（WL-2）"
+    },
+    {
+      "id": "K-N2",
+      "item": "奪魂／封印封無雙幾回合",
+      "sides": [
+        {
+          "claim": "封無雙 2 回合",
+          "sources": [
+            "W967"
+          ],
+          "date": "2012-06"
+        },
+        {
+          "claim": "封印 Lv5：12% 機率使目標 3 回合無法釋放無雙技",
+          "sources": [
+            "W282"
+          ],
+          "date": "2012-05"
+        }
+      ],
+      "handling": "機率 12% 採 A（Lv5 截圖）；回合數可能隨被動等級成長（C），現行維持 2 回合（W967 文字），待確認",
+      "status": "部分解決（WL-2）：機率已升 A，回合數待確認"
+    },
+    {
+      "id": "K-N3",
+      "item": "劉備無雙名",
+      "sides": [
+        {
+          "claim": "施仁天下",
+          "sources": [
+            "W282"
+          ],
+          "date": "2012-05"
+        },
+        {
+          "claim": "本作舊名「仁德」",
+          "sources": [
+            "SPEC"
+          ],
+          "date": "2026-11-04"
+        }
+      ],
+      "handling": "採 W282 截圖「施仁天下」（A）；WL-2 已改名",
+      "status": "已解決（WL-2）"
+    },
+    {
+      "id": "K-N4",
+      "item": "小昭無雙名",
+      "sides": [
+        {
+          "claim": "梵天之舞",
+          "sources": [
+            "W282"
+          ],
+          "date": "2012-05"
+        },
+        {
+          "claim": "本作舊名「聖火令」",
+          "sources": [
+            "SPEC"
+          ],
+          "date": "2026-11-04"
+        }
+      ],
+      "handling": "採 W282 截圖「梵天之舞」（A）；WL-2 已改名",
+      "status": "已解決（WL-2）"
+    },
+    {
+      "id": "K-N6",
+      "item": "15 級上陣人數",
+      "sides": [
+        {
+          "claim": "15 級 4 人",
+          "sources": [
+            "SPEC"
+          ],
+          "date": "2026-11-04"
+        },
+        {
+          "claim": "S1 全文：第一天 15 級左右，三隻角色潛能都開發完（暗示 15 級時仍只有 3 人）",
+          "sources": [
+            "S1"
+          ],
+          "date": "2013-02-17"
+        }
+      ],
+      "handling": "間接證據（C），需 Tomas 裁決：是否取消 15 級解鎖；現行維持 4 人（D）",
+      "status": "待裁決（WL-2）"
     }
   ],
   "entries": [
@@ -1276,19 +1386,25 @@
       "cat": "技能",
       "item": "息怒",
       "spec": "已知效果必須保留；未知數值標暫定",
-      "current": "已實作：對方無雙 −20",
-      "grade": "D",
-      "label": "本作設計（暫定）",
+      "current": "已實作：30% 機率減對方無雙 30 點（W967 12 樓；WL-2 由 −20 改為 −30）",
+      "grade": "B",
+      "label": "原版（當年攻略記載）",
       "sources": [
+        {
+          "s": "W967",
+          "q": "息怒 30% 減對方無雙（12 樓：30 點）"
+        },
         {
           "s": "S3",
           "q": "息怒 降對方無雙"
         }
       ],
-      "conflicts": [],
-      "tentative": true,
+      "conflicts": [
+        "K-N1"
+      ],
+      "tentative": false,
       "phase": "P1",
-      "note": "效果：B；數值 20：D"
+      "note": "效果與數值皆 B（W967 12 樓：30 點）"
     },
     {
       "id": "skill.lianzhan",
@@ -1296,20 +1412,16 @@
       "item": "連斬",
       "spec": "已知效果必須保留；未知數值標暫定",
       "current": "已實作：20% 機率再攻擊一次",
-      "grade": "D",
-      "label": "本作設計（暫定）",
+      "grade": "B",
+      "label": "原版（當年攻略記載）",
       "sources": [
         {
-          "s": "S3",
-          "q": "連斬 好物不提了"
-        },
-        {
-          "s": "S1",
-          "q": "連斬'回斬'高療'療傷'熱血'高級熱血'化解'不死'甦醒"
+          "s": "W967",
+          "q": "連斬 20% 再打一次"
         }
       ],
       "conflicts": [],
-      "tentative": true,
+      "tentative": false,
       "phase": "P1",
       "note": "名稱：B；效果與 20%：D"
     },
@@ -1318,17 +1430,17 @@
       "cat": "技能",
       "item": "回斬",
       "spec": "已知效果必須保留；未知數值標暫定",
-      "current": "已實作：20% 機率反擊",
-      "grade": "D",
-      "label": "本作設計（暫定）",
+      "current": "已實作：15% 機率反擊（WL-2 訂正：舊 D 條誤寫 20%）",
+      "grade": "B",
+      "label": "原版（當年攻略記載）",
       "sources": [
         {
-          "s": "S3",
-          "q": "回斬 好物不提了"
+          "s": "W967",
+          "q": "回斬 15% 反擊"
         }
       ],
       "conflicts": [],
-      "tentative": true,
+      "tentative": false,
       "phase": "P1",
       "note": "名稱：B；效果與 20%：D"
     },
@@ -1337,17 +1449,17 @@
       "cat": "技能",
       "item": "熱血",
       "spec": "已知效果必須保留；未知數值標暫定",
-      "current": "已實作：生命 +10%",
-      "grade": "D",
-      "label": "本作設計（暫定）",
+      "current": "已實作：生命上限 +5%（WL-2 訂正：舊 D 條誤寫 +10%）",
+      "grade": "B",
+      "label": "原版（當年攻略記載）",
       "sources": [
         {
-          "s": "S3",
-          "q": "熱血 加血量% 適合耐將"
+          "s": "W967",
+          "q": "熱血 HP 上限+5%"
         }
       ],
       "conflicts": [],
-      "tentative": true,
+      "tentative": false,
       "phase": "P1",
       "note": "效果：B；數值 10%：D"
     },
@@ -1356,12 +1468,17 @@
       "cat": "技能",
       "item": "吸血",
       "spec": "已知效果必須保留；未知數值標暫定",
-      "current": "已實作：吸血 15%",
-      "grade": "D",
-      "label": "待證（暫列 D）",
-      "sources": [],
+      "current": "已實作：12% 機率把 10% 傷害轉為自身生命（WL-2 訂正：舊 D 條誤寫 15%）",
+      "grade": "B",
+      "label": "原版（當年攻略記載）",
+      "sources": [
+        {
+          "s": "W967",
+          "q": "吸血 12% 轉化 10% 傷害"
+        }
+      ],
       "conflicts": [],
-      "tentative": true,
+      "tentative": false,
       "phase": "P1",
       "note": "四個來源都沒有"
     },
@@ -1389,17 +1506,17 @@
       "cat": "技能",
       "item": "化解",
       "spec": "已知效果必須保留；未知數值標暫定",
-      "current": "P4 已實作（效果與數值 D）",
-      "grade": "D",
-      "label": "本作設計（暫定）",
+      "current": "已實作：30% 機率偷取對方 10 點無雙值",
+      "grade": "B",
+      "label": "原版（當年攻略記載）",
       "sources": [
         {
-          "s": "S1",
-          "q": "連斬'回斬'高療'療傷'熱血'高級熱血'化解'不死'甦醒"
+          "s": "W967",
+          "q": "化解(攻擊有30%機率偷取對方無雙值10點)"
         }
       ],
       "conflicts": [],
-      "tentative": true,
+      "tentative": false,
       "phase": "P4",
       "note": "名稱：B；效果：D"
     },
@@ -1422,17 +1539,17 @@
       "cat": "技能",
       "item": "破咒",
       "spec": "已知效果必須保留；未知數值標暫定",
-      "current": "P4 已實作（數值 D）",
-      "grade": "D",
-      "label": "本作設計（暫定）",
+      "current": "已實作：30% 機率抵抗負面狀態",
+      "grade": "B",
+      "label": "原版（當年攻略記載）",
       "sources": [
         {
-          "s": "S3",
-          "q": "破咒 抵抗不良狀態"
+          "s": "W967",
+          "q": "破咒(30%機率抵抗狀態)"
         }
       ],
       "conflicts": [],
-      "tentative": true,
+      "tentative": false,
       "phase": "P4",
       "note": "效果：B；數值：D"
     },
@@ -1623,7 +1740,7 @@
       "cat": "養成",
       "item": "主角升階：20 藍、60 紫、90 橙",
       "spec": "20/60/90",
-      "current": "P5：主角 20 級藍、60 級紫、90 級橙；花銀幣 2 萬／30 萬／150 萬（D），全屬性 ×1.03／1.07／1.12（D）",
+      "current": "P5：主角 20 級藍、60 級紫、90 級橙；花銀幣 2 萬／30 萬／150 萬（D），全屬性 ×1.03／1.07／1.12（D）；圖騰 20 級開放、升階用圖騰材料為 B（見 grow.leadPromote.totem）",
       "grade": "D",
       "label": "待證（暫列 D）",
       "sources": [
@@ -1766,7 +1883,7 @@
       "cat": "關卡",
       "item": "現行通天塔獎勵內容",
       "spec": "—",
-      "current": "P3：每 10 層裝備／紫裝碎片（10 片合 1 件，D）",
+      "current": "P3：每 10 層裝備／紫裝碎片（碎片 1～3 片為 B，見 st.tower.rewardsNow.frag；10 片合 1 件仍 D）",
       "grade": "D",
       "label": "本作設計（暫定）",
       "sources": [],
@@ -2050,12 +2167,17 @@
       "cat": "技能",
       "item": "17 種被動的機率與數值",
       "spec": "未知數值標暫定",
-      "current": "全部見 heroes.json passives（D）",
-      "grade": "D",
-      "label": "本作設計（暫定）",
-      "sources": [],
+      "current": "見 web2.passive.values（B）：17 種被動機率與數值",
+      "grade": "B",
+      "label": "原版（當年攻略記載）",
+      "sources": [
+        {
+          "s": "W967",
+          "q": "武將一覽「被動技能」欄"
+        }
+      ],
       "conflicts": [],
-      "tentative": true,
+      "tentative": false,
       "phase": "P4"
     },
     {
@@ -2133,7 +2255,7 @@
       "cat": "關卡",
       "item": "上古寶窟各階敵人與獎勵",
       "spec": "—",
-      "current": "25／35／45／60／70／80 六階；每階 3 關敵人 5／6／7 名、等級＋0／1／3；隱藏關 6 名等級＋5；袋數與金幣 D",
+      "current": "分階清單 25／35／45／60／70／80 為 B（見 st.shanggu.tiers.list）；每階 3 關敵人 5／6／7 名、等級＋0／1／3；隱藏關 6 名等級＋5；袋數與金幣 D",
       "grade": "D",
       "label": "本作設計（暫定）",
       "sources": [],
@@ -2148,7 +2270,7 @@
       "cat": "關卡",
       "item": "隱藏關出現機率",
       "spec": "—",
-      "current": "全破後 30%",
+      "current": "全破後 30%（出現機制為 B，見 st.shanggu.hidden.luck；30% 數字本身仍 D）",
       "grade": "D",
       "label": "本作設計（暫定）",
       "sources": [
@@ -2167,7 +2289,7 @@
       "cat": "關卡",
       "item": "將魂袋內容",
       "spec": "—",
-      "current": "綠／藍／紫將魂袋：打開得 1 個該品質武將的將魂（隨機）",
+      "current": "綠／藍／紫將魂袋：打開得 1 個該品質武將的將魂（隨機）（掉落種類為 B，見 st.shanggu.bags.kinds；袋內容仍 D）",
       "grade": "D",
       "label": "本作設計（暫定）",
       "sources": [
@@ -2482,7 +2604,7 @@
       "cat": "被動",
       "item": "表上沒寫的被動數字",
       "spec": "—",
-      "current": "息怒減 20 點、忍耐加 15 點、清心 30%、焚心 20%、奪魂 12%、飄忽若神閃避 +5%、不死每場 1 次",
+      "current": "忍耐加 15 點、清心 30%、焚心觸發機率（傷害 20%＋持續 2 回合為 B）、飄忽若神閃避 +5%、不死每場 1 次（息怒已升 B，見 skill.xinu；奪魂機率 12% 已升 A（Lv5），見 W282）",
       "grade": "D",
       "label": "本作設計（暫定）",
       "sources": [],
@@ -2629,7 +2751,7 @@
       "cat": "陣法",
       "item": "陣法加成數字（%）",
       "spec": "sn77 為 Lv11 固定值（如八卦 +1453）",
-      "current": "本作用百分比：攻 3～5%、防 4～6%、命中/暴擊/閃避 +3、敏捷 +6%",
+      "current": "本作用百分比：攻 3～5%、防 4～6%、命中/暴擊/閃避 +3、敏捷 +6%。按陣法等級的固定值證據見 web2.formation.values.fixed（A）；改固定值模型與 9 人上陣問題待後續決定。",
       "grade": "D",
       "label": "本作設計（暫定）",
       "sources": [],
@@ -5232,9 +5354,9 @@
     {
       "id": "video2.musou.diaochan",
       "cat": "技能",
-      "item": "貂蟬無雙名：宣傳片「千秋蓮舞」vs 數據「千秋萬載」",
+      "item": "貂蟬無雙名：宣傳片「千秋蓮舞」（WL-2 已改用；舊數據「千秋萬載」）",
       "spec": "宣傳片 1:21／W967",
-      "current": "本作數據（W967）無雙名為「千秋萬載」，與宣傳片「千秋蓮舞」不同；未改名（見 VID2-NAMES）。切入顯示數據名；全屏粉瓣特效以武將 id 對應。",
+      "current": "WL-2 已改用宣傳片名「千秋蓮舞」（WPV 1:21，A）；舊 W967 名「千秋萬載」見 VID2-NAMES。切入顯示新名；全屏粉瓣特效以武將 id 對應。",
       "grade": "A",
       "label": "原版（宣傳片畫面證實）",
       "sources": [
@@ -5252,9 +5374,9 @@
     {
       "id": "video2.musou.sunshangxiang",
       "cat": "技能",
-      "item": "孫尚香無雙名：宣傳片「美人計」vs 數據「梟姬亂箭」",
+      "item": "孫尚香無雙名：宣傳片「美人計」（WL-2 已改用；舊數據「梟姬亂箭」）",
       "spec": "宣傳片 1:41／W967",
-      "current": "本作數據（W967）無雙名為「梟姬亂箭」，與宣傳片「美人計」不同；未改名（見 VID2-NAMES）。全屏粉瓣特效以武將 id 對應。",
+      "current": "WL-2 已改用宣傳片名「美人計」（WPV 1:41，A，總傷害 27360）；舊 W967 名「梟姬亂箭」見 VID2-NAMES。切入顯示新名；全屏粉瓣特效以武將 id 對應。",
       "grade": "A",
       "label": "原版（宣傳片畫面證實）",
       "sources": [
@@ -5290,9 +5412,9 @@
     {
       "id": "video2.musou.wangyuyan",
       "cat": "技能",
-      "item": "王語嫣無雙名：宣傳片「滅絕劍法」vs 數據「口吐蓮花」",
+      "item": "王語嫣無雙名：宣傳片「滅絕劍法」（WL-2 已改用；舊數據「口吐蓮花」）",
       "spec": "宣傳片／W967",
-      "current": "本作數據（W967）無雙名為「口吐蓮花」，與宣傳片「滅絕劍法」不同；未改名（見 VID2-NAMES）。全屏冰藍光束特效以武將 id 對應。",
+      "current": "WL-2 已改用宣傳片名「滅絕劍法」（WPV，A）；舊 W967 名「口吐蓮花」見 VID2-NAMES。切入顯示新名；全屏冰藍光束特效以武將 id 對應。",
       "grade": "A",
       "label": "原版（宣傳片畫面證實）",
       "sources": [
@@ -5487,6 +5609,498 @@
       "conflicts": [],
       "tentative": false,
       "phase": "VID-2"
+    },
+    {
+      "id": "web2.formation.values.fixed",
+      "cat": "陣法",
+      "item": "陣法加成固定值（按陣法等級）",
+      "spec": "W4892／W77 截圖",
+      "current": "八卦 Lv11 物攻／法攻 +1453；魚鱗 Lv10 物防／法防 +1453；鋒矢 Lv16 命中 +9600＋物攻／法攻 +231；七星 Lv12 暴擊 +3200、Lv16 +6400；雁行 Lv11 敏捷 +42；偃月 Lv20 閃避 +11520＋物防／法防 +333；錐行 Lv11 減 NPC 傷害 16%＋物防／法防 +390。另陣法 Lv7 開滿 8 位置、階段 12／16／20（20 為上限）、升級需求主將 70 級＋陣法升級書 x145～x445。WL-2 僅記證據：本作仍用百分比模型，未改固定值模型（見 web2.formation.values）。",
+      "grade": "A",
+      "label": "原版（陣法面板截圖證實）",
+      "sources": [
+        {
+          "s": "W4892",
+          "q": "八卦 Lv11 +1453 物攻/法攻；錐行 Lv11 減 NPC 傷 16%、物防/法防 +390；雁行 Lv11 +42 敏捷；鋒矢 Lv16 命中 +9600"
+        },
+        {
+          "s": "W77",
+          "q": "陣法面板截圖（8 張）"
+        }
+      ],
+      "conflicts": [],
+      "tentative": false,
+      "phase": "WL-2"
+    },
+    {
+      "id": "st.shanggu.tiers.list",
+      "cat": "關卡",
+      "item": "上古寶窟分階清單",
+      "spec": "25/35/45/60/70/80",
+      "current": "上古寶窟六階：25／35／45／60／70／80（2013 版；K4）",
+      "grade": "B",
+      "label": "原版（當年攻略記載）",
+      "sources": [
+        {
+          "s": "S1",
+          "q": "上古寶窟有 25 _ 35 _ 45 _ 60 _ 70 _ 80"
+        }
+      ],
+      "conflicts": [
+        "K4"
+      ],
+      "tentative": false,
+      "phase": "WL-2"
+    },
+    {
+      "id": "st.shanggu.bags.kinds",
+      "cat": "關卡",
+      "item": "上古寶窟掉落種類",
+      "spec": "—",
+      "current": "一般通關掉將魂袋（另掉玉璧、種子，現行獎勵無此二項，缺漏待補）；隱藏關過關得紫色將魂袋；袋內容（開得何魂、幾個）仍 D",
+      "grade": "B",
+      "label": "原版（當年攻略記載）",
+      "sources": [
+        {
+          "s": "S1",
+          "q": "一般通關能拿到玉璧，種子，將魂袋，出隱藏關卡並且過關能得到紫色將魂袋"
+        }
+      ],
+      "conflicts": [],
+      "tentative": false,
+      "phase": "WL-2"
+    },
+    {
+      "id": "st.shanggu.hidden.luck",
+      "cat": "關卡",
+      "item": "上古寶窟隱藏關出現機制",
+      "spec": "—",
+      "current": "隱藏關出現機率受 3 名隊友的人品總和影響（單機版無 3 人組隊，人品折算方式待定）；30% 數字本身仍 D，見 st.shanggu.hidden",
+      "grade": "B",
+      "label": "原版（當年攻略記載）",
+      "sources": [
+        {
+          "s": "S1",
+          "q": "出隱藏關的機率受 3 名隊友的人品質總合影響"
+        }
+      ],
+      "conflicts": [],
+      "tentative": false,
+      "phase": "WL-2"
+    },
+    {
+      "id": "grow.leadPromote.totem",
+      "cat": "養成",
+      "item": "主角升階：圖騰",
+      "spec": "圖騰 20 級開放",
+      "current": "圖騰 20 級開放（朱雀／玄武／白虎／青龍）；主將升階用圖騰材料；圖騰升級費 Lv1 免費、Lv2 4 萬、Lv3 11 萬、Lv4 24 萬、Lv5 60 萬銀。本作升階改用銀幣（見 grow.leadPromote），未用圖騰材料",
+      "grade": "B",
+      "label": "原版（當年攻略記載）",
+      "sources": [
+        {
+          "s": "S1",
+          "q": "20級會開圖騰（朱雀．玄武．白虎．青龍）升級建築物／主將升階用，一級不用錢自己會冒出來，升二級要四萬，三級要十一萬，四級要二十四萬，五級要六十萬"
+        }
+      ],
+      "conflicts": [],
+      "tentative": false,
+      "phase": "WL-2"
+    },
+    {
+      "id": "st.tower.rewardsNow.frag",
+      "cat": "關卡",
+      "item": "通天塔每 10 層紫裝碎片數",
+      "spec": "—",
+      "current": "每 10 層得裝備或 1～3 個紫裝碎片；「10 片合 1 件」仍 D，見 st.tower.rewardsNow",
+      "grade": "B",
+      "label": "原版（當年攻略記載）",
+      "sources": [
+        {
+          "s": "S1",
+          "q": "每 10 層能得到一件裝備或是數個（1~3）紫裝碎片"
+        }
+      ],
+      "conflicts": [],
+      "tentative": false,
+      "phase": "WL-2"
+    },
+    {
+      "id": "gate2.ch9.theme",
+      "cat": "關卡",
+      "item": "第 9 章雁門關主題與關名",
+      "spec": "本作設計",
+      "current": "ch9 雁門關：塞外邊關接續華山論劍；雁門為并州邊關，呂布出身并州故隱藏關再戰呂布；敵人池為蒙古＋西涼（塞外聯軍）。本作設計，無來源。",
+      "grade": "D",
+      "label": "本作設計（暫定）",
+      "sources": [
+        {
+          "s": "SPEC",
+          "q": "ch9 雁門關：塞外邊關接續華山論劍；雁門為并州邊關，呂布出身并州故隱藏關再戰呂布；敵人池為蒙古＋西涼（塞外聯軍）。本作設計，無來源。"
+        }
+      ],
+      "conflicts": [],
+      "tentative": true,
+      "phase": "WL-2"
+    },
+    {
+      "id": "gate2.ch10.theme",
+      "cat": "關卡",
+      "item": "第 10 章長安主題與關名",
+      "spec": "本作設計",
+      "current": "ch10 長安：帝都權謀終局，曹操為王關、司馬懿為隱藏關；敵人池為曹魏禁軍＋董卓親衛。本作設計，無來源。",
+      "grade": "D",
+      "label": "本作設計（暫定）",
+      "sources": [
+        {
+          "s": "SPEC",
+          "q": "ch10 長安：帝都權謀終局，曹操為王關、司馬懿為隱藏關；敵人池為曹魏禁軍＋董卓親衛。本作設計，無來源。"
+        }
+      ],
+      "conflicts": [],
+      "tentative": true,
+      "phase": "WL-2"
+    },
+    {
+      "id": "gate2.levels",
+      "cat": "關卡",
+      "item": "第 9／10 章關卡等級",
+      "spec": "本作設計",
+      "current": "ch9 Lv60–66、隱藏 69；ch10 Lv69–75、隱藏 78；沿用 ch7／ch8 章內 +0..+6、菁英與前一關同級、隱藏＝王關 +3 的形狀。本作設計。",
+      "grade": "D",
+      "label": "本作設計（暫定）",
+      "sources": [
+        {
+          "s": "SPEC",
+          "q": "ch9 Lv60–66、隱藏 69；ch10 Lv69–75、隱藏 78；沿用 ch7／ch8 章內 +0..+6、菁英與前一關同級、隱藏＝王關 +3 的形狀。本作設計。"
+        }
+      ],
+      "conflicts": [],
+      "tentative": true,
+      "phase": "WL-2"
+    },
+    {
+      "id": "gate2.rewards",
+      "cat": "關卡",
+      "item": "第 9／10 章獎勵數值",
+      "spec": "本作設計",
+      "current": "獎勵以 ch7→ch8 同位比率外推（exp 比率約 1.131–1.158、銀幣約 1.128–1.154），ch10 再對 ch9 套一次；首通獎勵沿用既有模板。本作設計。",
+      "grade": "D",
+      "label": "本作設計（暫定）",
+      "sources": [
+        {
+          "s": "SPEC",
+          "q": "獎勵以 ch7→ch8 同位比率外推（exp 比率約 1.131–1.158、銀幣約 1.128–1.154），ch10 再對 ch9 套一次；首通獎勵沿用既有模板。本作設計。"
+        }
+      ],
+      "conflicts": [],
+      "tentative": true,
+      "phase": "WL-2"
+    },
+    {
+      "id": "gate2.enemies.reuse",
+      "cat": "關卡",
+      "item": "第 9／10 章首領沿用既有 enemy key",
+      "spec": "本作設計",
+      "current": "ch9／ch10 首領全數沿用既有 enemy key（達爾巴、李傕、蒙哥、呂布、張遼、曹仁、曹操、司馬懿），無新增 enemy 條目；皆為再戰設定。本作設計。",
+      "grade": "D",
+      "label": "本作設計（暫定）",
+      "sources": [
+        {
+          "s": "SPEC",
+          "q": "ch9／ch10 首領全數沿用既有 enemy key（達爾巴、李傕、蒙哥、呂布、張遼、曹仁、曹操、司馬懿），無新增 enemy 條目；皆為再戰設定。本作設計。"
+        }
+      ],
+      "conflicts": [],
+      "tentative": true,
+      "phase": "WL-2"
+    },
+    {
+      "id": "gate2.equip.cap",
+      "cat": "關卡",
+      "item": "第 9／10 章裝備掉落階級上限",
+      "spec": "本作設計",
+      "current": "裝備掉落維持 54 階；equipment.json 最高階即 54，無 60／66 階可用，僅部位組合輪換。本作設計（受資料所限）。",
+      "grade": "D",
+      "label": "本作設計（暫定）",
+      "sources": [
+        {
+          "s": "SPEC",
+          "q": "裝備掉落維持 54 階；equipment.json 最高階即 54，無 60／66 階可用，僅部位組合輪換。本作設計（受資料所限）。"
+        }
+      ],
+      "conflicts": [],
+      "tentative": true,
+      "phase": "WL-2"
+    },
+    {
+      "id": "gate2.gems",
+      "cat": "關卡",
+      "item": "第 9／10 章寶石掉落等級",
+      "spec": "本作設計",
+      "current": "寶石 ch9 用 _3、ch10 用 _4，依既有 ceil(ch/3) 規律（ch1–3 用 _1、ch4–6 用 _2、ch7–8 用 _3）。本作設計。",
+      "grade": "D",
+      "label": "本作設計（暫定）",
+      "sources": [
+        {
+          "s": "SPEC",
+          "q": "寶石 ch9 用 _3、ch10 用 _4，依既有 ceil(ch/3) 規律（ch1–3 用 _1、ch4–6 用 _2、ch7–8 用 _3）。本作設計。"
+        }
+      ],
+      "conflicts": [],
+      "tentative": true,
+      "phase": "WL-2"
+    },
+    {
+      "id": "gate2.souls",
+      "cat": "關卡",
+      "item": "第 9／10 章將魂配置",
+      "spec": "本作設計",
+      "current": "將魂 ch9（呂布、張遼、馬超、趙雲、黃忠、夏侯惇）、ch10（曹操、司馬懿、許褚、典韋、諸葛亮、關羽）。本作設計。",
+      "grade": "D",
+      "label": "本作設計（暫定）",
+      "sources": [
+        {
+          "s": "SPEC",
+          "q": "將魂 ch9（呂布、張遼、馬超、趙雲、黃忠、夏侯惇）、ch10（曹操、司馬懿、許褚、典韋、諸葛亮、關羽）。本作設計。"
+        }
+      ],
+      "conflicts": [],
+      "tentative": true,
+      "phase": "WL-2"
+    },
+    {
+      "id": "gate2.savecompat",
+      "cat": "存檔",
+      "item": "第 9／10 章舊存檔相容",
+      "spec": "本作設計",
+      "current": "舊存檔相容：stages 以關卡 id 為鍵、stageState 對未知關卡缺省 0 星／0 通關，無需版本遷移；以 v10 fixture 與模擬進度存檔驗證。本作設計。",
+      "grade": "D",
+      "label": "本作設計（暫定）",
+      "sources": [
+        {
+          "s": "SPEC",
+          "q": "舊存檔相容：stages 以關卡 id 為鍵、stageState 對未知關卡缺省 0 星／0 通關，無需版本遷移；以 v10 fixture 與模擬進度存檔驗證。本作設計。"
+        }
+      ],
+      "conflicts": [],
+      "tentative": true,
+      "phase": "WL-2"
+    },
+    {
+      "id": "art.b_zhangbao",
+      "cat": "武將",
+      "item": "張寶敵方首領立繪／頭像／切入圖",
+      "spec": "本作設計",
+      "current": "2026-11-09 WL-2 ART-5：圖像生成工具原創（洋紅底原稿，src/assets/raw/，sha256 見 docs/美術素材來源.md 與 src/assets/provenance-hashes.txt），風格一致重繪，非原作還原。立繪 360px／頭像 128px／切入圖 256px。",
+      "grade": "D",
+      "label": "本作設計（暫定）",
+      "sources": [
+        {
+          "s": "SPEC",
+          "q": "2026-11-09 WL-2 ART-5：圖像生成工具原創（洋紅底原稿，src/assets/raw/，sha256 見 docs/美術素材來源.md 與 src/assets/provenance-hashes.txt），風格一致重繪，非原作還原。立繪 360px／頭像 128px／切入圖 256px。"
+        }
+      ],
+      "conflicts": [],
+      "tentative": true,
+      "phase": "WL-2"
+    },
+    {
+      "id": "art.b_zhangliang",
+      "cat": "武將",
+      "item": "張梁敵方首領立繪／頭像／切入圖",
+      "spec": "本作設計",
+      "current": "2026-11-09 WL-2 ART-5：圖像生成工具原創（洋紅底原稿，src/assets/raw/，sha256 見 docs/美術素材來源.md 與 src/assets/provenance-hashes.txt），風格一致重繪，非原作還原。立繪 360px／頭像 128px／切入圖 256px。",
+      "grade": "D",
+      "label": "本作設計（暫定）",
+      "sources": [
+        {
+          "s": "SPEC",
+          "q": "2026-11-09 WL-2 ART-5：圖像生成工具原創（洋紅底原稿，src/assets/raw/，sha256 見 docs/美術素材來源.md 與 src/assets/provenance-hashes.txt），風格一致重繪，非原作還原。立繪 360px／頭像 128px／切入圖 256px。"
+        }
+      ],
+      "conflicts": [],
+      "tentative": true,
+      "phase": "WL-2"
+    },
+    {
+      "id": "art.b_nanhua",
+      "cat": "武將",
+      "item": "南華老仙敵方首領立繪／頭像／切入圖",
+      "spec": "本作設計",
+      "current": "2026-11-09 WL-2 ART-5：圖像生成工具原創（洋紅底原稿，src/assets/raw/，sha256 見 docs/美術素材來源.md 與 src/assets/provenance-hashes.txt），風格一致重繪，非原作還原。立繪 360px／頭像 128px／切入圖 256px。",
+      "grade": "D",
+      "label": "本作設計（暫定）",
+      "sources": [
+        {
+          "s": "SPEC",
+          "q": "2026-11-09 WL-2 ART-5：圖像生成工具原創（洋紅底原稿，src/assets/raw/，sha256 見 docs/美術素材來源.md 與 src/assets/provenance-hashes.txt），風格一致重繪，非原作還原。立繪 360px／頭像 128px／切入圖 256px。"
+        }
+      ],
+      "conflicts": [],
+      "tentative": true,
+      "phase": "WL-2"
+    },
+    {
+      "id": "art.b_qiuqianren",
+      "cat": "武將",
+      "item": "裘千仞敵方首領立繪／頭像／切入圖",
+      "spec": "本作設計",
+      "current": "2026-11-09 WL-2 ART-5：圖像生成工具原創（洋紅底原稿，src/assets/raw/，sha256 見 docs/美術素材來源.md 與 src/assets/provenance-hashes.txt），風格一致重繪，非原作還原。立繪 360px／頭像 128px／切入圖 256px。",
+      "grade": "D",
+      "label": "本作設計（暫定）",
+      "sources": [
+        {
+          "s": "SPEC",
+          "q": "2026-11-09 WL-2 ART-5：圖像生成工具原創（洋紅底原稿，src/assets/raw/，sha256 見 docs/美術素材來源.md 與 src/assets/provenance-hashes.txt），風格一致重繪，非原作還原。立繪 360px／頭像 128px／切入圖 256px。"
+        }
+      ],
+      "conflicts": [],
+      "tentative": true,
+      "phase": "WL-2"
+    },
+    {
+      "id": "art.b_yanglianting",
+      "cat": "武將",
+      "item": "楊蓮亭敵方首領立繪／頭像／切入圖",
+      "spec": "本作設計",
+      "current": "2026-11-09 WL-2 ART-5：圖像生成工具原創（洋紅底原稿，src/assets/raw/，sha256 見 docs/美術素材來源.md 與 src/assets/provenance-hashes.txt），風格一致重繪，非原作還原。立繪 360px／頭像 128px／切入圖 256px。",
+      "grade": "D",
+      "label": "本作設計（暫定）",
+      "sources": [
+        {
+          "s": "SPEC",
+          "q": "2026-11-09 WL-2 ART-5：圖像生成工具原創（洋紅底原稿，src/assets/raw/，sha256 見 docs/美術素材來源.md 與 src/assets/provenance-hashes.txt），風格一致重繪，非原作還原。立繪 360px／頭像 128px／切入圖 256px。"
+        }
+      ],
+      "conflicts": [],
+      "tentative": true,
+      "phase": "WL-2"
+    },
+    {
+      "id": "art.b_huodu",
+      "cat": "武將",
+      "item": "霍都敵方首領立繪／頭像／切入圖",
+      "spec": "本作設計",
+      "current": "2026-11-09 WL-2 ART-5：圖像生成工具原創（洋紅底原稿，src/assets/raw/，sha256 見 docs/美術素材來源.md 與 src/assets/provenance-hashes.txt），風格一致重繪，非原作還原。立繪 360px／頭像 128px／切入圖 256px。",
+      "grade": "D",
+      "label": "本作設計（暫定）",
+      "sources": [
+        {
+          "s": "SPEC",
+          "q": "2026-11-09 WL-2 ART-5：圖像生成工具原創（洋紅底原稿，src/assets/raw/，sha256 見 docs/美術素材來源.md 與 src/assets/provenance-hashes.txt），風格一致重繪，非原作還原。立繪 360px／頭像 128px／切入圖 256px。"
+        }
+      ],
+      "conflicts": [],
+      "tentative": true,
+      "phase": "WL-2"
+    },
+    {
+      "id": "art.b_ouyangke",
+      "cat": "武將",
+      "item": "歐陽克敵方首領立繪／頭像／切入圖",
+      "spec": "本作設計",
+      "current": "2026-11-09 WL-2 ART-5：圖像生成工具原創（洋紅底原稿，src/assets/raw/，sha256 見 docs/美術素材來源.md 與 src/assets/provenance-hashes.txt），風格一致重繪，非原作還原。立繪 360px／頭像 128px／切入圖 256px。",
+      "grade": "D",
+      "label": "本作設計（暫定）",
+      "sources": [
+        {
+          "s": "SPEC",
+          "q": "2026-11-09 WL-2 ART-5：圖像生成工具原創（洋紅底原稿，src/assets/raw/，sha256 見 docs/美術素材來源.md 與 src/assets/provenance-hashes.txt），風格一致重繪，非原作還原。立繪 360px／頭像 128px／切入圖 256px。"
+        }
+      ],
+      "conflicts": [],
+      "tentative": true,
+      "phase": "WL-2"
+    },
+    {
+      "id": "art.b_lijue",
+      "cat": "武將",
+      "item": "李傕敵方首領立繪／頭像／切入圖",
+      "spec": "本作設計",
+      "current": "2026-11-09 WL-2 ART-5：圖像生成工具原創（洋紅底原稿，src/assets/raw/，sha256 見 docs/美術素材來源.md 與 src/assets/provenance-hashes.txt），風格一致重繪，非原作還原。立繪 360px／頭像 128px／切入圖 256px。",
+      "grade": "D",
+      "label": "本作設計（暫定）",
+      "sources": [
+        {
+          "s": "SPEC",
+          "q": "2026-11-09 WL-2 ART-5：圖像生成工具原創（洋紅底原稿，src/assets/raw/，sha256 見 docs/美術素材來源.md 與 src/assets/provenance-hashes.txt），風格一致重繪，非原作還原。立繪 360px／頭像 128px／切入圖 256px。"
+        }
+      ],
+      "conflicts": [],
+      "tentative": true,
+      "phase": "WL-2"
+    },
+    {
+      "id": "art.b_caoren",
+      "cat": "武將",
+      "item": "曹仁敵方首領立繪／頭像／切入圖",
+      "spec": "本作設計",
+      "current": "2026-11-09 WL-2 ART-5：圖像生成工具原創（洋紅底原稿，src/assets/raw/，sha256 見 docs/美術素材來源.md 與 src/assets/provenance-hashes.txt），風格一致重繪，非原作還原。立繪 360px／頭像 128px／切入圖 256px。",
+      "grade": "D",
+      "label": "本作設計（暫定）",
+      "sources": [
+        {
+          "s": "SPEC",
+          "q": "2026-11-09 WL-2 ART-5：圖像生成工具原創（洋紅底原稿，src/assets/raw/，sha256 見 docs/美術素材來源.md 與 src/assets/provenance-hashes.txt），風格一致重繪，非原作還原。立繪 360px／頭像 128px／切入圖 256px。"
+        }
+      ],
+      "conflicts": [],
+      "tentative": true,
+      "phase": "WL-2"
+    },
+    {
+      "id": "art.b_daerba",
+      "cat": "武將",
+      "item": "達爾巴敵方首領立繪／頭像／切入圖",
+      "spec": "本作設計",
+      "current": "2026-11-09 WL-2 ART-5：圖像生成工具原創（洋紅底原稿，src/assets/raw/，sha256 見 docs/美術素材來源.md 與 src/assets/provenance-hashes.txt），風格一致重繪，非原作還原。立繪 360px／頭像 128px／切入圖 256px。",
+      "grade": "D",
+      "label": "本作設計（暫定）",
+      "sources": [
+        {
+          "s": "SPEC",
+          "q": "2026-11-09 WL-2 ART-5：圖像生成工具原創（洋紅底原稿，src/assets/raw/，sha256 見 docs/美術素材來源.md 與 src/assets/provenance-hashes.txt），風格一致重繪，非原作還原。立繪 360px／頭像 128px／切入圖 256px。"
+        }
+      ],
+      "conflicts": [],
+      "tentative": true,
+      "phase": "WL-2"
+    },
+    {
+      "id": "art.b_menge",
+      "cat": "武將",
+      "item": "蒙哥敵方首領立繪／頭像／切入圖",
+      "spec": "本作設計",
+      "current": "2026-11-09 WL-2 ART-5：圖像生成工具原創（洋紅底原稿，src/assets/raw/，sha256 見 docs/美術素材來源.md 與 src/assets/provenance-hashes.txt），風格一致重繪，非原作還原。立繪 360px／頭像 128px／切入圖 256px。",
+      "grade": "D",
+      "label": "本作設計（暫定）",
+      "sources": [
+        {
+          "s": "SPEC",
+          "q": "2026-11-09 WL-2 ART-5：圖像生成工具原創（洋紅底原稿，src/assets/raw/，sha256 見 docs/美術素材來源.md 與 src/assets/provenance-hashes.txt），風格一致重繪，非原作還原。立繪 360px／頭像 128px／切入圖 256px。"
+        }
+      ],
+      "conflicts": [],
+      "tentative": true,
+      "phase": "WL-2"
+    },
+    {
+      "id": "art.b_hebiweng",
+      "cat": "武將",
+      "item": "鶴筆翁敵方首領立繪／頭像／切入圖",
+      "spec": "本作設計",
+      "current": "2026-11-09 WL-2 ART-5：圖像生成工具原創（洋紅底原稿，src/assets/raw/，sha256 見 docs/美術素材來源.md 與 src/assets/provenance-hashes.txt），風格一致重繪，非原作還原。立繪 360px／頭像 128px／切入圖 256px。",
+      "grade": "D",
+      "label": "本作設計（暫定）",
+      "sources": [
+        {
+          "s": "SPEC",
+          "q": "2026-11-09 WL-2 ART-5：圖像生成工具原創（洋紅底原稿，src/assets/raw/，sha256 見 docs/美術素材來源.md 與 src/assets/provenance-hashes.txt），風格一致重繪，非原作還原。立繪 360px／頭像 128px／切入圖 256px。"
+        }
+      ],
+      "conflicts": [],
+      "tentative": true,
+      "phase": "WL-2"
     }
   ],
   "matrix": {

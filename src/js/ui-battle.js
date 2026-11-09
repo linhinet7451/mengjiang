@@ -21,10 +21,10 @@
   // 無雙演出開關（獨立於戰鬥速度 1x/2x/4x；預設開，見 state.js applyDefaults）
   UI.musouOn = function () { var st = MJ.S.state && MJ.S.state.settings; return !st || st.musou !== false; };
 
-  // 全屏無雙特效（CSS/SVG，無圖片；D 級本作設計）。按無雙技「數據名稱」對應；
-  // 宣傳片 A 級名稱與數據名稱不同者（貂蟬 千秋蓮舞／千秋萬載、孫尚香 美人計／梟姬亂箭、王語嫣 滅絕劍法／口吐蓮花）
-  // 以數據名稱對應，名稱衝突見 provenance VID2-NAMES 與 docs/影片實戰分析-2.md。
-  var ULT_FX = { '義薄雲天': 'beam', '九陰白骨爪': 'claw', '口吐蓮花': 'ice', '千秋萬載': 'petal', '梟姬亂箭': 'petal', '神鬼亂舞': 'dragon', '雷霆震怒': 'stomp' };
+  // 全屏無雙特效（CSS/SVG，無圖片；D 級本作設計）。按無雙技名稱對應；
+  // WL-2 起三名武將無雙改用宣傳片 A 級名稱（貂蟬 千秋蓮舞、孫尚香 美人計、王語嫣 滅絕劍法），
+  // 衝突 VID2-NAMES 已解決，見 provenance 與 docs/資料考證.md §18。
+  var ULT_FX = { '義薄雲天': 'beam', '九陰白骨爪': 'claw', '滅絕劍法': 'ice', '千秋蓮舞': 'petal', '美人計': 'petal', '神鬼亂舞': 'dragon', '雷霆震怒': 'stomp' };
   function ultFx(skill) {
     if (!UI.musouOn() || (UI.lowFx && UI.lowFx())) return;
     var fx = el('fx'); if (!fx) return;

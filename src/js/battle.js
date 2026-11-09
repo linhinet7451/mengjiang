@@ -335,11 +335,11 @@ MJ.Battle = (function () {
       if (tgt.hp > 0 && tgt.boss && tgt.layers > 1 && !tgt.kb && tgt.hp < tgt.maxHp * 0.3) { tgt.kb = true; tgt.atkBuff = 0.2; ev.push({ t: 'text', to: tgt.key, s: '狂暴', c: 'red' }); }
       if (tgt.hp > 0) {
         if (v9(att)) {
-          if (has(att, 'xinu') && rng() < 0.3) { var xn9 = Math.round(20 * pmOf(att, 'xinu')); tgt.rage = Math.max(0, tgt.rage - xn9); ev.push({ t: 'text', to: tgt.key, s: '無雙-' + xn9, c: 'red' }); }
+          if (has(att, 'xinu') && rng() < 0.3) { var xn9 = Math.round(30 * pmOf(att, 'xinu')); tgt.rage = Math.max(0, tgt.rage - xn9); ev.push({ t: 'text', to: tgt.key, s: '無雙-' + xn9, c: 'red' }); }
           else gainRage(tgt, 10 + Math.floor(rng() * 11));
           if (has(att, 'huajie') && tgt.rage > 0 && rng() < 0.3) { var st9 = Math.min(10, tgt.rage); tgt.rage -= st9; ev.push({ t: 'text', to: tgt.key, s: '化解 無雙-' + st9, c: 'red' }); gainRage(att, st9); }
         }
-        else if (has(att, 'xinu')) { var xn = Math.round(20 * pmOf(att, 'xinu')); tgt.rage = Math.max(0, tgt.rage - xn); ev.push({ t: 'text', to: tgt.key, s: '無雙-' + xn, c: 'red' }); }
+        else if (has(att, 'xinu')) { var xn = Math.round(30 * pmOf(att, 'xinu')); tgt.rage = Math.max(0, tgt.rage - xn); ev.push({ t: 'text', to: tgt.key, s: '無雙-' + xn, c: 'red' }); }
         else gainRage(tgt, 10 + Math.floor(rng() * 11));
       }
       if (has(att, 'xixue') && att.hp > 0 && (!v9(att) || rng() < 0.12)) {
