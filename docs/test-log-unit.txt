@@ -21,8 +21,8 @@ pass-lines 55
 結果：通過 80，失敗 0
 pass-lines 81
 === unit-p4
-結果：通過 78，失敗 0
-pass-lines 79
+結果：通過 102，失敗 0
+pass-lines 103
 === unit-p5
 結果：通過 20，失敗 0
 pass-lines 21
@@ -48,11 +48,14 @@ pass-lines 40
 結果：通過 47，失敗 0
 pass-lines 48
 === unit-prov
-結果：通過 2215，失敗 0
+結果：通過 2445，失敗 0
 pass-lines 1
 === unit-art
-結果：通過 827，失敗 0
+結果：通過 875，失敗 0
 pass-lines 1
+=== unit-art5
+結果：通過 767，失敗 0
+pass-lines 768
 === unit-web2
   通過 v8 戰報以舊規則重播，結果相同
 結果：通過 35，失敗 0
@@ -118,4 +121,7 @@ pass-lines 58
 === unit-stages
 結果：7 通過，0 失敗
 pass-lines 8
+=== unit-gate2
+結果：35 通過，0 失敗
+pass-lines 36
 UNIT EXIT 0

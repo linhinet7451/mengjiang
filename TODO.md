@@ -5,8 +5,8 @@
 BOARD-3 已完成；維持現行 v12 棋盤規則，本次不重做、不改動其行為。原規則摘要：雙方持續往前，走到底後不分敵我排入最上方第一列；已佔用位置依序排隊，不上下換列。歷史版本測試由 `unit-wrap12.js`、`unit-board.js` 及 golden fixtures 覆蓋。
 
 ## English summary
-Unofficial, offline, single-file HTML5 remake of the 2012–2013 Facebook game 猛將無雙. Build output: `dist/mengjiang.html` (one file, ES5, no CDN, < 12,000,000 bytes). With the original company's consent (as stated by the repository owner), original art, music, and similar assets may be referenced or used directly so the remake stays as close to the original as possible. Record each use in `docs/美術素材來源.md`. If no original file is available, redraw closer assets from the screenshots and videos in `reference/`.
-State on 2026-11-08 (UTC+8): ART-5 partially done (41 heroes redrawn from original screenshots; the rest pending). P1/P2 and P3-1–P3-6, SHOP-1, TASK-1, P4-1–P4-6 are complete; P4-3 is explicitly complete and P4-4 now has dedicated UI E2E acceptance. VID-2（兩支影片實戰分析-2：骰子玄機盤、6 枚技能牌無雙切入＋演出開關、士兵剪影、武林大會 AI、攻擊動作）已完成，見 §VID-2。P3-1 rates/caps remain RV13; P3-2 skill range shapes RV14; P3-6 field-item replay events RV15. P3-3–P3-5 remain implemented in current save v12 (P3-5 migration introduced in v11; P4-3 added v12). P4-2 third-slot compatibility is idempotent. P4-7 and later remain pending where explicitly scoped or dependent on original assets, real-device tests, or external confirmation. Nothing here claims real-device testing; Playwright Chromium/WebKit iPhone 13 are emulations only. Social/online modes are not built (by design: single-player); the Honor Trial multiplayer item economy is not reconstructed. Many numbers remain grade D. Each item below lists goal, evidence + grade + URL, files/functions, acceptance tests, priority and dependencies. Read "Project rules" first.
+Unofficial, offline, single-file HTML5 remake of the 2012–2013 Facebook game 猛將無雙. Build output: `dist/mengjiang.html` (one file, ES5, no CDN, < 20,000,000 bytes; WL-2 起由 12,000,000 放寬，見 §WL-2). With the original company's consent (as stated by the repository owner), original art, music, and similar assets may be referenced or used directly so the remake stays as close to the original as possible. Record each use in `docs/美術素材來源.md`. If no original file is available, redraw closer assets from the screenshots and videos in `reference/`.
+State on 2026-11-09 (UTC+8): ART-5 complete (88 heroes full art; 12 named-enemy boss arts added in WL-2 as D-grade originals; 15/15 screens have dedicated synthesized music). P1/P2 and P3-1–P3-6, SHOP-1, TASK-1, P4-1–P4-6 are complete; P4-3 is explicitly complete and P4-4 now has dedicated UI E2E acceptance. VID-2（兩支影片實戰分析-2：骰子玄機盤、6 枚技能牌無雙切入＋演出開關、士兵剪影、武林大會 AI、攻擊動作）已完成，見 §VID-2。WL-1（武林大會當機修復、關卡小兵增加、全身動作攻擊動畫）已完成，見 §WL-1。WL-2（單檔上限 20MB、ART-5 完成、無雙改名、D 級升級、平衡量測、虛空之門 ch9／ch10）已完成，見 §WL-2。P3-1 rates/caps remain RV13; P3-2 skill range shapes RV14; P3-6 field-item replay events RV15. P3-3–P3-5 remain implemented in current save v12 (P3-5 migration introduced in v11; P4-3 added v12). P4-2 third-slot compatibility is idempotent. P4-7 and later remain pending where explicitly scoped or dependent on original assets, real-device tests, or external confirmation. Nothing here claims real-device testing; Playwright Chromium/WebKit iPhone 13 are emulations only. Social/online modes are not built (by design: single-player); the Honor Trial multiplayer item economy is not reconstructed. Many numbers remain grade D. Each item below lists goal, evidence + grade + URL, files/functions, acceptance tests, priority and dependencies. Read "Project rules" first.
 
 ---
 
@@ -18,7 +18,7 @@ State on 2026-11-08 (UTC+8): ART-5 partially done (41 heroes redrawn from origin
    - 新資料一律寫成 `tools/web2-data.js` 的補丁（可重跑），不要手改 json。
 3. **經原公司同意（依倉庫擁有者說明），可參考或直接使用原作的美術、音樂等素材，目標是盡量貼近原作。使用原作素材時需在 docs/美術素材來源.md 記錄來源。若無原始檔案，可依 reference/ 的截圖與影片重繪貼近原版的素材。**
 4. **ES5 vanilla JS**，不用框架、不用 CDN、不連網（e2e 會擋所有 http 請求）。`node tools/es5check.js` 必須通過。
-5. **iPhone Safari** 必須能開（單檔 < 12,000,000 bytes；e2e 的 WebKit iPhone 13 環境必須全過）。
+5. **iPhone Safari** 必須能開（單檔 < 20,000,000 bytes，WL-2 起由 12,000,000 放寬；e2e 的 WebKit iPhone 13 環境必須全過）。
 6. **沒有真實付款**、沒有 FB 登入、沒有遠端資料庫。
 7. **存檔相容**：改存檔結構就加 `S.STEPS[n]` 遷移並把 `S.VERSION` +1；不得刪除玩家的武將、道具；新增 fixture 測試舊存檔一路升級。新戰鬥規則用 `R.RV`／`v9(u)` 這類版本閘門，舊戰報要能照舊規則重播。
 8. **不得宣稱沒測過的東西通過**。回報要寫實際數字（通過／失敗數、檔案大小）。
@@ -26,7 +26,7 @@ State on 2026-11-08 (UTC+8): ART-5 partially done (41 heroes redrawn from origin
 ## 建置與測試（摘要，詳見 README）
 - `npm install`（acorn、playwright、terser；e2e 需 `npx playwright install chromium webkit`）
 - 資料：`node tools/build-data.js`；素材：`node tools/build-assets.js`；單檔：`node tools/build.js` → `dist/mengjiang.html`、`dist/boot-test.html`
-- 單元：`sh tools/runtests.sh`（本輪 27 組、3,900 項通過／0 失敗，見 `docs/test-log-unit.txt`）；E2E：`node tests/e2e.js all`（**459 通過／0 失敗**，Chromium 桌機、WebKit iPhone 13、橫向手機各 153；見 `docs/test-log-e2e.txt`）；單檔 11,846,499 bytes（<12,000,000），54 個 inline script 全通過 ES5。平衡：`node tools/progress-sim.js --days 30`（P3-1 已執行）。
+- 單元：`sh tools/runtests.sh`（WL-2：31 組、5,074 項通過／0 失敗，見 `docs/test-log-unit.txt`）；E2E：`node tests/e2e.js all`（WL-2：**546 通過／0 失敗**，Chromium 桌機、WebKit iPhone 13、橫向手機各 182，含新增 ch9 關卡 E2E 8 項；WL-1 為 522；見 `docs/test-log-e2e.txt`）；單檔 12,466,559 bytes（<20,000,000，建置 20261109-1122-e3c9b8a0），55 個 inline script 全通過 ES5。平衡：`node tools/progress-sim.js --days 30`（WL-2 已執行，見 TODO §WL-2）。
 - 注意：`node tools/gen-data.js` 目前不可直接跑——以乾淨 HEAD 驗證，它會把 `src/data/config.json` 從 50 個鍵砍到 39 個鍵（含 `soulCombine` 遺失），其內建 config 已落後於已提交資料；`node tools/web2-data.js P1 P2 P3 P4` 內容上可重跑，但會把 `config.json`／`provenance.json` 從 2 空格重排為 1 空格，並還原 3 筆手改的 provenance `current` 文字（`web2.range.advance`、`web2.range.sidestep`、`web2.formation.persist`）。本輪因此跳過這兩步，只跑 `build-data`／`build-assets`／`build`／`es5check`；修好前不要把它們放回預設建置流程。
 
 ---
@@ -187,7 +187,7 @@ URL 縮寫：`G2(sn)` = `https://forum.gamer.com.tw/G2.php?bsn=22512&sn=<sn>`；
   - 武林大會 AI：第 41 屆、8 人單淘汰賽、海選 Lv.70（畫面標註 Lv.70-75）；對手沿用拜訪武將 AI 陣容（八強 vs 第 7 名、四強／決賽由非玩家對戰戰力模擬產生）；八強／四強／決賽三輪，獎勵銀幣 1,000／2,000／5,000＋培養丹／技能書分輪次（D）；戰報可重播；唯一入口：主城 → 原版玩法中心 → 武林大會。實作：`src/js/sys4.js`（`G.wulinBracket`／`G.wulinStart`／`G.wulinFight`／`G.wulinReplay`）、`src/js/ui-p4.js`（`UI.screens.wulin`）、`src/js/ui-p1p2.js`（原版玩法入口改指 `wulin`）。
   - 士兵剪影：戰場背景兩側深色半透明剪影（CSS/SVG，棋盤後方，純裝飾；省電模式隱藏）。實作：`src/js/ui-battle.js`（`armyHtml`）、`.b-army`。
 - 追加（Tomas 2026-11-08，D 級原創）：攻擊動作動畫——揮刀（物理近戰：弧形刀光＋前衝＋回位）、出拳（物理徒手 `wp: none`：拳影＋衝擊波環）、氣功（法術／絕技 `dtype: m/j`：聚氣光球＋發射波）；約 380ms 基準，隨 1x/2x/4x 等比縮短；省電模式不加新光效；與無雙演出開關獨立；每個行動只觸發一次，傷害在既有 impact 時點結算。實作：`src/js/ui-battle.js`（`attackKind`／`attackAnim`）、`.atkfx`。原版攻擊動作無法考察。
-- 考證：`src/data/provenance.json` 新增 `video2.*` 15 條（248→263）與衝突 `VID2-NAMES`；`docs/資料考證.md` §18。無雙名衝突：關羽「義薄雲天」、梅超風「九陰白骨爪」與 W967 數據一致；貂蟬（宣傳片「千秋蓮舞」vs 數據「千秋萬載」）、孫尚香（「美人計」vs「梟姬亂箭」）、王語嫣（「滅絕劍法」vs「口吐蓮花」）保留 W967 數據名、不改名，切入與技能頁一律顯示數據名。神兵坊幸運值／好友祝福只記錄、不實作（B）。
+- 考證：`src/data/provenance.json` 新增 `video2.*` 15 條（248→263）與衝突 `VID2-NAMES`；`docs/資料考證.md` §18。無雙名衝突：關羽「義薄雲天」、梅超風「九陰白骨爪」與 W967 數據一致；貂蟬（宣傳片「千秋蓮舞」vs 數據「千秋萬載」）、孫尚香（「美人計」vs「梟姬亂箭」）、王語嫣（「滅絕劍法」vs「口吐蓮花」）保留 W967 數據名、不改名，切入與技能頁一律顯示數據名。神兵坊幸運值／好友祝福只記錄、不實作（B）。**WL-2 更新（2026-11-09，Tomas 決定）：三名武將無雙已改用宣傳片 A 級名稱（貂蟬「千秋蓮舞」、孫尚香「美人計」、王語嫣「滅絕劍法」）；ULT_FX 對應鍵同步更新，特效不變；衝突 VID2-NAMES 已解決（另註影片3見貂蟬「千秋萬載」，待考證）。另註：大喬無雙原本就叫「千秋蓮舞」，改名後與貂蟬重名，待後續處理。**
 - 驗收：27 組單元測試 3,900／3,900（新增 `tests/unit-wulin.js` 19 項；`tests/unit-extras.js` 玄機盤 44→49 項）；E2E **459／459**（`tests/e2e.js` 更新 3 處：合併血條選擇器、骰子 5 顆、攻擊動作對應）；ES5 全過（54 個 inline script）；單檔 `dist/mengjiang.html` 11,846,499 bytes（<12,000,000）。存檔版本不變（v12；`musou` 與 `wulin` 欄位由 `applyDefaults`／`extraDefaults` 補齊，舊存檔有 fixture 測試）。
 - 未完成／保持原樣：ART-5 剩餘（其餘約 87 名武將、主城建築、UI 外框、音樂）；QA-1 真機測試未做；P4-7 不做（記錄）；神兵坊幸運值／好友祝福不實作。優先：高／中；已完成。
 
@@ -213,17 +213,29 @@ URL 縮寫：`G2(sn)` = `https://forum.gamer.com.tw/G2.php?bsn=22512&sn=<sn>`；
 - 驗收：29 組單元測試 3,970／3,970（VID-2 3,900＋unit-wulin 6＋unit-atkfx 57＋unit-stages 7＝3,970；`sh tools/runtests.sh` exit 0）；E2E **522／522**（Chromium 桌機、WebKit iPhone 13、Chromium 橫向手機各 174，新增武林大會 12＋全身動作 9 項）；ES5 全過（54 個 inline script）；單檔 `dist/mengjiang.html` 11,855,789 bytes（建置 20261109-0510-8e450778，md5 `06a6589d8a73720e116aacd49ef9e864`，上限 12,000,000）。存檔版本不變（v12）。
 - 未完成／保持原樣：QA-1 真機測試未做（Tomas 尚未回報）；ART-5 剩餘；P4-7 不做（記錄）；神兵坊幸運值／好友祝福不實作。優先：高；已完成。
 
-### ART-5 以原作素材或更貼近的重繪取代生成圖與音樂（進行中：41 名武將已重繪，2026-11-08）
+### WL-2 單檔上限 20MB、ART-5 完成、無雙改名、D 級升級、平衡微調、虛空之門擴充（已完成，2026-11-09，Tomas 決定）
+
+- 單檔上限 12MB → 20MB：`tools/build.js:55` 檢查改為 20,000,000（錯誤訊息同步更新）；`tests/unit-atkfx.js:91` 斷言改為 < 20,000,000；TODO 規則 5、README 說明同步更新。
+- ART-5 完成：盤點再驗證——88 位可玩武將早已全套立繪／頭像／cut-in（85 位直有 `h_*`、3 位 artAlias 沿用同人首領圖，0 缺圖；TODO 原稱「87 位待重繪」已過時）；9 棟主城建築 `k_*` 齊全；剩餘缺口是 12 名具名敵方共用通用／他人立繪。本輪為 12 人各產獨立 `b_*` 立繪＋頭像＋cut-in（36 檔 WebP：b_zhangbao、b_zhangliang、b_nanhua、b_qiuqianren、b_yanglianting、b_huodu、b_ouyangke、b_lijue、b_caoren、b_daerba、b_menge、b_hebiweng；圖像生成工具產洋紅底原稿 → `FIG_H=360 Q=60 tools/art_process.py` → `CI=256 CIQ=58 tools/ci_process.py`；無原版立繪截圖可對照，皆為風格一致原創，**D 級**，原稿 sha256 見 `docs/美術素材來源.md`、`src/assets/provenance-hashes.txt`；對應改 `src/js/assets-map.js` E 表 12 項）。音樂：15 個畫面原有 6 個無專屬曲（forge、hall、jxl、shanggu、shengsijie、wulin 回退主城曲），本輪於 `src/js/audio.js` 新增 6 首 WebAudio 合成曲目＋`SCENE_OF` 對應，0 音檔、0 體積增加。驗收：`tests/unit-art5.js` 767 項（12 新圖齊全且不共用、63 敵方 key 立繪＋頭像齊全、每張被用到的 b_/g_ 圖有 cut-in、88 武將全套、meta.json 無殘留、15 畫面皆有專屬曲且 6 新曲旋律互異且異於主城曲）。單檔 11,855,789 → 12,452,791 bytes（＋597,002；ART-5 新圖約 ＋589 KB，資料約 ＋8 KB），其後補 21 條考證條目（gate2／美術）再 ＋13,768 → 最終 12,466,559 bytes（建置 20261109-1122-e3c9b8a0），仍遠低於 20,000,000 上限。
+- 無雙改名（宣傳片 A 級名）：貂蟬「千秋萬載」→「千秋蓮舞」、孫尚香「梟姬亂箭」→「美人計」、王語嫣「口吐蓮花」→「滅絕劍法」（`src/data/heroes.json`、`src/js/ui-battle.js` ULT_FX 鍵同步更新；`docs/資料考證.md` §18、`docs/附錄-資料表.md` 3 列更新；衝突 VID2-NAMES 已解決）。**新問題：大喬無雙原本就叫「千秋蓮舞」，改名後與貂蟬重名**（ULT_FX 以名為鍵，兩者皆 petal 特效，功能正常，僅顯示重複）；不擅自擴大範圍，建議後續將大喬無雙改名（D 級），待 Tomas 決定。
+- D 級升級（詳見 `docs/資料考證.md` §19）：考證表 263 → 290 條（D 111 → 124、B 58 → 71、A 16 → 17、C 78 不變；D→B/A 升級使 D 減 8，另新增 gate2.* 9 條＋art.b_* 12 條 D 條目使 D 增 21）。升級 8 條 D→B（息怒 −20→−30，連斬 20%、回斬 15%、熱血 +5%、吸血 12%/10%、化解 30% 偷 10、破咒 30%、`skill.values` 改指 `web2.passive.values`；其中回斬／熱血／吸血三條舊 D 文字本身就是錯的，實作值本來正確，僅訂正文字）；奪魂機率 12% 升 A（Lv5 截圖），回合數維持 2（新衝突 K-N2，待確認）；小昭「聖火令」→「梵天之舞」、劉備「仁德」→「施仁天下」（A，W282 截圖；倍率不動）；上古寶窟分階清單／掉落種類／隱藏機制／圖騰／通天塔碎片數拆條升 B（S1 全文新取回；一般通關亦掉玉璧、種子為 B，現行獎勵無此二項，缺漏待補）；陣法固定值證據升 A（W4892／W77 截圖：八卦 Lv11 +1453 等），**僅記證據、未改模型**（本作仍用百分比；改固定值模型與 9 人上陣問題待後續決定）。新衝突 K-N1（已解決）、K-N2（部分解決）、K-N3／K-N4（已解決）、K-N6（15 級 4 人 vs S1 暗示 15 級仍 3 人，待 Tomas 裁決）；K12 補註（W282 坐實往昔若凝為紫雲無雙；紫霞無雙名無來源，維持 D，遊戲內暫沿用舊名顯示）。維持 D（查過、找不到）：招募機率、連攜效果數值、攻擊範圍／換列／揮空／改招規則、陣法保存規則、其餘 13 名新武將無雙名與全部主動技名／外觀、10 名查無來源武將、主角升階 20／60／90 與銀費／倍率、上古每階敵人數／袋數／金幣／袋內容、忍耐 +15／清心 30%／焚心觸發機率／飄忽 +5%／不死每場 1 次、高級禦敵等 6 項數值、27 筆 `web2.range.hero.*`。
+- 息怒改值連帶：`src/js/battle.js` 引擎值 20→30（兩處）；黃金 fixture 7 檔（v6、v9、v10、v11、v12、v13、v14）按 repo 機制重生——僅 5 場 mix 戰鬥雜湊變動（皆含息怒武將；勝負不變、事件數僅 ±1），s1 場次全數不變。`node tests/unit-wrap.js --write-golden`（v11）、`node tests/unit-wrap12.js --write-golden`（v12／v13／v14），v6／v9／v10 以 `tests/golden-run.js` 同格式重寫。
+- 平衡（`tools/balance.js` 24 種子、`tools/progress-sim.js` 30 天；**量測後決定不改數值**）：典型玩家（typ）90 關全 100%；弱勢（weak3）僅 s1_8 63%、s1_9 83% 其餘 100%；最弱（min3）0 勝 52／90（WL-1 為 33／72；新增 18 關 ch9／ch10 皆為 min3 零勝，另 ＋3 關來自息怒 −30 的來源修正——min3 為零養成底線模型，屬設計預期，不以此為由削弱敵人）。通天塔 100F 弱勢 75%；無極 w1–w3 第 36–40 波 ＋4 級勝率 0%（硬牆，設計預期）。30 天模擬：標準第 30 天 Lv90、80／90 關、通天塔 100、勝 80 敗 133（**超時 0**、僵局判定 2）；快速第 14 天 Lv90、80／90、勝 80 敗 115（超時 0、僵局判定 1）；最長卡關 0 天、無硬牆。80／90 的天花板是既有「隱藏關需本章其餘 8 關全三星」門檻（10 關隱藏關皆未開，自動玩家無法全三星；非 WL-2 新問題）。曾 A/B 測試 s1_8 減 1 小兵：weak3 58%→50%（12 種子，±1 種子即 ±8.3%，屬量測雜訊），證實單兵調整無法量測，故不改。**未改任何平衡數值。**
+- 虛空之門擴充（D 級合理設計，無來源，Tomas 授權）：`src/data/stages.json` 純新增 ch9 雁門關（Lv60–69）＋ ch10 長安（Lv69–78），各 9 關，8 章 72 關 → 10 章 90 關；每關 9 名敵人（9 格上限），普通關無首領、菁英／首領／隱藏關恰 1 名首領（首領等級＝關卡 lv＋1、固定 cell 4，小兵等級＝關卡 lv）；敵人沿用既有章 pool＋菁英／首領武將（ch9 精英達爾巴／李傕、首領蒙哥、隱藏呂布；ch10 精英張遼／曹仁、首領曹操、隱藏司馬懿；獎勵／經驗／銀幣按 ch8 比例放大，首通獎勵沿用既有模式）；解鎖鏈：ch9 需通關 s8_8（章節 Lv60）、ch10 需通關 s9_8（章節 Lv69）、隱藏關需本章其餘 8 關全三星（與既有規則一致）。存檔相容：純新增，v12 舊存檔照常載入（`tests/unit-gate2.js` 含舊存檔 fixture 測試）。測試：新增 `tests/unit-gate2.js` 35 項（章／關數量、cell 唯一且 0–8、解鎖鏈、等級遞進、獎勵遞增、舊存檔相容、地圖 UI vols＝3 卷自動容納）；`tests/unit-stages.js` 更新為 90 關、總數 718（TARGETS 增 ch9／ch10 全 9 名）。
+- **WL-1 遺留修正（本輪發現）**：WL-1 的小兵增加（499→556）只寫進 `data.generated.js`，`src/data/stages.json` 仍是 499——任何一次 `build-data` 重跑都會無聲地把 72 關打回 499。本輪把 57 名新增小兵（與 WL-1 生成檔逐關比對、敵人種類／cell／等級完全一致）補寫回 `stages.json`（ch1–8 總數 499→556，ch9／ch10 另 ＋162，合計 718），之後 `build-data` 可確定重現；並以 WL-1 生成檔為基準驗證 72 舊關敵人列表 0 差異。另 `tests/unit-stages.js` 的 72 關斷言改為 90 關。
+- 驗收：單元測試 31 組 5,074／5,074（WL-1 29 組 3,970；新增 unit-art5 767 項與 unit-gate2 35 項；unit-prov 2,277→2,445 來自 21 條新考證條目；其餘為考證條目增加與既有測試隨資料成長；`sh tools/runtests.sh` exit 0；`tests/unit-gate2.js` 已加入 `tools/runtests.sh`）；E2E 546／546（三環境各 182／182，含新增 ch9 關卡 8 項×3；另補記：首版 ch9 案例因先前流程選過 gateCh=1、未經 gateBack 不歸零，重進地圖停在第 1 章關卡格而非地圖，導致 gateVol 按鈕逾時——已修正為重進前先清 `UI.sel.gateCh`／`gateVol`，並確認地圖預設卷由目前進度決定；最終建置重跑時 WebKit 連續兩次各 1 項時序檢查抖動——玄機盤確認 4 秒逾時、名牌淡化取樣未命中——兩項在重跑時皆通過，桌機每次皆 182／182，判定為 WebKit 時序抖動，非回歸）；ES5 全過（55 個 inline script，WL-1 為 54，＋1 來自 ART-5 新圖使 assets chunk 13→14）；單檔 `dist/mengjiang.html` 12,466,559 bytes（建置 20261109-1122-e3c9b8a0，md5 `ce792c906c2e98fc2576e3f8dd8d2ad3`，上限 20,000,000）。存檔版本不變（v12）。
+- 未完成／待決定：大喬無雙重名（建議改名，待 Tomas 決定）；陣法固定值模型改版＋9 人上陣（待決定）；K-N6 15 級上陣人數（待 Tomas 裁決）；K-N2 奪魂回合數（2 vs 3，待確認）；上古寶窟玉璧／種子掉落缺漏（待補）；QA-1 真機測試未做（Tomas 尚未回報）；WL-1 單檔上傳仍待 Tomas 自行上傳（WL-2 建置將取代該連結，需發新連結）；P4-7 不做（記錄）；神兵坊幸運值／好友祝福不實作。優先：高；已完成。
+
+### ART-5 以原作素材或更貼近的重繪取代生成圖與音樂（已完成，WL-2，2026-11-09）
 - 目標：在取得原作檔案，或有經同意的來源時，把目前生成的美術與音樂換成原作素材，或依 `reference/` 的截圖與影片重繪得更貼近原版。
 - Replace generated art and music with original assets, or closer redraws, when original files or permission-backed sources are available.
 - 證據：原公司同意（依倉庫擁有者說明）。使用原作素材時記入 `docs/美術素材來源.md`。
 - 檔案：`src/assets/`、`src/js/audio.js`、`src/js/art.js`、`docs/美術素材來源.md`。
-- 驗收：每項替換都有來源紀錄；`sh tools/runtests.sh` 仍通過；單檔仍 < 12,000,000 bytes。
+- 驗收：每項替換都有來源紀錄；`sh tools/runtests.sh` 仍通過；單檔仍 < 20,000,000 bytes（WL-2 起上限放寬）。
 - 本輪已分析 2026-11-08 提供的實戰影片，整理可辨識的 HUD、範圍提示、技能／無雙演出、飄字、音效與待取得素材，詳見 `docs/影片實戰分析_2026-11-08.md`；新增行動角色腳下旋轉虛線光環（CSS，不增加圖片素材）。透明包角色仍因 ID 對應不足而不替換，避免錯配。
 - 已做（2026-11-08，B/C）：依原版面板截圖重繪 10 名武將立繪、頭像、無雙切入像（h_*、h_*_av、h_*_ci）：韋小寶、貂蟬、呂布、東方不敗（擁有者提供截圖）；王語嫣、鰲拜、典韋、梅超風、袁紹、阿珂（
 eference/native-pack/hero-sheet-reference.webp）。來源與 sha256 記入 docs/美術素材來源.md、src/assets/provenance-hashes.txt。截圖同時核對 10 名武將類型，與 heroes.json 全部一致（A，記於 docs/網路資料搜查-2.md）。驗收：單元 25 檔 0 失敗；E2E 455 通過／1 失敗（WebKit iPhone 13「沒有水平/垂直捲軸」，重繪前版本在同一台 Windows 機器上同樣失敗，非本次造成）；ES5 全過；單檔 11,883,146 bytes（<12,000,000）。未做真機測試。
-- 待做：其餘約 87 名武將、主城建築、UI 外框、音樂。優先：中；相依：有原始檔，或 
-eference/ 的截圖與影片可對照。
+- 已做（WL-2，2026-11-09）：盤點再驗證——88 位可玩武將全套立繪／頭像／cut-in 早已齊全（85 位直有 `h_*`、3 位 artAlias 沿用同人首領圖），9 棟主城建築 `k_*` 齊全，TODO 原稱「其餘約 87 名武將待重繪」已過時。剩餘缺口為 12 名具名敵方共用通用／他人立繪，本輪各產獨立 `b_*` 立繪＋頭像＋cut-in（36 檔，D 級原創，無原版截圖可對照；原稿 sha256 見 docs/美術素材來源.md）。音樂：15 個畫面補齊 6 首 WebAudio 合成專屬曲（forge、hall、jxl、shanggu、shengsijie、wulin），0 音檔。詳見 §WL-2；`tests/unit-art5.js` 767 項全過；單檔最終 12,466,559 bytes（<20,000,000，建置 20261109-1122-e3c9b8a0）。
 
 ### JX-1 聚賢莊升級（完成數值 D，2026-11-04）
 - 已做：升級按鈕與目前／下一級效果。數值（5＋(lv−1)、500×lv² 銀、不超過主角等級）全是 D。待查：原作每級欄位數、費用、經驗池上限、解僱返還經驗（S1 提到，未做）。優先：中。
@@ -249,12 +261,13 @@ eference/ 的截圖與影片可對照。
 - 原版有公會、聯賽、武林大會（對人）、上古寶窟 3 人組隊、好友拜訪。本作為單機：拜訪武將＝AI 競技場、上古寶窟＝單人版（D）。不得接遠端資料庫。若要做，只能用本機 AI 模擬並標 D。
 
 ### DATA-1 仍是 D 的資料（持續）
-- 主要 D 項（`provenance.json` 中 grade D 的 73 筆（共 131 筆））：招募機率、上古寶窟分層與掉落、主角升階 20／60／90、陣法加成數字與 8 格開放順序、連攜效果數值、未寫數值的被動、新武將技能名與外觀、攻擊範圍「往前衝／換列／揮空／無雙改主動技」、陣法保存規則、1／15 級上陣人數。
+- 主要 D 項（`provenance.json` 中 grade D 的 124 筆（共 290 筆）；WL-2 升級前為 111／263，升級後 103／269，再加 gate2／美術新條目 21 條）：招募機率、連攜效果數值、攻擊範圍「往前衝／換列／揮空／無雙改主動技」、陣法保存規則、1／15 級上陣人數（K-N6 待 Tomas 裁決）、新武將技能名與外觀（其餘 13 名）、27 筆 `web2.range.hero.*`、未寫數值的被動殘項（忍耐 +15、清心 30%、焚心觸發機率、飄忽 +5%、不死每場 1 次）、高級禦敵等 6 項數值、上古每階敵人數／袋數／金幣／袋內容、主角升階 20／60／90 與銀費／倍率、虛空之門 ch9／ch10 設計（gate2.* 9 條）、12 名新敵方首領美術（art.b_* 12 條）。
+- WL-2 已升級（見 §WL-2 與 `docs/資料考證.md` §19）：息怒、連斬、回斬、熱血、吸血、化解、破咒、`skill.values`（D→B）；奪魂機率（→A）；小昭／劉備無雙名（→A）；上古分階／掉落／隱藏機制／圖騰／通天塔碎片（拆條升 B）；陣法固定值證據（→A，僅記證據、未改模型）。
 - 做法：查到 A／B 來源就改 `tools/web2-data.js` 補丁並升級等級；在 `docs/網路資料搜查-2.md` 補來源列。
 
 ---
 
 ## 已知限制
-- 單檔已接近 12,000,000 bytes 上限（目前約 11.9 MB）；再加美術前先降其他素材或改 lazy chunk。
-- 平衡（progress-sim 30 天，最後一次）：64／72 關、勝 64 敗 117、最長卡關 0 天。v9 範圍規則下 1 對 1 可能磨血超時，見 docs/原版還原-進度.md。
+- 單檔上限已於 WL-2 放寬至 20,000,000 bytes（原 12,000,000；目前 12,466,559 bytes，建置 20261109-1122-e3c9b8a0）；再加美術前仍須追蹤單檔大小。
+- 平衡（progress-sim 30 天，WL-2）：80／90 關、勝 80 敗 133、超時 0、僵局判定 2、最長卡關 0 天；天花板是既有「隱藏關需本章其餘 8 關全三星」門檻（自動玩家無法全三星）。v9 範圍規則下 1 對 1 可能磨血超時，見 docs/原版還原-進度.md。
 

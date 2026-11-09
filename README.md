@@ -103,7 +103,8 @@ https://linhinet7451.github.io/mengjiang/
 - 2026-11-08 素材包整理：使用者提供的原版截圖／影片畫格已篩選 7 張轉為 WebP 參考集，供主城、神武殿、戰鬥 HUD、無雙特寫與品質框校色；因未含透明 Sprite／獨立背景圖層，未直接嵌入 runtime，避免把原版 UI 文字誤當遊戲素材並維持單檔大小。
 - VID-2 影片實戰分析-2（2026-11-08）：玄機盤改為金色橢圓盤上 5 顆骰子（獎項／權重／保底不變）；無雙切入重做（左上小字、紅框總傷害、直書金字、底部 6 枚技能牌）＋設置「無雙演出：開／關」（戰鬥速度維持 1x→2x→4x）；戰鬥 HUD 一條合併總生命條＋底部回合／站位小格／連擊列；聚賢莊金底面板；6 種全屏無雙特效（CSS/SVG）；武林大會 AI（第 41 屆、8 人淘汰賽、海選 Lv.70）；戰場士兵剪影；攻擊動作動畫（揮刀／出拳／氣功，D 級原創）；詳見 `docs/影片實戰分析-2.md` §13 與 `TODO.md` §VID-2（`tests/unit-wulin.js` 19 項＋端對端）。
 - WL-1 武林大會當機修復＋關卡小兵增加＋全身動作攻擊動畫（2026-11-09）：武林大會入口接線錯誤修復（原版玩法中心按鈕誤接 modal，改走全屏；另加 `UI.open`／`UI.renderModal` 未知 modal 防呆）；72 關敵方小兵 499→556 名（章節梯度，第 6–8 章普通關填滿 9 格，D 級設計）；攻擊動畫改全身動作版（蓄力後仰／前衝轉身／前頂／抬手、200px 雙弧刀光、拳影飛行＋拳爆、光球飛行＋抵達爆開、命中頓停 60／30／15ms、受擊後仰加大；武將立繪為單張點陣圖故僅全身變換，D 級原創）；詳見 `TODO.md` §WL-1（`tests/unit-wulin.js` 25 項、`tests/unit-stages.js` 7 項、`tests/unit-atkfx.js` 57 項＋端對端）。
-- 本次驗收：29 組單元測試 3,970／3,970；E2E 522／522（Chromium 桌機、WebKit iPhone 13 模擬、Chromium 橫向手機各 174，新增武林大會 12 項＋全身動作 9 項）；54 個 inline script 通過 ES5 檢查；單檔 11,855,789 bytes（上限 12,000,000）。未做真機測試。
+- WL-2 單檔上限 20MB、ART-5 完成、無雙改名、D 級升級、平衡量測、虛空之門擴充（2026-11-09）：單檔上限由 12,000,000 放寬至 20,000,000；ART-5 完成（12 名具名敵方獨立 `b_*` 立繪＋頭像＋cut-in，D 級原創；6 個畫面補齊 WebAudio 合成專屬曲，15／15 畫面皆有專屬曲）；無雙改用宣傳片 A 級名（貂蟬「千秋蓮舞」、孫尚香「美人計」、王語嫣「滅絕劍法」；另小昭「梵天之舞」、劉備「施仁天下」亦按 W282 截圖改名）；D 級升級 8 條 D→B、奪魂機率→A、上古／圖騰／通天塔碎片拆條升 B、陣法固定值證據升 A（僅記證據、未改模型）；考證表 263→290 條（D 111→124：升級減 8、新條目增 21）；平衡量測後決定不改數值（典型玩家 90 關全 100%、30 天模擬超時 0）；虛空之門新增 ch9 雁門關（Lv60–69）＋ ch10 長安（Lv69–78），90 關、敵人總數 718；另修復 WL-1 遺留：小兵增加只寫進生成檔、未寫回 `stages.json`，本輪已補寫回來源檔並驗證 72 舊關 0 差異；詳見 `TODO.md` §WL-2（`tests/unit-gate2.js` 35 項、`tests/unit-art5.js` 767 項＋端對端）。
+- 本次驗收：31 組單元測試 5,074／5,074；E2E 546／546（Chromium 桌機、WebKit iPhone 13 模擬、Chromium 橫向手機各 182，含新增 ch9 關卡 8 項；WL-1 為 522／522）；55 個 inline script 通過 ES5 檢查；單檔 12,466,559 bytes（上限 20,000,000，建置 20261109-1122-e3c9b8a0）。未做真機測試。
 
 ### 已做但只有基本測試
 
@@ -170,9 +171,9 @@ reference/      原作截圖、宣傳片與其他參考素材（依倉庫擁有�
 
 ## GitHub 交接（2026-11-04）：如何建置與測試
 
-> English: Clone, `npm install`, then `node tools/build-data.js && node tools/build-assets.js && node tools/build.js && node tools/es5check.js`. Unit tests: `sh tools/runtests.sh`. E2E: `npx playwright install chromium webkit && node tests/e2e.js all`. Output: `dist/mengjiang.html` (single file, < 12,000,000 bytes). Remaining work: see `TODO.md`.
+> English: Clone, `npm install`, then `node tools/build-data.js && node tools/build-assets.js && node tools/build.js && node tools/es5check.js`. Unit tests: `sh tools/runtests.sh`. E2E: `npx playwright install chromium webkit && node tests/e2e.js all`. Output: `dist/mengjiang.html` (single file, < 20,000,000 bytes). Remaining work: see `TODO.md`.
 
-**最新狀態與待辦請看 [TODO.md](TODO.md)**（P1、P2、P3-1～P3-6、SHOP-1、TASK-1、P4-1～P4-6、ART-1～ART-4 完成；VID-2 影片實戰分析-2（骰子玄機盤、6 牌無雙切入＋演出開關、士兵剪影、武林大會 AI、攻擊動作）完成；WL-1 武林大會當機修復、關卡小兵增加、全身動作攻擊動畫完成；P4-3 已明確標註完成，P4-4 專屬介面 E2E 已通過；P4-7、ART-5 以後仍依各項所列範圍／來源／設備條件待辦；未做真機測試）。進度紀錄在 `docs/原版還原-進度.md`。
+**最新狀態與待辦請看 [TODO.md](TODO.md)**（P1、P2、P3-1～P3-6、SHOP-1、TASK-1、P4-1～P4-6、ART-1～ART-5 完成；VID-2 影片實戰分析-2（骰子玄機盤、6 牌無雙切入＋演出開關、士兵剪影、武林大會 AI、攻擊動作）完成；WL-1 武林大會當機修復、關卡小兵增加、全身動作攻擊動畫完成；WL-2 單檔上限 20MB、ART-5 完成、無雙改名、D 級升級、平衡量測、虛空之門 ch9／ch10 完成；P4-3 已明確標註完成，P4-4 專屬介面 E2E 已通過；P4-7、待 Tomas 決定的事項（大喬無雙重名、陣法固定值模型、K-N6 15 級上陣人數）仍依各項所列範圍／來源／設備條件待辦；未做真機測試）。進度紀錄在 `docs/原版還原-進度.md`。
 
 ```bash
 npm install                                   # acorn（ES5 檢查）、playwright（e2e）、terser（單檔壓縮）
