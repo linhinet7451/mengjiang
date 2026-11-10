@@ -210,7 +210,7 @@ var pe1 = prov.entries.filter(function (e) { return e.id === 'battle.reinforce';
 var pe2 = prov.entries.filter(function (e) { return e.id === 'battle.randomFoes'; })[0];
 ok(!!pe1 && pe1.grade === 'D' && pe1.phase === 'WL-6', 'provenance 有 battle.reinforce D 級紀錄（WL-6）');
 ok(!!pe2 && pe2.grade === 'D' && pe2.phase === 'WL-6', 'provenance 有 battle.randomFoes D 級紀錄（WL-6）');
-ok(prov.entries.length === 298, 'provenance 共 298 條（297＋1，WL-8 補修加 balance.maxTeam）');
+ok(prov.entries.length === 301, 'provenance 共 301 條（298＋3，WL-9 加 mode.randomEvents、arena.topTeam、arena.rankTop）');
 
 console.log('結果：通過 ' + pass + '，失敗 ' + fail);
 process.exit(fail ? 1 : 0);

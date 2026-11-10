@@ -106,24 +106,31 @@
     var dr = G.arenaDailyReward(a.rank), atk = G.ticket('arena'), claimed = !atk.ready;
     h += '<div class="fg-box"><b>排名獎勵</b>（每贏 ' + atk.every + ' 場可領一次）<br>' + (dr ? U.esc(UI.rwText(dr).concat(['星魂 +' + dr.xinghun]).join('、')) : '擊敗任一位對手即可上榜') +
       '<div class="btn-row"><a class="btn small' + (!dr || claimed ? ' disabled' : '') + '" data-a="arDaily">' + (claimed ? '再勝 ' + atk.left + ' 場' : '領取') + '</a></div></div>';
-    h += '<p class="note">挑戰排名在你前面 5 名以內的名將隊伍，勝利即交換排名。不限次數，戰敗無損失。對手為電腦 AI（D）。</p></div>';
+    h += '<p class="note">挑戰排名在你前面 5 名以內的名將隊伍，勝利即交換排名。不限次數，戰敗無損失。對手為電腦 AI（D）。名次隊伍偶爾會刷成頂尖隊伍（紫框）：等級 1–99 隨機、練度拉滿，勝利銀幣更高、排名不變。下方固定的頂尖隊伍等級與主角相同，是當下能見到的最強組合。</p></div>';
     h += '<div class="ar-main"><div class="ar-h">可挑戰的名將</div><div class="ar-list">';
     if (!list.length) h += '<div class="parch ar-empty">你已是天下第一！</div>';
     U.each(list, function (rk) {
-      var f = G.arenaFoe(rk), hard = f.power > my * 1.3 ? ' hard' : (f.power < my * 0.8 ? ' easy' : '');
-      h += '<div class="parch ar-card' + hard + '"><div class="ar-art">' + MJ.Art.portrait(capLook(f.cap), f.cap.quality, { enemy: true }) + '</div>' +
-        '<div class="ar-info"><div class="ar-rk">第 ' + rk + ' 名</div><b>' + U.esc(f.name) + '</b><small>「' + U.esc(f.title) + '」</small>' +
+      var f = G.arenaListFoe(rk), hard = f.power > my * 1.3 ? ' hard' : (f.power < my * 0.8 ? ' easy' : '');
+      h += '<div class="parch ar-card' + hard + (f.top ? ' top' : '') + '"><div class="ar-art">' + MJ.Art.portrait(capLook(f.cap), f.cap.quality, { enemy: true }) + '</div>' +
+        '<div class="ar-info"><div class="ar-rk">第 ' + rk + ' 名' + (f.top ? ' <span class="top-tag">頂尖</span>' : '') + '</div><b>' + U.esc(f.name) + '</b><small>「' + U.esc(f.title) + '」</small>' +
         '<div>Lv' + f.lv + '．' + f.count + ' 人</div><div class="ar-pw">戰力 ' + U.fmt(f.power) + '</div></div>' +
         '<a class="btn small' + (a.tries <= 0 ? ' disabled' : '') + '" data-a="arFight" data-v="' + rk + '">挑戰</a>' +
-        '<div class="ar-win">勝：銀幣 ×' + U.fmt(G.arenaWinReward(rk).silver) + '</div></div>';
+        '<div class="ar-win">勝：銀幣 ×' + U.fmt(G.arenaRewardFor(f).silver) + '</div></div>';
     });
+    // WL-9 固定第六組頂尖隊伍（D 級原創）：等級＝主角等級、練度拉滿，挑戰次數不限、勝利銀幣按第 25 名＋等級×10、不影響排名
+    var top = G.arenaTopFoe();
+    h += '<div class="parch ar-card top"><div class="ar-art">' + MJ.Art.portrait(capLook(top.cap), top.cap.quality, { enemy: true }) + '</div>' +
+      '<div class="ar-info"><div class="ar-rk">頂尖隊伍 <span class="top-tag">固定</span></div><b>' + U.esc(top.name) + '</b><small>「' + U.esc(top.title) + '」</small>' +
+      '<div>Lv' + top.lv + '．' + top.count + ' 人</div><div class="ar-pw">戰力 ' + U.fmt(top.power) + '</div></div>' +
+      '<a class="btn small" data-a="arTopFight">挑戰</a>' +
+      '<div class="ar-win">勝：銀幣 ×' + U.fmt(G.arenaTopReward(25, top.lv).silver) + '</div></div>';
     h += '</div><div class="ar-h">戰報（最近 ' + G.ARENA_RECS + ' 場，可重播）</div><div class="ar-recs">';
     if (!a.recs.length) h += '<div class="ar-rec none">還沒有戰報</div>';
     U.each(a.recs, function (r, i) {
       var t = new Date(r.ts);
       h += '<div class="ar-rec ' + (r.win ? 'w' : 'l') + '"><span class="ar-res">' + (r.win ? '勝' : '敗') + '</span>' +
         '<span>' + (t.getMonth() + 1) + '/' + t.getDate() + ' ' + ('0' + t.getHours()).slice(-2) + ':' + ('0' + t.getMinutes()).slice(-2) + '</span>' +
-        '<span>挑戰第 ' + r.target + ' 名 ' + U.esc(r.name) + '</span><span>' + rankTxt(r.before) + '→' + rankTxt(r.after) + '</span>' +
+        '<span>' + (r.top ? '挑戰頂尖 ' + U.esc(r.name) : '挑戰第 ' + r.target + ' 名 ' + U.esc(r.name)) + '</span><span>' + rankTxt(r.before) + '→' + rankTxt(r.after) + '</span>' +
         '<a class="btn small" data-a="arReplay" data-v="' + i + '">重播</a></div>';
     });
     h += '</div></div></div></div>';
@@ -131,6 +138,7 @@
   };
   UI.actions.arena = function () { UI.go('arena'); };
   UI.actions.arFight = function (v) { var r = G.arenaFight(+v); if (!UI.res(r)) return; UI.startBattle(r); };
+  UI.actions.arTopFight = function () { var r = G.arenaTopFight(); if (!UI.res(r)) return; UI.startBattle(r); };
   UI.actions.arReplay = function (v) { var r = G.arenaReplay(+v); if (!UI.res(r)) return; UI.startBattle(r); };
   UI.actions.arDaily = function () { var r = G.arenaClaimDaily(); if (UI.res(r)) { UI.render(); UI.rewardBox('排名獎勵', r.got); } };
   UI.actions.bArena = function () { var b = UI.battleState(); if (b) b.done = true; UI.go('arena'); };
@@ -190,9 +198,11 @@
       return h;
     }
     if (r.mode !== 'arena') return mr0(r, summary);
+    // WL-9：頂尖隊伍（固定第六組或名次隊伍隨機刷出）不影響排名；重播的頂尖標記在 r.rec.top
+    var isTop = r.top || (r.rec && r.rec.top);
     var h = '<div class="dim"></div><div class="result ' + (r.win ? 'win' : 'lose') + '"><div class="banner">' + (r.replay ? '重播結束' : (r.win ? '勝 利' : '戰 敗')) + '</div><div class="parch rbody">';
-    if (r.replay) h += '<div>' + (r.win ? '這場戰鬥你獲勝了。' : '這場戰鬥你落敗了。') + '回合數：' + r.battle.rounds + '</div><div>重播依存下的雙方陣容與亂數種子重新演算' + (r.consistent ? '，結果與當時一致。' : '。') + '</div>';
-    else if (r.win) h += '<div>擊敗了「' + U.esc(r.foe.name) + '」！回合數：' + r.battle.rounds + '</div><div>排名：' + rankTxt(r.before) + ' → <b>' + rankTxt(r.after) + '</b></div><div class="rw-h">獲得獎勵</div><div class="reward-list">' + U.map(r.rewards, function (x) { return '<div class="rw">' + U.esc(x) + '</div>'; }).join('') + '</div>';
+    if (r.replay) h += '<div>' + (r.win ? '這場戰鬥你獲勝了。' : '這場戰鬥你落敗了。') + '回合數：' + r.battle.rounds + '</div><div>重播依保存的雙方陣容與亂數種子重新演算' + (r.consistent ? '，結果與當時一致。' : '。') + '</div>';
+    else if (r.win) h += '<div>擊敗了「' + U.esc(r.foe.name) + '」！回合數：' + r.battle.rounds + '</div>' + (isTop ? '<div>頂尖隊伍：排名不變。</div>' : '<div>排名：' + rankTxt(r.before) + ' → <b>' + rankTxt(r.after) + '</b></div>') + '<div class="rw-h">獲得獎勵</div><div class="reward-list">' + U.map(r.rewards, function (x) { return '<div class="rw">' + U.esc(x) + '</div>'; }).join('') + '</div>';
     else h += '<div>「' + U.esc(r.foe.name) + '」太強了。' + (r.battle.timeout ? '（超過 ' + MJ.D.config.maxRounds + ' 回合）' : '') + '排名不變，沒有損失。</div><div class="tips">・提升等級、強化裝備、點亮將星後再來挑戰<br>・先挑戰戰力較低（綠色）的對手</div>';
     h += '</div><div class="btn-row"><a class="btn" data-a="bArena">返回拜訪武將</a><a class="btn" data-a="bCity">回主城</a></div></div>';
     return h;

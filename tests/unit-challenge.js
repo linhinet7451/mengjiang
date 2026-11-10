@@ -117,7 +117,7 @@ console.log('[provenance]');
 var prov = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'src', 'data', 'provenance.json'), 'utf8'));
 var pe = prov.entries.filter(function (e) { return e.id === 'mode.limitedRounds'; })[0];
 ok(!!pe && pe.grade === 'D' && pe.phase === 'WL-5', 'provenance 有 mode.limitedRounds D 級紀錄（WL-5）');
-ok(prov.entries.length === 298, 'provenance 共 298 條（297＋1，WL-8 補修加 balance.maxTeam）');
+ok(prov.entries.length === 301, 'provenance 共 301 條（298＋3，WL-9 加 mode.randomEvents、arena.topTeam、arena.rankTop）');
 
 console.log('[戰前顯示：關卡面板]');
 c.MJ.UI = { sel: {}, screens: {}, actions: {}, modals: {}, panel: function (t, b) { return b; }, patternGrid: function () { return ''; } };

@@ -419,6 +419,17 @@ MJ.G = (function () {
     if (!sg || (sg.kind !== 'boss' && sg.kind !== 'hidden')) return null;
     return MJ.Battle.affixById(MJ.Battle.pickAffix(G.ensureSeed(id)));
   };
+  // ---------- WL-9 關卡內隨機事件（D 級原創，2026-11-10 Tomas 指示；原版沒有）----------
+  // 每場主線戰鬥由戰鬥種子抽一個事件（獨立亂數流 seed ^ 0x3c6ef372，不消耗戰鬥亂數與詞綴／組合亂數；
+  // 同一種子同一關事件相同，面板與實戰一致，戰報重播一致）。主線全部關卡（普通／精英／王／隱藏）都套用；
+  // 通天塔／無極幻境／武林大會／藏寶窟不經 G.fight，不套事件。
+  G.eventFor = function (seed) { return MJ.Battle.pickEvent(((seed || 1) ^ 0x3c6ef372) >>> 0); };
+  // 取某關的事件（回傳事件物件；主線關卡一定有）。面板顯示用。
+  G.stageEvent = function (id) {
+    var sg = MJ.D.stageIndex[id];
+    if (!sg) return null;
+    return MJ.Battle.eventById(G.eventFor(G.ensureSeed(id)));
+  };
   // 把詞綴套到敵軍上（只動該關的首領本人，不動小兵；非王關／隱藏關不套用）。
   // forcedId 供單元測試與平衡量測指定詞綴；實戰不傳，由種子派生。
   // 立即生效的屬性（疾風敏捷、堅岩防禦）直接寫進單位數值；動態效果（嗜血、荊棘、狂怒）由 battle.js 讀 u.affix 生效。
@@ -554,12 +565,14 @@ MJ.G = (function () {
     var reinforce = (sg.kind === 'boss' || sg.kind === 'hidden') ? G.drawReinforce(sg, seed) : null;
     // WL-7 ×2：增援進場的小兵也 ×2（與場上敵軍同一倍率）
     if (dbl && reinforce) U.each(reinforce, function (u) { G.doubleUnit(u); });
+    // WL-9 隨機事件：由戰鬥種子派生（opt.event 供單元測試與平衡量測指定事件；實戰不傳，由種子派生）
+    var evId = (opt && opt.event) || G.eventFor(seed);
     // D（原創防卡關）：越戰越勇——同一關每連敗一次，我方生命與攻擊 +8%，最多 +80%，通關後歸零
     var morale = R.moraleBonus(G.stageState(id).fails || 0);
     if (morale > 0) U.each(team, function (t) { var u = t.unit; u.hp = Math.round(u.hp * (1 + morale)); u.patk = Math.round(u.patk * (1 + morale)); u.matk = Math.round(u.matk * (1 + morale)); u.jatk = Math.round(u.jatk * (1 + morale)); });
-    var res = MJ.Battle.run(team, foes, { seed: seed, maxRounds: chal ? G.CHALLENGE.rounds : C().maxRounds, levelSuppression: C().levelSuppression, fieldItems: sg.fieldItems || [], double: dbl, reinforce: reinforce && reinforce.length ? { units: reinforce } : null });
+    var res = MJ.Battle.run(team, foes, { seed: seed, maxRounds: chal ? G.CHALLENGE.rounds : C().maxRounds, levelSuppression: C().levelSuppression, fieldItems: sg.fieldItems || [], double: dbl, reinforce: reinforce && reinforce.length ? { units: reinforce } : null, event: evId });
     s.stats.battles++;
-    var out = { win: res.win, battle: res, stage: sg, team: team, foes: foes, rewards: [], levelUps: [], seed: seed, energyCost: 0, morale: morale, affix: affix, challenge: chal, double: dbl, maxRounds: chal ? G.CHALLENGE.rounds : C().maxRounds, reinforce: reinforce, reinforced: res.reinforced || 0, reinforceNames: res.reinforceNames || [] };
+    var out = { win: res.win, battle: res, stage: sg, team: team, foes: foes, rewards: [], levelUps: [], seed: seed, energyCost: 0, morale: morale, affix: affix, event: evId, challenge: chal, double: dbl, maxRounds: chal ? G.CHALLENGE.rounds : C().maxRounds, reinforce: reinforce, reinforced: res.reinforced || 0, reinforceNames: res.reinforceNames || [] };
     var lead = G.lead();
     if (res.win) {
       s.stats.wins++;

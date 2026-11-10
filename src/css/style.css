@@ -237,6 +237,7 @@ hr{border:0;border-top:1px solid #b8a468;margin:8px 0}
 .sp-r{flex:1;-webkit-flex:1;font-size:14px}.sp-r .row{margin-bottom:5px}
 /* WL-4 首領詞綴列：關卡面板（出戰視窗）戰前顯示，紅字強調 */
 .sp-r .row.affix{color:#c22;background:rgba(200,40,60,.08);border-left:3px solid #c22;padding:2px 6px}
+.sp-r .row.evt{color:#5b3d8e;background:rgba(90,60,160,.08);border-left:3px solid #7a5cc2;padding:2px 6px}
 /* WL-5 限回合挑戰列：關卡面板戰前顯示，金字強調 */
 .sp-r .row.chal{color:#7a5c00;background:rgba(180,140,20,.08);border-left:3px solid #b48c14;padding:2px 6px}
 /* WL-6 隨機敵方組合列：關卡面板戰前顯示，藍字強調 */
@@ -371,6 +372,11 @@ hr{border:0;border-top:1px solid #b8a468;margin:8px 0}
 .b-title{position:absolute;left:50%;top:6px;-webkit-transform:translateX(-50%);transform:translateX(-50%);padding:3px 22px;font-size:16px;font-weight:bold;color:#fff6c8;background:linear-gradient(#7d8b34,#4e5a1a);border:2px solid #e2c060;border-radius:6px;z-index:30}
 .b-round{position:absolute;left:50%;top:46px;-webkit-transform:translateX(-50%);transform:translateX(-50%);font-size:22px;font-weight:900;color:#ffe070;text-shadow:2px 2px 0 #6a1a00,0 0 4px #000;z-index:30}
 .b-round.pop{-webkit-animation:popin .4s;animation:popin .4s}
+/* WL-9 隨機事件橫幅：開場顯示在戰場頂部，2.5 秒後淡出 */
+.evt-banner{position:absolute;left:50%;top:8px;-webkit-transform:translateX(-50%);transform:translateX(-50%);z-index:35;background:rgba(60,20,90,.92);color:#ffe9ff;border:1px solid #b44cff;border-radius:6px;padding:4px 12px;text-align:center;font-size:14px;opacity:0;pointer-events:none;-webkit-transition:opacity .3s;transition:opacity .3s}
+.evt-banner.show{opacity:1}
+.evt-banner small{display:block;font-size:11px;color:#e1bee7}
+.result .evt{color:#5b3d8e;background:rgba(90,60,160,.08);border-left:3px solid #7a5cc2;padding:2px 6px}
 .b-skill{position:absolute;left:50%;top:80px;-webkit-transform:translateX(-50%);transform:translateX(-50%);font-size:30px;font-weight:900;color:#fff;text-shadow:0 0 8px #f60,2px 2px 0 #800;opacity:0;z-index:30;font-family:"STKaiti","KaiTi","BiauKai",serif;-webkit-transition:opacity .2s;transition:opacity .2s}
 .b-skill.on{opacity:1}
 .cutin{position:absolute;left:0;top:150px;width:960px;height:220px;z-index:70;pointer-events:none;opacity:0;-webkit-transition:opacity .2s;transition:opacity .2s}
@@ -663,6 +669,9 @@ hr{border:0;border-top:1px solid #b8a468;margin:8px 0}
 .ar-list{display:flex;flex-wrap:wrap;gap:6px}
 .ar-card{position:relative;width:200px;height:118px;padding:6px;font-size:12px;box-sizing:border-box}
 .ar-card.hard{box-shadow:inset 0 0 0 2px #d84315}.ar-card.easy{box-shadow:inset 0 0 0 2px #43a047}
+/* WL-9 頂尖隊伍：紫框＋「頂尖」標籤，與一般名次隊伍區分（hard/easy 的紅綠框仍以戰力為準，紫框優先） */
+.ar-card.top{box-shadow:inset 0 0 0 2px #8e24aa,inset 0 0 12px rgba(142,36,170,.25)}
+.top-tag{display:inline-block;background:#8e24aa;color:#fff;font-size:10px;font-weight:900;padding:1px 5px;border-radius:3px;vertical-align:1px}
 .ar-art{position:absolute;left:6px;top:6px;width:60px;height:60px;border-radius:6px;overflow:hidden}
 .ar-art svg{width:100%;height:100%}
 .ar-info{margin-left:66px;line-height:1.35}.ar-info b{font-size:14px;display:block}.ar-info small{color:#7a5a2a}

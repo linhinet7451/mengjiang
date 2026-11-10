@@ -450,10 +450,22 @@
       case 'whiff': return nameOf(e.u) + ' 「' + e.skill + '」範圍內沒有敵人，揮空';
       case 'wait': return nameOf(e.u) + ' 攻擊格內沒有敵人，等待前進';
       case 'reinforce': return e.name + ' 加入戰場（敵軍增援）';
+      // WL-9 隨機事件：開場橫幅事件與每回合落石
+      case 'event': return '隨機事件「' + e.name + '」：' + e.desc;
+      case 'rock': return '落石：' + nameOf(e.to) + ' 受到 ' + e.dmg + ' 傷害';
       case 'stale': return (e.quiet ? '連續 ' + e.quiet + ' 回合雙方都沒有人受傷（剩下的人不同列、技能打不到）：' : '雙方都走不動、攻擊格也碰不到對方：') + '依剩餘生命判定（我方 ' + e.a + '%／敵方 ' + e.b + '%）→ ' + (e.win ? '我方勝' : '敵方勝');
       case 'fieldItem': return e.id === 'flag' ? (e.unresolved ? '戰場道具「旗幟」：來源未列命中 ' + e.hits + ' 次級距' : '旗幟：' + ({ patk: '物攻', matk: '法攻', hit: '命中', mdef: '法防' }[e.stat] || e.stat) + ' +' + e.percent + '%（命中 ' + e.hits + ' 次）') : (e.name + '：' + (e.id === 'flame' ? '四格斜線，附灼傷（數值未載）' : '範圍內隨機命中，' + (e.strength === 'low' ? '小威力' : e.strength === 'medium' ? '中威力' : '大威力')));
       default: return null;
     }
+  }
+  // WL-9 隨機事件橫幅：開場在戰場頂部顯示事件名稱與效果（2.5 秒後淡出；跳過戰鬥時不顯示）
+  function eventBanner(e) {
+    var btEl = el('bt'); if (!btEl) return;
+    var b = el('evt-banner');
+    if (!b) { b = document.createElement('div'); b.id = 'evt-banner'; b.className = 'evt-banner'; btEl.appendChild(b); }
+    b.innerHTML = '<b>隨機事件：' + U.esc(e.name) + '</b><small>' + U.esc(e.desc) + '</small>';
+    b.className = 'evt-banner show';
+    setTimeout(function () { var x = el('evt-banner'); if (x) x.className = 'evt-banner'; }, 2500);
   }
   // 套用一個「結果類」事件（傷害/治療/文字…）
   function applyEv(e) {
@@ -478,6 +490,9 @@
       case 'text': floatText(e.to, e.s, (e.c === 'green' ? 'green' : 'red') + ' small', 24); break;
       case 'fieldItem': fieldItemPreview(e); break;
       case 'reinforce': spawnReinforceUnit(e); break;
+      // WL-9 隨機事件：開場顯示橫幅；落石扣血＋浮字
+      case 'event': eventBanner(e); break;
+      case 'rock': setHp(e.to, e.hp); floatText(e.to, '落石 -' + e.dmg, 'red'); sfx('hit'); break;
       case 'rage': setRage(e.u, e.rage); floatText(e.u, '無雙+' + e.gain, 'green small', 44); break;
       case 'ultEnd': break;
     }
@@ -634,6 +649,8 @@
   function showResult() {
     if (!BT) return; // 已離開戰鬥（bBack/bCity 清掉 BT），不顯示舊結算
     var r = BT.r, s = MJ.S.state, h;
+    // WL-9：主線戰鬥的隨機事件（G.fight 寫進 r.event；塔／無極／武林大會沒有）
+    var evObj = r.event ? MJ.Battle.eventById(r.event) : null;
     var b = el('bresult'); if (!b) return;
     var btEl = el('bt'); if (btEl && btEl.className.indexOf('ended') < 0) btEl.className += ' ended';
     sfx(r.win ? 'win' : 'lose');
@@ -643,6 +660,7 @@
       var stars = ''; for (var i = 0; i < 3; i++) stars += '<i class="' + (i < r.stars ? 'on' : '') + '">★</i>';
       h = '<div class="dim"></div><div class="result win"><div class="banner">勝 利</div><div class="rstars">' + stars + '</div><div class="parch rbody">' +
         '<div>回合數：' + r.battle.rounds + '</div>' +
+        (evObj ? '<div class="evt">隨機事件「' + U.esc(evObj.name) + '」：' + U.esc(evObj.desc) + '</div>' : '') +
         (r.challenge ? '<div class="chal">限回合挑戰成功！12 回合內獲勝（銀幣 +50%）</div>' : '') +
         (r.double ? '<div class="dbl">×2 挑戰成功！敵方數值 ×2（銀幣 +50%）</div>' : '') +
         (r.chalGold ? '<div class="chal">首次挑戰獎勵：金幣 ×' + r.chalGold + '</div>' : '') +
@@ -659,6 +677,7 @@
       var lead = G.lead();
       h = '<div class="dim"></div><div class="result lose"><div class="banner">戰 敗</div><div class="parch rbody">' +
         '<div>' + (r.battle.stale ? '雙方都碰不到對方，依剩餘生命判定敵方勝。可以換陣法，讓武將和敵人站在同一列或用打得到別列的技能。' : r.battle.timeout ? '已達 ' + (r.maxRounds || MJ.D.config.maxRounds) + ' 回合上限，判定進攻方失敗。' : '我方全軍覆沒。') + '</div>' +
+        (evObj ? '<div class="evt">隨機事件「' + U.esc(evObj.name) + '」：' + U.esc(evObj.desc) + '</div>' : '') +
         (r.challenge ? '<div class="chal">限回合挑戰失敗：12 回合內未獲勝；通關紀錄與越戰越勇不受影響。</div>' : '') +
         (r.double ? '<div class="dbl">×2 挑戰失敗：通關紀錄與越戰越勇不受影響。</div>' : '') +
         '<div>沒有獲得任何獎勵；不扣任何資源，可以馬上再挑戰。</div>' +

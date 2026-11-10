@@ -49,7 +49,7 @@ pass-lines 40
 結果：通過 47，失敗 0
 pass-lines 48
 === unit-prov
-結果：通過 2509，失敗 0
+結果：通過 2533，失敗 0
 pass-lines 1
 === unit-art
 結果：通過 875，失敗 0
@@ -169,4 +169,8 @@ pass-lines 88
 === unit-wl8
 結果：通過 43，失敗 0
 pass-lines 44
+=== unit-wl9
+  通過 事件順序固定（抽取結果可重現）
+結果：通過 75，失敗 0
+pass-lines 76
 UNIT EXIT 0

@@ -19,6 +19,20 @@ MJ.Battle = (function () {
   B.affixById = function (id) { return U.find(B.AFFIXES, function (a) { return a.id === id; }) || null; };
   B.pickAffix = function (seed) { var r = U.rng(seed || 1); return B.AFFIXES[Math.floor(r() * B.AFFIXES.length)].id; };
 
+  // WL-9 關卡內隨機事件（D 級原創，2026-11-10 Tomas 指示；原版沒有）：每場主線戰鬥由戰鬥種子抽一個，
+  // G.fight 以獨立亂數流派生（pickEvent 不消耗戰鬥亂數流；同一種子同一關事件相同，戰報重播一致）。
+  // 事件對雙方公平（命中／閃避／攻擊修正作用於雙方；落石每回合隨機一名活著的單位，雙方皆可能中招）。
+  // 效果：濃霧 命中 −10（第 1–3 回合）、落石 每回合隨機一格受傷（該單位最大生命 15%）、
+  // 戰鼓 攻擊 +10%（第 1–3 回合）、夜戰 閃避 +5（全場）。
+  B.EVENTS = [
+    { id: 'fog', name: '濃霧', desc: '命中 −10（第 1–3 回合）', hit: -10, rounds: 3 },
+    { id: 'rock', name: '落石', desc: '每回合隨機一格受傷（最大生命 15%）', pct: 0.15 },
+    { id: 'drum', name: '戰鼓', desc: '攻擊 +10%（第 1–3 回合）', atkPct: 0.10, rounds: 3 },
+    { id: 'night', name: '夜戰', desc: '閃避 +5（全場）', dodge: 5 }
+  ];
+  B.eventById = function (id) { return U.find(B.EVENTS, function (a) { return a.id === id; }) || null; };
+  B.pickEvent = function (seed) { var r = U.rng(seed || 1); return B.EVENTS[Math.floor(r() * B.EVENTS.length)].id; };
+
   function rc(cell) { return { r: Math.floor(cell / 3), c: cell % 3 }; }
   function cellOf(r, c) { return r * 3 + c; }
   B.patternCells = function (pattern, tcell) {
@@ -303,6 +317,9 @@ MJ.Battle = (function () {
     // 滿編則待命，之後敵方小兵陣亡空出格子時立即補進。觸發與進場都不吃亂數，
     // 同一組輸入重跑事件完全相同（戰報重播一致）；增援小兵不上詞綴。
     var reinQueue = (opt.reinforce && opt.reinforce.units) ? opt.reinforce.units.slice() : [];
+    // WL-9 隨機事件（D 級原創）：opt.event 是 G.fight 由戰鬥種子派生的事件 id（見 pickEvent）；
+    // 引擎只讀它生效，不自己抽種子；重播時 G.arenaReplay／wulinReplay 傳入同一 opt.event。
+    var evt = opt.event ? B.eventById(opt.event) : null;
     var reinPending = [], reinDone = false, reinSpawned = [], reinIdx = 0;
     var A = [], Bs = [], ev = [], all, pending = [];
     U.each(teamA, function (x) { A.push(mkUnit(x.unit, 'A', x.cell)); });
@@ -373,10 +390,15 @@ MJ.Battle = (function () {
       var e = { t: 'hit', from: att.key, to: tgt.key };
       // WL-3 前的舊規則只留給 v6 以前戰報重播（opt.oldSuppression；見 sys4 arenaReplay／wulinReplay）：其餘一律走下面傷害遞減
       if (oldSup && tgt.lv - att.lv > lvSup) { e.miss = true; e.why = '等級壓制'; ev.push(e); return 0; }
-      var hitCh = U.clamp(0.9 + ((att.hit || 0) - (tgt.dodge || 0)) / 100, 0.2, 1);
+      // WL-9 隨機事件：濃霧 命中 −10（第 1–3 回合）、夜戰 閃避 +5（全場），雙方都吃同一修正
+      var evHit = evt && evt.hit && evt.rounds && round <= evt.rounds ? evt.hit : 0;
+      var evDodge = evt && evt.dodge ? evt.dodge : 0;
+      var hitCh = U.clamp(0.9 + (((att.hit || 0) + evHit) - ((tgt.dodge || 0) + evDodge)) / 100, 0.2, 1);
       if (rng() > hitCh) { e.miss = true; e.why = '閃避'; ev.push(e); return 0; }
       // 三種傷害（A）：物理對物防、法術對法防、絕技對絕技防禦（以敏捷為主，D）
-      var dt = att.dtype, atk = (dt === 'p' ? att.patk : dt === 'm' ? att.matk : att.jatk) * (1 + (att.atkBuff || 0)), def = dt === 'p' ? tgt.pdef : dt === 'm' ? tgt.mdef : tgt.jdef;
+      // WL-9 戰鼓：攻擊 +10%（第 1–3 回合），雙方都吃
+      var evAtk = evt && evt.atkPct && evt.rounds && round <= evt.rounds ? 1 + evt.atkPct : 1;
+      var dt = att.dtype, atk = (dt === 'p' ? att.patk : dt === 'm' ? att.matk : att.jatk) * (1 + (att.atkBuff || 0)) * evAtk, def = dt === 'p' ? tgt.pdef : dt === 'm' ? tgt.mdef : tgt.jdef;
       if (att.dhT) atk *= 0.7; // 鈍化中（D）
       if (tgt.sj) def *= 1 - 0.1 * tgt.sj; // 碎甲層數（D）
       if (has(att, 'pojia')) def *= 0.8; // 破甲：無視 20% 防禦（D）
@@ -544,6 +566,8 @@ MJ.Battle = (function () {
     U.each(all, function (u) { if (u.affix) { var af = B.affixById(u.affix); if (af) ev.push({ t: 'text', to: u.key, s: '詞綴·' + af.name, c: 'red' }); } });
     // WL-7：開場顯示 ×2 挑戰（戰鬥 log 與浮字都看得到，與詞綴提示同一位置；倍率是開戰前 G.fight 已乘好的確定性數值，不吃亂數，同一組輸入重跑事件完全相同，戰報重播一致）
     if (opt.double) { var dblLead = U.find(Bs, function (u) { return u.boss; }) || Bs[0]; if (dblLead) ev.push({ t: 'text', to: dblLead.key, s: '敵方數值 ×2', c: 'red' }); }
+    // WL-9：開場顯示隨機事件（戰鬥 log 與橫幅都看得到；事件由 G.fight 派生，不吃亂數，重播一致）
+    if (evt) ev.push({ t: 'event', id: evt.id, name: evt.name, desc: evt.desc });
     var quiet = 0, qFrom = 0, blk11 = {}; // v11 僵局計數、上一回合緊貼敵人停下的人
     while (round < maxRounds && !winner) {
       round++;
@@ -554,7 +578,7 @@ MJ.Battle = (function () {
         // （例如剩下的敵我各在不同列、技能又打不到別列），就不空等到 36 回合，直接以雙方剩餘生命比例判定（我方比例較高才算勝；相同算敵方勝）
         var waited = {};
         if (BV >= 11) {
-          if (round > 1) { var dmgd = false; for (var qi = qFrom; qi < ev.length; qi++) { if (ev[qi].t === 'hit' && !ev[qi].miss && ev[qi].dmg > 0) dmgd = true; if (ev[qi].t === 'wait') waited[ev[qi].u] = 1; } quiet = dmgd ? 0 : quiet + 1; }
+          if (round > 1) { var dmgd = false; for (var qi = qFrom; qi < ev.length; qi++) { if ((ev[qi].t === 'hit' || ev[qi].t === 'rock') && !ev[qi].miss && ev[qi].dmg > 0) dmgd = true; if (ev[qi].t === 'wait') waited[ev[qi].u] = 1; } quiet = dmgd ? 0 : quiet + 1; }
           qFrom = ev.length;
           if (quiet >= B.BOARD.cols) {
             var qa = B.hpRatio(A), qb = B.hpRatio(Bs); stale = true; winner = qa > qb ? 'A' : 'B';
@@ -580,6 +604,19 @@ MJ.Battle = (function () {
       // 敏捷不影響順序，所以先手必須明寫在這裡。移動順序仍照站位，不動。）
       var sw = U.filter(order, function (u) { return u.affix === 'swift'; });
       if (sw.length) order = sw.concat(U.filter(order, function (u) { return sw.indexOf(u) < 0; }));
+      // WL-9 落石：每回合開始，隨機一名活著的單位（雙方皆可能）受傷，傷害為該單位最大生命 15%（至少 1）；
+      // 目標由戰鬥亂數流抽（同一種子同一關同一回合中招者相同）；受傷不觸發反彈／吸血／狂暴，死亡照常結算。
+      if (!winner && evt && evt.id === 'rock') {
+        var rAlive = U.filter(all, function (u) { return u.hp > 0; });
+        if (rAlive.length) {
+          var rTgt = rAlive[Math.floor(rng() * rAlive.length)];
+          var rDmg = Math.max(1, Math.floor(rTgt.maxHp * (evt.pct || 0.15)));
+          rTgt.hp = Math.max(0, rTgt.hp - rDmg);
+          ev.push({ t: 'rock', to: rTgt.key, dmg: rDmg, hp: rTgt.hp });
+          if (rTgt.hp <= 0) die(rTgt);
+          if (!alive(Bs).length) winner = 'A'; else if (!alive(A).length) winner = 'B';
+        }
+      }
       for (var i = 0; i < order.length && !winner; i++) {
         var u = order[i];
         if (u.hp <= 0) continue; // 陣亡單位不行動

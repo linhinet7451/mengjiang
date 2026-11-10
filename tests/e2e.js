@@ -241,6 +241,8 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   ok(await J(function () { return MJ.Audio.wanted(); }) === 'gate', '關卡選擇切換為緊張的關卡配樂');
   var silverB = await J(function () { return MJ.S.state.player.silver; });
   await act('[data-a="stagePop"][data-v="s1_1"]');
+  // WL-9：關卡面板顯示隨機事件（名稱與效果，與實戰同一顆種子）
+  ok(await page.locator('.row.evt').count() === 1 && (await page.locator('.row.evt').innerText()).indexOf('隨機事件') === 0, '關卡面板顯示隨機事件（名稱與效果）');
   await act('[data-a="startBattle"]');
   ok(await J(function () { return MJ.UI.screen; }) === 'battle', '進入戰鬥畫面');
   // art3：飄字取樣——出現後 0／250／600／950ms 檢查是否超出舞台或蓋到上方總生命條
@@ -333,6 +335,9 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   await act('[data-a="bSkip"]');
   await page.waitForSelector('.result', { timeout: 15000 });
   ok(await page.locator('.result.win').count() === 1, '1-1 戰鬥勝利並顯示結算');
+  // WL-9：結算顯示本場隨機事件，戰鬥日誌有開場事件記錄
+  ok(await page.locator('.result .evt').count() === 1 && (await page.locator('.result .evt').innerText()).indexOf('隨機事件「') === 0, '結算顯示本場隨機事件');
+  ok(await J(function () { return (document.getElementById('blog').innerText || '').indexOf('隨機事件「') >= 0; }), '戰鬥日誌有隨機事件開場記錄');
   await shot('9-battle-win');
   // 全身動作版：結算後所有武將回到原位（無殘留動作 class 或位移；含跳過戰鬥中途按下的情況）
   await page.waitForTimeout(2000);
@@ -355,7 +360,10 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   });
   await J(function (id) { MJ.UI.actions.startBattle(id); }, before.id);
   await page.waitForTimeout(800);
-  await act('[data-a="bSkip"]');
+  // 戰鬥可能已結束（高難度關戰敗很快，結算已出）：同一段 JS 內檢查結算＋點跳過，
+  // 避免 Playwright 點擊的穩定性等待期間戰鬥結束、結算遮罩擋住點擊而 30s 逾時；
+  // UI.actions.bSkip 在戰鬥已結束時是空操作（BT.done 時直接返回），故安全
+  await J(function () { if (!document.querySelector('.result')) { var b = document.querySelector('[data-a="bSkip"]'); if (b) b.click(); } });
   await page.waitForSelector('.result', { timeout: 15000 });
   ok(await page.locator('.result.lose').count() === 1, '挑戰高難度關卡戰敗（' + before.id + '）');
   ok(await page.locator('.battle.lost').count() === 1, '戰敗畫面轉灰模糊');
@@ -485,7 +493,9 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   // 第四階段：拜訪武將（AI 排名賽＋重播）
   ok(await page.locator('.bld[data-a="arena"]').count() === 1 && (await page.locator('.bld[data-a="arena"]').innerText()).indexOf('階段開放') < 0, '拜訪武將建築已開放（不再顯示階段開放）');
   await act('.bld[data-a="arena"]');
-  ok(await J(function () { return MJ.UI.screen; }) === 'arena' && await page.locator('.ar-card').count() === 5, '拜訪武將顯示 5 位可挑戰的名將');
+  // WL-9：拜訪武將顯示 5 位可挑戰的名將＋1 支固定頂尖隊伍（紫框＋頂尖標籤，等級＝主角等級）
+  ok(await J(function () { return MJ.UI.screen; }) === 'arena' && await page.locator('.ar-card').count() === 6 && await page.locator('.ar-card.top').count() === 1, '拜訪武將顯示 5 位可挑戰的名將＋1 支固定頂尖隊伍');
+  ok(await J(function () { return MJ.G.arenaTopFoe().lv === MJ.G.lead().lv; }) && (await page.locator('.ar-card.top .ar-rk').innerText()).indexOf('頂尖隊伍') === 0, '固定頂尖隊伍等級＝主角等級（紫框＋頂尖標籤）');
   await shot('16-arena');
   await act('[data-a="arFight"][data-v="30"]');
   ok(await J(function () { return MJ.UI.screen; }) === 'battle', '挑戰名將進入戰鬥');
@@ -501,6 +511,30 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   await page.waitForSelector('.result', { timeout: 15000 });
   ok((await page.locator('.result').innerText()).indexOf('結果與當時一致') >= 0 && await J(function () { return MJ.S.state.arena.recs.length === 1; }), '重播結果與當時一致，且不新增戰報');
   await shot('16b-arena-replay');
+  await act('[data-a="bArena"]');
+  // WL-9：名次隊伍隨機刷成頂尖（指定列表種子，讓第 29 名刷成頂尖），挑戰後排名不變
+  var topSeed29 = await J(function () {
+    for (var sd = 1; sd <= 5000; sd++) { var r = MJ.G.arenaTopRoll(29, sd); if (r.top) return sd; }
+    return 0;
+  });
+  ok(topSeed29 > 0, '找得到讓第 29 名刷成頂尖的列表種子');
+  await J(function (sd) { MJ.S.state.arena.listSeed = sd; MJ.G.commit(); MJ.UI.go('arena'); }, topSeed29);
+  ok(await page.locator('.ar-card.top').count() >= 2 && (await page.locator('.ar-card.top .ar-rk').first().innerText()).indexOf('第 29 名') === 0, '第 29 名刷成頂尖隊伍（紫框＋頂尖標籤，等級 1–99）');
+  await act('[data-a="arFight"][data-v="29"]');
+  ok(await J(function () { return MJ.UI.screen; }) === 'battle', '挑戰頂尖隊伍進入戰鬥');
+  await page.waitForTimeout(400);
+  // 頂尖隊伍可能很快打贏玩家（結算已出）：同一段 JS 內檢查結算＋點跳過（同戰敗段的競速修正）
+  await J(function () { if (!document.querySelector('.result')) { var b = document.querySelector('[data-a="bSkip"]'); if (b) b.click(); } });
+  await page.waitForSelector('.result', { timeout: 15000 });
+  ok(await J(function () { return MJ.S.state.arena.rank; }) === 30, '打頂尖隊伍不影響排名（仍為 30）');
+  await act('[data-a="bArena"]');
+  // WL-9：固定第六組頂尖隊伍（等級＝主角等級），挑戰後排名不變
+  await act('[data-a="arTopFight"]');
+  ok(await J(function () { return MJ.UI.screen; }) === 'battle', '挑戰固定頂尖隊伍進入戰鬥');
+  await page.waitForTimeout(400);
+  await J(function () { if (!document.querySelector('.result')) { var b = document.querySelector('[data-a="bSkip"]'); if (b) b.click(); } });
+  await page.waitForSelector('.result', { timeout: 15000 });
+  ok(await J(function () { return MJ.S.state.arena.rank; }) === 30, '打固定頂尖隊伍不影響排名（仍為 30）');
   await act('[data-a="bArena"]');
   await act('[data-a="arDaily"]');
   if (await page.locator('[data-a="confirmYes"]').count()) await act('[data-a="confirmYes"]');
@@ -768,7 +802,11 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   await page.fill('#importText', '這不是存檔');
   await act('[data-a="importPaste"]');
   ok((await page.locator('#toast').innerText()).indexOf('匯入失敗') >= 0, '匯入錯誤內容時顯示失敗訊息');
-  await page.fill('#importText', txt);
+  // WL-9：WebKit 長時間執行後，page.fill 填 65KB 存檔文字會在「等待元素可編輯」卡住 30s 逾時
+  // （同一 textarea 填短字串正常、單獨重現亦正常，屬 Playwright/WebKit 自動化環境問題，非遊戲 bug；
+  // 遊戲端 importPaste 只讀 #importText.value，故以 JS 直接設值＋派發 input 事件等價驗證匯入流程）
+  await J(function (t) { var el = document.getElementById('importText'); el.value = t; el.dispatchEvent(new Event('input', { bubbles: true })); }, txt);
+  ok(await page.locator('#importText').inputValue() === txt, '匯入框已填入完整存檔文字（' + txt.length + ' 字元）');
   await act('[data-a="importPaste"]');
   await act('[data-a="confirmYes"]');
   ok(await J(function () { return MJ.UI.screen === 'city' && MJ.S.state.player.name; }) === '測試俠', '匯入存檔還原角色');

@@ -57,6 +57,9 @@
     // WL-4 首領詞綴（D 級原創）：王關／隱藏關才有；戰前顯示，開戰用的就是同一顆種子，顯示與實戰一致
     var affix = G.stageAffix(id);
     if (affix) b += '<div class="row affix">首領詞綴：<b>' + U.esc(affix.name) + '</b>（' + U.esc(affix.desc) + '）</div>';
+    // WL-9 隨機事件（D 級原創）：主線全部關卡每場一個，由同一顆待用種子派生，顯示與實戰一致；對雙方公平
+    var evt = G.stageEvent(id);
+    if (evt) b += '<div class="row evt">隨機事件：<b>' + U.esc(evt.name) + '</b>（' + U.esc(evt.desc) + '）</div>';
     // WL-6 隨機敵方組合（D 級原創）：精英／王關／隱藏關的小兵每場重抽，上面站位圖就是本次抽出的組合
     if (sg.kind === 'elite' || sg.kind === 'boss' || sg.kind === 'hidden') {
       var counts = {};

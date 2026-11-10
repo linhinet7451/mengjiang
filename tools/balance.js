@@ -499,5 +499,192 @@ console.log('== WL-8 補修：max 模型打 ×2（§10；max@關卡等級，12 �
   console.log('章節王關逐關（max@同級，stack＝實戰口徑）：');
   U.each(f.rows, function (r) { if (/_8$/.test(r.id)) console.log('  ', r.id.padEnd(6), ('Lv' + r.lv).padEnd(5), 'bossScale', String(r.bossScale).padEnd(4), '一般', pct(r.normalMax), '現況', pct(r.currentStack), 'A', pct(r.candAStack), 'B', pct(r.candBStack), 'C', pct(r.candCStack)); });
 })();
+// 11) WL-9 隨機事件量測：四種事件 × 40 關精英／王／隱藏關（原組合口徑，對照第 1 節基線）＋8 關代表普通關（每章第一關普通關）；
+// 事件由 opt.event 指定（與 G.fight 派生同一事件 id 走同一引擎路徑）。每關四種事件的平均＝該關帶事件的期望勝率
+// （每場等機率抽一種）。另測 s1_8 全疊加（詞綴＋隨機＋增援）＋事件，及十章王關 typ+5 帶事件（硬牆檢查）。
+function winRateEvent(kind, L, buildFn, eventId, rounds) {
+  var w = 0;
+  for (var sd = 1; sd <= SEEDS; sd++) {
+    var team = playerTeam(kind, L), b = buildFn(sd * 977 + 3);
+    var opt = { seed: sd * 977 + 3, maxRounds: rounds || D.config.maxRounds, levelSuppression: D.config.levelSuppression, event: eventId };
+    if (b.reinforce) opt.reinforce = { units: b.reinforce };
+    var r = MJ.Battle.run(team, b.foes, opt);
+    if (r.win) w++;
+  }
+  return w / SEEDS;
+}
+(function () {
+  var evs = MJ.Battle.EVENTS.map(function (e) { return e.id; });
+  var wl9 = { scope: '主線全部關卡（普通／精英／王／隱藏）都套用；塔／無極／武林大會／藏寶窟不套', events: evs.slice(), boss: [], bossChapters: [], bossOverall: {}, normal: [], normalOverall: {}, stackS1_8: {}, hardWall: {} };
+  function avg4(row, key) { var s = 0; U.each(evs, function (id) { s += row[id + key]; }); return s / evs.length; }
+  function avg(arr, k) { var s = 0; U.each(arr, function (x) { s += x[k]; }); return arr.length ? s / arr.length : 0; }
+  U.each(D.stages.stages, function (sg) {
+    if (sg.kind !== 'elite' && sg.kind !== 'boss' && sg.kind !== 'hidden') return;
+    var L = Math.max(1, sg.lv);
+    var base = U.find(out.stages, function (x) { return x.id === sg.id; });
+    var row = { id: sg.id, kind: sg.kind, lv: sg.lv, ch: sg.ch, baseTyp: base.typ, baseWeak3: base.weak3 };
+    var mkBase = function () { return { foes: G.buildEnemy(sg) }; };
+    U.each(evs, function (id) {
+      row[id + 'Typ'] = winRateEvent('typ', L, mkBase, id);
+      row[id + 'Weak3'] = winRateEvent('weak', Math.min(80, L + 3), mkBase, id);
+    });
+    row.avg4Typ = avg4(row, 'Typ'); row.avg4Weak3 = avg4(row, 'Weak3');
+    wl9.boss.push(row);
+  });
+  // 章平均（帶事件期望值 avg4）對照 WL-8 第 9 節（無事件）
+  var wl8ch = out.wl8 ? out.wl8.chapters : [];
+  U.each([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], function (ch) {
+    var rows = U.filter(wl9.boss, function (x) { return x.ch === ch; });
+    var before = U.find(wl8ch, function (x) { return x.ch === ch; });
+    wl9.bossChapters.push({
+      ch: ch, n: rows.length,
+      typBefore: before ? before.bossTypAfter : null, typAfter: avg(rows, 'avg4Typ'),
+      weakBefore: before ? before.bossWeakAfter : null, weakAfter: avg(rows, 'avg4Weak3'),
+      typMinAfter: Math.min.apply(null, U.map(rows, function (x) { return x.avg4Typ; })),
+      typMaxAfter: Math.max.apply(null, U.map(rows, function (x) { return x.avg4Typ; }))
+    });
+  });
+  function dist(rows, key) {
+    var n100 = 0, n8599 = 0, n7080 = 0, n5069 = 0, nB50 = 0;
+    U.each(rows, function (x) { var v = x[key]; if (v >= 1) n100++; else if (v >= 0.85) n8599++; else if (v >= 0.70) n7080++; else if (v >= 0.5) n5069++; else nB50++; });
+    return { n100: n100, n8599: n8599, n7080: n7080, n5069: n5069, nB50: nB50 };
+  }
+  var d = dist(wl9.boss, 'avg4Typ');
+  wl9.bossOverall = {
+    bossN: wl9.boss.length,
+    typBefore: avg(wl9.boss, 'baseTyp'), typAfter: avg(wl9.boss, 'avg4Typ'),
+    weakBefore: avg(wl9.boss, 'baseWeak3'), weakAfter: avg(wl9.boss, 'avg4Weak3'),
+    typMinAfter: Math.min.apply(null, U.map(wl9.boss, function (x) { return x.avg4Typ; })),
+    typMaxAfter: Math.max.apply(null, U.map(wl9.boss, function (x) { return x.avg4Typ; })),
+    dist: d
+  };
+  // 8 關代表普通關（每章第一關普通關）
+  var normPick = [];
+  U.each([1, 2, 3, 4, 5, 6, 7, 8], function (ch) {
+    var sg = U.find(D.stages.stages, function (x) { return x.ch === ch && x.kind === 'normal'; });
+    if (sg) normPick.push(sg);
+  });
+  U.each(normPick, function (sg) {
+    var L = Math.max(1, sg.lv);
+    var base = U.find(out.stages, function (x) { return x.id === sg.id; });
+    var row = { id: sg.id, kind: sg.kind, lv: sg.lv, ch: sg.ch, baseTyp: base.typ, baseWeak3: base.weak3 };
+    var mkBase = function () { return { foes: G.buildEnemy(sg) }; };
+    U.each(evs, function (id) {
+      row[id + 'Typ'] = winRateEvent('typ', L, mkBase, id);
+      row[id + 'Weak3'] = winRateEvent('weak', Math.min(80, L + 3), mkBase, id);
+    });
+    row.avg4Typ = avg4(row, 'Typ'); row.avg4Weak3 = avg4(row, 'Weak3');
+    wl9.normal.push(row);
+  });
+  wl9.normalOverall = { normN: wl9.normal.length, typBefore: avg(wl9.normal, 'baseTyp'), typAfter: avg(wl9.normal, 'avg4Typ'), typMinAfter: Math.min.apply(null, U.map(wl9.normal, function (x) { return x.avg4Typ; })) };
+  // s1_8 全疊加（詞綴＋隨機＋增援）＋事件
+  (function () {
+    var sg = MJ.D.stageIndex['s1_8'], L = Math.max(1, sg.lv);
+    var base = U.find(out.stages, function (x) { return x.id === 's1_8'; });
+    function mkStack(seed) {
+      var foes = G.drawFoes(sg, seed);
+      G.applyStageAffix(sg, foes, seed);
+      return { foes: foes, reinforce: G.drawReinforce(sg, seed) };
+    }
+    var s = { id: 's1_8', lv: sg.lv, baseTyp: base.typ, stackTyp: out.wl6stack.stackTyp };
+    U.each(evs, function (id) { s[id + 'StackTyp'] = winRateEvent('typ', L, mkStack, id); });
+    s.avg4StackTyp = avg4(s, 'StackTyp');
+    wl9.stackS1_8 = s;
+  })();
+  // 十章王關 typ+5 帶事件（硬牆檢查：<40% 即新硬牆）
+  var hw = { min: 1, below40: [] };
+  U.each(D.stages.stages, function (sg) {
+    if (sg.kind !== 'boss' || !/_8$/.test(sg.id)) return;
+    var L = Math.max(1, sg.lv), vals = [];
+    U.each(evs, function (id) { vals.push(winRateEvent('typ', Math.min(80, L + 5), function () { return { foes: G.buildEnemy(sg) }; }, id)); });
+    var a = 0; U.each(vals, function (v) { a += v; }); a /= vals.length;
+    if (a < hw.min) hw.min = a;
+    if (a < 0.4) { hw.below40.push({ id: sg.id, lv: sg.lv, typ5avg4: a }); out.walls.push('WL-9 事件：主線 ' + sg.id + '（Lv' + sg.lv + '）+5 級帶事件勝率 ' + pct(a)); }
+  });
+  wl9.hardWall = hw;
+  out.wl9events = wl9;
+})();
+// 12) WL-9 頂尖隊伍量測：(a) 五組名次隊伍 25% 機率實測（2000 顆列表種子 × 30 名次，純亂數抽取，不進戰鬥）；
+// (b) 頂尖等級分布（1–99 覆蓋）；(c) 一般隊／max 隊同級打各等級頂尖隊伍勝率（PVP 口徑，頂尖隊伍組合每種子重抽）；
+// (d) 固定第六組即同級頂尖隊伍（同 (c) 的同級列），另列戰力對比。
+(function () {
+  var wl9top = { chance: G.ARENA_TOP_CHANCE, lvMin: G.ARENA_TOP_LV_MIN, lvMax: G.ARENA_TOP_LV_MAX, seed0: G.ARENA_LIST_SEED0, prob: {}, levels: {}, winrates: [], power: [] };
+  // (a) 機率實測：2000 顆列表種子 × 30 名次（G.arenaTopRoll，與 arenaListFoe 共用同一抽取）
+  var NSEED = 2000, perRank = {}, totalTop = 0, total = 0, rk, sd;
+  for (sd = 1; sd <= NSEED; sd++) {
+    for (rk = 1; rk <= G.ARENA_N; rk++) {
+      var roll = G.arenaTopRoll(rk, sd);
+      perRank[rk] = perRank[rk] || { top: 0, n: 0 };
+      perRank[rk].n++; total++;
+      if (roll.top) { perRank[rk].top++; totalTop++; }
+    }
+  }
+  wl9top.prob = { seeds: NSEED, total: total, totalTop: totalTop, overall: totalTop / total, perRank: {} };
+  U.each(U.keys(perRank).sort(function (a, b) { return a - b; }), function (k) { wl9top.prob.perRank[k] = perRank[k].top / perRank[k].n; });
+  // (b) 等級分布：同一批抽樣中，頂尖隊伍的等級（1–99 覆蓋與十分位）
+  var lvMin = 99, lvMax = 1, deciles = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], lvCount = 0;
+  for (sd = 1; sd <= NSEED; sd++) {
+    for (rk = 1; rk <= G.ARENA_N; rk++) {
+      var roll2 = G.arenaTopRoll(rk, sd);
+      if (!roll2.top) continue;
+      lvCount++;
+      if (roll2.lv < lvMin) lvMin = roll2.lv;
+      if (roll2.lv > lvMax) lvMax = roll2.lv;
+      deciles[Math.min(9, Math.floor((roll2.lv - 1) / 10))]++;
+    }
+  }
+  wl9top.levels = { n: lvCount, min: lvMin, max: lvMax, deciles: deciles };
+  // (c) 勝率：一般隊／max 隊同級（Lv99 頂尖以 Lv90 玩家打，Lv90 為玩家等級上限）打各等級頂尖隊伍
+  function winTop(kind, pLv, topLv) {
+    var w = 0;
+    for (var sd3 = 1; sd3 <= SEEDS; sd3++) {
+      var team = playerTeam(kind, pLv);
+      var foes = JSON.parse(JSON.stringify(G.arenaTopFoe(sd3 * 7919 + 5, topLv).foes));
+      var r = MJ.Battle.run(team, foes, { seed: sd3 * 977 + 3, maxRounds: D.config.maxRounds, levelSuppression: D.config.levelSuppression, pvp: true });
+      if (r.win) w++;
+    }
+    return w / SEEDS;
+  }
+  U.each([1, 8, 15, 25, 35, 50, 60, 70, 80, 90, 99], function (topLv) {
+    var pLv = Math.min(90, topLv);
+    wl9top.winrates.push({ topLv: topLv, playerLv: pLv, typ: winTop('typ', pLv, topLv), max: winTop('max', pLv, topLv) });
+  });
+  // (d) 戰力對比：一般隊／max 隊戰力 vs 同級頂尖隊伍戰力（種子 1 的組合）
+  U.each([8, 25, 50, 70, 80, 90], function (L) {
+    playerTeam('typ', L); var tp = G.myPower();
+    playerTeam('max', L); var mp = G.myPower();
+    var foe = G.arenaTopFoe(1, L);
+    wl9top.power.push({ lv: L, typPower: tp, maxPower: mp, topPower: foe.power, topVsTyp: foe.power / tp, topVsMax: foe.power / mp, topCount: foe.count });
+  });
+  out.wl9top = wl9top;
+})();
+console.log('== WL-9 隨機事件量測（§11；12 種子；王系關＝原組合口徑，基線＝WL-8 第 1 節無事件；avg4＝四種事件平均＝帶事件期望勝率）==');
+(function () {
+  var w = out.wl9events;
+  console.log('範圍：' + w.scope);
+  console.log('章  王系關一般@同級 無事件→帶事件    弱勢@+3 無事件→帶事件    王系關帶事件最低／最高');
+  U.each(w.bossChapters, function (c) {
+    console.log(('ch' + c.ch).padEnd(4), pct(c.typBefore || 0).padStart(5) + '→' + pct(c.typAfter).padStart(5), pct(c.weakBefore || 0).padStart(5) + '→' + pct(c.weakAfter).padStart(5), '最低 ' + pct(c.typMinAfter) + '／最高 ' + pct(c.typMaxAfter));
+  });
+  var o = w.bossOverall;
+  console.log('王系關總計（' + o.bossN + ' 關）：一般 ' + pct(o.typBefore) + '→' + pct(o.typAfter) + '；弱勢 ' + pct(o.weakBefore) + '→' + pct(o.weakAfter) + '；最低 ' + pct(o.typMinAfter) + '／最高 ' + pct(o.typMaxAfter));
+  console.log('王系關分布（一般@同級帶事件，' + o.bossN + ' 關）：100% ' + o.dist.n100 + ' 關／85–99% ' + o.dist.n8599 + ' 關／70–84% ' + o.dist.n7080 + ' 關／50–69% ' + o.dist.n5069 + ' 關／<50% ' + o.dist.nB50 + ' 關');
+  console.log('普通關（' + w.normalOverall.normN + ' 關）：一般 ' + pct(w.normalOverall.typBefore) + '→' + pct(w.normalOverall.typAfter) + '，最低 ' + pct(w.normalOverall.typMinAfter));
+  console.log('四種事件王系關平均（一般@同級）：' + U.map(w.events, function (id) { var s = 0; U.each(w.boss, function (x) { s += x[id + 'Typ']; }); return id + ' ' + pct(s / w.boss.length); }).join('／'));
+  console.log('四種事件普通關平均（一般@同級）：' + U.map(w.events, function (id) { var s = 0; U.each(w.normal, function (x) { s += x[id + 'Typ']; }); return id + ' ' + pct(s / w.normal.length); }).join('／'));
+  console.log('s1_8 全疊加（詞綴＋隨機＋增援）一般@同級：無事件 ' + pct(w.stackS1_8.stackTyp) + '；' + U.map(w.events, function (id) { return id + ' ' + pct(w.stackS1_8[id + 'StackTyp']); }).join('／') + '；期望 ' + pct(w.stackS1_8.avg4StackTyp));
+  console.log('十章王關 +5 級帶事件最低勝率：' + pct(w.hardWall.min) + (w.hardWall.below40.length ? ' ⚠ <40%：' + w.hardWall.below40.map(function (x) { return x.id; }).join('、') : '（無新硬牆）'));
+})();
+console.log('== WL-9 頂尖隊伍量測（§12）==');
+(function () {
+  var t = out.wl9top;
+  console.log('名次隊伍刷頂尖機率（' + t.prob.seeds + ' 顆列表種子 × 30 名次，目標 25%）：整體 ' + (t.prob.overall * 100).toFixed(1) + '%（' + t.prob.totalTop + '/' + t.prob.total + '）');
+  console.log('各名次機率：' + U.map(U.keys(t.prob.perRank).sort(function (a, b) { return a - b; }), function (k) { return '第' + k + '名 ' + (t.prob.perRank[k] * 100).toFixed(1) + '%'; }).join('／'));
+  console.log('頂尖等級分布（' + t.levels.n + ' 次）：最小 ' + t.levels.min + '／最大 ' + t.levels.max + '；十分位（1–10…91–99）：' + t.levels.deciles.join(' '));
+  console.log('同級打頂尖隊伍勝率（12 種子；Lv99 以 Lv90 玩家打）：');
+  U.each(t.winrates, function (x) { console.log('  Lv' + String(x.topLv).padStart(2), '一般@' + x.playerLv, pct(x.typ), 'max@' + x.playerLv, pct(x.max)); });
+  console.log('戰力對比（種子 1 的組合）：');
+  U.each(t.power, function (x) { console.log('  Lv' + x.lv, '一般 ' + U.fmt(x.typPower), 'max ' + U.fmt(x.maxPower), '頂尖 ' + U.fmt(x.topPower), '頂尖／一般 ×' + x.topVsTyp.toFixed(2), '頂尖／max ×' + x.topVsMax.toFixed(2)); });
+})();
 console.log('== 硬牆 ==\n' + (out.walls.length ? out.walls.join('\n') : '無'));
 if (JSON_OUT) require('fs').writeFileSync(JSON_OUT, JSON.stringify(out, null, 1));
