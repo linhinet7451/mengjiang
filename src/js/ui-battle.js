@@ -224,11 +224,13 @@
       var honorClass = u.honorFrame === 'gold' ? ' rank-boss' : (u.honorFrame === 'silver' ? ' rank-elite' : ''), honorTag = u.honorFrame === 'gold' ? '<em class="rank-tag gold">BOSS</em>' : (u.honorFrame === 'silver' ? '<em class="rank-tag silver">精英</em>' : '');
       // WL-4 首領詞綴：戰鬥中首領頭像旁顯示詞綴名（只會出現在王關／隱藏關首領身上）
       var affixTag = (u.affix && MJ.Battle.affixById(u.affix)) ? '<em class="affix-tag">' + U.esc(MJ.Battle.affixById(u.affix).name) + '</em>' : '';
+      // WL-7 ×2 挑戰：戰鬥中敵方頭像旁顯示 ×2（只在 ×2 挑戰的戰鬥出現，與詞綴標籤同一位置）
+      var dblTag = (r.double && side === 'B') ? '<em class="dbl-tag">×2</em>' : '';
       h += '<div class="bu side' + side + (u.boss ? ' boss' : '') + honorClass + '" data-honor-frame="' + U.esc(u.honorFrame || '') + '" id="u' + key + '" style="left:' + (p.x - 56) + 'px;top:' + (p.y - 130) + 'px;z-index:' + (10 + Math.floor(x.cell / 3)) + '">' +
         '<div class="bcirc' + (u.boss ? ' boss' : '') + honorClass + '"></div>' + (auraQ(u) ? '<div class="baura q' + auraQ(u) + '"></div>' : '') +
         '<div class="bhp" id="h' + key + '">' + hpHtml(u.curHp != null ? u.curHp : u.hp, u.hp, u.layers) + '</div>' +
         '<div class="bfig">' + MJ.Art.figure(u.look, { enemy: side === 'B', cape: u.boss }) + '</div>' +
-        '<div class="bnm"><span>' + honorTag + affixTag + U.esc(u.name) + ' <small>Lv' + u.lv + '</small></span></div></div>';
+        '<div class="bnm"><span>' + honorTag + affixTag + dblTag + U.esc(u.name) + ' <small>Lv' + u.lv + '</small></span></div></div>';
     });
     // 影片 HUD：上方一條合併總生命條（左綠＝我方／右橙紅＝敵方），數字置中於條下方，金色端頭、火焰分隔
     h += '<div class="b-tot split"><div class="tb-wrap"><div class="tb tb-a"><i id="tbA" style="width:100%"></i></div><div class="tb-sep"></div><div class="tb tb-b"><i id="tbB" style="width:100%"></i></div></div><div class="tb-nums"><span id="ttA">我方</span><span class="tb-flame"></span><span id="ttB">敵方</span></div></div>';
@@ -241,7 +243,7 @@
         '<div class="pb-bar rg"><i id="pbr' + k + '" style="width:' + rg + '%"></i></div></div>';
     }).join('') + '</div>';
     h += '<div class="fx" id="fx"></div>';
-    h += '<div class="b-title">' + U.esc(r.stage.name) + '</div>';
+    h += '<div class="b-title">' + U.esc(r.stage.name) + (r.double ? '（×2 挑戰）' : '') + '</div>';
     h += '<div class="b-round" id="bround">第1回合</div>';
     if (BT.bd) h += '<div class="b-rule">' + (BT.bd.v >= 12 ? '雙方每回合一直往前・走到底統一換到第一列排隊對打' : BT.bd.v >= 11 ? '雙方每回合一直往前・走到底回第一排後方排隊・不換列' : '每回合雙方前進一格・只能前後不能換列') + '</div>';
     h += '<div class="b-skill" id="bskill"></div>';
@@ -277,6 +279,12 @@
   // WL-5 限回合挑戰：只打已通關的關卡，12 回合內打贏（G.fight 的 challenge 分支處理規則與獎勵）
   UI.actions.startChallenge = function (id) {
     var r = G.fight(id, null, { challenge: true });
+    if (!UI.res(r)) return;
+    UI.startBattle(r);
+  };
+  // WL-7 ×2 挑戰：只打已通關的關卡，敵方攻防血 ×2、正常 36 回合（G.fight 的 double 分支處理規則與獎勵）
+  UI.actions.startDouble = function (id) {
+    var r = G.fight(id, null, { double: true });
     if (!UI.res(r)) return;
     UI.startBattle(r);
   };
@@ -636,8 +644,11 @@
       h = '<div class="dim"></div><div class="result win"><div class="banner">勝 利</div><div class="rstars">' + stars + '</div><div class="parch rbody">' +
         '<div>回合數：' + r.battle.rounds + '</div>' +
         (r.challenge ? '<div class="chal">限回合挑戰成功！12 回合內獲勝（銀幣 +50%）</div>' : '') +
+        (r.double ? '<div class="dbl">×2 挑戰成功！敵方數值 ×2（銀幣 +50%）</div>' : '') +
         (r.chalGold ? '<div class="chal">首次挑戰獎勵：金幣 ×' + r.chalGold + '</div>' : '') +
+        (r.dblGold ? '<div class="dbl">首次挑戰獎勵：金幣 ×' + r.dblGold + '</div>' : '') +
         (r.chalSoul ? '<div class="chal">無死亡：多一次將魂掉落判定（已掉落將魂）</div>' : '') +
+        (r.dblSoul ? '<div class="dbl">無死亡：多一次將魂掉落判定（已掉落將魂）</div>' : '') +
         '<div>全隊經驗 +' + r.exp + '</div>' +
         (r.levelUps.length ? '<div class="lvup">升級！' + U.esc(r.levelUps.join('、')) + '</div>' : '') +
         '<div class="rw-h">戰利品</div><div class="reward-list">' + U.map(r.rewards, function (x) { return '<div class="rw">' + U.esc(x) + '</div>'; }).join('') + '</div>' +
@@ -649,6 +660,7 @@
       h = '<div class="dim"></div><div class="result lose"><div class="banner">戰 敗</div><div class="parch rbody">' +
         '<div>' + (r.battle.stale ? '雙方都碰不到對方，依剩餘生命判定敵方勝。可以換陣法，讓武將和敵人站在同一列或用打得到別列的技能。' : r.battle.timeout ? '已達 ' + (r.maxRounds || MJ.D.config.maxRounds) + ' 回合上限，判定進攻方失敗。' : '我方全軍覆沒。') + '</div>' +
         (r.challenge ? '<div class="chal">限回合挑戰失敗：12 回合內未獲勝；通關紀錄與越戰越勇不受影響。</div>' : '') +
+        (r.double ? '<div class="dbl">×2 挑戰失敗：通關紀錄與越戰越勇不受影響。</div>' : '') +
         '<div>沒有獲得任何獎勵；不扣任何資源，可以馬上再挑戰。</div>' +
         (r.nextMorale ? '<div class="morale">越戰越勇：下次挑戰本關，我方生命／攻擊 +' + Math.round(r.nextMorale * 100) + '%</div>' : '') +
         '<div class="rw-h">如何提升戰鬥力</div><div class="tips">・到神武殿培養武將：按「最強」換上更好的裝備、安排訓練<br>・重打已通關的關卡累積經驗<br>・在聚賢莊招募更高品質的武將<br>・調整陣法，把耐打的武將放在前排</div></div>';
@@ -690,7 +702,7 @@
   UI.actions.bDetail = function () { BT.showDetail = !BT.showDetail; UI.render(); };
   UI.actions.bGrid = function (v, a) { BT.showGrid = !BT.showGrid; var b = el('bt'); if (b) b.className = b.className.replace(/ showgrid/g, '') + (BT.showGrid ? ' showgrid' : ''); a.className = 'zhen' + (BT.showGrid ? ' on' : ''); };
   UI.actions.bFormula = function () { UI.toast(MJ.Battle.FORMULA_NOTE); var t = el('toast'); if (t) { clearTimeout(UI._ft); } };
-  UI.actions.bAgain = function (id) { if (UI.clearAuto) UI.clearAuto(); BT.done = true; var r = G.fight(id, null, BT.r.challenge ? { challenge: true } : null); if (!r.ok) { UI.toast(r.msg, 'bad'); return; } UI.startBattle(r); };
+  UI.actions.bAgain = function (id) { if (UI.clearAuto) UI.clearAuto(); BT.done = true; var r = G.fight(id, null, BT.r.challenge ? { challenge: true } : (BT.r.double ? { double: true } : null)); if (!r.ok) { UI.toast(r.msg, 'bad'); return; } UI.startBattle(r); };
   UI.actions.bBack = function () { if (UI.clearAuto) UI.clearAuto(); if (BT) { BT.done = true; if (BT.r.stage.ch) UI.sel.gateCh = BT.r.stage.ch; } BT = null; UI.go('gate'); };
   UI.actions.bCity = function () { if (UI.clearAuto) UI.clearAuto(); if (BT) BT.done = true; BT = null; UI.go('city'); };
   UI.battleState = function () { return BT; };

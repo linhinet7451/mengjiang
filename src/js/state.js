@@ -56,6 +56,7 @@ MJ.S = (function () {
   S.applyDefaults = function (st) {
     def(st, 'codex', {}); def(st, 'jiangxing', { lit: 0, pts: 0 }); def(st, 'buildingUnlocks', {});
     def(st, 'counters', {}); def(st, 'chal', {}); // WL-5 限回合挑戰紀錄（加法性欄位，舊存檔預設空物件）
+    def(st, 'chal2', {}); // WL-7 ×2 挑戰紀錄（加法性欄位，舊存檔預設空物件）
     if (st.player) def(st.player, 'xinghun', 0);
     if (st.settings) def(st.settings, 'econ', st.settings.energyMode === 'fast' ? 'fast' : 'std');
     if (st.settings) def(st.settings, 'musou', true); // 無雙演出開關：舊存檔預設開，與戰鬥速度（1x/2x/4x）無關

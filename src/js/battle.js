@@ -542,6 +542,8 @@ MJ.Battle = (function () {
     U.each(all, function (u) { if (u.lx) ev.push({ t: 'text', to: u.key, s: '連攜', c: 'green' }); });
     // WL-4：開場顯示首領詞綴（戰鬥 log 與浮字都看得到，與「連攜」提示同一位置）
     U.each(all, function (u) { if (u.affix) { var af = B.affixById(u.affix); if (af) ev.push({ t: 'text', to: u.key, s: '詞綴·' + af.name, c: 'red' }); } });
+    // WL-7：開場顯示 ×2 挑戰（戰鬥 log 與浮字都看得到，與詞綴提示同一位置；倍率是開戰前 G.fight 已乘好的確定性數值，不吃亂數，同一組輸入重跑事件完全相同，戰報重播一致）
+    if (opt.double) { var dblLead = U.find(Bs, function (u) { return u.boss; }) || Bs[0]; if (dblLead) ev.push({ t: 'text', to: dblLead.key, s: '敵方數值 ×2', c: 'red' }); }
     var quiet = 0, qFrom = 0, blk11 = {}; // v11 僵局計數、上一回合緊貼敵人停下的人
     while (round < maxRounds && !winner) {
       round++;

@@ -243,7 +243,10 @@ hr{border:0;border-top:1px solid #b8a468;margin:8px 0}
 .sp-r .row.rand{color:#3d6b8e;background:rgba(40,120,180,.08);border-left:3px solid #4a90c2;padding:2px 6px}
 /* WL-6 增援波次列：關卡面板戰前顯示，紅字強調 */
 .sp-r .row.reinf{color:#8e3d3d;background:rgba(180,60,40,.08);border-left:3px solid #b0503c;padding:2px 6px}
+/* WL-7 ×2 挑戰列：關卡面板戰前顯示，紫字強調（與限回合挑戰金字區分） */
+.sp-r .row.dbl{color:#5b3d8e;background:rgba(90,60,160,.08);border-left:3px solid #7a5cc2;padding:2px 6px}
 .rbody .chal{color:#7a5c00;font-weight:bold}
+.rbody .dbl{color:#5b3d8e;font-weight:bold}
 .sp-r .art.icon{display:inline-block;width:18px;height:18px;vertical-align:-4px}
 
 /* ---------- 共用：彈窗、確認、提示 ---------- */
@@ -331,6 +334,8 @@ hr{border:0;border-top:1px solid #b8a468;margin:8px 0}
 .rank-tag.silver{color:#fff;border-color:#dbe2ed;background:rgba(60,70,85,.85)}
 /* WL-4 首領詞綴標籤：戰鬥中首領頭像旁，紫紅底，與 BOSS 金標並列 */
 .affix-tag{display:inline-block;margin-right:2px;padding:0 3px;border:1px solid #e08ab0;border-radius:3px;font-size:9px;font-style:normal;line-height:11px;vertical-align:1px;color:#ffe3ef;background:rgba(90,20,50,.85)}
+/* WL-7 ×2 標籤：戰鬥中敵方頭像旁的 ×2 標記（與詞綴標籤同一位置，紫底） */
+.dbl-tag{display:inline-block;margin-right:2px;padding:0 3px;border:1px solid #b9a5e8;border-radius:3px;font-size:9px;font-style:normal;line-height:11px;vertical-align:1px;color:#efe8ff;background:rgba(60,30,110,.85)}
 .bu.acting{z-index:40!important}
 .bu.acting .bfig{filter:drop-shadow(0 0 6px #fff6a0)}
 .bu.hurt .bfig{-webkit-animation:hurt .3s;animation:hurt .3s}

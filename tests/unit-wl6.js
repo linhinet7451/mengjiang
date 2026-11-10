@@ -210,7 +210,7 @@ var pe1 = prov.entries.filter(function (e) { return e.id === 'battle.reinforce';
 var pe2 = prov.entries.filter(function (e) { return e.id === 'battle.randomFoes'; })[0];
 ok(!!pe1 && pe1.grade === 'D' && pe1.phase === 'WL-6', 'provenance 有 battle.reinforce D 級紀錄（WL-6）');
 ok(!!pe2 && pe2.grade === 'D' && pe2.phase === 'WL-6', 'provenance 有 battle.randomFoes D 級紀錄（WL-6）');
-ok(prov.entries.length === 295, 'provenance 共 295 條（293＋2）');
+ok(prov.entries.length === 296, 'provenance 共 296 條（295＋1，WL-7 加 mode.doubleChallenge）');
 
 console.log('結果：通過 ' + pass + '，失敗 ' + fail);
 process.exit(fail ? 1 : 0);
