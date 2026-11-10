@@ -250,6 +250,18 @@ MJ.R = (function () {
       U.each(['pdef', 'mdef', 'jdef'], function (k) { u[k] = Math.floor(u[k] * fd); });
       u.hp = Math.floor(u.hp * fh); u.ult.flat = Math.floor(u.ult.flat * fa);
     }
+    // WL-8：主線精英／王／隱藏關章節倍率（D，見 provenance balance.bossScale）。
+    // 敵方攻防血 × 本章倍率（命中／閃避／爆擊／敏捷／等級／層數不動）；只套主線關卡，
+    // 通天塔（floor）與無極幻境（wave）不套、普通關不套。增援與隨機組合經 enemyUnit 產生，同樣套用。
+    var bs = cfg.bossScale;
+    if (bs && stage && (stage.kind === 'elite' || stage.kind === 'boss' || stage.kind === 'hidden') && stage.floor == null && stage.wave == null) {
+      var bm = bs[Math.min(bs.length - 1, Math.max(0, (stage.ch || 1) - 1))];
+      if (bm && bm !== 1) {
+        U.each(['patk', 'matk', 'jatk'], function (k) { u[k] = Math.floor(u[k] * bm); });
+        U.each(['pdef', 'mdef', 'jdef'], function (k) { u[k] = Math.floor(u[k] * bm); });
+        u.hp = Math.floor(u.hp * bm); u.ult.flat = Math.floor(u.ult.flat * bm);
+      }
+    }
     return u;
   };
 

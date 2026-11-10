@@ -9,6 +9,13 @@ var HEROES = D.heroes.list || D.heroes;
 
 function profile(kind, L) {
   var typ = kind === 'typ';
+  // WL-8 補修：max＝該章最高理論隊伍（D 級）：最高品質武將（品質 4）、當級最好裝備（gearLv=L，裝備最高 Lv54）與
+  // 最高品質（紫 q3）、強化拉滿（plus=L：神兵坊等級上限＝主角等級，銀幣成本不計）、技能升滿（sk=min(10,L)：9 級＋
+  // 「突破·神」升 10 級，技能等級不能超過武將等級）、圖鑑全收（codex=87：88 名武將扣主角，獎勵封頂 15%）、
+  // 培養拉滿（py=培養上限 floor(10+1.5L)，四維全滿）、將星 5 星（star=5）、主角升階（leadQ：Lv<20 為 2、
+  // 20–59 為 3、60+ 為 4）、上陣人數拉滿（top=7：8 人上限扣主角）。不建模：心法／寶石／裝備洗鍊屬性
+  // （所有檔次皆不建模，故 max 是保守估計——真實全滿隊伍只會更強）。
+  if (kind === 'max') return { hq: 4, top: 7, lvGap: 0, gearLv: L, gearQ: 3, plus: L, sk: Math.min(10, L), codex: 87, py: Math.floor(10 + 1.5 * L) };
   if (kind === 'min') return { hq: L < 25 ? 1 : 2, top: 0, lvGap: 3, gearLv: L - 12, gearQ: 0, plus: 0, sk: 1, jx: 0, codex: 3, py: 0 };
   var hq = L < 10 ? 1 : L < 25 ? 2 : 3; if (!typ) hq = Math.max(1, hq - 1);
   return {
@@ -36,8 +43,9 @@ function gear(h, L, p, dt) {
 // 建立某等級的模擬玩家存檔並回傳隊伍
 function playerTeam(kind, L, seed) {
   G.newGame('模擬', '力耐', 'm', seed || 1);
-  var s = MJ.S.state, p = profile(kind, L), lead = G.lead(), rng = U.rng(L * 31 + (kind === 'typ' ? 1 : 2));
+  var s = MJ.S.state, p = profile(kind, L), lead = G.lead(), rng = U.rng(L * 31 + (kind === 'typ' ? 1 : kind === 'max' ? 3 : 2));
   lead.lv = L; lead.sk = { a: p.sk, u: p.sk, p: p.sk }; gear(lead, L, p, 'p'); lead.py = { str: p.py, int: 0, agi: 0, con: p.py };
+  if (kind === 'max') { lead.star = 5; lead.py = { str: p.py, int: p.py, agi: p.py, con: p.py }; s.player.leadQ = L < 20 ? 2 : L < 60 ? 3 : 4; }
   var slots = R.teamSlots(L), pool = HEROES.slice(), picks = [];
   function pick(q) { var c = U.filter(pool, function (h) { return h.quality === q && picks.indexOf(h) < 0; }); return c[Math.floor(rng() * c.length)]; }
   for (var k = 0; k < p.top && picks.length < slots - 1; k++) picks.push(pick(4) || pick(3));
@@ -51,6 +59,7 @@ function playerTeam(kind, L, seed) {
     var h = G.newHero(d.id, s); h.lv = Math.max(1, L - p.lvGap); h.sk = { a: p.sk, u: p.sk, p: p.sk };
     var c0 = d.type.charAt(0), dt = c0 === '力' ? 'p' : c0 === '智' ? 'm' : 'j'; gear(h, L, p, dt);
     h.py = { str: p.py / 2 | 0, int: p.py / 2 | 0, agi: p.py / 2 | 0, con: p.py / 2 | 0 };
+    if (kind === 'max') { h.star = 5; h.py = { str: p.py, int: p.py, agi: p.py, con: p.py }; }
     s.heroes.push(h); s.team.cells[order[ci++]] = h.uid;
   });
   for (var n = 0; n < p.codex; n++) s.codex['sim' + n] = 1;
@@ -263,6 +272,163 @@ U.each(['s1_8', 's2_8', 's3_8'], function (id) {
     dblAffixStackWeak3: winRateFull('weak', Math.min(80, L + 3), mkDblStack)
   };
 })();
+// 9) WL-8 調校前後對照：讀取 WL-7 基線 docs/balance-wl7-double.json（調校前），與本輪 §§1–8（已套 bossScale）對照。
+// 另補 ×2 越級：十章王關在一般隊高出 5／10 級時的 ×2 勝率（WL-8 後 ×2 會更難，確認越級仍打得動；
+// 若某王關 +10 級仍 < 50%，即「×2 連越級 10 級都打不動」，須在回報標出）。30 天模擬不在此工具內，另跑 tools/progress-sim.js 對照。
+(function () {
+  var fs = require('fs'), path = require('path'), base = null;
+  try { base = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'docs', 'balance-wl7-double.json'), 'utf8')); } catch (e) { base = null; }
+  function avg(xs, k) { var s = 0, n = 0; xs.forEach(function (x) { if (x[k] != null) { s += x[k]; n++; } }); return n ? s / n : null; }
+  function byId(list, id) { return U.find(list, function (x) { return x.id === id; }); }
+  function cnt(xs, k, lo, hi) { var n = 0; xs.forEach(function (x) { if (x[k] != null && x[k] >= lo && x[k] < hi) n++; }); return n; }
+  var wl8 = { bossScale: D.config.bossScale.slice(), baseline: base ? 'docs/balance-wl7-double.json' : null, chapters: [], overall: {}, tower: {}, wuji: {}, challenge: {}, double: {}, doubleOver: [] };
+  var allBossA = [], allBossB = [], allNormA = [], allNormB = [];
+  for (var ch = 1; ch <= 10; ch++) {
+    var bossA = [], bossB = [], normA = [], normB = [];
+    U.each(D.stages.stages, function (sg) {
+      if (sg.ch !== ch) return;
+      var a = byId(out.stages, sg.id), b = base ? byId(base.stages, sg.id) : null;
+      if (sg.kind === 'normal') { if (a) normA.push(a); if (b) normB.push(b); }
+      else { if (a) bossA.push(a); if (b) bossB.push(b); }
+    });
+    allBossA = allBossA.concat(bossA); allBossB = allBossB.concat(bossB); allNormA = allNormA.concat(normA); allNormB = allNormB.concat(normB);
+    wl8.chapters.push({
+      ch: ch, bossScale: D.config.bossScale[ch - 1], bossN: bossA.length,
+      bossTypBefore: avg(bossB, 'typ'), bossTypAfter: avg(bossA, 'typ'),
+      bossWeakBefore: avg(bossB, 'weak3'), bossWeakAfter: avg(bossA, 'weak3'),
+      bossMinBefore: avg(bossB, 'min3'), bossMinAfter: avg(bossA, 'min3'),
+      bossTypMinAfter: Math.min.apply(null, bossA.map(function (x) { return x.typ; })),
+      bossTypMaxAfter: Math.max.apply(null, bossA.map(function (x) { return x.typ; })),
+      normTypBefore: avg(normB, 'typ'), normTypAfter: avg(normA, 'typ'),
+      normTypMinAfter: Math.min.apply(null, normA.map(function (x) { return x.typ; }))
+    });
+  }
+  wl8.overall = {
+    bossN: allBossA.length,
+    bossTypBefore: avg(allBossB, 'typ'), bossTypAfter: avg(allBossA, 'typ'),
+    bossWeakBefore: avg(allBossB, 'weak3'), bossWeakAfter: avg(allBossA, 'weak3'),
+    bossMinBefore: avg(allBossB, 'min3'), bossMinAfter: avg(allBossA, 'min3'),
+    bossTyp100: cnt(allBossA, 'typ', 1, 1.0001), bossTyp7080: cnt(allBossA, 'typ', 0.7, 0.85),
+    bossTyp8599: cnt(allBossA, 'typ', 0.85, 1), bossTyp5069: cnt(allBossA, 'typ', 0.5, 0.7), bossTypBelow50: cnt(allBossA, 'typ', 0, 0.5),
+    normN: allNormA.length, normTypBefore: avg(allNormB, 'typ'), normTypAfter: avg(allNormA, 'typ'),
+    normTypMinAfter: Math.min.apply(null, allNormA.map(function (x) { return x.typ; }))
+  };
+  wl8.tower = { below100Before: base ? cnt(base.tower, 'typ', 0, 1) : null, below100After: cnt(out.tower, 'typ', 0, 1), f100Before: base ? (U.find(base.tower, function (x) { return x.floor === 100; }) || {}).typ : null, f100After: (U.find(out.tower, function (x) { return x.floor === 100; }) || {}).typ };
+  wl8.wuji = { below100Before: base ? cnt(base.wuji, 'typ', 0, 1) : null, below100After: cnt(out.wuji, 'typ', 0, 1), zeroBefore: base ? cnt(base.wuji, 'typ', 0, 0.0001) : null, zeroAfter: cnt(out.wuji, 'typ', 0, 0.0001) };
+  wl8.challenge = { typ12Before: base ? avg(base.challenge, 'typ12') : null, typ12After: avg(out.challenge, 'typ12'), weak312Before: base ? avg(base.challenge, 'weak312') : null, weak312After: avg(out.challenge, 'weak312') };
+  wl8.double = { dblTypBefore: base ? avg(base.wl7, 'dblTyp') : null, dblTypAfter: avg(out.wl7, 'dblTyp'), dblWeakBefore: base ? avg(base.wl7, 'dblWeak3') : null, dblWeakAfter: avg(out.wl7, 'dblWeak3'), dblStackTypBefore: base ? avg(base.wl7, 'dblStackTyp') : null, dblStackTypAfter: avg(out.wl7, 'dblStackTyp') };
+  // ×2 越級：十章王關，一般隊 +5／+10／+15／+20（WL-8 後 ×2 更難，需看幾級後打得動）
+  for (var k = 1; k <= 10; k++) {
+    var id = 's' + k + '_8', sg = MJ.D.stageIndex[id], L = Math.max(1, sg.lv);
+    (function (sg, L) {
+      function mkO(seed) {
+        var foes = G.buildEnemy(sg);
+        U.each(foes, function (f) { G.doubleUnit(f.unit); });
+        return { foes: foes, reinforce: null };
+      }
+      wl8.doubleOver.push({ id: id, lv: sg.lv, plus5: winRateFull('typ', Math.min(80, L + 5), mkO), plus10: winRateFull('typ', Math.min(80, L + 10), mkO), plus15: winRateFull('typ', Math.min(80, L + 15), mkO), plus20: winRateFull('typ', Math.min(80, L + 20), mkO) });
+    })(sg, L);
+  }
+  out.wl8 = wl8;
+})();
+// 10) WL-8 補修：max 模型（理論最高養成）打 ×2——確認 ×2 是否打得過；若 max 同級都打不動，×2 即實質鎖死。
+// 量測：40 關精英／王／隱藏關，max 隊伍@關卡等級，12 種子；base＝原組合（與 WL-7 dblTyp 同口徑），stack＝隨機組合＋增援
+// （實戰就是 stack：G.fight 對王系關一律 drawFoes，增援在王關觸發；base 是下限口徑）。
+// 候選量測：current＝載入時的設定（走真實 G.doubleUnit）；A＝mult 1.5 不封頂（暫改 G.DOUBLE.mult，走真實 G.doubleUnit，測完還原）；
+// B＝mult 2＋總倍率上限 4、C＝mult 1.5＋總倍率上限 4：遊戲沒有封頂機制（量測證明不需要），故用與 G.doubleUnit 同體的
+// 鏡像 dblUnit 量測 what-if；鏡像在量測前先與 G.doubleUnit 對照（mult＝載入值時結果一致，否則直接拋錯）。
+// 總倍率＝bossScale×doubleMult；上限 4 即 doubleMult＝min(mult, 4/bossScale)。
+(function () {
+  var wl8fix = {
+    maxModel: 'hq4/top7/lvGap0/gearLv=L/gearQ3/plus=L/sk=min(10,L)/codex87/py=floor(10+1.5L)/star5/leadQ(L<20:2,20-59:3,60+:4)；心法／寶石／洗鍊不建模（保守估計）',
+    loadedMult: G.DOUBLE.mult,
+    rows: [], summary: {}
+  };
+  // 鏡像：與 G.doubleUnit 同體（攻防血＋無雙固定傷害，Math.floor 取整），供封頂候選 what-if 量測用。
+  function dblUnit(u, m) {
+    if (!u) return u;
+    U.each(['patk', 'matk', 'jatk', 'pdef', 'mdef', 'jdef'], function (k) { u[k] = Math.floor(u[k] * m); });
+    u.hp = Math.floor(u.hp * m);
+    if (u.ult) u.ult.flat = Math.floor((u.ult.flat || 0) * m);
+    return u;
+  }
+  // 鏡像對照：mult＝載入值時，鏡像與真實 G.doubleUnit 必須一致，否則量測不可信
+  (function () {
+    var sample = { patk: 123, matk: 45, jatk: 67, pdef: 89, mdef: 10, jdef: 11, hp: 999, ult: { flat: 33 } };
+    var a = JSON.parse(JSON.stringify(sample)), b = JSON.parse(JSON.stringify(sample));
+    G.doubleUnit(a); dblUnit(b, G.DOUBLE.mult);
+    if (JSON.stringify(a) !== JSON.stringify(b)) throw new Error('§10 鏡像 dblUnit 與 G.doubleUnit 在 mult=' + G.DOUBLE.mult + ' 不一致');
+  })();
+  function effMult(sg, mult, cap) {
+    var m = mult;
+    if (cap) { var bs = (D.config.bossScale || [])[Math.min(Math.max(sg.ch, 1), (D.config.bossScale || []).length) - 1]; if (bs) m = Math.min(m, cap / bs); }
+    return m;
+  }
+  // mode：'normal' 不翻倍；'base' 原組合翻倍；'stack' 隨機組合＋增援翻倍。useReal＝true 走真實 G.doubleUnit
+  // （G.DOUBLE.mult 由 sweep 暫改），false 走鏡像 dblUnit（封頂候選）。
+  function winMax(sg, mode, mult, cap, useReal) {
+    var w = 0;
+    for (var sd = 1; sd <= SEEDS; sd++) {
+      var team = playerTeam('max', Math.max(1, sg.lv));
+      var seed = sd * 977 + 3, foes, re = null, opt = { seed: seed, maxRounds: D.config.maxRounds, levelSuppression: D.config.levelSuppression };
+      function dbl(u) { if (useReal) G.doubleUnit(u); else dblUnit(u, effMult(sg, mult, cap)); }
+      if (mode === 'normal') { foes = G.buildEnemy(sg); }
+      else if (mode === 'stack') {
+        foes = G.drawFoes(sg, seed);
+        U.each(foes, function (f) { dbl(f.unit); });
+        if (sg.kind === 'boss' || sg.kind === 'hidden') { re = G.drawReinforce(sg, seed); U.each(re, function (u) { dbl(u); }); opt.reinforce = { units: re }; }
+      } else {
+        foes = G.buildEnemy(sg);
+        U.each(foes, function (f) { dbl(f.unit); });
+      }
+      var r = MJ.Battle.run(team, foes, opt);
+      if (r.win) w++;
+    }
+    return w / SEEDS;
+  }
+  function sweep(label, mult, cap, useReal) {
+    var savedMult = G.DOUBLE.mult;
+    if (useReal) G.DOUBLE.mult = mult;
+    U.each(D.stages.stages, function (sg) {
+      if (sg.kind !== 'elite' && sg.kind !== 'boss' && sg.kind !== 'hidden') return;
+      var row = U.find(wl8fix.rows, function (x) { return x.id === sg.id; });
+      row[label + 'Base'] = winMax(sg, 'base', mult, cap, useReal);
+      row[label + 'Stack'] = winMax(sg, 'stack', mult, cap, useReal);
+    });
+    G.DOUBLE.mult = savedMult;
+  }
+  // 對照：max 打一般模式（不翻倍）40 關
+  U.each(D.stages.stages, function (sg) {
+    if (sg.kind !== 'elite' && sg.kind !== 'boss' && sg.kind !== 'hidden') return;
+    var row = { id: sg.id, kind: sg.kind, ch: sg.ch, lv: sg.lv, bossScale: (D.config.bossScale || [])[sg.ch - 1] };
+    row.normalMax = winMax(sg, 'normal', G.DOUBLE.mult, 0, true);
+    wl8fix.rows.push(row);
+  });
+  sweep('current', G.DOUBLE.mult, 0, true);
+  sweep('candA', 1.5, 0, true);
+  sweep('candB', 2, 4, false);
+  sweep('candC', 1.5, 4, false);
+  function summ(key) {
+    var xs = wl8fix.rows.map(function (r) { return r[key]; });
+    var avg = xs.reduce(function (a, b) { return a + b; }, 0) / xs.length;
+    var bosses = wl8fix.rows.filter(function (r) { return /_8$/.test(r.id); }).map(function (r) { return r[key]; });
+    return {
+      avg: avg, min: Math.min.apply(null, xs),
+      nAbove0: xs.filter(function (x) { return x > 0; }).length,
+      n100: xs.filter(function (x) { return x === 1; }).length,
+      bossAvg: bosses.reduce(function (a, b) { return a + b; }, 0) / bosses.length,
+      bossMin: Math.min.apply(null, bosses),
+      bossBelow25: bosses.filter(function (x) { return x < 0.25; }).length
+    };
+  }
+  wl8fix.summary = {
+    normalMax: summ('normalMax'), currentBase: summ('currentBase'), currentStack: summ('currentStack'),
+    candABase: summ('candABase'), candAStack: summ('candAStack'),
+    candBBase: summ('candBBase'), candBStack: summ('candBStack'),
+    candCBase: summ('candCBase'), candCStack: summ('candCStack')
+  };
+  out.wl8fix = wl8fix;
+})();
 // 硬牆判定：一般玩家高出 5 級仍 < 40%
 U.each(out.stages, function (x) { if (x.typ5 < 0.4) out.walls.push('主線 ' + x.id + '（Lv' + x.lv + '）+5 級勝率 ' + pct(x.typ5)); });
 U.each(out.tower, function (x) { if (x.typ3 < 0.4 && x.lv < 80) out.walls.push('通天塔 ' + x.floor + ' 層 +3 級勝率 ' + pct(x.typ3)); });
@@ -296,5 +462,42 @@ console.log('== s1_8 廣宗決戰 ×2 全疊加（WL-7；×2＋詞綴種子派�
 (function () { var s8 = out.wl7stack; console.log('s1_8', ('Lv' + s8.lv).padEnd(5), '基線', pct(s8.baseTyp), pct(s8.baseWeak3), '×2', pct(s8.dblTyp), pct(s8.dblWeak3), '×2疊加', pct(s8.dblStackTyp), pct(s8.dblStackWeak3), '×2全疊加', pct(s8.dblAffixStackTyp), pct(s8.dblAffixStackWeak3)); })();
 console.log('== ×2 越級重打（WL-7 補充；前三章王關：一般隊高出 5／10／15／20 級時的 ×2 勝率）==');
 U.each(out.wl7over, function (x) { console.log(x.id.padEnd(6), ('Lv' + x.lv).padEnd(5), '+5', pct(x.plus5), '+10', pct(x.plus10), '+15', pct(x.plus15), '+20', pct(x.plus20)); });
+console.log('== WL-8 調校前後對照（§9；基線 = WL-7，未套 bossScale；30 天模擬另見 progress-sim）==');
+(function () {
+  var w = out.wl8;
+  console.log('章節倍率 bossScale：' + w.bossScale.map(function (x) { return x.toFixed(2); }).join(' '));
+  console.log('章  王系關一般@同級 前→後    弱勢@+3 前→後    不養成@+3 前→後  普通關一般 前→後');
+  U.each(w.chapters, function (c) {
+    console.log(('ch' + c.ch).padEnd(4), pct(c.bossTypBefore || 0).padStart(5) + '→' + pct(c.bossTypAfter).padStart(5), pct(c.bossWeakBefore || 0).padStart(5) + '→' + pct(c.bossWeakAfter).padStart(5), pct(c.bossMinBefore || 0).padStart(5) + '→' + pct(c.bossMinAfter).padStart(5), pct(c.normTypBefore || 0).padStart(5) + '→' + pct(c.normTypAfter).padStart(5), '（王系關最低 ' + pct(c.bossTypMinAfter) + '／最高 ' + pct(c.bossTypMaxAfter) + '）');
+  });
+  var o = w.overall;
+  console.log('王系關總計（' + o.bossN + ' 關）：一般 ' + pct(o.bossTypBefore || 0) + '→' + pct(o.bossTypAfter) + '；弱勢 ' + pct(o.bossWeakBefore || 0) + '→' + pct(o.bossWeakAfter) + '；不養成 ' + pct(o.bossMinBefore || 0) + '→' + pct(o.bossMinAfter));
+  console.log('王系關分布（一般@同級，' + o.bossN + ' 關）：100% ' + o.bossTyp100 + ' 關／70–84% ' + o.bossTyp7080 + ' 關／85–99% ' + o.bossTyp8599 + ' 關／50–69% ' + o.bossTyp5069 + ' 關／<50% ' + o.bossTypBelow50 + ' 關');
+  console.log('普通關（' + o.normN + ' 關）：一般 ' + pct(o.normTypBefore || 0) + '→' + pct(o.normTypAfter) + '，最低 ' + pct(o.normTypMinAfter));
+  console.log('通天塔（取樣）：低於 100% 層數 ' + (w.tower.below100Before == null ? '?' : w.tower.below100Before) + '→' + w.tower.below100After + '；F100 ' + pct(w.tower.f100Before || 0) + '→' + pct(w.tower.f100After || 0));
+  console.log('無極幻境（120 波）：低於 100% ' + (w.wuji.below100Before == null ? '?' : w.wuji.below100Before) + '→' + w.wuji.below100After + ' 波；0% 波次 ' + (w.wuji.zeroBefore == null ? '?' : w.wuji.zeroBefore) + '→' + w.wuji.zeroAfter + ' 波');
+  console.log('限回合挑戰（8 代表關）：一般 12 回合 ' + pct(w.challenge.typ12Before || 0) + '→' + pct(w.challenge.typ12After) + '；弱勢 ' + pct(w.challenge.weak312Before || 0) + '→' + pct(w.challenge.weak312After));
+  console.log('×2（40 王系關）：一般 ' + pct(w.double.dblTypBefore || 0) + '→' + pct(w.double.dblTypAfter) + '；弱勢 ' + pct(w.double.dblWeakBefore || 0) + '→' + pct(w.double.dblWeakAfter) + '；×2 疊加一般 ' + pct(w.double.dblStackTypBefore || 0) + '→' + pct(w.double.dblStackTypAfter));
+  console.log('×2 越級（十章王關，一般隊）：');
+  U.each(w.doubleOver, function (x) { console.log('  ', x.id.padEnd(6), ('Lv' + x.lv).padEnd(5), '+5', pct(x.plus5), '+10', pct(x.plus10), '+15', pct(x.plus15), '+20', pct(x.plus20), x.plus10 < 0.5 ? '⚠ +10 級仍 <50%（×2 連越級 10 級都打不動）' : ''); });
+})();
+console.log('== WL-8 補修：max 模型打 ×2（§10；max@關卡等級，12 種子；base＝原組合，stack＝隨機組合＋增援＝實戰口徑）==');
+(function () {
+  var f = out.wl8fix;
+  console.log('max 模型：' + f.maxModel);
+  console.log('載入時 G.DOUBLE.mult：' + f.loadedMult + '（×2 不封頂，遊戲未改）');
+  function line(name, s) { console.log(name.padEnd(16), '平均', pct(s.avg), '最低', pct(s.min), '>0% ' + s.nAbove0 + '/40', '100% ' + s.n100 + '/40', '王關平均', pct(s.bossAvg), '王關最低', pct(s.bossMin), '王關<25% ' + s.bossBelow25 + '/10'); }
+  line('一般模式', f.summary.normalMax);
+  line('現況×2 base', f.summary.currentBase);
+  line('現況×2 stack', f.summary.currentStack);
+  line('候選A ×1.5 base', f.summary.candABase);
+  line('候選A ×1.5 stack', f.summary.candAStack);
+  line('候選B 總上限4 base', f.summary.candBBase);
+  line('候選B 總上限4 stack', f.summary.candBStack);
+  line('候選C ×1.5+上限4 base', f.summary.candCBase);
+  line('候選C ×1.5+上限4 stack', f.summary.candCStack);
+  console.log('章節王關逐關（max@同級，stack＝實戰口徑）：');
+  U.each(f.rows, function (r) { if (/_8$/.test(r.id)) console.log('  ', r.id.padEnd(6), ('Lv' + r.lv).padEnd(5), 'bossScale', String(r.bossScale).padEnd(4), '一般', pct(r.normalMax), '現況', pct(r.currentStack), 'A', pct(r.candAStack), 'B', pct(r.candBStack), 'C', pct(r.candCStack)); });
+})();
 console.log('== 硬牆 ==\n' + (out.walls.length ? out.walls.join('\n') : '無'));
 if (JSON_OUT) require('fs').writeFileSync(JSON_OUT, JSON.stringify(out, null, 1));
