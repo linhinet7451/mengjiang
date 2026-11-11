@@ -49,14 +49,14 @@ pass-lines 40
 結果：通過 47，失敗 0
 pass-lines 48
 === unit-prov
-結果：通過 2677，失敗 0
+結果：通過 2713，失敗 0
 pass-lines 1
 === unit-art
-結果：通過 875，失敗 0
+結果：通過 887，失敗 0
 pass-lines 1
 === unit-art5
-結果：通過 767，失敗 0
-pass-lines 768
+結果：通過 775，失敗 0
+pass-lines 776
 === unit-web2
   通過 v8 戰報以舊規則重播，結果相同
 結果：通過 35，失敗 0
@@ -196,4 +196,7 @@ pass-lines 81
   通過 保留結果：不退石，屬性寫入
 結果：通過 36，失敗 0
 pass-lines 37
+=== unit-wl14
+結果：通過 71，失敗 0
+pass-lines 72
 UNIT EXIT 0

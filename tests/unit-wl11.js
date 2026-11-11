@@ -79,7 +79,7 @@ function maxTeam(L) { // 理論最高隊伍（仿 balance.js max 檔）：最高
     });
   }
   s.heroes.forEach(function (h) { gear(h); });
-  for (var n = 0; n < 87; n++) s.codex['sim' + n] = 1;
+  for (var n = 0; n < 90; n++) s.codex['sim' + n] = 1;
 }
 c = fresh(); M = c.MJ; G = M.G; R = M.R; U = M.U; D = M.D; S = M.S;
 maxTeam(80);
@@ -99,13 +99,13 @@ ok(c2.MJ.S.state.wuji.first.w4 == null && c2.MJ.S.state.wuji.first.w5 == null, '
 
 console.log('[考證]');
 var prov = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'src', 'data', 'provenance.json'), 'utf8'));
-ok(prov.entries.length === 313, '考證表共 313 條（310＋3）');
-ok(prov.entries.filter(function (e) { return e.grade === 'D'; }).length === 147, 'D 級 147 條');
+ok(prov.entries.length === 324, '考證表共 324 條（319＋5）');
+ok(prov.entries.filter(function (e) { return e.grade === 'D'; }).length === 158, 'D 級 158 條');
 ['balance.towerScale', 'balance.wujiScale', 'wuji.w4w5', 'reward.towerTop150', 'reward.towerGem6', 'reward.wujiW4W5', 'ach.tower150'].forEach(function (id) {
   var e = prov.entries.filter(function (x) { return x.id === id; })[0];
   ok(!!e && e.grade === 'D' && e.label.indexOf('原版') < 0 && e.tentative === true && e.phase === 'WL-11', '考證條目 ' + id + ' 為 D 級／暫定／WL-11／不標原版');
 });
-ok(M.D.provenance && M.D.provenance.entries.length === 313, 'data.generated.js 含最新考證表（313 條）');
+ok(M.D.provenance && M.D.provenance.entries.length === 324, 'data.generated.js 含最新考證表（324 條）');
 
 console.log('結果：通過 ' + pass + '，失敗 ' + fail);
 if (fail) process.exit(1);

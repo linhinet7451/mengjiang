@@ -63,6 +63,10 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   await shot('2-recruit');
   var tt = await J(function () { var miss = [], ks = Object.keys(MJ.D.heroIndex).filter(function (k) { return MJ.D.heroIndex[k] && MJ.D.heroIndex[k].type; }); ks.forEach(function (k) { if (!MJ.UI.TYPE_TIP[MJ.D.heroIndex[k].type]) miss.push(k + ':' + MJ.D.heroIndex[k].type); }); return { n: ks.length, miss: miss, undef: /undefined|NaN/.test(document.getElementById('screen').textContent) }; });
   ok(tt.n > 0 && !tt.miss.length && !tt.undef, '聚賢莊所有武將類型都有說明、畫面沒有 undefined（' + tt.n + ' 名武將' + (tt.miss.length ? '，缺：' + tt.miss.slice(0, 3).join('、') : '') + '）');
+  // WL-14：招募機率表標示特殊武將 0.5%
+  await act('[data-a="showOdds"]');
+  ok(await page.locator('#confirm').innerText().then(function (t) { return t.indexOf('小叮噹') >= 0 && t.indexOf('皮卡丘') >= 0 && t.indexOf('0.5%') >= 0; }), '品質機率表標示小叮噹／皮卡丘各 0.5%（特殊抽取，四池通用）');
+  await act('[data-a="confirmYes"]');
   var n0 = await J(function () { return MJ.S.state.heroes.length; });
   var s0 = await J(function () { return MJ.S.state.player.silver; });
   await act('[data-a="doRecruit"]:not(.disabled)');

@@ -27,7 +27,7 @@ Object.keys(MJ.D.stages.enemies).forEach(function (ek) {
   ok(a && isWebp(a) && isWebp(a + '_av'), '敵方美術 ' + ek + ' → ' + a);
 });
 Object.keys(used).forEach(function (a) { if (a[0] === 'b' || a[0] === 'g') ok(isWebp(a + '_ci'), '敵方 cut-in ' + a + '_ci'); });
-// 4. 武將 88 位皆有立繪＋頭像＋cut-in（含 3 位 artAlias 沿用同人首領圖）
+// 4. 武將 90 位皆有立繪＋頭像＋cut-in（含 3 位 artAlias 沿用同人首領圖）
 MJ.D.heroes.list.forEach(function (h) {
   ok(isWebp('h_' + h.id) && isWebp('h_' + h.id + '_av') && isWebp('h_' + h.id + '_ci'), '武將全套 ' + h.id);
   ok(h.look.art === 'h_' + h.id, '武將 look.art ' + h.id);

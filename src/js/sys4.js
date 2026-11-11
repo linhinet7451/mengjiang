@@ -76,9 +76,9 @@
     return { rank: rank, name: cap.name + '軍', title: TITLES[rank % TITLES.length], lv: lv, count: count, cap: cap, foes: foes, power: power };
   };
   // ---------- WL-9 拜訪武將頂尖隊伍（D 級原創，2026-11-10 Tomas 指示；原版沒有）----------
-  // 頂尖隊伍＝該等級理論最強隊伍：最高品質武將（品質 4，40 名可挑滿 8 人）、當級最好裝備且最高品質（紫 q3）、
+  // 頂尖隊伍＝該等級理論最強隊伍：最高品質武將（品質 4，42 名可挑滿 8 人）、當級最好裝備且最高品質（紫 q3）、
   // 強化拉滿（plus＝等級）、技能升滿（sk＝min(10, 等級)：9 級＋突破·神升 10 級）、將星 5 星（全屬性 +30%）、
-  // 培養拉滿（py＝培養上限 floor(10+1.5×等級)，四維全滿）、圖鑑全收（codex＝87，獎勵封頂 15%）。
+  // 培養拉滿（py＝培養上限 floor(10+1.5×等級)，四維全滿）、圖鑑全收（codex＝90，獎勵封頂 15%）。
   // 寶石／心法／洗鍊：戰鬥引擎有建模（rules.js：R.equipStats 處理 e.gems 與 e.aff、R.derived 處理 h.xf），一併拉滿——
   // 每件裝備 3 孔（紫裝），每孔不同種類：攻擊寶石 Lv5（665，全三攻；Lv6 是 D 級倒退值 618.44，不用）、
   // 生命寶石 Lv6、物防寶石 Lv6；洗鍊每條取上限（主攻 1.4、血 8、物防 0.8，乘 (裝備等級+5)）；
@@ -130,7 +130,7 @@
     var cellsFront = [1, 4, 7, 0, 3, 6, 2, 5, 8];
     var order = heroes.slice().sort(function (a, b) { var da = MJ.D.heroIndex[a.id], db = MJ.D.heroIndex[b.id]; return (db.type.indexOf('耐') >= 0) - (da.type.indexOf('耐') >= 0); });
     var fake = { player: { name: cap.name }, codex: {}, jiangxing: { lit: Math.max(0, Math.floor((lv - 16) * 0.5)) }, team: { formation: '' } };
-    for (var k = 0; k < 87; k++) fake.codex['x' + k] = 1;
+    for (var k = 0; k < 90; k++) fake.codex['x' + k] = 1;
     var foes = U.map(order, function (h, i) { var u = R.heroUnit(h, fake); return { cell: cellsFront[i], unit: u }; });
     var power = 0; U.each(order, function (h) { power += R.power(h, fake); });
     // heroes：原始武將物件（供單元測試驗證練度；戰報只存 foes 快照，不存 heroes）

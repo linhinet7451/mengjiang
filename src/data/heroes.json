@@ -9459,6 +9459,100 @@
    "souls": 1,
    "grade": "B(名稱/白品：sn60) D(類型/技能/被動/外觀)",
    "web2": "P2"
+  },
+  {
+   "id": "doraemon",
+   "name": "小叮噹",
+   "faction": "原創",
+   "quality": 4,
+   "type": "智耐",
+   "base": {
+    "str": 8,
+    "int": 15,
+    "agi": 9,
+    "con": 15
+   },
+   "growth": {
+    "str": 1.2,
+    "int": 3,
+    "agi": 1,
+    "con": 2.6
+   },
+   "look": {
+    "g": "m",
+    "skin": "#bbdefb",
+    "hair": "#1565c0",
+    "hs": "bald",
+    "beard": "none",
+    "cloth": "#1e88e5",
+    "trim": "#ffca28",
+    "wp": "none"
+   },
+   "active": {
+    "name": "空氣砲",
+    "pattern": "line2",
+    "mult": 1.5,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "任意門",
+    "pattern": "all",
+    "mult": 2,
+    "flat": 200,
+    "fx": null
+   },
+   "passive": "shaqi",
+   "passiveGrade": "D",
+   "souls": 45,
+   "grade": "D"
+  },
+  {
+   "id": "pikachu",
+   "name": "皮卡丘",
+   "faction": "原創",
+   "quality": 4,
+   "type": "智敏",
+   "base": {
+    "str": 10,
+    "int": 13,
+    "agi": 12,
+    "con": 11
+   },
+   "growth": {
+    "str": 1,
+    "int": 3,
+    "agi": 2.4,
+    "con": 1.8
+   },
+   "look": {
+    "g": "m",
+    "skin": "#ffeb3b",
+    "hair": "#fdd835",
+    "hs": "bald",
+    "beard": "none",
+    "cloth": "#fdd835",
+    "trim": "#e53935",
+    "wp": "none"
+   },
+   "active": {
+    "name": "電光一閃",
+    "pattern": "line2",
+    "mult": 1.5,
+    "flat": 0,
+    "fx": null
+   },
+   "ult": {
+    "name": "十萬伏特",
+    "pattern": "all",
+    "mult": 2,
+    "flat": 200,
+    "fx": null
+   },
+   "passive": "lianzhan",
+   "passiveGrade": "D",
+   "souls": 45,
+   "grade": "D"
   }
  ],
  "passives": {

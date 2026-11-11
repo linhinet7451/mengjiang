@@ -11,7 +11,7 @@ function pe(id) { return (prov.entries || []).filter(function (e) { return e.id 
 console.log('[來源倍率覆蓋]');
 var sourced = D.heroes.list.filter(function (h) { return h.active && h.active.p3 && h.ult && h.ult.p3; });
 ok(sourced.length === 61, 'W967 的 61 名武將均有主動與無雙基準倍率（實際 ' + sourced.length + '）');
-ok(D.heroes.list.filter(function (h) { return h.active && !h.active.p3; }).length === 27, '其餘 27 名未列來源武將保留原有 D 級技能倍率');
+ok(D.heroes.list.filter(function (h) { return h.active && !h.active.p3; }).length === 29, '其餘 29 名未列來源武將保留原有 D 級技能倍率（27＋WL-14 原創 2 名）');
 ['web2.skill.rates', 'web2.skill.activeCurve', 'web2.skill.ultProgression', 'web2.skill.capObserved', 'web2.skill.capRule'].forEach(function (id) {
   var e = pe(id); ok(!!e && /^[ABCD]$/.test(e.grade) && (!/^[CD]$/.test(e.grade) || !/原版/.test(e.label || '')), 'provenance ' + id + ' 有正確分級');
 });

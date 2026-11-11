@@ -120,13 +120,13 @@ ok(M.S.VERSION === 12, '存檔版本仍為 v12（零遷移、零新欄位）');
 
 console.log('[考證]');
 var prov = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'src', 'data', 'provenance.json'), 'utf8'));
-ok(prov.entries.length === 313, '考證表共 313 條（310＋3）');
-ok(prov.entries.filter(function (e) { return e.grade === 'D'; }).length === 147, 'D 級 147 條');
+ok(prov.entries.length === 324, '考證表共 324 條（319＋5）');
+ok(prov.entries.filter(function (e) { return e.grade === 'D'; }).length === 158, 'D 級 158 條');
 ['mode.equipDropLv1', 'forge.upgradeLevel'].forEach(function (id) {
   var e5 = prov.entries.filter(function (x) { return x.id === id; })[0];
   ok(!!e5 && e5.grade === 'D' && e5.label.indexOf('原版') < 0 && e5.tentative === true, '考證條目 ' + id + ' 為 D 級／暫定／不標原版');
 });
-ok(M.D.provenance && M.D.provenance.entries.length === 313, 'data.generated.js 含最新考證表（313 條）');
+ok(M.D.provenance && M.D.provenance.entries.length === 324, 'data.generated.js 含最新考證表（324 條）');
 
 console.log('結果：通過 ' + pass + '，失敗 ' + fail);
 if (fail) process.exit(1);

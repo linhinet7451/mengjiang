@@ -1,6 +1,6 @@
-WL-13 E2E（嚴格版建置 20261111-2046-307b83d9，我獨立驗證）
-Chromium 桌機 1280x800：通過 241，失敗 0；Chromium 手機橫向 844x390：通過 241，失敗 0。
-WebKit iPhone 未驗——環境阻擋：browserType.launch 即失敗（Target page, context or browser has been closed），與協調員 11:20 的 newPage 失敗同源，非遊戲問題。
+WL-14 E2E（建置 20261111-2243-df62b444，我獨立驗證）
+Chromium 桌機 1280x800：通過 242，失敗 0；Chromium 手機橫向 844x390：通過 242，失敗 0。
+WebKit iPhone 未驗——環境阻擋（沿用 WL-13 狀態，未重探）。
 === 桌機腿 ===
   通過 [Chromium 桌機 1280x800] boot-test.html 全部通過（18 項）
   通過 [Chromium 桌機 1280x800] 顯示載入畫面
@@ -11,9 +11,10 @@ WebKit iPhone 未驗——環境阻擋：browserType.launch 即失敗（Target p
   通過 [Chromium 桌機 1280x800] 生死劫僅開放第一層挑戰
   通過 [Chromium 桌機 1280x800] 從生死劫返回主城
   通過 [Chromium 桌機 1280x800] 進入聚賢莊
-  通過 [Chromium 桌機 1280x800] 聚賢莊所有武將類型都有說明、畫面沒有 undefined（88 名武將）
+  通過 [Chromium 桌機 1280x800] 聚賢莊所有武將類型都有說明、畫面沒有 undefined（90 名武將）
+  通過 [Chromium 桌機 1280x800] 品質機率表標示小叮噹／皮卡丘各 0.5%（特殊抽取，四池通用）
   通過 [Chromium 桌機 1280x800] 跳出「招募武將／立即招募」確認
-  通過 [Chromium 桌機 1280x800] 招募成功：武將 3→4，銀幣 3000→2700
+  通過 [Chromium 桌機 1280x800] 招募成功：武將 3→4，銀幣 3000→2000
   通過 [Chromium 桌機 1280x800] 進入神武殿
   通過 [Chromium 桌機 1280x800] 按「休息」把武將移出出戰
   通過 [Chromium 桌機 1280x800] 按「出戰」把新武將加入隊伍
@@ -82,26 +83,26 @@ WebKit iPhone 未驗——環境阻擋：browserType.launch 即失敗（Target p
   通過 [Chromium 桌機 1280x800] 攻擊動作三種對應：揮刀／出拳／氣功
   通過 [Chromium 桌機 1280x800] 攻擊時長與命中頓停隨速度等比縮短（1x/2x/4x：380/190/95ms、60/30/15ms）
   通過 [Chromium 桌機 1280x800] 攻擊方向朝目標（A 向右／B 向左，無目標時依陣營）
-  通過 [Chromium 桌機 1280x800] 攻擊特效出現（取樣 3 個：揮刀 3、拳影 0、聚氣 0、閃光 4、光球 1）
+  通過 [Chromium 桌機 1280x800] 攻擊特效出現（取樣 3 個：揮刀 3、拳影 0、聚氣 0、閃光 2、光球 1）
   通過 [Chromium 桌機 1280x800] 攻擊時人物出現全身動作（蓄力／前衝／前頂／抬手，取樣 10 次）
-  通過 [Chromium 桌機 1280x800] 命中時出現頓停（.hitstop，取樣 3 次）
+  通過 [Chromium 桌機 1280x800] 命中時出現頓停（.hitstop，取樣 2 次）
   通過 [Chromium 桌機 1280x800] 最上排飄字期間淡化名牌以減少重疊（最上排 3 人，淡化 3）
-  通過 [Chromium 桌機 1280x800] 飄字全部在舞台內且不蓋住上方總生命條（取樣 48 則，超出 0，蓋血條 0）
+  通過 [Chromium 桌機 1280x800] 飄字全部在舞台內且不蓋住上方總生命條（取樣 52 則，超出 0，蓋血條 0）
   通過 [Chromium 桌機 1280x800] 戰鬥中名字與其他單位血條沒有重疊（7 個名字）
   通過 [Chromium 桌機 1280x800] 下方我方頭像列：3/3 人、在舞台內 true、重疊 0、無雙條有值 2（229x89）
   通過 [Chromium 桌機 1280x800] 戰鬥畫面有靜音按鈕
   通過 [Chromium 桌機 1280x800] 進入戰鬥切換為戰鬥配樂（battle，AudioContext：running，播放中 battle）
-  通過 [Chromium 桌機 1280x800] 戰鬥中觸發命中音效（click,hit,hit,hit）
+  通過 [Chromium 桌機 1280x800] 戰鬥中觸發命中音效（heal,hit,hit,hit）
   通過 [Chromium 桌機 1280x800] 省電模式開啟（lowfx）
   通過 [Chromium 桌機 1280x800] 省電模式下不再產生新的攻擊特效（4 個，未增加）
   通過 [Chromium 桌機 1280x800] 切回完整特效
   通過 [Chromium 桌機 1280x800] 1-1 戰鬥勝利並顯示結算
-  通過 [Chromium 桌機 1280x800] 結算星星 2 顆與實際成績一致（未得星顯示 ☆）、HUD 已隱藏（WL-13 #11）
+  通過 [Chromium 桌機 1280x800] 結算星星 3 顆與實際成績一致（未得星顯示 ☆）、HUD 已隱藏（WL-13 #11）
   通過 [Chromium 桌機 1280x800] 結算顯示本場隨機事件
   通過 [Chromium 桌機 1280x800] 戰鬥日誌有隨機事件開場記錄
   通過 [Chromium 桌機 1280x800] 結算後所有武將回到原位（無殘留動作 class 或位移）
   通過 [Chromium 桌機 1280x800] 勝利後切換為勝利配樂
-  通過 [Chromium 桌機 1280x800] 陣亡單位以陣亡狀態顯示（5）
+  通過 [Chromium 桌機 1280x800] 陣亡單位以陣亡狀態顯示（4）
   通過 [Chromium 桌機 1280x800] 勝利獲得銀幣並記錄通關
   通過 [Chromium 桌機 1280x800] 通關後解鎖 1-2（1-3 仍鎖定）
   通過 [Chromium 桌機 1280x800] 挑戰高難度關卡戰敗（s5_8）
@@ -127,7 +128,7 @@ WebKit iPhone 未驗——環境阻擋：browserType.launch 即失敗（Target p
   通過 [Chromium 桌機 1280x800] 通天塔畫面可重新開啟自動接續
   通過 [Chromium 桌機 1280x800] 登上通天塔第 2 層
   通過 [Chromium 桌機 1280x800] 結算後約 10 秒自動挑戰第 3 層（不需手動點下一層）
-  通過 [Chromium 桌機 1280x800] 跳過全部後顯示總結：打到第 9 層＋本輪拿到獎勵
+  通過 [Chromium 桌機 1280x800] 跳過全部後顯示總結：打到第 14 層＋本輪拿到獎勵
   通過 [Chromium 桌機 1280x800] 跳過總結後返回通天塔畫面
   通過 [Chromium 桌機 1280x800] 無極幻境顯示五欄挑戰面板（WL-11 加 w4／w5）
   通過 [Chromium 桌機 1280x800] w4 破軍之境卡片：121～160 波、主角 55 級開放（主角 45 級故鎖定）
@@ -233,37 +234,19 @@ WebKit iPhone 未驗——環境阻擋：browserType.launch 即失敗（Target p
   通過 [Chromium 桌機 1280x800] 戰鬥紀錄寫出「走到底，統一換到第一列排隊」
   通過 [Chromium 桌機 1280x800] 神武殿技能頁顯示攻擊格（綠＝自己、紅＝往前打到的格）
   通過 [Chromium 桌機 1280x800] 重新整理後存檔完整保留，直接回到主城
-  通過 [Chromium 桌機 1280x800] 匯出存檔文字（66413 字元）
+  通過 [Chromium 桌機 1280x800] 匯出存檔文字（69290 字元）
   通過 [Chromium 桌機 1280x800] 重置後回到建立角色畫面
   通過 [Chromium 桌機 1280x800] 匯入錯誤內容時顯示失敗訊息
-  通過 [Chromium 桌機 1280x800] 匯入框已填入完整存檔文字（66413 字元）
+  通過 [Chromium 桌機 1280x800] 匯入框已填入完整存檔文字（69290 字元）
   通過 [Chromium 桌機 1280x800] 匯入存檔還原角色
   通過 [Chromium 桌機 1280x800] 沒有水平/垂直捲軸（視窗 1280x800，橫向，舞台 1280x800）
   通過 [Chromium 桌機 1280x800] 沒有出現錯誤畫面
   通過 [Chromium 桌機 1280x800] 沒有 JS 錯誤
   通過 [Chromium 桌機 1280x800] 離線執行，沒有任何網路請求
   通過 [Chromium 桌機 1280x800] 未預期錯誤會顯示可讀訊息與重新開始按鈕（不白畫面）
-✗ 測試中斷： browserType.launch: Target page, context or browser has been closed
-Browser logs:
 
-<launching> /home/hatch/.cache/ms-playwright/webkit-2370/pw_run.sh --inspector-pipe --headless --no-startup-window
-<launched> pid=12077
-[pid=12077][err] /home/hatch/.cache/ms-playwright/webkit-2370/minibrowser-wpe/bin/MiniBrowser: error while loading shared libraries: libgstreamer-1.0.so.0: cannot open shared object file: No such file or directory
-Call log:
-  - <launching> /home/hatch/.cache/ms-playwright/webkit-2370/pw_run.sh --inspector-pipe --headless --no-startup-window
-  - <launched> pid=12077
-  - [pid=12077][err] /home/hatch/.cache/ms-playwright/webkit-2370/minibrowser-wpe/bin/MiniBrowser: error while loading shared libraries: libgstreamer-1.0.so.0: cannot open shared object file: No such file or directory
-  - [pid=12077] <gracefully close start>
-  - [pid=12077] <kill>
-  - [pid=12077] <will force kill>
-  - [pid=12077] <process did exit: exitCode=127, signal=null>
-  - [pid=12077] starting temporary directories cleanup
-  - [pid=12077] finished temporary directories cleanup
-  - [pid=12077] <gracefully close end>
-
-
-Chromium 桌機 1280x800：通過 241，失敗 0
-合計：通過 241，失敗 1
+Chromium 桌機 1280x800：通過 242，失敗 0
+合計：通過 242，失敗 0
 === 手機腿 ===
   通過 [Chromium 手機橫向 844x390] boot-test.html 全部通過（18 項）
   通過 [Chromium 手機橫向 844x390] 顯示載入畫面
@@ -274,7 +257,8 @@ Chromium 桌機 1280x800：通過 241，失敗 0
   通過 [Chromium 手機橫向 844x390] 生死劫僅開放第一層挑戰
   通過 [Chromium 手機橫向 844x390] 從生死劫返回主城
   通過 [Chromium 手機橫向 844x390] 進入聚賢莊
-  通過 [Chromium 手機橫向 844x390] 聚賢莊所有武將類型都有說明、畫面沒有 undefined（88 名武將）
+  通過 [Chromium 手機橫向 844x390] 聚賢莊所有武將類型都有說明、畫面沒有 undefined（90 名武將）
+  通過 [Chromium 手機橫向 844x390] 品質機率表標示小叮噹／皮卡丘各 0.5%（特殊抽取，四池通用）
   通過 [Chromium 手機橫向 844x390] 跳出「招募武將／立即招募」確認
   通過 [Chromium 手機橫向 844x390] 招募成功：武將 3→4，銀幣 3000→2700
   通過 [Chromium 手機橫向 844x390] 進入神武殿
@@ -345,16 +329,16 @@ Chromium 桌機 1280x800：通過 241，失敗 0
   通過 [Chromium 手機橫向 844x390] 攻擊動作三種對應：揮刀／出拳／氣功
   通過 [Chromium 手機橫向 844x390] 攻擊時長與命中頓停隨速度等比縮短（1x/2x/4x：380/190/95ms、60/30/15ms）
   通過 [Chromium 手機橫向 844x390] 攻擊方向朝目標（A 向右／B 向左，無目標時依陣營）
-  通過 [Chromium 手機橫向 844x390] 攻擊特效出現（取樣 3 個：揮刀 1、拳影 0、聚氣 2、閃光 3、光球 2）
+  通過 [Chromium 手機橫向 844x390] 攻擊特效出現（取樣 3 個：揮刀 3、拳影 0、聚氣 0、閃光 3、光球 0）
   通過 [Chromium 手機橫向 844x390] 攻擊時人物出現全身動作（蓄力／前衝／前頂／抬手，取樣 10 次）
-  通過 [Chromium 手機橫向 844x390] 命中時出現頓停（.hitstop，取樣 2 次）
+  通過 [Chromium 手機橫向 844x390] 命中時出現頓停（.hitstop，取樣 3 次）
   通過 [Chromium 手機橫向 844x390] 最上排飄字期間淡化名牌以減少重疊（最上排 3 人，淡化 3）
-  通過 [Chromium 手機橫向 844x390] 飄字全部在舞台內且不蓋住上方總生命條（取樣 44 則，超出 0，蓋血條 0）
+  通過 [Chromium 手機橫向 844x390] 飄字全部在舞台內且不蓋住上方總生命條（取樣 47 則，超出 0，蓋血條 0）
   通過 [Chromium 手機橫向 844x390] 戰鬥中名字與其他單位血條沒有重疊（7 個名字）
-  通過 [Chromium 手機橫向 844x390] 下方我方頭像列：3/3 人、在舞台內 true、重疊 0、無雙條有值 2（112x44）
+  通過 [Chromium 手機橫向 844x390] 下方我方頭像列：3/3 人、在舞台內 true、重疊 0、無雙條有值 1（112x44）
   通過 [Chromium 手機橫向 844x390] 戰鬥畫面有靜音按鈕
   通過 [Chromium 手機橫向 844x390] 進入戰鬥切換為戰鬥配樂（battle，AudioContext：running，播放中 battle）
-  通過 [Chromium 手機橫向 844x390] 戰鬥中觸發命中音效（click,click,click,hit）
+  通過 [Chromium 手機橫向 844x390] 戰鬥中觸發命中音效（click,hit,hit,hit）
   通過 [Chromium 手機橫向 844x390] 省電模式開啟（lowfx）
   通過 [Chromium 手機橫向 844x390] 省電模式下不再產生新的攻擊特效（4 個，未增加）
   通過 [Chromium 手機橫向 844x390] 切回完整特效
@@ -390,7 +374,7 @@ Chromium 桌機 1280x800：通過 241，失敗 0
   通過 [Chromium 手機橫向 844x390] 通天塔畫面可重新開啟自動接續
   通過 [Chromium 手機橫向 844x390] 登上通天塔第 2 層
   通過 [Chromium 手機橫向 844x390] 結算後約 10 秒自動挑戰第 3 層（不需手動點下一層）
-  通過 [Chromium 手機橫向 844x390] 跳過全部後顯示總結：打到第 9 層＋本輪拿到獎勵
+  通過 [Chromium 手機橫向 844x390] 跳過全部後顯示總結：打到第 14 層＋本輪拿到獎勵
   通過 [Chromium 手機橫向 844x390] 跳過總結後返回通天塔畫面
   通過 [Chromium 手機橫向 844x390] 無極幻境顯示五欄挑戰面板（WL-11 加 w4／w5）
   通過 [Chromium 手機橫向 844x390] w4 破軍之境卡片：121～160 波、主角 55 級開放（主角 45 級故鎖定）
@@ -496,10 +480,10 @@ Chromium 桌機 1280x800：通過 241，失敗 0
   通過 [Chromium 手機橫向 844x390] 戰鬥紀錄寫出「走到底，統一換到第一列排隊」
   通過 [Chromium 手機橫向 844x390] 神武殿技能頁顯示攻擊格（綠＝自己、紅＝往前打到的格）
   通過 [Chromium 手機橫向 844x390] 重新整理後存檔完整保留，直接回到主城
-  通過 [Chromium 手機橫向 844x390] 匯出存檔文字（66238 字元）
+  通過 [Chromium 手機橫向 844x390] 匯出存檔文字（67605 字元）
   通過 [Chromium 手機橫向 844x390] 重置後回到建立角色畫面
   通過 [Chromium 手機橫向 844x390] 匯入錯誤內容時顯示失敗訊息
-  通過 [Chromium 手機橫向 844x390] 匯入框已填入完整存檔文字（66238 字元）
+  通過 [Chromium 手機橫向 844x390] 匯入框已填入完整存檔文字（67605 字元）
   通過 [Chromium 手機橫向 844x390] 匯入存檔還原角色
   通過 [Chromium 手機橫向 844x390] 沒有水平/垂直捲軸（視窗 844x390，橫向，舞台 624x390）
   通過 [Chromium 手機橫向 844x390] 沒有出現錯誤畫面
@@ -507,5 +491,5 @@ Chromium 桌機 1280x800：通過 241，失敗 0
   通過 [Chromium 手機橫向 844x390] 離線執行，沒有任何網路請求
   通過 [Chromium 手機橫向 844x390] 未預期錯誤會顯示可讀訊息與重新開始按鈕（不白畫面）
 
-Chromium 手機橫向 844x390：通過 241，失敗 0
-合計：通過 241，失敗 0
+Chromium 手機橫向 844x390：通過 242，失敗 0
+合計：通過 242，失敗 0

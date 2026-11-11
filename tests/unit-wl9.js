@@ -10,7 +10,7 @@ var c = load(), M = c.MJ, B = M.Battle, G = M.G, R = M.R, U = M.U, D = M.D;
 var HEROES = D.heroes.list || D.heroes;
 function profile(kind, L) {
   var typ = kind === 'typ';
-  if (kind === 'max') return { hq: 4, top: 7, lvGap: 0, gearLv: L, gearQ: 3, plus: L, sk: Math.min(10, L), codex: 87, py: Math.floor(10 + 1.5 * L) };
+  if (kind === 'max') return { hq: 4, top: 7, lvGap: 0, gearLv: L, gearQ: 3, plus: L, sk: Math.min(10, L), codex: 90, py: Math.floor(10 + 1.5 * L) };
   var hq = L < 10 ? 1 : L < 25 ? 2 : 3; if (!typ) hq = Math.max(1, hq - 1);
   return { hq: hq, top: typ ? (L >= 55 ? 3 : L >= 35 ? 2 : L >= 25 ? 1 : 0) : (L >= 50 ? 1 : 0), lvGap: typ ? 1 : 2, gearLv: typ ? L : L - 6, gearQ: typ ? (L < 15 ? 1 : L < 35 ? 2 : 3) : (L < 25 ? 0 : L < 45 ? 1 : 2), plus: Math.floor(L / (typ ? 5 : 9)), sk: Math.min(9, 1 + Math.floor(L / (typ ? 6 : 10))), codex: Math.min(60, Math.floor(3 + L * (typ ? 0.8 : 0.4))), py: Math.floor(L * (typ ? 0.6 : 0.25)) };
 }
@@ -257,8 +257,8 @@ ok(r2.ok && r2.state.arena.topSeed === S2.state.arena.topSeed && r2.state.arena.
 
 console.log('[考證：WL-9 新增 3 條 D 級]');
 var prov = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'src', 'data', 'provenance.json'), 'utf8'));
-ok(prov.entries.length === 313, 'provenance 共 313 條（310＋3，WL-12 加 balance.bossScale12、balance.doubleGate、stages.ch11_13）');
-ok(prov.entries.filter(function (e) { return e.grade === 'D'; }).length === 147, 'D 級共 147 條（144＋3）');
+ok(prov.entries.length === 324, 'provenance 共 324 條（319＋5，WL-14 加 hero.doraemon、hero.pikachu、recruit.special、web2.range.hero.doraemon、web2.range.hero.pikachu）');
+ok(prov.entries.filter(function (e) { return e.grade === 'D'; }).length === 158, 'D 級共 158 條（153＋5）');
 U.each(['mode.randomEvents', 'arena.topTeam', 'arena.rankTop'], function (id) {
   var e = U.find(prov.entries, function (x) { return x.id === id; });
   ok(!!e && e.grade === 'D' && e.tentative === true && e.phase === 'WL-9' && e.label.indexOf('原版') < 0, '考證條目 ' + id + '（D 級、暫定、WL-9、不標原版）');

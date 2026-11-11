@@ -210,17 +210,33 @@ MJ.G = (function () {
 
   // ---------- 聚賢莊 ----------
   G.recruitKinds = ['normal', 'baijin', 'zijin', 'zhizun'];
+  // WL-14 特殊武將獨立抽取（D 級，Tomas 2026-11-11 定各 0.5%）：
+  // 每格候選先用單一亂數劃分區間，config.recruit.special 的 key 順序即區間順序
+  // （doraemon [0, 0.005)、pikachu [0.005, 0.010)）；命中已擁有或本輪已抽中者回 null，
+  // 該格改走一般抽取（不重抽、不浪費格位）。未命中亦回 null。
+  G.specialDraw = function (rng, owned, used) {
+    var sp = (C().recruit || {}).special || {}, r = rng(), acc = 0, id;
+    for (id in sp) {
+      if (!Object.prototype.hasOwnProperty.call(sp, id)) continue;
+      acc += sp[id];
+      if (r < acc) return (owned && owned[id]) || (used && used[id]) ? null : id;
+    }
+    return null;
+  };
   G.rerollCands = function (kind, rng) {
     var s = st(), cfg = C().recruit[kind === 'init' ? 'normal' : kind];
     rng = rng || U.rng((U.now() ^ (s.nextUid * 7919)) >>> 0);
     var owned = {}; U.each(s.heroes, function (h) { owned[h.id] = 1; });
+    var spIds = {}; U.each(Object.keys((C().recruit || {}).special || {}), function (id) { spIds[id] = 1; });
     var out = [], used = {};
     for (var i = 0; i < 4; i++) {
+      var sp = G.specialDraw(rng, owned, used);
+      if (sp) { used[sp] = 1; out.push(sp); continue; }
       var q = U.pickWeighted(cfg.odds, rng());
       if (i === 0 && cfg.firstMin && !s.recruit.firstDone[kind]) q = Math.max(q, cfg.firstMin); // B：首次紫金/至尊保底
       var pool = [];
       for (var qq = q; qq >= 0 && !pool.length; qq--) {
-        pool = U.filter(MJ.D.heroes.list, function (h) { return h.quality === qq && !owned[h.id] && !used[h.id]; });
+        pool = U.filter(MJ.D.heroes.list, function (h) { return h.quality === qq && !owned[h.id] && !used[h.id] && !spIds[h.id]; });
       }
       if (!pool.length) break;
       var pick = pool[Math.floor(rng() * pool.length)];

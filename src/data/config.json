@@ -268,6 +268,10 @@
       ],
       "firstMin": 4,
       "cost": 500
+    },
+    "special": {
+      "doraemon": 0.005,
+      "pikachu": 0.005
     }
   },
   "recruitCost": [

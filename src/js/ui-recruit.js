@@ -99,7 +99,7 @@
       var c = cfg.recruit[k];
       t += '<tr><td>' + c.name + '</td>' + U.map(c.odds, function (o) { return '<td>' + (o * 100).toFixed(1) + '%</td>'; }).join('') + '<td>' + (c.cost ? c.cost + ' 金' : '免費') + '</td><td>' + (c.cdMin >= 1440 ? c.cdMin / 1440 + ' 天' : c.cdMin + ' 分') + '</td></tr>';
     });
-    t += '</table><p class="note">單機版取消冷卻與每日次數，普通免費、其餘每次付金幣。首次紫金／至尊刷新保底藍／紫。</p>';
+    t += '</table><p class="note">單機版取消冷卻與每日次數，普通免費、其餘每次付金幣。首次紫金／至尊刷新保底藍／紫。特殊武將 小叮噹／皮卡丘 不進品質池，每格候選各 0.5% 獨立抽取（四池通用）。</p>';
     UI.confirm('品質機率', t, null, '知道了');
     var btns = UI.$('confirm').getElementsByClassName('btn'); if (btns[1]) btns[1].style.display = 'none';
   };

@@ -39,7 +39,7 @@ ok(byId['s11_8'].enemies.filter(function (e) { return e.cell === 4; })[0].e === 
 ok(byId['s13_8'].enemies.filter(function (e) { return e.cell === 4; })[0].e === 'b_lvbu' && byId['s13_8'].enemies.filter(function (e) { return e.cell === 4; })[0].lv === 91, 's13_8 首領呂布 cell 4 Lv91（關卡 Lv90＋1，金框）');
 ok(byId['s13_9'].enemies.filter(function (e) { return e.cell === 4; })[0].e === 'b_dugu' && byId['s13_9'].enemies.filter(function (e) { return e.cell === 4; })[0].lv === 91, 's13_9 隱藏首領獨孤求敗 cell 4 Lv91');
 ok(D.stages.stages.filter(function (s) { return s.ch >= 11; }).every(function (s) { return s.enemies.every(function (e) { return D.stages.enemies[e.e]; }); }), '新章全部敵人 id 皆存在於 enemies 表');
-ok([11, 12, 13].every(function (ch) { return D.stages.chapters[ch - 1].souls.every(function (id) { return D.heroes.list.some(function (h) { return h.id === id; }); }); }), '新章全部將魂 id 皆為 88 名武將之一');
+ok([11, 12, 13].every(function (ch) { return D.stages.chapters[ch - 1].souls.every(function (id) { return D.heroes.list.some(function (h) { return h.id === id; }); }); }), '新章全部將魂 id 皆為 90 名武將之一');
 
 console.log('[關卡表與獎勵（設計 §2.3）]');
 ok(D.stages.stages.filter(function (s) { return s.ch === 11; }).map(function (s) { return s.lv; }).join(',') === '79,80,80,81,82,82,83,84,85', 'ch11 等級 79–84、隱藏 85');
@@ -94,7 +94,7 @@ ok(JSON.stringify(D.config.enemyScale) === JSON.stringify({ from: 12, atk: 0.03,
 console.log('[×2 終局門檻：固定滿裝隊、12 種子、實戰口徑（隨機組合→×2→詞綴→增援→事件）]');
 function gateTeam(kind, L, Mx, Gx, Sx) {
   var Rx = Mx.R, Ux = Mx.U, Dx = Mx.D, sx = Sx.state;
-  var p = kind === 'max' ? { plus: L, codex: 87 } : { plus: 28, codex: 60 };
+  var p = kind === 'max' ? { plus: L, codex: 90 } : { plus: 28, codex: 60 };
   Gx.lead().lv = L; Gx.lead().sk = { a: 10, u: 10, p: 10 }; Gx.lead().star = 5;
   var py = Math.floor(10 + 1.5 * L); Gx.lead().py = { str: py, int: py, agi: py, con: py };
   sx.player.leadQ = L < 20 ? 2 : L < 60 ? 3 : 4;
@@ -175,13 +175,13 @@ console.log('[存檔 v12 與考證]');
 ok(S.VERSION === 12, '存檔版本仍為 v12（零遷移、零新欄位）');
 ok(G.stageState('s13_8').stars === 0 && G.stageState('s13_8').clears === 0, '新關預設紀錄為 0（舊存檔讀取時不憑空建立）');
 var prov = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'src', 'data', 'provenance.json'), 'utf8'));
-ok(prov.entries.length === 313, '考證共 313 條（WL-12 ＋3）');
-ok(prov.entries.filter(function (x) { return x.grade === 'D'; }).length === 147, 'D 級共 147 條（WL-12 ＋3）');
+ok(prov.entries.length === 324, '考證共 324 條（WL-14 ＋5）');
+ok(prov.entries.filter(function (x) { return x.grade === 'D'; }).length === 158, 'D 級共 158 條（WL-14 ＋5）');
 ['balance.bossScale12', 'balance.doubleGate', 'stages.ch11_13'].forEach(function (id) {
   var e = prov.entries.filter(function (x) { return x.id === id; })[0];
   ok(!!e && e.grade === 'D' && e.label.indexOf('原版') < 0 && e.tentative === true && e.phase === 'WL-12', '考證條目 ' + id + ' 為 D 級／暫定／WL-12／不標原版');
 });
-ok(M.D.provenance && M.D.provenance.entries.length === 313, 'data.generated.js 含最新考證表（313 條）');
+ok(M.D.provenance && M.D.provenance.entries.length === 324, 'data.generated.js 含最新考證表（324 條）');
 
 console.log('結果：通過 ' + pass + '，失敗 ' + fail);
 if (fail) process.exit(1);

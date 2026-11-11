@@ -119,7 +119,7 @@ function strongTeam(g, s, mj) { // 僅為測試登頂路徑：7 人滿級滿星�
       if (best) h.eq[slot] = { uid: 0, t: best.id, q: 3, plus: 90, aff: [], gems: [] };
     });
   });
-  for (var n = 0; n < 87; n++) s.state.codex['sim' + n] = 1; // 圖鑑 87（與 balance.js max 檔一致）
+  for (var n = 0; n < 90; n++) s.state.codex['sim' + n] = 1; // 圖鑑 90（與 balance.js max 檔一致）
 }
 strongTeam(G, S, M);
 sk = G.towerSkip(3);

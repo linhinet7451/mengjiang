@@ -62,9 +62,9 @@ var HEROES = D.heroes.list || D.heroes;
 function profile(kind, L) {
   var typ = kind === 'typ';
   // WL-8 補修 max 模型（與 tools/balance.js 同定義，複製於此）：最高品質武將 4、當級最好裝備與最高品質（紫 q3）、
-  // 強化拉滿（plus＝等級）、技能升滿（sk＝min(10, 等級)）、圖鑑全收（87）、培養拉滿（py＝floor(10+1.5L) 四維全滿）、
+  // 強化拉滿（plus＝等級）、技能升滿（sk＝min(10, 等級)）、圖鑑全收（90）、培養拉滿（py＝floor(10+1.5L) 四維全滿）、
   // 將星 5 星、主角升階（Lv<20 為 2、20–59 為 3、60+ 為 4）、上陣人數拉滿。心法／寶石／洗鍊不建模（保守估計）。
-  if (kind === 'max') return { hq: 4, top: 7, lvGap: 0, gearLv: L, gearQ: 3, plus: L, sk: Math.min(10, L), codex: 87, py: Math.floor(10 + 1.5 * L) };
+  if (kind === 'max') return { hq: 4, top: 7, lvGap: 0, gearLv: L, gearQ: 3, plus: L, sk: Math.min(10, L), codex: 90, py: Math.floor(10 + 1.5 * L) };
   if (kind === 'min') return { hq: L < 25 ? 1 : 2, top: 0, lvGap: 3, gearLv: L - 12, gearQ: 0, plus: 0, sk: 1, jx: 0, codex: 3, py: 0 };
   var hq = L < 10 ? 1 : L < 25 ? 2 : 3; if (!typ) hq = Math.max(1, hq - 1);
   return { hq: hq, top: typ ? (L >= 55 ? 3 : L >= 35 ? 2 : L >= 25 ? 1 : 0) : (L >= 50 ? 1 : 0), lvGap: typ ? 1 : 2, gearLv: typ ? L : L - 6, gearQ: typ ? (L < 15 ? 1 : L < 35 ? 2 : 3) : (L < 25 ? 0 : L < 45 ? 1 : 2), plus: Math.floor(L / (typ ? 5 : 9)), sk: Math.min(9, 1 + Math.floor(L / (typ ? 6 : 10))), codex: Math.min(60, Math.floor(3 + L * (typ ? 0.8 : 0.4))), py: Math.floor(L * (typ ? 0.6 : 0.25)) };
@@ -125,7 +125,7 @@ console.log('[WL-8 補修：max 模型打 ×2——現況已達標，遊戲不�
 var pMax75 = profile('max', 75);
 ok(pMax75.hq === 4 && pMax75.top === 7 && pMax75.lvGap === 0, 'max 模型：品質 4、上陣拉滿、無等級落差');
 ok(pMax75.gearLv === 75 && pMax75.gearQ === 3 && pMax75.plus === 75, 'max 模型：當級最好裝備、紫品質、強化拉滿（plus＝等級）');
-ok(pMax75.sk === 10 && pMax75.codex === 87 && pMax75.py === 122, 'max 模型：技能 10（神）、圖鑑 87、培養 122＝floor(10+1.5×75)');
+ok(pMax75.sk === 10 && pMax75.codex === 90 && pMax75.py === 122, 'max 模型：技能 10（神）、圖鑑 90、培養 122＝floor(10+1.5×75)');
 ok(profile('max', 8).sk === 8 && profile('max', 8).py === 22, 'max 模型低等級：技能不超過等級（sk＝min(10,L)）、培養 floor(10+1.5×8)＝22');
 // max 隊伍數值明顯強於一般隊（同一等級對照）
 function teamAtk(team) { var a = 0; U.each(team, function (t) { a += t.unit.patk + t.unit.matk + t.unit.jatk; }); return a; }

@@ -11,11 +11,11 @@ function profile(kind, L, qOv) {
   var typ = kind === 'typ';
   // WL-8 補修：max＝該章最高理論隊伍（D 級）：最高品質武將（品質 4）、當級最好裝備（gearLv=L，裝備最高 Lv54）與
   // 最高品質（紫 q3）、強化拉滿（plus=L：神兵坊等級上限＝主角等級，銀幣成本不計）、技能升滿（sk=min(10,L)：9 級＋
-  // 「突破·神」升 10 級，技能等級不能超過武將等級）、圖鑑全收（codex=87：88 名武將扣主角，獎勵封頂 15%）、
+  // 「突破·神」升 10 級，技能等級不能超過武將等級）、圖鑑全收（codex=90：90 名武將，獎勵封頂 15%）、
   // 培養拉滿（py=培養上限 floor(10+1.5L)，四維全滿）、將星 5 星（star=5）、主角升階（leadQ：Lv<20 為 2、
   // 20–59 為 3、60+ 為 4）、上陣人數拉滿（top=7：8 人上限扣主角）。不建模：心法／寶石／裝備洗鍊屬性
   // （所有檔次皆不建模，故 max 是保守估計——真實全滿隊伍只會更強）。
-  if (kind === 'max') return { hq: 4, top: 7, lvGap: 0, gearLv: L, gearQ: 3, plus: L, sk: Math.min(10, L), codex: 87, py: Math.floor(10 + 1.5 * L) };
+  if (kind === 'max') return { hq: 4, top: 7, lvGap: 0, gearLv: L, gearQ: 3, plus: L, sk: Math.min(10, L), codex: 90, py: Math.floor(10 + 1.5 * L) };
   // WL-11：vet＝Tomas 近似隊（D 級，設計筆記 §3.1）：最高品質、當級最好裝備、強化固定 +28（神兵坊 Lv28 上限，
   // Tomas 照片）、技能 10、圖鑑 60、培養拉滿、5 星、主角升階同 max；心法／寶石／洗鍊不建模，故為保守估計。
   if (kind === 'vet') return { hq: 4, top: 7, lvGap: 0, gearLv: L, gearQ: 3, plus: 28, sk: 10, codex: 60, py: Math.floor(10 + 1.5 * L) };
@@ -344,7 +344,7 @@ U.each(['s1_8', 's2_8', 's3_8'], function (id) {
 // 總倍率＝bossScale×doubleMult；上限 4 即 doubleMult＝min(mult, 4/bossScale)。
 (function () {
   var wl8fix = {
-    maxModel: 'hq4/top7/lvGap0/gearLv=L/gearQ3/plus=L/sk=min(10,L)/codex87/py=floor(10+1.5L)/star5/leadQ(L<20:2,20-59:3,60+:4)；心法／寶石／洗鍊不建模（保守估計）',
+    maxModel: 'hq4/top7/lvGap0/gearLv=L/gearQ3/plus=L/sk=min(10,L)/codex90/py=floor(10+1.5L)/star5/leadQ(L<20:2,20-59:3,60+:4)；心法／寶石／洗鍊不建模（保守估計）',
     loadedMult: G.DOUBLE.mult,
     rows: [], summary: {}
   };

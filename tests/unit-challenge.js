@@ -117,7 +117,7 @@ console.log('[provenance]');
 var prov = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'src', 'data', 'provenance.json'), 'utf8'));
 var pe = prov.entries.filter(function (e) { return e.id === 'mode.limitedRounds'; })[0];
 ok(!!pe && pe.grade === 'D' && pe.phase === 'WL-5', 'provenance 有 mode.limitedRounds D 級紀錄（WL-5）');
-ok(prov.entries.length === 313, 'provenance 共 313 條（310＋3，WL-12 加 balance.bossScale12、balance.doubleGate、stages.ch11_13）');
+ok(prov.entries.length === 324, 'provenance 共 324 條（319＋5，WL-14 加 hero.doraemon、hero.pikachu、recruit.special、web2.range.hero.doraemon、web2.range.hero.pikachu）');
 
 console.log('[戰前顯示：關卡面板]');
 c.MJ.UI = { sel: {}, screens: {}, actions: {}, modals: {}, panel: function (t, b) { return b; }, patternGrid: function () { return ''; } };
