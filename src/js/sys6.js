@@ -63,11 +63,14 @@
     var sg = baseFloor(f);
     if (f % 10 === 0) {
       var k = f / 10;
-      if (k % 2) { // 奇數：一件藍色裝備（等級約等於該層敵人等級，D）
-        var lv = Math.min(54, Math.floor(Math.min(R.maxLevel, 18 + Math.round(f * 0.62)) / 6) * 6) || 1;
-        var ids = ['wp', 'hm', 'ar', 'cp', 'bt', 'rg'], id = ids[(k >> 1) % ids.length] + lv;
+      if (k % 2) { // 奇數：一件藍色裝備（WL-10：與關卡掉落一致，等級一律 Lv1，玩家在神兵坊升級；D）
+        var ids = ['wp', 'hm', 'ar', 'cp', 'bt', 'rg'], id = ids[(k >> 1) % ids.length] + 1;
         if (R.equipTpl(id)) sg.first.items.push({ item: 'eq:' + id, q: 2 });
       } else sg.first.items.push({ item: G.FRAG, n: k }); // 偶數：紫裝碎片 ×(層/10)
+    }
+    if (f === 150) { // WL-11：登頂里程碑（首通額外，D）：紫裝碎片 ×15＋金 100
+      sg.first.items.push({ item: G.FRAG, n: 15 });
+      sg.first.gold = (sg.first.gold || 0) + 100;
     }
     return sg;
   };

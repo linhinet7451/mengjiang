@@ -52,6 +52,12 @@ var f1 = G.towerFloor(1), f10 = G.towerFloor(10), f100 = G.towerFloor(100);
 ok(f1.enemies.length === 3 && f10.kind === 'boss' && f100.enemies.length === 9, '第 1 層 3 人、第 10 層王、第 100 層 9 人');
 ok(f10.enemies[0].leader && M.R.enemyUnit(f10.enemies[0], f10).layers >= 3, '每 10 層 Boss 有多層血條');
 ok(f100.enemies[0].lv > f1.enemies[0].lv, '樓層越高敵人越強');
+var f150 = G.towerFloor(150), f120 = G.towerFloor(120);
+ok(G.TOWER_MAX === 150, '通天塔上限 150 層（WL-11）');
+ok(f150.kind === 'boss' && f150.enemies.length === 9, '第 150 層王、9 人（新頂）');
+ok(f150.enemies[0].lv === 91 && f150.enemies[1].lv === 90, '第 150 層首領 Lv91、小怪 Lv90（等級封頂）');
+ok(f120.first.items.some(function (it) { return /^gem_[a-z]+_6$/.test(it.item); }), '第 120 層首通給 Lv6 寶石（WL-11：min(6, 1+floor(f/20))，實為 F100 起 Lv6）');
+ok(f150.first.gold === 195 && f150.first.items.some(function (it) { return it.item === G.FRAG && it.n === 15; }), '第 150 層登頂里程碑：金 195（95＋100）＋紫裝碎片 ×15（WL-11）');
 power(G, 80); S.state.heroes.forEach(function (h) { h.lv = 80; h.star = 5; });
 var gold0 = S.state.player.gold, xh0 = S.state.player.xinghun;
 r = G.towerFight(12345);
@@ -66,7 +72,8 @@ r = G.towerSweep(); ok(r.ok && S.state.player.silver > silB, '塔俸可領（新
 ok(!G.towerSweep().ok, '領過後要再贏 ' + G.TICKET.tower + ' 場才能再領');
 c._t = T0 + 24 * H; ok(!G.towerSweep().ok, '隔天也不會重置（不看日期）');
 S.state.stats.wins += G.TICKET.tower; ok(G.towerSweep().ok, '再贏 ' + G.TICKET.tower + ' 場後可以再領');
-S.state.tower.best = 100; ok(!G.towerFight().ok, '登頂後不能再挑戰');
+S.state.tower.best = 100; ok(G.towerFight(7).ok, '舊頂 100 層後仍可挑戰第 101 層（WL-11：上限已改 150）');
+S.state.tower.best = 150; ok(!G.towerFight().ok, '登頂 150 層後不能再挑戰');
 
 console.log('[無極幻境：連續波次]');
 c = fresh(); M = c.MJ; G = M.G; S = M.S;
@@ -92,27 +99,40 @@ c = fresh(); M = c.MJ; G = M.G; S = M.S;
 power(G, 80); S.state.heroes.forEach(function (h) { h.lv = 80; h.star = 5; });
 r = G.towerFight(12345);
 ok(r.ok && r.win && G.towerAutoNext(r), '塔勝利且未登頂時自動接續判定為真');
-S.state.tower.best = 100;
-ok(!G.towerAutoNext(r), '已登頂時自動接續判定為假（不再打下一層）');
+S.state.tower.best = 150;
+ok(!G.towerAutoNext(r), '已登頂 150 層時自動接續判定為假（不再打下一層）');
 var sk = G.towerSkip();
 ok(!sk.ok, '已登頂時跳過被拒絕（不再重打）');
 c = fresh(); M = c.MJ; G = M.G; S = M.S;
-function strongTeam(g, s) { // 僅為測試登頂路徑：7 人滿級滿星、培養拉滿的隊伍
-  ['zhaoyun', 'guanyu', 'zhangfei', 'huangzhong', 'machao', 'diaochan'].forEach(function (id, i) { var h = g.newHero(id, s.state); s.state.heroes.push(h); s.state.team.cells[1 + i] = h.uid; });
-  s.state.heroes.forEach(function (h) { h.lv = 90; h.star = 5; h.py = { str: 2000, int: 2000, agi: 2000, con: 2000 }; });
+function strongTeam(g, s, mj) { // 僅為測試登頂路徑：7 人滿級滿星、培養拉滿的隊伍
+  var R = mj.R, U = mj.U, D = mj.D;
+  s.state.team.cells = {}; s.state.team.cells[4] = g.lead().uid; // 主角放中排中間（先清空：新存檔預設 3 人在 0／3／6 格，直接覆寫會把主角擠下場）
+  var order = [1, 7, 0, 6, 2, 8];
+  ['zhaoyun', 'guanyu', 'zhangfei', 'huangzhong', 'machao', 'diaochan'].forEach(function (id, i) { var h = g.newHero(id, s.state); s.state.heroes.push(h); s.state.team.cells[order[i]] = h.uid; });
+  s.state.heroes.forEach(function (h) {
+    h.lv = 90; h.star = 5; h.py = { str: 2000, int: 2000, agi: 2000, con: 2000 };
+    // WL-11：塔倍率 ×1.15 自 F50 起，F100 已 ×2.01——光靠培養不夠，需滿裝（Lv54 紫、強化＝Lv）才能跳過登頂 150
+    var dt = h.id === 'lead' ? 'p' : (R.heroDef(h.id).type.charAt(0) === '力' ? 'p' : R.heroDef(h.id).type.charAt(0) === '智' ? 'm' : 'j');
+    U.each(R.SLOTS, function (slot) {
+      var best = null;
+      U.each(D.equipment.list, function (e) { if (e.slot !== slot || e.lv > 54) return; if (slot === 'weapon' && e.id.charAt(1) !== dt) return; if (!best || e.lv > best.lv) best = e; });
+      if (best) h.eq[slot] = { uid: 0, t: best.id, q: 3, plus: 90, aff: [], gems: [] };
+    });
+  });
+  for (var n = 0; n < 87; n++) s.state.codex['sim' + n] = 1; // 圖鑑 87（與 balance.js max 檔一致）
 }
-strongTeam(G, S);
+strongTeam(G, S, M);
 sk = G.towerSkip(3);
 ok(sk.ok && sk.fought === 3 && sk.reached === 3 && !sk.topped && !sk.lostAt, '跳過設上限 3 層：只打 3 層就停，未登頂、未戰敗');
 var first3Rewards = sk.rewards.length;
 // 跳過到登頂，與逐層打的獎勵一致
 sk = G.towerSkip();
-ok(sk.ok && sk.topped && sk.reached === 100 && sk.fought === 97 && sk.rewards.length > 0, '強隊跳過：從第 4 層連打到登頂（97 層）');
+ok(sk.ok && sk.topped && sk.reached === 150 && sk.fought === 147 && sk.rewards.length > 0, '強隊跳過：從第 4 層連打到登頂（147 層）');
 var cM = fresh(), GM = cM.MJ.G, SM = cM.MJ.S;
-strongTeam(GM, SM);
+strongTeam(GM, SM, cM.MJ);
 var manRewards = 0, manBattles = 0;
-while (SM.state.tower.best < GM.TOWER_MAX && manBattles < 100) { var mr = GM.towerFight(); if (!mr.ok || !mr.win) break; manRewards += mr.rewards.length; manBattles++; }
-ok(manBattles === 100 && manRewards === sk.rewards.length + first3Rewards && S.state.player.silver === SM.state.player.silver && S.state.player.gold === SM.state.player.gold && S.state.player.xinghun === SM.state.player.xinghun, '跳過後獎勵與逐層打一致（獎勵 ' + sk.rewards.length + '＋前 3 層 ' + first3Rewards + '＝' + manRewards + ' 項，銀／金／星魂相同）');
+while (SM.state.tower.best < GM.TOWER_MAX && manBattles < 150) { var mr = GM.towerFight(); if (!mr.ok || !mr.win) break; manRewards += mr.rewards.length; manBattles++; }
+ok(manBattles === 150 && manRewards === sk.rewards.length + first3Rewards && S.state.player.silver === SM.state.player.silver && S.state.player.gold === SM.state.player.gold && S.state.player.xinghun === SM.state.player.xinghun, '跳過後獎勵與逐層打一致（獎勵 ' + sk.rewards.length + '＋前 3 層 ' + first3Rewards + '＝' + manRewards + ' 項，銀／金／星魂相同）');
 ok(S.state.stats.battles === SM.state.stats.battles, '跳過與逐層打的戰鬥場次一致（' + S.state.stats.battles + ' 場）');
 c = fresh(); M = c.MJ; G = M.G; S = M.S; G.lead().lv = 22; S.state.tower.best = 59;
 r = G.towerFight(7);

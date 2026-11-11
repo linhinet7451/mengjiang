@@ -45,6 +45,16 @@ MJ.R = (function () {
     return o;
   };
   R.equipTpl = function (t) { return MJ.D.equipIndex[t] || null; };
+  // WL-10：裝備等級檔次表（D；與 equipment.json 的 10 檔一致）。升級＝換同家族下一檔模板。
+  R.EQUIP_TIERS = [1, 6, 12, 18, 24, 30, 36, 42, 48, 54];
+  R.nextEquipTier = function (t) {
+    var tpl = R.equipTpl(t); if (!tpl) return null;
+    var m = String(t).match(/^([a-z]+)(\d+)$/); if (!m) return null;
+    var i = R.EQUIP_TIERS.indexOf(tpl.lv);
+    if (i < 0 || i + 1 >= R.EQUIP_TIERS.length) return null;
+    var nt = m[1] + R.EQUIP_TIERS[i + 1];
+    return R.equipTpl(nt) ? nt : null;
+  };
   // D：副屬性（命中/暴擊/閃避，百分點）只來自裝備（A：截圖 Lv6 皆為 0.00）
   function r2(v) { return Math.round(v * 100) / 100; }
   // 第二階段：強化 +N（主屬性 +7%/級）、洗煉附加屬性、鑲嵌寶石（D）
@@ -262,6 +272,19 @@ MJ.R = (function () {
         u.hp = Math.floor(u.hp * bm); u.ult.flat = Math.floor(u.ult.flat * bm);
       }
     }
+    // WL-11：通天塔／無極幻境成長倍率（D，見 provenance balance.towerScale／balance.wujiScale）。
+    // 塔 f>from（幻境 W>from）起，每 10 層／波攻防血 ×mult（命中／閃避／爆擊／敏捷／等級／層數不動）；
+    // 只套塔（stage.floor）／幻境（stage.wave），與主線 bossScale 互斥。F50／W50 當層倍率 ×1。
+    function applyScale(sc, x) {
+      if (!sc || x == null || x <= sc.from) return;
+      var m = Math.pow(sc.mult, Math.floor((x - sc.from) / 10));
+      if (!m || m === 1) return;
+      U.each(['patk', 'matk', 'jatk'], function (k) { u[k] = Math.floor(u[k] * m); });
+      U.each(['pdef', 'mdef', 'jdef'], function (k) { u[k] = Math.floor(u[k] * m); });
+      u.hp = Math.floor(u.hp * m); u.ult.flat = Math.floor(u.ult.flat * m);
+    }
+    applyScale(cfg.towerScale, stage && stage.floor);
+    applyScale(cfg.wujiScale, stage && stage.wave);
     return u;
   };
 

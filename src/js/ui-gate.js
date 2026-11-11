@@ -19,7 +19,7 @@
         h += '<div class="cnode' + (open ? '' : ' locked') + '" style="left:' + (NODE[i][0] - 70) + 'px;top:' + (NODE[i][1] - 90) + 'px" data-a="' + (open ? 'gateCh' : 'info') + '" data-v="' + (open ? c.id : '第' + c.id + '章「' + c.name + '」：需要主角等級 ' + c.lv + '，並通關上一章王關') + '">' +
           (c.id === curCh ? '<div class="arrow" title="目前進度"></div>' : '') + '<div class="cn-orb" style="background:' + c.bg + '">' + (open ? '<span>' + c.id + '</span>' : '<span>鎖</span>') + '</div><div class="cn-name">' + U.esc(c.name) + '</div><div class="cn-sub">' + (open ? '★' + st3 + '/27　通關 ' + cl + '/9' : '需要 Lv' + c.lv) + '</div></div>';
       });
-      if (vols > 1) h += '<div class="gate-vol">' + (vol > 0 ? '<a class="btn small" data-a="gateVol" data-v="' + (vol - 1) + '">◀ 上一卷</a>' : '') + '<b>第' + ['一', '二', '三'][vol] + '卷</b>' + (vol < vols - 1 ? '<a class="btn small" data-a="gateVol" data-v="' + (vol + 1) + '">下一卷 ▶</a>' : '') + '</div>';
+      if (vols > 1) h += '<div class="gate-vol">' + (vol > 0 ? '<a class="btn small" data-a="gateVol" data-v="' + (vol - 1) + '">◀ 上一卷</a>' : '') + '<b>第' + ['一', '二', '三', '四'][vol] + '卷</b>' + (vol < vols - 1 ? '<a class="btn small" data-a="gateVol" data-v="' + (vol + 1) + '">下一卷 ▶</a>' : '') + '</div>';
       h += '</div><div class="gate-tip">挑戰關卡不消耗精力，可無限重複挑戰；首通獎勵只發一次，一般獎勵可重複取得。</div></div>';
     } else {
       var c = U.find(MJ.D.stages.chapters, function (x) { return x.id === ch; });

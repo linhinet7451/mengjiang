@@ -13,7 +13,7 @@ function simulate(opt) {
   G.newGame('模擬', opt.lead || '力耐', 'm', opt.seed || 1);
   if (opt.econ === 'fast' && G.setEcon) G.setEcon('fast');
   var s = M.S.state, stages = D.stages.stages, rngSeed = 1000;
-  var log = [], dayStats = [], lastProgressDay = 0, maxStuck = 0, stuckAt = null, losses = 0, timeouts = 0, stales = 0, wins = 0, curStuck = 0;
+  var log = [], dayStats = [], lastProgressDay = 0, maxStuck = 0, stuckAt = null, losses = 0, timeouts = 0, stales = 0, wins = 0, curStuck = 0, upgSpend = 0, upgSteps = 0;
   var dg = { n: 0, acts: 0, waits: 0, aHp: 0, bHp: 0, noLane: 0, quiet8: 0, stuckHit: 0, turns: 0 };
   function diag(b) { dg.n++; b.events.forEach(function (e) { if (e.t === 'act') dg.acts++; else if (e.t === 'wait') dg.waits++; }); var ha = 0, ma = 0, hb = 0, mb = 0; (b.units || []).forEach(function (u) { if (u.side === 'A') { ha += Math.max(0, u.hp); ma += u.maxHp || u.mhp || 0; } else { hb += Math.max(0, u.hp); mb += u.maxHp || u.mhp || 0; } }); dg.aHp += ma ? ha / ma : 0; dg.bHp += mb ? hb / mb : 0;
     var la = {}, lb = {}; (b.units || []).forEach(function (u) { if (u.hp > 0 && u.br != null) (u.side === 'A' ? la : lb)[u.br] = 1; }); if (!Object.keys(la).some(function (k) { return lb[k]; })) dg.noLane++;
@@ -58,6 +58,11 @@ function simulate(opt) {
       for (var bi = 0; bi < ks.length; bi++) { var k = ks[bi]; if (s.player.silver > G.buildingCost(k, s.buildings[k] || 1) * 1.5 && G.upgradeBuilding(k).ok) { up = true; break; } }
       if (!up) break;
     }
+    // WL-10：升級出戰武將的裝備（銀幣夠才升級，目標＝武將等級；與強化迴圈同樣的 3 倍保留）
+    if (!opt.noBuild && G.upgradeEquip) G.teamList().forEach(function (x) {
+      var eq = x.hero.eq || {};
+      Object.keys(eq).forEach(function (slot) { var e = eq[slot]; if (!e) return; for (var n = 0; n < 9; n++) { var c = G.upgradeCost(e); if (!c || s.player.silver < c * 3) break; var r = G.upgradeEquip(e.uid); if (!r.ok) break; upgSpend += r.cost; upgSteps++; } });
+    });
     // 強化出戰武將的裝備（銀幣夠才強化）
     if (!opt.noBuild && G.enhance) G.teamList().forEach(function (x) {
       var eq = x.hero.eq || {};
@@ -97,9 +102,11 @@ function simulate(opt) {
     var nt = nextTarget(), done = stages.filter(function (x) { return cleared(x.id); }).length;
     if (dayProg || !nt) curStuck = 0; else curStuck++;
     if (curStuck > maxStuck) { maxStuck = curStuck; stuckAt = nt ? nt.id + '（' + nt.name + '，推薦 Lv' + nt.lv + '）' : null; }
-    dayStats.push({ day: d, lv: G.lead().lv, cleared: done, next: nt ? nt.id : (done >= stages.length ? '全破' : '等級鎖'), tower: s.tower ? s.tower.best : 0, heroes: s.heroes.length, team: G.teamCount(), silver: s.player.silver, gold: s.player.gold, stuck: curStuck });
+    var gearSum = 0, gearN = 0;
+    G.teamList().forEach(function (x) { var eq = x.hero.eq || {}; Object.keys(eq).forEach(function (slot) { var e = eq[slot]; if (e) { var tp = R.equipTpl(e.t); if (tp) { gearSum += tp.lv; gearN++; } } }); });
+    dayStats.push({ day: d, lv: G.lead().lv, cleared: done, next: nt ? nt.id : (done >= stages.length ? '全破' : '等級鎖'), tower: s.tower ? s.tower.best : 0, heroes: s.heroes.length, team: G.teamCount(), silver: s.player.silver, gold: s.player.gold, stuck: curStuck, upgSpend: upgSpend, upgSteps: upgSteps, gearAvg: gearN ? +(gearSum / gearN).toFixed(1) : 0 });
   }
-  return { econ: opt.econ, total: stages.length, days: dayStats, maxStuck: maxStuck, stuckAt: stuckAt, wins: wins, losses: losses, timeouts: timeouts, stales: stales, rv: R.RV, diag: dg };
+  return { econ: opt.econ, total: stages.length, days: dayStats, maxStuck: maxStuck, stuckAt: stuckAt, wins: wins, losses: losses, timeouts: timeouts, stales: stales, rv: R.RV, diag: dg, upgSpend: upgSpend, upgSteps: upgSteps };
 }
 
 module.exports = simulate;
@@ -112,6 +119,7 @@ var days = +arg('days', 30), out = [];
   console.log('天數  主角等級  通關數/' + r.total + '  下一關     通天塔  武將  出戰  銀幣');
   r.days.forEach(function (x) { if (x.day <= 7 || x.day % 5 === 0 || x.day === r.days.length) console.log(('第' + x.day + '天').padEnd(6) + String(x.lv).padStart(6) + String(x.cleared).padStart(10) + '   ' + String(x.next).padEnd(9) + String(x.tower).padStart(6) + String(x.heroes).padStart(6) + String(x.team).padStart(6) + String(x.silver).padStart(9)); });
   console.log('最長連續卡關：' + r.maxStuck + ' 天' + (r.stuckAt ? '（' + r.stuckAt + '）' : '') + '；勝 ' + r.wins + ' 敗 ' + r.losses + '（其中超時 ' + r.timeouts + '、僵局判定 ' + r.stales + '）；戰鬥規則 v' + r.rv);
+  console.log('升級帳本（WL-10）：累計升級花費 ' + r.upgSpend + ' 銀（' + r.upgSteps + ' 步）；最終銀幣 ' + r.days[r.days.length - 1].silver + '；最終裝備平均檔次 Lv' + r.days[r.days.length - 1].gearAvg + '（主角 Lv' + r.days[r.days.length - 1].lv + '）；全套 Lv1→54 需 151,200 銀（每件 18,900）');
   if (r.diag.n) console.log('超時戰鬥診斷：' + r.diag.n + ' 場；出手 ' + r.diag.acts + '、等待（打不到）' + r.diag.waits + '（' + (100 * r.diag.waits / Math.max(1, r.diag.acts + r.diag.waits)).toFixed(1) + '%）；結束時我方平均剩 ' + (100 * r.diag.aHp / r.diag.n).toFixed(0) + '% 血、敵方 ' + (100 * r.diag.bHp / r.diag.n).toFixed(0) + '%；結束時雙方沒有同列的 ' + r.diag.noLane + ' 場、最後 8 回合沒人受傷的 ' + r.diag.quiet8 + ' 場'); console.log('挑戰新關時「打不到人卻挨打」的我方行動：' + r.diag.stuckHit + '／' + r.diag.turns + '（' + (100 * r.diag.stuckHit / Math.max(1, r.diag.turns)).toFixed(1) + '%）');
   console.log(r.maxStuck >= 3 ? '⚠ 可能有硬牆（連續 3 天以上沒有新進度）' : '沒有硬牆（沒有連續 3 天以上卡關）');
 });

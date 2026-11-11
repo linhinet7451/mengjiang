@@ -257,8 +257,8 @@ ok(r2.ok && r2.state.arena.topSeed === S2.state.arena.topSeed && r2.state.arena.
 
 console.log('[考證：WL-9 新增 3 條 D 級]');
 var prov = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'src', 'data', 'provenance.json'), 'utf8'));
-ok(prov.entries.length === 301, 'provenance 共 301 條（298＋3，WL-9 加 mode.randomEvents、arena.topTeam、arena.rankTop）');
-ok(prov.entries.filter(function (e) { return e.grade === 'D'; }).length === 135, 'D 級共 135 條（132＋3）');
+ok(prov.entries.length === 313, 'provenance 共 313 條（310＋3，WL-12 加 balance.bossScale12、balance.doubleGate、stages.ch11_13）');
+ok(prov.entries.filter(function (e) { return e.grade === 'D'; }).length === 147, 'D 級共 147 條（144＋3）');
 U.each(['mode.randomEvents', 'arena.topTeam', 'arena.rankTop'], function (id) {
   var e = U.find(prov.entries, function (x) { return x.id === id; });
   ok(!!e && e.grade === 'D' && e.tentative === true && e.phase === 'WL-9' && e.label.indexOf('原版') < 0, '考證條目 ' + id + '（D 級、暫定、WL-9、不標原版）');

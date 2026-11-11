@@ -116,7 +116,7 @@
     { id: 'a_codex', name: '群英譜', desc: '圖鑑收錄武將', tiers: [10, 30, 60], val: function () { return G.codexCount(); } },
     { id: 'a_lv', name: '一代宗師', desc: '主角等級', tiers: [20, 40, 60, 80], val: function () { return G.lead().lv; } },
     { id: 'a_stars', name: '星羅棋布', desc: '虛空之門累計星數', tiers: [30, 108, 216], val: function (s) { var n = 0; U.each(U.keys(s.stages), function (k) { n += s.stages[k].stars || 0; }); return n; } },
-    { id: 'a_tower', name: '凌雲之志', desc: '通天塔最高層', tiers: [10, 30, 60, 100], val: function (s) { return s.tower.best; } },
+    { id: 'a_tower', name: '凌雲之志', desc: '通天塔最高層', tiers: [10, 30, 60, 100, 150], val: function (s) { return s.tower.best; } },
     { id: 'a_wuji', name: '幻境行者', desc: '無極幻境全波次通關', tiers: [1, 10, 50], val: function (s) { return s.wuji.clears; } },
     { id: 'a_farm', name: '春耕秋收', desc: '農田收成', tiers: [10, 50, 200], val: function (s) { return s.counters.harvest || 0; } },
     { id: 'a_enh', name: '千錘百鍊', desc: '強化成功', tiers: [10, 50, 200], val: function (s) { return s.counters.enhance || 0; } },
@@ -291,14 +291,14 @@
   };
 
   // ---------- 通天塔 ----------
-  G.TOWER_MAX = 100;
+  G.TOWER_MAX = 150; // WL-11：100→150（Tomas 2026-11-10 23:35 定案）
   G.towerFloor = function (f) {
     var kind = f % 10 === 0 ? 'boss' : (f % 5 === 0 ? 'elite' : 'normal');
     var ch = chapterOf(Math.floor((f - 1) / 10));
     var sg = G.makeFoes({ ch: ch, count: Math.min(9, 3 + Math.floor(f / 8)), lv: Math.min(R.maxLevel, 18 + Math.round(f * 0.62)), kind: kind, seed: f * 7919, depth: Math.floor(f / 20) + 3 });
     sg.id = 'tw' + f; sg.name = '通天塔．第 ' + f + ' 層'; sg.floor = f; sg.bg = ch.bg; sg.chName = ch.name;
     var rw = { silver: 500 + f * 80, items: [{ item: f % 2 ? 'peiyangdan' : 'jinengshu', n: 1 + Math.floor(f / 25) }] };
-    if (f % 5 === 0) rw.items.push({ item: 'gem_' + GEMK[(f / 5) % 6] + '_' + Math.min(5, 1 + Math.floor(f / 20)), n: 1 });
+    if (f % 5 === 0) rw.items.push({ item: 'gem_' + GEMK[(f / 5) % 6] + '_' + Math.min(6, 1 + Math.floor(f / 20)), n: 1 }); // WL-11：寶石上限 Lv5→Lv6，F120 起給 Lv6
     if (f % 10 === 0) { rw.gold = 20 + f / 2; rw.items.push({ item: 'xf_' + XF[(f / 10) % XF.length], n: 1 }); }
     if (f % 25 === 0) rw.items.push({ item: 'shenjishu', n: 1 });
     sg.first = rw; sg.xinghun = 5 + Math.floor(f / 10) * 2; sg.exp = 20 + f * 10;
@@ -389,7 +389,9 @@
   G.WUJI = [
     { id: 'w1', name: '初窺之境', open: 12, start: 1, waves: 40, bonus: { items: [{ item: 'jinengshu', n: 2 }, { item: 'peiyangdan', n: 2 }] }, first: { gold: 50 } },
     { id: 'w2', name: '登堂之境', open: 25, start: 41, waves: 40, bonus: { items: [{ item: 'jinengshu', n: 3 }, { item: 'xinfacanye', n: 2 }, { item: 'gem_atk_2', n: 1 }] }, first: { gold: 100, items: [{ item: 'shenjishu', n: 1 }] } },
-    { id: 'w3', name: '化境', open: 42, start: 81, waves: 40, bonus: { items: [{ item: 'shenjishu', n: 1 }, { item: 'xinfacanye', n: 3 }, { item: 'gem_hp_3', n: 1 }] }, first: { gold: 200, items: [{ item: 'seed_soul', n: 2 }] } }
+    { id: 'w3', name: '化境', open: 42, start: 81, waves: 40, bonus: { items: [{ item: 'shenjishu', n: 1 }, { item: 'xinfacanye', n: 3 }, { item: 'gem_hp_3', n: 1 }] }, first: { gold: 200, items: [{ item: 'seed_soul', n: 2 }] } },
+    { id: 'w4', name: '破軍之境', open: 55, start: 121, waves: 40, bonus: { items: [{ item: 'jinengshu', n: 4 }, { item: 'xinfacanye', n: 3 }, { item: 'gem_atk_4', n: 1 }] }, first: { gold: 300, items: [{ item: 'shenjishu', n: 2 }] } }, // WL-11：新增第 4 檔（121–160 波）
+    { id: 'w5', name: '無雙之境', open: 65, start: 161, waves: 40, bonus: { items: [{ item: 'shenjishu', n: 3 }, { item: 'xinfacanye', n: 5 }, { item: 'gem_hp_5', n: 1 }] }, first: { gold: 500, items: [{ item: 'seed_soul', n: 3 }] } } // WL-11：新增第 5 檔（161–200 波）
   ];
   G.wujiTier = function (id) { return U.find(G.WUJI, function (t) { return t.id === id; }); };
   G.wujiLeft = function () { return Infinity; }; // P2：無限挑戰（規格書）
@@ -404,7 +406,7 @@
   };
   G.wujiMilestone = function (W) { return W % 10 === 0 ? { gold: Math.floor(W / 2) } : null; }; // D：每 10 波第一次到達給金幣（只一次）
   G.wujiWave = function (t, w, seed) {
-    var W = t.start + w, lv = G.wujiLv(W), ch = chapterOf(Math.min(7, Math.floor((W - 1) / 15)));
+    var W = t.start + w, lv = G.wujiLv(W), ch = chapterOf(Math.min(12, Math.floor((W - 1) / 15))); // WL-12：敵池上限改到第 13 章（原 min 9＝第 10 章）
     var kind = W % 10 === 0 ? 'boss' : (W % 5 === 0 ? 'elite' : 'normal');
     var sg = G.makeFoes({ ch: ch, count: Math.min(9, 3 + Math.floor((W - 1) / 12)), lv: lv, kind: kind, seed: seed + W * 101, depth: lv >= 40 ? 5 : 0 });
     sg.name = '無極．第 ' + W + ' 波'; sg.bg = ch.bg; sg.id = t.id; sg.wave = W;

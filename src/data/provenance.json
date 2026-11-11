@@ -6310,6 +6310,234 @@
       "tentative": true,
       "phase": "WL-9",
       "note": "量測結果見 docs/balance-wl9-after.txt/.json §12（wl9top）。"
+    },
+    {
+      "id": "mode.equipDropLv1",
+      "cat": "玩法",
+      "item": "戰鬥獎勵裝備掉落一律 Lv1（WL-10）：掉落品質／顏色／機率不變，等級全部從 Lv1 開始，玩家在神兵坊升級裝備等級",
+      "spec": "本作設計",
+      "current": "WL-10（2026-11-10 Tomas 決定：戰鬥獎勵可拿到不同顏色的武器，但等級都是從 Lv1 開始，玩家可在神兵坊升級武器等級；現在掉 Lv10 紫色腰帶、強化升滿，到 30 級就不能用，前面強化全浪費）。D 級原創，非原版。設計：stages.json 全部 200 條裝備掉落引用模板等級一律 Lv1——180 條關卡掉落（普通白 q0@25%＋綠 q1@8%、精英綠@50%＋藍 q2@20%、王／隱藏藍@50%＋紫 q3@35%）＋20 條首通獎勵藍裝（q2，Lv6–54→Lv1）；品質／機率／數量不變，掉落判定（G.fight，seed ^ 0x5bd1e995）與發放（G.grant → G.addEquip）不動，種子決定性不變。通天塔首通藍裝一併改 Lv1（sys6.js G.towerFloor）；紫裝碎片合成維持玩家等級（G.fragCombine 不動）。商店／七日禮包／開局禮包不動。量測見 docs/balance-wl10-after.txt/.json §13。",
+      "grade": "D",
+      "label": "本作設計（暫定）",
+      "sources": [
+        {
+          "s": "SPEC",
+          "q": "2026-11-10 Tomas 決定：戰鬥獎勵可拿到不同顏色的武器，但等級都是從 Lv1 開始，玩家可在神兵坊升級武器等級（不然現在掉 Lv10 紫色腰帶強化升滿，到 30 級就不能用，前面強化浪費了）。"
+        }
+      ],
+      "conflicts": [],
+      "tentative": true,
+      "phase": "WL-10",
+      "note": "量測結果見 docs/balance-wl10-after.txt/.json §13（wl10）。"
+    },
+    {
+      "id": "forge.upgradeLevel",
+      "cat": "神兵坊",
+      "item": "神兵坊升級裝備等級（WL-10）：第 5 個頁籤「升級」，一次升一檔，費用 60×(目標等級+5) 銀，成功率 100%，上限＝主角等級",
+      "spec": "本作設計",
+      "current": "WL-10（2026-11-10 Tomas 批准設計，21:14「沒問題」）。D 級原創，非原版。設計：神兵坊第 5 個頁籤「升級」（ui-p2.js，沿用選裝備面板與強化式流程）；引擎 G.upgradeEquip（sys2.js，G.enhance 旁邊）。一次升一檔：e.t 換成同家族下一檔模板（前綴不變，等級數字變大；R.nextEquipTier，檔次表 [1,6,12,18,24,30,36,42,48,54]）；plus／q／gems／aff 全部保留，數值由 R.equipStats 現算（強化為比例制，換模板後按新基礎值重算，投資零浪費）；洗煉屬性保留原值不重洗（玩家可再洗，費用按新等級算）；名稱隨模板變，面板顯示升級後名稱與數值預覽。費用：60×(目標等級+5) 銀／步（config.upgrade.silverK＝60；Lv1→54 全程每件 18,900、全套 151,200）；成功率 100%（與建築升級一致）。上限：目標等級 ≤ 主角等級（且 ≤ Lv54 模板上限）；穿戴中的裝備取穿戴者等級。神兵坊等級當上限已證不可行（Tomas 神兵坊 Lv28、裝備已 Lv54）。洗煉待確認（washPending）時擋下升級。現有裝備全部 grandfathered、不動；存檔 v12 不動、零遷移、零新欄位。",
+      "grade": "D",
+      "label": "本作設計（暫定）",
+      "sources": [
+        {
+          "s": "SPEC",
+          "q": "2026-11-10 Tomas 批准 WL-10 設計（費用 60×(目標等級+5)、上限＝主角等級、成功率 100%、名稱隨模板變加預覽、洗煉屬性保留原值、通天塔首通藍裝亦改 Lv1、商店／七日禮包不動、一次升一檔）。"
+        }
+      ],
+      "conflicts": [],
+      "tentative": true,
+      "phase": "WL-10",
+      "note": "量測結果見 docs/balance-wl10-after.txt/.json §13（wl10）。"
+    },
+    {
+      "id": "balance.towerScale",
+      "cat": "平衡",
+      "item": "通天塔成長倍率（WL-11）：F50 起每 10 層敵方攻防血 ×1.15",
+      "spec": "本作設計",
+      "current": "WL-11（2026-11-10 Tomas 定案，23:35 選擇推薦方案：塔 ×1.15 自 F50 起）。D 級原創，非原版。設計：config.towerScale＝{mult: 1.15, from: 50}；R.enemyUnit 內套用，倍率＝1.15^floor((f−50)/10)（F50 ×1.00、F60 ×1.15、F100 ×2.01、F150 ×4.05）；只乘攻防血＋絕技 flat，不動命中／閃避／爆擊／敏捷／等級／層數；只套 stage.floor != null（塔），與主線 bossScale 互斥。原「舊關卡完全不變」原則取消：F50–100 對一般隊變難（F100 typ@69 100%→0%，約 Lv75 才打得過）；校準目標 vet@69 F150 0%／max@80 F150 100%（單層）。量測見 docs/balance-wl11-after.txt/.json §14。",
+      "grade": "D",
+      "label": "本作設計（暫定）",
+      "sources": [
+        {
+          "s": "SPEC",
+          "q": "2026-11-10 Tomas 定案：塔 towerScale ×1.15，自 F50 起（附錄 E 推薦方案；原 §4 建議 ×1.12 自 F101 起已取代）。"
+        }
+      ],
+      "conflicts": [],
+      "tentative": true,
+      "phase": "WL-11",
+      "note": "量測結果見 docs/balance-wl11-after.txt/.json §14（wl11）。"
+    },
+    {
+      "id": "balance.wujiScale",
+      "cat": "平衡",
+      "item": "無極幻境成長倍率（WL-11）：W50 起每 10 波敵方攻防血 ×1.08",
+      "spec": "本作設計",
+      "current": "WL-11（2026-11-10 Tomas 定案，23:35 選擇推薦方案：幻境 ×1.08 自 W50 起）。D 級原創，非原版。設計：config.wujiScale＝{mult: 1.08, from: 50}；R.enemyUnit 內套用，倍率＝1.08^floor((W−50)/10)（W50 ×1.00、W120 ×1.71、W200 ×3.17）；只乘攻防血＋絕技 flat，不動命中／閃避／爆擊／敏捷／等級／層數；只套 stage.wave != null（幻境），與主線 bossScale 互斥。舊末波 W120 全隊仍 100% 不變；校準目標 w5 全程 max@80 40/40。量測見 docs/balance-wl11-after.txt/.json §14。",
+      "grade": "D",
+      "label": "本作設計（暫定）",
+      "sources": [
+        {
+          "s": "SPEC",
+          "q": "2026-11-10 Tomas 定案：幻境 wujiScale ×1.08，自 W50 起（附錄 E 推薦方案；原 §4 建議 ×1.10 自 W121 起已取代）。"
+        }
+      ],
+      "conflicts": [],
+      "tentative": true,
+      "phase": "WL-11",
+      "note": "量測結果見 docs/balance-wl11-after.txt/.json §14（wl11）。"
+    },
+    {
+      "id": "wuji.w4w5",
+      "cat": "玩法",
+      "item": "無極幻境新檔 w4 破軍之境（121–160 波，Lv55 開）／w5 無雙之境（161–200 波，Lv65 開）（WL-11）",
+      "spec": "本作設計",
+      "current": "WL-11（2026-11-10 Tomas 決定：塔 150 層、幻境 200 波）。D 級原創，非原版。設計：G.WUJI 加 w4（破軍之境，open Lv55，start 121，waves 40）與 w5（無雙之境，open Lv65，start 161，waves 40）；每檔 40 波、血量／怒氣延續、每 5 波 1 將魂等規則與 w1–w3 相同；開啟等級讓 Lv69 的 Tomas 立即能進 w5。敵池上限改到第 10 章（chapterOf min(7,…)→min(9,…)，sys3.js:407）：W121–135 用第 9 章池、W136 起用第 10 章池。",
+      "grade": "D",
+      "label": "本作設計（暫定）",
+      "sources": [
+        {
+          "s": "SPEC",
+          "q": "2026-11-10 Tomas 決定：無極幻境加到 200 波（w4 破軍之境 Lv55 開、w5 無雙之境 Lv65 開）。"
+        }
+      ],
+      "conflicts": [],
+      "tentative": true,
+      "phase": "WL-11",
+      "note": "量測結果見 docs/balance-wl11-after.txt/.json §14（wl11）。"
+    },
+    {
+      "id": "reward.towerTop150",
+      "cat": "獎勵",
+      "item": "通天塔 F150 登頂里程碑（WL-11）：首通額外紫裝碎片 ×15＋金 100",
+      "spec": "本作設計",
+      "current": "WL-11（2026-11-10 Tomas 批准設計）。D 級原創，非原版。設計：sys6.js towerFloor 包裝處，f === 150 時在首通獎勵（sg.first）外加紫裝碎片 ×15＋金 100；只在首次登上 F150 時發放（towerFight 只在 f > best 時發 sg.first）；F150 本身另有每 10 層包裝（k=15 奇數→藍裝 Lv1一件）與公式獎勵（銀 12,500、金 95、星魂 35）。",
+      "grade": "D",
+      "label": "本作設計（暫定）",
+      "sources": [
+        {
+          "s": "SPEC",
+          "q": "2026-11-10 Tomas 批准 WL-11 設計：F150 登頂里程碑獎勵為紫裝碎片 ×15＋金 100（首通額外）。"
+        }
+      ],
+      "conflicts": [],
+      "tentative": true,
+      "phase": "WL-11",
+      "note": "量測結果見 docs/balance-wl11-after.txt/.json §14（wl11）。"
+    },
+    {
+      "id": "reward.towerGem6",
+      "cat": "獎勵",
+      "item": "通天塔 F120 起給 Lv6 寶石（WL-11）：寶石上限 min(5,…)→min(6,…)",
+      "spec": "本作設計",
+      "current": "WL-11（2026-11-10 Tomas 批准設計）。D 級原創，非原版。設計：sys3.js towerFloor 每 5 層寶石改為 gem_<輪替>_<min(6, 1+floor(f/20))>；F120 起給 Lv6 寶石（config.gemMaxLv＝6，Lv6 為寶石最高級）；F101–115 仍為 Lv5。",
+      "grade": "D",
+      "label": "本作設計（暫定）",
+      "sources": [
+        {
+          "s": "SPEC",
+          "q": "2026-11-10 Tomas 批准 WL-11 設計：塔 F120 起給 Lv6 寶石。"
+        }
+      ],
+      "conflicts": [],
+      "tentative": true,
+      "phase": "WL-11",
+      "note": "量測結果見 docs/balance-wl11-after.txt/.json §14（wl11）。"
+    },
+    {
+      "id": "reward.wujiW4W5",
+      "cat": "獎勵",
+      "item": "無極幻境 w4／w5 首破與全破 bonus（WL-11）：首破金 300／500，bonus 寶石每檔 +1",
+      "spec": "本作設計",
+      "current": "WL-11（2026-11-10 Tomas 批准設計）。D 級原創，非原版。設計：w4 首破 first＝金 300＋神農書 ×2，全破 bonus＝技能書 ×4＋心法殘頁 ×3＋gem_atk_4 ×1；w5 首破 first＝金 500＋種子魂 ×3，全破 bonus＝神農書 ×3＋心法殘頁 ×5＋gem_hp_5 ×1；仿 w2／w3 遞增模式（w2 首破金 100／bonus gem_atk_2、w3 首破金 200／bonus gem_hp_3，寶石每檔 +1）。",
+      "grade": "D",
+      "label": "本作設計（暫定）",
+      "sources": [
+        {
+          "s": "SPEC",
+          "q": "2026-11-10 Tomas 批准 WL-11 設計：w4／w5 首破與全破獎勵照 §5.4（w4 首破金 300、w5 首破金 500，bonus 寶石每檔 +1）。"
+        }
+      ],
+      "conflicts": [],
+      "tentative": true,
+      "phase": "WL-11",
+      "note": "量測結果見 docs/balance-wl11-after.txt/.json §14（wl11）。"
+    },
+    {
+      "id": "ach.tower150",
+      "cat": "成就",
+      "item": "成就凌雲之志（a_tower）加 150 階（WL-11）",
+      "spec": "本作設計",
+      "current": "WL-11（2026-11-10 Tomas 批准設計）。D 級原創，非原版。設計：sys3.js G.ACH a_tower tiers [10, 30, 60, 100] → [10, 30, 60, 100, 150]；舊 tiers 不動，已領的不受影響；獎勵金元寶照 ACH_GOLD 階序。",
+      "grade": "D",
+      "label": "本作設計（暫定）",
+      "sources": [
+        {
+          "s": "SPEC",
+          "q": "2026-11-10 Tomas 批准 WL-11 設計：成就 a_tower 加 150 階。"
+        }
+      ],
+      "conflicts": [],
+      "tentative": true,
+      "phase": "WL-11",
+      "note": "量測結果見 docs/balance-wl11-after.txt/.json §14（wl11）。"
+    },
+    {
+      "id": "balance.bossScale12",
+      "cat": "平衡",
+      "item": "bossScale 擴至 13 章（WL-12 方案 S4b）：ch1–2 ×1.02、ch3–10 ×1.05、新章 2.6／2.9／3.0",
+      "spec": "本作設計",
+      "current": "WL-12（2026-11-10 Tomas 批准設計「就先這樣擬定」，23:50 指示直接實作）。D 級原創，非原版。設計：config.bossScale＝[1.22, 1.68, 2.57, 2.42, 2.78, 3.78, 3.68, 3.10, 2.73, 2.42, 2.6, 2.9, 3.0]（WL-8 表 ch1–2 ×1.02、ch3–10 ×1.05、新章 2.6／2.9／3.0）；enemyScale 不動。量測（6 種子）：前期餘量極小（ch1 王系 +5% 即 85%→63%；enemyScale.from 12→1 使 ch1 跌至 29%），故前期只升 2%。效果（12 種子重測見 docs/balance-wl12-after.txt/.json §15）：普通關全章 100%，王系章平均約 70%（ch1–10 約 71%），新章 typ@關卡等級 ch11 21%／ch12 0%／ch13 0%。",
+      "grade": "D",
+      "label": "本作設計（暫定）",
+      "sources": [
+        {
+          "s": "SPEC",
+          "q": "2026-11-10 Tomas 批准 WL-12 設計：主線難度從第一關開始等比例重調（方案 S4b）。"
+        }
+      ],
+      "conflicts": [],
+      "tentative": true,
+      "phase": "WL-12",
+      "note": "量測結果見 docs/balance-wl12-after.txt/.json §15（wl12）。"
+    },
+    {
+      "id": "balance.doubleGate",
+      "cat": "平衡",
+      "item": "×2 模式最終王關 s13_8 門檻校準（WL-12）：ch13=3.0，門檻帶狀 Lv78–82，約在 max@80",
+      "spec": "本作設計",
+      "current": "WL-12（2026-11-10 Tomas 23:43／23:45 兩次修正：×2 指 WL-7 ×2 挑戰模式 G.DOUBLE，倍率維持 2 不動；調基礎曲線與最終關等級）。D 級原創，非原版。設計：s13_8 ×2 stacked（12 種子，3 抽籤平均）：max75 0%、max78 14%、max79 22%、max80 33%（最佳抽籤 50%）、max82 72%；vet@80／typ@80／max@69 皆 0%。嚴格的「max78=0% 且 max80≥50%」單點門檻量測證明不可達（隊伍抽籤雜訊大於等級效應），故門檻為帶狀 Lv78–82，接受之（不加硬性等級鎖）。一般模式 s13_8 門檻約 max@67（max@65 33%、max@69 100%），與 ×2 門檻相差約 13 級為數學必然，接受之（開放決策 OD-1）。量測見 docs/balance-wl12-after.txt/.json §15。",
+      "grade": "D",
+      "label": "本作設計（暫定）",
+      "sources": [
+        {
+          "s": "SPEC",
+          "q": "2026-11-10 Tomas 決定：最終王關 ×2 模式門檻剛好在滿裝 80 級（×2 指 ×2 挑戰模式）。"
+        }
+      ],
+      "conflicts": [],
+      "tentative": true,
+      "phase": "WL-12",
+      "note": "量測結果見 docs/balance-wl12-after.txt/.json §15（wl12）。"
+    },
+    {
+      "id": "stages.ch11_13",
+      "cat": "關卡",
+      "item": "虛空之門 ch11 桃花島／ch12 崑崙之巔／ch13 天外天（WL-12）：27 關，等級、敵池、首領、獎勵皆 D 級原創",
+      "spec": "本作設計",
+      "current": "WL-12（2026-11-10 Tomas 批准設計，23:49 指示多加一點，採 3 章）。D 級原創，非原版。設計：ch11 桃花島（解鎖 Lv79）Lv79–85、ch12 崑崙之巔（解鎖 Lv80）Lv85–89、ch13 天外天（解鎖 Lv80）Lv89–90；最終王關 s13_8 天外天之巔 Lv90（呂布）、最終隱藏 s13_9 劍魔洞 Lv90（獨孤求敗）。名稱仿原版武俠地名風格；王／隱藏皆復用既有名敵人（WL-2 前例），無新美術。敵池沿用（ch11 mg_*＋xl_qibing、ch12 xl_*＋dz_qinwei／lj_moushi、ch13 cj_*＋dz_qinwei）；掉落按關卡類型、皆 Lv1 模板（WL-10 規則），王／隱藏裝備 q2@50%＋q3@35%；銀幣／經驗按 ch9/ch10 公式延伸。ch13 首通里程碑：首通 s13_9 一次性金 300＋紫裝碎片 ×20。Lv90 敵人上限下 3 章為合理上限（每章 ~4 級跨度；4 章每章只剩 ~3 級，不建議）。另 OD-5：ch9/ch10 王／隱藏裝備掉落同步修正為 q2@50%＋q3@35%（與 ch1–8 一致；WL-2 擴充時的寫法不一致）。",
+      "grade": "D",
+      "label": "本作設計（暫定）",
+      "sources": [
+        {
+          "s": "SPEC",
+          "q": "2026-11-10 Tomas 批准 WL-12 設計：虛空之門加 ch11–13（多加一點），最終王關 ×2 門檻在滿裝 80 級。"
+        }
+      ],
+      "conflicts": [],
+      "tentative": true,
+      "phase": "WL-12",
+      "note": "量測結果見 docs/balance-wl12-after.txt/.json §15（wl12）。"
     }
   ],
   "matrix": {

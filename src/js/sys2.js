@@ -142,6 +142,27 @@
     if (success) { e.plus = (e.plus || 0) + 1; count('enhance'); }
     G.commit(); return ok({ success: success, plus: e.plus, cost: cost });
   };
+  // ---------- 神兵坊：升級裝備等級（WL-10，D） ----------
+  // 一次升一檔：e.t 換成同家族下一檔模板；plus/q/gems/aff 全部保留（數值由 R.equipStats 現算）。
+  // 費用 60×(目標等級+5) 銀（config.upgrade.silverK）；成功率 100%；上限＝主角等級（穿戴中取穿戴者等級）。
+  G.upgradeCost = function (e) {
+    var nt = R.nextEquipTier(e.t); if (!nt) return null;
+    return (C().upgrade.silverK || 60) * (R.equipTpl(nt).lv + 5);
+  };
+  G.upgradeEquip = function (uid) {
+    var s = st(), f = G.findEquip(uid); if (!f) return fail('找不到裝備');
+    var e = f.e;
+    if (e.washPending) return fail('請先保留或放棄上次洗煉結果');
+    var nt = R.nextEquipTier(e.t); if (!nt) return fail('已達最高等級');
+    var tpl = R.equipTpl(nt), cap = f.where === 'hero' ? f.hero.lv : G.lead().lv;
+    if (tpl.lv > cap) return fail('升級後等級 ' + tpl.lv + ' 超過' + (f.where === 'hero' ? '穿戴者等級 ' + f.hero.lv : '主角等級 ' + cap) + '（先升級武將）');
+    var cost = G.upgradeCost(e);
+    if (s.player.silver < cost) return fail('銀幣不足（需要 ' + U.fmt(cost) + '）');
+    var from = R.equipTpl(e.t);
+    s.player.silver -= cost; e.t = nt; count('upgrade');
+    G.log('裝備升級：' + from.name + ' → ' + tpl.name, 'lv');
+    G.commit(); return ok({ from: from.id, to: nt, cost: cost });
+  };
   // ---------- 洗煉 ----------
   G.washCost = function (e) { return C().wash.silver * (R.equipTpl(e.t).lv + 5) / 5 | 0; };
   G.wash = function (uid, rng) {

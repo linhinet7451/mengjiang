@@ -179,6 +179,40 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   await act('[data-a="forgeTab"][data-v="combine"]');
   await act('[data-a="gemComb"]');
   ok(await J(function () { return (MJ.S.state.bag.stack.gem_atk_2 || 0) === 1; }), '寶石合成 1 級→2 級');
+  // WL-10：武器掉落 Lv1＋神兵坊升級
+  ok(await J(function () {
+    var n = 0, all1 = true;
+    MJ.D.stages.stages.forEach(function (st) { (st.drops || []).forEach(function (d) { if (String(d.item).indexOf('eq:') === 0) { n++; if (!/eq:[a-z]+1$/.test(d.item)) all1 = false; } }); });
+    return n === 234 && all1;
+  }), '戰鬥獎勵掉落 234 條全為 Lv1（頁面載入的實裝資料）');
+  await J(function () { MJ.S.state.buildings.shenbing = 10; MJ.G.commit(); });
+  await act('[data-a="forgeTab"][data-v="upgrade"]');
+  ok((await page.locator('.fg-main').innerText()).indexOf('裝備等級') >= 0 && (await page.locator('.fg-main').innerText()).indexOf('成功率 100%') >= 0, '升級頁籤顯示裝備等級／上限與 100% 成功率');
+  var up0 = await J(function (u) { var e = MJ.G.findEquip(u).e; return { t: e.t, plus: e.plus || 0, gems: e.gems.length }; }, fu);
+  var upNext = await J(function (t) { return MJ.R.nextEquipTier(t); }, up0.t);
+  await act('[data-a="doUpgrade"]');
+  var up1 = await J(function (u) { var e = MJ.G.findEquip(u).e; return { t: e.t, plus: e.plus || 0, gems: e.gems.length }; }, fu);
+  ok(up1.t === upNext, '升級一檔（' + up0.t + '→' + up1.t + '）');
+  ok(up1.plus === up0.plus && up1.gems === up0.gems, '升級後強化 +' + up1.plus + '／寶石 ' + up1.gems + ' 顆全部保留');
+  await shot('6d-forge-upgrade');
+  await act('[data-a="forgeTab"][data-v="enhance"]');
+  await act('[data-a="doEnhance"]');
+  ok(await J(function (u) { return MJ.G.findEquip(u).e.plus || 0; }, fu) === up1.plus + 1, '升級後再強化，強化等級繼續累加（+' + (up1.plus + 1) + '）');
+  var capUid = await J(function () {
+    var e = MJ.G.addEquip('bt12', 0); MJ.G.lead().lv = 12; MJ.S.state.player.silver += 1e6; MJ.UI.sel.forgeUid = e.uid; MJ.G.commit(); MJ.UI.render();
+    return e.uid;
+  });
+  await act('[data-a="forgeTab"][data-v="upgrade"]');
+  await act('[data-a="doUpgrade"]');
+  ok(await J(function (u) { return MJ.G.findEquip(u).e.t; }, capUid) === 'bt12', '主角 12 級：bt12 升 bt18 被上限擋下');
+  await J(function () { MJ.G.lead().lv = 18; MJ.G.commit(); MJ.UI.render(); });
+  await act('[data-a="doUpgrade"]');
+  ok(await J(function (u) { return MJ.G.findEquip(u).e.t; }, capUid) === 'bt18', '主角升到 18 級後可升級（bt12→bt18）');
+  var maxUid = await J(function () { var e = MJ.G.addEquip('bt54', 3); e.plus = 5; MJ.UI.sel.forgeUid = e.uid; MJ.G.lead().lv = 54; MJ.G.commit(); MJ.UI.render(); return e.uid; });
+  await act('[data-a="forgeTab"][data-v="upgrade"]');
+  ok((await page.locator('.fg-main').innerText()).indexOf('已達最高等級') >= 0, 'Lv54 裝備升級頁籤顯示「已達最高等級」');
+  ok(await J(function (u) { var e = MJ.G.findEquip(u).e; return e.t === 'bt54' && e.plus === 5; }, maxUid), '現有 Lv54 +5 裝備不受影響');
+  await J(function () { MJ.G.lead().lv = 30; MJ.G.commit(); MJ.UI.render(); });
   // 將星錄 + 圖鑑
   await act('[data-a="city"]');
   var jxTarget = await J(function () {
@@ -394,6 +428,10 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   await J(function () { MJ.G.teamList().forEach(function (x) { x.hero.lv = 45; }); MJ.G.lead().lv = 45; MJ.G.commit(); MJ.UI.go('city'); });
   await act('.bld[data-a="tower"]');
   ok(await J(function () { return MJ.UI.screen; }) === 'tower', '點通天塔進入通天塔畫面');
+  // WL-11：塔上限 150、新頂 F150 與里程碑（活頁資料檢查，不打實戰）
+  ok(await J(function () { var f150 = MJ.G.towerFloor(150); return MJ.G.TOWER_MAX === 150 && f150.kind === 'boss' && f150.enemies.length === 9 && f150.enemies[0].lv === 91 && f150.first.gold === 195; }), '通天塔上限 150 層；F150 王關 9 人、首領 Lv91、首通金 195（里程碑 95＋100）');
+  ok(await J(function () { return MJ.G.towerFloor(120).first.items.some(function (it) { return /^gem_[a-z]+_6$/.test(it.item); }); }), 'F120 首通給 Lv6 寶石（WL-11）');
+  ok(await J(function () { var s = MJ.S.state.tower, old = s.best; s.best = 100; var allowed = s.best < MJ.G.TOWER_MAX && MJ.G.towerFloor(101).floor === 101; s.best = old; return allowed; }), '舊頂 best=100 未達新頂 150，可繼續挑戰第 101 層（WL-11）');
   await shot('12-tower');
   await act('[data-a="twFight"]');
   ok(await J(function () { return MJ.UI.screen; }) === 'battle', '通天塔進入戰鬥（不耗精力）');
@@ -403,8 +441,11 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   ok(await page.locator('.result.win').count() === 1 && await J(function () { return MJ.S.state.tower.best; }) === 1, '登上通天塔第 1 層並記錄');
   ok((await page.locator('.result').innerText()).indexOf('第 1 層') >= 0, '塔層結算顯示樓層與首登獎勵');
   // WL-3 任務 2：勝利結算預設自動接續（約 3 秒後打下一層），期間顯示倒數與「停止」
-  ok((await page.locator('#autoNext').innerText()).indexOf('即將挑戰下一層') >= 0, '塔結算顯示「即將挑戰下一層…」與停止鈕（自動接續預設開）');
-  await act('[data-a="autoStop"]');
+  // WL-10：WebKit 高負載下 Playwright 點擊往返可能超過 3 秒倒數，結算畫面被下一場戰鬥取代後
+  // autoStop 按鈕脫離 DOM 而 30s 逾時（與 WL-9 的 bSkip 修正同類問題，皆為測試端，遊戲程式不動）；
+  // 改為同一段 JS 內讀取倒數文字＋點停止。
+  var autoTxt = await J(function () { var t = document.getElementById('autoNext'); var ok = !!(t && t.innerText.indexOf('即將挑戰下一層') >= 0); var b = document.querySelector('[data-a="autoStop"]'); if (b) b.click(); return ok; });
+  ok(autoTxt, '塔結算顯示「即將挑戰下一層…」與停止鈕（自動接續預設開）');
   ok(await J(function () { return MJ.UI.autoContinue.tower === false; }) && (await page.locator('#autoNext').innerText()).indexOf('已停止自動接續') >= 0, '按「停止」中斷自動接續，停在結算不進下一層');
   await shot('12b-tower-win');
   await act('[data-a="bTower"]:not([data-v])');
@@ -433,7 +474,10 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   ok(await J(function () { return MJ.UI.screen; }) === 'tower', '跳過總結後返回通天塔畫面');
   await act('[data-a="city"]');
   await act('.bld[data-a="wuji"]');
-  ok(await page.locator('.wj-card').count() === 3, '無極幻境顯示三欄挑戰面板');
+  ok(await page.locator('.wj-card').count() === 5, '無極幻境顯示五欄挑戰面板（WL-11 加 w4／w5）');
+  ok((await page.locator('.wj-card').nth(3).innerText()).indexOf('破軍之境') >= 0 && (await page.locator('.wj-card').nth(3).innerText()).indexOf('121～160') >= 0 && (await page.locator('.wj-card').nth(3).innerText()).indexOf('主角 55 級開放') >= 0, 'w4 破軍之境卡片：121～160 波、主角 55 級開放（主角 45 級故鎖定）');
+  ok((await page.locator('.wj-card').nth(4).innerText()).indexOf('無雙之境') >= 0 && (await page.locator('.wj-card').nth(4).innerText()).indexOf('161～200') >= 0 && (await page.locator('.wj-card').nth(4).innerText()).indexOf('主角 65 級開放') >= 0, 'w5 無雙之境卡片：161～200 波、主角 65 級開放（主角 45 級故鎖定）');
+  ok(await J(function () { return MJ.G.WUJI.length === 5 && MJ.G.wujiTier('w4').first.gold === 300 && MJ.G.wujiTier('w5').first.gold === 500; }), 'w4／w5 首破金 300／500（WL-11）');
   ok((await page.locator('.wj-tip').innerText()).indexOf('每 5 波得 1 個將魂') >= 0, '無極幻境說明無盡波次與每 5 波將魂');
   await shot('13-wuji');
   await act('[data-a="wjGo"][data-v="w1"]');
@@ -441,8 +485,10 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   await act('[data-a="bSkip"]');
   await page.waitForSelector('.result', { timeout: 15000 });
   // WL-3 任務 2：無極結算同樣預設自動接續下一波；先按「停止」，保留原有手動流程
-  ok((await page.locator('#autoNext').innerText()).indexOf('即將播放下一波') >= 0, '無極結算顯示「即將播放下一波…」與停止鈕（自動接續預設開）');
-  await act('[data-a="autoStop"]');
+  // WL-11：與塔結算同類競態——3 秒倒數 vs Playwright 往返，下一波開始後 autoStop 脫離 DOM 而 30s 逾時
+  // （webkit6 於「下一波」播放第 2 波失敗）；改為同一段 JS 內讀取倒數文字＋點停止（測試端，遊戲程式不動）。
+  var wjAutoTxt = await J(function () { var t = document.getElementById('autoNext'); var ok = !!(t && t.innerText.indexOf('即將播放下一波') >= 0); var b = document.querySelector('[data-a="autoStop"]'); if (b) b.click(); return ok; });
+  ok(wjAutoTxt, '無極結算顯示「即將播放下一波…」與停止鈕（自動接續預設開）');
   ok(await J(function () { return MJ.UI.autoContinue.wuji === false; }), '按「停止」中斷無極自動接續');
   if (await page.locator('[data-a="wjNext"]').count()) {
     await act('[data-a="wjNext"]');
@@ -581,12 +627,12 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   var gateLv0 = await J(function () { return MJ.G.lead().lv; });
   await J(function () { MJ.G.lead().lv = 70; var s = MJ.S.state; s.stages['s8_8'] = { stars: 3, clears: 1 }; MJ.UI.sel.gateCh = null; MJ.UI.sel.gateVol = null; MJ.G.commit(); MJ.UI.go('city'); });
   await act('[data-a="gate"]');
-  ok(await J(function () { return MJ.D.stages.chapters.length === 10; }), '虛空之門共 10 章（新增 ch9 雁門關、ch10 長安）');
+  ok(await J(function () { return MJ.D.stages.chapters.length === 13; }), '虛空之門共 13 章（WL-12 新增 ch11 桃花島、ch12 崑崙之巔、ch13 天外天）');
   ok(await J(function () { return MJ.UI.sel.gateVol === 2; }), '地圖預設切到第三卷（目前進度第 9 章）');
   await act('[data-a="gateVol"][data-v="1"]');
   ok(await J(function () { return MJ.UI.sel.gateVol === 1; }), '上一卷切到第二卷');
   await act('[data-a="gateVol"][data-v="2"]');
-  ok(await J(function () { return MJ.UI.sel.gateVol === 2; }), '下一卷回到第三卷（第 9／10 章）');
+  ok(await J(function () { return MJ.UI.sel.gateVol === 2; }), '下一卷回到第三卷（第 9–12 章）');
   await act('[data-a="gateCh"][data-v="9"]');
   ok(await J(function () { return MJ.UI.sel.gateCh === 9; }), '進入第 9 章雁門關');
   await shot('17-gate-ch9');
@@ -600,6 +646,26 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   await act('[data-a="bCity"]');
   ok(await J(function () { return MJ.UI.screen; }) === 'city', '結算後回主城');
   await J(function (lv) { MJ.G.lead().lv = lv; MJ.G.commit(); }, gateLv0);
+  // WL-12：新章地圖卷數（共 4 卷）、s13_8 王關面板、×2 模式入口
+  var gateLv12 = await J(function () { return MJ.G.lead().lv; });
+  await J(function () { MJ.G.lead().lv = 80; var s = MJ.S.state; s.stages['s10_8'] = { stars: 3, clears: 1 }; s.stages['s11_8'] = { stars: 3, clears: 1 }; s.stages['s12_8'] = { stars: 3, clears: 1 }; ['s13_1', 's13_2', 's13_3', 's13_4', 's13_5', 's13_6', 's13_7', 's13_8'].forEach(function (id) { s.stages[id] = { stars: 3, clears: 1 }; }); MJ.UI.sel.gateCh = null; MJ.UI.sel.gateVol = null; MJ.G.commit(); MJ.UI.go('city'); });
+  await act('[data-a="gate"]');
+  ok(await J(function () { return MJ.UI.sel.gateVol === 3; }), '地圖預設切到第四卷（目前進度第 13 章）');
+  await act('[data-a="gateVol"][data-v="2"]');
+  ok(await J(function () { return MJ.UI.sel.gateVol === 2; }), '上一卷切到第三卷（第 9–12 章）');
+  await act('[data-a="gateVol"][data-v="3"]');
+  ok(await J(function () { return MJ.UI.sel.gateVol === 3; }), '下一卷回到第四卷（第 13 章）');
+  await act('[data-a="gateCh"][data-v="13"]');
+  ok(await J(function () { return MJ.UI.sel.gateCh === 13; }), '進入第 13 章天外天');
+  await act('[data-a="stagePop"][data-v="s13_8"]');
+  ok((await page.locator('.panel').innerText()).indexOf('天外天之巔') >= 0, 's13_8 王關面板標題為天外天之巔');
+  ok((await page.locator('.panel').innerText()).indexOf('呂布') >= 0, 's13_8 王關面板顯示首領呂布，等級 91');
+  ok(await page.locator('[data-a="startDouble"][data-v="s13_8"]').count() === 1, 's13_8 已通關：面板有 ×2 挑戰入口');
+  ok((await page.locator('.panel').innerText()).indexOf('×2 挑戰') >= 0, 's13_8 王關面板說明 ×2 挑戰規則（攻防血 ×2、36 回合）');
+  // 遮罩 dim 的中心被面板蓋住，Playwright 實體點擊會被面板攔截（真機點遮罩可見處可正常關閉）；以 JS 直接點 dim 關閉面板，遊戲程式不動
+  await J(function () { var el = document.querySelector('.dim[data-a="close"]'); if (el) el.click(); });
+  await J(function () { MJ.UI.sel.gateCh = null; MJ.UI.sel.gateVol = null; MJ.UI.go('city'); });
+  await J(function (lv) { MJ.G.lead().lv = lv; MJ.G.commit(); }, gateLv12);
   await J(function () { MJ.G.addItem('seed_yin', 3); MJ.G.commit(); });
   await act('.bld[data-a="farm"]');
   ok(await page.locator('.fm-plot').count() === 9, '農田顯示 3x3 田地');

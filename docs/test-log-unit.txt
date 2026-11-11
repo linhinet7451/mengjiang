@@ -19,8 +19,8 @@ pass-lines 55
 === unit-p3
   通過 弱隊挑戰化境中途失敗，不算全破
   通過 沒有幻境結果時總結被拒絕
-結果：通過 98，失敗 0
-pass-lines 99
+結果：通過 104，失敗 0
+pass-lines 105
 === unit-p4
 結果：通過 102，失敗 0
 pass-lines 103
@@ -49,7 +49,7 @@ pass-lines 40
 結果：通過 47，失敗 0
 pass-lines 48
 === unit-prov
-結果：通過 2533，失敗 0
+結果：通過 2629，失敗 0
 pass-lines 1
 === unit-art
 結果：通過 875，失敗 0
@@ -126,8 +126,8 @@ pass-lines 58
 結果：7 通過，0 失敗
 pass-lines 8
 === unit-gate2
-結果：35 通過，0 失敗
-pass-lines 36
+結果：44 通過，0 失敗
+pass-lines 45
 === unit-affix
 結果：通過 59，失敗 0
 pass-lines 60
@@ -173,4 +173,19 @@ pass-lines 44
   通過 事件順序固定（抽取結果可重現）
 結果：通過 75，失敗 0
 pass-lines 76
+=== unit-wl10
+  通過 一路升到 bt54 後再升級失敗（已達最高等級）
+  通過 Lv54 裝備直接升級失敗
+[升級失敗情況]
+  通過 銀幣不足：升級失敗、不扣錢、不改模板
+  通過 找不到裝備失敗
+  通過 處理完洗煉結果後可升級
+結果：通過 51，失敗 0
+pass-lines 52
+=== unit-wl11
+結果：通過 47，失敗 0
+pass-lines 48
+=== unit-wl12
+結果：通過 80，失敗 0
+pass-lines 81
 UNIT EXIT 0

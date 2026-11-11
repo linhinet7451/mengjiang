@@ -108,7 +108,7 @@
         (s.wuji.first[t.id] ? '' : '<div class="rw-h">首次全破</div><small class="wj-first">' + U.esc(UI.rwText(t.first).join('、')) + '</small>') + '</div>' +
         (locked ? '<div class="wj-lock">主角 ' + t.open + ' 級開放</div>' : '<div class="btn-row"><a class="btn" data-a="wjGo" data-v="' + t.id + '">挑　戰</a></div>') + '</div>';
     });
-    h += '</div><p class="note wj-note">無極幻境：A（建築存在）；每 5 波 1 將魂：B（規格書）；三欄挑戰面板版面參考影片 3；波數、敵軍、獎勵數值：D。累計全破 ' + s.wuji.clears + ' 次。<a class="btn small" data-a="autoToggle" data-v="wuji">自動接續：' + (UI.autoContinue.wuji ? '開' : '關') + '</a></p></div></div>';
+    h += '</div><p class="note wj-note">無極幻境：A（建築存在）；每 5 波 1 將魂：B（規格書）；五欄挑戰面板版面參考影片 3；波數、敵軍、獎勵數值：D。累計全破 ' + s.wuji.clears + ' 次。<a class="btn small" data-a="autoToggle" data-v="wuji">自動接續：' + (UI.autoContinue.wuji ? '開' : '關') + '</a></p></div></div>';
     return h;
   };
   UI.actions.wuji = function () { UI.go('wuji'); };

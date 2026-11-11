@@ -33,7 +33,7 @@ ok(M.D.config.soulCombine.open === 30 && M.D.config.soulCombine.n === 5, '設定
 
 console.log('[無極幻境：無盡波次、每 5 波 1 將魂]');
 c = fresh(); M = c.MJ; G = M.G; S = M.S;
-ok(G.WUJI[0].start === 1 && G.WUJI[1].start === 41 && G.WUJI[2].start === 81, '三個起點：第 1／41／81 波');
+ok(G.WUJI.length === 5 && G.WUJI[0].start === 1 && G.WUJI[1].start === 41 && G.WUJI[2].start === 81 && G.WUJI[3].start === 121 && G.WUJI[4].start === 161, '五個起點：第 1／41／81／121／161 波（WL-11 加 w4／w5）');
 var w5 = G.wujiWaveReward(5), w10 = G.wujiWaveReward(10), w7 = G.wujiWaveReward(7);
 ok(w5.soulQ === 2 && w10.soulQ === 2 && w7.soulQ == null, '第 5、10 波掉將魂，第 7 波不掉');
 ok(G.wujiSoulQ(40) === 2 && G.wujiSoulQ(45) === 3 && G.wujiSoulQ(85) === 4, '將魂品質：≤40 綠、≤80 藍、之後紫');

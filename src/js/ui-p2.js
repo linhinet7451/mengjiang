@@ -96,7 +96,7 @@
     var pick = U.find(list, function (x) { return x.e.uid === UI.sel.forgeUid; }) || list[0];
     if (pick) UI.sel.forgeUid = pick.e.uid;
     var h = '<div class="scr hall-scr"><div class="frame bigframe hall forge"><div class="plaque">神兵坊</div><a class="xbtn" data-a="city">×</a>';
-    h += '<div class="tabs">' + U.map([['enhance', '強化'], ['wash', '洗煉'], ['gem', '鑲嵌'], ['combine', '寶石合成']], function (t) { return '<a class="tab' + (tab === t[0] ? ' on' : '') + '" data-a="forgeTab" data-v="' + t[0] + '">' + t[1] + '</a>'; }).join('') + '</div>';
+    h += '<div class="tabs">' + U.map([['enhance', '強化'], ['wash', '洗煉'], ['gem', '鑲嵌'], ['combine', '寶石合成'], ['upgrade', '升級']], function (t) { return '<a class="tab' + (tab === t[0] ? ' on' : '') + '" data-a="forgeTab" data-v="' + t[0] + '">' + t[1] + '</a>'; }).join('') + '</div>';
     // 左：裝備列表
     h += '<div class="parch fg-list"><div class="tabs small"><a class="tab' + (UI.sel.forgeWorn ? ' on' : '') + '" data-a="forgeWorn" data-v="1">已穿戴</a><a class="tab' + (!UI.sel.forgeWorn ? ' on' : '') + '" data-a="forgeWorn" data-v="0">全部</a></div>';
     var pg = UI.pager('forgeP', list, 15, function (x) { return '<div class="fg-it">' + UI.equipCell(x.e, { act: 'forgePick', sel: pick && x.e.uid === pick.e.uid }) + (x.h ? '<span class="fg-who">' + U.esc(G.nameOf(x.h)) + '</span>' : '') + '</div>'; }, '沒有裝備');
@@ -114,6 +114,16 @@
         h += '<div class="fg-box">強化等級 <b>+' + (e.plus || 0) + '</b> / 上限 +' + cap + '（＝神兵坊等級）<br>';
         if ((e.plus || 0) < cap) h += '強化後：' + UI.equipLines(R.equipStats(next)).join('　') + '<br>成功率 <b>' + Math.round(R.enhanceChance(e) * 100) + '%</b>　費用 ' + U.fmt(R.enhanceCost(e)) + ' 銀（失敗只扣銀幣，不會掉級）<div class="btn-row"><a class="btn" data-a="doEnhance">強化</a></div>';
         else h += '<b>已達上限，請升級神兵坊</b>';
+        h += '</div>';
+      } else if (tab === 'upgrade') {
+        // WL-10：升級裝備等級（一次一檔，成功率 100%，強化／寶石／洗煉屬性全部保留）
+        var nt = R.nextEquipTier(e.t), capLv = pick.h ? pick.h.lv : G.lead().lv;
+        h += '<div class="fg-box">裝備等級 <b>Lv' + tpl.lv + '</b> ／ 上限 Lv' + capLv + '（＝' + (pick.h ? '穿戴者' : '主角') + '等級）<br>';
+        if (!nt) h += '<b>已達最高等級</b>';
+        else {
+          var ntpl = R.equipTpl(nt), nextE = U.extend({}, e); nextE.t = nt;
+          h += '升級後：<b class="eqt' + e.q + '">' + U.esc(ntpl.name) + '</b> Lv' + ntpl.lv + '<br>' + UI.equipLines(R.equipStats(nextE)).join('　') + '<br>費用 ' + U.fmt(G.upgradeCost(e)) + ' 銀（成功率 100%，強化／寶石／洗煉屬性全部保留）<div class="btn-row"><a class="btn" data-a="doUpgrade">升級</a></div>';
+        }
         h += '</div>';
       } else if (tab === 'wash') {
         var n = C().wash.counts[e.q];
@@ -133,7 +143,7 @@
       }
     }
     h += '<div class="fg-bld">神兵坊 Lv' + lv + '　升級費用 ' + U.fmt(G.buildingCost('shenbing', lv)) + ' 銀 <a class="btn small" data-a="upBld" data-v="shenbing">升級</a></div>';
-    h += '<p class="note">強化／洗煉／鑲嵌／寶石合成：B（攻略提及神兵坊功能）；成功率、數值：D。</p></div>';
+    h += '<p class="note">強化／洗煉／鑲嵌／寶石合成：B（攻略提及神兵坊功能）；裝備升級為本作設計（D）；成功率、數值：D。</p></div>';
     h += '<div class="fg-foot"><a class="btn" data-a="city">返回</a></div></div></div>';
     return h;
   };
@@ -151,6 +161,7 @@
   UI.actions.forgeWorn = function (v) { UI.sel.forgeWorn = v === '1'; UI.page.forgeP = 0; UI.render(); };
   UI.actions.forgePick = function (v) { UI.sel.forgeUid = +v; UI.render(); };
   UI.actions.doEnhance = function () { var r = G.enhance(UI.sel.forgeUid); if (r.ok) UI.toast(r.success ? '強化成功！+' + r.plus : '強化失敗（裝備不掉級）', r.success ? 'good' : 'bad'); else UI.res(r); UI.render(); };
+  UI.actions.doUpgrade = function () { var r = G.upgradeEquip(UI.sel.forgeUid); if (r.ok) UI.toast('升級完成：' + G.itemName('eq:' + r.to), 'good'); else UI.res(r); UI.render(); };
   UI.actions.doWash = function () { if (UI.res(G.wash(UI.sel.forgeUid))) UI.render(); };
   UI.actions.washOk = function () { if (UI.res(G.washAccept(UI.sel.forgeUid), '已保留')) UI.render(); };
   UI.actions.washNo = function () { if (UI.res(G.washCancel(UI.sel.forgeUid), '已放棄')) UI.render(); };
