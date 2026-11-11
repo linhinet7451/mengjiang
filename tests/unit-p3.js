@@ -17,10 +17,10 @@ function power(G, lv) { // 把隊伍拉到指定等級並給好裝備，用於�
 console.log('[農田：P2 起立即成熟、不等現實時間]');
 var c = fresh(), M = c.MJ, G = M.G, S = M.S;
 ok(G.farmPlots() === 3, '1 級農田有 3 塊田');
-ok(!G.plant(0, 'seed_yin').ok, '沒有種子不能種');
+ok(!G.plant(0, 'seed_gem').ok, '沒有該種種子不能種');
 G.addItem('seed_yin', 3); G.addItem('seed_gem', 1); G.addItem('huafei', 2);
 var r = G.plant(0, 'seed_yin');
-ok(r.ok && S.state.bag.stack.seed_yin === 2, '種下搖錢樹苗，扣 1 顆種子');
+ok(r.ok && S.state.bag.stack.seed_yin === 3, '種下搖錢樹苗，扣 1 顆種子（開局已送 1 顆，WL-13 #20）');
 ok(!G.plant(0, 'seed_yin').ok, '同一塊田不能重複種');
 ok(!G.plant(5, 'seed_yin').ok, '未開墾的田不能種');
 ok(G.plotState(0).ready && G.plotState(0).left === 0, '種下立即成熟（不等現實時間）');

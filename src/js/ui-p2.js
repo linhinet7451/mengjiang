@@ -22,7 +22,7 @@
   }
   UI.hallTabs.skill = function (h0, s, def) {
     var h = skillRow(h0, 'a', def.active, '每次行動施放') + skillRow(h0, 'u', def.ult, '無雙值滿 100 時施放') + skillRow(h0, 'p', def.passive, '');
-    return h + '<p class="note">三技能欄（A：官方圖）。「·神」階（A：影片 3）。升級倍率 +6%/級、·神 +20%、被動效果 +8%/級（D）。技能等級不可超過武將等級。</p>';
+    return h + '<p class="note">升級倍率 +6%/級、·神 +20%、被動效果 +8%/級。技能等級不可超過武將等級。</p>';
   };
   UI.actions.skUp = function (w) { var r = G.skillUp(UI.sel.hallUid, w); if (UI.res(r, r.shen ? '技能突破為「·神」！' : '技能升到 ' + r.lv + ' 級')) UI.render(); };
 
@@ -41,7 +41,7 @@
       h += '<div class="btn-row"><a class="btn small" data-a="pyDo" data-v="normal">普通培養</a><a class="btn small" data-a="pyDo" data-v="strong">加強培養</a></div>' +
         '<small>普通：培養丹×' + c.normal.dan + '＋' + U.fmt(c.normal.silver) + ' 銀（' + c.normal.lo + '～+' + c.normal.hi + '）<br>加強：培養丹×' + c.strong.dan + '＋' + U.fmt(c.strong.silver) + ' 銀（' + c.strong.lo + '～+' + c.strong.hi + '）<br>持有培養丹：' + have('peiyangdan') + '</small>';
     }
-    return h + '<p class="note">培養功能：B（攻略提及神武殿培養）；數值、上限：D。</p></div>';
+    return h + '</div>';
   };
   UI.actions.pyDo = function (m) { var r = G.peiyang(UI.sel.hallUid, m); if (UI.res(r)) UI.render(); };
   UI.actions.pyOk = function () { if (UI.res(G.peiyangAccept(UI.sel.hallUid), '已保留培養結果')) UI.render(); };
@@ -61,7 +61,7 @@
     }
     var books = U.filter(U.keys(s.bag.stack), function (k) { return k.indexOf('xf_') === 0 && s.bag.stack[k] > 0; });
     h += '<b>可修練秘笈</b><div class="xf-books">' + (books.length ? U.map(books, function (k) { var it = MJ.D.equipment.items[k]; return '<a class="btn small" data-a="xfLearn" data-v="' + it.xinfa + '">' + C().xinfa[it.xinfa].name + ' ×' + s.bag.stack[k] + '</a>'; }).join('') : '<small>沒有秘笈（王關、隱藏關、商城可取得）</small>') + '</div>';
-    return h + '<p class="note">心法：B（攻略提及）；種類與效果：D。遺忘會退回秘笈，但等級歸零。</p></div>';
+    return h + '<p class="note">遺忘會退回秘笈，但等級歸零。</p></div>';
   };
   UI.actions.xfLearn = function (id) { var r = G.xinfaLearn(UI.sel.hallUid, id); if (UI.res(r, r.msg)) UI.render(); };
   UI.actions.xfUp = function (i) { var r = G.xinfaUp(UI.sel.hallUid, +i); if (UI.res(r, '心法升到 ' + r.lv + ' 級')) UI.render(); };
@@ -76,7 +76,7 @@
     if ((h0.star || 0) < max) h += '下一階需要 ' + R.heroDef(h0.id).name + ' 將魂：<b>' + have(k) + '/' + cost + '</b><div class="btn-row"><a class="btn small" data-a="starUp">升階</a></div>';
     else h += '<b>已達最高階</b>';
     h += '<small>將魂來源：重複招募的武將解僱、王關／隱藏關掉落、農田英魂草。此處一般升階與將星錄將星等級為不同系統，消耗分開計算。</small>';
-    return h + '<p class="note">將魂：A（截圖有「將魂」道具）；升階規則與數值：D。</p></div>';
+    return h + '</div>';
   };
   UI.actions.starUp = function () { var r = G.starUp(UI.sel.hallUid); if (UI.res(r, '升到 ' + r.star + ' 階！')) UI.render(); };
 
@@ -128,8 +128,8 @@
       } else if (tab === 'wash') {
         var n = C().wash.counts[e.q];
         h += '<div class="fg-box">附加屬性（' + n + ' 條，依品質）：<br>' + (e.aff && e.aff.length ? UI.equipLines(affObj(e.aff)).join('　') : '<small>尚未洗煉</small>');
-        if (e.washPending) h += '<br><b>新結果：</b>' + UI.equipLines(affObj(e.washPending)).join('　') + '<div class="btn-row"><a class="btn small" data-a="washOk">保留</a><a class="btn small red" data-a="washNo">放棄</a></div>';
-        else if (n) h += '<br>費用：洗煉石 ' + have('xilianshi') + '/1　' + U.fmt(G.washCost(e)) + ' 銀<div class="btn-row"><a class="btn" data-a="doWash">洗煉</a></div>';
+        if (e.washPending) h += '<br><b>新結果：</b>' + UI.equipLines(affObj(e.washPending)).join('　') + '<div class="btn-row"><a class="btn small" data-a="washOk">保留</a><a class="btn small red" data-a="washNo">放棄</a></div><small>放棄只捨棄這次結果，退還洗煉石 ×1（銀幣不退還）。</small>';
+        else if (n) h += '<br>費用：洗煉石 ' + have('xilianshi') + '/1　' + U.fmt(G.washCost(e)) + ' 銀<br><small>洗煉時即消耗洗煉石 ×1 與銀幣；放棄可退還洗煉石 ×1（銀幣不退還）。</small><div class="btn-row"><a class="btn" data-a="doWash">洗煉</a></div>';
         else h += '<br><small>白色裝備沒有附加屬性。</small>';
         h += '</div>';
       } else {
@@ -143,7 +143,7 @@
       }
     }
     h += '<div class="fg-bld">神兵坊 Lv' + lv + '　升級費用 ' + U.fmt(G.buildingCost('shenbing', lv)) + ' 銀 <a class="btn small" data-a="upBld" data-v="shenbing">升級</a></div>';
-    h += '<p class="note">強化／洗煉／鑲嵌／寶石合成：B（攻略提及神兵坊功能）；裝備升級為本作設計（D）；成功率、數值：D。</p></div>';
+    h += '</div>';
     h += '<div class="fg-foot"><a class="btn" data-a="city">返回</a></div></div></div>';
     return h;
   };
@@ -164,7 +164,7 @@
   UI.actions.doUpgrade = function () { var r = G.upgradeEquip(UI.sel.forgeUid); if (r.ok) UI.toast('升級完成：' + G.itemName('eq:' + r.to), 'good'); else UI.res(r); UI.render(); };
   UI.actions.doWash = function () { if (UI.res(G.wash(UI.sel.forgeUid))) UI.render(); };
   UI.actions.washOk = function () { if (UI.res(G.washAccept(UI.sel.forgeUid), '已保留')) UI.render(); };
-  UI.actions.washNo = function () { if (UI.res(G.washCancel(UI.sel.forgeUid), '已放棄')) UI.render(); };
+  UI.actions.washNo = function () { if (UI.res(G.washCancel(UI.sel.forgeUid), '已放棄，洗煉石已退還')) UI.render(); };
   UI.actions.gemIn = function (k) { if (UI.res(G.socket(UI.sel.forgeUid, k), '鑲嵌成功')) UI.render(); };
   UI.actions.gemOut = function (i) {
     var fu = have('zhaochufu') > 0;
@@ -179,16 +179,16 @@
   UI.screens.jxl = function () {
     var s = MJ.S.state, cfg = C().jiangxing, combos = cfg.combos || [], groupNames = { white: '白魂', green: '綠魂', blue: '藍魂', purple30: '30 魂紫', purple45: '45 魂紫' };
     var h = '<div class="scr hall-scr"><div class="frame bigframe hall jxl"><div class="plaque">將星錄</div><a class="xbtn" data-a="city">×</a>';
-    h += '<div class="parch jx-map jx-list"><b>原版組合（' + combos.length + ' 組）</b><small>名稱依攻略記載；未載條件／效果留白。來源效果字串僅供參考，本版尚未套入戰鬥。</small>';
+    h += '<div class="parch jx-map jx-list"><b>原版組合（' + combos.length + ' 組）</b><small>條件或效果未記載時留白。組合效果只顯示文字，尚未套入戰鬥。</small>';
     h += U.map(combos, function (c) {
       var state = G.jxComboStatus(c.id), stat = state.state === 'ready' ? '條件符合（效果未套戰鬥）' : (state.state === 'incomplete' ? '條件未符合' : '條件資料不完整');
-      return '<div class="jx-combo" data-jx="' + U.esc(c.id) + '"><b>' + U.esc(c.name) + '</b><span class="jx-status">' + stat + '</span><small>條件：' + U.esc(c.requirement || '來源未載') + '</small><small>效果：' + U.esc(c.effect || '來源未載') + '</small></div>';
+      return '<div class="jx-combo" data-jx="' + U.esc(c.id) + '"><b>' + U.esc(c.name) + '</b><span class="jx-status">' + stat + '</span><small>條件：' + U.esc(c.requirement || '未記載') + '</small><small>效果：' + U.esc(c.effect || '未記載') + '</small></div>';
     }).join('');
     h += '</div><div class="parch jx-side"><b>武將將星等級</b><small>此等級獨立於神武殿「升階」。升級會消耗該武將將魂；放入後不可取回。</small>';
     var owned = U.filter(s.heroes, function (x) { return x.id !== 'lead'; });
     h += '<div class="rows jx-roster">' + (owned.length ? U.map(owned, function (x) {
       var def = R.heroDef(x.id), next = (x.jxLevel || 0) + 1, cost = R.jxSoulCost(x, next), n = s.bag.stack['soul:' + x.id] || 0;
-      var need = cost == null ? (next > R.jxMaxLevel ? '已達 Lv18 上限' : '來源未提供 Lv' + next + ' 魂數') : '升至 Lv' + next + '：' + n + '/' + cost + ' 魂';
+      var need = cost == null ? (next > R.jxMaxLevel ? '已達 Lv18 上限' : '此級魂數未定') : '升至 Lv' + next + '：' + n + '/' + cost + ' 魂';
       return '<div class="row-item"><div class="ri-t"><b>' + U.esc(def.name) + '　Lv' + (x.jxLevel || 0) + '</b><small>' + (groupNames[R.jxSoulGroup(x)] || '未列品階') + '　' + need + '</small></div>' + (cost == null ? '' : '<a class="btn small" data-a="jxHeroUp" data-v="' + x.uid + '">升級</a>') + '</div>';
     }).join('') : '<small>尚無武將</small>') + '</div>';
     h += '<details class="jx-table"><summary>原文將魂量表（升至該級所需魂）</summary><div class="jx-table-scroll"><table><tr><th>品階</th>';
@@ -199,15 +199,15 @@
       U.each(cfg.soulCostsByLevel[group], function (n) { h += '<td>' + (n == null ? '—' : n) + '</td>'; });
       h += '</tr>';
     });
-    h += '</table></div><small>空白不補算；白魂 Lv10 來源 W48／W53 相異，故保留空白（C）。</small></details>';
+    h += '</table></div><small>空白不補算；白魂 Lv10 保留空白。</small></details>';
     h += '<small>舊星盤星魂餘額：' + U.fmt(s.player.xinghun || 0) + '（遷移退款與原餘額均保留；本版不再使用二十八宿扣點）。</small>';
     h += '<div class="btn-row"><a class="btn small" data-a="open" data-v="codex">圖鑑（' + G.codexCount() + '/' + MJ.D.heroes.list.length + '）</a><a class="btn small" data-a="city">返回</a></div>';
-    h += '<p class="note">組合名稱／部分條件與效果文字：B；逐級魂量：B（空白／衝突留空）。本版所有組合效果只顯示來源文字，尚未套入戰鬥屬性。</p></div></div></div>';
+    h += '<p class="note">本版所有組合效果只顯示文字，尚未套入戰鬥屬性。</p></div></div></div>';
     return h;
   };
   UI.actions.jxHeroUp = function (uid) {
     var h0 = G.hero(+uid), level = h0 ? (h0.jxLevel || 0) + 1 : 0, cost = h0 && R.jxSoulCost(h0, level);
-    if (!h0 || cost == null) { UI.toast('來源未提供此級魂數；不扣魂、不推算', 'bad'); return; }
+    if (!h0 || cost == null) { UI.toast('此級魂數未定；不扣魂', 'bad'); return; }
     var def = R.heroDef(h0.id);
     UI.confirm('將星升級', '將「' + U.esc(def.name) + '」升至 Lv' + level + '，消耗 ' + cost + ' 個同名將魂？<br><b>放入後不可取回</b>。確定？', function () {
       var r = G.jxLevelUp(+uid); if (UI.res(r, '已升至將星 Lv' + (r.level || level))) UI.render();
@@ -224,7 +224,7 @@
     b += '<div class="cdx-h">已收錄 <b>' + n + '/' + MJ.D.heroes.list.length + '</b>　全隊四維戰鬥屬性 +' + (Math.round(bon * 100) / 100) + '%（每名 +' + C().codexPer + '%，上限 ' + C().codexMax + '%，D）</div>';
     var pg = UI.pager('codexP', list, 18, function (d) {
       var got = !!s.codex[d.id];
-      return '<div class="cdx' + (got ? '' : ' no') + '" data-a="codexInfo" data-v="' + d.id + '">' + MJ.Art.portrait(d.look, d.quality) + '<span class="nm">' + (got ? U.esc(d.name) : '？？？') + '</span><small class="source-tag">' + U.esc(d.grade || 'D 待補') + '</small></div>';
+      return '<div class="cdx' + (got ? '' : ' no') + '" data-a="codexInfo" data-v="' + d.id + '">' + MJ.Art.portrait(d.look, d.quality) + '<span class="nm">' + (got ? U.esc(d.name) : '？？？') + '</span></div>';
     });
     b += '<div class="cdx-grid">' + pg.html + '</div>' + pg.nav;
     return UI.panel('武將圖鑑', b, { cls: 'wide' });
@@ -234,6 +234,6 @@
     var d = R.heroDef(id), got = !!MJ.S.state.codex[id];
     if (!got) { UI.toast('尚未收錄：' + UI.qname(d.quality) + '品．' + d.faction + '（招募或以將魂召喚後收錄）'); return; }
     var ps = d.passive ? MJ.D.heroes.passives[d.passive] : null;
-    UI.toast(d.name + '｜' + UI.qname(d.quality) + '．' + d.type + '｜主動 ' + d.active.name + (d.ult ? '／無雙 ' + d.ult.name : '') + (ps ? '／被動 ' + ps.name : '') + '｜資料 ' + (d.grade || ''));
+    UI.toast(d.name + '｜' + UI.qname(d.quality) + '．' + d.type + '｜主動 ' + d.active.name + (d.ult ? '／無雙 ' + d.ult.name : '') + (ps ? '／被動 ' + ps.name : ''));
   };
 })();

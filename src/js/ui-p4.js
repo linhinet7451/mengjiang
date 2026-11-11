@@ -106,7 +106,7 @@
     var dr = G.arenaDailyReward(a.rank), atk = G.ticket('arena'), claimed = !atk.ready;
     h += '<div class="fg-box"><b>排名獎勵</b>（每贏 ' + atk.every + ' 場可領一次）<br>' + (dr ? U.esc(UI.rwText(dr).concat(['星魂 +' + dr.xinghun]).join('、')) : '擊敗任一位對手即可上榜') +
       '<div class="btn-row"><a class="btn small' + (!dr || claimed ? ' disabled' : '') + '" data-a="arDaily">' + (claimed ? '再勝 ' + atk.left + ' 場' : '領取') + '</a></div></div>';
-    h += '<p class="note">挑戰排名在你前面 5 名以內的名將隊伍，勝利即交換排名。不限次數，戰敗無損失。對手為電腦 AI（D）。名次隊伍偶爾會刷成頂尖隊伍（紫框）：等級 1–99 隨機、練度拉滿，勝利銀幣更高、排名不變。下方固定的頂尖隊伍等級與主角相同，是當下能見到的最強組合。</p></div>';
+    h += '<p class="note">挑戰排名在你前面 5 名以內的名將隊伍，勝利即交換排名。不限次數，戰敗無損失。對手為電腦 AI。名次隊伍偶爾會刷成頂尖隊伍（紫框）：等級 1–99 隨機、練度拉滿，勝利銀幣更高、排名不變。下方固定的頂尖隊伍等級與主角相同，是當下能見到的最強組合。</p></div>';
     h += '<div class="ar-main"><div class="ar-h">可挑戰的名將</div><div class="ar-list">';
     if (!list.length) h += '<div class="parch ar-empty">你已是天下第一！</div>';
     U.each(list, function (rk) {
@@ -151,8 +151,8 @@
     h += '<div class="parch ar-side"><div class="ar-rank">第<b>' + G.WULIN_EDITION + '</b>屆</div>' +
       '<div>海選 Lv.70-75</div><div>主角：Lv' + lead.lv + (locked ? '（未滿 ' + G.WULIN_OPEN + ' 級，尚未開放）' : '') + '</div>' +
       '<div>歷屆冠軍：' + (w.champ ? '是' : '否') + '　累計勝場：' + (w.wins || 0) + '</div>' +
-      '<div class="fg-box"><b>輪次獎勵</b><br>八強勝：銀幣 1,000＋培養丹 ×2<br>四強勝：銀幣 2,000＋技能書 ×1、培養丹 ×3<br>決賽勝：銀幣 5,000＋技能書 ×2、培養丹 ×5<br><small>單機 AI 對戰，無真人、無邀請（D）。</small></div>' +
-      '<p class="note">8 人單淘汰賽：八強 → 四強 → 決賽。對手為電腦 AI（D）。</p></div>';
+      '<div class="fg-box"><b>輪次獎勵</b><br>八強勝：銀幣 1,000＋培養丹 ×2<br>四強勝：銀幣 2,000＋技能書 ×1、培養丹 ×3<br>決賽勝：銀幣 5,000＋技能書 ×2、培養丹 ×5<br><small>單機 AI 對戰，無真人、無邀請。</small></div>' +
+      '<p class="note">8 人單淘汰賽：八強 → 四強 → 決賽。對手為電腦 AI。</p></div>';
     h += '<div class="ar-main">';
     if (locked) { h += '<div class="parch ar-empty">主角未滿 ' + G.WULIN_OPEN + ' 級，武林大會海選尚未開放（海選 Lv.70-75）。請先提升主角等級。</div>'; }
     else if (!w.bracket) { h += '<div class="parch ar-empty">第 ' + G.WULIN_EDITION + ' 屆武林大會尚未開幕。</div><div class="btn-row"><a class="btn red" data-a="wlStart">開始本屆大會</a></div>'; }

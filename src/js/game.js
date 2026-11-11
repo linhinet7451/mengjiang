@@ -316,10 +316,26 @@ MJ.G = (function () {
     var d = R.derived(h, s);
     U.each(SLOTS, function (slot) {
       var best = h.eq[slot], bestScore = best ? R.equipScore(best) : -1;
+      // 武器：實戰傷害一律按武將 dtype 取對應攻擊（battle.js hurt：dt==='p' 用 patk、'm' 用 matk、'j' 用 jatk；
+      // 技能定義本身沒有傷害種類欄位），所以優先選有對應攻擊屬性的武器。R.equipScore 是三攻合計，
+      // 同檔異屬性武器同分、高檔更高分——若只看包裹有無符合武器，已穿的符合武器會被高評分異屬性武器搶走，
+      // 已穿異屬性武器又會因同分卡住符合武器（30 天模擬 87/117→67/117、超時 1→824 場即因此而起）。
+      // 規則（嚴格版，Tomas 2026-11-11 定：拿掉 fallback）：已穿符合武器時只考慮同類；已穿異屬性武器且包裹有符合者時，符合者直接取代（不拿異屬性評分當門檻）；
+      // 已穿異屬性武器且無符合者時維持現狀；未穿武器且無符合者時留空，不以評分制裝異屬性武器（錯屬性武器升了也是浪費銀幣）。
+      var wk = null, hasTyped = false;
+      if (slot === 'weapon') {
+        wk = { p: 'patk', m: 'matk', j: 'jatk' }[d.dtype];
+        hasTyped = !!U.find(s.bag.equips, function (x) { var t = R.equipTpl(x.t); return t.slot === 'weapon' && t.lv <= h.lv && t.stats[wk]; });
+        if (best) {
+          if (R.equipTpl(best.t).stats[wk]) hasTyped = true;
+          else if (hasTyped) { best = null; bestScore = -1; }
+          else return;
+        }
+      }
       U.each(s.bag.equips, function (e) {
         var tpl = R.equipTpl(e.t);
         if (tpl.slot !== slot || tpl.lv > h.lv) return;
-        if (slot === 'weapon') { var wk = { p: 'patk', m: 'matk', j: 'jatk' }[d.dtype]; if (!tpl.stats[wk]) return; }
+        if (slot === 'weapon' && !tpl.stats[wk]) return;
         var sc = R.equipScore(e);
         if (sc > bestScore) { best = e; bestScore = sc; }
       });
@@ -636,10 +652,21 @@ MJ.G = (function () {
   // P2：訓練改成「付銀幣立即完成」，一次等於原本 60 分鐘的經驗，可重複；不再等現實時間（D）
   G.TRAIN_MIN = 60;
   G.trainCost = function (h) { return 100 + h.lv * 20; }; // D
+  // 武將實際可吸收的經驗：按 G.addExp 的封頂語意算到主角等級上限為止。
+  // 非主角武將到主角等級後，本級經驗最多填到 expNeed-1；主角本身只受 R.maxLevel 限制，
+  // 未滿級時可吸收的訓練經驗視為不受上限影響（回傳 Infinity，UI 取 min 後即為訓練給的經驗）。
+  G.trainAbsorbable = function (h) {
+    if (!h || h.lv >= R.maxLevel) return 0;
+    if (h.id === 'lead') return Infinity;
+    var cap = G.lead().lv, total = 0, lv = h.lv, exp = h.exp || 0;
+    while (lv < cap) { total += R.expNeed(lv) - (lv === h.lv ? exp : 0); lv++; }
+    total += R.expNeed(cap) - 1 - (h.lv >= cap ? exp : 0);
+    return Math.max(0, total);
+  };
   G.trainNow = function (uid) {
     var s = st(), h = G.hero(uid); if (!h) return fail('找不到武將');
     if (h.lv >= R.maxLevel) return fail('已達等級上限');
-    if (h.id !== 'lead' && h.lv >= G.lead().lv && h.exp >= R.expNeed(h.lv) - 1) return fail('武將等級不能超過主角');
+    if (G.trainAbsorbable(h) <= 0) return fail('武將等級已達主角等級上限');
     var cost = G.trainCost(h);
     if (s.player.silver < cost) return fail('銀幣不足（需要 ' + U.fmt(cost) + '）');
     s.player.silver -= cost;

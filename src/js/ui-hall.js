@@ -82,12 +82,12 @@
     } else if (UI.hallTabs[tab]) {
       h += UI.hallTabs[tab](h0, s, def);
     } else {
-      var tc = G.trainCost(h0), tn = G.TRAIN_MIN * G.trainRate(h0);
+      var tc = G.trainCost(h0), tn = G.TRAIN_MIN * G.trainRate(h0), ab = G.trainAbsorbable(h0), eff = Math.min(tn, ab);
       h += '<div class="train"><b>訓練</b>（神武殿 Lv' + (s.buildings.shenwu || 1) + '）<br>';
-      h += '立即完成，不用等待，可重複。<br>' + U.esc(G.nameOf(h0)) + ' 每次經驗 +' + U.fmt(tn) + '，花費 ' + U.fmt(tc) + ' 銀幣<div class="btn-row"><a class="btn small' + (s.player.silver >= tc ? '' : ' disabled') + '" data-why="銀幣不足（需要 ' + U.fmt(tc) + '）" data-a="startTrain" data-v="' + h0.uid + '">立即訓練</a></div>';
+      h += '立即完成，不用等待，可重複。<br>' + U.esc(G.nameOf(h0)) + ' 每次經驗 +' + U.fmt(tn) + '，花費 ' + U.fmt(tc) + ' 銀幣' + (ab <= 0 ? '<br><b>武將等級已達主角等級上限，無法再吸收經驗</b>' : (eff < tn ? '（受等級上限影響，預計實際可獲得 +' + U.fmt(eff) + ' 經驗）' : '，預計實際可獲得 +' + U.fmt(eff) + ' 經驗')) + '<div class="btn-row"><a class="btn small' + (ab <= 0 ? ' disabled' : (s.player.silver >= tc ? '' : ' disabled')) + '" data-why="' + (ab <= 0 ? '武將等級已達主角等級上限' : '銀幣不足（需要 ' + U.fmt(tc) + '）') + '" data-a="startTrain" data-v="' + h0.uid + '">立即訓練</a></div>';
       var lv = s.buildings.shenwu || 1;
       h += '<hr><b>升級神武殿</b>：訓練速度 +10%／級<br>費用 ' + U.fmt(G.buildingCost('shenwu', lv)) + ' 銀幣<div class="btn-row"><a class="btn small" data-a="upBld" data-v="shenwu">升級</a></div>';
-      h += '<p class="note">訓練經驗數值：D（自訂）。武將等級不能超過主角（B）。</p></div>';
+      h += '<p class="note">武將等級不能超過主角。</p></div>';
     }
     h += '</div>';
     // 下：武將列
@@ -127,9 +127,9 @@
     var t = '<div class="parch detail"><b>' + U.esc(G.nameOf(h0)) + '</b>（' + U.esc(def.faction) + '）<br>' +
       '品質：' + (h0.id === 'lead' ? '主角' : UI.qname(def.quality)) + '　類型：' + R.typeOf(h0, s) + '<br>' +
       '每級成長：力 ' + (h0.id === 'lead' ? MJ.D.config.leadTypes[R.leadTypeOf(s)].growth.str : def.growth.str) + '　智 ' + (h0.id === 'lead' ? MJ.D.config.leadTypes[R.leadTypeOf(s)].growth.int : def.growth.int) + '　敏 ' + (h0.id === 'lead' ? MJ.D.config.leadTypes[R.leadTypeOf(s)].growth.agi : def.growth.agi) + '　耐 ' + (h0.id === 'lead' ? MJ.D.config.leadTypes[R.leadTypeOf(s)].growth.con : def.growth.con) + '<br>' +
-      '單人戰鬥力（D 估算）：' + U.fmt(R.power(h0, s)) + '<br>資料等級：' + U.esc(def.grade || '') +
+      '單人戰鬥力：' + U.fmt(R.power(h0, s)) + '<br>' +
       '傷害類型：' + MJ.D.config.damageTypes[R.derived(h0, s).dtype] + '　升階：' + (h0.star || 0) + '/5<br>' +
-      '<p class="note">屬性公式：物攻 = 力量×5+5（力系）、物防 = 力×0.5+耐×0.67、法防 = 智×0.5+耐×0.42、生命 = 耐×20+等級×13（C，依 A 級截圖 Lv6 數值反推，完全吻合）。絕技攻 = 敏×5+5（敏耐型）、絕技防 = 敏×0.6+耐×0.3（D）。培養、升階、心法加成在四維/屬性內；將星錄、圖鑑、陣法為全隊加成，只在戰鬥時套用（D）。</p></div>';
+      '<p class="note">屬性公式：物攻 = 力量×5+5（力系）、物防 = 力×0.5+耐×0.67、法防 = 智×0.5+耐×0.42、生命 = 耐×20+等級×13。絕技攻 = 敏×5+5（敏耐型）、絕技防 = 敏×0.6+耐×0.3。培養、升階、心法加成在四維/屬性內；將星錄、圖鑑、陣法為全隊加成，只在戰鬥時套用。</p></div>';
     return UI.panel('武將詳情', t, { cls: 'narrow' });
   };
 })();

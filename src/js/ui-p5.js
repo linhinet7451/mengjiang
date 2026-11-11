@@ -26,7 +26,7 @@
       var un = G.hrdUnlocked(i), best = h.best[x.id];
       return '<a class="hrd-lv' + (i === h.lv ? ' on' : '') + (un ? '' : ' locked') + '" data-a="hrdLv" data-v="' + i + '"><b>' + (i + 1) + '. ' + x.name + '</b><small>' + (best ? '最佳 ' + best + ' 步' : (un ? '最少 ' + x.min + ' 步' : '未解鎖')) + '</small></a>';
     }).join('') + '</div>';
-    out += '<p class="note">點選一塊棋子，再按方向鍵（或點旁邊的空格）移動一格。讓<b>曹操</b>從下方出口脫身即破解。每贏 5 場戰鬥後第一次破解可領銀幣（不看日期），每個布局首次破解另有獎勵。規則為公有領域的傳統益智遊戲；布局、獎勵：D。</p>';
+    out += '<p class="note">點選一塊棋子，再按方向鍵（或點旁邊的空格）移動一格。讓<b>曹操</b>從下方出口脫身即破解。每贏 5 場戰鬥後第一次破解可領銀幣（不看日期），每個布局首次破解另有獎勵。規則為公有領域的傳統益智遊戲。</p>';
     out += '</div><div class="hrd-main"><div class="hrd-head"><b>' + U.esc(lv.name) + '</b>　步數 <em class="hrd-moves">' + h.moves + '</em>　最少 ' + lv.min + ' 步</div>';
     out += '<div class="hrd-board" style="width:' + (CELL * 4 + 12) + 'px;height:' + (CELL * 5 + 12) + 'px">';
     var g = G.hrdGrid(b);
@@ -88,7 +88,7 @@
     out += '<div>目前星運：' + (x.luck ? '<b class="luck-' + x.luck.id + '">' + x.luck.name + '</b>　虛空之門勝利時全隊額外經驗 <b>+' + x.luck.exp + '%</b>（還剩 ' + x.luckLeft + ' 場勝利）' : '尚未觀星') + '</div>';
     out += '<div>觀星不限次數　' + (x.free ? '<span class="good">本次免費</span>' : '本次花費 ' + x.cost + ' 金（再勝 ' + x.winsLeft + ' 場可免費）') + '　（點北斗七星任一顆）</div>';
     if (x.last) { var ll = G.starLuck(x.last.luck); out += '<div class="star-last">上次：' + x.last.star + '星 → <b class="luck-' + ll.id + '">' + ll.name + '</b>　「' + ll.poem + '」</div>'; }
-    out += '<div class="small">運勢機率：' + U.map(G.STAR_LUCK, function (l) { return l.name + ' ' + l.w + '%（經驗 +' + l.exp + '%）'; }).join('、') + '。選哪顆星不影響機率。星運持續 ' + G.STAR_LAST + ' 場虛空之門勝利，期間取最好的一次。全部為 D 級（原創）。</div></div>';
+    out += '<div class="small">運勢機率：' + U.map(G.STAR_LUCK, function (l) { return l.name + ' ' + l.w + '%（經驗 +' + l.exp + '%）'; }).join('、') + '。選哪顆星不影響機率。星運持續 ' + G.STAR_LAST + ' 場虛空之門勝利，期間取最好的一次。</div></div>';
     return out;
   }
   UI.actions.starDraw = function (v) {
@@ -117,7 +117,7 @@
     out += '<div>擲 5 顆骰子決定獎項；距離保底「玄機大獎」還有 <b>' + x.pityLeft + '</b> 次（連續 ' + G.WHEEL_PITY + ' 次沒中，第 ' + G.WHEEL_PITY + ' 次必中）</div>';
     out += '<div>每贏 5 場戰鬥可免費擲一次（不看日期）；其餘每次 500＋主角等級×100 銀幣。累計擲骰 ' + x.spins + ' 次。</div>';
     out += '<div class="odds"><b>機率表</b>' + U.map(G.wheelOdds(), function (o) { return '<span>' + U.esc(o.name) + ' ' + o.pct + '%</span>'; }).join('') + '</div>';
-    out += '<div class="small">骰子外觀：宣傳片 0:50 金色橢圓盤上的 5 顆骰子（B）；骰子到獎項的對應：D 級（本作設計，5 顆骰子作 base-6 數字均勻對應加權表）。獎項、機率與保底不變。單機版沒有任何真實付費。</div></div></div>';
+    out += '<div class="small">骰子外觀：金色橢圓盤上的 5 顆骰子。獎項、機率與保底不變。單機版沒有任何真實付費。</div></div></div>';
     return out;
   }
   UI.actions.wheelSpin = function () {

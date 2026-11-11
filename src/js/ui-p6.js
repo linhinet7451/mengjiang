@@ -17,7 +17,7 @@
     if (pend) h += '<div class="btn-row"><a class="btn small" data-a="pyRetry" data-v="' + (UI.sel.pyMode || 'normal') + '">重試</a><a class="btn small red" data-a="pyNo">保持</a><a class="btn small" data-a="pyOk">替換</a></div><small>重試＝放棄這次結果並再培養一次（再付一次費用）；保持＝維持原數值；替換＝採用新結果。</small>';
     else h += '<div class="btn-row"><a class="btn small" data-a="pyDo" data-v="normal">普通培養</a><a class="btn small" data-a="pyDo" data-v="strong">加強培養</a></div>' +
       '<small>普通：榮譽 ' + c.normal.dan * G.HONOR_PER_TOKEN + '＋' + U.fmt(c.normal.silver) + ' 銀（' + c.normal.lo + '～+' + c.normal.hi + '）<br>加強：榮譽 ' + c.strong.dan * G.HONOR_PER_TOKEN + '＋' + U.fmt(c.strong.silver) + ' 銀（' + c.strong.lo + '～+' + c.strong.hi + '）<br>榮譽來源：拜訪武將（勝 +' + G.HONOR_WIN + '／敗 +' + G.HONOR_LOSE + '）、榮譽令（+50）</small>';
-    return h + '<p class="note">培養 50 榮譽、重試／保持／替換：B（攻略）；加強培養、銀幣、增減範圍：D。</p></div>';
+    return h + '</div>';
   };
   UI.actions.pyDo = function (m) { UI.sel.pyMode = m; var r = G.peiyang(UI.sel.hallUid, m); if (UI.res(r)) UI.render(); };
   UI.actions.pyRetry = function (m) { var r = G.peiyangRetry(UI.sel.hallUid, m); if (UI.res(r)) UI.render(); };
@@ -27,15 +27,15 @@
   // ---------- 將星錄：將魂合成 ----------
   function soulPanel() {
     var cfg = C().soulCombine;
-    var h = '<hr><b>將魂合成</b>（主角 ' + cfg.open + ' 級開放；W541 指定 5 魂公式，材料順序不限）';
+    var h = '<hr><b>將魂合成</b>（主角 ' + cfg.open + ' 級開放；指定 5 魂公式，材料順序不限）';
     if (!G.soulCombineOpen()) return h + '<br><small>主角 ' + cfg.open + ' 級開放</small>';
     h += '<small>' + G.SOUL_RULES.recipe + '</small><div class="rows sc-rows">';
     U.each(G.soulRecipes(), function (r, i) {
       var parts = r.split(','), x = G.soulRecipeState(i), names = U.map(parts.slice(0, 5), function (id) { var d = R.heroDef(id); return d ? d.name : '?'; }).join('＋'), out = R.heroDef(parts[5]);
       h += '<div class="row-item"><div class="ri-t"><b>' + (i + 1) + '. ' + U.esc(names) + ' → ' + U.esc(out ? out.name : '?') + '將魂</b><small>' + (x.can ? '材料足夠，可合成' : '材料不足') + '</small></div>' + (x.can ? '<a class="btn small" data-a="soulRecipe" data-v="' + i + '">合成</a>' : '<small>需 5 個指定魂</small>') + '</div>';
     });
-    if (!G.soulRecipes().length) h += '<div class="row-item"><small>尚未載入 W541 合成公式。</small></div>';
-    return h + '</div><p class="note">W541（B）：綠將無合成公式；兩條爭議留言公式不進入本作。</p>';
+    if (!G.soulRecipes().length) h += '<div class="row-item"><small>目前沒有可用的合成公式。</small></div>';
+    return h + '</div><p class="note">綠將沒有合成公式。</p>';
   }
   var baseJxl = UI.screens.jxl;
   UI.screens.jxl = function () {
@@ -48,7 +48,7 @@
   var baseTower = UI.screens.tower;
   UI.screens.tower = function () {
     var h = baseTower.apply(this, arguments), n = S().bag.stack[G.FRAG] || 0, at = h.indexOf('<p class="note">通天塔可無限挑戰');
-    var p = '<div class="parch tw-frag"><b>紫裝碎片 ' + n + '/' + G.FRAG_NEED + '</b>（每 20 層獎勵；10 層／30 層…給藍裝）' + (n >= G.FRAG_NEED ? '<div class="btn-row">' + U.map([['weapon:p', '物攻武器'], ['weapon:m', '法攻武器'], ['weapon:j', '絕技武器'], ['armor', '盔甲'], ['cape', '披風'], ['belt', '腰帶'], ['helm', '帽子'], ['ring', '戒指']], function (x) { return '<a class="btn small" data-a="fragMix" data-v="' + x[0] + '">' + x[1] + '</a>'; }).join('') + '</div>' : '') + '<small>碎片數量、合成數：D</small></div>';
+    var p = '<div class="parch tw-frag"><b>紫裝碎片 ' + n + '/' + G.FRAG_NEED + '</b>（每 20 層獎勵；10 層／30 層…給藍裝）' + (n >= G.FRAG_NEED ? '<div class="btn-row">' + U.map([['weapon:p', '物攻武器'], ['weapon:m', '法攻武器'], ['weapon:j', '絕技武器'], ['armor', '盔甲'], ['cape', '披風'], ['belt', '腰帶'], ['helm', '帽子'], ['ring', '戒指']], function (x) { return '<a class="btn small" data-a="fragMix" data-v="' + x[0] + '">' + x[1] + '</a>'; }).join('') + '</div>' : '') + '</div>';
     return at < 0 ? h : h.slice(0, at) + p + h.slice(at);
   };
   UI.actions.fragMix = function (v) { var a = v.split(':'), r = G.fragCombine(a[0], a[1]); if (UI.res(r, '合成：紫·' + (r.equip ? G.itemName('eq:' + r.equip.t) : ''))) UI.render(); };

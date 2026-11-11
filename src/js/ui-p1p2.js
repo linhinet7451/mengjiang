@@ -5,7 +5,7 @@
   UI.modals.heroCompare = function () {
     var s = MJ.S.state, h = G.hero(UI.sel.hallUid) || G.lead(), now = R.derived(h, s), next = U.extend({}, h); next.lv = h.lv + 1;
     var nd = R.derived(next, s), a = R.skillOf(h, 'a'), na = R.skillOf(next, 'a');
-    var body = '<div class="compare-grid"><div class="compare-card"><b>目前 Lv' + h.lv + '</b><p>' + statLine(now) + '</p><small>主動：' + U.esc(a.name) + '　Lv' + a.lv + '<br>範圍：' + U.esc(a.pattern) + '　倍率：' + Math.round(a.mult * 100) + '%</small></div><div class="compare-card next"><b>升級後 Lv' + next.lv + '</b><p>' + statLine(nd) + '</p><small>主動：' + U.esc(na.name) + '　Lv' + na.lv + '<br>範圍：' + U.esc(na.pattern) + '　倍率：' + Math.round(na.mult * 100) + '%</small></div></div><div class="prov-note">此預覽只計算等級成長，不扣除資源、不改變存檔；技能等級不能超過武將等級。</div>';
+    var body = '<div class="compare-grid"><div class="compare-card"><b>目前 Lv' + h.lv + '</b><p>' + statLine(now) + '</p><small>主動：' + U.esc(a.name) + '　Lv' + a.lv + '<br>範圍：' + U.esc(MJ.D.heroes.patterns[a.pattern] || '') + '　倍率：' + Math.round(a.mult * 100) + '%</small></div><div class="compare-card next"><b>升級後 Lv' + next.lv + '</b><p>' + statLine(nd) + '</p><small>主動：' + U.esc(na.name) + '　Lv' + na.lv + '<br>範圍：' + U.esc(MJ.D.heroes.patterns[na.pattern] || '') + '　倍率：' + Math.round(na.mult * 100) + '%</small></div></div><div class="prov-note">此預覽只計算等級成長，不扣除資源、不改變存檔；技能等級不能超過武將等級。</div>';
     return UI.panel('升級前後比較', body, { cls: 'narrow' });
   };
   UI.modals.originalModes = function () {

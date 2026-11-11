@@ -245,7 +245,7 @@
     h += '<div class="fx" id="fx"></div>';
     h += '<div class="b-title">' + U.esc(r.stage.name) + (r.double ? '（×2 挑戰）' : '') + '</div>';
     h += '<div class="b-round" id="bround">第1回合</div>';
-    if (BT.bd) h += '<div class="b-rule">' + (BT.bd.v >= 12 ? '雙方每回合一直往前・走到底統一換到第一列排隊對打' : BT.bd.v >= 11 ? '雙方每回合一直往前・走到底回第一排後方排隊・不換列' : '每回合雙方前進一格・只能前後不能換列') + '</div>';
+    if (BT.bd) h += '<div class="b-rule" id="brule">' + (BT.bd.v >= 12 ? '雙方每回合一直往前・走到底統一換到第一列排隊對打' : BT.bd.v >= 11 ? '雙方每回合一直往前・走到底回第一排後方排隊・不換列' : '每回合雙方前進一格・只能前後不能換列') + '</div>';
     h += '<div class="b-skill" id="bskill"></div>';
     h += '<div class="cutin" id="cutin"></div>';
     h += '<div class="b-bl"><a class="zhen' + (BT.showGrid ? ' on' : '') + '" data-a="bGrid">陣</a><div class="swords"><svg viewBox="0 0 40 40" class="art"><path d="M6 6 L30 30 M34 6 L10 30" stroke="#e0e0e0" stroke-width="4" stroke-linecap="round"/><path d="M26 26 L32 32 M14 26 L8 32" stroke="#c9a24a" stroke-width="6" stroke-linecap="round"/></svg><b id="bleft">x ' + MJ.D.config.maxRounds + '</b></div></div>';
@@ -265,10 +265,14 @@
     U.each(res.team, function (x) { BT.units['A' + x.cell] = { u: x.unit, hp: x.unit.curHp != null ? x.unit.curHp : x.unit.hp, max: x.unit.hp, side: 'A', cell: x.cell }; });
     U.each(res.foes, function (x) { BT.units['B' + x.cell] = { u: x.unit, hp: x.unit.hp, max: x.unit.hp, side: 'B', cell: x.cell }; });
     if (BT.bd) U.each(U.keys(BT.units), function (k) { var x = BT.units[k]; x.br = Math.floor(x.cell / 3); x.bx = MJ.Battle.homeBx(x.side, x.cell); });
+    var fromBattle = (UI.screen === 'battle');
     UI.modal = null;
     UI.go('battle');
     updateInfo();
-    BT.timer = setTimeout(step, 400);
+    // WL-13 #12：從非戰鬥畫面進來時，ui-p4 的包裝會在 startBattle 返回後立刻顯示「戰鬥準備中…」
+    // 面紗（650ms 後淡出、1200ms 移除）；等面紗完全消失再走第一步，回合橫幅／規則／浮字才不會疊在面紗
+    // 文字上。已在戰鬥畫面內連打（塔／幻境連續層數、再戰一次）沒有面紗，維持原來的 400ms。
+    BT.timer = setTimeout(step, fromBattle ? 400 : 1250);
     totals();
   };
   UI.actions.startBattle = function (id) {
@@ -292,13 +296,17 @@
   function el(id) { return document.getElementById(id); }
   function nameOf(key) { var x = BT.units[key]; return x ? x.u.name : key; }
   function addLog(t, cls) { BT.logHtml = '<div class="' + (cls || '') + '">' + U.esc(t) + '</div>' + BT.logHtml; var l = el('blog'); if (l) l.innerHTML = BT.logHtml; }
+  // WL-13 #12：規則說明只在準備階段顯示，第一次出手（或揮空）後收起，避免與技能名／浮字疊在一起
+  function hideRule() { if (!BT || BT.ruleHidden) return; BT.ruleHidden = true; var rl = el('brule'); if (rl) rl.style.display = 'none'; }
   function floatText(key, text, cls, dy) {
     var x = BT.units[key]; if (!x) return;
     var p = upos(x), fx = el('fx'); if (!fx) return;
     var d = document.createElement('div');
     d.className = 'ftxt ' + (cls || '');
-    // art3：飄字一律留在舞台內、不蓋到上方雙方總生命條（約 y<44）。最上排整疊往下移，保持「技能名 > 無雙+ > 暴擊 > 數字」的上下順序
-    var FT_MIN = 82, shift = Math.max(0, FT_MIN - (p.y - 224));
+    // WL-13 #12：飄字避開上方牌匾／橫幅區（關卡名 .b-title 約 y40-70、回合橫幅 .b-round 約 y74-104、
+    // 無雙技能名 .b-skill 與規則 .b-rule 約 y104-140）。飄字動畫會再往上飄約 36px，且技能名浮字本身
+    // 帶 dy=60 的上移量，所以起點至少要 y180（浮字底線 ≥144 才不會飄進橫幅區）；最上兩排整疊往下移。
+    var FT_MIN = 180, shift = Math.max(0, FT_MIN - (p.y - 224));
     var lx = p.x - 60 + (Math.random() * 20 - 10); lx = Math.max(6, Math.min(960 - 166, lx));
     d.style.left = lx + 'px'; d.style.top = Math.min(600 - 70, p.y - 164 - (dy || 0) + shift) + 'px';
     d.innerHTML = text;
@@ -420,8 +428,8 @@
     box.className = 'field-preview ' + (e.id === 'flag' ? 'flag' : '');
     if (e.id === 'flag') {
       var labels = { patk: '物攻', matk: '法攻', hit: '命中', mdef: '法防' };
-      body = e.unresolved ? '此命中級距來源未列' : (labels[e.stat] || e.stat || '屬性未知') + ' +' + e.percent + '%（命中 ' + e.hits + ' 次）';
-    } else if (e.id === 'flame') body = '四格斜線・附灼傷（數值未載）';
+      body = e.unresolved ? '此命中級距未定' : (labels[e.stat] || e.stat || '屬性未知') + ' +' + e.percent + '%（命中 ' + e.hits + ' 次）';
+    } else if (e.id === 'flame') body = '四格斜線・附灼傷';
     else body = (e.strength === 'low' ? '小威力' : e.strength === 'medium' ? '中威力' : '大威力') + '・隨機命中格';
     var html = '<b>' + U.esc(e.name || '戰場道具') + '</b><span>' + U.esc(body) + '</span>';
     if (rows.length) {
@@ -454,7 +462,7 @@
       case 'event': return '隨機事件「' + e.name + '」：' + e.desc;
       case 'rock': return '落石：' + nameOf(e.to) + ' 受到 ' + e.dmg + ' 傷害';
       case 'stale': return (e.quiet ? '連續 ' + e.quiet + ' 回合雙方都沒有人受傷（剩下的人不同列、技能打不到）：' : '雙方都走不動、攻擊格也碰不到對方：') + '依剩餘生命判定（我方 ' + e.a + '%／敵方 ' + e.b + '%）→ ' + (e.win ? '我方勝' : '敵方勝');
-      case 'fieldItem': return e.id === 'flag' ? (e.unresolved ? '戰場道具「旗幟」：來源未列命中 ' + e.hits + ' 次級距' : '旗幟：' + ({ patk: '物攻', matk: '法攻', hit: '命中', mdef: '法防' }[e.stat] || e.stat) + ' +' + e.percent + '%（命中 ' + e.hits + ' 次）') : (e.name + '：' + (e.id === 'flame' ? '四格斜線，附灼傷（數值未載）' : '範圍內隨機命中，' + (e.strength === 'low' ? '小威力' : e.strength === 'medium' ? '中威力' : '大威力')));
+      case 'fieldItem': return e.id === 'flag' ? (e.unresolved ? '戰場道具「旗幟」：命中 ' + e.hits + ' 次' : '旗幟：' + ({ patk: '物攻', matk: '法攻', hit: '命中', mdef: '法防' }[e.stat] || e.stat) + ' +' + e.percent + '%（命中 ' + e.hits + ' 次）') : (e.name + '：' + (e.id === 'flame' ? '四格斜線，附灼傷' : '範圍內隨機命中，' + (e.strength === 'low' ? '小威力' : e.strength === 'medium' ? '中威力' : '大威力')));
       default: return null;
     }
   }
@@ -540,11 +548,12 @@
     if (e.t === 'adv') { advUnits(e); return next(T(480)); }
     if (e.t === 'wait') { applyEv(e); return next(T(60)); }
     if (e.t === 'stale') { applyEv(e); return next(T(700)); }
-    if (e.t === 'whiff') { applyEv(e); floatText(e.u, '揮空', 'red small'); showRange(e, BT.units[e.u], T(520)); return next(T(560)); }
+    if (e.t === 'whiff') { hideRule(); applyEv(e); floatText(e.u, '揮空', 'red small'); showRange(e, BT.units[e.u], T(520)); return next(T(560)); }
     if (e.t !== 'act') { applyEv(e); return next(T(120)); }
     // 行動：收集後續結果事件
     var group = [];
     while (BT.i < ev.length && ['act', 'round', 'end', 'skip'].indexOf(ev[BT.i].t) < 0) group.push(ev[BT.i++]);
+    hideRule(); // WL-13 #12：第一次出手就收起規則說明
     var me = BT.units[e.u], ue = el('u' + e.u);
     var t0 = 0;
     addLog(me.u.name + ' 施展「' + e.skill + '」' + (e.ult ? '（無雙）' : ''), e.ult ? 'ult' : '');
@@ -639,6 +648,9 @@
     // 以模擬結果校正最終畫面
     U.each(BT.r.battle.units, function (u) { setHp(u.key, u.hp); setDead(u.key, u.hp <= 0); });
     var ci = el('cutin'); if (ci) ci.className = 'cutin';
+    // WL-13 #11：戰鬥一結束就掛上 ended（不只等 showResult 才掛），結算 HUD 立即隱藏，
+    // 跳過戰鬥時也不會先閃一下舊回合數／舊連擊。showResult 裡的同款防重複判斷保留。
+    var btEl0 = el('bt'); if (btEl0 && btEl0.className.indexOf('ended') < 0) btEl0.className += ' ended';
     // 2026-11-09：結算畫面延後 300ms 才出現；若這段時間玩家已離開戰鬥
     // （bBack/bCity 會把 BT 清成 null）或已開新戰鬥，舊結算就不再顯示，
     // 否則 showResult 讀 BT.r 會在 WebKit 拋「null is not an object」。
@@ -657,7 +669,7 @@
     if (UI.battleResultMusic) UI.battleResultMusic();
     if (r.mode && UI.modeResult) { if (!r.win && btEl) btEl.className += ' lost'; b.innerHTML = UI.modeResult(r); return; }
     if (r.win) {
-      var stars = ''; for (var i = 0; i < 3; i++) stars += '<i class="' + (i < r.stars ? 'on' : '') + '">★</i>';
+      var stars = ''; for (var i = 0; i < 3; i++) stars += '<i class="' + (i < r.stars ? 'on' : '') + '">' + (i < r.stars ? '★' : '☆') + '</i>'; // WL-13 #11：未得到的星顯示空星 ☆，1 星不再看起來像 ★★★
       h = '<div class="dim"></div><div class="result win"><div class="banner">勝 利</div><div class="rstars">' + stars + '</div><div class="parch rbody">' +
         '<div>回合數：' + r.battle.rounds + '</div>' +
         (evObj ? '<div class="evt">隨機事件「' + U.esc(evObj.name) + '」：' + U.esc(evObj.desc) + '</div>' : '') +

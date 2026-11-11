@@ -12,14 +12,14 @@
   UI.actions.shengsijie = function () { UI.go('shengsijie'); };
   UI.screens.shengsijie = function () {
     var p = G.ssjProgress(), h = '<div class="scr hall-scr"><div class="frame bigframe hall sgf"><div class="plaque">生死劫</div><a class="xbtn" data-a="city">×</a>';
-    h += '<div class="sg-tip">逐層挑戰九名首領。已通過最高層：<b>' + p.best + '/9</b>；首通可得銀幣與全隊經驗。<br>敵軍等級、外觀、獎勵與依序解鎖方式皆為本作暫定設計。</div><div class="sg-list">';
+    h += '<div class="sg-tip">逐層挑戰九名首領。已通過最高層：<b>' + p.best + '/9</b>；首通可得銀幣與全隊經驗。<br>敵軍等級、外觀、獎勵與依序解鎖方式以本作設定為準。</div><div class="sg-list">';
     U.each(G.SSJ_LAYERS, function (layer, i) {
       var floor = i + 1, locked = floor > p.best + 1, done = !!p.clears[floor];
       h += '<div class="sg-card' + (locked ? ' locked' : '') + '"><div class="sg-h">第 ' + floor + ' 層：' + U.esc(layer.name) + '<small>（敵軍 Lv' + layer.lv + '）</small></div>' +
         '<div class="sg-b">' + (done ? '已通關 ' + p.clears[floor] + ' 次' : '首通：銀幣 ×' + (500 + floor * 200) + '、全隊經驗 +' + (layer.lv * 12)) + '</div>' +
         (locked ? '<div class="sg-lock">先通過前一層</div>' : '<a class="btn small" data-a="ssjGo" data-v="' + floor + '">' + (done ? '再戰' : '挑戰') + '</a>') + '</div>';
     });
-    h += '</div><p class="note sg-note">九層名稱：B（G2 sn=88）。各層敵軍等級、首領外觀／技能、解鎖、首通獎勵：D。</p></div></div>';
+    h += '</div></div></div>';
     return h;
   };
   UI.actions.ssjGo = function (v) { var r = G.ssjChallenge(+v); if (!UI.res(r)) return; UI.startBattle(r); };

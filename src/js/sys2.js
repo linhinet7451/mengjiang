@@ -184,7 +184,7 @@
     G.commit(); return ok({ pending: out, cost: cost });
   };
   G.washAccept = function (uid) { var f = G.findEquip(uid); if (!f || !f.e.washPending) return fail('沒有待確認的洗煉結果'); f.e.aff = f.e.washPending; delete f.e.washPending; G.commit(); return ok(); };
-  G.washCancel = function (uid) { var f = G.findEquip(uid); if (!f || !f.e.washPending) return fail('沒有待確認的洗煉結果'); delete f.e.washPending; G.commit(); return ok(); };
+  G.washCancel = function (uid) { var f = G.findEquip(uid); if (!f || !f.e.washPending) return fail('沒有待確認的洗煉結果'); delete f.e.washPending; G.addItem('xilianshi', 1); G.commit(); return ok({ refunded: 1 }); };
   // ---------- 鑲嵌 ----------
   G.socket = function (uid, gemKey) {
     var f = G.findEquip(uid), it = MJ.D.equipment.items[gemKey];
@@ -230,12 +230,12 @@
   G.jxLevelUp = function (uid) {
     var s = st(), h = G.hero(uid);
     if (!h) return fail('找不到武將');
-    if (h.id === 'lead') return fail('主角不在來源所列的將星魂量範圍');
+    if (h.id === 'lead') return fail('主角沒有將星等級');
     if (!G.buildingOpen('jiangxing')) return fail('將星錄主角 30 級開放');
     var level = (h.jxLevel || 0) + 1;
     if (level > R.jxMaxLevel) return fail('已達將星 Lv18 上限');
     var cost = R.jxSoulCost(h, level);
-    if (cost == null) return fail('來源未提供此品階升至 Lv' + level + ' 的魂數；不以推算值扣魂');
+    if (cost == null) return fail('此品階升至 Lv' + level + ' 的魂數未定；不扣魂');
     var k = 'soul:' + h.id;
     if (have(k) < cost) return fail('將魂不足（' + have(k) + '/' + cost + '）');
     take(k, cost); h.jxLevel = level; count('jxLevelUp');

@@ -18,7 +18,7 @@
       box += '<small>下一階：' + qn(nx.q) + '　需要主角 ' + nx.lv + ' 級、銀幣 ' + U.fmt(nx.silver) + '　升階後全屬性 ×' + C().leadPromote.statMult[String(nx.q)] + '</small>' +
         '<div class="btn-row"><a class="btn small' + (can ? '' : ' off') + '" data-a="leadPromote">升為' + qn(nx.q) + '</a></div>';
     }
-    return box + '<p class="note">主角 20 級藍、60 級紫、90 級橙：照規格書，攻略只提到「主將升階」與「轉橘將」，尚待證實（D）；銀幣與屬性倍率：D（暫定）。</p></div>' + html;
+    return box + '<p class="note">主角 20 級升藍、60 級升紫、90 級升橙。</p></div>' + html;
   };
   UI.actions.leadPromote = function () {
     var r = G.leadPromote();
@@ -59,7 +59,7 @@
         (sg.first[t.id] ? '' : '<br><span class="sg-first">首次全破：金幣 ×' + t.gold + '</span>') + '</div>' +
         (locked ? '<div class="sg-lock">主角 ' + t.lv + ' 級開放</div>' : '<a class="btn small" data-a="sgGo" data-v="' + t.id + '">挑　戰</a>') + '</div>';
     });
-    h += '</div><p class="note sg-note">上古寶窟（3 關＋隱藏關、25 級開放）：B（攻略）。K4 分階衝突：2012 年攻略為 25/35/45/60 四階，2013 年攻略另有 70/80 階，兩者都保留（70／80 標「2013 版」）。單機化、敵軍、隱藏關機率 ' + Math.round(G.SG_HIDDEN * 100) + '%、將魂袋與獎勵數值：D。</p></div></div>';
+    h += '</div><p class="note sg-note">上古寶窟：3 關＋隱藏關，25 級開放（70／80 階標「2013 版」）。隱藏關機率 ' + Math.round(G.SG_HIDDEN * 100) + '%。</p></div></div>';
     return h;
   };
   UI.actions.sgGo = function (id) { var r = G.sgRun(id); if (!UI.res(r)) return; UI.sgPlay(r, 0); };

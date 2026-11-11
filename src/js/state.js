@@ -74,6 +74,8 @@ MJ.S = (function () {
       S.heroDefaults(h); if (h.id !== 'lead') st.codex[h.id] = 1;
     });
     if (st.bag && st.bag.equips) U.each(st.bag.equips, S.equipDefaults);
+    // WL-13 #20：開局送 1 顆搖錢樹苗（加法性預設；已有數量時不動，存檔版本不變）
+    if (st.bag && st.bag.stack && st.bag.stack.seed_yin == null) st.bag.stack.seed_yin = 1;
     U.each(st.mail || [], function (m) { if (m && m.att && m.att.equips) U.each(m.att.equips, S.equipDefaults); });
     if (S.extraDefaults) U.each(S.extraDefaults, function (f) { f(st); });
     return st;

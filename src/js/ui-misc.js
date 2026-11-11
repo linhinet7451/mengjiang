@@ -41,16 +41,36 @@
   UI.actions.bagQ = function (v) { UI.sel.bagQ = v; UI.page.bagP = 0; UI.renderModal(); };
   UI.actions.useItem = function (k) {
     var it = MJ.D.equipment.items[k];
+    if (k === 'jinengshu') { UI.open('pickHero', k); return; } // 技能書：先選將、再選技能，升級由 G.skillUp 扣書扣銀
     if (!it.use && !it.xinfa) { UI.toast(it.name + '：' + it.desc); return; }
     if (it.xinfa || it.use.heroExp) { UI.open('pickHero', k); return; }
     var r = G.useItem(k); if (UI.res(r, r.msg)) UI.renderModal();
   };
   UI.modals.pickHero = function (k) {
-    var s = S.state, xf = MJ.D.equipment.items[k].xinfa, list = U.filter(s.heroes, function (h) { return xf || h.id !== 'lead'; });
+    var s = S.state, xf = MJ.D.equipment.items[k].xinfa, list = U.filter(s.heroes, function (h) { return xf || k === 'jinengshu' || h.id !== 'lead'; }); // 技能書可對主角用；經驗道具不對主角用
     var pg = UI.pager('pickP', list, 8, function (h) { return UI.portrait(h, { act: 'useOn', v: k + ':' + h.uid }); }, '沒有可使用的武將');
     return UI.panel('選擇武將（' + MJ.D.equipment.items[k].name + '）', '<div class="cards">' + pg.html + '</div>' + pg.nav + '<div class="btn-row"><a class="btn" data-a="open" data-v="bag">返回</a></div>', { cls: 'mid' });
   };
-  UI.actions.useOn = function (v) { var a = v.split(':'); var r = G.useItem(a[0], +a[1]); if (UI.res(r, r.msg)) UI.renderModal(); };
+  UI.actions.useOn = function (v) { var a = v.split(':'); if (a[0] === 'jinengshu') { UI.open('pickSkill', v); return; } var r = G.useItem(a[0], +a[1]); if (UI.res(r, r.msg)) UI.renderModal(); };
+  // 技能書：選技能（主動／無雙／被動），顯示目前等級與費用，確認後由 G.skillUp 扣書扣銀並做全部檢查
+  UI.modals.pickSkill = function (v) {
+    var a = v.split(':'), uid = +a[1], h = G.hero(uid), s = S.state;
+    if (!h) return UI.panel('選擇技能', '找不到武將', { cls: 'mid' });
+    var def = R.heroDef(h.id), rows = '';
+    U.each(['a', 'u', 'p'], function (w) {
+      if (w === 'p' && !def.passive) return;
+      if (w === 'u' && !def.ult) return;
+      var lv = R.skillLv(h, w), cost = G.skillUpCost(h, w), shen = lv > MJ.D.config.skill.maxLv;
+      var nm = w === 'p' ? (MJ.D.heroes.passives[def.passive] ? MJ.D.heroes.passives[def.passive].name : '被動技能') : (R.skillOf(h, w) || {}).name;
+      var can = cost && lv < h.lv;
+      var why = !cost ? '已達「·神」最高階' : (lv >= h.lv ? '技能等級不能超過武將等級（' + h.lv + '）' : '');
+      var costLine = cost ? U.fmt(cost.silver) + ' 銀　' + U.map(U.keys(cost.items), function (k) { return G.itemName(k) + ' ' + (s.bag.stack[k] || 0) + '/' + cost.items[k]; }).join('　') : '';
+      rows += '<div class="row-item"><div class="ri-t"><b>' + G.SKILL_NAMES[w] + '：' + U.esc(nm) + '　' + (shen ? '神' : 'Lv' + lv) + '</b><small>' + U.esc(costLine) + '</small></div>' +
+        (can ? '<a class="btn small" data-a="skillBookUp" data-v="' + uid + ':' + w + '">' + (lv === MJ.D.config.skill.maxLv ? '突破·神' : '升級') + '</a>' : '<span class="dim2">' + U.esc(why) + '</span>') + '</div>';
+    });
+    return UI.panel('選擇技能（' + U.esc(G.nameOf(h)) + '）', '<div class="rows">' + (rows || '此武將沒有可升級的技能') + '</div><div class="btn-row"><a class="btn" data-a="open" data-v="bag">返回道具</a></div>', { cls: 'mid' });
+  };
+  UI.actions.skillBookUp = function (v) { var a = v.split(':'); var r = G.skillUp(+a[0], a[1]); if (UI.res(r, r.ok ? (r.shen ? '技能突破為「·神」！' : '技能升到 ' + r.lv + ' 級') : '')) UI.renderModal(); };
   UI.actions.sellEq = function (uid) { var r = G.sellEquip(+uid); if (UI.res(r, '賣出，獲得銀幣 ' + r.silver)) UI.renderModal(); };
 
   // ---------- 陣法 ----------
@@ -178,7 +198,7 @@
       '<div class="set-col"><div class="set-h">遊戲</div>' +
       '<div class="set-row">戰鬥速度：<a class="tog' + (st.speed === 1 ? ' on' : '') + '" data-a="setOpt" data-v="speed:1">1x</a><a class="tog' + (st.speed === 2 ? ' on' : '') + '" data-a="setOpt" data-v="speed:2">2x</a><a class="tog' + (st.speed === 4 ? ' on' : '') + '" data-a="setOpt" data-v="speed:4">4x</a></div>' +
       '<div class="set-row">無雙演出：<a class="tog' + (st.musou !== false ? ' on' : '') + '" data-a="setOpt" data-v="musou:1">開</a><a class="tog' + (st.musou === false ? ' on' : '') + '" data-a="setOpt" data-v="musou:0">關</a><br><small>關閉時無雙技不播放切入動畫與全屏特效，傷害直接結算（與戰鬥速度無關）。</small></div>' +
-      '<div class="set-row">經濟模式：<a class="tog' + (st.econ !== 'fast' ? ' on' : '') + '" data-a="setEcon" data-v="std">標準</a><a class="tog' + (st.econ === 'fast' ? ' on' : '') + '" data-a="setEcon" data-v="fast">單機加速</a><br><small>標準：原速。單機加速：訓練經驗 2 倍、戰鬥銀幣與塔俸 ×1.5（D）。精力與現實時間等待已全部取消。</small></div>' +
+      '<div class="set-row">經濟模式：<a class="tog' + (st.econ !== 'fast' ? ' on' : '') + '" data-a="setEcon" data-v="std">標準</a><a class="tog' + (st.econ === 'fast' ? ' on' : '') + '" data-a="setEcon" data-v="fast">單機加速</a><br><small>標準：原速。單機加速：訓練經驗 2 倍、戰鬥銀幣與塔俸 ×1.5。精力與現實時間等待已全部取消。</small></div>' +
       (UI.soundRows ? UI.soundRows() : '') +
       '<div class="set-row">手機直向時自動旋轉橫向：<a class="tog' + (st.rotate !== false ? ' on' : '') + '" data-a="setOpt" data-v="rotate:1">開</a><a class="tog' + (st.rotate === false ? ' on' : '') + '" data-a="setOpt" data-v="rotate:0">關</a></div>' +
       '<div class="set-row small">版本：' + S.RELEASE + '　存檔格式 v' + S.VERSION + '　戰鬥規則 v' + MJ.R.RV + '<br>建置編號：<b class="build-id">' + (window.MJ_BUILD || '開發版') + '</b>（GitHub Pages 更新後約 10 分鐘內可能仍拿到舊檔，重新整理後對照此編號）<br>本作為粉絲重製的單機版，所有美術均以程式繪製，與原版營運商無關。</div></div></div>';

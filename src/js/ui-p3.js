@@ -23,10 +23,10 @@
   }
 
   // ---------- 自動接續（WL-3 任務 2）：執行期狀態，不寫入存檔；預設開 ----------
-  // 預設開：勝利結算出現後約 3 秒自動打下一層／播下一波；期間可按「停止」中斷。
-  // （2026-11-09 由 1.2 秒放寬：WebKit iPhone 13 上結算畫面布局穩定較慢，1.2 秒內按不到「停止」就被自動接續搶走，E2E 連續兩次在 autoStop 點擊逾時；3 秒給人手與慢裝置留出反應時間。）
+  // 預設開：勝利結算出現後約 10 秒自動打下一層／播下一波；期間可按「停止」中斷。
+  // （2026-11-09 由 1.2 秒放寬到 3 秒：WebKit iPhone 13 上結算畫面布局穩定較慢，1.2 秒內按不到「停止」就被自動接續搶走，E2E 連續兩次在 autoStop 點擊逾時；2026-11-11 WL-13 #17 再放寬到 10 秒：3 秒仍不夠按到「停止」。）
   UI.autoContinue = { tower: true, wuji: true };
-  UI.AUTO_DELAY = 3000;
+  UI.AUTO_DELAY = 10000;
   UI._autoTimer = null; UI._autoKind = null;
   UI.clearAuto = function () { if (UI._autoTimer) { clearTimeout(UI._autoTimer); UI._autoTimer = null; UI._autoKind = null; } };
   UI.scheduleAuto = function (kind, fn) {
@@ -85,7 +85,7 @@
     var sw = G.towerSweepReward(), twt = G.ticket('tower'), swDone = !twt.ready;
     h += '<div class="fg-box tw-sweep"><b>塔俸</b>（依最高層數；每贏 ' + twt.every + ' 場可領一次）<br>' + (best ? U.esc(UI.rwText(sw).join('、')) : '至少通過第 1 層才能領取') +
       '<div class="btn-row"><a class="btn small' + (swDone || !best ? ' disabled' : '') + '" data-a="twSweep">' + (swDone ? '再勝 ' + twt.left + ' 場' : '領取') + '</a></div></div>';
-    h += '<p class="note">通天塔可無限挑戰；戰敗沒有懲罰。勝利後預設自動接續下一層（約 3 秒後，結算畫面按「停止」可中斷）；戰鬥重播或結算畫面按「跳過全部／跳過剩餘層數」可直接連打到戰敗或登頂再看總結。建築：A；樓層內容、獎勵：D。</p></div></div></div>';
+    h += '<p class="note">通天塔可無限挑戰；戰敗沒有懲罰。勝利後預設自動接續下一層（約 10 秒後，結算畫面按「停止」可中斷）；戰鬥重播或結算畫面按「跳過全部／跳過剩餘層數」可直接連打到戰敗或登頂再看總結。</p></div></div></div>';
     return h;
   };
   UI.actions.tower = function () { UI.go('tower'); };
@@ -96,7 +96,7 @@
   UI.screens.wuji = function () {
     var s = S(), lead = G.lead();
     var h = '<div class="scr hall-scr"><div class="frame bigframe hall wujif"><div class="plaque">無極幻境</div><a class="xbtn" data-a="city">×</a>';
-    h += '<div class="wj-tip">無盡波次：連續挑戰敵軍，<b>生命與怒氣會延續到下一波</b>。<b>每 5 波得 1 個將魂</b>，每 10 波道具包，每次最多 ' + G.WUJI_SEG + ' 波。最深紀錄：第 <b>' + (s.wuji.best || 0) + '</b> 波<br>勝利後預設自動接續下一波（約 3 秒後，結算畫面按「停止」可中斷）；戰鬥重播按「跳過全部」或結算畫面按「略過，看結算」可直接跳到總結。</div><div class="wj-cards">';
+    h += '<div class="wj-tip">無盡波次：連續挑戰敵軍，<b>生命與怒氣會延續到下一波</b>。<b>每 5 波得 1 個將魂</b>，每 10 波道具包，每次最多 ' + G.WUJI_SEG + ' 波。最深紀錄：第 <b>' + (s.wuji.best || 0) + '</b> 波<br>勝利後預設自動接續下一波（約 10 秒後，結算畫面按「停止」可中斷）；戰鬥重播按「跳過全部」或結算畫面按「略過，看結算」可直接跳到總結。</div><div class="wj-cards">';
     U.each(G.WUJI, function (t, i) {
       var locked = lead.lv < t.open, left = G.wujiLeft(t.id), boss = G.wujiWave(t, t.waves - 1, 1);
       var bu = R.enemyUnit(boss.enemies[0], boss);
@@ -108,7 +108,7 @@
         (s.wuji.first[t.id] ? '' : '<div class="rw-h">首次全破</div><small class="wj-first">' + U.esc(UI.rwText(t.first).join('、')) + '</small>') + '</div>' +
         (locked ? '<div class="wj-lock">主角 ' + t.open + ' 級開放</div>' : '<div class="btn-row"><a class="btn" data-a="wjGo" data-v="' + t.id + '">挑　戰</a></div>') + '</div>';
     });
-    h += '</div><p class="note wj-note">無極幻境：A（建築存在）；每 5 波 1 將魂：B（規格書）；五欄挑戰面板版面參考影片 3；波數、敵軍、獎勵數值：D。累計全破 ' + s.wuji.clears + ' 次。<a class="btn small" data-a="autoToggle" data-v="wuji">自動接續：' + (UI.autoContinue.wuji ? '開' : '關') + '</a></p></div></div>';
+    h += '</div><p class="note wj-note">無極幻境：每 5 波可得 1 個將魂。累計全破 ' + s.wuji.clears + ' 次。<a class="btn small" data-a="autoToggle" data-v="wuji">自動接續：' + (UI.autoContinue.wuji ? '開' : '關') + '</a></p></div></div>';
     return h;
   };
   UI.actions.wuji = function () { UI.go('wuji'); };
@@ -133,7 +133,7 @@
         (r.exp ? '<div>全隊經驗 +' + r.exp + '</div>' : '') + (r.levelUps.length ? '<div class="lvup">升級！' + U.esc(r.levelUps.join('、')) + '</div>' : '') +
         '<div class="rw-h">首次登頂獎勵</div>' + rwHtml(r.rewards, 'first') + '</div>';
       else h = '<div class="dim"></div><div class="result lose"><div class="banner">戰 敗</div><div class="parch rbody"><div>第 ' + f + ' 層的守軍太強了。' + (r.battle.timeout ? '（超過 ' + C().maxRounds + ' 回合）' : '') + '通天塔戰敗沒有任何損失。</div>' + tips + '</div>';
-      // 自動接續（預設開）：勝利且未登頂時，約 3 秒後走現有 bTower 路徑打下一層
+      // 自動接續（預設開）：勝利且未登頂時，約 10 秒後走現有 bTower 路徑打下一層
       var autoT = r.win && UI.autoContinue.tower && G.towerAutoNext(r);
       if (autoT) {
         h += '<div class="auto-next" id="autoNext">即將挑戰下一層… <a class="btn small" data-a="autoStop" data-v="tower">停止</a></div>';
@@ -231,14 +231,14 @@
       }
       h += '</div>';
     }
-    h += '</div><div class="parch fm-side"><b>農田 Lv' + lv + '</b>　已開墾 ' + n + '/9 塊<br><small>每級成長時間 −2%（最多 −30%），收成 +5%。</small>' +
+    h += '</div><div class="parch fm-side"><b>農田 Lv' + lv + '</b>　已開墾 ' + n + '/9 塊<br><small>作物種下立即成熟；每級收成 +5%。</small>' +
       '<div class="btn-row"><a class="btn small" data-a="upBld" data-v="farm">升級（' + U.fmt(G.buildingCost('farm', lv)) + ' 銀）</a><a class="btn small" data-a="fmAll">一鍵收成</a></div><hr><b>種子與化肥</b><div class="rows">';
     U.each(['seed_yin', 'seed_exp', 'seed_gem', 'seed_soul', 'huafei'], function (k) {
       var it = MJ.D.equipment.items[k], sd = G.SEEDS[k];
       h += '<div class="row-item">' + UI.icon(it.icon, SEED_COL[k] || '#8bc34a') + '<div class="ri-t"><b>' + U.esc(it.name) + ' ×' + (s.bag.stack[k] || 0) + '</b><small>' + (sd ? '立即成熟　' : '') + U.esc(it.desc) + '</small></div></div>';
     });
     h += '</div><div class="btn-row"><a class="btn small" data-a="open" data-v="shop">到商城買種子</a></div>' +
-      '<p class="note">作物依真實時間成長，關閉遊戲後也會繼續長。經濟模式：' + G.econ().name + (G.econ().farm > 1 ? '（成長 ' + G.econ().farm + ' 倍速）' : '') + '。農田：A；作物、時間、收成：D。</p></div></div></div>';
+      '<p class="note">作物種下立即成熟，可馬上收成。經濟模式：' + G.econ().name + '。</p></div></div></div>';
     return h;
   };
   UI.actions.farm = function () { UI.go('farm'); };
@@ -254,7 +254,7 @@
     return UI.panel('選擇種子', h, { cls: 'narrow2' });
   };
   UI.actions.fmPlant = function (v) { var a = v.split(':'), r = G.plant(+a[0], a[1]); if (UI.res(r, '已種下')) UI.close(); };
-  UI.actions.fmFert = function (i) { if (UI.res(G.fertilize(+i), '施肥完成，剩餘時間減半')) UI.render(); };
+  UI.actions.fmFert = function (i) { if (UI.res(G.fertilize(+i), '施肥完成，收成 +50%')) UI.render(); };
   UI.actions.fmHarvest = function (i) { var r = G.harvest(+i); if (UI.res(r)) { UI.render(); UI.rewardBox('收成', r.got); } };
   UI.actions.fmAll = function () { var r = G.harvestAll(); if (UI.res(r)) { UI.render(); UI.rewardBox('收成 ' + r.n + ' 塊田', r.got); } };
 
@@ -291,7 +291,7 @@
         body += '<div class="row-item">' + UI.icon('quest') + '<div class="ri-t"><b>' + U.esc(q.name) + '</b>（' + p + '/' + q.n + '）<small>' + U.esc(q.desc) + '　獎勵：' + U.esc(UI.rwText(q.reward).join('、')) + '、活躍 ' + q.act + '</small></div>' +
           (cl ? '<span class="dim2">已領取</span>' : (p >= q.n ? '<a class="btn small" data-a="claimDaily" data-v="' + q.id + '">領取</a>' : '<span class="dim2">進行中</span>')) + '</div>';
       });
-      body += '</div><div class="btn-row"><a class="btn small' + (U.keys(d.claimed).length && !G.dailyPending() ? '' : ' disabled') + '" data-why="' + (U.keys(d.claimed).length ? '還有可以領取的獎勵，先領完' : '這一輪還沒有領取任何任務') + '" data-a="dailyRound">開始下一輪</a></div><p class="note">歷練任務不看日期：領完獎勵後可以馬上開始下一輪，沒有每日上限（本作改編）。內容與獎勵：D。</p>';
+      body += '</div><div class="btn-row"><a class="btn small' + (U.keys(d.claimed).length && !G.dailyPending() ? '' : ' disabled') + '" data-why="' + (U.keys(d.claimed).length ? '還有可以領取的獎勵，先領完' : '這一輪還沒有領取任何任務') + '" data-a="dailyRound">開始下一輪</a></div><p class="note">歷練任務不看日期：領完獎勵後可以馬上開始下一輪，沒有每日上限（本作改編）。</p>';
     } else if (tab === 'ach') {
       var pa = UI.pager('achP', G.ACH, 5, function (a) {
         var x = G.achState(a), stars = '';
@@ -302,7 +302,8 @@
       body += '<div class="rows">' + pa.html + '</div>' + pa.nav;
     } else {
       var x = G.signState();
-      body += '<div class="sg-wrap"><div class="sg-cal"><div class="sg-m">本輪已簽 <b>' + x.count + '</b>/' + x.daysInMonth + ' 次　累計 ' + s.sign.total + ' 次</div><div class="sg-g">';
+      // WL-13 #14：規則說明移到日曆上方，不用捲動就能一眼看完（文字不動）
+      body += '<p class="note">簽到不看日期：每贏 ' + x.every + ' 場戰鬥可簽一次，28 次為一輪（本作改編）。</p><div class="sg-wrap"><div class="sg-cal"><div class="sg-m">本輪已簽 <b>' + x.count + '</b>/' + x.daysInMonth + ' 次　累計 ' + s.sign.total + ' 次</div><div class="sg-g">';
       for (var dd = 1; dd <= x.daysInMonth; dd++) {
         var on = dd <= x.count;
         body += '<span class="sg-d' + (on ? ' on' : '') + (dd === x.count + 1 ? ' today' : '') + (dd > x.count + 1 ? ' fut' : '') + '">' + dd + (on ? '<i>簽</i>' : '') + '</span>';
@@ -314,7 +315,7 @@
         var got = x.bonus[n], can = !got && x.count >= n;
         body += '<div class="row-item sg-b"><div class="ri-t"><b>' + n + ' 次</b><small>' + U.esc(UI.rwText(G.SIGN_BONUS[n]).join('、')) + '</small></div>' + (got ? '<span class="dim2">已領</span>' : (can ? '<a class="btn small" data-a="signBonus" data-v="' + n + '">領取</a>' : '<span class="dim2">' + x.count + '/' + n + '</span>')) + '</div>';
       });
-      body += '</div></div></div><p class="note">簽到不看日期：每贏 ' + x.every + ' 場戰鬥可簽一次，28 次為一輪（本作改編）。獎勵：D。</p>';
+      body += '</div></div></div>';
     }
     return UI.panel('任務', body, { cls: 'wide task-p' });
   };

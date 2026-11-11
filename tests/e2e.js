@@ -45,6 +45,9 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   await act('[data-a="ngStart"]');
   await page.waitForTimeout(400);
   ok(await J(function () { return MJ.UI.screen === 'city' && MJ.S.state.player.name; }) === '測試俠', '建立新角色並進入主城');
+  // WL-13 #3：主城玩家面文字無考證代號外洩
+  var cityLeak = await J(function () { var t = document.getElementById('screen').innerText, bad = []; if (/[A-D]（/.test(t)) bad.push('grade-paren'); if (/[A-D]。/.test(t)) bad.push('grade-period'); if (/[A-D]級/.test(t)) bad.push('grade-ji'); if (/shape|single/.test(t)) bad.push('english'); if (/原版格圖/.test(t)) bad.push('old-pattern'); return bad; });
+  ok(cityLeak.length === 0, '主城文字無考證代號外洩（A/B/C/D、shape、single）' + (cityLeak.length ? '：' + cityLeak.join(',') : ''));
   // 關掉可能的新手提示
   await closeModals();
   await act('[data-a="shengsijie"]');
@@ -126,6 +129,9 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
     return { pattern: MJ.R.skillOf(z, 'a').pattern, level: MJ.R.skillLv(z, 'a'), targets: g ? g.querySelectorAll('i.on').length : 0, title: document.querySelector('#screen').innerText };
   });
   ok(shapeView.pattern === 'shape' && shapeView.level === 6 && shapeView.targets === 3 && shapeView.title.indexOf('Lv6') >= 0, '神武殿實際顯示紫雲 Lv6 三格主動範圍（W282 直接格位）');
+  // WL-13 #3：神武殿技能頁格圖以玩家語言顯示、無考證代號外洩
+  var hallLeak = await J(function () { var t = document.getElementById('screen').innerText, bad = []; if (/[A-D]（/.test(t)) bad.push('grade-paren'); if (/[A-D]。/.test(t)) bad.push('grade-period'); if (/[A-D]級/.test(t)) bad.push('grade-ji'); if (/shape|single/.test(t)) bad.push('english'); if (/原版格圖/.test(t)) bad.push('old-pattern'); return bad; });
+  ok(hallLeak.length === 0 && (await page.locator('#screen').innerText()).indexOf('特殊格圖') >= 0, '技能頁格圖顯示「特殊格圖」且無考證代號外洩（WL-13 #3）' + (hallLeak.length ? '：' + hallLeak.join(',') : ''));
   await shot('6a-hall-skill-range');
 
   // ---------- 第二階段：養成 ----------
@@ -133,6 +139,19 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   var sk0 = await J(function () { return MJ.R.skillLv(MJ.G.lead(), 'a'); });
   await act('[data-a="skUp"][data-v="a"]');
   ok(await J(function () { return MJ.R.skillLv(MJ.G.lead(), 'a'); }) === sk0 + 1, '技能分頁按「升級」提升主動技能');
+  // WL-13 #4：道具欄技能書「使用」開選將＋選技能視窗
+  var leadUid = await J(function () { return MJ.G.lead().uid; });
+  var books0 = await J(function () { return MJ.S.state.bag.stack.jinengshu || 0; });
+  var skA0 = await J(function () { return MJ.R.skillLv(MJ.G.lead(), 'a'); });
+  await J(function () { MJ.UI.open('bag'); });
+  await act('[data-a="useItem"][data-v="jinengshu"]');
+  ok((await page.locator('#modal').innerText()).indexOf('選擇武將') >= 0, '技能書點「使用」開選將視窗（WL-13 #4）');
+  await act('[data-a="useOn"][data-v="jinengshu:' + leadUid + '"]');
+  ok((await page.locator('#modal').innerText()).indexOf('選擇技能') >= 0, '選將後開選技能視窗（主動／無雙／被動，WL-13 #4）');
+  await act('[data-a="skillBookUp"][data-v="' + leadUid + ':a"]');
+  ok(await J(function () { return MJ.R.skillLv(MJ.G.lead(), 'a'); }) === skA0 + 1, '選技能後技能書升級主動技能（WL-13 #4）');
+  ok(await J(function (o) { return (MJ.S.state.bag.stack.jinengshu || 0) === o.b0 - o.lv; }, { b0: books0, lv: skA0 }), '技能書升級扣書＝原等級數（WL-13 #4）');
+  await J(function () { MJ.UI.close(); });
   ok((await page.locator('.pb-row').innerText()).indexOf('30 級開放') >= 0, '技能分頁顯示後天被動欄（30 級開放）');
   await J(function () { MJ.G.lead().lv = Math.max(MJ.G.lead().lv, 30); MJ.G.commit(); MJ.UI.render(); });
   await act('.pb-list [data-v="huajie"]');
@@ -161,12 +180,23 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   await act('[data-a="city"]');
   await act('[data-a="forge"]');
   ok(await J(function () { return MJ.UI.screen; }) === 'forge', '進入神兵坊');
+  // WL-13 #3：神兵坊玩家面文字無考證代號外洩
+  var forgeLeak = await J(function () { var t = document.getElementById('screen').innerText, bad = []; if (/[A-D]（/.test(t)) bad.push('grade-paren'); if (/[A-D]。/.test(t)) bad.push('grade-period'); if (/[A-D]級/.test(t)) bad.push('grade-ji'); if (/shape|single/.test(t)) bad.push('english'); if (/原版格圖/.test(t)) bad.push('old-pattern'); return bad; });
+  ok(forgeLeak.length === 0, '神兵坊文字無考證代號外洩（WL-13 #3）' + (forgeLeak.length ? '：' + forgeLeak.join(',') : ''));
   var fu = await J(function () { return MJ.UI.sel.forgeUid; });
   var pl0 = await J(function (u) { return MJ.G.findEquip(u).e.plus || 0; }, fu);
   await act('[data-a="doEnhance"]');
   ok(await J(function (u) { return MJ.G.findEquip(u).e.plus || 0; }, fu) === pl0 + 1, '強化 +' + (pl0 + 1) + '（+5 以下必定成功）');
   await act('[data-a="forgeTab"][data-v="gem"]');
   if (await page.locator('[data-a="gemIn"]').count()) { await act('[data-a="gemIn"]'); ok(await J(function (u) { return MJ.G.findEquip(u).e.gems.length; }, fu) === 1, '鑲嵌寶石'); }
+  // WL-13 #15：洗煉「放棄」退還洗煉石 ×1（銀幣不退）
+  await act('[data-a="forgeTab"][data-v="wash"]');
+  var stones0 = await J(function () { return MJ.S.state.bag.stack.xilianshi || 0; });
+  ok((await page.locator('.fg-main').innerText()).indexOf('放棄可退還洗煉石') >= 0, '洗煉面板寫明放棄退石、銀幣不退還（WL-13 #15）');
+  await act('[data-a="doWash"]');
+  ok(await J(function (u) { return !!MJ.G.findEquip(u).e.washPending; }, fu), '洗煉擲骰產生待確認結果（WL-13 #15）');
+  await act('[data-a="washNo"]');
+  ok(await J(function (o) { return !MJ.G.findEquip(o.u).e.washPending && (MJ.S.state.bag.stack.xilianshi || 0) === o.s0; }, { u: fu, s0: stones0 }), '放棄洗煉：結果清除、洗煉石 ×1 退還（WL-13 #15）');
   // art4：神兵坊提示訊息移到下方金框，不蓋住左右面板
   var tov = await J(function () {
     var t = document.querySelector('#toast .toast'); if (!t || document.getElementById('toast').style.display === 'none') return { shown: false, bad: 0 };
@@ -369,6 +399,15 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   await act('[data-a="bSkip"]');
   await page.waitForSelector('.result', { timeout: 15000 });
   ok(await page.locator('.result.win').count() === 1, '1-1 戰鬥勝利並顯示結算');
+  // WL-13 #11：結算星星按實際成績渲染（未得星顯示 ☆）、結算 HUD 隱藏
+  var winStars = await J(function () { var b = MJ.UI.battleState(); return b && b.r ? b.r.stars : -1; });
+  ok(winStars >= 1 && winStars <= 3 && await J(function () {
+    var b = MJ.UI.battleState(), r = b && b.r; if (!r) return false;
+    var stars = document.querySelectorAll('.rstars i'), got = 0, empty = 0;
+    for (var i = 0; i < stars.length; i++) { if (stars[i].textContent === '★') got++; else if (stars[i].textContent === '☆') empty++; }
+    var bt = document.getElementById('bt'), info = document.querySelector('.b-info');
+    return r.stars === got && got + empty === 3 && bt && bt.className.indexOf('ended') >= 0 && (!info || getComputedStyle(info).display === 'none');
+  }), '結算星星 ' + winStars + ' 顆與實際成績一致（未得星顯示 ☆）、HUD 已隱藏（WL-13 #11）');
   // WL-9：結算顯示本場隨機事件，戰鬥日誌有開場事件記錄
   ok(await page.locator('.result .evt').count() === 1 && (await page.locator('.result .evt').innerText()).indexOf('隨機事件「') === 0, '結算顯示本場隨機事件');
   ok(await J(function () { return (document.getElementById('blog').innerText || '').indexOf('隨機事件「') >= 0; }), '戰鬥日誌有隨機事件開場記錄');
@@ -440,8 +479,10 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   await page.waitForSelector('.result', { timeout: 15000 });
   ok(await page.locator('.result.win').count() === 1 && await J(function () { return MJ.S.state.tower.best; }) === 1, '登上通天塔第 1 層並記錄');
   ok((await page.locator('.result').innerText()).indexOf('第 1 層') >= 0, '塔層結算顯示樓層與首登獎勵');
-  // WL-3 任務 2：勝利結算預設自動接續（約 3 秒後打下一層），期間顯示倒數與「停止」
-  // WL-10：WebKit 高負載下 Playwright 點擊往返可能超過 3 秒倒數，結算畫面被下一場戰鬥取代後
+  // WL-13 #17：自動接續等待 10 秒（3 秒→10 秒；塔結算不顯示星星，星星檢查見主線 1-1 結算）
+  ok(await J(function () { return MJ.UI.AUTO_DELAY; }) === 10000, '自動接續等待 10 秒（WL-13 #17，3 秒→10 秒）');
+  // WL-3 任務 2：勝利結算預設自動接續（約 10 秒後打下一層，WL-13 #17 由 3 秒放寬），期間顯示倒數與「停止」
+  // WL-10：WebKit 高負載下 Playwright 點擊往返可能超過倒數，結算畫面被下一場戰鬥取代後
   // autoStop 按鈕脫離 DOM 而 30s 逾時（與 WL-9 的 bSkip 修正同類問題，皆為測試端，遊戲程式不動）；
   // 改為同一段 JS 內讀取倒數文字＋點停止。
   var autoTxt = await J(function () { var t = document.getElementById('autoNext'); var ok = !!(t && t.innerText.indexOf('即將挑戰下一層') >= 0); var b = document.querySelector('[data-a="autoStop"]'); if (b) b.click(); return ok; });
@@ -460,8 +501,8 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   await act('[data-a="bSkip"]');
   await page.waitForSelector('.result', { timeout: 15000 });
   ok(await page.locator('.result.win').count() === 1, '登上通天塔第 2 層');
-  await page.waitForFunction(function () { var b = MJ.UI.battleState(); return b && b.r && b.r.stage && b.r.stage.floor === 3; }, null, { timeout: 10000 });
-  ok(await J(function () { return MJ.UI.battleState().r.stage.floor === 3 && MJ.S.state.tower.best === 3; }), '結算後約 3 秒自動挑戰第 3 層（不需手動點下一層）');
+  await page.waitForFunction(function () { var b = MJ.UI.battleState(); return b && b.r && b.r.stage && b.r.stage.floor === 3; }, null, { timeout: 20000 });
+  ok(await J(function () { return MJ.UI.battleState().r.stage.floor === 3 && MJ.S.state.tower.best === 3; }), '結算後約 10 秒自動挑戰第 3 層（不需手動點下一層）');
   await act('[data-a="bSkipAll"]');
   await page.waitForTimeout(400);
   if (await page.locator('[data-a="twSkipAll"]').count()) await act('[data-a="twSkipAll"]');
@@ -485,7 +526,7 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   await act('[data-a="bSkip"]');
   await page.waitForSelector('.result', { timeout: 15000 });
   // WL-3 任務 2：無極結算同樣預設自動接續下一波；先按「停止」，保留原有手動流程
-  // WL-11：與塔結算同類競態——3 秒倒數 vs Playwright 往返，下一波開始後 autoStop 脫離 DOM 而 30s 逾時
+  // WL-11：與塔結算同類競態——10 秒倒數 vs Playwright 往返，下一波開始後 autoStop 脫離 DOM 而 30s 逾時
   // （webkit6 於「下一波」播放第 2 波失敗）；改為同一段 JS 內讀取倒數文字＋點停止（測試端，遊戲程式不動）。
   var wjAutoTxt = await J(function () { var t = document.getElementById('autoNext'); var ok = !!(t && t.innerText.indexOf('即將播放下一波') >= 0); var b = document.querySelector('[data-a="autoStop"]'); if (b) b.click(); return ok; });
   ok(wjAutoTxt, '無極結算顯示「即將播放下一波…」與停止鈕（自動接續預設開）');
@@ -508,8 +549,8 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   await page.waitForTimeout(500);
   await act('[data-a="bSkip"]');
   await page.waitForSelector('.result', { timeout: 15000 });
-  await page.waitForFunction(function () { var b = MJ.UI.battleState(); return b && b.r && b.r.idx === 1; }, null, { timeout: 10000 });
-  ok(await J(function () { return MJ.UI.battleState().r.idx === 1; }), '結算後約 3 秒自動播放第 2 波（不需手動點下一波）');
+  await page.waitForFunction(function () { var b = MJ.UI.battleState(); return b && b.r && b.r.idx === 1; }, null, { timeout: 20000 });
+  ok(await J(function () { return MJ.UI.battleState().r.idx === 1; }), '結算後約 10 秒自動播放第 2 波（不需手動點下一波）');
   await act('[data-a="bSkipAll"]');
   await page.waitForTimeout(400);
   if (await page.locator('[data-a="wjSum"]').count()) await act('[data-a="wjSum"]');

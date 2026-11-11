@@ -20,7 +20,7 @@
   // ================= 將魂合成（W541：主角 30 級開放、34 條五魂公式） =================
   // 品階：0 黑 1 白 2 綠 3 藍 4 紫(30 魂) 5 紫(45 魂)。K2：30 魂與 45 魂紫將並存。
   G.SOUL_RULES = {
-    recipe: '依 W541 公式放入 5 個指定將魂，順序不拘；正確配方可合成指定將魂',
+    recipe: '放入 5 個指定將魂，順序不拘；正確配方可合成指定將魂',
     legacy: '舊版隨機合成設定僅供存檔相容，不再提供隨機合成'
   };
   G.soulRank = function (id) { var d = R.heroDef(id); if (!d) return -1; return d.quality === 4 ? (d.souls >= 45 ? 5 : 4) : d.quality; };
@@ -50,11 +50,11 @@
     var pick = x.out;
     G.addItem('soul:' + pick.id, 1);
     s.soulLog.unshift({ recipe: +i, id: pick.id, rule: 'W541' }); if (s.soulLog.length > 20) s.soulLog.length = 20;
-    G.log('將魂合成：W541 配方 → ' + pick.name + '將魂', 'lv');
+    G.log('將魂合成：' + pick.name + '將魂', 'lv');
     G.commit(); return ok({ id: pick.id, name: pick.name, recipe: +i, used: x.need });
   };
   // 舊呼叫端仍可得到明確錯誤，不再執行未有來源的隨機合成。
-  G.soulCombine = function () { return fail('請選擇 W541 指定合成公式'); };
+  G.soulCombine = function () { return fail('請選擇指定合成公式'); };
 
   // ================= 通天塔：每 10 層獎勵（B：每 10 層有獎勵；內容 D）與紫裝碎片 =================
   G.FRAG = 'zizhuang_frag'; G.FRAG_NEED = 10; // D

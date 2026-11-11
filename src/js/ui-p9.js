@@ -14,7 +14,7 @@
   UI.lxLine = function () {
     var p = G.lxPairs(), seen = {}, names = [];
     U.each(p, function (x) { var k = [x[0], x[1]].sort().join('|'); if (seen[k]) return; seen[k] = 1; names.push(R.heroDef(x[0]).name + (U.find(p, function (y) { return y[0] === x[1] && y[1] === x[0]; }) ? '⇄' : '→') + R.heroDef(x[1]).name); });
-    return '<div class="lx-line">連攜：' + (names.length ? '<b>' + U.esc(names.join('、')) + '</b>（攻擊 +10%，無雙時夥伴 +20 無雙值；效果為本作設計 D）' : '目前沒有成立的連攜（夥伴同時上陣才成立）') + '</div>';
+    return '<div class="lx-line">連攜：' + (names.length ? '<b>' + U.esc(names.join('、')) + '</b>（攻擊 +10%，無雙時夥伴 +20 無雙值）' : '目前沒有成立的連攜（夥伴同時上陣才成立）') + '</div>';
   };
   var skill1 = UI.hallTabs.skill;
   UI.hallTabs.skill = function (h0, s, def) {
