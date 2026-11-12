@@ -90,12 +90,25 @@
   UI.actions.forge = function () { UI.go('forge'); };
   UI.screens.forge = function () {
     var s = MJ.S.state, tab = UI.sel.forgeTab || 'enhance', lv = s.buildings.shenbing || 1;
-    var list = allEquips();
+    var all = allEquips(), list = all.slice();
+    // 神兵坊固定目前清單順序：初次進入依戰力排列，之後只在末尾加入新裝備。
+    // 因此強化／升級改變分數或等級後，裝備不會跳到其他位置。
+    var order = UI.sel.forgeOrder || [];
+    if (!order.length) {
+      all.sort(function (a, b) { return R.equipScore(b.e) - R.equipScore(a.e); });
+      order = U.map(all, function (x) { return x.e.uid; });
+    } else {
+      var known = {}; U.each(order, function (uid) { known[uid] = true; });
+      U.each(all, function (x) { if (!known[x.e.uid]) { order.push(x.e.uid); known[x.e.uid] = true; } });
+    }
+    UI.sel.forgeOrder = order;
+    var rank = {}; U.each(order, function (uid, i) { rank[uid] = i; });
     if (UI.sel.forgeWorn) list = U.filter(list, function (x) { return x.h; });
-    var fq = UI.sel.forgeQ == null ? '' : UI.sel.forgeQ, fk = UI.sel.forgeKind || '';
+    var fq = UI.sel.forgeQ == null ? '' : UI.sel.forgeQ, fs = UI.sel.forgeSlot || '', fk = UI.sel.forgeKind || '';
     if (fq !== '') list = U.filter(list, function (x) { return x.e.q === +fq; });
+    if (fs) list = U.filter(list, function (x) { return R.equipTpl(x.e.t).slot === fs; });
     if (fk) list = U.filter(list, function (x) { var t = R.equipTpl(x.e.t); return t.slot === 'weapon' && t.id.charAt(1) === fk; });
-    list.sort(function (a, b) { return R.equipScore(b.e) - R.equipScore(a.e); });
+    list.sort(function (a, b) { return rank[a.e.uid] - rank[b.e.uid]; });
     var pick = U.find(list, function (x) { return x.e.uid === UI.sel.forgeUid; }) || list[0];
     if (pick) UI.sel.forgeUid = pick.e.uid;
     var h = '<div class="scr hall-scr"><div class="frame bigframe hall forge"><div class="plaque">神兵坊</div><a class="xbtn" data-a="city">×</a>';
@@ -103,7 +116,8 @@
     // 左：裝備列表
     h += '<div class="parch fg-list"><div class="tabs small"><a class="tab' + (UI.sel.forgeWorn ? ' on' : '') + '" data-a="forgeWorn" data-v="1">已穿戴</a><a class="tab' + (!UI.sel.forgeWorn ? ' on' : '') + '" data-a="forgeWorn" data-v="0">全部</a></div>';
     h += '<div class="forge-filter-label">裝備品質</div>' + UI.qualityChips('forgeQ', fq);
-    h += '<div class="forge-filter-label">武器類別</div><div class="wkind">' + U.map([['', '全部武器'], ['p', '物攻'], ['m', '法攻'], ['j', '絕技']], function (k) { return '<a class="chip' + (fk === k[0] ? ' on' : '') + '" data-a="forgeKind" data-v="' + k[0] + '">' + k[1] + '</a>'; }).join('') + '</div>';
+    h += '<div class="forge-filter-label">裝備部位</div><div class="wkind">' + U.map([['', '全部']].concat(U.map(G.SLOTS, function (sl) { return [sl, G.SLOT_NAMES[sl]]; })), function (k) { return '<a class="chip' + (fs === k[0] ? ' on' : '') + '" data-a="forgeSlot" data-v="' + k[0] + '">' + k[1] + '</a>'; }).join('') + '</div>';
+    if (!fs || fs === 'weapon') h += '<div class="forge-filter-label">武器類別</div><div class="wkind">' + U.map([['', '全部武器'], ['p', '物攻'], ['m', '法攻'], ['j', '絕技']], function (k) { return '<a class="chip' + (fk === k[0] ? ' on' : '') + '" data-a="forgeKind" data-v="' + k[0] + '">' + k[1] + '</a>'; }).join('') + '</div>';
     var pg = UI.pager('forgeP', list, 15, function (x) { return '<div class="fg-it">' + UI.equipCell(x.e, { act: 'forgePick', sel: pick && x.e.uid === pick.e.uid }) + (x.h ? '<span class="fg-who">' + U.esc(G.nameOf(x.h)) + '</span>' : '') + '</div>'; }, '沒有裝備');
     h += '<div class="egrid">' + pg.html + UI.padSlots('forgeP', list, 15, true) + '</div>' + pg.nav + '</div>';
     // 右：操作
@@ -165,6 +179,7 @@
   UI.actions.forgeTab = function (v) { UI.sel.forgeTab = v; UI.render(); };
   UI.actions.forgeWorn = function (v) { UI.sel.forgeWorn = v === '1'; UI.page.forgeP = 0; UI.render(); };
   UI.actions.forgeQ = function (v) { UI.sel.forgeQ = v == null || v === '' ? '' : +v; UI.sel.forgeUid = null; UI.page.forgeP = 0; UI.render(); };
+  UI.actions.forgeSlot = function (v) { UI.sel.forgeSlot = v || ''; UI.sel.forgeKind = ''; UI.sel.forgeUid = null; UI.page.forgeP = 0; UI.render(); };
   UI.actions.forgeKind = function (v) { UI.sel.forgeKind = v || ''; UI.sel.forgeUid = null; UI.page.forgeP = 0; UI.render(); };
   UI.actions.forgePick = function (v) { UI.sel.forgeUid = +v; UI.render(); };
   UI.actions.doEnhance = function () { var r = G.enhance(UI.sel.forgeUid); if (r.ok) UI.toast(r.success ? '強化成功！+' + r.plus : '強化失敗（裝備不掉級）', r.success ? 'good' : 'bad'); else UI.res(r); UI.render(); };

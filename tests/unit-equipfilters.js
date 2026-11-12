@@ -20,5 +20,9 @@ ok(forge.indexOf("UI.qualityChips('forgeQ'") >= 0 && forge.indexOf('data-a="forg
 ok(forge.indexOf("x.e.q === +fq") >= 0, '品質篩選依裝備 q 值');
 ok(forge.indexOf("t.id.charAt(1) === fk") >= 0, '武器類別篩選依模板類別');
 ok(hall.indexOf('data-a="unequipAll"') >= 0, '神武殿顯示全部取下按鈕');
+ok(hall.indexOf("UI.sel.forgeUid = e.uid") >= 0 && hall.indexOf("UI.go('forge')") >= 0, '神武殿裝備點擊跳轉並定位神兵坊');
+ok(forge.indexOf('UI.sel.forgeOrder') >= 0 && forge.indexOf('rank[a.e.uid] - rank[b.e.uid]') >= 0, '神兵坊固定裝備順序，強化升級不重新排序');
+ok(forge.indexOf('UI.actions.forgeSlot') >= 0 && forge.indexOf('R.equipTpl(x.e.t).slot === fs') >= 0, '神兵坊支援全部裝備部位篩選');
+ok(forge.indexOf('G.SLOT_NAMES[sl]') >= 0, '神兵坊顯示八個裝備部位名稱');
 console.log('結果：通過 ' + pass + '／失敗 ' + fail);
 process.exit(fail ? 1 : 0);

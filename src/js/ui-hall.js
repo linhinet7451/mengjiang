@@ -110,9 +110,9 @@
   UI.actions.doEquip = function (v) { var r = G.equip(UI.sel.hallUid, +v); if (UI.res(r, '已穿上')) { UI.sel.bagPick = null; UI.render(); } };
   UI.actions.slotClick = function (slot) {
     var h = G.hero(UI.sel.hallUid), e = h.eq[slot], tpl = R.equipTpl(e.t);
-    UI.confirm(SN[slot], '<b class="eqt' + e.q + '">' + U.esc(tpl.name) + (e.plus ? ' +' + e.plus : '') + '</b><br>' + UI.equipLines(R.equipStats(e)).join('　') + (e.gems && e.gems.length ? '<br>寶石：' + U.map(e.gems, function (g) { return G.itemName(g); }).join('、') : ''), function () {
-      var r = G.unequip(h.uid, slot); if (UI.res(r, '已卸下')) UI.render();
-    }, '卸下');
+    // 裝備欄點擊直接帶到神兵坊，並保留該件裝備的選取狀態，方便立即強化／升級。
+    UI.sel.forgeUid = e.uid; UI.sel.forgeWorn = true; UI.sel.forgeQ = ''; UI.sel.forgeSlot = ''; UI.sel.forgeKind = '';
+    UI.sel.forgeTab = 'enhance'; UI.page.forgeP = 0; UI.go('forge');
   };
   UI.actions.autoEq = function (v) { var r = G.autoEquip(+v); if (UI.res(r, r.changed ? '已換上最強裝備（' + r.changed + ' 件）' : '目前已是最佳搭配')) UI.render(); };
   UI.actions.unequipAll = function (v) {
