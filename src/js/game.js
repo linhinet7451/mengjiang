@@ -326,6 +326,15 @@ MJ.G = (function () {
     s.bag.equips.push(h.eq[slot]); delete h.eq[slot];
     G.commit(); return ok();
   };
+  G.unequipAll = function (heroUid) {
+    var s = st(), h = G.hero(heroUid), slots = [];
+    if (!h) return fail('找不到武將');
+    U.each(SLOTS, function (slot) { if (h.eq[slot]) slots.push(slot); });
+    if (!slots.length) return fail('目前沒有已穿戴裝備');
+    if (G.bagUsed() + slots.length > G.BAG_CAP) return fail('包裹空間不足，無法一次取下全部裝備');
+    U.each(slots, function (slot) { s.bag.equips.push(h.eq[slot]); delete h.eq[slot]; });
+    G.commit(); return ok({ changed: slots.length });
+  };
   G.autoEquip = function (heroUid) { // 「最強」按鈕
     var s = st(), h = G.hero(heroUid), changed = 0;
     if (!h) return fail('找不到武將');

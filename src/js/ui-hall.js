@@ -55,7 +55,7 @@
         var e = h0.eq[sl];
         h += '<div class="eslot es' + i + '">' + (e ? UI.equipCell(e, { act: 'slotClick' }) .replace('data-v="' + e.uid + '"', 'data-v="' + sl + '"') : '<div class="ecell empty-slot" data-a="info" data-v="' + SN[sl] + '：從右側包裹點選裝備">' + SN[sl] + '</div>') + '</div>';
       });
-      h += '<div class="hc-btns"><a class="btn small" data-a="autoEq" data-v="' + h0.uid + '">最強</a><a class="btn small" data-a="open" data-v="heroDetail">詳情</a></div>';
+      h += '<div class="hc-btns"><a class="btn small" data-a="autoEq" data-v="' + h0.uid + '">最強</a><a class="btn small red" data-a="unequipAll" data-v="' + h0.uid + '">全部取下</a><a class="btn small" data-a="open" data-v="heroDetail">詳情</a></div>';
     }
     h += '</div>';
     // 右
@@ -115,6 +115,11 @@
     }, '卸下');
   };
   UI.actions.autoEq = function (v) { var r = G.autoEquip(+v); if (UI.res(r, r.changed ? '已換上最強裝備（' + r.changed + ' 件）' : '目前已是最佳搭配')) UI.render(); };
+  UI.actions.unequipAll = function (v) {
+    UI.confirm('全部取下裝備', '確定取下此武將目前穿戴的全部裝備？裝備會放回包裹。', function () {
+      var r = G.unequipAll(+v); if (UI.res(r, r.ok ? '已取下 ' + r.changed + ' 件裝備' : '')) UI.render();
+    }, '全部取下');
+  };
   UI.actions.doSell = function (v) { var r = G.sellEquip(+v); if (UI.res(r, '獲得 ' + r.silver + ' 銀幣')) { UI.sel.bagPick = null; UI.render(); } };
   UI.actions.hallJoin = function (v) { if (UI.res(G.addToTeam(+v), '已加入出戰')) UI.render(); };
   UI.actions.hallRest = function (v) { if (UI.res(G.removeFromTeam(+v), '已下陣休息')) UI.render(); };

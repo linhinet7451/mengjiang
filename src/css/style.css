@@ -981,7 +981,7 @@ html,body{font-family:"PingFang TC","Heiti TC","Microsoft JhengHei","Noto Sans C
 /* ---------- P5：8 部位、主角橙品、上古寶窟 ---------- */
 .es0{left:8px;top:8px}.es1{left:8px;top:84px}.es2{left:8px;top:160px}.es3{left:8px;top:236px}.es4{right:8px;top:8px}.es5{right:8px;top:84px}.es6{right:8px;top:160px}.es7{right:8px;top:236px}
 .rightpanel .tabs.small .tab{padding-left:4px;padding-right:4px;min-width:0;font-size:12px;letter-spacing:0}
-.wkind{margin:2px 0 3px}.wkind .chip{display:inline-block;padding:1px 8px;margin:0 3px 0 0;border:1px solid #8a6a30;border-radius:9px;font-size:12px;background:#f3e3bd;color:#5a3a10}
+.forge-filter-label{font-size:12px;color:#6b5530;margin:5px 2px 2px;font-weight:bold}.wkind{margin:2px 0 3px}.wkind .chip{display:inline-block;padding:1px 8px;margin:0 3px 0 0;border:1px solid #8a6a30;border-radius:9px;font-size:12px;background:#f3e3bd;color:#5a3a10}
 .wkind .chip.on{background:#c8902a;color:#fff}
 .q5t{color:#e65100}.qtag.q5{background:#e65100}.card.q5{border-color:#ff7a1a;box-shadow:0 0 8px rgba(255,122,26,.7)}
 .lp-box{margin:0 0 6px;padding:5px 7px;border:1px solid #b08a40;border-radius:6px;background:rgba(255,240,200,.55)}
