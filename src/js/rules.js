@@ -183,6 +183,7 @@ MJ.R = (function () {
     };
     var def = R.heroDef(h.id);
     if (def && (def.passive === 'rexue' || (R.RV >= 9 && def.passive2 === 'rexue'))) d.hp = Math.floor(d.hp * (1 + (R.RV >= 9 ? 0.05 : 0.1) * R.passiveMul(h))); // v9 熱血 +5%（B：snA967）
+    if (def && def.passive === 'jingdian') d.crit = (d.crit || 0) + 12; // 皮卡丘專屬被動：靜電
     if (h.pb === 'rexue' && !(def && (def.passive === 'rexue' || (R.RV >= 9 && def.passive2 === 'rexue')))) d.hp = Math.floor(d.hp * 1.1); // P4 習得熱血（D）
     if (h.pb === 'gjrexue') d.hp = Math.floor(d.hp * 1.2); // 高級熱血（B 名稱效果／D 數值）
     if (h.eq) U.each(R.SLOTS, function (slot) {
@@ -244,8 +245,8 @@ MJ.R = (function () {
       look: { g: tpl.look[0], skin: tpl.look[1], hair: tpl.look[2], hs: tpl.look[3], beard: tpl.look[4], cloth: tpl.look[5], trim: tpl.look[6], wp: tpl.look[7], art: tpl.art },
       // WL-15 §3.5：主動／無雙／被動改吃模板可選欄位（actName/actMult/ultName/ultMult/ultFlat/passive）；
       // 缺省行為與既有首領完全一致（主動「X之擊」×1、無雙「絕技·X」×1.6／flat lv×4、被動 null）。
-      active: { name: tpl.actName || (tpl.boss ? tpl.name.split('·').pop() + '之擊' : '攻擊'), pattern: tpl.pattern, mult: tpl.actMult || 1, flat: 0 },
-      ult: { name: tpl.ultName || (tpl.boss ? '絕技·' + tpl.name.split('·').pop() : '奮力一擊'), pattern: tpl.ult, mult: tpl.ultMult || (tpl.boss ? 1.6 : 1.4), flat: tpl.ultFlat != null ? tpl.ultFlat : lv * 4 },
+      active: { name: tpl.actName || (tpl.boss ? tpl.name.split('·').pop() + '之擊' : '攻擊'), pattern: tpl.pattern, mult: tpl.actMult || 1, flat: 0, fx: tpl.actFx || null },
+      ult: { name: tpl.ultName || (tpl.boss ? '絕技·' + tpl.name.split('·').pop() : '奮力一擊'), pattern: tpl.ult, mult: tpl.ultMult || (tpl.boss ? 1.6 : 1.4), flat: tpl.ultFlat != null ? tpl.ultFlat : lv * 4, fx: tpl.ultFx || null },
       passive: tpl.passive || null
     };
     // A：宣傳片 Boss 有多層血條；倍數為 D

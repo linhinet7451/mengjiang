@@ -1670,11 +1670,17 @@
    "ult": "all",
    "boss": 1,
    "actName": "空氣砲",
-   "actMult": 1.5,
+   "actMult": 1.8,
    "ultName": "任意門",
-   "ultMult": 2,
+   "ultMult": 2.2,
    "ultFlat": 200,
-   "passive": "shaqi"
+   "passive": "dabaodai",
+   "actFx": {
+    "armorBreak": 0.5
+   },
+   "ultFx": {
+    "stun": 0.3
+   }
   },
   "pikachu": {
    "name": "皮卡丘",
@@ -1693,11 +1699,12 @@
    "ult": "all",
    "boss": 1,
    "actName": "電光一閃",
-   "actMult": 1.5,
+   "actMult": 2.0,
    "ultName": "十萬伏特",
-   "ultMult": 2,
+   "ultMult": 2.4,
    "ultFlat": 200,
-   "passive": "lianzhan"
+   "passive": "jingdian",
+   "ultFx": null
   }
  },
  "stages": [

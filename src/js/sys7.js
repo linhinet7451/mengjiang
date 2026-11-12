@@ -10,7 +10,7 @@
   function take(k, n) { var s = st(); s.bag.stack[k] = (s.bag.stack[k] || 0) - n; if (s.bag.stack[k] <= 0) delete s.bag.stack[k]; }
 
   // 16 種被動（pt12u 規格）＋高級熱血（決定 7）
-  G.PASSIVE_IDS = ['busi', 'suxing', 'renai', 'huajie', 'xinu', 'xixue', 'rexue', 'gjrexue', 'gaojiyudi', 'pozhou', 'pojia', 'dunhua', 'suijia', 'lianzhan', 'huizhan', 'liaoshang', 'gjliaoshang'];
+  G.PASSIVE_IDS = ['busi', 'suxing', 'renai', 'huajie', 'xinu', 'xixue', 'rexue', 'gjrexue', 'gaojiyudi', 'pozhou', 'pojia', 'dunhua', 'suijia', 'lianzhan', 'huizhan', 'liaoshang', 'gjliaoshang', 'dabaodai', 'jingdian'];
   G.REC_V = 7; // 戰報版本：v7 起拜訪武將以 PVP 規則模擬
 
   S.extraDefaults = S.extraDefaults || [];

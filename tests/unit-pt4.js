@@ -26,7 +26,7 @@ ok(same, gold.runs.length + ' 場固定種子戰鬥（含 ' + gold.passives.filt
 console.log('[16 種被動＋高級熱血：資料齊全]');
 c = fresh(); M = c.MJ; G = M.G; S = M.S; R = M.R; B = M.Battle;
 var names = G.PASSIVE_IDS.map(function (id) { return M.D.heroes.passives[id] && M.D.heroes.passives[id].name; });
-ok(G.PASSIVE_IDS.length === 17 && names.every(Boolean), '17 個被動都有名稱與說明：' + names.join('、'));
+ok(G.PASSIVE_IDS.length === 19 && names.every(Boolean), '19 個被動都有名稱與說明：' + names.join('、'));
 var spec = ['不死', '復甦', /* web2-P2：snA967 原名「復甦」，舊稱甦醒 */ '忍耐', '化解', '息怒', '吸血', '熱血', '高級禦敵', '破咒', '破甲', '鈍化', '碎甲', '連斬', '回斬', '療傷', '高級療傷'];
 ok(spec.every(function (n) { return names.indexOf(n) >= 0; }) && names.indexOf('高級熱血') >= 0, '規格的 16 種＋決策 7 的高級熱血全部存在');
 ok(G.PASSIVE_IDS.filter(function (id) { return [/* renai、huajie、pozhou 於 web2-P2 改依 snA967 標 B */ 'gaojiyudi', 'pojia', 'dunhua', 'suijia', 'gjliaoshang', 'gjrexue'].indexOf(id) >= 0; }).every(function (id) { return /D/.test(M.D.heroes.passives[id].grade); }), '本作自創被動數值全部標 D（暫定）；忍耐、化解、破咒改依 snA967 為 B');
@@ -88,7 +88,7 @@ r = G.pbLearn(L.uid, 'pojia');
 ok(!r.ok && /技能書/.test(r.msg) && L.pb === 'rexue', '技能書不足時失敗，不改變被動');
 var withP = M.D.heroes.list.filter(function (d) { return d.passive === 'lianzhan'; })[0];
 var hh = G.newHero(withP.id, S.state); hh.lv = 30; S.state.heroes.push(hh);
-ok(G.pbChoices(hh.uid).indexOf('lianzhan') < 0 && G.pbChoices(hh.uid).length === 16, '武將本身的被動不在可習得清單（' + withP.name + '：16 種可選）');
+ok(G.pbChoices(hh.uid).indexOf('lianzhan') < 0 && G.pbChoices(hh.uid).length === 18, '武將本身的被動不在可習得清單（' + withP.name + '：18 種可選）');
 
 console.log('[新屬性來源：心法]');
 G.addItem('xf_jingang', 1); G.addItem('xf_zhengfeng', 1);

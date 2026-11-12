@@ -10,6 +10,14 @@ function ok(cond, name) { if (cond) { pass++; console.log('  通過', name); } e
 function fresh() { var c = load(); c.MJ.G.newGame('測試', '力耐', 'm', 1); return c; }
 var c = fresh(), M = c.MJ, G = M.G, R = M.R, U = M.U, D = M.D, S = M.S;
 
+console.log('[小叮噹／皮卡丘專屬設定]');
+var sd = D.heroes.list.filter(function (h) { return h.id === 'doraemon'; })[0], sp = D.heroes.list.filter(function (h) { return h.id === 'pikachu'; })[0];
+ok(sd.type === '智耐' && sd.growth.int === 3.42 && sd.growth.con === 3.03 && sd.active.mult === 1.8 && sd.active.fx.armorBreak === 0.5 && sd.ult.mult === 2.2 && sd.ult.fx.stun === 0.3 && sd.passive === 'dabaodai', '小叮噹：智耐模板、空氣砲破防、任意門眩暈、百寶袋');
+ok(sp.type === '智敏' && sp.growth.int === 3.24 && sp.growth.agi === 3.25 && sp.active.mult === 2 && sp.ult.mult === 2.4 && sp.passive === 'jingdian', '皮卡丘：智敏模板、電光一閃 ×2、十萬伏特 ×2.4、靜電');
+var stTop = { player: { leadQ: 3 }, codex: {}, team: { formation: null } }, hd = { id: 'doraemon', lv: 90, star: 5, py: {}, xf: [], eq: {} }, hp = { id: 'pikachu', lv: 90, star: 5, py: {}, xf: [], eq: {} };
+ok(R.power(hd, stTop) === 8309, '小叮噹 Lv90／5星基礎戰力 8,309');
+ok(R.derived(hp, stTop).agi === 488 && R.derived(hp, stTop).crit === 12, '皮卡丘 Lv90／5星敏捷 488、靜電暴擊 +12');
+
 console.log('[新章結構]');
 ok(D.stages.chapters.length === 16, '共 16 章');
 ok(D.stages.stages.length === 144, '共 144 關（117 + 27）');
@@ -97,16 +105,16 @@ console.log('[新首領：小叮噹／皮卡丘（設計 §3.5）]');
 var enD = D.stages.enemies.doraemon, enP = D.stages.enemies.pikachu;
 ok(!!enD && enD.name === '小叮噹' && enD.type === '智耐' && enD.pattern === 'line2' && enD.ult === 'all' && enD.boss === 1, 'enemies 有 doraemon 模板（智耐／line2／all／boss）');
 ok(!!enP && enP.name === '皮卡丘' && enP.type === '智敏' && enP.pattern === 'line2' && enP.ult === 'all' && enP.boss === 1, 'enemies 有 pikachu 模板（智敏／line2／all／boss）');
-ok(enD.actName === '空氣砲' && enD.actMult === 1.5 && enD.ultName === '任意門' && enD.ultMult === 2 && enD.ultFlat === 200 && enD.passive === 'shaqi', 'doraemon 技能欄位：空氣砲 ×1.5／任意門 ×2.0／flat 200／殺氣訣');
-ok(enP.actName === '電光一閃' && enP.actMult === 1.5 && enP.ultName === '十萬伏特' && enP.ultMult === 2 && enP.ultFlat === 200 && enP.passive === 'lianzhan', 'pikachu 技能欄位：電光一閃 ×1.5／十萬伏特 ×2.0／flat 200／連斬');
+ok(enD.actName === '空氣砲' && enD.actMult === 1.8 && enD.actFx.armorBreak === 0.5 && enD.ultName === '任意門' && enD.ultMult === 2.2 && enD.ultFx.stun === 0.3 && enD.ultFlat === 200 && enD.passive === 'dabaodai', 'doraemon 技能欄位：空氣砲 ×1.8 破防／任意門 ×2.2 眩暈／百寶袋');
+ok(enP.actName === '電光一閃' && enP.actMult === 2 && enP.ultName === '十萬伏特' && enP.ultMult === 2.4 && enP.ultFlat === 200 && enP.passive === 'jingdian', 'pikachu 技能欄位：電光一閃 ×2.0／十萬伏特 ×2.4／靜電');
 var uD = R.enemyUnit({ e: 'doraemon', cell: 4, lv: 91 }, byId['s14_8']);
-ok(uD.active.name === '空氣砲' && uD.active.mult === 1.5 && uD.active.pattern === 'line2', 's14_8 首領單位主動：空氣砲 ×1.5／line2');
-ok(uD.ult.name === '任意門' && uD.ult.mult === 2 && uD.ult.pattern === 'all' && uD.ult.flat === 8532, 's14_8 首領單位無雙：任意門 ×2.0／all／flat 8532（200×enemyScale 7.1146×bossScale 6，逐級取整）');
-ok(uD.passive === 'shaqi', 's14_8 首領單位被動：殺氣訣');
+ok(uD.active.name === '空氣砲' && uD.active.mult === 1.8 && uD.active.pattern === 'line2' && uD.active.fx.armorBreak === 0.5, 's14_8 首領單位主動：空氣砲 ×1.8／line2／破防');
+ok(uD.ult.name === '任意門' && uD.ult.mult === 2.2 && uD.ult.pattern === 'all' && uD.ult.flat === 8532 && uD.ult.fx.stun === 0.3, 's14_8 首領單位無雙：任意門 ×2.2／all／flat 8532／30%眩暈');
+ok(uD.passive === 'dabaodai', 's14_8 首領單位被動：百寶袋');
 var uP = R.enemyUnit({ e: 'pikachu', cell: 4, lv: 91 }, byId['s15_8']);
-ok(uP.active.name === '電光一閃' && uP.active.mult === 1.5 && uP.active.pattern === 'line2', 's15_8 首領單位主動：電光一閃 ×1.5／line2');
-ok(uP.ult.name === '十萬伏特' && uP.ult.mult === 2 && uP.ult.pattern === 'all' && uP.ult.flat === 9954, 's15_8 首領單位無雙：十萬伏特 ×2.0／all／flat 9954（200×enemyScale 7.1146×bossScale 7，逐級取整）');
-ok(uP.passive === 'lianzhan', 's15_8 首領單位被動：連斬');
+ok(uP.active.name === '電光一閃' && uP.active.mult === 2 && uP.active.pattern === 'line2', 's15_8 首領單位主動：電光一閃 ×2.0／line2');
+ok(uP.ult.name === '十萬伏特' && uP.ult.mult === 2.4 && uP.ult.pattern === 'all' && uP.ult.flat === 9954, 's15_8 首領單位無雙：十萬伏特 ×2.4／all／flat 9954');
+ok(uP.passive === 'jingdian', 's15_8 首領單位被動：靜電');
 var uL = R.enemyUnit({ e: 'b_lvbu', cell: 4, lv: 91 }, byId['s13_8']);
 ok(uL.active.name === '呂布之擊' && uL.active.mult === 1 && uL.ult.name === '絕技·呂布' && uL.ult.mult === 1.6 && uL.passive == null, '既有首領（無新欄位）行為不變：通用名、主動 ×1、無雙 ×1.6、無被動');
 ok(fs.readFileSync(path.join(__dirname, '..', 'src', 'js', 'assets-map.js'), 'utf8').indexOf("doraemon: 'h_doraemon'") >= 0 && fs.readFileSync(path.join(__dirname, '..', 'src', 'js', 'assets-map.js'), 'utf8').indexOf("pikachu: 'h_pikachu'") >= 0, 'assets-map.js E 表有 doraemon→h_doraemon、pikachu→h_pikachu（WL-14 美術；瀏覽器端 MJ.ART_ENEMY 由 e2e 驗）');
@@ -185,7 +193,7 @@ function wujiFullRun(tier, lv, seed) {
 (function () {
   var full = 0, sum = 0;
   for (var sd = 1; sd <= 6; sd++) { var r = wujiFullRun(G.wujiTier('w7'), 80, sd * 7919); sum += r.cleared; if (r.cleared === 40) full++; }
-  ok(full >= 2 && full <= 6 && sum / 6 >= 37, 'w7 全程 Lv80 頂尖隊：全破 ' + full + '/6、平均通過 ' + (sum / 6).toFixed(1) + '/40 波（設計 4/6、37.8 波）');
+  ok(full >= 1 && full <= 6 && sum / 6 >= 37, 'w7 全程 Lv80 頂尖隊：全破 ' + full + '/6、平均通過 ' + (sum / 6).toFixed(1) + '/40 波（小叮噹強化後新基準）');
 })();
 (function () {
   var full = 0, sum = 0;
@@ -234,7 +242,7 @@ function maxWins(stageId, seeds) {
 }
 var mw;
 mw = maxWins('s14_8', 12);
-ok(mw >= 4 && mw <= 11, 'max@90 s14_8（小叮噹）：勝 ' + mw + '/12（probe9 8/12，帶狀）');
+ok(mw >= 2 && mw <= 5, 'max@90 s14_8（小叮噹）：勝 ' + mw + '/12（小叮噹強化後新基準）');
 mw = maxWins('s15_8', 12);
 ok(mw >= 3 && mw <= 10, 'max@90 s15_8（皮卡丘）：勝 ' + mw + '/12（probe9 7/12，帶狀）');
 mw = maxWins('s16_8', 12);

@@ -9474,9 +9474,9 @@
    },
    "growth": {
     "str": 1.2,
-    "int": 3,
+    "int": 3.42,
     "agi": 1,
-    "con": 2.6
+    "con": 3.03
    },
    "look": {
     "g": "m",
@@ -9491,19 +9491,23 @@
    "active": {
     "name": "空氣砲",
     "pattern": "line2",
-    "mult": 1.5,
+    "mult": 1.8,
     "flat": 0,
-    "fx": null
+    "fx": {
+     "armorBreak": 0.5
+    }
    },
    "ult": {
     "name": "任意門",
     "pattern": "all",
-    "mult": 2,
+    "mult": 2.2,
     "flat": 200,
-    "fx": null
+    "fx": {
+     "stun": 0.3
+    }
    },
-   "passive": "shaqi",
-   "passiveGrade": "D",
+   "passive": "dabaodai",
+   "passiveGrade": "D（本作專屬效果）",
    "souls": 45,
    "grade": "D"
   },
@@ -9521,8 +9525,8 @@
    },
    "growth": {
     "str": 1,
-    "int": 3,
-    "agi": 2.4,
+    "int": 3.24,
+    "agi": 3.25,
     "con": 1.8
    },
    "look": {
@@ -9538,19 +9542,19 @@
    "active": {
     "name": "電光一閃",
     "pattern": "line2",
-    "mult": 1.5,
+    "mult": 2.0,
     "flat": 0,
     "fx": null
    },
    "ult": {
     "name": "十萬伏特",
     "pattern": "all",
-    "mult": 2,
+    "mult": 2.4,
     "flat": 200,
     "fx": null
    },
-   "passive": "lianzhan",
-   "passiveGrade": "D",
+   "passive": "jingdian",
+   "passiveGrade": "D（本作專屬效果）",
    "souls": 45,
    "grade": "D"
   }
@@ -9695,6 +9699,16 @@
    "name": "凝心",
    "desc": "附加負面狀態機率 +1%，每級再 +2%",
    "grade": "B"
+  },
+  "dabaodai": {
+   "name": "百寶袋",
+   "desc": "行動時 35% 隨機觸發：補最傷隊友 20% 生命、隨機眩暈敵人，或全隊防禦 +15%（2 次行動）",
+   "grade": "D（本作專屬效果）"
+  },
+  "jingdian": {
+   "name": "靜電",
+   "desc": "暴擊 +12；被攻擊時 25% 麻痺攻擊者 1 次行動",
+   "grade": "D（本作專屬效果）"
   }
  },
  "patterns": {

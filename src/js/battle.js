@@ -303,6 +303,8 @@ MJ.Battle = (function () {
       if (has(u, 'ningxin')) u.dbf = (u.dbf || 0) + 1 + 2 * ((u.plv || 1) - 1);
       u.dots = []; u.seal = 0; u.healCut = 0; u.healCutT = 0; u.sxN = 0; u.bsN = 0;
     }
+    // 角色專屬被動：皮卡丘「靜電」固定增加 12 點暴擊。
+    if (has(u, 'jingdian') && (u.crit || 0) < 12) u.crit = (u.crit || 0) + 12;
     u.sj = 0; u.dhT = 0;
     return u;
   }
@@ -447,6 +449,8 @@ MJ.Battle = (function () {
       if (v9(tgt) && !isCounter && has(tgt, 'huanshi') && att.hp > 0 && att !== tgt) {
         var rf = Math.min(300, Math.floor(dmg * 0.5)); if (rf > 0) { att.hp = Math.max(0, att.hp - rf); ev.push({ t: 'text', to: tgt.key, s: '還施彼身', c: 'green' }); ev.push({ t: 'hit', from: tgt.key, to: att.key, dmg: rf, hp: att.hp, reflect: true }); if (att.hp <= 0) die(att); }
       }
+      // 角色專屬被動：皮卡丘「靜電」被命中時 25% 麻痺攻擊者 1 次行動。
+      if (!isCounter && tgt.hp > 0 && has(tgt, 'jingdian') && att.hp > 0 && rng() < 0.25) { att.stun = 1; ev.push({ t: 'status', to: att.key, s: '麻痺' }); }
       // WL-4 詞綴「荊棘」：首領受擊時反彈所受傷害 15%（無上限；反擊不反彈，避免遞迴；與還施彼身可疊加）
       if (!isCounter && tgt.affix === 'thorns' && att.hp > 0 && att !== tgt) {
         var th = Math.max(1, Math.floor(dmg * 0.15)); att.hp = Math.max(0, att.hp - th); ev.push({ t: 'text', to: tgt.key, s: '荊棘', c: 'green' }); ev.push({ t: 'hit', from: tgt.key, to: att.key, dmg: th, hp: att.hp, reflect: true }); if (att.hp <= 0) die(att);
@@ -480,6 +484,23 @@ MJ.Battle = (function () {
       if (u.hp <= 0 || u.rage >= 100) return;
       u.rage = Math.min(100, u.rage + n);
       ev.push({ t: 'rage', u: u.key, gain: n, rage: u.rage });
+    }
+    // 角色專屬被動：小叮噹「百寶袋」每次行動前 35% 觸發一種道具效果。
+    function doraemonBag(u) {
+      if (!has(u, 'dabaodai') || rng() >= 0.35) return;
+      var allies = alive(alliesOf(u)), foes = alive(foesOf(u)), roll = Math.floor(rng() * 3);
+      if (roll === 0 && allies.length) {
+        var target = allies.slice().sort(function (a, b) { return (a.hp / a.maxHp) - (b.hp / b.maxHp); })[0];
+        var heal = healAmt(target, Math.max(1, Math.floor(target.maxHp * 0.2)));
+        target.hp = Math.min(target.maxHp, target.hp + heal);
+        ev.push({ t: 'text', to: u.key, s: '百寶袋・補給', c: 'green' }); ev.push({ t: 'heal', to: target.key, amt: heal, hp: target.hp, why: '百寶袋' });
+      } else if (roll === 1 && foes.length) {
+        var foe = foes[Math.floor(rng() * foes.length)]; foe.stun = 1;
+        ev.push({ t: 'text', to: u.key, s: '百寶袋・任意門', c: 'green' }); ev.push({ t: 'status', to: foe.key, s: '眩暈' });
+      } else {
+        U.each(allies, function (a) { a.defBuff = Math.max(a.defBuff || 0, 0.15); a.defBuffT = Math.max(a.defBuffT || 0, 2); });
+        ev.push({ t: 'text', to: u.key, s: '百寶袋・防禦+15%', c: 'green' });
+      }
     }
     // WL-6：敵方小兵陣亡空出格子，待命的增援立即補進（只在首領還活著時；首領死了戰鬥即將結束，不補）
     function onMinionDead(u) {
@@ -641,6 +662,8 @@ MJ.Battle = (function () {
           if (has(u, 'qingxin') && hasDebuff(u) && rng() < 0.3) { u.dots = []; u.seal = 0; u.healCut = 0; u.healCutT = 0; u.dhT = 0; u.sj = 0; if (u.defBuff < 0) { u.defBuff = 0; u.defBuffT = 0; } u.stun = 0; ev.push({ t: 'text', to: u.key, s: '清心', c: 'green' }); }
         }
         if (u.stun) { u.stun = 0; ev.push({ t: 'skip', u: u.key, why: '眩暈' }); continue; }
+        doraemonBag(u);
+        if (u.hp <= 0) continue;
         if (v9(u)) {
           if (has(u, 'gjliaoshang') && u.hp < u.maxHp) { var gh9 = healAmt(u, Math.floor(u.maxHp * 0.08)); u.hp = Math.min(u.maxHp, u.hp + gh9); ev.push({ t: 'text', to: u.key, s: '高級療傷', c: 'green' }); ev.push({ t: 'heal', to: u.key, amt: gh9, hp: u.hp }); }
           else if (has(u, 'liaoshang') && u.hp < u.maxHp && rng() < 0.5) { // 療傷（B）：50% 恢復攻擊 20% 的生命
