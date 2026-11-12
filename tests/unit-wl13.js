@@ -1,5 +1,5 @@
 // WL-13：玩家實測修復輪 A＋B（#3/#13/#14/#20/#8/#11/#12＋#15/#16/#4/#18/#17/#10 驗證）。node tests/unit-wl13.js
-// 引擎層測試：開局種子、訓練封頂、技能書升級、洗煉放棄退石、「最強」武器嚴格版、考證表 324／D 158、格圖玩家語言。
+// 引擎層測試：開局種子、訓練封頂、技能書升級、洗煉放棄退石、「最強」武器嚴格版、考證表 334／D 168、格圖玩家語言。
 // UI 層（#3 全站掃描、#4 選將選技能流程、#11 結算星星、UI.AUTO_DELAY）見 tests/e2e.js。
 var load = require('./harness.js');
 var pass = 0, fail = 0;
@@ -94,8 +94,8 @@ ok(r.ok && l.eq.weapon && l.eq.weapon.t === 'wp1', '包裹出現物攻劍時直�
 
 console.log('[考證表 #3／WL-13]');
 var prov = M.D.provenance;
-ok(prov.entries.length === 324, '考證表共 324 條（319＋5）');
-ok(prov.entries.filter(function (x) { return x.grade === 'D'; }).length === 158, 'D 級共 158 條（153＋5）');
+ok(prov.entries.length === 334, '考證表共 334 條（324＋10）');
+ok(prov.entries.filter(function (x) { return x.grade === 'D'; }).length === 168, 'D 級共 168 條（158＋10，WL-15）');
 ['ui.skillBookUse', 'train.capAbsorbable', 'wuji.autoDelay10', 'autoEquip.dtype', 'farm.startSeed', 'wash.cancelRefund'].forEach(function (id) {
   ok(!!prov.entries.filter(function (x) { return x.id === id; })[0], '考證含 WL-13 條目 ' + id);
 });

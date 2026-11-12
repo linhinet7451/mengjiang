@@ -112,8 +112,8 @@ console.log('  seed 1 Lv25 頂尖隊伍：' + top25.name + '，戰力 ' + top25.
 
 console.log('[考證表 WL-14]');
 var prov = M.D.provenance;
-ok(prov.entries.length === 324, '考證表共 324 條（319＋5）');
-ok(prov.entries.filter(function (x) { return x.grade === 'D'; }).length === 158, 'D 級共 158 條（153＋5）');
+ok(prov.entries.length === 334, '考證表共 334 條（324＋10）');
+ok(prov.entries.filter(function (x) { return x.grade === 'D'; }).length === 168, 'D 級共 168 條（158＋10，WL-15）');
 ['hero.doraemon', 'hero.pikachu', 'recruit.special', 'web2.range.hero.doraemon', 'web2.range.hero.pikachu'].forEach(function (id) {
   var e = prov.entries.filter(function (x) { return x.id === id; })[0];
   ok(!!e && e.grade === 'D' && e.tentative === true && e.phase === 'WL-14', '考證含 WL-14 條目 ' + id + '（D 級、暫定）');

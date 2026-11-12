@@ -217,8 +217,8 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   ok(await J(function () {
     var n = 0, all1 = true;
     MJ.D.stages.stages.forEach(function (st) { (st.drops || []).forEach(function (d) { if (String(d.item).indexOf('eq:') === 0) { n++; if (!/eq:[a-z]+1$/.test(d.item)) all1 = false; } }); });
-    return n === 234 && all1;
-  }), '戰鬥獎勵掉落 234 條全為 Lv1（頁面載入的實裝資料）');
+    return n === 288 && all1; // WL-15：144 關共 288 條（117 關 234 條＋新章 27 關 54 條）
+  }), '戰鬥獎勵掉落 288 條全為 Lv1（頁面載入的實裝資料）');
   await J(function () { MJ.S.state.buildings.shenbing = 10; MJ.G.commit(); });
   await act('[data-a="forgeTab"][data-v="upgrade"]');
   ok((await page.locator('.fg-main').innerText()).indexOf('裝備等級') >= 0 && (await page.locator('.fg-main').innerText()).indexOf('成功率 100%') >= 0, '升級頁籤顯示裝備等級／上限與 100% 成功率');
@@ -472,9 +472,10 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   await act('.bld[data-a="tower"]');
   ok(await J(function () { return MJ.UI.screen; }) === 'tower', '點通天塔進入通天塔畫面');
   // WL-11：塔上限 150、新頂 F150 與里程碑（活頁資料檢查，不打實戰）
-  ok(await J(function () { var f150 = MJ.G.towerFloor(150); return MJ.G.TOWER_MAX === 150 && f150.kind === 'boss' && f150.enemies.length === 9 && f150.enemies[0].lv === 91 && f150.first.gold === 195; }), '通天塔上限 150 層；F150 王關 9 人、首領 Lv91、首通金 195（里程碑 95＋100）');
+  ok(await J(function () { var f150 = MJ.G.towerFloor(150); return MJ.G.TOWER_MAX === 240 && f150.kind === 'boss' && f150.enemies.length === 9 && f150.enemies[0].lv === 91 && f150.first.gold === 195; }), '通天塔上限 240 層（WL-15；OD-5）；F150 王關 9 人、首領 Lv91、首通金 195（里程碑 95＋100，中途里程碑不變）');
+  ok(await J(function () { var f240 = MJ.G.towerFloor(240); return f240.kind === 'boss' && f240.enemies.length === 9 && f240.enemies[0].lv === 91 && f240.first.gold === 290 && f240.first.items.some(function (it) { return it.item === MJ.G.FRAG && it.n === 20; }); }), 'WL-15 新頂 F240 王關 9 人、首領 Lv91、首通金 290（140＋150）＋紫裝碎片 ×20（OD-5）');
   ok(await J(function () { return MJ.G.towerFloor(120).first.items.some(function (it) { return /^gem_[a-z]+_6$/.test(it.item); }); }), 'F120 首通給 Lv6 寶石（WL-11）');
-  ok(await J(function () { var s = MJ.S.state.tower, old = s.best; s.best = 100; var allowed = s.best < MJ.G.TOWER_MAX && MJ.G.towerFloor(101).floor === 101; s.best = old; return allowed; }), '舊頂 best=100 未達新頂 150，可繼續挑戰第 101 層（WL-11）');
+  ok(await J(function () { var s = MJ.S.state.tower, old = s.best; s.best = 100; var allowed = s.best < MJ.G.TOWER_MAX && MJ.G.towerFloor(101).floor === 101; s.best = old; return allowed; }), '舊頂 best=100 未達新頂 240，可繼續挑戰第 101 層（WL-11／WL-15；OD-5）');
   await shot('12-tower');
   await act('[data-a="twFight"]');
   ok(await J(function () { return MJ.UI.screen; }) === 'battle', '通天塔進入戰鬥（不耗精力）');
@@ -519,10 +520,13 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   ok(await J(function () { return MJ.UI.screen; }) === 'tower', '跳過總結後返回通天塔畫面');
   await act('[data-a="city"]');
   await act('.bld[data-a="wuji"]');
-  ok(await page.locator('.wj-card').count() === 5, '無極幻境顯示五欄挑戰面板（WL-11 加 w4／w5）');
+  ok(await page.locator('.wj-card').count() === 7, '無極幻境顯示七欄挑戰面板（WL-15 加 w6／w7）');
   ok((await page.locator('.wj-card').nth(3).innerText()).indexOf('破軍之境') >= 0 && (await page.locator('.wj-card').nth(3).innerText()).indexOf('121～160') >= 0 && (await page.locator('.wj-card').nth(3).innerText()).indexOf('主角 55 級開放') >= 0, 'w4 破軍之境卡片：121～160 波、主角 55 級開放（主角 45 級故鎖定）');
   ok((await page.locator('.wj-card').nth(4).innerText()).indexOf('無雙之境') >= 0 && (await page.locator('.wj-card').nth(4).innerText()).indexOf('161～200') >= 0 && (await page.locator('.wj-card').nth(4).innerText()).indexOf('主角 65 級開放') >= 0, 'w5 無雙之境卡片：161～200 波、主角 65 級開放（主角 45 級故鎖定）');
-  ok(await J(function () { return MJ.G.WUJI.length === 5 && MJ.G.wujiTier('w4').first.gold === 300 && MJ.G.wujiTier('w5').first.gold === 500; }), 'w4／w5 首破金 300／500（WL-11）');
+  ok(await J(function () { return MJ.G.WUJI.length === 7 && MJ.G.wujiTier('w4').first.gold === 300 && MJ.G.wujiTier('w5').first.gold === 500; }), 'w4／w5 首破金 300／500（WL-11）');
+  ok((await page.locator('.wj-card').nth(5).innerText()).indexOf('神武之境') >= 0 && (await page.locator('.wj-card').nth(5).innerText()).indexOf('201～240') >= 0 && (await page.locator('.wj-card').nth(5).innerText()).indexOf('主角 70 級開放') >= 0, 'w6 神武之境卡片：201～240 波、主角 70 級開放（主角 45 級故鎖定，WL-15）');
+  ok((await page.locator('.wj-card').nth(6).innerText()).indexOf('無上之境') >= 0 && (await page.locator('.wj-card').nth(6).innerText()).indexOf('241～280') >= 0 && (await page.locator('.wj-card').nth(6).innerText()).indexOf('主角 75 級開放') >= 0, 'w7 無上之境卡片：241～280 波、主角 75 級開放（主角 45 級故鎖定，WL-15）');
+  ok(await J(function () { return MJ.G.wujiTier('w6').first.gold === 700 && MJ.G.wujiTier('w7').first.gold === 1000; }), 'w6／w7 首破金 700／1000（WL-15）');
   ok((await page.locator('.wj-tip').innerText()).indexOf('每 5 波得 1 個將魂') >= 0, '無極幻境說明無盡波次與每 5 波將魂');
   await shot('13-wuji');
   await act('[data-a="wjGo"][data-v="w1"]');
@@ -672,7 +676,7 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   var gateLv0 = await J(function () { return MJ.G.lead().lv; });
   await J(function () { MJ.G.lead().lv = 70; var s = MJ.S.state; s.stages['s8_8'] = { stars: 3, clears: 1 }; MJ.UI.sel.gateCh = null; MJ.UI.sel.gateVol = null; MJ.G.commit(); MJ.UI.go('city'); });
   await act('[data-a="gate"]');
-  ok(await J(function () { return MJ.D.stages.chapters.length === 13; }), '虛空之門共 13 章（WL-12 新增 ch11 桃花島、ch12 崑崙之巔、ch13 天外天）');
+  ok(await J(function () { return MJ.D.stages.chapters.length === 16; }), '虛空之門共 16 章（WL-15 新增 ch14 蓬萊仙島、ch15 終南絕巔、ch16 九重天）');
   ok(await J(function () { return MJ.UI.sel.gateVol === 2; }), '地圖預設切到第三卷（目前進度第 9 章）');
   await act('[data-a="gateVol"][data-v="1"]');
   ok(await J(function () { return MJ.UI.sel.gateVol === 1; }), '上一卷切到第二卷');
@@ -708,6 +712,27 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   ok(await page.locator('[data-a="startDouble"][data-v="s13_8"]').count() === 1, 's13_8 已通關：面板有 ×2 挑戰入口');
   ok((await page.locator('.panel').innerText()).indexOf('×2 挑戰') >= 0, 's13_8 王關面板說明 ×2 挑戰規則（攻防血 ×2、36 回合）');
   // 遮罩 dim 的中心被面板蓋住，Playwright 實體點擊會被面板攔截（真機點遮罩可見處可正常關閉）；以 JS 直接點 dim 關閉面板，遊戲程式不動
+  await J(function () { var el = document.querySelector('.dim[data-a="close"]'); if (el) el.click(); });
+  // WL-15：新章地圖（第 16 章九重天）、s16_9 隱藏關面板、新首領面板
+  await J(function () { MJ.G.lead().lv = 80; var s = MJ.S.state; s.stages['s13_8'] = { stars: 3, clears: 1 }; ['s14_1', 's14_2', 's14_3', 's14_4', 's14_5', 's14_6', 's14_7'].forEach(function (id) { s.stages[id] = { stars: 3, clears: 1 }; }); s.stages['s14_8'] = { stars: 3, clears: 1 }; s.stages['s15_8'] = { stars: 3, clears: 1 }; ['s16_1', 's16_2', 's16_3', 's16_4', 's16_5', 's16_6', 's16_7', 's16_8'].forEach(function (id) { s.stages[id] = { stars: 3, clears: 1 }; }); MJ.UI.sel.gateCh = null; MJ.UI.sel.gateVol = null; MJ.G.commit(); MJ.UI.go('city'); });
+  await act('[data-a="gate"]');
+  ok(await J(function () { return MJ.UI.sel.gateVol === 3; }), '地圖預設切到第四卷（目前進度第 16 章，WL-15）');
+  await act('[data-a="gateCh"][data-v="16"]');
+  ok(await J(function () { return MJ.UI.sel.gateCh === 16; }), '進入第 16 章九重天（WL-15）');
+  await act('[data-a="stagePop"][data-v="s16_9"]');
+  ok((await page.locator('.panel').innerText()).indexOf('混沌之境') >= 0, 's16_9 隱藏關面板標題為混沌之境（WL-15）');
+  ok((await page.locator('.panel').innerText()).indexOf('獨孤求敗') >= 0, 's16_9 隱藏關面板顯示首領獨孤求敗（WL-15）');
+  await J(function () { var el = document.querySelector('.dim[data-a="close"]'); if (el) el.click(); });
+  // 關面板後仍停在第 16 章關卡格（gateCh=16 未清），章節按鈕不顯示；先回主城重進地圖（同 700／717 行模式）
+  await J(function () { MJ.UI.sel.gateCh = null; MJ.UI.sel.gateVol = null; MJ.UI.go('city'); });
+  await act('[data-a="gate"]');
+  ok(await J(function () { return MJ.UI.sel.gateVol === 3; }), '重進地圖仍在第四卷（第 13–16 章，WL-15）');
+  await act('[data-a="gateCh"][data-v="14"]');
+  ok(await J(function () { return MJ.UI.sel.gateCh === 14; }), '進入第 14 章蓬萊仙島（WL-15）');
+  await act('[data-a="stagePop"][data-v="s14_8"]');
+  ok((await page.locator('.panel').innerText()).indexOf('蓬萊決戰') >= 0, 's14_8 王關面板標題為蓬萊決戰（WL-15）');
+  ok((await page.locator('.panel').innerText()).indexOf('小叮噹') >= 0, 's14_8 王關面板顯示新首領小叮噹（WL-15 §3.5）');
+  ok(await J(function () { return MJ.ART_ENEMY && MJ.ART_ENEMY.doraemon === 'h_doraemon' && MJ.ART_ENEMY.pikachu === 'h_pikachu'; }), 'MJ.ART_ENEMY 有 doraemon→h_doraemon、pikachu→h_pikachu（WL-15 §3.5，WL-14 美術）');
   await J(function () { var el = document.querySelector('.dim[data-a="close"]'); if (el) el.click(); });
   await J(function () { MJ.UI.sel.gateCh = null; MJ.UI.sel.gateVol = null; MJ.UI.go('city'); });
   await J(function (lv) { MJ.G.lead().lv = lv; MJ.G.commit(); }, gateLv12);

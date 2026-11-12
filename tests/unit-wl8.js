@@ -7,11 +7,11 @@ var c = load(), M = c.MJ, B = M.Battle, G = M.G, R = M.R, U = M.U, D = M.D;
 
 console.log('[章節倍率表]');
 var bs = D.config.bossScale;
-ok(Array.isArray(bs) && bs.length === 13, 'bossScale 為 13 章倍率表（' + (bs && bs.length) + ' 章）');
-ok(bs.every(function (x) { return typeof x === 'number' && x > 1; }), '13 章倍率皆 > 1（主線王系關全面加難）');
+ok(Array.isArray(bs) && bs.length === 16, 'bossScale 為 16 章倍率表（' + (bs && bs.length) + ' 章；WL-15 擴至 ch14–16）');
+ok(bs.every(function (x) { return typeof x === 'number' && x > 1; }), '16 章倍率皆 > 1（主線王系關全面加難）');
 ok(bs[0] === 1.22, '第一章倍率最低 1.22（WL-12 S4b：1.20×1.02，保護新手）');
 ok(bs[5] === 3.78 && bs[6] === 3.68, '第六／七章倍率最高 3.78／3.68（WL-12 S4b：3.60／3.50×1.05）');
-ok(JSON.stringify(bs) === JSON.stringify([1.22, 1.68, 2.57, 2.42, 2.78, 3.78, 3.68, 3.1, 2.73, 2.42, 2.6, 2.9, 3.0]), '倍率表即校準值 [1.22, 1.68, 2.57, 2.42, 2.78, 3.78, 3.68, 3.10, 2.73, 2.42, 2.60, 2.90, 3.00]（WL-12 S4b）');
+ok(JSON.stringify(bs) === JSON.stringify([1.22, 1.68, 2.57, 2.42, 2.78, 3.78, 3.68, 3.1, 2.73, 2.42, 2.6, 2.9, 3.0, 6, 7, 16]), '倍率表即校準值 [1.22, 1.68, 2.57, 2.42, 2.78, 3.78, 3.68, 3.10, 2.73, 2.42, 2.60, 2.90, 3.00, 6, 7, 16]（WL-12 S4b＋WL-15 ch14–16）');
 
 console.log('[套用範圍：開關對照，主線王系關才套]');
 var orig = bs.slice();
@@ -43,7 +43,7 @@ ok(on19.patk === Math.floor(off19.patk * 1.22), '隱藏關 s1_9 首領 ×1.22（
 ok(on11.patk === off11.patk && on11.hp === off11.hp, '普通關 s1_1 不套倍率（主線推進不動）');
 ok(onTw.patk === offTw.patk && onTw.hp === offTw.hp, '通天塔第 10 層（王種，floor=10）不套倍率');
 ok(onWj.patk === offWj.patk && onWj.hp === offWj.hp, '無極幻境第 10 波（王種，wave=10）不套倍率');
-ok(onClamp.patk === Math.floor(offClamp.patk * 3.0), '章節超出表長時夾到最後一章倍率 3.00（WL-12：13 章表末為 ch13 3.0，不報錯）');
+ok(onClamp.patk === Math.floor(offClamp.patk * 16), '章節超出表長時夾到最後一章倍率 16（WL-15：16 章表末為 ch16 16，不報錯）');
 
 console.log('[不動的屬性：命中／閃避／爆擊／敏捷／等級／層數]');
 ok(on18.hit === off18.hit && on18.dodge === off18.dodge, '命中／閃避不動（' + on18.hit + '／' + on18.dodge + '，敵人本來就是 0）');

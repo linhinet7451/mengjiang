@@ -52,12 +52,16 @@ var f1 = G.towerFloor(1), f10 = G.towerFloor(10), f100 = G.towerFloor(100);
 ok(f1.enemies.length === 3 && f10.kind === 'boss' && f100.enemies.length === 9, '第 1 層 3 人、第 10 層王、第 100 層 9 人');
 ok(f10.enemies[0].leader && M.R.enemyUnit(f10.enemies[0], f10).layers >= 3, '每 10 層 Boss 有多層血條');
 ok(f100.enemies[0].lv > f1.enemies[0].lv, '樓層越高敵人越強');
-var f150 = G.towerFloor(150), f120 = G.towerFloor(120);
-ok(G.TOWER_MAX === 150, '通天塔上限 150 層（WL-11）');
-ok(f150.kind === 'boss' && f150.enemies.length === 9, '第 150 層王、9 人（新頂）');
+var f150 = G.towerFloor(150), f120 = G.towerFloor(120), f240 = G.towerFloor(240);
+ok(G.TOWER_MAX === 240, '通天塔上限 240 層（WL-15：150→240；OD-5 塔頂 F250→F240）');
+ok(f150.kind === 'boss' && f150.enemies.length === 9, '第 150 層王、9 人（WL-11 舊頂，現為中途里程碑）');
 ok(f150.enemies[0].lv === 91 && f150.enemies[1].lv === 90, '第 150 層首領 Lv91、小怪 Lv90（等級封頂）');
 ok(f120.first.items.some(function (it) { return /^gem_[a-z]+_6$/.test(it.item); }), '第 120 層首通給 Lv6 寶石（WL-11：min(6, 1+floor(f/20))，實為 F100 起 Lv6）');
-ok(f150.first.gold === 195 && f150.first.items.some(function (it) { return it.item === G.FRAG && it.n === 15; }), '第 150 層登頂里程碑：金 195（95＋100）＋紫裝碎片 ×15（WL-11）');
+ok(f150.first.gold === 195 && f150.first.items.some(function (it) { return it.item === G.FRAG && it.n === 15; }), '第 150 層里程碑不變：金 195（95＋100）＋紫裝碎片 ×15（WL-11）');
+ok(f240.kind === 'boss' && f240.enemies.length === 9, '第 240 層王、9 人（WL-15 新頂；OD-5）');
+ok(f240.enemies[0].lv === 91 && f240.enemies[1].lv === 90, '第 240 層首領 Lv91、小怪 Lv90（等級封頂）');
+ok(f240.first.gold === 290 && f240.first.items.some(function (it) { return it.item === G.FRAG && it.n === 20; }), '第 240 層登頂里程碑：金 290（140＋150）＋紫裝碎片 ×20（WL-15；OD-5）');
+ok(G.towerFloor(240).first.items.some(function (it) { return it.item === G.FRAG && it.n === 24; }), '第 240 層每 10 層包裝：紫裝碎片 ×24（公式自動延伸）');
 power(G, 80); S.state.heroes.forEach(function (h) { h.lv = 80; h.star = 5; });
 var gold0 = S.state.player.gold, xh0 = S.state.player.xinghun;
 r = G.towerFight(12345);
@@ -72,8 +76,9 @@ r = G.towerSweep(); ok(r.ok && S.state.player.silver > silB, '塔俸可領（新
 ok(!G.towerSweep().ok, '領過後要再贏 ' + G.TICKET.tower + ' 場才能再領');
 c._t = T0 + 24 * H; ok(!G.towerSweep().ok, '隔天也不會重置（不看日期）');
 S.state.stats.wins += G.TICKET.tower; ok(G.towerSweep().ok, '再贏 ' + G.TICKET.tower + ' 場後可以再領');
-S.state.tower.best = 100; ok(G.towerFight(7).ok, '舊頂 100 層後仍可挑戰第 101 層（WL-11：上限已改 150）');
-S.state.tower.best = 150; ok(!G.towerFight().ok, '登頂 150 層後不能再挑戰');
+S.state.tower.best = 100; ok(G.towerFight(7).ok, '舊頂 100 層後仍可挑戰第 101 層（WL-11：上限已改 150；WL-15：240）');
+S.state.tower.best = 150; ok(G.towerFight(7).ok, 'WL-15：150 層已非塔頂，可繼續挑戰第 151 層');
+S.state.tower.best = 240; ok(!G.towerFight().ok, '登頂 240 層後不能再挑戰');
 
 console.log('[無極幻境：連續波次]');
 c = fresh(); M = c.MJ; G = M.G; S = M.S;
@@ -89,6 +94,15 @@ var hp2 = r.waves[1].team.map(function (x) { return x.unit.curHp; });
 ok(hp2.every(function (v) { return typeof v === 'number'; }), '第 2 波沿用第 1 波結束時的生命值');
 r = G.wujiRun('w1', 100); ok(r.ok && !r.firstRewards, '第二次全破不會重複給首破獎勵');
 r = G.wujiRun('w1', 101); ok(r.ok && G.wujiLeft('w1') === Infinity, '第 3 次以後仍可挑戰（無每日次數）');
+ok(G.WUJI.length === 7, '無極幻境共 7 檔（WL-15 加 w6／w7）');
+var t6 = G.wujiTier('w6'), t7 = G.wujiTier('w7');
+ok(t6 && t6.name === '神武之境' && t6.open === 70 && t6.start === 201 && t6.waves === 40, 'w6 神武之境：Lv70 開、201–240 波（WL-15）');
+ok(t7 && t7.name === '無上之境' && t7.open === 75 && t7.start === 241 && t7.waves === 40, 'w7 無上之境：Lv75 開、241–280 波（WL-15）');
+ok(t6.first.gold === 700 && t7.first.gold === 1000, 'w6／w7 首破金 700／1000（WL-15）');
+ok(t6.bonus.items.some(function (it) { return it.item === 'gem_atk_6'; }) && t7.bonus.items.some(function (it) { return it.item === 'gem_hp_6'; }), 'w6／w7 全破 bonus 寶石 Lv6（atk_6／hp_6，WL-15）');
+ok(G.wujiLv(280) === 90 && G.wujiLv(201) === 90, '幻境等級：W201／W280 皆 Lv90（封頂）');
+var w280 = G.wujiWave(t7, 39, 1);
+ok(w280.wave === 280 && w280.kind === 'boss' && w280.enemies.length === 9, 'W280 王波、9 人（WL-15 新頂）');
 c = fresh(); M = c.MJ; G = M.G; S = M.S; G.teamList().forEach(function (x) { x.hero.lv = 12; }); G.lead().lv = 42;
 var sv = S.state.player.silver; r = G.wujiRun('w3', 5);
 ok(r.ok && !r.full && r.cleared < 40 && S.state.wuji.clears === 0, '弱隊挑戰化境中途失敗，不算全破');
@@ -99,8 +113,8 @@ c = fresh(); M = c.MJ; G = M.G; S = M.S;
 power(G, 80); S.state.heroes.forEach(function (h) { h.lv = 80; h.star = 5; });
 r = G.towerFight(12345);
 ok(r.ok && r.win && G.towerAutoNext(r), '塔勝利且未登頂時自動接續判定為真');
-S.state.tower.best = 150;
-ok(!G.towerAutoNext(r), '已登頂 150 層時自動接續判定為假（不再打下一層）');
+S.state.tower.best = 240;
+ok(!G.towerAutoNext(r), '已登頂 240 層時自動接續判定為假（不再打下一層）');
 var sk = G.towerSkip();
 ok(!sk.ok, '已登頂時跳過被拒絕（不再重打）');
 c = fresh(); M = c.MJ; G = M.G; S = M.S;
@@ -112,6 +126,7 @@ function strongTeam(g, s, mj) { // 僅為測試登頂路徑：7 人滿級滿星�
   s.state.heroes.forEach(function (h) {
     h.lv = 90; h.star = 5; h.py = { str: 2000, int: 2000, agi: 2000, con: 2000 };
     // WL-11：塔倍率 ×1.15 自 F50 起，F100 已 ×2.01——光靠培養不夠，需滿裝（Lv54 紫、強化＝Lv）才能跳過登頂 150
+    // WL-15：同隊跳過在 F190 止步（max@90 單層 F200 為 0/12，見 probe；F240 須頂尖隊寶石／心法／洗鍊），故跳過等價測試封頂 150，新頂 240 由 unit-wl15 以頂尖隊驗證
     var dt = h.id === 'lead' ? 'p' : (R.heroDef(h.id).type.charAt(0) === '力' ? 'p' : R.heroDef(h.id).type.charAt(0) === '智' ? 'm' : 'j');
     U.each(R.SLOTS, function (slot) {
       var best = null;
@@ -126,12 +141,12 @@ sk = G.towerSkip(3);
 ok(sk.ok && sk.fought === 3 && sk.reached === 3 && !sk.topped && !sk.lostAt, '跳過設上限 3 層：只打 3 層就停，未登頂、未戰敗');
 var first3Rewards = sk.rewards.length;
 // 跳過到登頂，與逐層打的獎勵一致
-sk = G.towerSkip();
-ok(sk.ok && sk.topped && sk.reached === 150 && sk.fought === 147 && sk.rewards.length > 0, '強隊跳過：從第 4 層連打到登頂（147 層）');
+sk = G.towerSkip(147);
+ok(sk.ok && !sk.topped && sk.reached === 150 && sk.fought === 147 && sk.rewards.length > 0, '強隊跳過（上限 147 層）：從第 4 層連打到 150 層（147 層；WL-15：topped 為假因塔頂已是 240，同隊跳過在 F190 止步，跳過到 240 不可行，故等價測試封頂 150）');
 var cM = fresh(), GM = cM.MJ.G, SM = cM.MJ.S;
 strongTeam(GM, SM, cM.MJ);
 var manRewards = 0, manBattles = 0;
-while (SM.state.tower.best < GM.TOWER_MAX && manBattles < 150) { var mr = GM.towerFight(); if (!mr.ok || !mr.win) break; manRewards += mr.rewards.length; manBattles++; }
+while (SM.state.tower.best < 150 && manBattles < 150) { var mr = GM.towerFight(); if (!mr.ok || !mr.win) break; manRewards += mr.rewards.length; manBattles++; }
 ok(manBattles === 150 && manRewards === sk.rewards.length + first3Rewards && S.state.player.silver === SM.state.player.silver && S.state.player.gold === SM.state.player.gold && S.state.player.xinghun === SM.state.player.xinghun, '跳過後獎勵與逐層打一致（獎勵 ' + sk.rewards.length + '＋前 3 層 ' + first3Rewards + '＝' + manRewards + ' 項，銀／金／星魂相同）');
 ok(S.state.stats.battles === SM.state.stats.battles, '跳過與逐層打的戰鬥場次一致（' + S.state.stats.battles + ' 場）');
 c = fresh(); M = c.MJ; G = M.G; S = M.S; G.lead().lv = 22; S.state.tower.best = 59;

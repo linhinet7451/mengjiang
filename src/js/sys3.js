@@ -116,7 +116,7 @@
     { id: 'a_codex', name: '群英譜', desc: '圖鑑收錄武將', tiers: [10, 30, 60], val: function () { return G.codexCount(); } },
     { id: 'a_lv', name: '一代宗師', desc: '主角等級', tiers: [20, 40, 60, 80], val: function () { return G.lead().lv; } },
     { id: 'a_stars', name: '星羅棋布', desc: '虛空之門累計星數', tiers: [30, 108, 216], val: function (s) { var n = 0; U.each(U.keys(s.stages), function (k) { n += s.stages[k].stars || 0; }); return n; } },
-    { id: 'a_tower', name: '凌雲之志', desc: '通天塔最高層', tiers: [10, 30, 60, 100, 150], val: function (s) { return s.tower.best; } },
+    { id: 'a_tower', name: '凌雲之志', desc: '通天塔最高層', tiers: [10, 30, 60, 100, 150, 240], val: function (s) { return s.tower.best; } },
     { id: 'a_wuji', name: '幻境行者', desc: '無極幻境全波次通關', tiers: [1, 10, 50], val: function (s) { return s.wuji.clears; } },
     { id: 'a_farm', name: '春耕秋收', desc: '農田收成', tiers: [10, 50, 200], val: function (s) { return s.counters.harvest || 0; } },
     { id: 'a_enh', name: '千錘百鍊', desc: '強化成功', tiers: [10, 50, 200], val: function (s) { return s.counters.enhance || 0; } },
@@ -291,7 +291,7 @@
   };
 
   // ---------- 通天塔 ----------
-  G.TOWER_MAX = 150; // WL-11：100→150（Tomas 2026-11-10 23:35 定案）
+  G.TOWER_MAX = 240; // WL-15：150→240（Tomas 2026-11-11 22:17 立項；OD-5 主代理 2026-11-11 23:50 裁決：原定 F250 實測 12/12／殘血 38% 超帶，改頂 F240；終關 F240 以 Lv80 頂尖隊壓線為門檻，見 provenance balance.topGate15）
   G.towerFloor = function (f) {
     var kind = f % 10 === 0 ? 'boss' : (f % 5 === 0 ? 'elite' : 'normal');
     var ch = chapterOf(Math.floor((f - 1) / 10));
@@ -391,7 +391,9 @@
     { id: 'w2', name: '登堂之境', open: 25, start: 41, waves: 40, bonus: { items: [{ item: 'jinengshu', n: 3 }, { item: 'xinfacanye', n: 2 }, { item: 'gem_atk_2', n: 1 }] }, first: { gold: 100, items: [{ item: 'shenjishu', n: 1 }] } },
     { id: 'w3', name: '化境', open: 42, start: 81, waves: 40, bonus: { items: [{ item: 'shenjishu', n: 1 }, { item: 'xinfacanye', n: 3 }, { item: 'gem_hp_3', n: 1 }] }, first: { gold: 200, items: [{ item: 'seed_soul', n: 2 }] } },
     { id: 'w4', name: '破軍之境', open: 55, start: 121, waves: 40, bonus: { items: [{ item: 'jinengshu', n: 4 }, { item: 'xinfacanye', n: 3 }, { item: 'gem_atk_4', n: 1 }] }, first: { gold: 300, items: [{ item: 'shenjishu', n: 2 }] } }, // WL-11：新增第 4 檔（121–160 波）
-    { id: 'w5', name: '無雙之境', open: 65, start: 161, waves: 40, bonus: { items: [{ item: 'shenjishu', n: 3 }, { item: 'xinfacanye', n: 5 }, { item: 'gem_hp_5', n: 1 }] }, first: { gold: 500, items: [{ item: 'seed_soul', n: 3 }] } } // WL-11：新增第 5 檔（161–200 波）
+    { id: 'w5', name: '無雙之境', open: 65, start: 161, waves: 40, bonus: { items: [{ item: 'shenjishu', n: 3 }, { item: 'xinfacanye', n: 5 }, { item: 'gem_hp_5', n: 1 }] }, first: { gold: 500, items: [{ item: 'seed_soul', n: 3 }] } }, // WL-11：新增第 5 檔（161–200 波）
+    { id: 'w6', name: '神武之境', open: 70, start: 201, waves: 40, bonus: { items: [{ item: 'shenjishu', n: 4 }, { item: 'xinfacanye', n: 6 }, { item: 'gem_atk_6', n: 1 }] }, first: { gold: 700, items: [{ item: 'shenjishu', n: 2 }] } }, // WL-15：新增第 6 檔（201–240 波）
+    { id: 'w7', name: '無上之境', open: 75, start: 241, waves: 40, bonus: { items: [{ item: 'shenjishu', n: 5 }, { item: 'xinfacanye', n: 8 }, { item: 'gem_hp_6', n: 1 }] }, first: { gold: 1000, items: [{ item: 'seed_soul', n: 3 }] } } // WL-15：新增第 7 檔（241–280 波）
   ];
   G.wujiTier = function (id) { return U.find(G.WUJI, function (t) { return t.id === id; }); };
   G.wujiLeft = function () { return Infinity; }; // P2：無限挑戰（規格書）

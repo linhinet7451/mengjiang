@@ -29,7 +29,7 @@ var mainBase = R.enemyUnit(spec, { kind: 'boss', ch: 1, depth: 0 });
 ok(mainBase.patk === R.enemyUnit(spec, { kind: 'boss', ch: 1, depth: 0 }).patk, '主線王關數值不受塔／幻境倍率影響（floor／wave 為 null）');
 
 console.log('[通天塔：上限、獎勵、成就]');
-ok(G.TOWER_MAX === 150, 'TOWER_MAX＝150');
+ok(G.TOWER_MAX === 240, 'TOWER_MAX＝240（WL-15：150→240；OD-5 塔頂 F250→F240）');
 var f100 = G.towerFloor(100), f150 = G.towerFloor(150);
 ok(f150.kind === 'boss' && f150.enemies.length === 9 && f150.enemies[0].lv === 91, 'F150 王關、9 人、首領 Lv91');
 ok(f100.first.items.some(function (it) { return /^gem_[a-z]+_6$/.test(it.item); }), 'F100 起首通寶石為 Lv6（公式 min(6, 1+floor(f/20))，F100 即達 6）');
@@ -46,7 +46,7 @@ G.lead().lv = 22; // 須達通天塔開啟等級，否則 towerFight 會以「�
 ok(G.towerFight(7).ok, '舊存檔 best=100 可繼續挑戰第 101 層（零遷移；此隊會敗，但回傳 ok）');
 
 console.log('[無極幻境：w4／w5 定義與獎勵]');
-ok(G.WUJI.length === 5, '無極幻境共 5 檔');
+ok(G.WUJI.length === 7, '無極幻境共 7 檔（WL-15 加 w6／w7；w4／w5 定義不變）');
 var t4 = G.wujiTier('w4'), t5 = G.wujiTier('w5');
 ok(t4 && t4.name === '破軍之境' && t4.open === 55 && t4.start === 121 && t4.waves === 40, 'w4 破軍之境：Lv55 開、121–160 波');
 ok(t5 && t5.name === '無雙之境' && t5.open === 65 && t5.start === 161 && t5.waves === 40, 'w5 無雙之境：Lv65 開、161–200 波');
@@ -99,13 +99,13 @@ ok(c2.MJ.S.state.wuji.first.w4 == null && c2.MJ.S.state.wuji.first.w5 == null, '
 
 console.log('[考證]');
 var prov = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'src', 'data', 'provenance.json'), 'utf8'));
-ok(prov.entries.length === 324, '考證表共 324 條（319＋5）');
-ok(prov.entries.filter(function (e) { return e.grade === 'D'; }).length === 158, 'D 級 158 條');
+ok(prov.entries.length === 334, '考證表共 334 條（324＋10）');
+ok(prov.entries.filter(function (e) { return e.grade === 'D'; }).length === 168, 'D 級 168 條');
 ['balance.towerScale', 'balance.wujiScale', 'wuji.w4w5', 'reward.towerTop150', 'reward.towerGem6', 'reward.wujiW4W5', 'ach.tower150'].forEach(function (id) {
   var e = prov.entries.filter(function (x) { return x.id === id; })[0];
   ok(!!e && e.grade === 'D' && e.label.indexOf('原版') < 0 && e.tentative === true && e.phase === 'WL-11', '考證條目 ' + id + ' 為 D 級／暫定／WL-11／不標原版');
 });
-ok(M.D.provenance && M.D.provenance.entries.length === 324, 'data.generated.js 含最新考證表（324 條）');
+ok(M.D.provenance && M.D.provenance.entries.length === 334, 'data.generated.js 含最新考證表（334 條）');
 
 console.log('結果：通過 ' + pass + '，失敗 ' + fail);
 if (fail) process.exit(1);

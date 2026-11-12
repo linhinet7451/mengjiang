@@ -11,8 +11,8 @@ function fresh() { var c = load(); c.MJ.G.newGame('測試', '力耐', 'm', 1); r
 var c = fresh(), M = c.MJ, G = M.G, R = M.R, U = M.U, D = M.D, S = M.S;
 
 console.log('[新章結構]');
-ok(D.stages.chapters.length === 13, '共 13 章');
-ok(D.stages.stages.length === 117, '共 117 關（90 + 27）');
+ok(D.stages.chapters.length === 16, '共 16 章（WL-15 新增 ch14–16；本檔仍測 ch11–13 內容）');
+ok(D.stages.stages.length === 144, '共 144 關（117 + 27）');
 var ch11 = D.stages.chapters[10], ch12 = D.stages.chapters[11], ch13 = D.stages.chapters[12];
 ok(ch11.id === 11 && ch11.name === '桃花島' && ch11.lv === 79 && ch11.bg === '#3a6a5a', 'ch11 桃花島 Lv79（解鎖 Lv79）');
 ok(ch12.id === 12 && ch12.name === '崑崙之巔' && ch12.lv === 80 && ch12.bg === '#7a6a4a', 'ch12 崑崙之巔 Lv80（解鎖 Lv80）');
@@ -83,7 +83,7 @@ ok(byId['s11_9'].unlock === 'all3star' && byId['s12_9'].unlock === 'all3star' &&
 
 console.log('[bossScale S4b 與 OD-5]');
 var bs = D.config.bossScale;
-ok(bs.length === 13 && JSON.stringify(bs) === JSON.stringify([1.22, 1.68, 2.57, 2.42, 2.78, 3.78, 3.68, 3.1, 2.73, 2.42, 2.6, 2.9, 3.0]), 'bossScale 為 S4b 13 章表 [1.22, 1.68, 2.57, 2.42, 2.78, 3.78, 3.68, 3.10, 2.73, 2.42, 2.60, 2.90, 3.00]');
+ok(bs.length === 16 && JSON.stringify(bs) === JSON.stringify([1.22, 1.68, 2.57, 2.42, 2.78, 3.78, 3.68, 3.1, 2.73, 2.42, 2.6, 2.9, 3.0, 6, 7, 16]), 'bossScale 為 S4b＋WL-15 16 章表（前 13 章不動，新章 6／7／16）');
 ok(bs[10] === 2.6 && bs[11] === 2.9 && bs[12] === 3.0, '新章倍率：ch11 2.6／ch12 2.9／ch13 3.0');
 ok(JSON.stringify(D.config.enemyScale) === JSON.stringify({ from: 12, atk: 0.03, def: 0.03, hp: 0.05, atk2: 0.0006, def2: 0.0006, hp2: 0.001 }), 'enemyScale 未動（S4b 只動 bossScale：from 12／atk/def 0.03／hp 0.05／二階 0.0006/0.0006/0.001）');
 ['s9_8', 's9_9', 's10_8', 's10_9'].forEach(function (id) {
@@ -175,13 +175,13 @@ console.log('[存檔 v12 與考證]');
 ok(S.VERSION === 12, '存檔版本仍為 v12（零遷移、零新欄位）');
 ok(G.stageState('s13_8').stars === 0 && G.stageState('s13_8').clears === 0, '新關預設紀錄為 0（舊存檔讀取時不憑空建立）');
 var prov = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'src', 'data', 'provenance.json'), 'utf8'));
-ok(prov.entries.length === 324, '考證共 324 條（WL-14 ＋5）');
-ok(prov.entries.filter(function (x) { return x.grade === 'D'; }).length === 158, 'D 級共 158 條（WL-14 ＋5）');
+ok(prov.entries.length === 334, '考證共 334 條（WL-14 ＋5）');
+ok(prov.entries.filter(function (x) { return x.grade === 'D'; }).length === 168, 'D 級共 168 條（WL-15 ＋10）');
 ['balance.bossScale12', 'balance.doubleGate', 'stages.ch11_13'].forEach(function (id) {
   var e = prov.entries.filter(function (x) { return x.id === id; })[0];
   ok(!!e && e.grade === 'D' && e.label.indexOf('原版') < 0 && e.tentative === true && e.phase === 'WL-12', '考證條目 ' + id + ' 為 D 級／暫定／WL-12／不標原版');
 });
-ok(M.D.provenance && M.D.provenance.entries.length === 324, 'data.generated.js 含最新考證表（324 條）');
+ok(M.D.provenance && M.D.provenance.entries.length === 334, 'data.generated.js 含最新考證表（334 條）');
 
 console.log('結果：通過 ' + pass + '，失敗 ' + fail);
 if (fail) process.exit(1);

@@ -242,9 +242,11 @@ MJ.R = (function () {
       hit: 0, crit: tpl.boss ? 5 : 0, dodge: 0,
       layers: 1, boss: !!tpl.boss,
       look: { g: tpl.look[0], skin: tpl.look[1], hair: tpl.look[2], hs: tpl.look[3], beard: tpl.look[4], cloth: tpl.look[5], trim: tpl.look[6], wp: tpl.look[7], art: tpl.art },
-      active: { name: tpl.boss ? tpl.name.split('·').pop() + '之擊' : '攻擊', pattern: tpl.pattern, mult: 1, flat: 0 },
-      ult: { name: tpl.boss ? '絕技·' + tpl.name.split('·').pop() : '奮力一擊', pattern: tpl.ult, mult: tpl.boss ? 1.6 : 1.4, flat: lv * 4 },
-      passive: null
+      // WL-15 §3.5：主動／無雙／被動改吃模板可選欄位（actName/actMult/ultName/ultMult/ultFlat/passive）；
+      // 缺省行為與既有首領完全一致（主動「X之擊」×1、無雙「絕技·X」×1.6／flat lv×4、被動 null）。
+      active: { name: tpl.actName || (tpl.boss ? tpl.name.split('·').pop() + '之擊' : '攻擊'), pattern: tpl.pattern, mult: tpl.actMult || 1, flat: 0 },
+      ult: { name: tpl.ultName || (tpl.boss ? '絕技·' + tpl.name.split('·').pop() : '奮力一擊'), pattern: tpl.ult, mult: tpl.ultMult || (tpl.boss ? 1.6 : 1.4), flat: tpl.ultFlat != null ? tpl.ultFlat : lv * 4 },
+      passive: tpl.passive || null
     };
     // A：宣傳片 Boss 有多層血條；倍數為 D
     // 第三階段：第 5～8 章與高層通天塔的 Boss 血條層數增加（D）
@@ -285,6 +287,8 @@ MJ.R = (function () {
     }
     applyScale(cfg.towerScale, stage && stage.floor);
     applyScale(cfg.wujiScale, stage && stage.wave);
+    // WL-15：幻境第二階段倍率（D，見 provenance balance.wujiScale2）：W>220 起每 10 波再 ×1.10，與 wujiScale 相乘；只套幻境。
+    applyScale(cfg.wujiScale2, stage && stage.wave);
     return u;
   };
 

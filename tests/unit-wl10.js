@@ -15,16 +15,16 @@ stages.forEach(function (st) {
   (st.drops || []).forEach(function (d) { if (String(d.item).indexOf('eq:') === 0) drops.push(d); });
   ((st.first || {}).items || []).forEach(function (it) { if (String(it.item).indexOf('eq:') === 0) firsts.push(it); });
 });
-ok(stages.length === 117 && drops.length === 234, '117 關、關卡掉落裝備共 234 條（WL-12 新章 27 關 ×2）');
-ok(drops.every(function (d) { return /eq:[a-z]+1$/.test(d.item); }), '234 條關卡掉落模板等級全部為 Lv1');
+ok(stages.length === 144 && drops.length === 288, '144 關、關卡掉落裝備共 288 條（WL-15 新章 27 關 ×2）');
+ok(drops.every(function (d) { return /eq:[a-z]+1$/.test(d.item); }), '288 條關卡掉落模板等級全部為 Lv1');
 var qc = { 0: 0, 1: 0, 2: 0, 3: 0 };
 drops.forEach(function (d) { qc[d.q]++; });
-ok(qc[0] === 65 && qc[1] === 91 && qc[2] === 52 && qc[3] === 26, '掉落品質分布（白 65／綠 91／藍 52／紫 26；WL-12 新章 54 條＋OD-5 ch9/ch10 王／隱藏 q1→q2、q2→q3）');
+ok(qc[0] === 80 && qc[1] === 112 && qc[2] === 64 && qc[3] === 32, '掉落品質分布（白 80／綠 112／藍 64／紫 32；WL-15 新章 54 條：白 15／綠 21／藍 12／紫 6）');
 var s11 = stages.filter(function (x) { return x.id === 's1_1'; })[0];
 ok(s11.drops[0].item === 'eq:wp1' && s11.drops[0].q === 0 && s11.drops[0].chance === 0.25 && s11.drops[1].item === 'eq:cp1' && s11.drops[1].q === 1 && s11.drops[1].chance === 0.08, 's1_1 掉落內容不變（wp1 白 25%＋cp1 綠 8%）');
 var s108 = stages.filter(function (x) { return x.id === 's10_8'; })[0];
 ok(s108.drops[0].item === 'eq:wj1' && s108.drops[0].q === 2 && s108.drops[0].chance === 0.5 && s108.drops[1].item === 'eq:ar1' && s108.drops[1].q === 3 && s108.drops[1].chance === 0.35, 's10_8 掉落內容（wj1 藍 50%＋ar1 紫 35%；WL-12 OD-5 同步修正與 ch1–8 一致，原綠 50%＋藍 20%）');
-ok(firsts.length === 26 && firsts.every(function (it) { return /eq:[a-z]+1$/.test(it.item) && it.q === 2; }), '26 條首通獎勵藍裝亦全部改為 Lv1（品質 q2 不變；WL-12 新章精英首通 ＋6）');
+ok(firsts.length === 32 && firsts.every(function (it) { return /eq:[a-z]+1$/.test(it.item) && it.q === 2; }), '32 條首通獎勵藍裝亦全部改為 Lv1（品質 q2 不變；WL-15 新章精英首通 ＋6）');
 ok(drops.every(function (d) { return R.equipTpl(d.item.slice(3)) != null; }), '全部掉落模板存在（Lv1 模板皆有）');
 
 console.log('[R.nextEquipTier：下一檔查詢]');
@@ -120,13 +120,13 @@ ok(M.S.VERSION === 12, '存檔版本仍為 v12（零遷移、零新欄位）');
 
 console.log('[考證]');
 var prov = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'src', 'data', 'provenance.json'), 'utf8'));
-ok(prov.entries.length === 324, '考證表共 324 條（319＋5）');
-ok(prov.entries.filter(function (e) { return e.grade === 'D'; }).length === 158, 'D 級 158 條');
+ok(prov.entries.length === 334, '考證表共 334 條（324＋10）');
+ok(prov.entries.filter(function (e) { return e.grade === 'D'; }).length === 168, 'D 級 168 條');
 ['mode.equipDropLv1', 'forge.upgradeLevel'].forEach(function (id) {
   var e5 = prov.entries.filter(function (x) { return x.id === id; })[0];
   ok(!!e5 && e5.grade === 'D' && e5.label.indexOf('原版') < 0 && e5.tentative === true, '考證條目 ' + id + ' 為 D 級／暫定／不標原版');
 });
-ok(M.D.provenance && M.D.provenance.entries.length === 324, 'data.generated.js 含最新考證表（324 條）');
+ok(M.D.provenance && M.D.provenance.entries.length === 334, 'data.generated.js 含最新考證表（334 條）');
 
 console.log('結果：通過 ' + pass + '，失敗 ' + fail);
 if (fail) process.exit(1);

@@ -707,11 +707,11 @@ function winRateEvent(kind, L, buildFn, eventId, rounds) {
 // （Lv1→54 每件 18,900／全套 151,200；單件 +28→+69 強化約 1.47M；神兵坊 Lv28→29 392k）。
 (function () {
   var wl11 = { tower: [], wuji: [], w5full: [], silver: {} };
-  U.each([100, 110, 130, 150], function (f) {
+  U.each([100, 110, 130, 150, 200, 240], function (f) { // WL-15：取樣延伸到新頂 F200／F240（OD-5）
     var sg = G.towerFloor(f), fn = function () { return G.buildEnemy(sg); };
     wl11.tower.push({ floor: f, lv: sg.enemies[0].lv, typ69: winRate('typ', 69, fn), vet69: winRate('vet', 69, fn), vet75: winRate('vet', 75, fn), max69: winRate('max', 69, fn), max80: winRate('max', 80, fn) });
   });
-  U.each([{ t: 'w3', w: 39, id: 'W120' }, { t: 'w4', w: 39, id: 'W160' }, { t: 'w5', w: 19, id: 'W180' }, { t: 'w5', w: 39, id: 'W200' }], function (c) {
+  U.each([{ t: 'w3', w: 39, id: 'W120' }, { t: 'w4', w: 39, id: 'W160' }, { t: 'w5', w: 19, id: 'W180' }, { t: 'w5', w: 39, id: 'W200' }, { t: 'w6', w: 39, id: 'W240' }, { t: 'w7', w: 39, id: 'W280' }], function (c) { // WL-15：取樣延伸到新頂 W240／W280
     var t = G.wujiTier(c.t), sg = G.wujiWave(t, c.w, 4242), fn = function () { return G.buildEnemy(sg); };
     wl11.wuji.push({ wave: c.id, lv: sg.enemies[0].lv, vet69: winRate('vet', 69, fn), vet80: winRate('vet', 80, fn), max80: winRate('max', 80, fn), max90: winRate('max', 90, fn) });
   });
@@ -729,12 +729,17 @@ function winRateEvent(kind, L, buildFn, eventId, rounds) {
   });
   var towerFirstSilver = 0, towerFirstGold = 0;
   for (var f = 101; f <= 150; f++) { var rw = G.towerFloor(f).first; towerFirstSilver += rw.silver || 0; towerFirstGold += rw.gold || 0; }
-  var w4silver = 0, w5silver = 0;
+  var towerFirstSilver2 = 0, towerFirstGold2 = 0;
+  for (var f = 151; f <= 240; f++) { var rw2 = G.towerFloor(f).first; towerFirstSilver2 += rw2.silver || 0; towerFirstGold2 += rw2.gold || 0; }
+  var w4silver = 0, w5silver = 0, w6silver = 0, w7silver = 0;
   (function () { var t = G.wujiTier('w4'); for (var w = 0; w < 40; w++) w4silver += G.wujiWave(t, w, 4242).silver; })();
   (function () { var t = G.wujiTier('w5'); for (var w = 0; w < 40; w++) w5silver += G.wujiWave(t, w, 4242).silver; })();
-  wl11.silver = { towerFirstSilver101_150: towerFirstSilver, towerFirstGold101_150: towerFirstGold, w4silver: w4silver, w5silver: w5silver, w4w5silver: w4silver + w5silver };
+  (function () { var t = G.wujiTier('w6'); for (var w = 0; w < 40; w++) w6silver += G.wujiWave(t, w, 4242).silver; })();
+  (function () { var t = G.wujiTier('w7'); for (var w = 0; w < 40; w++) w7silver += G.wujiWave(t, w, 4242).silver; })();
+  wl11.silver = { towerFirstSilver101_150: towerFirstSilver, towerFirstGold101_150: towerFirstGold, towerFirstSilver151_240: towerFirstSilver2, towerFirstGold151_240: towerFirstGold2, w4silver: w4silver, w5silver: w5silver, w4w5silver: w4silver + w5silver, w6silver: w6silver, w7silver: w7silver, w6w7silver: w6silver + w7silver };
   // 塔俸 best=150（需先設 best，否則 towerSweepReward 讀當前 best）
   (function () { var save = MJ.S.state.tower.best; MJ.S.state.tower.best = 150; wl11.silver.towerSweep150 = G.towerSweepReward().silver; MJ.S.state.tower.best = save; })();
+  (function () { var save2 = MJ.S.state.tower.best; MJ.S.state.tower.best = 240; wl11.silver.towerSweep240 = G.towerSweepReward().silver; MJ.S.state.tower.best = save2; })(); // WL-15: 塔俸 best=240（OD-5）
   out.wl11 = wl11;
 })();
 // 15) WL-12 虛空之門 ch11–13＋主線重調 S4b＋×2 終局門檻校準（12 種子；實戰口徑＝隨機組合→×2→詞綴→增援→事件，
@@ -799,6 +804,126 @@ function winRateEvent(kind, L, buildFn, eventId, rounds) {
   wl12.silver = { shenbing28_80: shenbing, upgrade64: upg, enhancePerPiece: Math.round(enh), enhance64: Math.round(enh) * 64, total: shenbing + upg + Math.round(enh) * 64 };
   out.wl12 = wl12;
 })();
+// 16) WL-15 三系統擴充＋Lv80 頂尖隊壓線門檻（12 種子單場／6 種子全程；實戰口徑 stacked＝
+// 隨機組合→詞綴→增援→事件，與 G.fight 開戰順序一致；頂尖隊＝G.arenaTopFoe(1, lv) 直接作戰鬥 A 側）。
+// §1 全曲線重跑確認 ch1–10 平均仍在 70–80% 帶內；新章王系關 typ／vet／max／top 分佈；
+// 塔 F240（終關）／F230（下層對照）與幻境 w6／w7 全程的 Lv79／80／81 頂尖隊門檻表；
+// s14_8／s15_8 以真實章節資料重測（新首領小叮噹／皮卡丘，設計 §3.5 probe9 預期 max@90 約 67%／58%，
+// 更正 §3.4 引用 probe 4–5 以 b_lvbu 合成的舊數字）。
+// OD-5（主代理 2026-11-11 23:50 裁決，塔頂 F250→F240）：設計以 13 章循環校準 F250 為 67%／18.0%，
+// 但 16 章後 chapterOf 循環改變，F250 敵池由 ch12 崑崙（xl）變 ch9 雁門關（mg），實測 12/12、殘血 38%——
+// 超出帶狀（50–70%／殘血 10–25%），連 Lv79 亦 100%。F240 在帶內且梯度最乾淨（Lv79 42%／9.1% →
+// Lv80 50%／9.6% → Lv81 58%／10.7%）；F280 亦在帶內但 Lv81 plateau，梯度較差。F240 亦為王層。
+(function () {
+  var wl15 = { bossScale: D.config.bossScale.slice(), wujiScale2: D.config.wujiScale2, chapters: [], overall: {}, newCh: [], gate: [], tower: [], wujiFull: [], maxGrad: [] };
+  function avg(xs, k) { var s = 0, n = 0; xs.forEach(function (x) { if (x[k] != null) { s += x[k]; n++; } }); return n ? s / n : null; }
+  function hpLeft(res) { var hp = 0, mx = 0; U.each(res.units, function (u) { if (u.side === 'A') { hp += Math.max(0, u.hp); mx += u.maxHp; } }); return mx ? hp / mx : 0; }
+  function winRateStack(kind, L, sg) {
+    var w = 0;
+    for (var sd = 1; sd <= SEEDS; sd++) {
+      var team = playerTeam(kind, L), seed = sd * 977 + 3;
+      var foes = G.drawFoes(sg, seed);
+      G.applyStageAffix(sg, foes, seed);
+      var re = G.drawReinforce(sg, seed);
+      var opt = { seed: seed, maxRounds: D.config.maxRounds, levelSuppression: D.config.levelSuppression, event: G.eventFor(seed) };
+      if (re && re.length) opt.reinforce = { units: re };
+      var r = MJ.Battle.run(team, foes, opt);
+      if (r.win) w++;
+    }
+    return w / SEEDS;
+  }
+  function topStack(stageId, lv) {
+    var sg = MJ.D.stageIndex[stageId], w = 0, hpSum = 0, hpN = 0;
+    for (var sd = 1; sd <= SEEDS; sd++) {
+      var seed = sd * 977 + 3;
+      var foes = G.drawFoes(sg, seed);
+      G.applyStageAffix(sg, foes, seed);
+      var re = G.drawReinforce(sg, seed);
+      var r = MJ.Battle.run(G.arenaTopFoe(1, lv).foes, foes, { seed: seed, maxRounds: D.config.maxRounds, levelSuppression: D.config.levelSuppression, fieldItems: sg.fieldItems || [], double: false, reinforce: re && re.length ? { units: re } : null, event: G.eventFor(seed) });
+      if (r.win) { w++; hpSum += hpLeft(r); hpN++; }
+    }
+    return { rate: w / SEEDS, hp: hpN ? hpSum / hpN : 0 };
+  }
+  function topTower(f, lv) {
+    var w = 0, hpSum = 0, hpN = 0;
+    for (var sd = 1; sd <= SEEDS; sd++) {
+      var sg = G.towerFloor(f);
+      var r = MJ.Battle.run(G.arenaTopFoe(1, lv).foes, G.buildEnemy(sg), { seed: sd * 977 + 3, maxRounds: D.config.maxRounds, levelSuppression: D.config.levelSuppression });
+      if (r.win) { w++; hpSum += hpLeft(r); hpN++; }
+    }
+    return { rate: w / SEEDS, hp: hpN ? hpSum / hpN : 0 };
+  }
+  function topWujiFull(tierId, lv) {
+    var t = G.wujiTier(tierId), full = 0, sum = 0, hpSum = 0, hpN = 0;
+    for (var sd = 1; sd <= 6; sd++) {
+      var team = G.arenaTopFoe(1, lv).foes, cleared = 0, lastHp = 1, seed = sd * 7919;
+      for (var w = 0; w < t.waves; w++) {
+        var sg = G.wujiWave(t, w, seed);
+        var cur = U.map(team, function (x) { return { cell: x.cell, unit: x.unit }; });
+        var res = MJ.Battle.run(cur, G.buildEnemy(sg), { seed: (seed + w * 977) >>> 0, maxRounds: D.config.maxRounds, levelSuppression: D.config.levelSuppression });
+        if (!res.win) break;
+        cleared++; lastHp = hpLeft(res);
+        var next = [];
+        U.each(res.units, function (u) {
+          if (u.side !== 'A' || u.hp <= 0) return;
+          var c0 = u.cell0 != null ? u.cell0 : u.cell;
+          var src = U.find(cur, function (x) { return x.cell === c0; });
+          var nu = U.extend({}, src.unit); nu.curHp = u.hp; nu.curRage = u.rage;
+          next.push({ cell: c0, unit: nu });
+        });
+        team = next;
+      }
+      sum += cleared;
+      if (cleared === 40) { full++; hpSum += lastHp; hpN++; }
+    }
+    return { full: full, avg: sum / 6, hp: hpN ? hpSum / hpN : 0 };
+  }
+  // 全曲線：§1（out.stages）按章彙總
+  var allBoss = [], allNorm = [];
+  for (var ch = 1; ch <= 16; ch++) {
+    var boss = [], norm = [];
+    U.each(D.stages.stages, function (sg) {
+      if (sg.ch !== ch) return;
+      var r = U.find(out.stages, function (x) { return x.id === sg.id; });
+      if (!r) return;
+      if (sg.kind === 'normal') norm.push(r); else boss.push(r);
+    });
+    allBoss = allBoss.concat(boss); allNorm = allNorm.concat(norm);
+    wl15.chapters.push({ ch: ch, bossScale: D.config.bossScale[ch - 1], bossN: boss.length, bossTyp: avg(boss, 'typ'), bossWeak3: avg(boss, 'weak3'), bossTypMin: Math.min.apply(null, boss.map(function (x) { return x.typ; })), bossTypMax: Math.max.apply(null, boss.map(function (x) { return x.typ; })), normN: norm.length, normTyp: avg(norm, 'typ'), normTypMin: Math.min.apply(null, norm.map(function (x) { return x.typ; })) });
+  }
+  wl15.overall = { bossN: allBoss.length, bossTyp: avg(allBoss, 'typ'), bossTypCh1_10: avg(wl15.chapters.slice(0, 10), 'bossTyp'), bossTypCh14_16: avg(wl15.chapters.slice(13, 16), 'bossTyp'), normN: allNorm.length, normTyp: avg(allNorm, 'typ'), normTypMin: Math.min.apply(null, allNorm.map(function (x) { return x.typ; })) };
+  // 新章王系關分佈（stacked；top 另附殘血）
+  U.each(['s14_8', 's14_9', 's15_8', 's15_9', 's16_8', 's16_9'], function (id) {
+    var sg = MJ.D.stageIndex[id];
+    var t80 = topStack(id, 80);
+    wl15.newCh.push({ id: id, lv: sg.lv, bossScale: D.config.bossScale[sg.ch - 1], typ90: winRateStack('typ', 90, sg), vet90: winRateStack('vet', 90, sg), max90: winRateStack('max', 90, sg), top80: t80.rate, top80hp: t80.hp });
+  });
+  // max@90 梯度（真實首領，設計 §3.5；與 newCh 的 max90 同值，單列便於對照 probe9）
+  U.each(['s14_8', 's15_8', 's16_8'], function (id) {
+    var row = U.find(wl15.newCh, function (x) { return x.id === id; });
+    wl15.maxGrad.push({ id: id, max90: row.max90 });
+  });
+  // 終關門檻表：主線 s16_8／s16_9（Lv79／80／81）
+  U.each([['s16_8', 79], ['s16_8', 80], ['s16_8', 81], ['s16_9', 79], ['s16_9', 80], ['s16_9', 81]], function (tc) {
+    var t = topStack(tc[0], tc[1]);
+    wl15.gate.push({ id: tc[0], lv: tc[1], rate: t.rate, hp: t.hp });
+  });
+  // 塔門檻表：F240 終關＋F230 下層對照（Lv79／80／81；OD-5：F250／F260／F270／F280 不可達，刪除）
+  U.each([230, 240], function (f) {
+    U.each([79, 80, 81], function (lv) {
+      var t = topTower(f, lv);
+      wl15.tower.push({ floor: f, lv: lv, rate: t.rate, hp: t.hp });
+    });
+  });
+  // 幻境全程門檻表：w6／w7（Lv79／80／81，6 種子）
+  U.each(['w6', 'w7'], function (tid) {
+    U.each([79, 80, 81], function (lv) {
+      var t = topWujiFull(tid, lv);
+      wl15.wujiFull.push({ tier: tid, lv: lv, full: t.full, avg: t.avg, hp: t.hp });
+    });
+  });
+  out.wl15 = wl15;
+})();
 console.log('== WL-9 隨機事件量測（§11；12 種子；王系關＝原組合口徑，基線＝WL-8 第 1 節無事件；avg4＝四種事件平均＝帶事件期望勝率）==');
 (function () {
   var w = out.wl9events;
@@ -850,6 +975,7 @@ console.log('== WL-11 塔／幻境新頂校準（§14；單層／單波 12 種�
   U.each(w.w5full, function (x) { console.log('  ' + x.team, x.cleared.join('／') + ' 波'); });
   var s = w.silver;
   console.log('銀幣帳本：塔 F101–150 首通銀 ' + s.towerFirstSilver101_150 + '／金 ' + s.towerFirstGold101_150 + '；best=150 塔俸銀 ' + s.towerSweep150 + '／次；w4 全程銀 ' + s.w4silver + '；w5 全程銀 ' + s.w5silver + '；w4＋w5 ' + s.w4w5silver);
+  console.log('WL-15 銀幣帳本：塔 F151–240 首通銀 ' + s.towerFirstSilver151_240 + '／金 ' + s.towerFirstGold151_240 + '；best=240 塔俸銀 ' + s.towerSweep240 + '／次；w6 全程銀 ' + s.w6silver + '；w7 全程銀 ' + s.w7silver + '；w6＋w7 ' + s.w6w7silver);
   console.log('對照 WL-10 成本：Lv1→54 每件 18,900／全套 151,200；單件 +28→+69 強化約 1.47M；神兵坊 Lv28→29 392k。');
 })();
 console.log('== WL-12 虛空之門 ch11–13＋主線重調 S4b＋×2 終局門檻（§15；12 種子；實戰口徑 stacked）==');
@@ -870,6 +996,25 @@ console.log('== WL-12 虛空之門 ch11–13＋主線重調 S4b＋×2 終局門�
   U.each(w.ladder, function (x) { console.log('  ' + x.id, x.team, pct(x.rate)); });
   var s = w.silver;
   console.log('滿裝成本（算術）：神兵坊 Lv28→80 ' + s.shenbing28_80 + ' 銀；64 件升級 ' + s.upgrade64 + ' 銀；64 件強化期望每件 ' + s.enhancePerPiece + '／共 ' + s.enhance64 + ' 銀；合計約 ' + s.total + ' 銀（設計 §7：約 490M）');
+})();
+console.log('== WL-15 三系統擴充＋Lv80 頂尖隊壓線門檻（§16；12 種子單場／6 種子全程；實戰 stacked 口徑）==');
+(function () {
+  var w = out.wl15;
+  console.log('bossScale：[' + w.bossScale.join(', ') + ']；wujiScale2：{mult: ' + w.wujiScale2.mult + ', from: ' + w.wujiScale2.from + '}');
+  console.log('王系關章平均（一般@同級，§1 口徑）：');
+  U.each(w.chapters, function (c) { console.log('  ch' + c.ch + '（×' + c.bossScale + '）', '一般 ' + pct(c.bossTyp), '弱勢@+3 ' + pct(c.bossWeak3), '最低 ' + pct(c.bossTypMin) + '／最高 ' + pct(c.bossTypMax), '普通關 ' + pct(c.normTyp) + '（最低 ' + pct(c.normTypMin) + '）'); });
+  var o = w.overall;
+  console.log('總計：王系 ' + o.bossN + ' 關，一般 ' + pct(o.bossTyp) + '（ch1–10 ' + pct(o.bossTypCh1_10) + '，WL-8 接受帶 70–80%；ch14–16 ' + pct(o.bossTypCh14_16) + '）；普通關 ' + o.normN + ' 關，一般 ' + pct(o.normTyp) + '（最低 ' + pct(o.normTypMin) + '）');
+  console.log('新章王系關分佈（stacked；top80 另附勝場殘血）：');
+  U.each(w.newCh, function (x) { console.log('  ' + x.id + '（Lv' + x.lv + '，×' + x.bossScale + '）', '一般@90', pct(x.typ90), 'vet@90', pct(x.vet90), 'max@90', pct(x.max90), 'top@80', pct(x.top80) + '／殘血 ' + (x.top80hp * 100).toFixed(1) + '%'); });
+  console.log('max@90 王關梯度（真實首領，設計 §3.5 probe9 預期 ch14 約 67%、ch15 約 58%、ch16 0%；更正 §3.4 的 b_lvbu 合成數字）：');
+  U.each(w.maxGrad, function (x) { console.log('  ' + x.id, 'max@90', pct(x.max90)); });
+  console.log('終關門檻：主線 s16_8／s16_9 頂尖隊（stacked；驗收為帶狀 Lv79–81，勝率 50–70% 且殘血 10–25%）：');
+  U.each(w.gate, function (x) { console.log('  ' + x.id, 'Lv' + x.lv, pct(x.rate) + '／殘血 ' + (x.hp * 100).toFixed(1) + '%'); });
+  console.log('終關門檻：通天塔頂尖隊（單層；OD-5 定案新頂 F240：原 F250 與設計 §4.1 不符——16 章後 chapterOf 循環改變，F250 敵池由 ch12 變 ch9，實測 12/12／殘血 38% 超帶；F240 梯度最乾淨，Lv79 42%／9.1% → Lv80 50%／9.6% → Lv81 58%／10.7%）：');
+  U.each(w.tower, function (x) { console.log('  F' + x.floor, 'Lv' + x.lv, pct(x.rate) + '／殘血 ' + (x.hp * 100).toFixed(1) + '%'); });
+  console.log('終關門檻：無極幻境全程頂尖隊（6 種子；w7 為三系統中 Lv79／Lv80 區分最清楚者）：');
+  U.each(w.wujiFull, function (x) { console.log('  ' + x.tier, 'Lv' + x.lv, '全破 ' + x.full + '/6、平均通過 ' + x.avg.toFixed(1) + '/40 波、全破場終波殘血 ' + (x.hp * 100).toFixed(1) + '%'); });
 })();
 console.log('== 硬牆 ==\n' + (out.walls.length ? out.walls.join('\n') : '無'));
 if (JSON_OUT) require('fs').writeFileSync(JSON_OUT, JSON.stringify(out, null, 1));

@@ -72,6 +72,10 @@
       sg.first.items.push({ item: G.FRAG, n: 15 });
       sg.first.gold = (sg.first.gold || 0) + 100;
     }
+    if (f === 240) { // WL-15：新登頂里程碑（首通額外，D）：紫裝碎片 ×20＋金 150（OD-5：塔頂 F250→F240，登頂合計金 290＝140＋150）
+      sg.first.items.push({ item: G.FRAG, n: 20 });
+      sg.first.gold = (sg.first.gold || 0) + 150;
+    }
     return sg;
   };
   G.fragLv = function () { var lv = G.lead().lv; return Math.max(1, Math.min(54, Math.floor(lv / 6) * 6)) || 1; };

@@ -14,7 +14,8 @@
     e_luzhangke: 'h_luzhangke', e_hebiweng: 'b_hebiweng', b_miejue: 'h_miejue', xiexun: 'b_xiexun',
     mg_lama: 'g_lama', e_daerba: 'b_daerba', mg_wushi: 'g_mongol', b_menge: 'b_menge', b_jinlun: 'b_jinlun',
     e_zhangliao: 'b_zhangliao', b_caocao: 'h_caocao', b_simayi: 'h_simayi', b_renwoxing: 'b_renwoxing', b_dongfang: 'h_dongfang',
-    ry_zhanglao: 'g_elder', hs_yinshi: 'g_elder', e_qiuqianren: 'b_qiuqianren', b_ouyangfeng: 'h_ouyangfeng', b_dugu: 'b_dugu'
+    ry_zhanglao: 'g_elder', hs_yinshi: 'g_elder', e_qiuqianren: 'b_qiuqianren', b_ouyangfeng: 'h_ouyangfeng', b_dugu: 'b_dugu',
+    doraemon: 'h_doraemon', pikachu: 'h_pikachu' // WL-15 §3.5：新首領美術（WL-14 已上傳的 6 張 webp）
   };
   MJ.ART_ENEMY = E;
   if (!MJ.D) return;

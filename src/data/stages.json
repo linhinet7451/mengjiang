@@ -494,6 +494,122 @@
     "lvbu",
     "zhaoyun"
    ]
+  },
+  {
+   "id": 14,
+   "name": "蓬萊仙島",
+   "lv": 80,
+   "desc": "海上仙山，雲霧縹緲。",
+   "bg": "#1a5a6a",
+   "pool": [
+    "hs_jianke",
+    "hs_baituo",
+    "hs_tiezhang",
+    "hs_yinshi",
+    "dz_qinwei"
+   ],
+   "elite": [
+    "e_ouyangke",
+    "e_qiuqianren"
+   ],
+   "boss": "doraemon",
+   "hidden": "xiexun",
+   "stageNames": [
+    "蓬萊閣",
+    "紫雲崖",
+    "丹爐峰",
+    "碧霞宮",
+    "雲霧嶺",
+    "瓊樓玉宇",
+    "仙人指路",
+    "蓬萊決戰",
+    "羽化仙境"
+   ],
+   "souls": [
+    "huangrong",
+    "guojing",
+    "zhoubotong",
+    "ouyangfeng",
+    "hongqigong",
+    "huangyaoshi"
+   ]
+  },
+  {
+   "id": 15,
+   "name": "終南絕巔",
+   "lv": 80,
+   "desc": "終南絕巔，重陽遺蹤。",
+   "bg": "#6a5a3a",
+   "pool": [
+    "mj_jiaozhong",
+    "em_dizi",
+    "kl_dizi",
+    "wd_dizi"
+   ],
+   "elite": [
+    "e_luzhangke",
+    "e_hebiweng"
+   ],
+   "boss": "pikachu",
+   "hidden": "b_dongfang",
+   "stageNames": [
+    "終南山口",
+    "重陽宮",
+    "玉女峰",
+    "活死人墓",
+    "劍塚",
+    "全真教",
+    "絕巔",
+    "終南決戰",
+    "古墓密室"
+   ],
+   "souls": [
+    "xiaolongnv",
+    "yangguo",
+    "zhangwuji",
+    "xiaozhao",
+    "wuyazi",
+    "tianshan"
+   ]
+  },
+  {
+   "id": 16,
+   "name": "九重天",
+   "lv": 80,
+   "desc": "九重天外，唯最強者立。",
+   "bg": "#3a3a6a",
+   "pool": [
+    "ry_jiaozhong",
+    "ry_zhanglao",
+    "ry_anqi",
+    "ry_hufa",
+    "dz_qinwei"
+   ],
+   "elite": [
+    "e_xiangwentian",
+    "e_yanglianting"
+   ],
+   "boss": "b_lvbu",
+   "hidden": "b_dugu",
+   "stageNames": [
+    "南天門",
+    "登天梯",
+    "雲霄殿",
+    "瑤池",
+    "蟠桃園",
+    "凌霄寶殿",
+    "九霄雲外",
+    "九重天之巔",
+    "混沌之境"
+   ],
+   "souls": [
+    "guanyu",
+    "zhangfei",
+    "machao",
+    "huangzhong",
+    "lvbu",
+    "zhaoyun"
+   ]
   }
  ],
  "enemies": {
@@ -1536,6 +1652,52 @@
    "pattern": "line3",
    "ult": "all",
    "boss": 1
+  },
+  "doraemon": {
+   "name": "小叮噹",
+   "type": "智耐",
+   "look": [
+    "m",
+    "#bbdefb",
+    "#1565c0",
+    "bald",
+    "none",
+    "#1e88e5",
+    "#ffca28",
+    "none"
+   ],
+   "pattern": "line2",
+   "ult": "all",
+   "boss": 1,
+   "actName": "空氣砲",
+   "actMult": 1.5,
+   "ultName": "任意門",
+   "ultMult": 2,
+   "ultFlat": 200,
+   "passive": "shaqi"
+  },
+  "pikachu": {
+   "name": "皮卡丘",
+   "type": "智敏",
+   "look": [
+    "m",
+    "#ffeb3b",
+    "#fdd835",
+    "bald",
+    "none",
+    "#fdd835",
+    "#e53935",
+    "none"
+   ],
+   "pattern": "line2",
+   "ult": "all",
+   "boss": 1,
+   "actName": "電光一閃",
+   "actMult": 1.5,
+   "ultName": "十萬伏特",
+   "ultMult": 2,
+   "ultFlat": 200,
+   "passive": "lianzhan"
   }
  },
  "stages": [
@@ -14663,6 +14825,3145 @@
      {
       "item": "zizhuang_frag",
       "n": 20
+     }
+    ]
+   },
+   "unlock": "all3star"
+  },
+  {
+   "id": "s14_1",
+   "ch": 14,
+   "idx": 0,
+   "kind": "normal",
+   "name": "蓬萊閣",
+   "lv": 90,
+   "energy": 1,
+   "exp": 539,
+   "silver": 718,
+   "enemies": [
+    {
+     "e": "hs_jianke",
+     "cell": 0,
+     "lv": 90
+    },
+    {
+     "e": "hs_baituo",
+     "cell": 1,
+     "lv": 90
+    },
+    {
+     "e": "hs_tiezhang",
+     "cell": 2,
+     "lv": 90
+    },
+    {
+     "e": "hs_yinshi",
+     "cell": 3,
+     "lv": 90
+    },
+    {
+     "e": "dz_qinwei",
+     "cell": 4,
+     "lv": 90
+    },
+    {
+     "e": "hs_jianke",
+     "cell": 5,
+     "lv": 90
+    },
+    {
+     "e": "hs_baituo",
+     "cell": 6,
+     "lv": 90
+    },
+    {
+     "e": "hs_tiezhang",
+     "cell": 7,
+     "lv": 90
+    },
+    {
+     "e": "hs_yinshi",
+     "cell": 8,
+     "lv": 90
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:wm1",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:rg1",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:huangrong",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_hp_5",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 1590,
+    "items": []
+   },
+   "unlock": "s13_8"
+  },
+  {
+   "id": "s14_2",
+   "ch": 14,
+   "idx": 1,
+   "kind": "normal",
+   "name": "紫雲崖",
+   "lv": 90,
+   "energy": 1,
+   "exp": 539,
+   "silver": 718,
+   "enemies": [
+    {
+     "e": "hs_jianke",
+     "cell": 0,
+     "lv": 90
+    },
+    {
+     "e": "hs_baituo",
+     "cell": 1,
+     "lv": 90
+    },
+    {
+     "e": "hs_tiezhang",
+     "cell": 2,
+     "lv": 90
+    },
+    {
+     "e": "hs_yinshi",
+     "cell": 3,
+     "lv": 90
+    },
+    {
+     "e": "dz_qinwei",
+     "cell": 4,
+     "lv": 90
+    },
+    {
+     "e": "hs_jianke",
+     "cell": 5,
+     "lv": 90
+    },
+    {
+     "e": "hs_baituo",
+     "cell": 6,
+     "lv": 90
+    },
+    {
+     "e": "hs_tiezhang",
+     "cell": 7,
+     "lv": 90
+    },
+    {
+     "e": "hs_yinshi",
+     "cell": 8,
+     "lv": 90
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:hm1",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:wj1",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:guojing",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_pdef_5",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 1590,
+    "items": []
+   },
+   "unlock": "s14_1"
+  },
+  {
+   "id": "s14_3",
+   "ch": 14,
+   "idx": 2,
+   "kind": "normal",
+   "name": "丹爐峰",
+   "lv": 90,
+   "energy": 1,
+   "exp": 539,
+   "silver": 718,
+   "enemies": [
+    {
+     "e": "hs_jianke",
+     "cell": 0,
+     "lv": 90
+    },
+    {
+     "e": "hs_baituo",
+     "cell": 1,
+     "lv": 90
+    },
+    {
+     "e": "hs_tiezhang",
+     "cell": 2,
+     "lv": 90
+    },
+    {
+     "e": "hs_yinshi",
+     "cell": 3,
+     "lv": 90
+    },
+    {
+     "e": "dz_qinwei",
+     "cell": 4,
+     "lv": 90
+    },
+    {
+     "e": "hs_jianke",
+     "cell": 5,
+     "lv": 90
+    },
+    {
+     "e": "hs_baituo",
+     "cell": 6,
+     "lv": 90
+    },
+    {
+     "e": "hs_tiezhang",
+     "cell": 7,
+     "lv": 90
+    },
+    {
+     "e": "hs_yinshi",
+     "cell": 8,
+     "lv": 90
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:rg1",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:wp1",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:zhoubotong",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_mdef_5",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 1590,
+    "items": []
+   },
+   "unlock": "s14_2"
+  },
+  {
+   "id": "s14_4",
+   "ch": 14,
+   "idx": 3,
+   "kind": "elite",
+   "name": "碧霞宮",
+   "lv": 90,
+   "energy": 2,
+   "exp": 835,
+   "silver": 1113,
+   "enemies": [
+    {
+     "e": "hs_yinshi",
+     "cell": 0,
+     "lv": 90
+    },
+    {
+     "e": "dz_qinwei",
+     "cell": 1,
+     "lv": 90
+    },
+    {
+     "e": "hs_jianke",
+     "cell": 2,
+     "lv": 90
+    },
+    {
+     "e": "hs_baituo",
+     "cell": 3,
+     "lv": 90
+    },
+    {
+     "e": "e_ouyangke",
+     "cell": 4,
+     "lv": 91,
+     "leader": 1,
+     "honorFrame": "silver"
+    },
+    {
+     "e": "hs_tiezhang",
+     "cell": 5,
+     "lv": 90
+    },
+    {
+     "e": "hs_yinshi",
+     "cell": 6,
+     "lv": 90
+    },
+    {
+     "e": "dz_qinwei",
+     "cell": 7,
+     "lv": 90
+    },
+    {
+     "e": "hs_jianke",
+     "cell": 8,
+     "lv": 90
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:wj1",
+     "q": 1,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:ar1",
+     "q": 2,
+     "chance": 0.2
+    },
+    {
+     "item": "soul:ouyangfeng",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_jdef_5",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    }
+   ],
+   "first": {
+    "gold": 15,
+    "silver": 2465,
+    "items": [
+     {
+      "item": "eq:bt1",
+      "q": 2
+     },
+     {
+      "item": "jinengshu",
+      "n": 2
+     },
+     {
+      "item": "peiyangdan",
+      "n": 3
+     }
+    ]
+   },
+   "unlock": "s14_3"
+  },
+  {
+   "id": "s14_5",
+   "ch": 14,
+   "idx": 4,
+   "kind": "normal",
+   "name": "雲霧嶺",
+   "lv": 90,
+   "energy": 1,
+   "exp": 539,
+   "silver": 718,
+   "enemies": [
+    {
+     "e": "hs_jianke",
+     "cell": 0,
+     "lv": 90
+    },
+    {
+     "e": "hs_baituo",
+     "cell": 1,
+     "lv": 90
+    },
+    {
+     "e": "hs_tiezhang",
+     "cell": 2,
+     "lv": 90
+    },
+    {
+     "e": "hs_yinshi",
+     "cell": 3,
+     "lv": 90
+    },
+    {
+     "e": "dz_qinwei",
+     "cell": 4,
+     "lv": 90
+    },
+    {
+     "e": "hs_jianke",
+     "cell": 5,
+     "lv": 90
+    },
+    {
+     "e": "hs_baituo",
+     "cell": 6,
+     "lv": 90
+    },
+    {
+     "e": "hs_tiezhang",
+     "cell": 7,
+     "lv": 90
+    },
+    {
+     "e": "hs_yinshi",
+     "cell": 8,
+     "lv": 90
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:wp1",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:cp1",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:hongqigong",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_crit_5",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 1590,
+    "items": []
+   },
+   "unlock": "s14_4"
+  },
+  {
+   "id": "s14_6",
+   "ch": 14,
+   "idx": 5,
+   "kind": "normal",
+   "name": "瓊樓玉宇",
+   "lv": 90,
+   "energy": 1,
+   "exp": 539,
+   "silver": 718,
+   "enemies": [
+    {
+     "e": "hs_jianke",
+     "cell": 0,
+     "lv": 90
+    },
+    {
+     "e": "hs_baituo",
+     "cell": 1,
+     "lv": 90
+    },
+    {
+     "e": "hs_tiezhang",
+     "cell": 2,
+     "lv": 90
+    },
+    {
+     "e": "hs_yinshi",
+     "cell": 3,
+     "lv": 90
+    },
+    {
+     "e": "dz_qinwei",
+     "cell": 4,
+     "lv": 90
+    },
+    {
+     "e": "hs_jianke",
+     "cell": 5,
+     "lv": 90
+    },
+    {
+     "e": "hs_baituo",
+     "cell": 6,
+     "lv": 90
+    },
+    {
+     "e": "hs_tiezhang",
+     "cell": 7,
+     "lv": 90
+    },
+    {
+     "e": "hs_yinshi",
+     "cell": 8,
+     "lv": 90
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:ar1",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:bt1",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:huangyaoshi",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_atk_5",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 1590,
+    "items": []
+   },
+   "unlock": "s14_5"
+  },
+  {
+   "id": "s14_7",
+   "ch": 14,
+   "idx": 6,
+   "kind": "elite",
+   "name": "仙人指路",
+   "lv": 90,
+   "energy": 2,
+   "exp": 835,
+   "silver": 1113,
+   "enemies": [
+    {
+     "e": "hs_baituo",
+     "cell": 0,
+     "lv": 90
+    },
+    {
+     "e": "hs_tiezhang",
+     "cell": 1,
+     "lv": 90
+    },
+    {
+     "e": "hs_yinshi",
+     "cell": 2,
+     "lv": 90
+    },
+    {
+     "e": "dz_qinwei",
+     "cell": 3,
+     "lv": 90
+    },
+    {
+     "e": "e_qiuqianren",
+     "cell": 4,
+     "lv": 91,
+     "leader": 1,
+     "honorFrame": "silver"
+    },
+    {
+     "e": "hs_jianke",
+     "cell": 5,
+     "lv": 90
+    },
+    {
+     "e": "hs_baituo",
+     "cell": 6,
+     "lv": 90
+    },
+    {
+     "e": "hs_tiezhang",
+     "cell": 7,
+     "lv": 90
+    },
+    {
+     "e": "hs_yinshi",
+     "cell": 8,
+     "lv": 90
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:cp1",
+     "q": 1,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:wm1",
+     "q": 2,
+     "chance": 0.2
+    },
+    {
+     "item": "soul:huangrong",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_hp_5",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    }
+   ],
+   "first": {
+    "gold": 15,
+    "silver": 2465,
+    "items": [
+     {
+      "item": "eq:rg1",
+      "q": 2
+     },
+     {
+      "item": "jinengshu",
+      "n": 2
+     },
+     {
+      "item": "peiyangdan",
+      "n": 3
+     }
+    ]
+   },
+   "unlock": "s14_6"
+  },
+  {
+   "id": "s14_8",
+   "ch": 14,
+   "idx": 7,
+   "kind": "boss",
+   "name": "蓬萊決戰",
+   "lv": 90,
+   "energy": 3,
+   "exp": 1267,
+   "silver": 1687,
+   "enemies": [
+    {
+     "e": "hs_tiezhang",
+     "cell": 0,
+     "lv": 90
+    },
+    {
+     "e": "hs_yinshi",
+     "cell": 1,
+     "lv": 90
+    },
+    {
+     "e": "dz_qinwei",
+     "cell": 2,
+     "lv": 90
+    },
+    {
+     "e": "hs_jianke",
+     "cell": 3,
+     "lv": 90
+    },
+    {
+     "e": "doraemon",
+     "cell": 4,
+     "lv": 91,
+     "leader": 1,
+     "honorFrame": "gold"
+    },
+    {
+     "e": "hs_baituo",
+     "cell": 5,
+     "lv": 90
+    },
+    {
+     "e": "hs_tiezhang",
+     "cell": 6,
+     "lv": 90
+    },
+    {
+     "e": "hs_yinshi",
+     "cell": 7,
+     "lv": 90
+    },
+    {
+     "e": "dz_qinwei",
+     "cell": 8,
+     "lv": 90
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:bt1",
+     "q": 2,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:hm1",
+     "q": 3,
+     "chance": 0.35
+    },
+    {
+     "item": "soul:guojing",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "soul:huangrong",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_pdef_5",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "xf_kuihua",
+     "n": 1,
+     "chance": 0.15
+    }
+   ],
+   "first": {
+    "gold": 30,
+    "silver": 3737,
+    "items": [
+     {
+      "item": "tufeiling",
+      "n": 2
+     },
+     {
+      "item": "shenjishu",
+      "n": 1
+     },
+     {
+      "item": "xf_kuihua",
+      "n": 1
+     }
+    ]
+   },
+   "unlock": "s14_7"
+  },
+  {
+   "id": "s14_9",
+   "ch": 14,
+   "idx": 8,
+   "kind": "hidden",
+   "name": "羽化仙境",
+   "lv": 90,
+   "energy": 3,
+   "exp": 1563,
+   "silver": 2082,
+   "enemies": [
+    {
+     "e": "hs_yinshi",
+     "cell": 0,
+     "lv": 90
+    },
+    {
+     "e": "dz_qinwei",
+     "cell": 1,
+     "lv": 90
+    },
+    {
+     "e": "hs_jianke",
+     "cell": 2,
+     "lv": 90
+    },
+    {
+     "e": "hs_baituo",
+     "cell": 3,
+     "lv": 90
+    },
+    {
+     "e": "xiexun",
+     "cell": 4,
+     "lv": 91,
+     "leader": 1
+    },
+    {
+     "e": "hs_tiezhang",
+     "cell": 5,
+     "lv": 90
+    },
+    {
+     "e": "hs_yinshi",
+     "cell": 6,
+     "lv": 90
+    },
+    {
+     "e": "dz_qinwei",
+     "cell": 7,
+     "lv": 90
+    },
+    {
+     "e": "hs_jianke",
+     "cell": 8,
+     "lv": 90
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:wm1",
+     "q": 2,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:rg1",
+     "q": 3,
+     "chance": 0.35
+    },
+    {
+     "item": "soul:zhoubotong",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "soul:huangrong",
+     "n": 3,
+     "chance": 0.8
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_mdef_5",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "xf_kuihua",
+     "n": 1,
+     "chance": 0.15
+    }
+   ],
+   "first": {
+    "gold": 50,
+    "silver": 4612,
+    "items": [
+     {
+      "item": "soul:huangrong",
+      "n": 5
+     }
+    ]
+   },
+   "unlock": "all3star"
+  },
+  {
+   "id": "s15_1",
+   "ch": 15,
+   "idx": 0,
+   "kind": "normal",
+   "name": "終南山口",
+   "lv": 90,
+   "energy": 1,
+   "exp": 539,
+   "silver": 718,
+   "enemies": [
+    {
+     "e": "mj_jiaozhong",
+     "cell": 0,
+     "lv": 90
+    },
+    {
+     "e": "em_dizi",
+     "cell": 1,
+     "lv": 90
+    },
+    {
+     "e": "kl_dizi",
+     "cell": 2,
+     "lv": 90
+    },
+    {
+     "e": "wd_dizi",
+     "cell": 3,
+     "lv": 90
+    },
+    {
+     "e": "mj_jiaozhong",
+     "cell": 4,
+     "lv": 90
+    },
+    {
+     "e": "em_dizi",
+     "cell": 5,
+     "lv": 90
+    },
+    {
+     "e": "kl_dizi",
+     "cell": 6,
+     "lv": 90
+    },
+    {
+     "e": "wd_dizi",
+     "cell": 7,
+     "lv": 90
+    },
+    {
+     "e": "mj_jiaozhong",
+     "cell": 8,
+     "lv": 90
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:hm1",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:wj1",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:xiaolongnv",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_hp_5",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 1590,
+    "items": []
+   },
+   "unlock": "s14_8"
+  },
+  {
+   "id": "s15_2",
+   "ch": 15,
+   "idx": 1,
+   "kind": "normal",
+   "name": "重陽宮",
+   "lv": 90,
+   "energy": 1,
+   "exp": 539,
+   "silver": 718,
+   "enemies": [
+    {
+     "e": "mj_jiaozhong",
+     "cell": 0,
+     "lv": 90
+    },
+    {
+     "e": "em_dizi",
+     "cell": 1,
+     "lv": 90
+    },
+    {
+     "e": "kl_dizi",
+     "cell": 2,
+     "lv": 90
+    },
+    {
+     "e": "wd_dizi",
+     "cell": 3,
+     "lv": 90
+    },
+    {
+     "e": "mj_jiaozhong",
+     "cell": 4,
+     "lv": 90
+    },
+    {
+     "e": "em_dizi",
+     "cell": 5,
+     "lv": 90
+    },
+    {
+     "e": "kl_dizi",
+     "cell": 6,
+     "lv": 90
+    },
+    {
+     "e": "wd_dizi",
+     "cell": 7,
+     "lv": 90
+    },
+    {
+     "e": "mj_jiaozhong",
+     "cell": 8,
+     "lv": 90
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:rg1",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:wp1",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:yangguo",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_pdef_5",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 1590,
+    "items": []
+   },
+   "unlock": "s15_1"
+  },
+  {
+   "id": "s15_3",
+   "ch": 15,
+   "idx": 2,
+   "kind": "normal",
+   "name": "玉女峰",
+   "lv": 90,
+   "energy": 1,
+   "exp": 539,
+   "silver": 718,
+   "enemies": [
+    {
+     "e": "mj_jiaozhong",
+     "cell": 0,
+     "lv": 90
+    },
+    {
+     "e": "em_dizi",
+     "cell": 1,
+     "lv": 90
+    },
+    {
+     "e": "kl_dizi",
+     "cell": 2,
+     "lv": 90
+    },
+    {
+     "e": "wd_dizi",
+     "cell": 3,
+     "lv": 90
+    },
+    {
+     "e": "mj_jiaozhong",
+     "cell": 4,
+     "lv": 90
+    },
+    {
+     "e": "em_dizi",
+     "cell": 5,
+     "lv": 90
+    },
+    {
+     "e": "kl_dizi",
+     "cell": 6,
+     "lv": 90
+    },
+    {
+     "e": "wd_dizi",
+     "cell": 7,
+     "lv": 90
+    },
+    {
+     "e": "mj_jiaozhong",
+     "cell": 8,
+     "lv": 90
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:wj1",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:ar1",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:zhangwuji",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_mdef_5",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 1590,
+    "items": []
+   },
+   "unlock": "s15_2"
+  },
+  {
+   "id": "s15_4",
+   "ch": 15,
+   "idx": 3,
+   "kind": "elite",
+   "name": "活死人墓",
+   "lv": 90,
+   "energy": 2,
+   "exp": 835,
+   "silver": 1113,
+   "enemies": [
+    {
+     "e": "wd_dizi",
+     "cell": 0,
+     "lv": 90
+    },
+    {
+     "e": "mj_jiaozhong",
+     "cell": 1,
+     "lv": 90
+    },
+    {
+     "e": "em_dizi",
+     "cell": 2,
+     "lv": 90
+    },
+    {
+     "e": "kl_dizi",
+     "cell": 3,
+     "lv": 90
+    },
+    {
+     "e": "e_luzhangke",
+     "cell": 4,
+     "lv": 91,
+     "leader": 1,
+     "honorFrame": "silver"
+    },
+    {
+     "e": "wd_dizi",
+     "cell": 5,
+     "lv": 90
+    },
+    {
+     "e": "mj_jiaozhong",
+     "cell": 6,
+     "lv": 90
+    },
+    {
+     "e": "em_dizi",
+     "cell": 7,
+     "lv": 90
+    },
+    {
+     "e": "kl_dizi",
+     "cell": 8,
+     "lv": 90
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:wp1",
+     "q": 1,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:cp1",
+     "q": 2,
+     "chance": 0.2
+    },
+    {
+     "item": "soul:xiaozhao",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_jdef_5",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    }
+   ],
+   "first": {
+    "gold": 15,
+    "silver": 2465,
+    "items": [
+     {
+      "item": "eq:bt1",
+      "q": 2
+     },
+     {
+      "item": "jinengshu",
+      "n": 2
+     },
+     {
+      "item": "peiyangdan",
+      "n": 3
+     }
+    ]
+   },
+   "unlock": "s15_3"
+  },
+  {
+   "id": "s15_5",
+   "ch": 15,
+   "idx": 4,
+   "kind": "normal",
+   "name": "劍塚",
+   "lv": 90,
+   "energy": 1,
+   "exp": 539,
+   "silver": 718,
+   "enemies": [
+    {
+     "e": "mj_jiaozhong",
+     "cell": 0,
+     "lv": 90
+    },
+    {
+     "e": "em_dizi",
+     "cell": 1,
+     "lv": 90
+    },
+    {
+     "e": "kl_dizi",
+     "cell": 2,
+     "lv": 90
+    },
+    {
+     "e": "wd_dizi",
+     "cell": 3,
+     "lv": 90
+    },
+    {
+     "e": "mj_jiaozhong",
+     "cell": 4,
+     "lv": 90
+    },
+    {
+     "e": "em_dizi",
+     "cell": 5,
+     "lv": 90
+    },
+    {
+     "e": "kl_dizi",
+     "cell": 6,
+     "lv": 90
+    },
+    {
+     "e": "wd_dizi",
+     "cell": 7,
+     "lv": 90
+    },
+    {
+     "e": "mj_jiaozhong",
+     "cell": 8,
+     "lv": 90
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:ar1",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:bt1",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:wuyazi",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_crit_5",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 1590,
+    "items": []
+   },
+   "unlock": "s15_4"
+  },
+  {
+   "id": "s15_6",
+   "ch": 15,
+   "idx": 5,
+   "kind": "normal",
+   "name": "全真教",
+   "lv": 90,
+   "energy": 1,
+   "exp": 539,
+   "silver": 718,
+   "enemies": [
+    {
+     "e": "mj_jiaozhong",
+     "cell": 0,
+     "lv": 90
+    },
+    {
+     "e": "em_dizi",
+     "cell": 1,
+     "lv": 90
+    },
+    {
+     "e": "kl_dizi",
+     "cell": 2,
+     "lv": 90
+    },
+    {
+     "e": "wd_dizi",
+     "cell": 3,
+     "lv": 90
+    },
+    {
+     "e": "mj_jiaozhong",
+     "cell": 4,
+     "lv": 90
+    },
+    {
+     "e": "em_dizi",
+     "cell": 5,
+     "lv": 90
+    },
+    {
+     "e": "kl_dizi",
+     "cell": 6,
+     "lv": 90
+    },
+    {
+     "e": "wd_dizi",
+     "cell": 7,
+     "lv": 90
+    },
+    {
+     "e": "mj_jiaozhong",
+     "cell": 8,
+     "lv": 90
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:cp1",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:wm1",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:tianshan",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_atk_5",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 1590,
+    "items": []
+   },
+   "unlock": "s15_5"
+  },
+  {
+   "id": "s15_7",
+   "ch": 15,
+   "idx": 6,
+   "kind": "elite",
+   "name": "絕巔",
+   "lv": 90,
+   "energy": 2,
+   "exp": 835,
+   "silver": 1113,
+   "enemies": [
+    {
+     "e": "kl_dizi",
+     "cell": 0,
+     "lv": 90
+    },
+    {
+     "e": "wd_dizi",
+     "cell": 1,
+     "lv": 90
+    },
+    {
+     "e": "mj_jiaozhong",
+     "cell": 2,
+     "lv": 90
+    },
+    {
+     "e": "em_dizi",
+     "cell": 3,
+     "lv": 90
+    },
+    {
+     "e": "e_hebiweng",
+     "cell": 4,
+     "lv": 91,
+     "leader": 1,
+     "honorFrame": "silver"
+    },
+    {
+     "e": "kl_dizi",
+     "cell": 5,
+     "lv": 90
+    },
+    {
+     "e": "wd_dizi",
+     "cell": 6,
+     "lv": 90
+    },
+    {
+     "e": "mj_jiaozhong",
+     "cell": 7,
+     "lv": 90
+    },
+    {
+     "e": "em_dizi",
+     "cell": 8,
+     "lv": 90
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:bt1",
+     "q": 1,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:hm1",
+     "q": 2,
+     "chance": 0.2
+    },
+    {
+     "item": "soul:xiaolongnv",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_hp_5",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    }
+   ],
+   "first": {
+    "gold": 15,
+    "silver": 2465,
+    "items": [
+     {
+      "item": "eq:rg1",
+      "q": 2
+     },
+     {
+      "item": "jinengshu",
+      "n": 2
+     },
+     {
+      "item": "peiyangdan",
+      "n": 3
+     }
+    ]
+   },
+   "unlock": "s15_6"
+  },
+  {
+   "id": "s15_8",
+   "ch": 15,
+   "idx": 7,
+   "kind": "boss",
+   "name": "終南決戰",
+   "lv": 90,
+   "energy": 3,
+   "exp": 1267,
+   "silver": 1687,
+   "enemies": [
+    {
+     "e": "wd_dizi",
+     "cell": 0,
+     "lv": 90
+    },
+    {
+     "e": "mj_jiaozhong",
+     "cell": 1,
+     "lv": 90
+    },
+    {
+     "e": "em_dizi",
+     "cell": 2,
+     "lv": 90
+    },
+    {
+     "e": "kl_dizi",
+     "cell": 3,
+     "lv": 90
+    },
+    {
+     "e": "pikachu",
+     "cell": 4,
+     "lv": 91,
+     "leader": 1,
+     "honorFrame": "gold"
+    },
+    {
+     "e": "wd_dizi",
+     "cell": 5,
+     "lv": 90
+    },
+    {
+     "e": "mj_jiaozhong",
+     "cell": 6,
+     "lv": 90
+    },
+    {
+     "e": "em_dizi",
+     "cell": 7,
+     "lv": 90
+    },
+    {
+     "e": "kl_dizi",
+     "cell": 8,
+     "lv": 90
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:wm1",
+     "q": 2,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:rg1",
+     "q": 3,
+     "chance": 0.35
+    },
+    {
+     "item": "soul:yangguo",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "soul:xiaolongnv",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_pdef_5",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "xf_lingbo",
+     "n": 1,
+     "chance": 0.15
+    }
+   ],
+   "first": {
+    "gold": 30,
+    "silver": 3737,
+    "items": [
+     {
+      "item": "tufeiling",
+      "n": 2
+     },
+     {
+      "item": "shenjishu",
+      "n": 1
+     },
+     {
+      "item": "xf_lingbo",
+      "n": 1
+     }
+    ]
+   },
+   "unlock": "s15_7"
+  },
+  {
+   "id": "s15_9",
+   "ch": 15,
+   "idx": 8,
+   "kind": "hidden",
+   "name": "古墓密室",
+   "lv": 90,
+   "energy": 3,
+   "exp": 1563,
+   "silver": 2082,
+   "enemies": [
+    {
+     "e": "mj_jiaozhong",
+     "cell": 0,
+     "lv": 90
+    },
+    {
+     "e": "em_dizi",
+     "cell": 1,
+     "lv": 90
+    },
+    {
+     "e": "kl_dizi",
+     "cell": 2,
+     "lv": 90
+    },
+    {
+     "e": "wd_dizi",
+     "cell": 3,
+     "lv": 90
+    },
+    {
+     "e": "b_dongfang",
+     "cell": 4,
+     "lv": 91,
+     "leader": 1
+    },
+    {
+     "e": "mj_jiaozhong",
+     "cell": 5,
+     "lv": 90
+    },
+    {
+     "e": "em_dizi",
+     "cell": 6,
+     "lv": 90
+    },
+    {
+     "e": "kl_dizi",
+     "cell": 7,
+     "lv": 90
+    },
+    {
+     "e": "wd_dizi",
+     "cell": 8,
+     "lv": 90
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:hm1",
+     "q": 2,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:wj1",
+     "q": 3,
+     "chance": 0.35
+    },
+    {
+     "item": "soul:zhangwuji",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "soul:xiaolongnv",
+     "n": 3,
+     "chance": 0.8
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_mdef_5",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "xf_lingbo",
+     "n": 1,
+     "chance": 0.15
+    }
+   ],
+   "first": {
+    "gold": 50,
+    "silver": 4612,
+    "items": [
+     {
+      "item": "soul:xiaolongnv",
+      "n": 5
+     }
+    ]
+   },
+   "unlock": "all3star"
+  },
+  {
+   "id": "s16_1",
+   "ch": 16,
+   "idx": 0,
+   "kind": "normal",
+   "name": "南天門",
+   "lv": 90,
+   "energy": 1,
+   "exp": 539,
+   "silver": 718,
+   "enemies": [
+    {
+     "e": "ry_jiaozhong",
+     "cell": 0,
+     "lv": 90
+    },
+    {
+     "e": "ry_zhanglao",
+     "cell": 1,
+     "lv": 90
+    },
+    {
+     "e": "ry_anqi",
+     "cell": 2,
+     "lv": 90
+    },
+    {
+     "e": "ry_hufa",
+     "cell": 3,
+     "lv": 90
+    },
+    {
+     "e": "dz_qinwei",
+     "cell": 4,
+     "lv": 90
+    },
+    {
+     "e": "ry_jiaozhong",
+     "cell": 5,
+     "lv": 90
+    },
+    {
+     "e": "ry_zhanglao",
+     "cell": 6,
+     "lv": 90
+    },
+    {
+     "e": "ry_anqi",
+     "cell": 7,
+     "lv": 90
+    },
+    {
+     "e": "ry_hufa",
+     "cell": 8,
+     "lv": 90
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:rg1",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:wp1",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:guanyu",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_hp_5",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 1590,
+    "items": []
+   },
+   "unlock": "s15_8"
+  },
+  {
+   "id": "s16_2",
+   "ch": 16,
+   "idx": 1,
+   "kind": "normal",
+   "name": "登天梯",
+   "lv": 90,
+   "energy": 1,
+   "exp": 539,
+   "silver": 718,
+   "enemies": [
+    {
+     "e": "ry_jiaozhong",
+     "cell": 0,
+     "lv": 90
+    },
+    {
+     "e": "ry_zhanglao",
+     "cell": 1,
+     "lv": 90
+    },
+    {
+     "e": "ry_anqi",
+     "cell": 2,
+     "lv": 90
+    },
+    {
+     "e": "ry_hufa",
+     "cell": 3,
+     "lv": 90
+    },
+    {
+     "e": "dz_qinwei",
+     "cell": 4,
+     "lv": 90
+    },
+    {
+     "e": "ry_jiaozhong",
+     "cell": 5,
+     "lv": 90
+    },
+    {
+     "e": "ry_zhanglao",
+     "cell": 6,
+     "lv": 90
+    },
+    {
+     "e": "ry_anqi",
+     "cell": 7,
+     "lv": 90
+    },
+    {
+     "e": "ry_hufa",
+     "cell": 8,
+     "lv": 90
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:wj1",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:ar1",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:zhangfei",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_pdef_5",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 1590,
+    "items": []
+   },
+   "unlock": "s16_1"
+  },
+  {
+   "id": "s16_3",
+   "ch": 16,
+   "idx": 2,
+   "kind": "normal",
+   "name": "雲霄殿",
+   "lv": 90,
+   "energy": 1,
+   "exp": 539,
+   "silver": 718,
+   "enemies": [
+    {
+     "e": "ry_jiaozhong",
+     "cell": 0,
+     "lv": 90
+    },
+    {
+     "e": "ry_zhanglao",
+     "cell": 1,
+     "lv": 90
+    },
+    {
+     "e": "ry_anqi",
+     "cell": 2,
+     "lv": 90
+    },
+    {
+     "e": "ry_hufa",
+     "cell": 3,
+     "lv": 90
+    },
+    {
+     "e": "dz_qinwei",
+     "cell": 4,
+     "lv": 90
+    },
+    {
+     "e": "ry_jiaozhong",
+     "cell": 5,
+     "lv": 90
+    },
+    {
+     "e": "ry_zhanglao",
+     "cell": 6,
+     "lv": 90
+    },
+    {
+     "e": "ry_anqi",
+     "cell": 7,
+     "lv": 90
+    },
+    {
+     "e": "ry_hufa",
+     "cell": 8,
+     "lv": 90
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:wp1",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:cp1",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:machao",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_mdef_5",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 1590,
+    "items": []
+   },
+   "unlock": "s16_2"
+  },
+  {
+   "id": "s16_4",
+   "ch": 16,
+   "idx": 3,
+   "kind": "elite",
+   "name": "瑤池",
+   "lv": 90,
+   "energy": 2,
+   "exp": 835,
+   "silver": 1113,
+   "enemies": [
+    {
+     "e": "ry_hufa",
+     "cell": 0,
+     "lv": 90
+    },
+    {
+     "e": "dz_qinwei",
+     "cell": 1,
+     "lv": 90
+    },
+    {
+     "e": "ry_jiaozhong",
+     "cell": 2,
+     "lv": 90
+    },
+    {
+     "e": "ry_zhanglao",
+     "cell": 3,
+     "lv": 90
+    },
+    {
+     "e": "e_xiangwentian",
+     "cell": 4,
+     "lv": 91,
+     "leader": 1,
+     "honorFrame": "silver"
+    },
+    {
+     "e": "ry_anqi",
+     "cell": 5,
+     "lv": 90
+    },
+    {
+     "e": "ry_hufa",
+     "cell": 6,
+     "lv": 90
+    },
+    {
+     "e": "dz_qinwei",
+     "cell": 7,
+     "lv": 90
+    },
+    {
+     "e": "ry_jiaozhong",
+     "cell": 8,
+     "lv": 90
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:ar1",
+     "q": 1,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:bt1",
+     "q": 2,
+     "chance": 0.2
+    },
+    {
+     "item": "soul:huangzhong",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_jdef_5",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    }
+   ],
+   "first": {
+    "gold": 15,
+    "silver": 2465,
+    "items": [
+     {
+      "item": "eq:bt1",
+      "q": 2
+     },
+     {
+      "item": "jinengshu",
+      "n": 2
+     },
+     {
+      "item": "peiyangdan",
+      "n": 3
+     }
+    ]
+   },
+   "unlock": "s16_3"
+  },
+  {
+   "id": "s16_5",
+   "ch": 16,
+   "idx": 4,
+   "kind": "normal",
+   "name": "蟠桃園",
+   "lv": 90,
+   "energy": 1,
+   "exp": 539,
+   "silver": 718,
+   "enemies": [
+    {
+     "e": "ry_jiaozhong",
+     "cell": 0,
+     "lv": 90
+    },
+    {
+     "e": "ry_zhanglao",
+     "cell": 1,
+     "lv": 90
+    },
+    {
+     "e": "ry_anqi",
+     "cell": 2,
+     "lv": 90
+    },
+    {
+     "e": "ry_hufa",
+     "cell": 3,
+     "lv": 90
+    },
+    {
+     "e": "dz_qinwei",
+     "cell": 4,
+     "lv": 90
+    },
+    {
+     "e": "ry_jiaozhong",
+     "cell": 5,
+     "lv": 90
+    },
+    {
+     "e": "ry_zhanglao",
+     "cell": 6,
+     "lv": 90
+    },
+    {
+     "e": "ry_anqi",
+     "cell": 7,
+     "lv": 90
+    },
+    {
+     "e": "ry_hufa",
+     "cell": 8,
+     "lv": 90
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:cp1",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:wm1",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:lvbu",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_crit_5",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 1590,
+    "items": []
+   },
+   "unlock": "s16_4"
+  },
+  {
+   "id": "s16_6",
+   "ch": 16,
+   "idx": 5,
+   "kind": "normal",
+   "name": "凌霄寶殿",
+   "lv": 90,
+   "energy": 1,
+   "exp": 539,
+   "silver": 718,
+   "enemies": [
+    {
+     "e": "ry_jiaozhong",
+     "cell": 0,
+     "lv": 90
+    },
+    {
+     "e": "ry_zhanglao",
+     "cell": 1,
+     "lv": 90
+    },
+    {
+     "e": "ry_anqi",
+     "cell": 2,
+     "lv": 90
+    },
+    {
+     "e": "ry_hufa",
+     "cell": 3,
+     "lv": 90
+    },
+    {
+     "e": "dz_qinwei",
+     "cell": 4,
+     "lv": 90
+    },
+    {
+     "e": "ry_jiaozhong",
+     "cell": 5,
+     "lv": 90
+    },
+    {
+     "e": "ry_zhanglao",
+     "cell": 6,
+     "lv": 90
+    },
+    {
+     "e": "ry_anqi",
+     "cell": 7,
+     "lv": 90
+    },
+    {
+     "e": "ry_hufa",
+     "cell": 8,
+     "lv": 90
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:bt1",
+     "q": 0,
+     "chance": 0.25
+    },
+    {
+     "item": "eq:hm1",
+     "q": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "soul:zhaoyun",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.12
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.15
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.06
+    },
+    {
+     "item": "gem_atk_5",
+     "n": 1,
+     "chance": 0.05
+    }
+   ],
+   "first": {
+    "gold": 5,
+    "silver": 1590,
+    "items": []
+   },
+   "unlock": "s16_5"
+  },
+  {
+   "id": "s16_7",
+   "ch": 16,
+   "idx": 6,
+   "kind": "elite",
+   "name": "九霄雲外",
+   "lv": 90,
+   "energy": 2,
+   "exp": 835,
+   "silver": 1113,
+   "enemies": [
+    {
+     "e": "ry_zhanglao",
+     "cell": 0,
+     "lv": 90
+    },
+    {
+     "e": "ry_anqi",
+     "cell": 1,
+     "lv": 90
+    },
+    {
+     "e": "ry_hufa",
+     "cell": 2,
+     "lv": 90
+    },
+    {
+     "e": "dz_qinwei",
+     "cell": 3,
+     "lv": 90
+    },
+    {
+     "e": "e_yanglianting",
+     "cell": 4,
+     "lv": 91,
+     "leader": 1,
+     "honorFrame": "silver"
+    },
+    {
+     "e": "ry_jiaozhong",
+     "cell": 5,
+     "lv": 90
+    },
+    {
+     "e": "ry_zhanglao",
+     "cell": 6,
+     "lv": 90
+    },
+    {
+     "e": "ry_anqi",
+     "cell": 7,
+     "lv": 90
+    },
+    {
+     "e": "ry_hufa",
+     "cell": 8,
+     "lv": 90
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:wm1",
+     "q": 1,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:rg1",
+     "q": 2,
+     "chance": 0.2
+    },
+    {
+     "item": "soul:guanyu",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_hp_5",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    }
+   ],
+   "first": {
+    "gold": 15,
+    "silver": 2465,
+    "items": [
+     {
+      "item": "eq:rg1",
+      "q": 2
+     },
+     {
+      "item": "jinengshu",
+      "n": 2
+     },
+     {
+      "item": "peiyangdan",
+      "n": 3
+     }
+    ]
+   },
+   "unlock": "s16_6"
+  },
+  {
+   "id": "s16_8",
+   "ch": 16,
+   "idx": 7,
+   "kind": "boss",
+   "name": "九重天之巔",
+   "lv": 90,
+   "energy": 3,
+   "exp": 1267,
+   "silver": 1687,
+   "enemies": [
+    {
+     "e": "ry_anqi",
+     "cell": 0,
+     "lv": 90
+    },
+    {
+     "e": "ry_hufa",
+     "cell": 1,
+     "lv": 90
+    },
+    {
+     "e": "dz_qinwei",
+     "cell": 2,
+     "lv": 90
+    },
+    {
+     "e": "ry_jiaozhong",
+     "cell": 3,
+     "lv": 90
+    },
+    {
+     "e": "b_lvbu",
+     "cell": 4,
+     "lv": 91,
+     "leader": 1,
+     "honorFrame": "gold"
+    },
+    {
+     "e": "ry_zhanglao",
+     "cell": 5,
+     "lv": 90
+    },
+    {
+     "e": "ry_anqi",
+     "cell": 6,
+     "lv": 90
+    },
+    {
+     "e": "ry_hufa",
+     "cell": 7,
+     "lv": 90
+    },
+    {
+     "e": "dz_qinwei",
+     "cell": 8,
+     "lv": 90
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:hm1",
+     "q": 2,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:wj1",
+     "q": 3,
+     "chance": 0.35
+    },
+    {
+     "item": "soul:zhangfei",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "soul:zhaoyun",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_pdef_5",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "xf_jiuyang",
+     "n": 1,
+     "chance": 0.15
+    }
+   ],
+   "first": {
+    "gold": 30,
+    "silver": 3737,
+    "items": [
+     {
+      "item": "tufeiling",
+      "n": 2
+     },
+     {
+      "item": "shenjishu",
+      "n": 1
+     },
+     {
+      "item": "xf_jiuyang",
+      "n": 1
+     }
+    ]
+   },
+   "unlock": "s16_7"
+  },
+  {
+   "id": "s16_9",
+   "ch": 16,
+   "idx": 8,
+   "kind": "hidden",
+   "name": "混沌之境",
+   "lv": 90,
+   "energy": 3,
+   "exp": 1563,
+   "silver": 2082,
+   "enemies": [
+    {
+     "e": "ry_hufa",
+     "cell": 0,
+     "lv": 90
+    },
+    {
+     "e": "dz_qinwei",
+     "cell": 1,
+     "lv": 90
+    },
+    {
+     "e": "ry_jiaozhong",
+     "cell": 2,
+     "lv": 90
+    },
+    {
+     "e": "ry_zhanglao",
+     "cell": 3,
+     "lv": 90
+    },
+    {
+     "e": "b_dugu",
+     "cell": 4,
+     "lv": 91,
+     "leader": 1
+    },
+    {
+     "e": "ry_anqi",
+     "cell": 5,
+     "lv": 90
+    },
+    {
+     "e": "ry_hufa",
+     "cell": 6,
+     "lv": 90
+    },
+    {
+     "e": "dz_qinwei",
+     "cell": 7,
+     "lv": 90
+    },
+    {
+     "e": "ry_jiaozhong",
+     "cell": 8,
+     "lv": 90
+    }
+   ],
+   "drops": [
+    {
+     "item": "eq:rg1",
+     "q": 2,
+     "chance": 0.5
+    },
+    {
+     "item": "eq:wp1",
+     "q": 3,
+     "chance": 0.35
+    },
+    {
+     "item": "soul:machao",
+     "n": 1,
+     "chance": 0.6
+    },
+    {
+     "item": "soul:zhaoyun",
+     "n": 3,
+     "chance": 0.8
+    },
+    {
+     "item": "jinglitang",
+     "n": 1,
+     "chance": 0.08
+    },
+    {
+     "item": "jinengshu",
+     "n": 1,
+     "chance": 0.35
+    },
+    {
+     "item": "peiyangdan",
+     "n": 1,
+     "chance": 0.4
+    },
+    {
+     "item": "xinfacanye",
+     "n": 1,
+     "chance": 0.25
+    },
+    {
+     "item": "gem_mdef_5",
+     "n": 1,
+     "chance": 0.2
+    },
+    {
+     "item": "xilianshi",
+     "n": 1,
+     "chance": 0.3
+    },
+    {
+     "item": "xf_jiuyang",
+     "n": 1,
+     "chance": 0.15
+    }
+   ],
+   "first": {
+    "gold": 500,
+    "silver": 4612,
+    "items": [
+     {
+      "item": "soul:zhaoyun",
+      "n": 5
+     },
+     {
+      "item": "zizhuang_frag",
+      "n": 30
      }
     ]
    },
