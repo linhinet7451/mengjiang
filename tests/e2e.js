@@ -111,8 +111,11 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   ok(await J(function (e) { var l = MJ.G.lead(); return l.eq[e.slot] && l.eq[e.slot].uid === e.uid; }, eq), '在神武殿穿上裝備');
   await shot('5-hall');
   await act('[data-a="slotClick"][data-v="' + eq.slot + '"]');
+  ok(await J(function (e) { return MJ.UI.sel.forgeUid === e.uid && MJ.UI.sel.forgeWorn === true && document.querySelector('#screen').innerText.indexOf('神兵坊') >= 0; }, eq), '點已穿戴裝備跳去神兵坊並選中該裝備（WL-16 新行為，不再彈卸下確認）');
+  await J(function () { MJ.UI.go('hall'); MJ.UI.sel.hallUid = MJ.G.lead().uid; MJ.UI.sel.forgeWorn = false; MJ.UI.render(); }); // forgeWorn 重置：避免後續神兵坊段落停在「已穿戴」頁籤（卸裝後已無穿戴裝備）
+  await act('[data-a="unequipAll"][data-v="' + (await J(function () { return MJ.G.lead().uid; })) + '"]');
   await act('[data-a="confirmYes"]');
-  ok(await J(function (e) { return !MJ.G.lead().eq[e.slot] && MJ.S.state.bag.equips.some(function (x) { return x.uid === e.uid; }); }, eq), '卸下裝備回到包裹');
+  ok(await J(function (e) { return !MJ.G.lead().eq[e.slot] && MJ.S.state.bag.equips.some(function (x) { return x.uid === e.uid; }); }, eq), '以「全部取下」卸下裝備回到包裹（WL-16 一鍵卸裝）');
   // P5：8 部位＋武器三類篩選
   ok(await page.locator('.eslot').count() === 8 && (await page.locator('.equip-wrap, #screen').first().innerText()).indexOf('項鍊') >= 0, '裝備分頁有 8 個部位（含項鍊〔W282 改名，原玉墜〕、護手）');
   await act('[data-a="bagSlot"][data-v="weapon"]');

@@ -109,10 +109,9 @@
   UI.actions.bagPick = function (v) { UI.sel.bagPick = +v; UI.render(); };
   UI.actions.doEquip = function (v) { var r = G.equip(UI.sel.hallUid, +v); if (UI.res(r, '已穿上')) { UI.sel.bagPick = null; UI.render(); } };
   UI.actions.slotClick = function (slot) {
-    var h = G.hero(UI.sel.hallUid), e = h.eq[slot], tpl = R.equipTpl(e.t);
-    // 裝備欄點擊直接帶到神兵坊，並保留該件裝備的選取狀態，方便立即強化／升級。
-    UI.sel.forgeUid = e.uid; UI.sel.forgeWorn = true; UI.sel.forgeQ = ''; UI.sel.forgeSlot = ''; UI.sel.forgeKind = '';
-    UI.sel.forgeTab = 'enhance'; UI.page.forgeP = 0; UI.go('forge');
+    // WL-16：點已穿戴裝備改為跳去神兵坊並選中該裝備（篩選重置），不再彈卸下確認框
+    var h = G.hero(UI.sel.hallUid), e = h.eq[slot];
+    UI.sel.forgeUid = e.uid; UI.sel.forgeWorn = true; UI.sel.forgeQ = ''; UI.sel.forgeSlot = ''; UI.sel.forgeKind = ''; UI.sel.forgeTab = 'enhance'; UI.page.forgeP = 0; UI.go('forge');
   };
   UI.actions.autoEq = function (v) { var r = G.autoEquip(+v); if (UI.res(r, r.changed ? '已換上最強裝備（' + r.changed + ' 件）' : '目前已是最佳搭配')) UI.render(); };
   UI.actions.unequipAll = function (v) {

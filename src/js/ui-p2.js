@@ -91,18 +91,19 @@
   UI.screens.forge = function () {
     var s = MJ.S.state, tab = UI.sel.forgeTab || 'enhance', lv = s.buildings.shenbing || 1;
     var all = allEquips(), list = all.slice();
-    // 神兵坊固定目前清單順序：初次進入依戰力排列，之後只在末尾加入新裝備。
-    // 因此強化／升級改變分數或等級後，裝備不會跳到其他位置。
+    // WL-16 神兵坊篩選＋穩定排序：首次依評分建立 forgeOrder，之後新裝備只附加在末尾，列表順序不因強化／升級改變評分而跳動
     var order = UI.sel.forgeOrder || [];
     if (!order.length) {
       all.sort(function (a, b) { return R.equipScore(b.e) - R.equipScore(a.e); });
       order = U.map(all, function (x) { return x.e.uid; });
     } else {
-      var known = {}; U.each(order, function (uid) { known[uid] = true; });
+      var known = {};
+      U.each(order, function (uid) { known[uid] = true; });
       U.each(all, function (x) { if (!known[x.e.uid]) { order.push(x.e.uid); known[x.e.uid] = true; } });
     }
     UI.sel.forgeOrder = order;
-    var rank = {}; U.each(order, function (uid, i) { rank[uid] = i; });
+    var rank = {};
+    U.each(order, function (uid, i) { rank[uid] = i; });
     if (UI.sel.forgeWorn) list = U.filter(list, function (x) { return x.h; });
     var fq = UI.sel.forgeQ == null ? '' : UI.sel.forgeQ, fs = UI.sel.forgeSlot || '', fk = UI.sel.forgeKind || '';
     if (fq !== '') list = U.filter(list, function (x) { return x.e.q === +fq; });

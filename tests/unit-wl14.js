@@ -13,20 +13,20 @@ ok(D.heroes.list.length === 90, '武將共 90 名（88＋2）');
 ok(D.heroes.list.filter(function (h) { return h.quality === 4; }).length === 42, '品質 4 共 42 名（40＋2）');
 var dora = R.heroDef('doraemon'), pika = R.heroDef('pikachu');
 ok(dora && dora.name === '小叮噹' && dora.quality === 4 && dora.type === '智耐', '小叮噹：品質 4、智耐');
-ok(dora.faction === '原創' && dora.souls === 45 && dora.grade === 'D' && dora.passiveGrade.indexOf('D') === 0, '小叮噹：原創、將魂 45、D 級');
+ok(dora.faction === '原創' && dora.souls === 45 && dora.grade === 'D' && dora.passiveGrade === 'D（本作專屬效果）', '小叮噹：原創、將魂 45、D 級');
 ok(dora.base.str === 8 && dora.base.int === 15 && dora.base.agi === 9 && dora.base.con === 15, '小叮噹基礎四維 8／15／9／15（對標同型最強孫尚香，合計 47）');
-ok(dora.growth.str === 1.2 && dora.growth.int === 3.42 && dora.growth.agi === 1 && dora.growth.con === 3.03, '小叮噹成長：智耐強化模板');
-ok(dora.active.name === '空氣砲' && dora.active.pattern === 'line2' && dora.active.mult === 1.8 && dora.active.fx.armorBreak === 0.5, '小叮噹主動：空氣砲 line2 1.8＋破防');
-ok(dora.ult.name === '任意門' && dora.ult.pattern === 'all' && dora.ult.mult === 2.2 && dora.ult.flat === 200 && dora.ult.fx.stun === 0.3, '小叮噹無雙：任意門 all 2.2＋30%眩暈');
-ok(dora.passive === 'dabaodai', '小叮噹被動：百寶袋');
+ok(dora.growth.str === 1.2 && dora.growth.int === 3.42 && dora.growth.agi === 1 && dora.growth.con === 3.03, '小叮噹成長 WL-16 強化：int 3.42／con 3.03（base 不變）');
+ok(dora.active.name === '空氣砲' && dora.active.pattern === 'line2' && dora.active.mult === 1.8 && dora.active.flat === 0 && dora.active.fx && dora.active.fx.armorBreak === 0.5, '小叮噹主動：空氣砲 line2 1.8＋破防 0.5（WL-16）');
+ok(dora.ult.name === '任意門' && dora.ult.pattern === 'all' && dora.ult.mult === 2.2 && dora.ult.flat === 200 && dora.ult.fx && dora.ult.fx.stun === 0.3, '小叮噹無雙：任意門 all 2.2／200＋眩暈 0.3（WL-16）');
+ok(dora.passive === 'dabaodai', '小叮噹被動：百寶袋（WL-16）');
 ok(dora.look && dora.look.cloth === '#1e88e5' && dora.look.trim === '#ffca28' && dora.look.wp === 'none', '小叮噹 look：藍身黃鈴鐺、無武器');
 ok(pika && pika.name === '皮卡丘' && pika.quality === 4 && pika.type === '智敏', '皮卡丘：品質 4、智敏');
-ok(pika.faction === '原創' && pika.souls === 45 && pika.grade === 'D' && pika.passiveGrade.indexOf('D') === 0, '皮卡丘：原創、將魂 45、D 級');
+ok(pika.faction === '原創' && pika.souls === 45 && pika.grade === 'D' && pika.passiveGrade === 'D（本作專屬效果）', '皮卡丘：原創、將魂 45、D 級');
 ok(pika.base.str === 10 && pika.base.int === 13 && pika.base.agi === 12 && pika.base.con === 11, '皮卡丘基礎四維 10／13／12／11（對標同型最強貂蟬，合計 46）');
-ok(pika.growth.str === 1 && pika.growth.int === 3.24 && pika.growth.agi === 3.25 && pika.growth.con === 1.8, '皮卡丘成長：智敏強化模板');
-ok(pika.active.name === '電光一閃' && pika.active.pattern === 'line2' && pika.active.mult === 2, '皮卡丘主動：電光一閃 line2 2.0');
-ok(pika.ult.name === '十萬伏特' && pika.ult.pattern === 'all' && pika.ult.mult === 2.4 && pika.ult.flat === 200, '皮卡丘無雙：十萬伏特 all 2.4／200');
-ok(pika.passive === 'jingdian', '皮卡丘被動：靜電');
+ok(pika.growth.str === 1 && pika.growth.int === 3.24 && pika.growth.agi === 3.25 && pika.growth.con === 1.8, '皮卡丘成長 WL-16 強化：int 3.24／agi 3.25（base 不變）');
+ok(pika.active.name === '電光一閃' && pika.active.pattern === 'line2' && pika.active.mult === 2 && pika.active.flat === 0, '皮卡丘主動：電光一閃 line2 2.0（WL-16）');
+ok(pika.ult.name === '十萬伏特' && pika.ult.pattern === 'all' && pika.ult.mult === 2.4 && pika.ult.flat === 200, '皮卡丘無雙：十萬伏特 all 2.4／200（WL-16）');
+ok(pika.passive === 'jingdian', '皮卡丘被動：靜電（WL-16）');
 ok(pika.look && pika.look.skin === '#ffeb3b' && pika.look.trim === '#e53935' && pika.look.wp === 'none', '皮卡丘 look：黃身紅腮紅、無武器');
 ok(!D.heroes.list.some(function (h) { return h.id !== 'doraemon' && h.id !== 'pikachu' && (h.active.name === '空氣砲' || h.active.name === '電光一閃' || h.ult.name === '任意門' || h.ult.name === '十萬伏特'); }), '兩人技能名無重名');
 
@@ -112,8 +112,8 @@ console.log('  seed 1 Lv25 頂尖隊伍：' + top25.name + '，戰力 ' + top25.
 
 console.log('[考證表 WL-14]');
 var prov = M.D.provenance;
-ok(prov.entries.length === 334, '考證表共 334 條（324＋10）');
-ok(prov.entries.filter(function (x) { return x.grade === 'D'; }).length === 168, 'D 級共 168 條（158＋10，WL-15）');
+ok(prov.entries.length === 336, '考證表共 336 條（WL-16 ＋2）');
+ok(prov.entries.filter(function (x) { return x.grade === 'D'; }).length === 170, 'D 級共 170 條（WL-16 ＋2）');
 ['hero.doraemon', 'hero.pikachu', 'recruit.special', 'web2.range.hero.doraemon', 'web2.range.hero.pikachu'].forEach(function (id) {
   var e = prov.entries.filter(function (x) { return x.id === id; })[0];
   ok(!!e && e.grade === 'D' && e.tentative === true && e.phase === 'WL-14', '考證含 WL-14 條目 ' + id + '（D 級、暫定）');

@@ -215,7 +215,7 @@
     "from": 50
   },
   "wujiScale2": {
-    "mult": 1.1,
+    "mult": 1.07,
     "from": 220
   },
   "maxRounds": 36,

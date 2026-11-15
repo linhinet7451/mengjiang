@@ -189,7 +189,7 @@ console.log('[provenance]');
 var prov = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'src', 'data', 'provenance.json'), 'utf8'));
 var pe = prov.entries.filter(function (e) { return e.id === 'boss.affix'; })[0];
 ok(!!pe && pe.grade === 'D' && pe.phase === 'WL-4', 'provenance 有 boss.affix D 級紀錄（WL-4）');
-ok(prov.entries.length === 334, 'provenance 共 334 條（324＋10，WL-15 加 stages.ch14_16、balance.bossScale15、balance.topGate15、balance.wujiScale2、wuji.w6w7、reward.towerTop240、reward.wujiW6W7、ach.tower240、reward.gateMilestone16）');
+ok(prov.entries.length === 336, 'provenance 共 336 條（324＋10，WL-15 加 stages.ch14_16、balance.bossScale15、balance.topGate15、balance.wujiScale2、wuji.w6w7、reward.towerTop240、reward.wujiW6W7、ach.tower240、reward.gateMilestone16）');
 
 console.log('結果：通過 ' + pass + '，失敗 ' + fail);
 process.exit(fail ? 1 : 0);

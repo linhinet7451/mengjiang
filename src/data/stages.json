@@ -1699,7 +1699,7 @@
    "ult": "all",
    "boss": 1,
    "actName": "電光一閃",
-   "actMult": 2.0,
+   "actMult": 2,
    "ultName": "十萬伏特",
    "ultMult": 2.4,
    "ultFlat": 200,

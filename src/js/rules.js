@@ -183,7 +183,7 @@ MJ.R = (function () {
     };
     var def = R.heroDef(h.id);
     if (def && (def.passive === 'rexue' || (R.RV >= 9 && def.passive2 === 'rexue'))) d.hp = Math.floor(d.hp * (1 + (R.RV >= 9 ? 0.05 : 0.1) * R.passiveMul(h))); // v9 熱血 +5%（B：snA967）
-    if (def && def.passive === 'jingdian') d.crit = (d.crit || 0) + 12; // 皮卡丘專屬被動：靜電
+    if (def && def.passive === 'jingdian') d.crit = (d.crit || 0) + 12; // WL-16 靜電：暴擊 +12（D，本作專屬效果）
     if (h.pb === 'rexue' && !(def && (def.passive === 'rexue' || (R.RV >= 9 && def.passive2 === 'rexue')))) d.hp = Math.floor(d.hp * 1.1); // P4 習得熱血（D）
     if (h.pb === 'gjrexue') d.hp = Math.floor(d.hp * 1.2); // 高級熱血（B 名稱效果／D 數值）
     if (h.eq) U.each(R.SLOTS, function (slot) {
@@ -288,7 +288,7 @@ MJ.R = (function () {
     }
     applyScale(cfg.towerScale, stage && stage.floor);
     applyScale(cfg.wujiScale, stage && stage.wave);
-    // WL-15：幻境第二階段倍率（D，見 provenance balance.wujiScale2）：W>220 起每 10 波再 ×1.10，與 wujiScale 相乘；只套幻境。
+    // WL-15：幻境第二階段倍率（D，見 provenance balance.wujiScale2）：W>220 起每 10 波再 ×mult（WL-15 定 1.10；WL-16 調降為 1.07），與 wujiScale 相乘；只套幻境。
     applyScale(cfg.wujiScale2, stage && stage.wave);
     return u;
   };

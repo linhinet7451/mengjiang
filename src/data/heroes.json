@@ -9542,7 +9542,7 @@
    "active": {
     "name": "電光一閃",
     "pattern": "line2",
-    "mult": 2.0,
+    "mult": 2,
     "flat": 0,
     "fx": null
    },

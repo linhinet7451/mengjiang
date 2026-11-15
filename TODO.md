@@ -391,6 +391,15 @@ URL 縮寫：`G2(sn)` = `https://forum.gamer.com.tw/G2.php?bsn=22512&sn=<sn>`；
 - 開放決策（Tomas 2026-11-11 23:42 拍板，設計 §9 已更新）：**OD-1 ✅ 已定案**——終關門檻採帶狀定義（Lv80 頂尖隊勝率約 50–70% 且勝場殘血低 10–25%；Lv79 更吃力、Lv81+ 殘血明顯上升），不加硬性等級鎖；**OD-2 ✅ 已定案**——max@90 在 ch16 為 0%，接受（終關以頂尖隊為標準）；**OD-3 ✅ 已定案**——wujiScale2 {mult: 1.10, from: 220}，接受；**OD-4 ✅ 已定案**——3 章 ch14–16、144 關，接受；以上皆「照設計做」，實作與驗證按設計 §0／§8 繼續，不用改已實作的數字。**OD-5 ✅ 已定案**——塔頂改為 **F240**（主代理 2026-11-11 23:50 裁決，Tomas 把決定權交給主代理）：F250 實測 12/12／殘血 38.0% 超出帶狀，F240 梯度最乾淨（Lv79 42%／9.1% → Lv80 50%／9.6% → Lv81 58%／10.7%，balance §16 重測）；F240 登頂首通金 **290（140＋150）**，塔俸 best=240 銀 36,000＋培養丹 ×24，a_tower 加 240 階，考證 `reward.towerTop240`／`ach.tower240`（更名，總數仍 334／D 168）。
 - 驗收（**主代理獨立驗證，2026-11-12 00:24**）：建置 **20261112-0017-1583fbd5**；單檔 `dist/mengjiang.html` **12,738,255 bytes**、md5 `07cf85b24e1f6c5752545d73df80acfb`（上限 20,000,000；內容雜湊後綴 1583fbd5 與協調員建置相同，內容一致，md5 僅因內嵌建置時間戳不同；ES5 全過，inline scripts 55）；單元 **44 組、6,308／6,308、0 失敗、UNIT EXIT 0**（`tests/unit-wl15.js` 110/110；計數口徑同 WL-13；詳見 `docs/test-log-unit-wl15.txt`，無後綴 `docs/test-log-unit.txt` 亦已以主代理重跑覆寫）；E2E **Chromium 桌機 255/255、手機橫向 255/255**，0 失敗（詳見 `docs/test-log-e2e-wl15.txt`，無後綴 `docs/test-log-e2e.txt` 亦已覆寫）；**WebKit iPhone 未驗——環境阻擋**（沿用 WL-13 狀態，未重探）。平衡 `docs/balance-wl15.txt/.json`（§16）：主代理重跑與協調員逐字相同；ch1–10 王關一般平均 **72%**（WL-8 接受帶 70–80% 內）；s16_8 頂尖 Lv80 **75%／殘血 22.1%**、s16_9 **67%／13.2%**（帶狀內）；**F240 頂尖 Lv79 42%／9.1% → Lv80 50%／9.6% → Lv81 58%／10.7%**（OD-5 定案新頂；主代理另以 harness 實測 `G.towerFloor(240)` 首通金 **290＝140＋150**，確認 295 為 F250 誤值）；w7 全程 Lv80 **4/6、平均 37.8/40 波**（Lv79 1/6、Lv81 4/6），w6 6/6；max@90 真實首領梯度 s14_8 **58%**、s15_8 **33%**、s16_8 **0%**；塔 F151–240 首通銀 1,452,600／金 1,230、best=240 塔俸 36,000／次，w6／w7 全程銀各 98,000。模擬 `docs/progress-sim-wl15.txt/.json`（主代理重跑）：標準 30 天 **87/144**、最長卡關 5 天（s11_8）、勝 87 敗 2814；加速 **86/144**、最長卡關 1 天（s8_8）、勝 86 敗 1314——通關與協調員（87／87）差 1 關內，屬模擬波動，無硬牆。考證 334 條、D 168；存檔 v12。manifest `~/workspace/manifest-wl15.txt`：**38 檔（31 DIFF＋7 NEW**，含無後綴 test-log 兩檔；GitHub API 單一 recursive-tree 核對，主代理重核兩次一致——先對遠端 HEAD 23942d14，推前再對 798b5f4d：Tomas 已於 2026-11-11 23:10–23:27 自行上傳 6 張 webp 至 `assets/` 與 `src/assets/out/` 兩處（線上破圖已修），另把 WL-14 單檔誤傳為 `mengjiang (1).html`，根目錄 `mengjiang.html` 仍為舊版，待 WL-15 單檔覆蓋）。**已 push 2026-11-12 12:26（commit `ff15aa78`，38 檔：31 改＋7 新）**；單檔連結另行交付，**WL-14 單檔作廢不傳**。
 
+### WL-16 小叮噹／皮卡丘強化移植回原始碼＋一鍵卸裝＋神兵坊篩選（已完成，2026-11-12，待 push）
+- 緣起：Tomas 2026-11-12 19:28 指示二人應凌駕所有武將；同日 19:44 Tomas 自行上傳建置 **20261112-1144-f8aa98a0**（12,742,378 bytes，commit「Tune Doraemon and Pikachu hero kits」）至 repo 根目錄 `mengjiang.html`，含完整強化實作＋規劃外功能，但原始碼與線上網頁版仍停在 WL-15、兩邊分歧。本輪把 1144 建置全部改動忠實移植回原始碼（以 1144 實際數值為準，非設計案數字），讓網頁版與之功能一致。**Tomas 2026-11-12 22:05 決定：只維護網頁版，單檔以後不維護**——本輪起不再產生給 Tomas 上傳的單檔連結、不再安排手動上傳；本地 build 單檔僅用於測試與大小檢查；repo 根目錄 `mengjiang.html`（1144）與 `mengjiang (1).html`（WL-14 誤傳檔）為不再維護的舊檔，本輪未更動，是否刪除由 Tomas 決定。設計與實作紀錄見 `~/workspace/wl16-design.md` §5。
+- 差異清單（1144 vs WL-15 建置語意 diff，共 7 個 script 區塊＋1 處 CSS）：(1) 小叮噹 growth 智 3→**3.42**／耐 2.6→**3.03**（base 不變）、空氣砲 ×1.5→**1.8**＋fx armorBreak 0.5、任意門 ×2→**2.2**＋fx stun 0.3、被動殺氣訣→**百寶袋 dabaodai**；(2) 皮卡丘 growth 智 3→**3.24**／敏 2.4→**3.25**（base 不變）、電光一閃 ×1.5→**2.0**、十萬伏特 ×2→**2.4**、被動連斬→**靜電 jingdian**；新被動定義（百寶袋：行動時 35% 隨機——補最傷隊友 **20%** 最大生命／隨機敵人眩暈／全隊防禦 +15% 持續 2 次行動；靜電：暴擊 +12、被攻擊時 25% 麻痺攻擊者）；(3) 敵方模板同步：enemies.doraemon／pikachu 改新倍率／新被動＋actFx／ultFx，`R.enemyUnit` 新增 fx 傳遞；(4) 引擎：`R.derived` 靜電暴擊 +12、`Battle` mkUnit 對未經 derived 的單位補暴擊、hurt 靜電麻痺（反擊不觸發）、百寶袋 `doraemonBag`（眩暈跳過者不觸發）、`sys7` PASSIVE_IDS ＋2；(5) `G.unequipAll` 一鍵卸裝（包裹空間不足整批拒絕）＋武將卡「全部取下」鈕＋點已穿戴裝備改跳神兵坊並選中（不再彈卸下確認）；(6) 神兵坊篩選 UI：品質／部位／武器類別 chips（forgeQ／forgeSlot／forgeKind）＋forgeOrder 穩定排序＋`.forge-filter-label` CSS。
+- 面板實測（Lv90／5 星／技能 10／裸裝）：小叮噹戰力 **9,506（第 1）**、生命 10,390；皮卡丘 **9,181（第 2）**、敏捷 **488**（全武將第一，第二名 162）、暴擊 12、生命 6,730；第 3 名 8,445。神級倍率：空氣砲 ×3.197、任意門 ×3.907＋380、電光一閃 ×3.552、十萬伏特 ×4.262＋380。競技場 seed 1 Lv80 頂尖隊（劉備軍）戰力 3,195,172 → **3,205,175**。
+- 門檻重測（`docs/balance-wl16.txt/.json` §16）與末段微調：ch1–10 王關一般平均 **72.7%**（70–80% 帶內）；F240 Lv79 50%／11.4% → Lv80 **58%／18.4%** → Lv81 67%／25.7%（帶內）；s16_9 Lv80 **58%／13.7%**（帶內）；s16_8 Lv80 75%／殘血 36.5%——勝率與 WL-15 驗收值相同（75%），殘血因頂尖隊變強上升，WL-15 單位測試帶（4–10 勝／殘血 ≤50%）仍通過，未動 bossScale（避免 s16_9 跌出帶）；**w7 全程 Lv80 全破 4/6 → 1/6 出帶**（敵方王波新首領變強），微調 **`wujiScale2` mult 1.10 → 1.07**（from 220 不變）後重測：w7 Lv79 4/6（38.8 波）／Lv80 **4/6（39.2 波）**／Lv81 5/6（39.7 波）、w6 全 Lv 6/6。max@90 梯度 s14_8 33%、s15_8 25%、s16_8 0%（首領本人強化後下降，順序不變）。30 天模擬（`docs/progress-sim-wl16.txt/.json`）：標準 **87/144**、最長卡關 7 天（s11_8，與 WL-12 已接受的裝備牆相同）；加速 **87/144**、最長卡關 2 天（s9_8）；無新硬牆。
+- 考證：334 → **336 條（D 168 → 170）**——新增 `skill.dabaodai`、`skill.jingdian`（皆 D 級專屬效果），更新 `hero.doraemon`、`hero.pikachu`、`boss.doraemonPikachu`、`balance.wujiScale2`（1.10→1.07）；`provenance.json` 改後已跑 `tools/build-data.js`。存檔 v12 不變、零遷移。
+- 實作檔案：`src/data/heroes.json`、`src/data/stages.json`、`src/data/config.json`（wujiScale2 1.07）、`src/data/provenance.json`、`src/js/data.generated.js`（build-data 重產）、`src/js/rules.js`、`src/js/battle.js`、`src/js/game.js`、`src/js/sys7.js`、`src/js/ui-hall.js`、`src/js/ui-p2.js`、`src/css/style.css`、`index.html`／`boot-test.html`（根目錄網頁版＝最終建置複本）、`tests/unit-wl16.js`（新增 47 項）、`tests/unit-wl14.js`／`unit-wl15.js`／`unit-pt4.js`（斷言更新：新數值、考證 336／170、可習得被動 19 種、W230 倍率 1.1556、s14_8 max@90 下限 2）、`tests/unit-wl6.js`／`unit-wl7.js`／`unit-wl9.js`／`unit-wl10.js`／`unit-wl11.js`／`unit-wl12.js`／`unit-wl13.js`／`unit-affix.js`／`unit-challenge.js`（考證條數 334→336、D 168→170）、`tests/e2e.js`（卸裝步驟改驗 WL-16 新流程：點裝備跳神兵坊＋「全部取下」）、`tools/runtests.sh`（登記 unit-wl16）、`docs/balance-wl16.txt/.json`、`docs/progress-sim-wl16.txt/.json`、`docs/test-log-unit-wl16.txt`、`docs/test-log-e2e-wl16.txt`、`docs/test-log-unit.txt`、`docs/test-log-e2e.txt`（無後綴版同步覆寫）。
+- 驗收（coordinator 自行驗證，2026-11-12）：建置 **20261112-1421-2cde5d5c**；單檔 `dist/mengjiang.html` **12,745,159 bytes**（上限 20,000,000，僅本地檢查、不再交付上傳）、md5 `859feda7b193cc86c0223ca991b53224`；與 1144 建置語意 diff 複核：功能 JS 全部一致，僅餘考證更新、`wujiScale2` 1.07 調整、ui-hall slotClick 一處未用變數 `tpl` 之差（1144 保留、原始碼移除，行為相同）。ES5 55 個 inline script 全過；單元 **45 組、6,367／6,367、0 失敗、UNIT EXIT 0**（unit-wl16 47/47、unit-wl15 110/110、unit-wl14 71/71）；E2E **Chromium 桌機 256/256、手機橫向 256/256**，0 失敗；**WebKit iPhone 未驗——環境缺 libgstreamer（沿用歷輪狀態），不宣稱通過**。manifest `~/workspace/manifest-wl16.txt`。**尚未 push**，待 Tomas 指示。
+
 ### ART-5 以原作素材或更貼近的重繪取代生成圖與音樂（已完成，WL-2，2026-11-09）
 - 目標：在取得原作檔案，或有經同意的來源時，把目前生成的美術與音樂換成原作素材，或依 `reference/` 的截圖與影片重繪得更貼近原版。
 - Replace generated art and music with original assets, or closer redraws, when original files or permission-backed sources are available.
@@ -401,18 +410,6 @@ URL 縮寫：`G2(sn)` = `https://forum.gamer.com.tw/G2.php?bsn=22512&sn=<sn>`；
 - 已做（2026-11-08，B/C）：依原版面板截圖重繪 10 名武將立繪、頭像、無雙切入像（h_*、h_*_av、h_*_ci）：韋小寶、貂蟬、呂布、東方不敗（擁有者提供截圖）；王語嫣、鰲拜、典韋、梅超風、袁紹、阿珂（
 eference/native-pack/hero-sheet-reference.webp）。來源與 sha256 記入 docs/美術素材來源.md、src/assets/provenance-hashes.txt。截圖同時核對 10 名武將類型，與 heroes.json 全部一致（A，記於 docs/網路資料搜查-2.md）。驗收：單元 25 檔 0 失敗；E2E 455 通過／1 失敗（WebKit iPhone 13「沒有水平/垂直捲軸」，重繪前版本在同一台 Windows 機器上同樣失敗，非本次造成）；ES5 全過；單檔 11,883,146 bytes（<12,000,000）。未做真機測試。
 - 已做（WL-2，2026-11-09）：盤點再驗證——88 位可玩武將全套立繪／頭像／cut-in 早已齊全（85 位直有 `h_*`、3 位 artAlias 沿用同人首領圖），9 棟主城建築 `k_*` 齊全，TODO 原稱「其餘約 87 名武將待重繪」已過時。剩餘缺口為 12 名具名敵方共用通用／他人立繪，本輪各產獨立 `b_*` 立繪＋頭像＋cut-in（36 檔，D 級原創，無原版截圖可對照；原稿 sha256 見 docs/美術素材來源.md）。音樂：15 個畫面補齊 6 首 WebAudio 合成專屬曲（forge、hall、jxl、shanggu、shengsijie、wulin），0 音檔。詳見 §WL-2；`tests/unit-art5.js` 767 項全過；單檔最終 12,466,559 bytes（<20,000,000，建置 20261109-1122-e3c9b8a0）。
-
-### UI-EQUIP-1 神武殿一鍵取下與神兵坊交叉篩選（已完成，2026-11-12）
-- 神武殿裝備頁新增「全部取下」：先確認，再以單一操作取下目前武將所有已穿戴裝備；包裹空間不足或沒有裝備時整批拒絕，不會留下半套裝備。核心為 `G.unequipAll`，沿用既有裝備回包與存檔提交流程。
-- 神兵坊裝備列表新增兩組可同時套用的篩選：裝備品質（白／綠／藍／紫）與武器類別（全部武器／物攻／法攻／絕技）。篩選切換會清除目前選取裝備並回到第一頁；其他部位不會被誤歸類為武器。
-- 實作：`src/js/game.js`、`src/js/ui-hall.js`、`src/js/ui-p2.js`、`src/css/style.css`；回歸測試 `tests/unit-equipfilters.js`，並加入 `tools/runtests.sh`。
-- 驗收：一鍵取下數量／空欄防呆、品質 `q` 值篩選、武器模板 `id` 類別篩選與 UI 入口均通過；不改存檔版本（v12）。優先：中；已完成。
-
-### UI-EQUIP-2 神武殿裝備跳轉與神兵坊固定排序（已完成，2026-11-12）
-- 神武殿裝備欄點擊後直接進入神兵坊，預選該件裝備並預設在強化頁；同步清除品質／武器類別篩選，避免目標裝備被篩掉。
-- 神兵坊新增完整裝備部位篩選：全部、武器、帽子、盔甲、披風、腰帶、戒指、項鍊（存檔欄位 `jade`）、護手；選擇武器時仍可再篩物攻／法攻／絕技，並可與品質篩選搭配。
-- 神兵坊首次建立清單時依目前戰力排列，之後以裝備 UID 固定相對順序；強化或裝備等級提升改變戰力／等級後，仍留在原位置，不需重新尋找。新取得裝備只追加到清單尾端。
-- 實作：`src/js/ui-hall.js`、`src/js/ui-p2.js`；回歸測試併入 `tests/unit-equipfilters.js`；不改存檔版本（v12）。優先：中；已完成。
 
 ### JX-1 聚賢莊升級（完成數值 D，2026-11-04）
 - 已做：升級按鈕與目前／下一級效果。數值（5＋(lv−1)、500×lv² 銀、不超過主角等級）全是 D。待查：原作每級欄位數、費用、經驗池上限、解僱返還經驗（S1 提到，未做）。優先：中。
@@ -448,12 +445,3 @@ eference/native-pack/hero-sheet-reference.webp）。來源與 sha256 記入 docs
 - 單檔上限已於 WL-2 放寬至 20,000,000 bytes（原 12,000,000；目前 12,738,255 bytes，建置 20261112-0017-1583fbd5，WL-15 三系統擴充，已驗證、待 push；WL-14 單檔作廢不傳）；再加美術前仍須追蹤單檔大小。
 - 平衡（progress-sim 30 天，WL-2）：80／90 關、勝 80 敗 133、超時 0、僵局判定 2、最長卡關 0 天；天花板是既有「隱藏關需本章其餘 8 關全三星」門檻（自動玩家無法全三星）。v9 範圍規則下 1 對 1 可能磨血超時，見 docs/原版還原-進度.md。
 
-## 2026-11-12 角色平衡與專屬技能（已完成）
-
-- [x] 小叮噹模板強化：Lv90／5星基礎戰力 8,309；智耐成長調整為智 3.42、耐 3.03，法攻 2,595、生命 10,390、三防合計 1,086。
-- [x] 小叮噹技能：空氣砲倍率 1.8 並有 50% 破防；任意門倍率 2.2 並有 30% 全體眩暈。
-- [x] 小叮噹專屬被動「百寶袋」：行動前 35% 隨機補最低比例生命隊友 20%、眩暈隨機敵人，或全隊防禦 +15%（2 次行動）。
-- [x] 皮卡丘模板強化：智敏成長調整為智 3.24、敏 3.25，Lv90／5星敏捷 488。
-- [x] 皮卡丘技能：電光一閃倍率 2.0；十萬伏特倍率 2.4（神級倍率依現有技能曲線至 4.26）。
-- [x] 皮卡丘專屬被動「靜電」：暴擊 +12；被攻擊時 25% 麻痺攻擊者 1 次行動。
-- [x] 同步敵方首領模板、角色面板／戰力公式、後天被動清單、戰鬥事件與回歸測試。

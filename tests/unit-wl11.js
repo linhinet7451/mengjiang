@@ -99,13 +99,13 @@ ok(c2.MJ.S.state.wuji.first.w4 == null && c2.MJ.S.state.wuji.first.w5 == null, '
 
 console.log('[考證]');
 var prov = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'src', 'data', 'provenance.json'), 'utf8'));
-ok(prov.entries.length === 334, '考證表共 334 條（324＋10）');
-ok(prov.entries.filter(function (e) { return e.grade === 'D'; }).length === 168, 'D 級 168 條');
+ok(prov.entries.length === 336, '考證表共 336 條（324＋10）');
+ok(prov.entries.filter(function (e) { return e.grade === 'D'; }).length === 170, 'D 級 170 條');
 ['balance.towerScale', 'balance.wujiScale', 'wuji.w4w5', 'reward.towerTop150', 'reward.towerGem6', 'reward.wujiW4W5', 'ach.tower150'].forEach(function (id) {
   var e = prov.entries.filter(function (x) { return x.id === id; })[0];
   ok(!!e && e.grade === 'D' && e.label.indexOf('原版') < 0 && e.tentative === true && e.phase === 'WL-11', '考證條目 ' + id + ' 為 D 級／暫定／WL-11／不標原版');
 });
-ok(M.D.provenance && M.D.provenance.entries.length === 334, 'data.generated.js 含最新考證表（334 條）');
+ok(M.D.provenance && M.D.provenance.entries.length === 336, 'data.generated.js 含最新考證表（336 條）');
 
 console.log('結果：通過 ' + pass + '，失敗 ' + fail);
 if (fail) process.exit(1);

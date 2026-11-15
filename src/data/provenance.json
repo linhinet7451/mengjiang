@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-11-11",
+ "updated": "2026-11-12",
  "about": "原版資料考證表。可以整檔替換。A＝官方或原版畫面，B＝當年可靠攻略，C＝推測，D＝本作設計或找不到來源。C、D 的 label 不得含「原版」。",
  "grades": {
   "A": "官方資料或原版畫面證實",
@@ -6656,9 +6656,9 @@
   {
    "id": "hero.doraemon",
    "cat": "武將",
-   "item": "新武將「小叮噹」（doraemon）：品質 4、智耐、主動「空氣砲」line2、無雙「任意門」all、被動殺氣訣、將魂 45",
+   "item": "新武將「小叮噹」（doraemon）：品質 4、智耐、主動「空氣砲」line2、無雙「任意門」all、被動百寶袋（WL-16 改）、將魂 45",
    "spec": "本作設計",
-   "current": "WL-14（2026-11-11 Tomas 私心新增，D 級原創，非原版、非原作角色）：品質 4（最頂尖）；類型 智耐；基礎 str 8／int 15／agi 9／con 15、成長 str 1.2／int 3／agi 1／con 2.6（對標同型最強孫尚香）；主動「空氣砲」line2 倍率 1.5（對標關羽／楊過主動）；無雙「任意門」all 倍率 2.0、固定傷害 200（對標頂尖無雙 2.0／200，範圍 all 為最廣）；被動殺氣訣（法攻 +10，同型頂尖通用）；將魂 45（頂級）；立繪為 Tomas 提供的哆啦A夢氣球照片去背製成（figure／avatar／cutin 三件套，h_doraemon*）。取得方式見 recruit.special（不進品質池均分，每格候選獨立 0.5%）。",
+   "current": "WL-14（2026-11-11 Tomas 私心新增，D 級原創，非原版、非原作角色）：品質 4（最頂尖）；類型 智耐；基礎 str 8／int 15／agi 9／con 15、成長 str 1.2／int 3／agi 1／con 2.6（對標同型最強孫尚香）；主動「空氣砲」line2 倍率 1.5（對標關羽／楊過主動）；無雙「任意門」all 倍率 2.0、固定傷害 200（對標頂尖無雙 2.0／200，範圍 all 為最廣）；被動殺氣訣（法攻 +10，同型頂尖通用）；將魂 45（頂級）；立繪為 Tomas 提供的哆啦A夢氣球照片去背製成（figure／avatar／cutin 三件套，h_doraemon*）。取得方式見 recruit.special（不進品質池均分，每格候選獨立 0.5%）。 WL-16（2026-11-12 Tomas 指示二人凌駕所有武將；數值以 Tomas 同日上傳之建置 20261112-1144 為準，本輪移植回原始碼）：成長改 int 3.42／con 3.03（base 不變 str 8／int 15／agi 9／con 15）；空氣砲倍率 1.5→1.8＋破防 fx armorBreak 0.5；任意門倍率 2.0→2.2、flat 200 不變＋眩暈 fx stun 0.3；被動殺氣訣→專屬「百寶袋」（見 skill.dabaodai）。",
    "grade": "D",
    "label": "本作設計（暫定）",
    "sources": [
@@ -6675,9 +6675,9 @@
   {
    "id": "hero.pikachu",
    "cat": "武將",
-   "item": "新武將「皮卡丘」（pikachu）：品質 4、智敏、主動「電光一閃」line2、無雙「十萬伏特」all、被動連斬、將魂 45",
+   "item": "新武將「皮卡丘」（pikachu）：品質 4、智敏、主動「電光一閃」line2、無雙「十萬伏特」all、被動靜電（WL-16 改）、將魂 45",
    "spec": "本作設計",
-   "current": "WL-14（2026-11-11 Tomas 私心新增，D 級原創，非原版、非原作角色）：品質 4（最頂尖）；類型 智敏；基礎 str 10／int 13／agi 12／con 11、成長 str 1／int 3／agi 2.4／con 1.8（對標同型最強貂蟬）；主動「電光一閃」line2 倍率 1.5（對標關羽／楊過主動）；無雙「十萬伏特」all 倍率 2.0、固定傷害 200（對標頂尖無雙 2.0／200，範圍 all 為最廣）；被動連斬（攻擊後 20% 機率再打一次，取其速度意象）；將魂 45（頂級）；立繪為 Tomas 提供的皮卡丘卡通圖去背製成（figure／avatar／cutin 三件套，h_pikachu*）。取得方式見 recruit.special（不進品質池均分，每格候選獨立 0.5%）。",
+   "current": "WL-14（2026-11-11 Tomas 私心新增，D 級原創，非原版、非原作角色）：品質 4（最頂尖）；類型 智敏；基礎 str 10／int 13／agi 12／con 11、成長 str 1／int 3／agi 2.4／con 1.8（對標同型最強貂蟬）；主動「電光一閃」line2 倍率 1.5（對標關羽／楊過主動）；無雙「十萬伏特」all 倍率 2.0、固定傷害 200（對標頂尖無雙 2.0／200，範圍 all 為最廣）；被動連斬（攻擊後 20% 機率再打一次，取其速度意象）；將魂 45（頂級）；立繪為 Tomas 提供的皮卡丘卡通圖去背製成（figure／avatar／cutin 三件套，h_pikachu*）。取得方式見 recruit.special（不進品質池均分，每格候選獨立 0.5%）。 WL-16（2026-11-12 Tomas 指示二人凌駕所有武將；數值以 Tomas 同日上傳之建置 20261112-1144 為準，本輪移植回原始碼）：成長改 int 3.24／agi 3.25（base 不變 str 10／int 13／agi 12／con 11）；電光一閃倍率 1.5→2.0；十萬伏特倍率 2.0→2.4、flat 200 不變；被動連斬→專屬「靜電」（見 skill.jingdian）。",
    "grade": "D",
    "label": "本作設計（暫定）",
    "sources": [
@@ -6796,9 +6796,9 @@
   {
    "id": "balance.wujiScale2",
    "cat": "平衡",
-   "item": "幻境第二階段倍率 {mult: 1.10, from: 220}",
+   "item": "幻境第二階段倍率 {mult: 1.07, from: 220}（WL-16 由 1.10 調降）",
    "spec": "本作設計",
-   "current": "WL-15。D 級原創。config.wujiScale2＝{mult: 1.10, from: 220}，與現有 wujiScale 相乘，只影響 W>220 的新波（W220 及以下完全不變）；R.enemyUnit 內 applyScale(cfg.wujiScale2, stage.wave)，與主線 bossScale 互斥條件不變。W280 總倍率 ×6.56。校準：不加第二階段 w7 全程 6/6（終波殘血 53.2%，太易）；{1.10, 220} 時 Lv80 4/6、終波殘血 20.7%。",
+   "current": "WL-15。D 級原創。config.wujiScale2＝{mult: 1.10, from: 220}，與現有 wujiScale 相乘，只影響 W>220 的新波（W220 及以下完全不變）；R.enemyUnit 內 applyScale(cfg.wujiScale2, stage.wave)，與主線 bossScale 互斥條件不變。W280 總倍率 ×6.56。校準：不加第二階段 w7 全程 6/6（終波殘血 53.2%，太易）；{1.10, 220} 時 Lv80 4/6、終波殘血 20.7%。 WL-16 調整（2026-11-12）：WL-16 二人強化後，w7 敵方新首領（ch14／15 王波＝小叮噹／皮卡丘新被動）使 Lv80 頂尖隊全破 4/6→1/6（平均 38.2 波），出帶；mult 1.10→1.07 後重測 Lv79 4/6（38.8 波）／Lv80 4/6（39.2 波）／Lv81 5/6（39.7 波），w6 Lv80 仍 6/6。W280 處第二階段倍率因子 1.10^6≈×1.77→1.07^6≈×1.50。",
    "grade": "D",
    "label": "本作設計（暫定）",
    "sources": [
@@ -6810,7 +6810,7 @@
    "conflicts": [],
    "tentative": true,
    "phase": "WL-15",
-   "note": "量測見 docs/balance-wl15.txt/.json §16。"
+   "note": "量測見 docs/balance-wl15.txt/.json §16；WL-16 重測見 docs/balance-wl16.txt。"
   },
   {
    "id": "wuji.w6w7",
@@ -6912,7 +6912,7 @@
    "cat": "首領",
    "item": "小叮噹守 s14_8、皮卡丘守 s15_8（新角色首領）",
    "spec": "本作設計",
-   "current": "WL-15（2026-11-11 Tomas 23:15 補充定案）。D 級原創。doraemon＝ch14 王關 s14_8 首領（chapters[13].boss='doraemon'）、pikachu＝ch15 王關 s15_8 首領（chapters[14].boss='pikachu'）；ch16 終關不動（b_lvbu／b_dugu），門檻校準完全保留。敵方首領技能與 heroes.json 的武將技能一致：doraemon 智耐、主動「空氣砲」line2 ×1.5、無雙「任意門」all ×2.0／flat 200、被動 shaqi 殺氣訣；pikachu 智敏、主動「電光一閃」line2 ×1.5、無雙「十萬伏特」all ×2.0／flat 200、被動 lianzhan 連斬。R.enemyUnit 改吃模板可選欄位（actName/actMult/ultName/ultMult/ultFlat/passive），缺省行為與既有首領完全一致；美術 assets-map.js E 表 doraemon→h_doraemon、pikachu→h_pikachu（WL-14 6 張 webp，Tomas 已上傳）。敵方數值不直接吃武將 q4／base／growth（一律 cfg.qbase[2] 綠品質基礎＋type 成長），q4 體現在技能倍率／範圍／被動。量測（probe9，合成王關 12 種子 stacked）：s14_8 頂尖 Lv80 100%／殘血 87.7%、max@90 8/12；s15_8 頂尖 Lv80 100%／86.2%、max@90 7/12；max 梯度 67%→58%→0%（ch16）。",
+   "current": "WL-15（2026-11-11 Tomas 23:15 補充定案）。D 級原創。doraemon＝ch14 王關 s14_8 首領（chapters[13].boss='doraemon'）、pikachu＝ch15 王關 s15_8 首領（chapters[14].boss='pikachu'）；ch16 終關不動（b_lvbu／b_dugu），門檻校準完全保留。敵方首領技能與 heroes.json 的武將技能一致：doraemon 智耐、主動「空氣砲」line2 ×1.5、無雙「任意門」all ×2.0／flat 200、被動 shaqi 殺氣訣；pikachu 智敏、主動「電光一閃」line2 ×1.5、無雙「十萬伏特」all ×2.0／flat 200、被動 lianzhan 連斬。R.enemyUnit 改吃模板可選欄位（actName/actMult/ultName/ultMult/ultFlat/passive），缺省行為與既有首領完全一致；美術 assets-map.js E 表 doraemon→h_doraemon、pikachu→h_pikachu（WL-14 6 張 webp，Tomas 已上傳）。敵方數值不直接吃武將 q4／base／growth（一律 cfg.qbase[2] 綠品質基礎＋type 成長），q4 體現在技能倍率／範圍／被動。量測（probe9，合成王關 12 種子 stacked）：s14_8 頂尖 Lv80 100%／殘血 87.7%、max@90 8/12；s15_8 頂尖 Lv80 100%／86.2%、max@90 7/12；max 梯度 67%→58%→0%（ch16）。 WL-16（2026-11-12）：敵方模板同步武將新數值——doraemon 空氣砲 ×1.8（actFx armorBreak 0.5）、任意門 ×2.2（ultFx stun 0.3）、被動 dabaodai；pikachu 電光一閃 ×2.0、十萬伏特 ×2.4、被動 jingdian；R.enemyUnit 新增模板欄位傳遞（active.fx=tpl.actFx、ult.fx=tpl.ultFx，缺省 null 行為不變）。",
    "grade": "D",
    "label": "本作設計（暫定）",
    "sources": [
@@ -6925,6 +6925,32 @@
    "tentative": true,
    "phase": "WL-15",
    "note": "量測見 docs/balance-wl15.txt/.json §16；設計見 ~/workspace/wl15-design.md §3.5。"
+  },
+  {
+   "id": "skill.dabaodai",
+   "cat": "技能",
+   "item": "百寶袋（小叮噹專屬被動 dabaodai）",
+   "spec": "本作設計",
+   "current": "WL-16 已實作（2026-11-12，數值以建置 20261112-1144 為準）：行動時 35% 隨機觸發三選一——回復生命比例最低隊友 20% 最大生命／隨機一名存活敵人眩暈 1 次行動／全隊防禦 +15%（defBuff 0.15，持續 2 次行動）；該分支無對象時落入防禦分支。D 級本作專屬效果，非原版被動，不得標「原版」。",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [],
+   "conflicts": [],
+   "tentative": true,
+   "phase": "WL-16"
+  },
+  {
+   "id": "skill.jingdian",
+   "cat": "技能",
+   "item": "靜電（皮卡丘專屬被動 jingdian）",
+   "spec": "本作設計",
+   "current": "WL-16 已實作（2026-11-12，數值以建置 20261112-1144 為準）：暴擊 +12（R.derived 套用；未經 derived 的戰鬥單位如敵方模板，於 Battle mkUnit 補上，crit 已 ≥12 者不重複）；被攻擊時 25% 使攻擊者麻痺（stun=1，跳過 1 次行動），反擊不觸發。D 級本作專屬效果，非原版被動，不得標「原版」。",
+   "grade": "D",
+   "label": "本作設計（暫定）",
+   "sources": [],
+   "conflicts": [],
+   "tentative": true,
+   "phase": "WL-16"
   }
  ],
  "matrix": {
