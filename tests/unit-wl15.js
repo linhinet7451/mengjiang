@@ -270,13 +270,13 @@ console.log('[存檔 v12 與考證]');
 ok(S.VERSION === 12, '存檔版本仍為 v12（零遷移、零新欄位）');
 ok(G.stageState('s16_9').stars === 0 && G.stageState('s16_9').clears === 0, '新關預設紀錄為 0（舊存檔讀取時不憑空建立）');
 var prov = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'src', 'data', 'provenance.json'), 'utf8'));
-ok(prov.entries.length === 336, '考證共 336 條（WL-15 ＋10）');
-ok(prov.entries.filter(function (x) { return x.grade === 'D'; }).length === 170, 'D 級共 170 條（WL-15 ＋10）');
+ok(prov.entries.length === 338, '考證共 338 條（WL-15 ＋10）');
+ok(prov.entries.filter(function (x) { return x.grade === 'D'; }).length === 172, 'D 級共 172 條（WL-15 ＋10）');
 ['stages.ch14_16', 'balance.bossScale15', 'balance.topGate15', 'balance.wujiScale2', 'wuji.w6w7', 'reward.towerTop240', 'reward.wujiW6W7', 'ach.tower240', 'reward.gateMilestone16', 'boss.doraemonPikachu'].forEach(function (id) {
   var e = prov.entries.filter(function (x) { return x.id === id; })[0];
   ok(!!e && e.grade === 'D' && e.label.indexOf('原版') < 0 && e.tentative === true && e.phase === 'WL-15', '考證條目 ' + id + ' 為 D 級／暫定／WL-15／不標原版');
 });
-ok(M.D.provenance && M.D.provenance.entries.length === 336, 'data.generated.js 含最新考證表（336 條）');
+ok(M.D.provenance && M.D.provenance.entries.length === 338, 'data.generated.js 含最新考證表（338 條）');
 
 console.log('結果：通過 ' + pass + '，失敗 ' + fail);
 if (fail) process.exit(1);

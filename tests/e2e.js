@@ -571,6 +571,19 @@ async function run(label, browserType, ctxOpts, shotPrefix) {
   await shot('13b2-wuji-autoskip');
   await act('[data-a="bWuji"]');
   ok(await J(function () { return MJ.UI.screen; }) === 'wuji', '跳過總結後返回無極幻境畫面');
+  // WL-17：無極掃蕩（以程式標記 w1 已全破取得資格；資格判定本身由 unit-wl17 覆蓋）
+  ok((await page.locator('.wj-card').nth(1).innerText()).indexOf('通關後開放掃蕩') >= 0, '未全破的 w2 卡片掃蕩禁用並註明「通關後開放掃蕩」（WL-17）');
+  await J(function () { MJ.S.state.wuji.first.w1 = true; MJ.G.commit(); MJ.UI.render(); });
+  ok(await page.locator('#wjSweepN-w1').count() === 1 && await page.locator('[data-a="wjSweep"][data-v="w1"]').count() === 1, '已全破的 w1 卡片出現掃蕩場數下拉與掃蕩鈕（WL-17）');
+  var swSilver0 = await J(function () { return MJ.S.state.player.silver; });
+  await page.selectOption('#wjSweepN-w1', '3');
+  await act('[data-a="wjSweep"][data-v="w1"]');
+  await page.waitForSelector('#confirm .reward-list', { timeout: 30000 });
+  var swTxt = await page.locator('#confirm').innerText();
+  ok(swTxt.indexOf('掃蕩') >= 0 && swTxt.indexOf('第 1 場') >= 0 && swTxt.indexOf('總獲得') >= 0, '掃蕩彙總彈窗：逐場波次＋總獲得（WL-17）');
+  ok(await J(function () { return MJ.S.state.player.silver; }) > swSilver0, '掃蕩獎勵已入帳（銀幣增加）（WL-17）');
+  await shot('13b3-wuji-sweep');
+  await act('[data-a="confirmYes"]');
   await act('[data-a="city"]');
   // P5：上古寶窟（單人版，K4 兩種分階都保留）
   await J(function () { var l = MJ.G.lead(); l.lv = Math.max(l.lv, 25); MJ.G.commit(); MJ.UI.render(); });

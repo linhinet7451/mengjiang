@@ -134,8 +134,8 @@ UI3.actions.forgeSlot(''); ok(UI3.sel.forgeKind === '' && forgeCount() === 4, '�
 
 console.log('[考證＋存檔版本]');
 var prov = M.D.provenance;
-ok(prov.entries.length === 336, '考證共 336 條（334＋2）');
-ok(prov.entries.filter(function (x) { return x.grade === 'D'; }).length === 170, 'D 級共 170 條（168＋2）');
+ok(prov.entries.length === 338, '考證共 338 條（334＋2）');
+ok(prov.entries.filter(function (x) { return x.grade === 'D'; }).length === 172, 'D 級共 172 條（168＋2）');
 ['skill.dabaodai', 'skill.jingdian'].forEach(function (id) {
   var e = prov.entries.filter(function (x) { return x.id === id; })[0];
   ok(!!e && e.grade === 'D' && e.tentative === true && e.phase === 'WL-16' && e.label.indexOf('原版') < 0, '考證含 ' + id + '（D 級、WL-16、標籤不寫「原版」）');

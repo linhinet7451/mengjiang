@@ -471,6 +471,45 @@
     G.commit(); return ok(out);
   };
 
+  // ---------- 無極幻境掃蕩（WL-17；D 級本作設計，見 provenance sys.wujiSweep） ----------
+  // 資格：該境曾完整通關（s.wuji.first[id] 已記錄）才開放；掃蕩逐場呼叫 G.wujiRun，
+  // 沿用同一條「建 run → 結算 → 發獎」路徑，不另寫發獎邏輯；某場未全破即停止，
+  // 該場已通過波次的獎勵照常發放（wujiRun 內已結算）。無次數／精力限制。
+  G.WUJI_SWEEP_MAX = 10;
+  G.wujiCanSweep = function (id) { return !!G.wujiTier(id) && !!st().wuji.first[id]; };
+  G.wujiSweep = function (id, n, seed) {
+    var s = st(), t = G.wujiTier(id); if (!t) return fail('沒有這個幻境');
+    if (G.lead().lv < t.open) return fail(t.name + '需要主角 ' + t.open + ' 級');
+    if (!G.teamCount()) return fail('沒有出戰武將');
+    if (!s.wuji.first[id]) return fail('通關後開放掃蕩');
+    n = Math.floor(+n); if (!(n >= 1)) n = 1; if (n > G.WUJI_SWEEP_MAX) n = G.WUJI_SWEEP_MAX;
+    var before = { silver: s.player.silver, gold: s.player.gold, honor: s.player.honor || 0, stack: {} };
+    U.each(U.keys(s.bag.stack), function (k) { before.stack[k] = s.bag.stack[k]; });
+    var runs = [], exp = 0, souls = 0, levelUps = [], fullCount = 0;
+    for (var i = 0; i < n; i++) {
+      var r = G.wujiRun(id, seed == null ? undefined : ((seed >>> 0) + i * 1000003) >>> 0);
+      if (!r.ok) { if (!runs.length) return fail(r.msg || '掃蕩失敗'); break; }
+      runs.push({ cleared: r.cleared, waves: t.waves, full: !!r.full, souls: r.souls || 0 });
+      exp += r.exp || 0; souls += r.souls || 0; levelUps = levelUps.concat(r.levelUps || []);
+      if (r.full) fullCount++;
+      if (!r.full) break; // 中途未全破：就此停止，不跑後續場次
+    }
+    // 總獲得：以掃蕩前後狀態差額彙總（發放全走 wujiRun 既有路徑，差額即逐場總和；
+    // 培養丹在 addItem 內直接換成榮譽，故榮譽差額一併列入）
+    var totals = [];
+    if (s.player.silver > before.silver) totals.push('銀幣 ×' + (s.player.silver - before.silver));
+    if (s.player.gold > before.gold) totals.push('金幣 ×' + (s.player.gold - before.gold));
+    if ((s.player.honor || 0) > before.honor) totals.push('榮譽 +' + ((s.player.honor || 0) - before.honor));
+    U.each(U.keys(s.bag.stack).sort(), function (k) {
+      var d = (s.bag.stack[k] || 0) - (before.stack[k] || 0);
+      if (d > 0) totals.push(G.itemName(k) + ' ×' + d);
+    });
+    if (exp) totals.push('全隊經驗 +' + exp);
+    G.log(t.name + '掃蕩 ' + runs.length + ' 場（全破 ' + fullCount + ' 場）', 'battle');
+    G.commit();
+    return ok({ mode: 'wujiSweep', tier: t, runs: runs, fought: runs.length, fullCount: fullCount, souls: souls, exp: exp, levelUps: levelUps, totals: totals });
+  };
+
   // ---------- 任務條件擴充 ----------
   var oldDone = G.taskDone;
   G.taskDone = function (t) {

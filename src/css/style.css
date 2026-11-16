@@ -497,6 +497,25 @@ hr{border:0;border-top:1px solid #b8a468;margin:8px 0}
 .ultfx.petal i{position:absolute;top:-30px;width:16px;height:22px;background:radial-gradient(ellipse at center,#ffb0d0,#e85a9a);border-radius:50% 50% 50% 50%/60% 60% 40% 40%;opacity:.9;-webkit-animation:petalfall 1.2s ease-in forwards;animation:petalfall 1.2s ease-in forwards}
 .ultfx.petal i:nth-child(1){left:12%}.ultfx.petal i:nth-child(2){left:26%;-webkit-animation-delay:.08s;animation-delay:.08s}.ultfx.petal i:nth-child(3){left:38%;-webkit-animation-delay:.15s;animation-delay:.15s}.ultfx.petal i:nth-child(4){left:50%;-webkit-animation-delay:.05s;animation-delay:.05s}.ultfx.petal i:nth-child(5){left:62%;-webkit-animation-delay:.18s;animation-delay:.18s}.ultfx.petal i:nth-child(6){left:74%;-webkit-animation-delay:.1s;animation-delay:.1s}.ultfx.petal i:nth-child(7){left:86%;-webkit-animation-delay:.2s;animation-delay:.2s}.ultfx.petal i:nth-child(8){left:95%;-webkit-animation-delay:.12s;animation-delay:.12s}
 @-webkit-keyframes ultfade{0%{opacity:1}100%{opacity:0}}@keyframes ultfade{0%{opacity:1}100%{opacity:0}}
+/* WL-18：武將專屬特效造型（顏色由 ui-battle.js 依 MJ.FX 特效檔案 inline 給定；此處只定義形狀與動畫） */
+.hitflash svg{width:100%;height:100%;display:block}
+.orb.fxp-ice{border-radius:16px}
+.orb.fxp-petal{border-radius:90% 4px 90% 4px}
+.orb.fxp-note{border-radius:50% 50% 50% 6px}
+.orb.fxp-star{-webkit-clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%)}
+.orb.fxp-bolt{-webkit-clip-path:polygon(58% 0,22% 55%,44% 55%,30% 100%,80% 42%,56% 42%,78% 0);clip-path:polygon(58% 0,22% 55%,44% 55%,30% 100%,80% 42%,56% 42%,78% 0)}
+.orb.fxp-claw{-webkit-clip-path:polygon(0 15%,35% 40%,30% 0,60% 38%,62% 2%,88% 45%,100% 30%,82% 100%,55% 60%,20% 95%);clip-path:polygon(0 15%,35% 40%,30% 0,60% 38%,62% 2%,88% 45%,100% 30%,82% 100%,55% 60%,20% 95%)}
+.ultfx.bolt{background:rgba(10,10,30,.25)}
+.ultfx.bolt svg{-webkit-animation:ultclaw .5s ease-out;animation:ultclaw .5s ease-out}
+.ultfx.flame i{position:absolute;bottom:-60px;width:340px;height:340px;border-radius:50% 50% 50% 50%/62% 62% 38% 38%;opacity:0;-webkit-animation:ultflame 1.15s ease-out forwards;animation:ultflame 1.15s ease-out forwards}
+.ultfx.flame i:nth-child(1){left:4%}
+.ultfx.flame i:nth-child(2){left:34%;-webkit-animation-delay:.12s;animation-delay:.12s}
+.ultfx.flame i:nth-child(3){left:64%;-webkit-animation-delay:.22s;animation-delay:.22s}
+@-webkit-keyframes ultflame{0%{-webkit-transform:translateY(80px) scale(.8);opacity:0}25%{opacity:.9}100%{-webkit-transform:translateY(-140px) scale(1.15);opacity:0}}@keyframes ultflame{0%{transform:translateY(80px) scale(.8);opacity:0}25%{opacity:.9}100%{transform:translateY(-140px) scale(1.15);opacity:0}}
+.ultfx.star svg{-webkit-animation:ultfade 1.1s ease-out forwards;animation:ultfade 1.1s ease-out forwards}
+.ultfx.ring .uf-ring{position:absolute;left:50%;top:50%;width:140px;height:140px;margin:-76px 0 0 -76px;border:7px solid #fff;border-radius:50%;opacity:0;-webkit-animation:ultring 1s ease-out forwards;animation:ultring 1s ease-out forwards}
+.ultfx.ring .uf-ring.r2{-webkit-animation-delay:.18s;animation-delay:.18s}
+@-webkit-keyframes ultring{0%{-webkit-transform:scale(.35);opacity:.95}100%{-webkit-transform:scale(5.2);opacity:0}}@keyframes ultring{0%{transform:scale(.35);opacity:.95}100%{transform:scale(5.2);opacity:0}}
 @-webkit-keyframes ultslide{0%{-webkit-transform:translateX(-120px);opacity:0}25%{opacity:1}100%{-webkit-transform:none;opacity:1}}@keyframes ultslide{0%{transform:translateX(-120px);opacity:0}25%{opacity:1}100%{transform:none;opacity:1}}
 @-webkit-keyframes ultbeam{0%{opacity:0}15%{opacity:1}100%{opacity:0}}@keyframes ultbeam{0%{opacity:0}15%{opacity:1}100%{opacity:0}}
 @-webkit-keyframes ultclaw{0%{opacity:0;-webkit-transform:scale(1.4)}20%{opacity:1}100%{-webkit-transform:scale(1);opacity:.9}}@keyframes ultclaw{0%{opacity:0;transform:scale(1.4)}20%{opacity:1}100%{transform:scale(1);opacity:.9}}
@@ -613,6 +632,11 @@ hr{border:0;border-top:1px solid #b8a468;margin:8px 0}
 .wj-b{line-height:1.6;text-align:left;padding:0 4px}.wj-b small{display:block;line-height:1.35}
 .wj-first{color:#b03418}
 .wj-card .btn-row{position:absolute;left:0;right:0;bottom:8px}
+.wj-card .wj-acts{position:absolute;left:0;right:0;bottom:8px}
+.wj-card .wj-acts .btn-row{position:static;margin-top:6px}
+.wj-card .wj-acts .btn-row:first-child{margin-top:0}
+.wj-sweep-n{height:32px;margin-right:6px;border:2px solid #8a6d2f;border-radius:6px;background:#fff8e1;font-size:14px;vertical-align:middle}
+.wj-sweep-note{font-size:11px;color:#7a5f1e;margin-top:2px}
 .wj-card.locked>*{filter:grayscale(1)}
 .wj-lock{position:absolute;left:0;right:0;top:0;bottom:0;background:rgba(10,10,20,.62);color:#ffe082;font-size:20px;font-weight:bold;display:flex;display:-webkit-flex;align-items:center;-webkit-align-items:center;justify-content:center;-webkit-justify-content:center;filter:none!important}
 .wj-note{position:absolute;left:24px;right:24px;bottom:2px;color:#cfe8d8}

@@ -100,13 +100,22 @@
     U.each(G.WUJI, function (t, i) {
       var locked = lead.lv < t.open, left = G.wujiLeft(t.id), boss = G.wujiWave(t, t.waves - 1, 1);
       var bu = R.enemyUnit(boss.enemies[0], boss);
+      // WL-17 掃蕩列：已全破過的境給場數下拉＋掃蕩鈕；未全破給禁用鈕＋註明（鎖定卡不顯示）
+      var sweepRow = '';
+      if (!locked && G.wujiCanSweep(t.id)) {
+        var opts = '';
+        for (var sn = 1; sn <= G.WUJI_SWEEP_MAX; sn++) opts += '<option value="' + sn + '"' + (sn === G.WUJI_SWEEP_MAX ? ' selected' : '') + '>' + sn + ' 場</option>';
+        sweepRow = '<div class="btn-row wj-sweep-row"><select id="wjSweepN-' + t.id + '" class="wj-sweep-n" aria-label="掃蕩場數">' + opts + '</select><a class="btn" data-a="wjSweep" data-v="' + t.id + '">掃　蕩</a></div>';
+      } else if (!locked) {
+        sweepRow = '<div class="btn-row wj-sweep-row"><a class="btn disabled">掃　蕩</a></div><div class="wj-sweep-note">通關後開放掃蕩</div>';
+      }
       h += '<div class="wj-card wj' + i + (locked ? ' locked' : '') + '"><div class="wj-h">' + U.esc(t.name) + '</div>' +
         '<div class="wj-fig">' + MJ.Art.figure(bu.look, { enemy: true, cape: true }) + '</div>' +
         '<div class="wj-b">第 <b>' + t.start + '～' + (t.start + t.waves - 1) + '</b> 波<br>敵軍 Lv' + G.wujiLv(t.start) + '～' + G.wujiLv(t.start + t.waves - 1) + '<br>將魂：' + C().qualityNames[Math.min(4, G.wujiSoulQ(t.start))] + '～' + C().qualityNames[Math.min(4, G.wujiSoulQ(t.start + t.waves - 1))] + '<br>' +
         '次數 <b>不限</b>' +
         '<div class="rw-h">全破寶箱</div><small>' + U.esc(UI.rwText(t.bonus).join('、')) + '</small>' +
         (s.wuji.first[t.id] ? '' : '<div class="rw-h">首次全破</div><small class="wj-first">' + U.esc(UI.rwText(t.first).join('、')) + '</small>') + '</div>' +
-        (locked ? '<div class="wj-lock">主角 ' + t.open + ' 級開放</div>' : '<div class="btn-row"><a class="btn" data-a="wjGo" data-v="' + t.id + '">挑　戰</a></div>') + '</div>';
+        (locked ? '<div class="wj-lock">主角 ' + t.open + ' 級開放</div>' : '<div class="wj-acts">' + sweepRow + '<div class="btn-row"><a class="btn" data-a="wjGo" data-v="' + t.id + '">挑　戰</a></div></div>') + '</div>';
     });
     h += '</div><p class="note wj-note">無極幻境：每 5 波可得 1 個將魂。累計全破 ' + s.wuji.clears + ' 次。<a class="btn small" data-a="autoToggle" data-v="wuji">自動接續：' + (UI.autoContinue.wuji ? '開' : '關') + '</a></p></div></div>';
     return h;
@@ -115,6 +124,21 @@
   UI.actions.wjGo = function (id) {
     var r = G.wujiRun(id); if (!UI.res(r)) return;
     UI.wujiPlay(r, 0);
+  };
+  // WL-17 掃蕩：讀卡片上的場數下拉，跑 G.wujiSweep 後以獎勵彈窗彙總（每場波數＋總獲得）
+  UI.actions.wjSweep = function (id) {
+    var sel = document.getElementById('wjSweepN-' + id);
+    var n = sel ? +sel.value : G.WUJI_SWEEP_MAX;
+    var r = G.wujiSweep(id, n); if (!UI.res(r)) return;
+    UI.render();
+    var lines = [];
+    U.each(r.runs, function (x, i) {
+      lines.push('第 ' + (i + 1) + ' 場：通過 ' + x.cleared + '/' + x.waves + ' 波' + (x.full ? '（全破）' : '（未全破，掃蕩停止）') + (x.souls ? '，將魂 ×' + x.souls : ''));
+    });
+    if (r.levelUps.length) lines.push('升級！' + r.levelUps.join('、'));
+    lines.push('── 總獲得 ──');
+    lines = lines.concat(r.totals.length ? r.totals : ['（沒有獲得任何獎勵）']);
+    UI.rewardBox(r.tier.name + '・掃蕩 ' + r.fought + ' 場', lines);
   };
   UI.wujiPlay = function (run, i) {
     var w = run.waves[i];
